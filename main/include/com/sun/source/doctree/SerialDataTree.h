@@ -1,0 +1,30 @@
+#ifndef _com_sun_source_doctree_SerialDataTree_h_
+#define _com_sun_source_doctree_SerialDataTree_h_
+//$ interface com.sun.source.doctree.SerialDataTree
+//$ extends com.sun.source.doctree.BlockTagTree
+
+#include <com/sun/source/doctree/BlockTagTree.h>
+
+namespace java {
+	namespace util {
+		class List;
+	}
+}
+
+namespace com {
+	namespace sun {
+		namespace source {
+			namespace doctree {
+
+class $import SerialDataTree : public ::com::sun::source::doctree::BlockTagTree {
+	$interface(SerialDataTree, $NO_CLASS_INIT, ::com::sun::source::doctree::BlockTagTree)
+public:
+	virtual ::java::util::List* getDescription() {return nullptr;}
+};
+
+			} // doctree
+		} // source
+	} // sun
+} // com
+
+#endif // _com_sun_source_doctree_SerialDataTree_h_

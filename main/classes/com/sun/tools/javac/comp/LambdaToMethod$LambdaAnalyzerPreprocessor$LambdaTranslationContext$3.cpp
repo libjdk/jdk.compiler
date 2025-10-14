@@ -1,0 +1,107 @@
+#include <com/sun/tools/javac/comp/LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$3.h>
+
+#include <com/sun/tools/javac/code/Symbol$VarSymbol.h>
+#include <com/sun/tools/javac/code/Symbol.h>
+#include <com/sun/tools/javac/code/Type.h>
+#include <com/sun/tools/javac/comp/LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext.h>
+#include <com/sun/tools/javac/util/Name.h>
+#include <java/lang/Class.h>
+#include <java/lang/ClassInfo.h>
+#include <java/lang/EnclosingMethodInfo.h>
+#include <java/lang/FieldInfo.h>
+#include <java/lang/InnerClassInfo.h>
+#include <java/lang/MethodInfo.h>
+#include <java/lang/String.h>
+#include <java/lang/reflect/Constructor.h>
+#include <java/lang/reflect/Method.h>
+#include <jcpp.h>
+
+using $Symbol = ::com::sun::tools::javac::code::Symbol;
+using $Symbol$VarSymbol = ::com::sun::tools::javac::code::Symbol$VarSymbol;
+using $Type = ::com::sun::tools::javac::code::Type;
+using $LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext = ::com::sun::tools::javac::comp::LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext;
+using $Name = ::com::sun::tools::javac::util::Name;
+using $ClassInfo = ::java::lang::ClassInfo;
+using $EnclosingMethodInfo = ::java::lang::EnclosingMethodInfo;
+using $FieldInfo = ::java::lang::FieldInfo;
+using $InnerClassInfo = ::java::lang::InnerClassInfo;
+using $MethodInfo = ::java::lang::MethodInfo;
+
+namespace com {
+	namespace sun {
+		namespace tools {
+			namespace javac {
+				namespace comp {
+
+$FieldInfo _LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$3_FieldInfo_[] = {
+	{"this$2", "Lcom/sun/tools/javac/comp/LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext;", nullptr, $FINAL | $SYNTHETIC, $field(LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$3, this$2)},
+	{"val$sym", "Lcom/sun/tools/javac/code/Symbol;", nullptr, $FINAL | $SYNTHETIC, $field(LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$3, val$sym)},
+	{}
+};
+
+$MethodInfo _LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$3_MethodInfo_[] = {
+	{"<init>", "(Lcom/sun/tools/javac/comp/LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext;JLcom/sun/tools/javac/util/Name;Lcom/sun/tools/javac/code/Type;Lcom/sun/tools/javac/code/Symbol;Lcom/sun/tools/javac/code/Symbol;)V", nullptr, 0, $method(static_cast<void(LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$3::*)($LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext*,int64_t,$Name*,$Type*,$Symbol*,$Symbol*)>(&LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$3::init$))},
+	{"baseSymbol", "()Lcom/sun/tools/javac/code/Symbol;", nullptr, $PUBLIC},
+	{}
+};
+
+$EnclosingMethodInfo _LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$3_EnclosingMethodInfo_ = {
+	"com.sun.tools.javac.comp.LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext",
+	"translate",
+	"(Lcom/sun/tools/javac/code/Symbol;Lcom/sun/tools/javac/comp/LambdaToMethod$LambdaSymbolKind;)Lcom/sun/tools/javac/code/Symbol;"
+};
+
+$InnerClassInfo _LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$3_InnerClassesInfo_[] = {
+	{"com.sun.tools.javac.comp.LambdaToMethod$LambdaAnalyzerPreprocessor", "com.sun.tools.javac.comp.LambdaToMethod", "LambdaAnalyzerPreprocessor", 0},
+	{"com.sun.tools.javac.comp.LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext", "com.sun.tools.javac.comp.LambdaToMethod$LambdaAnalyzerPreprocessor", "LambdaTranslationContext", 0},
+	{"com.sun.tools.javac.comp.LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$3", nullptr, nullptr, 0},
+	{"com.sun.tools.javac.code.Symbol$VarSymbol", "com.sun.tools.javac.code.Symbol", "VarSymbol", $PUBLIC | $STATIC},
+	{"com.sun.tools.javac.comp.LambdaToMethod$LambdaSymbolKind", "com.sun.tools.javac.comp.LambdaToMethod", "LambdaSymbolKind", $STATIC | $FINAL | $ENUM},
+	{}
+};
+
+$ClassInfo _LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$3_ClassInfo_ = {
+	$ACC_SUPER,
+	"com.sun.tools.javac.comp.LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$3",
+	"com.sun.tools.javac.code.Symbol$VarSymbol",
+	nullptr,
+	_LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$3_FieldInfo_,
+	_LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$3_MethodInfo_,
+	nullptr,
+	&_LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$3_EnclosingMethodInfo_,
+	_LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$3_InnerClassesInfo_,
+	nullptr,
+	nullptr,
+	nullptr,
+	"com.sun.tools.javac.comp.LambdaToMethod"
+};
+
+$Object* allocate$LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$3($Class* clazz) {
+	return $of($alloc(LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$3));
+}
+
+void LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$3::init$($LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext* this$2, int64_t flags, $Name* name, $Type* type, $Symbol* owner, $Symbol* val$sym) {
+	$set(this, this$2, this$2);
+	$set(this, val$sym, val$sym);
+	$Symbol$VarSymbol::init$(flags, name, type, owner);
+}
+
+$Symbol* LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$3::baseSymbol() {
+	return this->val$sym;
+}
+
+LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$3::LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$3() {
+}
+
+$Class* LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$3::load$($String* name, bool initialize) {
+	$loadClass(LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$3, name, initialize, &_LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$3_ClassInfo_, allocate$LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$3);
+	return class$;
+}
+
+$Class* LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$3::class$ = nullptr;
+
+				} // comp
+			} // javac
+		} // tools
+	} // sun
+} // com

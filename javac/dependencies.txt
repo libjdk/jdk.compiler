@@ -1,0 +1,4 @@
+jdk.compiler:17.35
+java.base:17.35
+java.compiler:17.35
+jdk.zipfs:17.35

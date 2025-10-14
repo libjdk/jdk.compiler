@@ -1,0 +1,28 @@
+#ifndef _com_sun_tools_javac_util_JCDiagnostic$1_h_
+#define _com_sun_tools_javac_util_JCDiagnostic$1_h_
+//$ class com.sun.tools.javac.util.JCDiagnostic$1
+//$ extends java.lang.Object
+
+#include <java/lang/Array.h>
+
+namespace com {
+	namespace sun {
+		namespace tools {
+			namespace javac {
+				namespace util {
+
+class JCDiagnostic$1 : public ::java::lang::Object {
+	$class(JCDiagnostic$1, 0, ::java::lang::Object)
+public:
+	JCDiagnostic$1();
+	static $ints* $SwitchMap$com$sun$tools$javac$util$JCDiagnostic$DiagnosticFlag;
+	static $ints* $SwitchMap$com$sun$tools$javac$util$JCDiagnostic$DiagnosticType;
+};
+
+				} // util
+			} // javac
+		} // tools
+	} // sun
+} // com
+
+#endif // _com_sun_tools_javac_util_JCDiagnostic$1_h_

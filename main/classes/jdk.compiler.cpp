@@ -1,0 +1,3411 @@
+#include <jdk.compiler.h>
+
+#include <java.base.h>
+#include <java.compiler.h>
+#include <jdk.zipfs.h>
+#include <java/lang/ClassEntry.h>
+#include <java/lang/Library.h>
+#include <java/lang/ModuleInfo.h>
+#include <java/lang/ResourceEntry.h>
+#include <jcpp.h>
+#include <module-info>
+
+#include <com/sun/source/doctree/AttributeTree.h>
+#include <com/sun/source/doctree/AttributeTree$ValueKind.h>
+#include <com/sun/source/doctree/AuthorTree.h>
+#include <com/sun/source/doctree/BlockTagTree.h>
+#include <com/sun/source/doctree/CommentTree.h>
+#include <com/sun/source/doctree/DeprecatedTree.h>
+#include <com/sun/source/doctree/DocCommentTree.h>
+#include <com/sun/source/doctree/DocRootTree.h>
+#include <com/sun/source/doctree/DocTree.h>
+#include <com/sun/source/doctree/DocTree$Kind.h>
+#include <com/sun/source/doctree/DocTreeVisitor.h>
+#include <com/sun/source/doctree/DocTypeTree.h>
+#include <com/sun/source/doctree/EndElementTree.h>
+#include <com/sun/source/doctree/EntityTree.h>
+#include <com/sun/source/doctree/ErroneousTree.h>
+#include <com/sun/source/doctree/HiddenTree.h>
+#include <com/sun/source/doctree/IdentifierTree.h>
+#include <com/sun/source/doctree/IndexTree.h>
+#include <com/sun/source/doctree/InheritDocTree.h>
+#include <com/sun/source/doctree/InlineTagTree.h>
+#include <com/sun/source/doctree/LinkTree.h>
+#include <com/sun/source/doctree/LiteralTree.h>
+#include <com/sun/source/doctree/ParamTree.h>
+#include <com/sun/source/doctree/ProvidesTree.h>
+#include <com/sun/source/doctree/ReferenceTree.h>
+#include <com/sun/source/doctree/ReturnTree.h>
+#include <com/sun/source/doctree/SeeTree.h>
+#include <com/sun/source/doctree/SerialDataTree.h>
+#include <com/sun/source/doctree/SerialFieldTree.h>
+#include <com/sun/source/doctree/SerialTree.h>
+#include <com/sun/source/doctree/SinceTree.h>
+#include <com/sun/source/doctree/StartElementTree.h>
+#include <com/sun/source/doctree/SummaryTree.h>
+#include <com/sun/source/doctree/SystemPropertyTree.h>
+#include <com/sun/source/doctree/TextTree.h>
+#include <com/sun/source/doctree/ThrowsTree.h>
+#include <com/sun/source/doctree/UnknownBlockTagTree.h>
+#include <com/sun/source/doctree/UnknownInlineTagTree.h>
+#include <com/sun/source/doctree/UsesTree.h>
+#include <com/sun/source/doctree/ValueTree.h>
+#include <com/sun/source/doctree/VersionTree.h>
+#include <com/sun/source/tree/AnnotatedTypeTree.h>
+#include <com/sun/source/tree/AnnotationTree.h>
+#include <com/sun/source/tree/ArrayAccessTree.h>
+#include <com/sun/source/tree/ArrayTypeTree.h>
+#include <com/sun/source/tree/AssertTree.h>
+#include <com/sun/source/tree/AssignmentTree.h>
+#include <com/sun/source/tree/BinaryTree.h>
+#include <com/sun/source/tree/BindingPatternTree.h>
+#include <com/sun/source/tree/BlockTree.h>
+#include <com/sun/source/tree/BreakTree.h>
+#include <com/sun/source/tree/CaseLabelTree.h>
+#include <com/sun/source/tree/CaseTree.h>
+#include <com/sun/source/tree/CaseTree$CaseKind.h>
+#include <com/sun/source/tree/CatchTree.h>
+#include <com/sun/source/tree/ClassTree.h>
+#include <com/sun/source/tree/CompilationUnitTree.h>
+#include <com/sun/source/tree/CompoundAssignmentTree.h>
+#include <com/sun/source/tree/ConditionalExpressionTree.h>
+#include <com/sun/source/tree/ContinueTree.h>
+#include <com/sun/source/tree/DefaultCaseLabelTree.h>
+#include <com/sun/source/tree/DirectiveTree.h>
+#include <com/sun/source/tree/DoWhileLoopTree.h>
+#include <com/sun/source/tree/EmptyStatementTree.h>
+#include <com/sun/source/tree/EnhancedForLoopTree.h>
+#include <com/sun/source/tree/ErroneousTree.h>
+#include <com/sun/source/tree/ExportsTree.h>
+#include <com/sun/source/tree/ExpressionStatementTree.h>
+#include <com/sun/source/tree/ExpressionTree.h>
+#include <com/sun/source/tree/ForLoopTree.h>
+#include <com/sun/source/tree/GuardedPatternTree.h>
+#include <com/sun/source/tree/IdentifierTree.h>
+#include <com/sun/source/tree/IfTree.h>
+#include <com/sun/source/tree/ImportTree.h>
+#include <com/sun/source/tree/InstanceOfTree.h>
+#include <com/sun/source/tree/IntersectionTypeTree.h>
+#include <com/sun/source/tree/LabeledStatementTree.h>
+#include <com/sun/source/tree/LambdaExpressionTree.h>
+#include <com/sun/source/tree/LambdaExpressionTree$BodyKind.h>
+#include <com/sun/source/tree/LineMap.h>
+#include <com/sun/source/tree/LiteralTree.h>
+#include <com/sun/source/tree/MemberReferenceTree.h>
+#include <com/sun/source/tree/MemberReferenceTree$ReferenceMode.h>
+#include <com/sun/source/tree/MemberSelectTree.h>
+#include <com/sun/source/tree/MethodInvocationTree.h>
+#include <com/sun/source/tree/MethodTree.h>
+#include <com/sun/source/tree/ModifiersTree.h>
+#include <com/sun/source/tree/ModuleTree.h>
+#include <com/sun/source/tree/ModuleTree$ModuleKind.h>
+#include <com/sun/source/tree/NewArrayTree.h>
+#include <com/sun/source/tree/NewClassTree.h>
+#include <com/sun/source/tree/OpensTree.h>
+#include <com/sun/source/tree/PackageTree.h>
+#include <com/sun/source/tree/ParameterizedTypeTree.h>
+#include <com/sun/source/tree/ParenthesizedPatternTree.h>
+#include <com/sun/source/tree/ParenthesizedTree.h>
+#include <com/sun/source/tree/PatternTree.h>
+#include <com/sun/source/tree/PrimitiveTypeTree.h>
+#include <com/sun/source/tree/ProvidesTree.h>
+#include <com/sun/source/tree/RequiresTree.h>
+#include <com/sun/source/tree/ReturnTree.h>
+#include <com/sun/source/tree/Scope.h>
+#include <com/sun/source/tree/StatementTree.h>
+#include <com/sun/source/tree/SwitchExpressionTree.h>
+#include <com/sun/source/tree/SwitchTree.h>
+#include <com/sun/source/tree/SynchronizedTree.h>
+#include <com/sun/source/tree/ThrowTree.h>
+#include <com/sun/source/tree/Tree.h>
+#include <com/sun/source/tree/Tree$Kind.h>
+#include <com/sun/source/tree/TreeVisitor.h>
+#include <com/sun/source/tree/TryTree.h>
+#include <com/sun/source/tree/TypeCastTree.h>
+#include <com/sun/source/tree/TypeParameterTree.h>
+#include <com/sun/source/tree/UnaryTree.h>
+#include <com/sun/source/tree/UnionTypeTree.h>
+#include <com/sun/source/tree/UsesTree.h>
+#include <com/sun/source/tree/VariableTree.h>
+#include <com/sun/source/tree/WhileLoopTree.h>
+#include <com/sun/source/tree/WildcardTree.h>
+#include <com/sun/source/tree/YieldTree.h>
+#include <com/sun/source/util/DocSourcePositions.h>
+#include <com/sun/source/util/DocTreeFactory.h>
+#include <com/sun/source/util/DocTreePath.h>
+#include <com/sun/source/util/DocTreePath$1.h>
+#include <com/sun/source/util/DocTreePath$1PathFinder.h>
+#include <com/sun/source/util/DocTreePath$1Result.h>
+#include <com/sun/source/util/DocTreePathScanner.h>
+#include <com/sun/source/util/DocTreeScanner.h>
+#include <com/sun/source/util/DocTrees.h>
+#include <com/sun/source/util/JavacTask.h>
+#include <com/sun/source/util/ParameterNameProvider.h>
+#include <com/sun/source/util/Plugin.h>
+#include <com/sun/source/util/SimpleDocTreeVisitor.h>
+#include <com/sun/source/util/SimpleTreeVisitor.h>
+#include <com/sun/source/util/SourcePositions.h>
+#include <com/sun/source/util/TaskEvent.h>
+#include <com/sun/source/util/TaskEvent$Kind.h>
+#include <com/sun/source/util/TaskListener.h>
+#include <com/sun/source/util/TreePath.h>
+#include <com/sun/source/util/TreePath$1.h>
+#include <com/sun/source/util/TreePath$1PathFinder.h>
+#include <com/sun/source/util/TreePath$1Result.h>
+#include <com/sun/source/util/TreePathScanner.h>
+#include <com/sun/source/util/TreeScanner.h>
+#include <com/sun/source/util/Trees.h>
+#include <com/sun/tools/doclint/DocLint.h>
+#include <com/sun/tools/doclint/DocLint$1.h>
+#include <com/sun/tools/doclint/DocLint$NoDocLint.h>
+#include <com/sun/tools/javac/Main.h>
+#include <com/sun/tools/javac/api/BasicJavacTask.h>
+#include <com/sun/tools/javac/api/ClientCodeWrapper.h>
+#include <com/sun/tools/javac/api/ClientCodeWrapper$DiagnosticSourceUnwrapper.h>
+#include <com/sun/tools/javac/api/ClientCodeWrapper$Trusted.h>
+#include <com/sun/tools/javac/api/ClientCodeWrapper$WrappedDiagnosticListener.h>
+#include <com/sun/tools/javac/api/ClientCodeWrapper$WrappedFileObject.h>
+#include <com/sun/tools/javac/api/ClientCodeWrapper$WrappedJavaFileManager.h>
+#include <com/sun/tools/javac/api/ClientCodeWrapper$WrappedJavaFileObject.h>
+#include <com/sun/tools/javac/api/ClientCodeWrapper$WrappedStandardJavaFileManager.h>
+#include <com/sun/tools/javac/api/ClientCodeWrapper$WrappedTaskListener.h>
+#include <com/sun/tools/javac/api/DiagnosticFormatter.h>
+#include <com/sun/tools/javac/api/DiagnosticFormatter$Configuration.h>
+#include <com/sun/tools/javac/api/DiagnosticFormatter$Configuration$DiagnosticPart.h>
+#include <com/sun/tools/javac/api/DiagnosticFormatter$Configuration$MultilineLimit.h>
+#include <com/sun/tools/javac/api/DiagnosticFormatter$PositionKind.h>
+#include <com/sun/tools/javac/api/Entity.h>
+#include <com/sun/tools/javac/api/Formattable.h>
+#include <com/sun/tools/javac/api/Formattable$LocalizedString.h>
+#include <com/sun/tools/javac/api/JavacScope.h>
+#include <com/sun/tools/javac/api/JavacScope$1.h>
+#include <com/sun/tools/javac/api/JavacScope$2.h>
+#include <com/sun/tools/javac/api/JavacTaskImpl.h>
+#include <com/sun/tools/javac/api/JavacTaskImpl$1.h>
+#include <com/sun/tools/javac/api/JavacTaskImpl$2.h>
+#include <com/sun/tools/javac/api/JavacTaskImpl$3.h>
+#include <com/sun/tools/javac/api/JavacTaskImpl$Filter.h>
+#include <com/sun/tools/javac/api/JavacTaskPool.h>
+#include <com/sun/tools/javac/api/JavacTaskPool$ReusableContext.h>
+#include <com/sun/tools/javac/api/JavacTaskPool$ReusableContext$1.h>
+#include <com/sun/tools/javac/api/JavacTaskPool$ReusableContext$ReusableJavaCompiler.h>
+#include <com/sun/tools/javac/api/JavacTaskPool$ReusableContext$ReusableLog.h>
+#include <com/sun/tools/javac/api/JavacTaskPool$ReusableContext$ReusableLog$1.h>
+#include <com/sun/tools/javac/api/JavacTaskPool$Worker.h>
+#include <com/sun/tools/javac/api/JavacTool.h>
+#include <com/sun/tools/javac/api/JavacTrees.h>
+#include <com/sun/tools/javac/api/JavacTrees$1.h>
+#include <com/sun/tools/javac/api/JavacTrees$2.h>
+#include <com/sun/tools/javac/api/JavacTrees$3.h>
+#include <com/sun/tools/javac/api/JavacTrees$4.h>
+#include <com/sun/tools/javac/api/JavacTrees$5.h>
+#include <com/sun/tools/javac/api/JavacTrees$6.h>
+#include <com/sun/tools/javac/api/JavacTrees$7.h>
+#include <com/sun/tools/javac/api/JavacTrees$8.h>
+#include <com/sun/tools/javac/api/JavacTrees$Copier.h>
+#include <com/sun/tools/javac/api/JavacTrees$HtmlFileObject.h>
+#include <com/sun/tools/javac/api/Messages.h>
+#include <com/sun/tools/javac/api/MultiTaskListener.h>
+#include <com/sun/tools/javac/api/WrappingJavaFileManager.h>
+#include <com/sun/tools/javac/code/AnnoConstruct.h>
+#include <com/sun/tools/javac/code/Attribute.h>
+#include <com/sun/tools/javac/code/Attribute$1.h>
+#include <com/sun/tools/javac/code/Attribute$Array.h>
+#include <com/sun/tools/javac/code/Attribute$Class.h>
+#include <com/sun/tools/javac/code/Attribute$Compound.h>
+#include <com/sun/tools/javac/code/Attribute$Constant.h>
+#include <com/sun/tools/javac/code/Attribute$Enum.h>
+#include <com/sun/tools/javac/code/Attribute$Error.h>
+#include <com/sun/tools/javac/code/Attribute$RetentionPolicy.h>
+#include <com/sun/tools/javac/code/Attribute$TypeCompound.h>
+#include <com/sun/tools/javac/code/Attribute$UnresolvedClass.h>
+#include <com/sun/tools/javac/code/Attribute$Visitor.h>
+#include <com/sun/tools/javac/code/BoundKind.h>
+#include <com/sun/tools/javac/code/ClassFinder.h>
+#include <com/sun/tools/javac/code/ClassFinder$1.h>
+#include <com/sun/tools/javac/code/ClassFinder$2.h>
+#include <com/sun/tools/javac/code/ClassFinder$BadClassFile.h>
+#include <com/sun/tools/javac/code/ClassFinder$BadEnclosingMethodAttr.h>
+#include <com/sun/tools/javac/code/DeferredCompletionFailureHandler.h>
+#include <com/sun/tools/javac/code/DeferredCompletionFailureHandler$1.h>
+#include <com/sun/tools/javac/code/DeferredCompletionFailureHandler$1$1.h>
+#include <com/sun/tools/javac/code/DeferredCompletionFailureHandler$2.h>
+#include <com/sun/tools/javac/code/DeferredCompletionFailureHandler$3.h>
+#include <com/sun/tools/javac/code/DeferredCompletionFailureHandler$DeferredCompleter.h>
+#include <com/sun/tools/javac/code/DeferredCompletionFailureHandler$FlipSymbolDescription.h>
+#include <com/sun/tools/javac/code/DeferredCompletionFailureHandler$Handler.h>
+#include <com/sun/tools/javac/code/DeferredLintHandler.h>
+#include <com/sun/tools/javac/code/DeferredLintHandler$1.h>
+#include <com/sun/tools/javac/code/DeferredLintHandler$LintLogger.h>
+#include <com/sun/tools/javac/code/Directive.h>
+#include <com/sun/tools/javac/code/Directive$ExportsDirective.h>
+#include <com/sun/tools/javac/code/Directive$ExportsFlag.h>
+#include <com/sun/tools/javac/code/Directive$OpensDirective.h>
+#include <com/sun/tools/javac/code/Directive$OpensFlag.h>
+#include <com/sun/tools/javac/code/Directive$ProvidesDirective.h>
+#include <com/sun/tools/javac/code/Directive$RequiresDirective.h>
+#include <com/sun/tools/javac/code/Directive$RequiresFlag.h>
+#include <com/sun/tools/javac/code/Directive$UsesDirective.h>
+#include <com/sun/tools/javac/code/Flags.h>
+#include <com/sun/tools/javac/code/Flags$Flag.h>
+#include <com/sun/tools/javac/code/Flags$Flag$1.h>
+#include <com/sun/tools/javac/code/Kinds.h>
+#include <com/sun/tools/javac/code/Kinds$1.h>
+#include <com/sun/tools/javac/code/Kinds$Kind.h>
+#include <com/sun/tools/javac/code/Kinds$Kind$Category.h>
+#include <com/sun/tools/javac/code/Kinds$KindName.h>
+#include <com/sun/tools/javac/code/Kinds$KindSelector.h>
+#include <com/sun/tools/javac/code/Lint.h>
+#include <com/sun/tools/javac/code/Lint$AugmentVisitor.h>
+#include <com/sun/tools/javac/code/Lint$LintCategory.h>
+#include <com/sun/tools/javac/code/MissingInfoHandler.h>
+#include <com/sun/tools/javac/code/ModuleFinder.h>
+#include <com/sun/tools/javac/code/ModuleFinder$1.h>
+#include <com/sun/tools/javac/code/ModuleFinder$2.h>
+#include <com/sun/tools/javac/code/ModuleFinder$ModuleLocationIterator.h>
+#include <com/sun/tools/javac/code/ModuleFinder$ModuleNameFromSourceReader.h>
+#include <com/sun/tools/javac/code/Preview.h>
+#include <com/sun/tools/javac/code/Preview$1.h>
+#include <com/sun/tools/javac/code/Printer.h>
+#include <com/sun/tools/javac/code/Printer$1.h>
+#include <com/sun/tools/javac/code/Scope.h>
+#include <com/sun/tools/javac/code/Scope$CompoundScope.h>
+#include <com/sun/tools/javac/code/Scope$Entry.h>
+#include <com/sun/tools/javac/code/Scope$ErrorScope.h>
+#include <com/sun/tools/javac/code/Scope$FilterImportScope.h>
+#include <com/sun/tools/javac/code/Scope$FilterImportScope$1.h>
+#include <com/sun/tools/javac/code/Scope$FilterImportScope$2.h>
+#include <com/sun/tools/javac/code/Scope$FilterImportScope$SymbolImporter.h>
+#include <com/sun/tools/javac/code/Scope$ImportFilter.h>
+#include <com/sun/tools/javac/code/Scope$ImportScope.h>
+#include <com/sun/tools/javac/code/Scope$ImportScope$1.h>
+#include <com/sun/tools/javac/code/Scope$LookupKind.h>
+#include <com/sun/tools/javac/code/Scope$NamedImportScope.h>
+#include <com/sun/tools/javac/code/Scope$NamedImportScope$SingleEntryScope.h>
+#include <com/sun/tools/javac/code/Scope$ScopeImpl.h>
+#include <com/sun/tools/javac/code/Scope$ScopeImpl$1.h>
+#include <com/sun/tools/javac/code/Scope$ScopeImpl$2.h>
+#include <com/sun/tools/javac/code/Scope$ScopeListener.h>
+#include <com/sun/tools/javac/code/Scope$ScopeListenerList.h>
+#include <com/sun/tools/javac/code/Scope$StarImportScope.h>
+#include <com/sun/tools/javac/code/Scope$WriteableScope.h>
+#include <com/sun/tools/javac/code/Source.h>
+#include <com/sun/tools/javac/code/Source$1.h>
+#include <com/sun/tools/javac/code/Source$Feature.h>
+#include <com/sun/tools/javac/code/Source$Feature$DiagKind.h>
+#include <com/sun/tools/javac/code/Symbol.h>
+#include <com/sun/tools/javac/code/Symbol$1.h>
+#include <com/sun/tools/javac/code/Symbol$BindingSymbol.h>
+#include <com/sun/tools/javac/code/Symbol$ClassSymbol.h>
+#include <com/sun/tools/javac/code/Symbol$Completer.h>
+#include <com/sun/tools/javac/code/Symbol$Completer$1.h>
+#include <com/sun/tools/javac/code/Symbol$CompletionFailure.h>
+#include <com/sun/tools/javac/code/Symbol$DelegatedSymbol.h>
+#include <com/sun/tools/javac/code/Symbol$DynamicMethodSymbol.h>
+#include <com/sun/tools/javac/code/Symbol$DynamicVarSymbol.h>
+#include <com/sun/tools/javac/code/Symbol$MethodHandleSymbol.h>
+#include <com/sun/tools/javac/code/Symbol$MethodSymbol.h>
+#include <com/sun/tools/javac/code/Symbol$MethodSymbol$1.h>
+#include <com/sun/tools/javac/code/Symbol$ModuleFlags.h>
+#include <com/sun/tools/javac/code/Symbol$ModuleResolutionFlags.h>
+#include <com/sun/tools/javac/code/Symbol$ModuleSymbol.h>
+#include <com/sun/tools/javac/code/Symbol$OperatorSymbol.h>
+#include <com/sun/tools/javac/code/Symbol$OperatorSymbol$AccessCode.h>
+#include <com/sun/tools/javac/code/Symbol$PackageSymbol.h>
+#include <com/sun/tools/javac/code/Symbol$ParamSymbol.h>
+#include <com/sun/tools/javac/code/Symbol$RecordComponent.h>
+#include <com/sun/tools/javac/code/Symbol$RootPackageSymbol.h>
+#include <com/sun/tools/javac/code/Symbol$TypeSymbol.h>
+#include <com/sun/tools/javac/code/Symbol$TypeVariableSymbol.h>
+#include <com/sun/tools/javac/code/Symbol$VarSymbol.h>
+#include <com/sun/tools/javac/code/Symbol$VarSymbol$1.h>
+#include <com/sun/tools/javac/code/Symbol$Visitor.h>
+#include <com/sun/tools/javac/code/SymbolMetadata.h>
+#include <com/sun/tools/javac/code/Symtab.h>
+#include <com/sun/tools/javac/code/Symtab$1.h>
+#include <com/sun/tools/javac/code/Symtab$2.h>
+#include <com/sun/tools/javac/code/Symtab$3.h>
+#include <com/sun/tools/javac/code/Symtab$4.h>
+#include <com/sun/tools/javac/code/Symtab$5.h>
+#include <com/sun/tools/javac/code/Symtab$6.h>
+#include <com/sun/tools/javac/code/Symtab$7.h>
+#include <com/sun/tools/javac/code/TargetType.h>
+#include <com/sun/tools/javac/code/Type.h>
+#include <com/sun/tools/javac/code/Type$1.h>
+#include <com/sun/tools/javac/code/Type$2.h>
+#include <com/sun/tools/javac/code/Type$3.h>
+#include <com/sun/tools/javac/code/Type$4.h>
+#include <com/sun/tools/javac/code/Type$5.h>
+#include <com/sun/tools/javac/code/Type$ArrayType.h>
+#include <com/sun/tools/javac/code/Type$ArrayType$1.h>
+#include <com/sun/tools/javac/code/Type$ArrayType$2.h>
+#include <com/sun/tools/javac/code/Type$BottomType.h>
+#include <com/sun/tools/javac/code/Type$CapturedType.h>
+#include <com/sun/tools/javac/code/Type$CapturedType$1.h>
+#include <com/sun/tools/javac/code/Type$ClassType.h>
+#include <com/sun/tools/javac/code/Type$ClassType$1.h>
+#include <com/sun/tools/javac/code/Type$ClassType$2.h>
+#include <com/sun/tools/javac/code/Type$DelegatedType.h>
+#include <com/sun/tools/javac/code/Type$ErasedClassType.h>
+#include <com/sun/tools/javac/code/Type$ErrorType.h>
+#include <com/sun/tools/javac/code/Type$ErrorType$1.h>
+#include <com/sun/tools/javac/code/Type$ForAll.h>
+#include <com/sun/tools/javac/code/Type$IntersectionClassType.h>
+#include <com/sun/tools/javac/code/Type$JCNoType.h>
+#include <com/sun/tools/javac/code/Type$JCPrimitiveType.h>
+#include <com/sun/tools/javac/code/Type$JCPrimitiveType$1.h>
+#include <com/sun/tools/javac/code/Type$JCPrimitiveType$2.h>
+#include <com/sun/tools/javac/code/Type$JCVoidType.h>
+#include <com/sun/tools/javac/code/Type$MethodType.h>
+#include <com/sun/tools/javac/code/Type$ModuleType.h>
+#include <com/sun/tools/javac/code/Type$PackageType.h>
+#include <com/sun/tools/javac/code/Type$StructuralTypeMapping.h>
+#include <com/sun/tools/javac/code/Type$StructuralTypeMapping$1.h>
+#include <com/sun/tools/javac/code/Type$StructuralTypeMapping$2.h>
+#include <com/sun/tools/javac/code/Type$StructuralTypeMapping$3.h>
+#include <com/sun/tools/javac/code/Type$StructuralTypeMapping$4.h>
+#include <com/sun/tools/javac/code/Type$TypeVar.h>
+#include <com/sun/tools/javac/code/Type$TypeVar$1.h>
+#include <com/sun/tools/javac/code/Type$UndetVar.h>
+#include <com/sun/tools/javac/code/Type$UndetVar$1.h>
+#include <com/sun/tools/javac/code/Type$UndetVar$InferenceBound.h>
+#include <com/sun/tools/javac/code/Type$UndetVar$InferenceBound$1.h>
+#include <com/sun/tools/javac/code/Type$UndetVar$InferenceBound$2.h>
+#include <com/sun/tools/javac/code/Type$UndetVar$InferenceBound$3.h>
+#include <com/sun/tools/javac/code/Type$UndetVar$Kind.h>
+#include <com/sun/tools/javac/code/Type$UndetVar$UndetVarListener.h>
+#include <com/sun/tools/javac/code/Type$UnionClassType.h>
+#include <com/sun/tools/javac/code/Type$UnknownType.h>
+#include <com/sun/tools/javac/code/Type$Visitor.h>
+#include <com/sun/tools/javac/code/Type$WildcardType.h>
+#include <com/sun/tools/javac/code/Type$WildcardType$1.h>
+#include <com/sun/tools/javac/code/TypeAnnotationPosition.h>
+#include <com/sun/tools/javac/code/TypeAnnotationPosition$1.h>
+#include <com/sun/tools/javac/code/TypeAnnotationPosition$TypePathEntry.h>
+#include <com/sun/tools/javac/code/TypeAnnotationPosition$TypePathEntryKind.h>
+#include <com/sun/tools/javac/code/TypeAnnotations.h>
+#include <com/sun/tools/javac/code/TypeAnnotations$1.h>
+#include <com/sun/tools/javac/code/TypeAnnotations$AnnotationType.h>
+#include <com/sun/tools/javac/code/TypeAnnotations$TypeAnnotationPositions.h>
+#include <com/sun/tools/javac/code/TypeAnnotations$TypeAnnotationPositions$1.h>
+#include <com/sun/tools/javac/code/TypeMetadata.h>
+#include <com/sun/tools/javac/code/TypeMetadata$Annotations.h>
+#include <com/sun/tools/javac/code/TypeMetadata$Entry.h>
+#include <com/sun/tools/javac/code/TypeMetadata$Entry$Kind.h>
+#include <com/sun/tools/javac/code/TypeTag.h>
+#include <com/sun/tools/javac/code/TypeTag$1.h>
+#include <com/sun/tools/javac/code/TypeTag$NumericClasses.h>
+#include <com/sun/tools/javac/code/Types.h>
+#include <com/sun/tools/javac/code/Types$1.h>
+#include <com/sun/tools/javac/code/Types$10.h>
+#include <com/sun/tools/javac/code/Types$11.h>
+#include <com/sun/tools/javac/code/Types$12.h>
+#include <com/sun/tools/javac/code/Types$13.h>
+#include <com/sun/tools/javac/code/Types$14.h>
+#include <com/sun/tools/javac/code/Types$15.h>
+#include <com/sun/tools/javac/code/Types$16.h>
+#include <com/sun/tools/javac/code/Types$17.h>
+#include <com/sun/tools/javac/code/Types$18.h>
+#include <com/sun/tools/javac/code/Types$19.h>
+#include <com/sun/tools/javac/code/Types$2.h>
+#include <com/sun/tools/javac/code/Types$20.h>
+#include <com/sun/tools/javac/code/Types$21.h>
+#include <com/sun/tools/javac/code/Types$22.h>
+#include <com/sun/tools/javac/code/Types$23.h>
+#include <com/sun/tools/javac/code/Types$23$1.h>
+#include <com/sun/tools/javac/code/Types$23$2.h>
+#include <com/sun/tools/javac/code/Types$24.h>
+#include <com/sun/tools/javac/code/Types$25.h>
+#include <com/sun/tools/javac/code/Types$3.h>
+#include <com/sun/tools/javac/code/Types$4.h>
+#include <com/sun/tools/javac/code/Types$5.h>
+#include <com/sun/tools/javac/code/Types$6.h>
+#include <com/sun/tools/javac/code/Types$7.h>
+#include <com/sun/tools/javac/code/Types$8.h>
+#include <com/sun/tools/javac/code/Types$9.h>
+#include <com/sun/tools/javac/code/Types$AdaptFailure.h>
+#include <com/sun/tools/javac/code/Types$Adapter.h>
+#include <com/sun/tools/javac/code/Types$CandidatesCache.h>
+#include <com/sun/tools/javac/code/Types$CandidatesCache$Entry.h>
+#include <com/sun/tools/javac/code/Types$CaptureScanner.h>
+#include <com/sun/tools/javac/code/Types$ClosureHolder.h>
+#include <com/sun/tools/javac/code/Types$DefaultSymbolVisitor.h>
+#include <com/sun/tools/javac/code/Types$DefaultTypeVisitor.h>
+#include <com/sun/tools/javac/code/Types$DescriptorCache.h>
+#include <com/sun/tools/javac/code/Types$DescriptorCache$1.h>
+#include <com/sun/tools/javac/code/Types$DescriptorCache$Entry.h>
+#include <com/sun/tools/javac/code/Types$DescriptorCache$FunctionDescriptor.h>
+#include <com/sun/tools/javac/code/Types$DescriptorFilter.h>
+#include <com/sun/tools/javac/code/Types$FunctionDescriptorLookupError.h>
+#include <com/sun/tools/javac/code/Types$HasSameArgs.h>
+#include <com/sun/tools/javac/code/Types$HashCodeVisitor.h>
+#include <com/sun/tools/javac/code/Types$ImplementationCache.h>
+#include <com/sun/tools/javac/code/Types$ImplementationCache$Entry.h>
+#include <com/sun/tools/javac/code/Types$MapVisitor.h>
+#include <com/sun/tools/javac/code/Types$MembersClosureCache.h>
+#include <com/sun/tools/javac/code/Types$MembersClosureCache$MembersScope.h>
+#include <com/sun/tools/javac/code/Types$MethodFilter.h>
+#include <com/sun/tools/javac/code/Types$MostSpecificReturnCheck.h>
+#include <com/sun/tools/javac/code/Types$MostSpecificReturnCheck$1.h>
+#include <com/sun/tools/javac/code/Types$MostSpecificReturnCheck$2.h>
+#include <com/sun/tools/javac/code/Types$ProjectionKind.h>
+#include <com/sun/tools/javac/code/Types$ProjectionKind$1.h>
+#include <com/sun/tools/javac/code/Types$ProjectionKind$2.h>
+#include <com/sun/tools/javac/code/Types$Rewriter.h>
+#include <com/sun/tools/javac/code/Types$SignatureGenerator.h>
+#include <com/sun/tools/javac/code/Types$SignatureGenerator$InvalidSignatureException.h>
+#include <com/sun/tools/javac/code/Types$SimpleVisitor.h>
+#include <com/sun/tools/javac/code/Types$Subst.h>
+#include <com/sun/tools/javac/code/Types$Subst$1.h>
+#include <com/sun/tools/javac/code/Types$Subst$2.h>
+#include <com/sun/tools/javac/code/Types$TypeMapping.h>
+#include <com/sun/tools/javac/code/Types$TypePair.h>
+#include <com/sun/tools/javac/code/Types$TypeProjection.h>
+#include <com/sun/tools/javac/code/Types$TypeProjection$1.h>
+#include <com/sun/tools/javac/code/Types$TypeProjection$2.h>
+#include <com/sun/tools/javac/code/Types$TypeProjection$TypeArgumentProjection.h>
+#include <com/sun/tools/javac/code/Types$TypeProjection$TypeArgumentProjection$1.h>
+#include <com/sun/tools/javac/code/Types$TypeRelation.h>
+#include <com/sun/tools/javac/code/Types$UnaryVisitor.h>
+#include <com/sun/tools/javac/code/Types$UniqueType.h>
+#include <com/sun/tools/javac/comp/Analyzer.h>
+#include <com/sun/tools/javac/comp/Analyzer$1.h>
+#include <com/sun/tools/javac/comp/Analyzer$2.h>
+#include <com/sun/tools/javac/comp/Analyzer$AnalyzerCopier.h>
+#include <com/sun/tools/javac/comp/Analyzer$AnalyzerMode.h>
+#include <com/sun/tools/javac/comp/Analyzer$DeferredAnalysisHelper.h>
+#include <com/sun/tools/javac/comp/Analyzer$DiamondInitializer.h>
+#include <com/sun/tools/javac/comp/Analyzer$LambdaAnalyzer.h>
+#include <com/sun/tools/javac/comp/Analyzer$RedundantLocalVarTypeAnalyzer.h>
+#include <com/sun/tools/javac/comp/Analyzer$RedundantLocalVarTypeAnalyzerBase.h>
+#include <com/sun/tools/javac/comp/Analyzer$RedundantLocalVarTypeAnalyzerForEach.h>
+#include <com/sun/tools/javac/comp/Analyzer$RedundantTypeArgAnalyzer.h>
+#include <com/sun/tools/javac/comp/Analyzer$RewritingContext.h>
+#include <com/sun/tools/javac/comp/Analyzer$StatementAnalyzer.h>
+#include <com/sun/tools/javac/comp/Analyzer$StatementScanner.h>
+#include <com/sun/tools/javac/comp/Analyzer$TreeRewriter.h>
+#include <com/sun/tools/javac/comp/Annotate.h>
+#include <com/sun/tools/javac/comp/Annotate$1.h>
+#include <com/sun/tools/javac/comp/Annotate$2.h>
+#include <com/sun/tools/javac/comp/Annotate$AnnotationContext.h>
+#include <com/sun/tools/javac/comp/Annotate$AnnotationTypeCompleter.h>
+#include <com/sun/tools/javac/comp/Annotate$AnnotationTypeMetadata.h>
+#include <com/sun/tools/javac/comp/Annotate$AnnotationTypeMetadata$1.h>
+#include <com/sun/tools/javac/comp/Annotate$AnnotationTypeVisitor.h>
+#include <com/sun/tools/javac/comp/Annotate$AnnotationValueContext.h>
+#include <com/sun/tools/javac/comp/Annotate$Queues.h>
+#include <com/sun/tools/javac/comp/Annotate$TypeAnnotate.h>
+#include <com/sun/tools/javac/comp/ArgumentAttr.h>
+#include <com/sun/tools/javac/comp/ArgumentAttr$1.h>
+#include <com/sun/tools/javac/comp/ArgumentAttr$2.h>
+#include <com/sun/tools/javac/comp/ArgumentAttr$ArgumentType.h>
+#include <com/sun/tools/javac/comp/ArgumentAttr$ConditionalType.h>
+#include <com/sun/tools/javac/comp/ArgumentAttr$ExplicitLambdaType.h>
+#include <com/sun/tools/javac/comp/ArgumentAttr$ExplicitLambdaType$1.h>
+#include <com/sun/tools/javac/comp/ArgumentAttr$LocalCacheContext.h>
+#include <com/sun/tools/javac/comp/ArgumentAttr$ParensType.h>
+#include <com/sun/tools/javac/comp/ArgumentAttr$ResolvedConstructorType.h>
+#include <com/sun/tools/javac/comp/ArgumentAttr$ResolvedMemberType.h>
+#include <com/sun/tools/javac/comp/ArgumentAttr$ResolvedMethodType.h>
+#include <com/sun/tools/javac/comp/ArgumentAttr$SwitchExpressionType.h>
+#include <com/sun/tools/javac/comp/ArgumentAttr$SwitchExpressionType$1.h>
+#include <com/sun/tools/javac/comp/ArgumentAttr$UniquePos.h>
+#include <com/sun/tools/javac/comp/Attr.h>
+#include <com/sun/tools/javac/comp/Attr$1.h>
+#include <com/sun/tools/javac/comp/Attr$10.h>
+#include <com/sun/tools/javac/comp/Attr$11.h>
+#include <com/sun/tools/javac/comp/Attr$12.h>
+#include <com/sun/tools/javac/comp/Attr$13.h>
+#include <com/sun/tools/javac/comp/Attr$2.h>
+#include <com/sun/tools/javac/comp/Attr$3.h>
+#include <com/sun/tools/javac/comp/Attr$4.h>
+#include <com/sun/tools/javac/comp/Attr$5.h>
+#include <com/sun/tools/javac/comp/Attr$6.h>
+#include <com/sun/tools/javac/comp/Attr$7.h>
+#include <com/sun/tools/javac/comp/Attr$8.h>
+#include <com/sun/tools/javac/comp/Attr$9.h>
+#include <com/sun/tools/javac/comp/Attr$BreakAttr.h>
+#include <com/sun/tools/javac/comp/Attr$CheckMode.h>
+#include <com/sun/tools/javac/comp/Attr$CheckMode$1.h>
+#include <com/sun/tools/javac/comp/Attr$CheckMode$2.h>
+#include <com/sun/tools/javac/comp/Attr$ExpressionLambdaReturnContext.h>
+#include <com/sun/tools/javac/comp/Attr$FunctionalReturnContext.h>
+#include <com/sun/tools/javac/comp/Attr$IdentAttributer.h>
+#include <com/sun/tools/javac/comp/Attr$LocalInitScanner.h>
+#include <com/sun/tools/javac/comp/Attr$MethodAttrInfo.h>
+#include <com/sun/tools/javac/comp/Attr$PostAttrAnalyzer.h>
+#include <com/sun/tools/javac/comp/Attr$RecoveryInfo.h>
+#include <com/sun/tools/javac/comp/Attr$RecoveryInfo$1.h>
+#include <com/sun/tools/javac/comp/Attr$ResultInfo.h>
+#include <com/sun/tools/javac/comp/Attr$TargetInfo.h>
+#include <com/sun/tools/javac/comp/Attr$TypeAnnotationsValidator.h>
+#include <com/sun/tools/javac/comp/AttrContext.h>
+#include <com/sun/tools/javac/comp/AttrContextEnv.h>
+#include <com/sun/tools/javac/comp/AttrRecover.h>
+#include <com/sun/tools/javac/comp/AttrRecover$1.h>
+#include <com/sun/tools/javac/comp/AttrRecover$1$1.h>
+#include <com/sun/tools/javac/comp/AttrRecover$RecoverTodo.h>
+#include <com/sun/tools/javac/comp/AttrRecover$RecoveryErrorType.h>
+#include <com/sun/tools/javac/comp/Check.h>
+#include <com/sun/tools/javac/comp/Check$1.h>
+#include <com/sun/tools/javac/comp/Check$1AnnotationValidator.h>
+#include <com/sun/tools/javac/comp/Check$1SpecialTreeVisitor.h>
+#include <com/sun/tools/javac/comp/Check$2.h>
+#include <com/sun/tools/javac/comp/Check$3.h>
+#include <com/sun/tools/javac/comp/Check$4.h>
+#include <com/sun/tools/javac/comp/Check$5.h>
+#include <com/sun/tools/javac/comp/Check$CheckContext.h>
+#include <com/sun/tools/javac/comp/Check$ClashFilter.h>
+#include <com/sun/tools/javac/comp/Check$ConversionWarner.h>
+#include <com/sun/tools/javac/comp/Check$CycleChecker.h>
+#include <com/sun/tools/javac/comp/Check$DefaultMethodClashFilter.h>
+#include <com/sun/tools/javac/comp/Check$NestedCheckContext.h>
+#include <com/sun/tools/javac/comp/Check$Validator.h>
+#include <com/sun/tools/javac/comp/CompileStates.h>
+#include <com/sun/tools/javac/comp/CompileStates$CompileState.h>
+#include <com/sun/tools/javac/comp/ConstFold.h>
+#include <com/sun/tools/javac/comp/ConstFold$1.h>
+#include <com/sun/tools/javac/comp/DeferredAttr.h>
+#include <com/sun/tools/javac/comp/DeferredAttr$1.h>
+#include <com/sun/tools/javac/comp/DeferredAttr$2.h>
+#include <com/sun/tools/javac/comp/DeferredAttr$2$1.h>
+#include <com/sun/tools/javac/comp/DeferredAttr$3.h>
+#include <com/sun/tools/javac/comp/DeferredAttr$4.h>
+#include <com/sun/tools/javac/comp/DeferredAttr$5.h>
+#include <com/sun/tools/javac/comp/DeferredAttr$AttrMode.h>
+#include <com/sun/tools/javac/comp/DeferredAttr$AttributionMode.h>
+#include <com/sun/tools/javac/comp/DeferredAttr$CheckStuckPolicy.h>
+#include <com/sun/tools/javac/comp/DeferredAttr$CheckStuckPolicy$1.h>
+#include <com/sun/tools/javac/comp/DeferredAttr$CheckStuckPolicy$2.h>
+#include <com/sun/tools/javac/comp/DeferredAttr$DeferredAttrContext.h>
+#include <com/sun/tools/javac/comp/DeferredAttr$DeferredAttrContext$StuckNode.h>
+#include <com/sun/tools/javac/comp/DeferredAttr$DeferredAttrDiagHandler.h>
+#include <com/sun/tools/javac/comp/DeferredAttr$DeferredAttrDiagHandler$PosScanner.h>
+#include <com/sun/tools/javac/comp/DeferredAttr$DeferredAttrNode.h>
+#include <com/sun/tools/javac/comp/DeferredAttr$DeferredAttrNode$1.h>
+#include <com/sun/tools/javac/comp/DeferredAttr$DeferredAttrNode$LambdaBodyStructChecker.h>
+#include <com/sun/tools/javac/comp/DeferredAttr$DeferredAttrNode$StructuralStuckChecker.h>
+#include <com/sun/tools/javac/comp/DeferredAttr$DeferredStuckPolicy.h>
+#include <com/sun/tools/javac/comp/DeferredAttr$DeferredType.h>
+#include <com/sun/tools/javac/comp/DeferredAttr$DeferredType$SpeculativeCache.h>
+#include <com/sun/tools/javac/comp/DeferredAttr$DeferredType$SpeculativeCache$Entry.h>
+#include <com/sun/tools/javac/comp/DeferredAttr$DeferredTypeMap.h>
+#include <com/sun/tools/javac/comp/DeferredAttr$FilterScanner.h>
+#include <com/sun/tools/javac/comp/DeferredAttr$LambdaReturnScanner.h>
+#include <com/sun/tools/javac/comp/DeferredAttr$OverloadStuckPolicy.h>
+#include <com/sun/tools/javac/comp/DeferredAttr$PolyScanner.h>
+#include <com/sun/tools/javac/comp/DeferredAttr$RecoveryDeferredTypeMap.h>
+#include <com/sun/tools/javac/comp/DeferredAttr$RecoveryDeferredTypeMap$1.h>
+#include <com/sun/tools/javac/comp/DeferredAttr$SwitchExpressionScanner.h>
+#include <com/sun/tools/javac/comp/Enter.h>
+#include <com/sun/tools/javac/comp/Enter$1.h>
+#include <com/sun/tools/javac/comp/Enter$UnenterScanner.h>
+#include <com/sun/tools/javac/comp/Env.h>
+#include <com/sun/tools/javac/comp/Env$1.h>
+#include <com/sun/tools/javac/comp/Flow.h>
+#include <com/sun/tools/javac/comp/Flow$1.h>
+#include <com/sun/tools/javac/comp/Flow$AliveAnalyzer.h>
+#include <com/sun/tools/javac/comp/Flow$AssignAnalyzer.h>
+#include <com/sun/tools/javac/comp/Flow$AssignAnalyzer$1.h>
+#include <com/sun/tools/javac/comp/Flow$AssignAnalyzer$AssignPendingExit.h>
+#include <com/sun/tools/javac/comp/Flow$BaseAnalyzer.h>
+#include <com/sun/tools/javac/comp/Flow$BaseAnalyzer$JumpKind.h>
+#include <com/sun/tools/javac/comp/Flow$BaseAnalyzer$JumpKind$1.h>
+#include <com/sun/tools/javac/comp/Flow$BaseAnalyzer$JumpKind$2.h>
+#include <com/sun/tools/javac/comp/Flow$BaseAnalyzer$JumpKind$3.h>
+#include <com/sun/tools/javac/comp/Flow$BaseAnalyzer$PendingExit.h>
+#include <com/sun/tools/javac/comp/Flow$CaptureAnalyzer.h>
+#include <com/sun/tools/javac/comp/Flow$FlowAnalyzer.h>
+#include <com/sun/tools/javac/comp/Flow$FlowAnalyzer$ThrownPendingExit.h>
+#include <com/sun/tools/javac/comp/Flow$FlowKind.h>
+#include <com/sun/tools/javac/comp/Flow$LambdaAliveAnalyzer.h>
+#include <com/sun/tools/javac/comp/Flow$LambdaAssignAnalyzer.h>
+#include <com/sun/tools/javac/comp/Flow$LambdaFlowAnalyzer.h>
+#include <com/sun/tools/javac/comp/Flow$Liveness.h>
+#include <com/sun/tools/javac/comp/Flow$Liveness$1.h>
+#include <com/sun/tools/javac/comp/Flow$Liveness$2.h>
+#include <com/sun/tools/javac/comp/Flow$Liveness$3.h>
+#include <com/sun/tools/javac/comp/Flow$SnippetAliveAnalyzer.h>
+#include <com/sun/tools/javac/comp/Flow$SnippetBreakAnalyzer.h>
+#include <com/sun/tools/javac/comp/Infer.h>
+#include <com/sun/tools/javac/comp/Infer$1.h>
+#include <com/sun/tools/javac/comp/Infer$2.h>
+#include <com/sun/tools/javac/comp/Infer$3.h>
+#include <com/sun/tools/javac/comp/Infer$4.h>
+#include <com/sun/tools/javac/comp/Infer$AbstractIncorporationEngine.h>
+#include <com/sun/tools/javac/comp/Infer$BestLeafSolver.h>
+#include <com/sun/tools/javac/comp/Infer$BoundFilter.h>
+#include <com/sun/tools/javac/comp/Infer$CheckBounds.h>
+#include <com/sun/tools/javac/comp/Infer$CheckInst.h>
+#include <com/sun/tools/javac/comp/Infer$CheckUpperBounds.h>
+#include <com/sun/tools/javac/comp/Infer$DependencyKind.h>
+#include <com/sun/tools/javac/comp/Infer$EqCheckLegacy.h>
+#include <com/sun/tools/javac/comp/Infer$FreeTypeListener.h>
+#include <com/sun/tools/javac/comp/Infer$GraphInferenceSteps.h>
+#include <com/sun/tools/javac/comp/Infer$GraphSolver.h>
+#include <com/sun/tools/javac/comp/Infer$GraphSolver$InferenceGraph.h>
+#include <com/sun/tools/javac/comp/Infer$GraphSolver$InferenceGraph$Node.h>
+#include <com/sun/tools/javac/comp/Infer$GraphStrategy.h>
+#include <com/sun/tools/javac/comp/Infer$GraphStrategy$NodeNotFoundException.h>
+#include <com/sun/tools/javac/comp/Infer$ImplicitArgType.h>
+#include <com/sun/tools/javac/comp/Infer$IncorporationAction.h>
+#include <com/sun/tools/javac/comp/Infer$IncorporationBinaryOp.h>
+#include <com/sun/tools/javac/comp/Infer$IncorporationBinaryOpKind.h>
+#include <com/sun/tools/javac/comp/Infer$IncorporationBinaryOpKind$1.h>
+#include <com/sun/tools/javac/comp/Infer$IncorporationBinaryOpKind$2.h>
+#include <com/sun/tools/javac/comp/Infer$InferenceException.h>
+#include <com/sun/tools/javac/comp/Infer$InferenceStep.h>
+#include <com/sun/tools/javac/comp/Infer$InferenceStep$1.h>
+#include <com/sun/tools/javac/comp/Infer$InferenceStep$2.h>
+#include <com/sun/tools/javac/comp/Infer$InferenceStep$3.h>
+#include <com/sun/tools/javac/comp/Infer$InferenceStep$4.h>
+#include <com/sun/tools/javac/comp/Infer$InferenceStep$5.h>
+#include <com/sun/tools/javac/comp/Infer$InferenceStep$6.h>
+#include <com/sun/tools/javac/comp/Infer$LeafSolver.h>
+#include <com/sun/tools/javac/comp/Infer$LegacyInferenceSteps.h>
+#include <com/sun/tools/javac/comp/Infer$PartiallyInferredMethodType.h>
+#include <com/sun/tools/javac/comp/Infer$PropagateBounds.h>
+#include <com/sun/tools/javac/comp/Infer$SubstBounds.h>
+#include <com/sun/tools/javac/comp/InferenceContext.h>
+#include <com/sun/tools/javac/comp/InferenceContext$1.h>
+#include <com/sun/tools/javac/comp/InferenceContext$2.h>
+#include <com/sun/tools/javac/comp/InferenceContext$3.h>
+#include <com/sun/tools/javac/comp/InferenceContext$ReachabilityVisitor.h>
+#include <com/sun/tools/javac/comp/LambdaToMethod.h>
+#include <com/sun/tools/javac/comp/LambdaToMethod$1.h>
+#include <com/sun/tools/javac/comp/LambdaToMethod$1LambdaBodyTranslator.h>
+#include <com/sun/tools/javac/comp/LambdaToMethod$DedupedLambda.h>
+#include <com/sun/tools/javac/comp/LambdaToMethod$KlassInfo.h>
+#include <com/sun/tools/javac/comp/LambdaToMethod$L2MSignatureGenerator.h>
+#include <com/sun/tools/javac/comp/LambdaToMethod$LambdaAnalyzerPreprocessor.h>
+#include <com/sun/tools/javac/comp/LambdaToMethod$LambdaAnalyzerPreprocessor$1.h>
+#include <com/sun/tools/javac/comp/LambdaToMethod$LambdaAnalyzerPreprocessor$Frame.h>
+#include <com/sun/tools/javac/comp/LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext.h>
+#include <com/sun/tools/javac/comp/LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$1.h>
+#include <com/sun/tools/javac/comp/LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$2.h>
+#include <com/sun/tools/javac/comp/LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$3.h>
+#include <com/sun/tools/javac/comp/LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$4.h>
+#include <com/sun/tools/javac/comp/LambdaToMethod$LambdaAnalyzerPreprocessor$ReferenceTranslationContext.h>
+#include <com/sun/tools/javac/comp/LambdaToMethod$LambdaAnalyzerPreprocessor$SyntheticMethodNameCounter.h>
+#include <com/sun/tools/javac/comp/LambdaToMethod$LambdaAnalyzerPreprocessor$TranslationContext.h>
+#include <com/sun/tools/javac/comp/LambdaToMethod$LambdaSymbolKind.h>
+#include <com/sun/tools/javac/comp/LambdaToMethod$MemberReferenceToLambda.h>
+#include <com/sun/tools/javac/comp/Lower.h>
+#include <com/sun/tools/javac/comp/Lower$1.h>
+#include <com/sun/tools/javac/comp/Lower$1Patcher.h>
+#include <com/sun/tools/javac/comp/Lower$2.h>
+#include <com/sun/tools/javac/comp/Lower$AssignopDependencyScanner.h>
+#include <com/sun/tools/javac/comp/Lower$BasicFreeVarCollector.h>
+#include <com/sun/tools/javac/comp/Lower$ClassMap.h>
+#include <com/sun/tools/javac/comp/Lower$EnumMapping.h>
+#include <com/sun/tools/javac/comp/Lower$FreeVarCollector.h>
+#include <com/sun/tools/javac/comp/Lower$LowerSignatureGenerator.h>
+#include <com/sun/tools/javac/comp/Lower$TreeBuilder.h>
+#include <com/sun/tools/javac/comp/MatchBindingsComputer.h>
+#include <com/sun/tools/javac/comp/MatchBindingsComputer$1.h>
+#include <com/sun/tools/javac/comp/MatchBindingsComputer$MatchBindings.h>
+#include <com/sun/tools/javac/comp/MemberEnter.h>
+#include <com/sun/tools/javac/comp/MemberEnter$InitTreeVisitor.h>
+#include <com/sun/tools/javac/comp/Modules.h>
+#include <com/sun/tools/javac/comp/Modules$1.h>
+#include <com/sun/tools/javac/comp/Modules$2.h>
+#include <com/sun/tools/javac/comp/Modules$3.h>
+#include <com/sun/tools/javac/comp/Modules$ModuleVisitor.h>
+#include <com/sun/tools/javac/comp/Modules$PackageNameFinder.h>
+#include <com/sun/tools/javac/comp/Modules$UsesProvidesVisitor.h>
+#include <com/sun/tools/javac/comp/Operators.h>
+#include <com/sun/tools/javac/comp/Operators$1.h>
+#include <com/sun/tools/javac/comp/Operators$BinaryBooleanOperator.h>
+#include <com/sun/tools/javac/comp/Operators$BinaryEqualityOperator.h>
+#include <com/sun/tools/javac/comp/Operators$BinaryNumericOperator.h>
+#include <com/sun/tools/javac/comp/Operators$BinaryOperatorHelper.h>
+#include <com/sun/tools/javac/comp/Operators$BinaryShiftOperator.h>
+#include <com/sun/tools/javac/comp/Operators$BinaryStringOperator.h>
+#include <com/sun/tools/javac/comp/Operators$ComparisonKind.h>
+#include <com/sun/tools/javac/comp/Operators$OperatorHelper.h>
+#include <com/sun/tools/javac/comp/Operators$OperatorType.h>
+#include <com/sun/tools/javac/comp/Operators$UnaryBooleanOperator.h>
+#include <com/sun/tools/javac/comp/Operators$UnaryNumericOperator.h>
+#include <com/sun/tools/javac/comp/Operators$UnaryOperatorHelper.h>
+#include <com/sun/tools/javac/comp/Operators$UnaryPrefixPostfixOperator.h>
+#include <com/sun/tools/javac/comp/Operators$UnaryReferenceOperator.h>
+#include <com/sun/tools/javac/comp/Resolve.h>
+#include <com/sun/tools/javac/comp/Resolve$1.h>
+#include <com/sun/tools/javac/comp/Resolve$10.h>
+#include <com/sun/tools/javac/comp/Resolve$11.h>
+#include <com/sun/tools/javac/comp/Resolve$12.h>
+#include <com/sun/tools/javac/comp/Resolve$13.h>
+#include <com/sun/tools/javac/comp/Resolve$14.h>
+#include <com/sun/tools/javac/comp/Resolve$15.h>
+#include <com/sun/tools/javac/comp/Resolve$16.h>
+#include <com/sun/tools/javac/comp/Resolve$17.h>
+#include <com/sun/tools/javac/comp/Resolve$18.h>
+#include <com/sun/tools/javac/comp/Resolve$2.h>
+#include <com/sun/tools/javac/comp/Resolve$3.h>
+#include <com/sun/tools/javac/comp/Resolve$4.h>
+#include <com/sun/tools/javac/comp/Resolve$4$1.h>
+#include <com/sun/tools/javac/comp/Resolve$5.h>
+#include <com/sun/tools/javac/comp/Resolve$6.h>
+#include <com/sun/tools/javac/comp/Resolve$7.h>
+#include <com/sun/tools/javac/comp/Resolve$8.h>
+#include <com/sun/tools/javac/comp/Resolve$9.h>
+#include <com/sun/tools/javac/comp/Resolve$AbstractMethodCheck.h>
+#include <com/sun/tools/javac/comp/Resolve$AbstractMethodCheck$SharedInapplicableMethodException.h>
+#include <com/sun/tools/javac/comp/Resolve$AccessError.h>
+#include <com/sun/tools/javac/comp/Resolve$AmbiguityError.h>
+#include <com/sun/tools/javac/comp/Resolve$ArrayConstructorReferenceLookupHelper.h>
+#include <com/sun/tools/javac/comp/Resolve$BadClassFileError.h>
+#include <com/sun/tools/javac/comp/Resolve$BadConstructorReferenceError.h>
+#include <com/sun/tools/javac/comp/Resolve$BadMethodReferenceError.h>
+#include <com/sun/tools/javac/comp/Resolve$BadRestrictedTypeError.h>
+#include <com/sun/tools/javac/comp/Resolve$BadVarargsMethod.h>
+#include <com/sun/tools/javac/comp/Resolve$BasicLookupHelper.h>
+#include <com/sun/tools/javac/comp/Resolve$ConstructorReferenceLookupHelper.h>
+#include <com/sun/tools/javac/comp/Resolve$DiamondError.h>
+#include <com/sun/tools/javac/comp/Resolve$InapplicableMethodException.h>
+#include <com/sun/tools/javac/comp/Resolve$InapplicableSymbolError.h>
+#include <com/sun/tools/javac/comp/Resolve$InapplicableSymbolsError.h>
+#include <com/sun/tools/javac/comp/Resolve$InapplicableSymbolsError$1.h>
+#include <com/sun/tools/javac/comp/Resolve$InapplicableSymbolsError$MostSpecificMap.h>
+#include <com/sun/tools/javac/comp/Resolve$InterfaceLookupPhase.h>
+#include <com/sun/tools/javac/comp/Resolve$InterfaceLookupPhase$1.h>
+#include <com/sun/tools/javac/comp/Resolve$InterfaceLookupPhase$2.h>
+#include <com/sun/tools/javac/comp/Resolve$InvalidSymbolError.h>
+#include <com/sun/tools/javac/comp/Resolve$InvisibleSymbolError.h>
+#include <com/sun/tools/javac/comp/Resolve$LogResolveHelper.h>
+#include <com/sun/tools/javac/comp/Resolve$LookupFilter.h>
+#include <com/sun/tools/javac/comp/Resolve$LookupHelper.h>
+#include <com/sun/tools/javac/comp/Resolve$MethodCheck.h>
+#include <com/sun/tools/javac/comp/Resolve$MethodCheckContext.h>
+#include <com/sun/tools/javac/comp/Resolve$MethodCheckDiag.h>
+#include <com/sun/tools/javac/comp/Resolve$MethodReferenceCheck.h>
+#include <com/sun/tools/javac/comp/Resolve$MethodReferenceCheck$1.h>
+#include <com/sun/tools/javac/comp/Resolve$MethodReferenceLookupHelper.h>
+#include <com/sun/tools/javac/comp/Resolve$MethodReferenceLookupHelper$1.h>
+#include <com/sun/tools/javac/comp/Resolve$MethodResolutionContext.h>
+#include <com/sun/tools/javac/comp/Resolve$MethodResolutionContext$Candidate.h>
+#include <com/sun/tools/javac/comp/Resolve$MethodResolutionDiagHelper.h>
+#include <com/sun/tools/javac/comp/Resolve$MethodResolutionDiagHelper$1.h>
+#include <com/sun/tools/javac/comp/Resolve$MethodResolutionDiagHelper$2.h>
+#include <com/sun/tools/javac/comp/Resolve$MethodResolutionDiagHelper$ArgMismatchRewriter.h>
+#include <com/sun/tools/javac/comp/Resolve$MethodResolutionDiagHelper$DiagnosticRewriter.h>
+#include <com/sun/tools/javac/comp/Resolve$MethodResolutionDiagHelper$Template.h>
+#include <com/sun/tools/javac/comp/Resolve$MethodResolutionPhase.h>
+#include <com/sun/tools/javac/comp/Resolve$MethodResolutionPhase$1.h>
+#include <com/sun/tools/javac/comp/Resolve$MethodResultInfo.h>
+#include <com/sun/tools/javac/comp/Resolve$MostSpecificCheck.h>
+#include <com/sun/tools/javac/comp/Resolve$MostSpecificCheck$MostSpecificCheckContext.h>
+#include <com/sun/tools/javac/comp/Resolve$MostSpecificCheck$MostSpecificCheckContext$MostSpecificFunctionReturnChecker.h>
+#include <com/sun/tools/javac/comp/Resolve$MostSpecificCheck$MostSpecificCheckContext$MostSpecificFunctionReturnChecker$1.h>
+#include <com/sun/tools/javac/comp/Resolve$RecoveryLoadClass.h>
+#include <com/sun/tools/javac/comp/Resolve$ReferenceChooser.h>
+#include <com/sun/tools/javac/comp/Resolve$ReferenceLookupHelper.h>
+#include <com/sun/tools/javac/comp/Resolve$ReferenceLookupResult.h>
+#include <com/sun/tools/javac/comp/Resolve$ReferenceLookupResult$StaticKind.h>
+#include <com/sun/tools/javac/comp/Resolve$ResolveDeferredRecoveryMap.h>
+#include <com/sun/tools/javac/comp/Resolve$ResolveError.h>
+#include <com/sun/tools/javac/comp/Resolve$StaticError.h>
+#include <com/sun/tools/javac/comp/Resolve$SymbolNotFoundError.h>
+#include <com/sun/tools/javac/comp/Resolve$UnboundMethodReferenceLookupHelper.h>
+#include <com/sun/tools/javac/comp/Resolve$VerboseResolutionMode.h>
+#include <com/sun/tools/javac/comp/Todo.h>
+#include <com/sun/tools/javac/comp/Todo$FileQueue.h>
+#include <com/sun/tools/javac/comp/TransPatterns.h>
+#include <com/sun/tools/javac/comp/TransPatterns$1.h>
+#include <com/sun/tools/javac/comp/TransPatterns$2.h>
+#include <com/sun/tools/javac/comp/TransPatterns$3.h>
+#include <com/sun/tools/javac/comp/TransPatterns$BasicBindingContext.h>
+#include <com/sun/tools/javac/comp/TransPatterns$BindingContext.h>
+#include <com/sun/tools/javac/comp/TransPatterns$BindingDeclarationFenceBindingContext.h>
+#include <com/sun/tools/javac/comp/TransTypes.h>
+#include <com/sun/tools/javac/comp/TreeDiffer.h>
+#include <com/sun/tools/javac/comp/TreeHasher.h>
+#include <com/sun/tools/javac/comp/TypeEnter.h>
+#include <com/sun/tools/javac/comp/TypeEnter$1.h>
+#include <com/sun/tools/javac/comp/TypeEnter$AbstractHeaderPhase.h>
+#include <com/sun/tools/javac/comp/TypeEnter$AbstractHeaderPhase$1.h>
+#include <com/sun/tools/javac/comp/TypeEnter$AbstractHeaderPhase$Synthesizer.h>
+#include <com/sun/tools/javac/comp/TypeEnter$AbstractHeaderPhase$Synthesizer$1.h>
+#include <com/sun/tools/javac/comp/TypeEnter$AbstractHeaderPhase$Synthesizer$2.h>
+#include <com/sun/tools/javac/comp/TypeEnter$AbstractMembersPhase.h>
+#include <com/sun/tools/javac/comp/TypeEnter$AnonClassConstructorHelper.h>
+#include <com/sun/tools/javac/comp/TypeEnter$BasicConstructorHelper.h>
+#include <com/sun/tools/javac/comp/TypeEnter$DefaultConstructorHelper.h>
+#include <com/sun/tools/javac/comp/TypeEnter$HeaderPhase.h>
+#include <com/sun/tools/javac/comp/TypeEnter$HierarchyPhase.h>
+#include <com/sun/tools/javac/comp/TypeEnter$ImportsPhase.h>
+#include <com/sun/tools/javac/comp/TypeEnter$MembersPhase.h>
+#include <com/sun/tools/javac/comp/TypeEnter$PermitsPhase.h>
+#include <com/sun/tools/javac/comp/TypeEnter$Phase.h>
+#include <com/sun/tools/javac/comp/TypeEnter$RecordConstructorHelper.h>
+#include <com/sun/tools/javac/comp/TypeEnter$RecordPhase.h>
+#include <com/sun/tools/javac/comp/TypeEnvs.h>
+#include <com/sun/tools/javac/file/BaseFileManager.h>
+#include <com/sun/tools/javac/file/BaseFileManager$1.h>
+#include <com/sun/tools/javac/file/BaseFileManager$2.h>
+#include <com/sun/tools/javac/file/BaseFileManager$3.h>
+#include <com/sun/tools/javac/file/BaseFileManager$ByteBufferCache.h>
+#include <com/sun/tools/javac/file/BaseFileManager$ContentCacheEntry.h>
+#include <com/sun/tools/javac/file/CacheFSInfo.h>
+#include <com/sun/tools/javac/file/FSInfo.h>
+#include <com/sun/tools/javac/file/JRTIndex.h>
+#include <com/sun/tools/javac/file/JRTIndex$CtSym.h>
+#include <com/sun/tools/javac/file/JRTIndex$Entry.h>
+#include <com/sun/tools/javac/file/JavacFileManager.h>
+#include <com/sun/tools/javac/file/JavacFileManager$1.h>
+#include <com/sun/tools/javac/file/JavacFileManager$2.h>
+#include <com/sun/tools/javac/file/JavacFileManager$3.h>
+#include <com/sun/tools/javac/file/JavacFileManager$ArchiveContainer.h>
+#include <com/sun/tools/javac/file/JavacFileManager$ArchiveContainer$1.h>
+#include <com/sun/tools/javac/file/JavacFileManager$ArchiveContainer$2.h>
+#include <com/sun/tools/javac/file/JavacFileManager$Container.h>
+#include <com/sun/tools/javac/file/JavacFileManager$DirectoryContainer.h>
+#include <com/sun/tools/javac/file/JavacFileManager$JRTImageContainer.h>
+#include <com/sun/tools/javac/file/JavacFileManager$PathAndContainer.h>
+#include <com/sun/tools/javac/file/JavacFileManager$SortFiles.h>
+#include <com/sun/tools/javac/file/JavacFileManager$SortFiles$1.h>
+#include <com/sun/tools/javac/file/JavacFileManager$SortFiles$2.h>
+#include <com/sun/tools/javac/file/Locations.h>
+#include <com/sun/tools/javac/file/Locations$1.h>
+#include <com/sun/tools/javac/file/Locations$BasicLocationHandler.h>
+#include <com/sun/tools/javac/file/Locations$BootClassPathLocationHandler.h>
+#include <com/sun/tools/javac/file/Locations$ClassPathLocationHandler.h>
+#include <com/sun/tools/javac/file/Locations$LocationHandler.h>
+#include <com/sun/tools/javac/file/Locations$ModuleLocationHandler.h>
+#include <com/sun/tools/javac/file/Locations$ModulePathLocationHandler.h>
+#include <com/sun/tools/javac/file/Locations$ModulePathLocationHandler$ModulePathIterator.h>
+#include <com/sun/tools/javac/file/Locations$ModuleSourcePathLocationHandler.h>
+#include <com/sun/tools/javac/file/Locations$ModuleTable.h>
+#include <com/sun/tools/javac/file/Locations$OutputLocationHandler.h>
+#include <com/sun/tools/javac/file/Locations$PatchModulesLocationHandler.h>
+#include <com/sun/tools/javac/file/Locations$SearchPath.h>
+#include <com/sun/tools/javac/file/Locations$SimpleLocationHandler.h>
+#include <com/sun/tools/javac/file/Locations$SystemModulesLocationHandler.h>
+#include <com/sun/tools/javac/file/PathFileObject.h>
+#include <com/sun/tools/javac/file/PathFileObject$CannotCreateUriError.h>
+#include <com/sun/tools/javac/file/PathFileObject$DirectoryFileObject.h>
+#include <com/sun/tools/javac/file/PathFileObject$JRTFileObject.h>
+#include <com/sun/tools/javac/file/PathFileObject$JarFileObject.h>
+#include <com/sun/tools/javac/file/PathFileObject$SimpleFileObject.h>
+#include <com/sun/tools/javac/file/RelativePath.h>
+#include <com/sun/tools/javac/file/RelativePath$RelativeDirectory.h>
+#include <com/sun/tools/javac/file/RelativePath$RelativeFile.h>
+#include <com/sun/tools/javac/jvm/ByteCodes.h>
+#include <com/sun/tools/javac/jvm/CRTFlags.h>
+#include <com/sun/tools/javac/jvm/CRTable.h>
+#include <com/sun/tools/javac/jvm/CRTable$CRTEntry.h>
+#include <com/sun/tools/javac/jvm/CRTable$SourceComputer.h>
+#include <com/sun/tools/javac/jvm/CRTable$SourceRange.h>
+#include <com/sun/tools/javac/jvm/ClassFile.h>
+#include <com/sun/tools/javac/jvm/ClassFile$Version.h>
+#include <com/sun/tools/javac/jvm/ClassReader.h>
+#include <com/sun/tools/javac/jvm/ClassReader$1.h>
+#include <com/sun/tools/javac/jvm/ClassReader$10.h>
+#include <com/sun/tools/javac/jvm/ClassReader$11.h>
+#include <com/sun/tools/javac/jvm/ClassReader$12.h>
+#include <com/sun/tools/javac/jvm/ClassReader$13.h>
+#include <com/sun/tools/javac/jvm/ClassReader$14.h>
+#include <com/sun/tools/javac/jvm/ClassReader$15.h>
+#include <com/sun/tools/javac/jvm/ClassReader$16.h>
+#include <com/sun/tools/javac/jvm/ClassReader$17.h>
+#include <com/sun/tools/javac/jvm/ClassReader$18.h>
+#include <com/sun/tools/javac/jvm/ClassReader$19.h>
+#include <com/sun/tools/javac/jvm/ClassReader$2.h>
+#include <com/sun/tools/javac/jvm/ClassReader$20.h>
+#include <com/sun/tools/javac/jvm/ClassReader$21.h>
+#include <com/sun/tools/javac/jvm/ClassReader$22.h>
+#include <com/sun/tools/javac/jvm/ClassReader$23.h>
+#include <com/sun/tools/javac/jvm/ClassReader$24.h>
+#include <com/sun/tools/javac/jvm/ClassReader$25.h>
+#include <com/sun/tools/javac/jvm/ClassReader$26.h>
+#include <com/sun/tools/javac/jvm/ClassReader$27.h>
+#include <com/sun/tools/javac/jvm/ClassReader$28.h>
+#include <com/sun/tools/javac/jvm/ClassReader$3.h>
+#include <com/sun/tools/javac/jvm/ClassReader$4.h>
+#include <com/sun/tools/javac/jvm/ClassReader$5.h>
+#include <com/sun/tools/javac/jvm/ClassReader$6.h>
+#include <com/sun/tools/javac/jvm/ClassReader$7.h>
+#include <com/sun/tools/javac/jvm/ClassReader$8.h>
+#include <com/sun/tools/javac/jvm/ClassReader$9.h>
+#include <com/sun/tools/javac/jvm/ClassReader$AnnotationCompleter.h>
+#include <com/sun/tools/javac/jvm/ClassReader$AnnotationDefaultCompleter.h>
+#include <com/sun/tools/javac/jvm/ClassReader$AnnotationDeproxy.h>
+#include <com/sun/tools/javac/jvm/ClassReader$ArrayAttributeProxy.h>
+#include <com/sun/tools/javac/jvm/ClassReader$AttributeKind.h>
+#include <com/sun/tools/javac/jvm/ClassReader$AttributeReader.h>
+#include <com/sun/tools/javac/jvm/ClassReader$ClassAttributeProxy.h>
+#include <com/sun/tools/javac/jvm/ClassReader$CompleterDeproxy.h>
+#include <com/sun/tools/javac/jvm/ClassReader$CompoundAnnotationProxy.h>
+#include <com/sun/tools/javac/jvm/ClassReader$EnumAttributeProxy.h>
+#include <com/sun/tools/javac/jvm/ClassReader$InterimProvidesDirective.h>
+#include <com/sun/tools/javac/jvm/ClassReader$InterimUsesDirective.h>
+#include <com/sun/tools/javac/jvm/ClassReader$ParameterAnnotations.h>
+#include <com/sun/tools/javac/jvm/ClassReader$ProxyType.h>
+#include <com/sun/tools/javac/jvm/ClassReader$ProxyVisitor.h>
+#include <com/sun/tools/javac/jvm/ClassReader$SourceFileObject.h>
+#include <com/sun/tools/javac/jvm/ClassReader$TypeAnnotationCompleter.h>
+#include <com/sun/tools/javac/jvm/ClassReader$TypeAnnotationProxy.h>
+#include <com/sun/tools/javac/jvm/ClassReader$UsesProvidesCompleter.h>
+#include <com/sun/tools/javac/jvm/ClassWriter.h>
+#include <com/sun/tools/javac/jvm/ClassWriter$1.h>
+#include <com/sun/tools/javac/jvm/ClassWriter$AttributeWriter.h>
+#include <com/sun/tools/javac/jvm/ClassWriter$PoolOverflow.h>
+#include <com/sun/tools/javac/jvm/ClassWriter$StackMapTableFrame.h>
+#include <com/sun/tools/javac/jvm/ClassWriter$StackMapTableFrame$AppendFrame.h>
+#include <com/sun/tools/javac/jvm/ClassWriter$StackMapTableFrame$ChopFrame.h>
+#include <com/sun/tools/javac/jvm/ClassWriter$StackMapTableFrame$FullFrame.h>
+#include <com/sun/tools/javac/jvm/ClassWriter$StackMapTableFrame$SameFrame.h>
+#include <com/sun/tools/javac/jvm/ClassWriter$StackMapTableFrame$SameLocals1StackItemFrame.h>
+#include <com/sun/tools/javac/jvm/ClassWriter$StringOverflow.h>
+#include <com/sun/tools/javac/jvm/Code.h>
+#include <com/sun/tools/javac/jvm/Code$1.h>
+#include <com/sun/tools/javac/jvm/Code$Chain.h>
+#include <com/sun/tools/javac/jvm/Code$LocalVar.h>
+#include <com/sun/tools/javac/jvm/Code$LocalVar$Range.h>
+#include <com/sun/tools/javac/jvm/Code$Mneumonics.h>
+#include <com/sun/tools/javac/jvm/Code$StackMapFormat.h>
+#include <com/sun/tools/javac/jvm/Code$StackMapFormat$1.h>
+#include <com/sun/tools/javac/jvm/Code$StackMapFormat$2.h>
+#include <com/sun/tools/javac/jvm/Code$StackMapFrame.h>
+#include <com/sun/tools/javac/jvm/Code$State.h>
+#include <com/sun/tools/javac/jvm/Gen.h>
+#include <com/sun/tools/javac/jvm/Gen$1.h>
+#include <com/sun/tools/javac/jvm/Gen$2.h>
+#include <com/sun/tools/javac/jvm/Gen$3.h>
+#include <com/sun/tools/javac/jvm/Gen$4.h>
+#include <com/sun/tools/javac/jvm/Gen$ClassReferenceVisitor.h>
+#include <com/sun/tools/javac/jvm/Gen$CodeSizeOverflow.h>
+#include <com/sun/tools/javac/jvm/Gen$GenContext.h>
+#include <com/sun/tools/javac/jvm/Gen$GenFinalizer.h>
+#include <com/sun/tools/javac/jvm/Items.h>
+#include <com/sun/tools/javac/jvm/Items$1.h>
+#include <com/sun/tools/javac/jvm/Items$AssignItem.h>
+#include <com/sun/tools/javac/jvm/Items$CondItem.h>
+#include <com/sun/tools/javac/jvm/Items$DynamicItem.h>
+#include <com/sun/tools/javac/jvm/Items$ImmediateItem.h>
+#include <com/sun/tools/javac/jvm/Items$IndexedItem.h>
+#include <com/sun/tools/javac/jvm/Items$Item.h>
+#include <com/sun/tools/javac/jvm/Items$LocalItem.h>
+#include <com/sun/tools/javac/jvm/Items$MemberItem.h>
+#include <com/sun/tools/javac/jvm/Items$SelfItem.h>
+#include <com/sun/tools/javac/jvm/Items$StackItem.h>
+#include <com/sun/tools/javac/jvm/Items$StaticItem.h>
+#include <com/sun/tools/javac/jvm/JNIWriter.h>
+#include <com/sun/tools/javac/jvm/JNIWriter$1.h>
+#include <com/sun/tools/javac/jvm/JNIWriter$EncoderType.h>
+#include <com/sun/tools/javac/jvm/JNIWriter$SimpleTypeVisitor.h>
+#include <com/sun/tools/javac/jvm/JNIWriter$TypeSignature.h>
+#include <com/sun/tools/javac/jvm/JNIWriter$TypeSignature$JvmTypeVisitor.h>
+#include <com/sun/tools/javac/jvm/JNIWriter$TypeSignature$SignatureException.h>
+#include <com/sun/tools/javac/jvm/ModuleNameReader.h>
+#include <com/sun/tools/javac/jvm/ModuleNameReader$BadClassFile.h>
+#include <com/sun/tools/javac/jvm/PoolConstant.h>
+#include <com/sun/tools/javac/jvm/PoolConstant$Dynamic.h>
+#include <com/sun/tools/javac/jvm/PoolConstant$Dynamic$BsmKey.h>
+#include <com/sun/tools/javac/jvm/PoolConstant$LoadableConstant.h>
+#include <com/sun/tools/javac/jvm/PoolConstant$LoadableConstant$BasicConstant.h>
+#include <com/sun/tools/javac/jvm/PoolConstant$NameAndType.h>
+#include <com/sun/tools/javac/jvm/PoolReader.h>
+#include <com/sun/tools/javac/jvm/PoolReader$ImmutablePoolHelper.h>
+#include <com/sun/tools/javac/jvm/PoolWriter.h>
+#include <com/sun/tools/javac/jvm/PoolWriter$1.h>
+#include <com/sun/tools/javac/jvm/PoolWriter$SharedSignatureGenerator.h>
+#include <com/sun/tools/javac/jvm/PoolWriter$WriteablePoolHelper.h>
+#include <com/sun/tools/javac/jvm/Profile.h>
+#include <com/sun/tools/javac/jvm/Profile$1.h>
+#include <com/sun/tools/javac/jvm/StringConcat.h>
+#include <com/sun/tools/javac/jvm/StringConcat$Indy.h>
+#include <com/sun/tools/javac/jvm/StringConcat$IndyConstants.h>
+#include <com/sun/tools/javac/jvm/StringConcat$IndyPlain.h>
+#include <com/sun/tools/javac/jvm/StringConcat$Inline.h>
+#include <com/sun/tools/javac/jvm/Target.h>
+#include <com/sun/tools/javac/jvm/UninitializedType.h>
+#include <com/sun/tools/javac/launcher/Main.h>
+#include <com/sun/tools/javac/launcher/Main$1.h>
+#include <com/sun/tools/javac/launcher/Main$Context.h>
+#include <com/sun/tools/javac/launcher/Main$Fault.h>
+#include <com/sun/tools/javac/launcher/Main$MainClassListener.h>
+#include <com/sun/tools/javac/launcher/Main$MemoryClassLoader.h>
+#include <com/sun/tools/javac/launcher/Main$MemoryClassLoader$1.h>
+#include <com/sun/tools/javac/launcher/Main$MemoryClassLoader$MemoryURLConnection.h>
+#include <com/sun/tools/javac/launcher/Main$MemoryClassLoader$MemoryURLStreamHandler.h>
+#include <com/sun/tools/javac/launcher/Main$MemoryFileManager.h>
+#include <com/sun/tools/javac/launcher/Main$MemoryFileManager$1.h>
+#include <com/sun/tools/javac/launcher/Main$MemoryFileManager$1$1.h>
+#include <com/sun/tools/javac/main/Arguments.h>
+#include <com/sun/tools/javac/main/Arguments$1.h>
+#include <com/sun/tools/javac/main/Arguments$2.h>
+#include <com/sun/tools/javac/main/Arguments$3.h>
+#include <com/sun/tools/javac/main/Arguments$ErrorMode.h>
+#include <com/sun/tools/javac/main/Arguments$ErrorReporter.h>
+#include <com/sun/tools/javac/main/CommandLine.h>
+#include <com/sun/tools/javac/main/CommandLine$Tokenizer.h>
+#include <com/sun/tools/javac/main/CommandLine$UnmatchedQuote.h>
+#include <com/sun/tools/javac/main/DelegatingJavaFileManager.h>
+#include <com/sun/tools/javac/main/DelegatingJavaFileManager$DelegatingSJFM.h>
+#include <com/sun/tools/javac/main/JavaCompiler.h>
+#include <com/sun/tools/javac/main/JavaCompiler$1.h>
+#include <com/sun/tools/javac/main/JavaCompiler$1MethodBodyRemover.h>
+#include <com/sun/tools/javac/main/JavaCompiler$1ScanNested.h>
+#include <com/sun/tools/javac/main/JavaCompiler$2.h>
+#include <com/sun/tools/javac/main/JavaCompiler$CompilePolicy.h>
+#include <com/sun/tools/javac/main/JavaCompiler$ImplicitSourcePolicy.h>
+#include <com/sun/tools/javac/main/JavacToolProvider.h>
+#include <com/sun/tools/javac/main/Main.h>
+#include <com/sun/tools/javac/main/Main$1.h>
+#include <com/sun/tools/javac/main/Main$Result.h>
+#include <com/sun/tools/javac/main/Option.h>
+#include <com/sun/tools/javac/main/Option$1.h>
+#include <com/sun/tools/javac/main/Option$10.h>
+#include <com/sun/tools/javac/main/Option$11.h>
+#include <com/sun/tools/javac/main/Option$12.h>
+#include <com/sun/tools/javac/main/Option$13.h>
+#include <com/sun/tools/javac/main/Option$14.h>
+#include <com/sun/tools/javac/main/Option$15.h>
+#include <com/sun/tools/javac/main/Option$16.h>
+#include <com/sun/tools/javac/main/Option$17.h>
+#include <com/sun/tools/javac/main/Option$18.h>
+#include <com/sun/tools/javac/main/Option$19.h>
+#include <com/sun/tools/javac/main/Option$2.h>
+#include <com/sun/tools/javac/main/Option$20.h>
+#include <com/sun/tools/javac/main/Option$21.h>
+#include <com/sun/tools/javac/main/Option$22.h>
+#include <com/sun/tools/javac/main/Option$23.h>
+#include <com/sun/tools/javac/main/Option$24.h>
+#include <com/sun/tools/javac/main/Option$25.h>
+#include <com/sun/tools/javac/main/Option$26.h>
+#include <com/sun/tools/javac/main/Option$27.h>
+#include <com/sun/tools/javac/main/Option$28.h>
+#include <com/sun/tools/javac/main/Option$29.h>
+#include <com/sun/tools/javac/main/Option$3.h>
+#include <com/sun/tools/javac/main/Option$30.h>
+#include <com/sun/tools/javac/main/Option$31.h>
+#include <com/sun/tools/javac/main/Option$32.h>
+#include <com/sun/tools/javac/main/Option$33.h>
+#include <com/sun/tools/javac/main/Option$34.h>
+#include <com/sun/tools/javac/main/Option$35.h>
+#include <com/sun/tools/javac/main/Option$36.h>
+#include <com/sun/tools/javac/main/Option$37.h>
+#include <com/sun/tools/javac/main/Option$38.h>
+#include <com/sun/tools/javac/main/Option$39.h>
+#include <com/sun/tools/javac/main/Option$4.h>
+#include <com/sun/tools/javac/main/Option$40.h>
+#include <com/sun/tools/javac/main/Option$41.h>
+#include <com/sun/tools/javac/main/Option$5.h>
+#include <com/sun/tools/javac/main/Option$6.h>
+#include <com/sun/tools/javac/main/Option$7.h>
+#include <com/sun/tools/javac/main/Option$8.h>
+#include <com/sun/tools/javac/main/Option$9.h>
+#include <com/sun/tools/javac/main/Option$ArgKind.h>
+#include <com/sun/tools/javac/main/Option$ChoiceKind.h>
+#include <com/sun/tools/javac/main/Option$HiddenGroup.h>
+#include <com/sun/tools/javac/main/Option$InvalidValueException.h>
+#include <com/sun/tools/javac/main/Option$OptionGroup.h>
+#include <com/sun/tools/javac/main/Option$OptionKind.h>
+#include <com/sun/tools/javac/main/Option$PkgInfo.h>
+#include <com/sun/tools/javac/main/OptionHelper.h>
+#include <com/sun/tools/javac/main/OptionHelper$GrumpyHelper.h>
+#include <com/sun/tools/javac/model/AnnotationProxyMaker.h>
+#include <com/sun/tools/javac/model/AnnotationProxyMaker$MirroredTypeExceptionProxy.h>
+#include <com/sun/tools/javac/model/AnnotationProxyMaker$MirroredTypesExceptionProxy.h>
+#include <com/sun/tools/javac/model/AnnotationProxyMaker$ValueVisitor.h>
+#include <com/sun/tools/javac/model/AnnotationProxyMaker$ValueVisitor$1AnnotationTypeMismatchExceptionProxy.h>
+#include <com/sun/tools/javac/model/FilteredMemberList.h>
+#include <com/sun/tools/javac/model/JavacElements.h>
+#include <com/sun/tools/javac/model/JavacElements$1.h>
+#include <com/sun/tools/javac/model/JavacElements$1TS.h>
+#include <com/sun/tools/javac/model/JavacElements$1Vis.h>
+#include <com/sun/tools/javac/model/JavacElements$2Vis.h>
+#include <com/sun/tools/javac/model/JavacTypes.h>
+#include <com/sun/tools/javac/model/JavacTypes$1.h>
+#include <com/sun/tools/javac/parser/DocCommentParser.h>
+#include <com/sun/tools/javac/parser/DocCommentParser$1.h>
+#include <com/sun/tools/javac/parser/DocCommentParser$10.h>
+#include <com/sun/tools/javac/parser/DocCommentParser$11.h>
+#include <com/sun/tools/javac/parser/DocCommentParser$12.h>
+#include <com/sun/tools/javac/parser/DocCommentParser$13.h>
+#include <com/sun/tools/javac/parser/DocCommentParser$14.h>
+#include <com/sun/tools/javac/parser/DocCommentParser$15.h>
+#include <com/sun/tools/javac/parser/DocCommentParser$16.h>
+#include <com/sun/tools/javac/parser/DocCommentParser$17.h>
+#include <com/sun/tools/javac/parser/DocCommentParser$18.h>
+#include <com/sun/tools/javac/parser/DocCommentParser$19.h>
+#include <com/sun/tools/javac/parser/DocCommentParser$2.h>
+#include <com/sun/tools/javac/parser/DocCommentParser$20.h>
+#include <com/sun/tools/javac/parser/DocCommentParser$21.h>
+#include <com/sun/tools/javac/parser/DocCommentParser$22.h>
+#include <com/sun/tools/javac/parser/DocCommentParser$23.h>
+#include <com/sun/tools/javac/parser/DocCommentParser$24.h>
+#include <com/sun/tools/javac/parser/DocCommentParser$25.h>
+#include <com/sun/tools/javac/parser/DocCommentParser$26.h>
+#include <com/sun/tools/javac/parser/DocCommentParser$3.h>
+#include <com/sun/tools/javac/parser/DocCommentParser$4.h>
+#include <com/sun/tools/javac/parser/DocCommentParser$5.h>
+#include <com/sun/tools/javac/parser/DocCommentParser$6.h>
+#include <com/sun/tools/javac/parser/DocCommentParser$7.h>
+#include <com/sun/tools/javac/parser/DocCommentParser$8.h>
+#include <com/sun/tools/javac/parser/DocCommentParser$9.h>
+#include <com/sun/tools/javac/parser/DocCommentParser$ParseException.h>
+#include <com/sun/tools/javac/parser/DocCommentParser$Phase.h>
+#include <com/sun/tools/javac/parser/DocCommentParser$TagParser.h>
+#include <com/sun/tools/javac/parser/DocCommentParser$TagParser$Kind.h>
+#include <com/sun/tools/javac/parser/DocCommentParser$WhitespaceRetentionPolicy.h>
+#include <com/sun/tools/javac/parser/JavaTokenizer.h>
+#include <com/sun/tools/javac/parser/JavaTokenizer$BasicComment.h>
+#include <com/sun/tools/javac/parser/JavacParser.h>
+#include <com/sun/tools/javac/parser/JavacParser$1.h>
+#include <com/sun/tools/javac/parser/JavacParser$AbstractEndPosTable.h>
+#include <com/sun/tools/javac/parser/JavacParser$BasicErrorRecoveryAction.h>
+#include <com/sun/tools/javac/parser/JavacParser$BasicErrorRecoveryAction$1.h>
+#include <com/sun/tools/javac/parser/JavacParser$BasicErrorRecoveryAction$2.h>
+#include <com/sun/tools/javac/parser/JavacParser$EmptyEndPosTable.h>
+#include <com/sun/tools/javac/parser/JavacParser$EnumeratorEstimate.h>
+#include <com/sun/tools/javac/parser/JavacParser$ErrorRecoveryAction.h>
+#include <com/sun/tools/javac/parser/JavacParser$LambdaClassifier.h>
+#include <com/sun/tools/javac/parser/JavacParser$LambdaParameterKind.h>
+#include <com/sun/tools/javac/parser/JavacParser$ParensResult.h>
+#include <com/sun/tools/javac/parser/JavacParser$PatternResult.h>
+#include <com/sun/tools/javac/parser/JavacParser$SimpleEndPosTable.h>
+#include <com/sun/tools/javac/parser/JavadocTokenizer.h>
+#include <com/sun/tools/javac/parser/JavadocTokenizer$JavadocComment.h>
+#include <com/sun/tools/javac/parser/JavadocTokenizer$OffsetMap.h>
+#include <com/sun/tools/javac/parser/LazyDocCommentTable.h>
+#include <com/sun/tools/javac/parser/LazyDocCommentTable$Entry.h>
+#include <com/sun/tools/javac/parser/Lexer.h>
+#include <com/sun/tools/javac/parser/Parser.h>
+#include <com/sun/tools/javac/parser/ParserFactory.h>
+#include <com/sun/tools/javac/parser/ReferenceParser.h>
+#include <com/sun/tools/javac/parser/ReferenceParser$ParseException.h>
+#include <com/sun/tools/javac/parser/ReferenceParser$Reference.h>
+#include <com/sun/tools/javac/parser/Scanner.h>
+#include <com/sun/tools/javac/parser/ScannerFactory.h>
+#include <com/sun/tools/javac/parser/TextBlockSupport.h>
+#include <com/sun/tools/javac/parser/TextBlockSupport$WhitespaceChecks.h>
+#include <com/sun/tools/javac/parser/Tokens.h>
+#include <com/sun/tools/javac/parser/Tokens$1.h>
+#include <com/sun/tools/javac/parser/Tokens$Comment.h>
+#include <com/sun/tools/javac/parser/Tokens$Comment$CommentStyle.h>
+#include <com/sun/tools/javac/parser/Tokens$NamedToken.h>
+#include <com/sun/tools/javac/parser/Tokens$NumericToken.h>
+#include <com/sun/tools/javac/parser/Tokens$StringToken.h>
+#include <com/sun/tools/javac/parser/Tokens$Token.h>
+#include <com/sun/tools/javac/parser/Tokens$Token$Tag.h>
+#include <com/sun/tools/javac/parser/Tokens$TokenKind.h>
+#include <com/sun/tools/javac/parser/UnicodeReader.h>
+#include <com/sun/tools/javac/parser/UnicodeReader$1.h>
+#include <com/sun/tools/javac/parser/UnicodeReader$PositionTrackingReader.h>
+#include <com/sun/tools/javac/parser/UnicodeReader$UnicodeEscapeResult.h>
+#include <com/sun/tools/javac/platform/JDKPlatformProvider.h>
+#include <com/sun/tools/javac/platform/JDKPlatformProvider$PlatformDescriptionImpl.h>
+#include <com/sun/tools/javac/platform/JDKPlatformProvider$PlatformDescriptionImpl$1.h>
+#include <com/sun/tools/javac/platform/JDKPlatformProvider$PlatformDescriptionImpl$1$1.h>
+#include <com/sun/tools/javac/platform/JDKPlatformProvider$PlatformDescriptionImpl$SigJavaFileObject.h>
+#include <com/sun/tools/javac/platform/PlatformDescription.h>
+#include <com/sun/tools/javac/platform/PlatformDescription$PluginInfo.h>
+#include <com/sun/tools/javac/platform/PlatformProvider.h>
+#include <com/sun/tools/javac/platform/PlatformProvider$PlatformNotSupported.h>
+#include <com/sun/tools/javac/platform/PlatformUtils.h>
+#include <com/sun/tools/javac/processing/AnnotationProcessingError.h>
+#include <com/sun/tools/javac/processing/JavacFiler.h>
+#include <com/sun/tools/javac/processing/JavacFiler$1.h>
+#include <com/sun/tools/javac/processing/JavacFiler$FilerInputFileObject.h>
+#include <com/sun/tools/javac/processing/JavacFiler$FilerInputJavaFileObject.h>
+#include <com/sun/tools/javac/processing/JavacFiler$FilerOutputFileObject.h>
+#include <com/sun/tools/javac/processing/JavacFiler$FilerOutputJavaFileObject.h>
+#include <com/sun/tools/javac/processing/JavacFiler$FilerOutputStream.h>
+#include <com/sun/tools/javac/processing/JavacFiler$FilerWriter.h>
+#include <com/sun/tools/javac/processing/JavacFiler$Tuple3.h>
+#include <com/sun/tools/javac/processing/JavacMessager.h>
+#include <com/sun/tools/javac/processing/JavacMessager$1.h>
+#include <com/sun/tools/javac/processing/JavacProcessingEnvironment.h>
+#include <com/sun/tools/javac/processing/JavacProcessingEnvironment$1.h>
+#include <com/sun/tools/javac/processing/JavacProcessingEnvironment$2.h>
+#include <com/sun/tools/javac/processing/JavacProcessingEnvironment$ComputeAnnotationSet.h>
+#include <com/sun/tools/javac/processing/JavacProcessingEnvironment$DiscoveredProcessors.h>
+#include <com/sun/tools/javac/processing/JavacProcessingEnvironment$DiscoveredProcessors$ProcessorStateIterator.h>
+#include <com/sun/tools/javac/processing/JavacProcessingEnvironment$ImplicitCompleter.h>
+#include <com/sun/tools/javac/processing/JavacProcessingEnvironment$NameProcessIterator.h>
+#include <com/sun/tools/javac/processing/JavacProcessingEnvironment$NameServiceIterator.h>
+#include <com/sun/tools/javac/processing/JavacProcessingEnvironment$ProcessorState.h>
+#include <com/sun/tools/javac/processing/JavacProcessingEnvironment$Round.h>
+#include <com/sun/tools/javac/processing/JavacProcessingEnvironment$ServiceIterator.h>
+#include <com/sun/tools/javac/processing/JavacRoundEnvironment.h>
+#include <com/sun/tools/javac/processing/JavacRoundEnvironment$AnnotationSetMultiScanner.h>
+#include <com/sun/tools/javac/processing/JavacRoundEnvironment$AnnotationSetScanner.h>
+#include <com/sun/tools/javac/processing/PrintingProcessor.h>
+#include <com/sun/tools/javac/processing/PrintingProcessor$1.h>
+#include <com/sun/tools/javac/processing/PrintingProcessor$PrintingElementVisitor.h>
+#include <com/sun/tools/javac/processing/PrintingProcessor$PrintingElementVisitor$1.h>
+#include <com/sun/tools/javac/processing/PrintingProcessor$PrintingElementVisitor$2.h>
+#include <com/sun/tools/javac/processing/PrintingProcessor$PrintingElementVisitor$PrintDirective.h>
+#include <com/sun/tools/javac/processing/ServiceProxy.h>
+#include <com/sun/tools/javac/processing/ServiceProxy$ServiceConfigurationError.h>
+#include <com/sun/tools/javac/resources/CompilerProperties.h>
+#include <com/sun/tools/javac/resources/CompilerProperties$Errors.h>
+#include <com/sun/tools/javac/resources/CompilerProperties$Fragments.h>
+#include <com/sun/tools/javac/resources/CompilerProperties$Notes.h>
+#include <com/sun/tools/javac/resources/CompilerProperties$Warnings.h>
+#include <com/sun/tools/javac/resources/LauncherProperties.h>
+#include <com/sun/tools/javac/resources/LauncherProperties$Errors.h>
+#include <com/sun/tools/javac/resources/compiler.h>
+#include <com/sun/tools/javac/resources/compiler_ja.h>
+#include <com/sun/tools/javac/resources/compiler_zh_CN.h>
+#include <com/sun/tools/javac/resources/ct.h>
+#include <com/sun/tools/javac/resources/javac.h>
+#include <com/sun/tools/javac/resources/javac_ja.h>
+#include <com/sun/tools/javac/resources/javac_zh_CN.h>
+#include <com/sun/tools/javac/resources/launcher.h>
+#include <com/sun/tools/javac/resources/launcher_ja.h>
+#include <com/sun/tools/javac/resources/launcher_zh_CN.h>
+#include <com/sun/tools/javac/resources/legacy.h>
+#include <com/sun/tools/javac/resources/version.h>
+#include <com/sun/tools/javac/tree/DCTree.h>
+#include <com/sun/tools/javac/tree/DCTree$DCAttribute.h>
+#include <com/sun/tools/javac/tree/DCTree$DCAuthor.h>
+#include <com/sun/tools/javac/tree/DCTree$DCBlockTag.h>
+#include <com/sun/tools/javac/tree/DCTree$DCComment.h>
+#include <com/sun/tools/javac/tree/DCTree$DCDeprecated.h>
+#include <com/sun/tools/javac/tree/DCTree$DCDocComment.h>
+#include <com/sun/tools/javac/tree/DCTree$DCDocRoot.h>
+#include <com/sun/tools/javac/tree/DCTree$DCDocType.h>
+#include <com/sun/tools/javac/tree/DCTree$DCEndElement.h>
+#include <com/sun/tools/javac/tree/DCTree$DCEndPosTree.h>
+#include <com/sun/tools/javac/tree/DCTree$DCEntity.h>
+#include <com/sun/tools/javac/tree/DCTree$DCErroneous.h>
+#include <com/sun/tools/javac/tree/DCTree$DCHidden.h>
+#include <com/sun/tools/javac/tree/DCTree$DCIdentifier.h>
+#include <com/sun/tools/javac/tree/DCTree$DCIndex.h>
+#include <com/sun/tools/javac/tree/DCTree$DCInheritDoc.h>
+#include <com/sun/tools/javac/tree/DCTree$DCInlineTag.h>
+#include <com/sun/tools/javac/tree/DCTree$DCLink.h>
+#include <com/sun/tools/javac/tree/DCTree$DCLiteral.h>
+#include <com/sun/tools/javac/tree/DCTree$DCParam.h>
+#include <com/sun/tools/javac/tree/DCTree$DCProvides.h>
+#include <com/sun/tools/javac/tree/DCTree$DCReference.h>
+#include <com/sun/tools/javac/tree/DCTree$DCReturn.h>
+#include <com/sun/tools/javac/tree/DCTree$DCSee.h>
+#include <com/sun/tools/javac/tree/DCTree$DCSerial.h>
+#include <com/sun/tools/javac/tree/DCTree$DCSerialData.h>
+#include <com/sun/tools/javac/tree/DCTree$DCSerialField.h>
+#include <com/sun/tools/javac/tree/DCTree$DCSince.h>
+#include <com/sun/tools/javac/tree/DCTree$DCStartElement.h>
+#include <com/sun/tools/javac/tree/DCTree$DCSummary.h>
+#include <com/sun/tools/javac/tree/DCTree$DCSystemProperty.h>
+#include <com/sun/tools/javac/tree/DCTree$DCText.h>
+#include <com/sun/tools/javac/tree/DCTree$DCThrows.h>
+#include <com/sun/tools/javac/tree/DCTree$DCUnknownBlockTag.h>
+#include <com/sun/tools/javac/tree/DCTree$DCUnknownInlineTag.h>
+#include <com/sun/tools/javac/tree/DCTree$DCUses.h>
+#include <com/sun/tools/javac/tree/DCTree$DCValue.h>
+#include <com/sun/tools/javac/tree/DCTree$DCVersion.h>
+#include <com/sun/tools/javac/tree/DocCommentTable.h>
+#include <com/sun/tools/javac/tree/DocPretty.h>
+#include <com/sun/tools/javac/tree/DocPretty$1.h>
+#include <com/sun/tools/javac/tree/DocPretty$UncheckedIOException.h>
+#include <com/sun/tools/javac/tree/DocTreeMaker.h>
+#include <com/sun/tools/javac/tree/DocTreeMaker$1.h>
+#include <com/sun/tools/javac/tree/DocTreeMaker$2.h>
+#include <com/sun/tools/javac/tree/EndPosTable.h>
+#include <com/sun/tools/javac/tree/JCTree.h>
+#include <com/sun/tools/javac/tree/JCTree$1.h>
+#include <com/sun/tools/javac/tree/JCTree$Factory.h>
+#include <com/sun/tools/javac/tree/JCTree$JCAnnotatedType.h>
+#include <com/sun/tools/javac/tree/JCTree$JCAnnotation.h>
+#include <com/sun/tools/javac/tree/JCTree$JCArrayAccess.h>
+#include <com/sun/tools/javac/tree/JCTree$JCArrayTypeTree.h>
+#include <com/sun/tools/javac/tree/JCTree$JCAssert.h>
+#include <com/sun/tools/javac/tree/JCTree$JCAssign.h>
+#include <com/sun/tools/javac/tree/JCTree$JCAssignOp.h>
+#include <com/sun/tools/javac/tree/JCTree$JCBinary.h>
+#include <com/sun/tools/javac/tree/JCTree$JCBindingPattern.h>
+#include <com/sun/tools/javac/tree/JCTree$JCBlock.h>
+#include <com/sun/tools/javac/tree/JCTree$JCBreak.h>
+#include <com/sun/tools/javac/tree/JCTree$JCCase.h>
+#include <com/sun/tools/javac/tree/JCTree$JCCaseLabel.h>
+#include <com/sun/tools/javac/tree/JCTree$JCCatch.h>
+#include <com/sun/tools/javac/tree/JCTree$JCClassDecl.h>
+#include <com/sun/tools/javac/tree/JCTree$JCCompilationUnit.h>
+#include <com/sun/tools/javac/tree/JCTree$JCConditional.h>
+#include <com/sun/tools/javac/tree/JCTree$JCContinue.h>
+#include <com/sun/tools/javac/tree/JCTree$JCDefaultCaseLabel.h>
+#include <com/sun/tools/javac/tree/JCTree$JCDirective.h>
+#include <com/sun/tools/javac/tree/JCTree$JCDoWhileLoop.h>
+#include <com/sun/tools/javac/tree/JCTree$JCEnhancedForLoop.h>
+#include <com/sun/tools/javac/tree/JCTree$JCErroneous.h>
+#include <com/sun/tools/javac/tree/JCTree$JCExports.h>
+#include <com/sun/tools/javac/tree/JCTree$JCExpression.h>
+#include <com/sun/tools/javac/tree/JCTree$JCExpressionStatement.h>
+#include <com/sun/tools/javac/tree/JCTree$JCFieldAccess.h>
+#include <com/sun/tools/javac/tree/JCTree$JCForLoop.h>
+#include <com/sun/tools/javac/tree/JCTree$JCFunctionalExpression.h>
+#include <com/sun/tools/javac/tree/JCTree$JCGuardPattern.h>
+#include <com/sun/tools/javac/tree/JCTree$JCIdent.h>
+#include <com/sun/tools/javac/tree/JCTree$JCIf.h>
+#include <com/sun/tools/javac/tree/JCTree$JCImport.h>
+#include <com/sun/tools/javac/tree/JCTree$JCInstanceOf.h>
+#include <com/sun/tools/javac/tree/JCTree$JCLabeledStatement.h>
+#include <com/sun/tools/javac/tree/JCTree$JCLambda.h>
+#include <com/sun/tools/javac/tree/JCTree$JCLambda$ParameterKind.h>
+#include <com/sun/tools/javac/tree/JCTree$JCLiteral.h>
+#include <com/sun/tools/javac/tree/JCTree$JCMemberReference.h>
+#include <com/sun/tools/javac/tree/JCTree$JCMemberReference$OverloadKind.h>
+#include <com/sun/tools/javac/tree/JCTree$JCMemberReference$ReferenceKind.h>
+#include <com/sun/tools/javac/tree/JCTree$JCMethodDecl.h>
+#include <com/sun/tools/javac/tree/JCTree$JCMethodInvocation.h>
+#include <com/sun/tools/javac/tree/JCTree$JCModifiers.h>
+#include <com/sun/tools/javac/tree/JCTree$JCModuleDecl.h>
+#include <com/sun/tools/javac/tree/JCTree$JCNewArray.h>
+#include <com/sun/tools/javac/tree/JCTree$JCNewClass.h>
+#include <com/sun/tools/javac/tree/JCTree$JCOpens.h>
+#include <com/sun/tools/javac/tree/JCTree$JCOperatorExpression.h>
+#include <com/sun/tools/javac/tree/JCTree$JCOperatorExpression$OperandPos.h>
+#include <com/sun/tools/javac/tree/JCTree$JCPackageDecl.h>
+#include <com/sun/tools/javac/tree/JCTree$JCParens.h>
+#include <com/sun/tools/javac/tree/JCTree$JCParenthesizedPattern.h>
+#include <com/sun/tools/javac/tree/JCTree$JCPattern.h>
+#include <com/sun/tools/javac/tree/JCTree$JCPolyExpression.h>
+#include <com/sun/tools/javac/tree/JCTree$JCPolyExpression$PolyKind.h>
+#include <com/sun/tools/javac/tree/JCTree$JCPrimitiveTypeTree.h>
+#include <com/sun/tools/javac/tree/JCTree$JCProvides.h>
+#include <com/sun/tools/javac/tree/JCTree$JCRequires.h>
+#include <com/sun/tools/javac/tree/JCTree$JCReturn.h>
+#include <com/sun/tools/javac/tree/JCTree$JCSkip.h>
+#include <com/sun/tools/javac/tree/JCTree$JCStatement.h>
+#include <com/sun/tools/javac/tree/JCTree$JCSwitch.h>
+#include <com/sun/tools/javac/tree/JCTree$JCSwitchExpression.h>
+#include <com/sun/tools/javac/tree/JCTree$JCSynchronized.h>
+#include <com/sun/tools/javac/tree/JCTree$JCThrow.h>
+#include <com/sun/tools/javac/tree/JCTree$JCTry.h>
+#include <com/sun/tools/javac/tree/JCTree$JCTypeApply.h>
+#include <com/sun/tools/javac/tree/JCTree$JCTypeCast.h>
+#include <com/sun/tools/javac/tree/JCTree$JCTypeIntersection.h>
+#include <com/sun/tools/javac/tree/JCTree$JCTypeParameter.h>
+#include <com/sun/tools/javac/tree/JCTree$JCTypeUnion.h>
+#include <com/sun/tools/javac/tree/JCTree$JCUnary.h>
+#include <com/sun/tools/javac/tree/JCTree$JCUses.h>
+#include <com/sun/tools/javac/tree/JCTree$JCVariableDecl.h>
+#include <com/sun/tools/javac/tree/JCTree$JCWhileLoop.h>
+#include <com/sun/tools/javac/tree/JCTree$JCWildcard.h>
+#include <com/sun/tools/javac/tree/JCTree$JCYield.h>
+#include <com/sun/tools/javac/tree/JCTree$LetExpr.h>
+#include <com/sun/tools/javac/tree/JCTree$Tag.h>
+#include <com/sun/tools/javac/tree/JCTree$TypeBoundKind.h>
+#include <com/sun/tools/javac/tree/JCTree$Visitor.h>
+#include <com/sun/tools/javac/tree/Pretty.h>
+#include <com/sun/tools/javac/tree/Pretty$1.h>
+#include <com/sun/tools/javac/tree/Pretty$1UsedVisitor.h>
+#include <com/sun/tools/javac/tree/Pretty$UncheckedIOException.h>
+#include <com/sun/tools/javac/tree/TreeCopier.h>
+#include <com/sun/tools/javac/tree/TreeCopier$1.h>
+#include <com/sun/tools/javac/tree/TreeInfo.h>
+#include <com/sun/tools/javac/tree/TreeInfo$1.h>
+#include <com/sun/tools/javac/tree/TreeInfo$1DiagScanner.h>
+#include <com/sun/tools/javac/tree/TreeInfo$1PathFinder.h>
+#include <com/sun/tools/javac/tree/TreeInfo$1Result.h>
+#include <com/sun/tools/javac/tree/TreeInfo$2.h>
+#include <com/sun/tools/javac/tree/TreeInfo$DeclScanner.h>
+#include <com/sun/tools/javac/tree/TreeInfo$PatternPrimaryType.h>
+#include <com/sun/tools/javac/tree/TreeInfo$PosKind.h>
+#include <com/sun/tools/javac/tree/TreeInfo$TypeAnnotationFinder.h>
+#include <com/sun/tools/javac/tree/TreeMaker.h>
+#include <com/sun/tools/javac/tree/TreeMaker$1.h>
+#include <com/sun/tools/javac/tree/TreeMaker$2.h>
+#include <com/sun/tools/javac/tree/TreeMaker$AnnotationBuilder.h>
+#include <com/sun/tools/javac/tree/TreeScanner.h>
+#include <com/sun/tools/javac/tree/TreeTranslator.h>
+#include <com/sun/tools/javac/util/Abort.h>
+#include <com/sun/tools/javac/util/AbstractDiagnosticFormatter.h>
+#include <com/sun/tools/javac/util/AbstractDiagnosticFormatter$1.h>
+#include <com/sun/tools/javac/util/AbstractDiagnosticFormatter$2.h>
+#include <com/sun/tools/javac/util/AbstractDiagnosticFormatter$SimpleConfiguration.h>
+#include <com/sun/tools/javac/util/AbstractLog.h>
+#include <com/sun/tools/javac/util/ArrayUtils.h>
+#include <com/sun/tools/javac/util/Assert.h>
+#include <com/sun/tools/javac/util/BasicDiagnosticFormatter.h>
+#include <com/sun/tools/javac/util/BasicDiagnosticFormatter$1.h>
+#include <com/sun/tools/javac/util/BasicDiagnosticFormatter$BasicConfiguration.h>
+#include <com/sun/tools/javac/util/BasicDiagnosticFormatter$BasicConfiguration$BasicFormatKind.h>
+#include <com/sun/tools/javac/util/BasicDiagnosticFormatter$BasicConfiguration$SourcePosition.h>
+#include <com/sun/tools/javac/util/Bits.h>
+#include <com/sun/tools/javac/util/Bits$1.h>
+#include <com/sun/tools/javac/util/Bits$BitsState.h>
+#include <com/sun/tools/javac/util/ByteBuffer.h>
+#include <com/sun/tools/javac/util/ClientCodeException.h>
+#include <com/sun/tools/javac/util/Constants.h>
+#include <com/sun/tools/javac/util/Constants$1.h>
+#include <com/sun/tools/javac/util/Context.h>
+#include <com/sun/tools/javac/util/Context$Factory.h>
+#include <com/sun/tools/javac/util/Context$Key.h>
+#include <com/sun/tools/javac/util/Convert.h>
+#include <com/sun/tools/javac/util/DefinedBy.h>
+#include <com/sun/tools/javac/util/DefinedBy$Api.h>
+#include <com/sun/tools/javac/util/Dependencies.h>
+#include <com/sun/tools/javac/util/Dependencies$CompletionCause.h>
+#include <com/sun/tools/javac/util/Dependencies$DummyDependencies.h>
+#include <com/sun/tools/javac/util/Dependencies$GraphDependencies.h>
+#include <com/sun/tools/javac/util/Dependencies$GraphDependencies$CompletionNode.h>
+#include <com/sun/tools/javac/util/Dependencies$GraphDependencies$CompletionNode$Kind.h>
+#include <com/sun/tools/javac/util/Dependencies$GraphDependencies$DependenciesMode.h>
+#include <com/sun/tools/javac/util/Dependencies$GraphDependencies$FilterVisitor.h>
+#include <com/sun/tools/javac/util/Dependencies$GraphDependencies$Node.h>
+#include <com/sun/tools/javac/util/Dependencies$GraphDependencies$PruneVisitor.h>
+#include <com/sun/tools/javac/util/DiagnosticSource.h>
+#include <com/sun/tools/javac/util/DiagnosticSource$1.h>
+#include <com/sun/tools/javac/util/FatalError.h>
+#include <com/sun/tools/javac/util/ForwardingDiagnosticFormatter.h>
+#include <com/sun/tools/javac/util/ForwardingDiagnosticFormatter$ForwardingConfiguration.h>
+#include <com/sun/tools/javac/util/GraphUtils.h>
+#include <com/sun/tools/javac/util/GraphUtils$AbstractNode.h>
+#include <com/sun/tools/javac/util/GraphUtils$DependencyKind.h>
+#include <com/sun/tools/javac/util/GraphUtils$DotVisitor.h>
+#include <com/sun/tools/javac/util/GraphUtils$DottableNode.h>
+#include <com/sun/tools/javac/util/GraphUtils$Node.h>
+#include <com/sun/tools/javac/util/GraphUtils$NodeVisitor.h>
+#include <com/sun/tools/javac/util/GraphUtils$Tarjan.h>
+#include <com/sun/tools/javac/util/GraphUtils$TarjanNode.h>
+#include <com/sun/tools/javac/util/IntHashTable.h>
+#include <com/sun/tools/javac/util/Iterators.h>
+#include <com/sun/tools/javac/util/Iterators$1.h>
+#include <com/sun/tools/javac/util/Iterators$2.h>
+#include <com/sun/tools/javac/util/Iterators$CompoundIterator.h>
+#include <com/sun/tools/javac/util/JCDiagnostic.h>
+#include <com/sun/tools/javac/util/JCDiagnostic$1.h>
+#include <com/sun/tools/javac/util/JCDiagnostic$DiagnosticFlag.h>
+#include <com/sun/tools/javac/util/JCDiagnostic$DiagnosticInfo.h>
+#include <com/sun/tools/javac/util/JCDiagnostic$DiagnosticPosition.h>
+#include <com/sun/tools/javac/util/JCDiagnostic$DiagnosticType.h>
+#include <com/sun/tools/javac/util/JCDiagnostic$Error.h>
+#include <com/sun/tools/javac/util/JCDiagnostic$Factory.h>
+#include <com/sun/tools/javac/util/JCDiagnostic$Fragment.h>
+#include <com/sun/tools/javac/util/JCDiagnostic$MultilineDiagnostic.h>
+#include <com/sun/tools/javac/util/JCDiagnostic$Note.h>
+#include <com/sun/tools/javac/util/JCDiagnostic$SimpleDiagnosticPosition.h>
+#include <com/sun/tools/javac/util/JCDiagnostic$SourcePosition.h>
+#include <com/sun/tools/javac/util/JCDiagnostic$Warning.h>
+#include <com/sun/tools/javac/util/JavacMessages.h>
+#include <com/sun/tools/javac/util/JavacMessages$ResourceBundleHelper.h>
+#include <com/sun/tools/javac/util/LayoutCharacters.h>
+#include <com/sun/tools/javac/util/List.h>
+#include <com/sun/tools/javac/util/List$1.h>
+#include <com/sun/tools/javac/util/List$2.h>
+#include <com/sun/tools/javac/util/List$3.h>
+#include <com/sun/tools/javac/util/ListBuffer.h>
+#include <com/sun/tools/javac/util/ListBuffer$1.h>
+#include <com/sun/tools/javac/util/Log.h>
+#include <com/sun/tools/javac/util/Log$1.h>
+#include <com/sun/tools/javac/util/Log$DefaultDiagnosticHandler.h>
+#include <com/sun/tools/javac/util/Log$DeferredDiagnosticHandler.h>
+#include <com/sun/tools/javac/util/Log$DiagnosticHandler.h>
+#include <com/sun/tools/javac/util/Log$DiscardDiagnosticHandler.h>
+#include <com/sun/tools/javac/util/Log$PrefixKind.h>
+#include <com/sun/tools/javac/util/Log$WriterKind.h>
+#include <com/sun/tools/javac/util/MandatoryWarningHandler.h>
+#include <com/sun/tools/javac/util/MandatoryWarningHandler$DeferredDiagnosticKind.h>
+#include <com/sun/tools/javac/util/MatchingUtils.h>
+#include <com/sun/tools/javac/util/ModuleHelper.h>
+#include <com/sun/tools/javac/util/Name.h>
+#include <com/sun/tools/javac/util/Name$NameMapper.h>
+#include <com/sun/tools/javac/util/Name$Table.h>
+#include <com/sun/tools/javac/util/Names.h>
+#include <com/sun/tools/javac/util/Options.h>
+#include <com/sun/tools/javac/util/Pair.h>
+#include <com/sun/tools/javac/util/Position.h>
+#include <com/sun/tools/javac/util/Position$LineMap.h>
+#include <com/sun/tools/javac/util/Position$LineMapImpl.h>
+#include <com/sun/tools/javac/util/Position$LineTabMapImpl.h>
+#include <com/sun/tools/javac/util/PropagatedException.h>
+#include <com/sun/tools/javac/util/RawDiagnosticFormatter.h>
+#include <com/sun/tools/javac/util/RawDiagnosticFormatter$RawDiagnosticPosHelper.h>
+#include <com/sun/tools/javac/util/RichDiagnosticFormatter.h>
+#include <com/sun/tools/javac/util/RichDiagnosticFormatter$1.h>
+#include <com/sun/tools/javac/util/RichDiagnosticFormatter$2.h>
+#include <com/sun/tools/javac/util/RichDiagnosticFormatter$ClassNameSimplifier.h>
+#include <com/sun/tools/javac/util/RichDiagnosticFormatter$RichConfiguration.h>
+#include <com/sun/tools/javac/util/RichDiagnosticFormatter$RichConfiguration$RichFormatterFeature.h>
+#include <com/sun/tools/javac/util/RichDiagnosticFormatter$RichPrinter.h>
+#include <com/sun/tools/javac/util/RichDiagnosticFormatter$WhereClauseKind.h>
+#include <com/sun/tools/javac/util/SharedNameTable.h>
+#include <com/sun/tools/javac/util/SharedNameTable$NameImpl.h>
+#include <com/sun/tools/javac/util/StringUtils.h>
+#include <com/sun/tools/javac/util/UnsharedNameTable.h>
+#include <com/sun/tools/javac/util/UnsharedNameTable$HashEntry.h>
+#include <com/sun/tools/javac/util/UnsharedNameTable$NameImpl.h>
+#include <com/sun/tools/javac/util/Warner.h>
+#include <com/sun/tools/sjavac/AutoFlushWriter.h>
+#include <com/sun/tools/sjavac/BuildState.h>
+#include <com/sun/tools/sjavac/CleanProperties.h>
+#include <com/sun/tools/sjavac/CompileChunk.h>
+#include <com/sun/tools/sjavac/CompileJavaPackages.h>
+#include <com/sun/tools/sjavac/CompileProperties.h>
+#include <com/sun/tools/sjavac/CopyFile.h>
+#include <com/sun/tools/sjavac/JavacState.h>
+#include <com/sun/tools/sjavac/Log.h>
+#include <com/sun/tools/sjavac/Log$Level.h>
+#include <com/sun/tools/sjavac/Main.h>
+#include <com/sun/tools/sjavac/Module.h>
+#include <com/sun/tools/sjavac/Package.h>
+#include <com/sun/tools/sjavac/ProblemException.h>
+#include <com/sun/tools/sjavac/PubApiExtractor.h>
+#include <com/sun/tools/sjavac/Source.h>
+#include <com/sun/tools/sjavac/Source$1.h>
+#include <com/sun/tools/sjavac/Transformer.h>
+#include <com/sun/tools/sjavac/Util.h>
+#include <com/sun/tools/sjavac/client/ClientMain.h>
+#include <com/sun/tools/sjavac/client/PortFileInaccessibleException.h>
+#include <com/sun/tools/sjavac/client/SjavacClient.h>
+#include <com/sun/tools/sjavac/comp/CompilationService.h>
+#include <com/sun/tools/sjavac/comp/FileObjectWithLocation.h>
+#include <com/sun/tools/sjavac/comp/JavaFileObjectWithLocation.h>
+#include <com/sun/tools/sjavac/comp/PathAndPackageVerifier.h>
+#include <com/sun/tools/sjavac/comp/PathAndPackageVerifier$EnclosingPkgIterator.h>
+#include <com/sun/tools/sjavac/comp/PathAndPackageVerifier$ParentIterator.h>
+#include <com/sun/tools/sjavac/comp/PooledSjavac.h>
+#include <com/sun/tools/sjavac/comp/PubAPIs.h>
+#include <com/sun/tools/sjavac/comp/PubapiVisitor.h>
+#include <com/sun/tools/sjavac/comp/SjavacImpl.h>
+#include <com/sun/tools/sjavac/comp/SmartFileManager.h>
+#include <com/sun/tools/sjavac/comp/SmartFileObject.h>
+#include <com/sun/tools/sjavac/comp/SmartWriter.h>
+#include <com/sun/tools/sjavac/comp/dependencies/NewDependencyCollector.h>
+#include <com/sun/tools/sjavac/comp/dependencies/PublicApiCollector.h>
+#include <com/sun/tools/sjavac/comp/dependencies/PublicApiCollector$1.h>
+#include <com/sun/tools/sjavac/options/ArgumentIterator.h>
+#include <com/sun/tools/sjavac/options/Option.h>
+#include <com/sun/tools/sjavac/options/Option$1.h>
+#include <com/sun/tools/sjavac/options/Option$10.h>
+#include <com/sun/tools/sjavac/options/Option$11.h>
+#include <com/sun/tools/sjavac/options/Option$12.h>
+#include <com/sun/tools/sjavac/options/Option$13.h>
+#include <com/sun/tools/sjavac/options/Option$14.h>
+#include <com/sun/tools/sjavac/options/Option$15.h>
+#include <com/sun/tools/sjavac/options/Option$16.h>
+#include <com/sun/tools/sjavac/options/Option$17.h>
+#include <com/sun/tools/sjavac/options/Option$18.h>
+#include <com/sun/tools/sjavac/options/Option$19.h>
+#include <com/sun/tools/sjavac/options/Option$2.h>
+#include <com/sun/tools/sjavac/options/Option$20.h>
+#include <com/sun/tools/sjavac/options/Option$21.h>
+#include <com/sun/tools/sjavac/options/Option$22.h>
+#include <com/sun/tools/sjavac/options/Option$23.h>
+#include <com/sun/tools/sjavac/options/Option$24.h>
+#include <com/sun/tools/sjavac/options/Option$25.h>
+#include <com/sun/tools/sjavac/options/Option$26.h>
+#include <com/sun/tools/sjavac/options/Option$3.h>
+#include <com/sun/tools/sjavac/options/Option$4.h>
+#include <com/sun/tools/sjavac/options/Option$5.h>
+#include <com/sun/tools/sjavac/options/Option$6.h>
+#include <com/sun/tools/sjavac/options/Option$7.h>
+#include <com/sun/tools/sjavac/options/Option$8.h>
+#include <com/sun/tools/sjavac/options/Option$9.h>
+#include <com/sun/tools/sjavac/options/OptionHelper.h>
+#include <com/sun/tools/sjavac/options/Options.h>
+#include <com/sun/tools/sjavac/options/Options$1StateArgs.h>
+#include <com/sun/tools/sjavac/options/Options$ArgDecoderOptionHelper.h>
+#include <com/sun/tools/sjavac/options/SourceLocation.h>
+#include <com/sun/tools/sjavac/pubapi/ArrayTypeDesc.h>
+#include <com/sun/tools/sjavac/pubapi/PrimitiveTypeDesc.h>
+#include <com/sun/tools/sjavac/pubapi/PubApi.h>
+#include <com/sun/tools/sjavac/pubapi/PubApiTypeParam.h>
+#include <com/sun/tools/sjavac/pubapi/PubMethod.h>
+#include <com/sun/tools/sjavac/pubapi/PubType.h>
+#include <com/sun/tools/sjavac/pubapi/PubVar.h>
+#include <com/sun/tools/sjavac/pubapi/ReferenceTypeDesc.h>
+#include <com/sun/tools/sjavac/pubapi/TypeDesc.h>
+#include <com/sun/tools/sjavac/pubapi/TypeDesc$1.h>
+#include <com/sun/tools/sjavac/pubapi/TypeVarTypeDesc.h>
+#include <com/sun/tools/sjavac/server/CompilationSubResult.h>
+#include <com/sun/tools/sjavac/server/IdleResetSjavac.h>
+#include <com/sun/tools/sjavac/server/IdleResetSjavac$1.h>
+#include <com/sun/tools/sjavac/server/PortFile.h>
+#include <com/sun/tools/sjavac/server/PortFileMonitor.h>
+#include <com/sun/tools/sjavac/server/PortFileMonitor$1.h>
+#include <com/sun/tools/sjavac/server/RequestHandler.h>
+#include <com/sun/tools/sjavac/server/RequestHandler$1.h>
+#include <com/sun/tools/sjavac/server/ServerMain.h>
+#include <com/sun/tools/sjavac/server/Sjavac.h>
+#include <com/sun/tools/sjavac/server/SjavacServer.h>
+#include <com/sun/tools/sjavac/server/SysInfo.h>
+#include <com/sun/tools/sjavac/server/Terminable.h>
+#include <com/sun/tools/sjavac/server/log/LazyInitFileLog.h>
+#include <com/sun/tools/sjavac/server/log/LoggingOutputStream.h>
+#include <com/sun/tools/sjavac/server/log/LoggingOutputStream$EolTrackingByteArrayOutputStream.h>
+#include <jdk/internal/shellsupport/doc/JavadocFormatter.h>
+#include <jdk/internal/shellsupport/doc/JavadocFormatter$1.h>
+#include <jdk/internal/shellsupport/doc/JavadocFormatter$2.h>
+#include <jdk/internal/shellsupport/doc/JavadocFormatter$3.h>
+#include <jdk/internal/shellsupport/doc/JavadocFormatter$FormatJavadocScanner.h>
+#include <jdk/internal/shellsupport/doc/JavadocFormatter$HtmlTag.h>
+#include <jdk/internal/shellsupport/doc/JavadocFormatter$Sections.h>
+#include <jdk/internal/shellsupport/doc/JavadocFormatter$Sections$1.h>
+#include <jdk/internal/shellsupport/doc/JavadocFormatter$Sections$2.h>
+#include <jdk/internal/shellsupport/doc/JavadocFormatter$Sections$3.h>
+#include <jdk/internal/shellsupport/doc/JavadocFormatter$Sections$4.h>
+#include <jdk/internal/shellsupport/doc/JavadocHelper.h>
+#include <jdk/internal/shellsupport/doc/JavadocHelper$1.h>
+#include <jdk/internal/shellsupport/doc/JavadocHelper$2.h>
+#include <jdk/internal/shellsupport/doc/JavadocHelper$OnDemandJavadocHelper.h>
+#include <jdk/internal/shellsupport/doc/JavadocHelper$OnDemandJavadocHelper$1.h>
+#include <jdk/internal/shellsupport/doc/JavadocHelper$OnDemandJavadocHelper$1$1.h>
+#include <jdk/internal/shellsupport/doc/JavadocHelper$OnDemandJavadocHelper$1$2.h>
+#include <jdk/internal/shellsupport/doc/JavadocHelper$OnDemandJavadocHelper$1$3.h>
+#include <jdk/internal/shellsupport/doc/JavadocHelper$OnDemandJavadocHelper$2.h>
+#include <jdk/internal/shellsupport/doc/JavadocHelper$OnDemandJavadocHelper$3.h>
+#include <jdk/internal/shellsupport/doc/JavadocHelper$OnDemandJavadocHelper$PatchModuleFileManager.h>
+#include <jdk/internal/shellsupport/doc/JavadocHelper$OnDemandJavadocHelper$PatchModuleFileManager$1.h>
+#include <sun/tools/serialver/Res.h>
+#include <sun/tools/serialver/SerialVer.h>
+
+
+#define $classEntry(name, clazz) {name, clazz::load$, $getMark(clazz)}
+::java::lang::ClassEntry _jdk$compiler_classes_[] = {
+	$classEntry("com.sun.source.doctree.AttributeTree", ::com::sun::source::doctree::AttributeTree),
+	$classEntry("com.sun.source.doctree.AttributeTree$ValueKind", ::com::sun::source::doctree::AttributeTree$ValueKind),
+	$classEntry("com.sun.source.doctree.AuthorTree", ::com::sun::source::doctree::AuthorTree),
+	$classEntry("com.sun.source.doctree.BlockTagTree", ::com::sun::source::doctree::BlockTagTree),
+	$classEntry("com.sun.source.doctree.CommentTree", ::com::sun::source::doctree::CommentTree),
+	$classEntry("com.sun.source.doctree.DeprecatedTree", ::com::sun::source::doctree::DeprecatedTree),
+	$classEntry("com.sun.source.doctree.DocCommentTree", ::com::sun::source::doctree::DocCommentTree),
+	$classEntry("com.sun.source.doctree.DocRootTree", ::com::sun::source::doctree::DocRootTree),
+	$classEntry("com.sun.source.doctree.DocTree", ::com::sun::source::doctree::DocTree),
+	$classEntry("com.sun.source.doctree.DocTree$Kind", ::com::sun::source::doctree::DocTree$Kind),
+	$classEntry("com.sun.source.doctree.DocTreeVisitor", ::com::sun::source::doctree::DocTreeVisitor),
+	$classEntry("com.sun.source.doctree.DocTypeTree", ::com::sun::source::doctree::DocTypeTree),
+	$classEntry("com.sun.source.doctree.EndElementTree", ::com::sun::source::doctree::EndElementTree),
+	$classEntry("com.sun.source.doctree.EntityTree", ::com::sun::source::doctree::EntityTree),
+	$classEntry("com.sun.source.doctree.ErroneousTree", ::com::sun::source::doctree::ErroneousTree),
+	$classEntry("com.sun.source.doctree.HiddenTree", ::com::sun::source::doctree::HiddenTree),
+	$classEntry("com.sun.source.doctree.IdentifierTree", ::com::sun::source::doctree::IdentifierTree),
+	$classEntry("com.sun.source.doctree.IndexTree", ::com::sun::source::doctree::IndexTree),
+	$classEntry("com.sun.source.doctree.InheritDocTree", ::com::sun::source::doctree::InheritDocTree),
+	$classEntry("com.sun.source.doctree.InlineTagTree", ::com::sun::source::doctree::InlineTagTree),
+	$classEntry("com.sun.source.doctree.LinkTree", ::com::sun::source::doctree::LinkTree),
+	$classEntry("com.sun.source.doctree.LiteralTree", ::com::sun::source::doctree::LiteralTree),
+	$classEntry("com.sun.source.doctree.ParamTree", ::com::sun::source::doctree::ParamTree),
+	$classEntry("com.sun.source.doctree.ProvidesTree", ::com::sun::source::doctree::ProvidesTree),
+	$classEntry("com.sun.source.doctree.ReferenceTree", ::com::sun::source::doctree::ReferenceTree),
+	$classEntry("com.sun.source.doctree.ReturnTree", ::com::sun::source::doctree::ReturnTree),
+	$classEntry("com.sun.source.doctree.SeeTree", ::com::sun::source::doctree::SeeTree),
+	$classEntry("com.sun.source.doctree.SerialDataTree", ::com::sun::source::doctree::SerialDataTree),
+	$classEntry("com.sun.source.doctree.SerialFieldTree", ::com::sun::source::doctree::SerialFieldTree),
+	$classEntry("com.sun.source.doctree.SerialTree", ::com::sun::source::doctree::SerialTree),
+	$classEntry("com.sun.source.doctree.SinceTree", ::com::sun::source::doctree::SinceTree),
+	$classEntry("com.sun.source.doctree.StartElementTree", ::com::sun::source::doctree::StartElementTree),
+	$classEntry("com.sun.source.doctree.SummaryTree", ::com::sun::source::doctree::SummaryTree),
+	$classEntry("com.sun.source.doctree.SystemPropertyTree", ::com::sun::source::doctree::SystemPropertyTree),
+	$classEntry("com.sun.source.doctree.TextTree", ::com::sun::source::doctree::TextTree),
+	$classEntry("com.sun.source.doctree.ThrowsTree", ::com::sun::source::doctree::ThrowsTree),
+	$classEntry("com.sun.source.doctree.UnknownBlockTagTree", ::com::sun::source::doctree::UnknownBlockTagTree),
+	$classEntry("com.sun.source.doctree.UnknownInlineTagTree", ::com::sun::source::doctree::UnknownInlineTagTree),
+	$classEntry("com.sun.source.doctree.UsesTree", ::com::sun::source::doctree::UsesTree),
+	$classEntry("com.sun.source.doctree.ValueTree", ::com::sun::source::doctree::ValueTree),
+	$classEntry("com.sun.source.doctree.VersionTree", ::com::sun::source::doctree::VersionTree),
+	$classEntry("com.sun.source.tree.AnnotatedTypeTree", ::com::sun::source::tree::AnnotatedTypeTree),
+	$classEntry("com.sun.source.tree.AnnotationTree", ::com::sun::source::tree::AnnotationTree),
+	$classEntry("com.sun.source.tree.ArrayAccessTree", ::com::sun::source::tree::ArrayAccessTree),
+	$classEntry("com.sun.source.tree.ArrayTypeTree", ::com::sun::source::tree::ArrayTypeTree),
+	$classEntry("com.sun.source.tree.AssertTree", ::com::sun::source::tree::AssertTree),
+	$classEntry("com.sun.source.tree.AssignmentTree", ::com::sun::source::tree::AssignmentTree),
+	$classEntry("com.sun.source.tree.BinaryTree", ::com::sun::source::tree::BinaryTree),
+	$classEntry("com.sun.source.tree.BindingPatternTree", ::com::sun::source::tree::BindingPatternTree),
+	$classEntry("com.sun.source.tree.BlockTree", ::com::sun::source::tree::BlockTree),
+	$classEntry("com.sun.source.tree.BreakTree", ::com::sun::source::tree::BreakTree),
+	$classEntry("com.sun.source.tree.CaseLabelTree", ::com::sun::source::tree::CaseLabelTree),
+	$classEntry("com.sun.source.tree.CaseTree", ::com::sun::source::tree::CaseTree),
+	$classEntry("com.sun.source.tree.CaseTree$CaseKind", ::com::sun::source::tree::CaseTree$CaseKind),
+	$classEntry("com.sun.source.tree.CatchTree", ::com::sun::source::tree::CatchTree),
+	$classEntry("com.sun.source.tree.ClassTree", ::com::sun::source::tree::ClassTree),
+	$classEntry("com.sun.source.tree.CompilationUnitTree", ::com::sun::source::tree::CompilationUnitTree),
+	$classEntry("com.sun.source.tree.CompoundAssignmentTree", ::com::sun::source::tree::CompoundAssignmentTree),
+	$classEntry("com.sun.source.tree.ConditionalExpressionTree", ::com::sun::source::tree::ConditionalExpressionTree),
+	$classEntry("com.sun.source.tree.ContinueTree", ::com::sun::source::tree::ContinueTree),
+	$classEntry("com.sun.source.tree.DefaultCaseLabelTree", ::com::sun::source::tree::DefaultCaseLabelTree),
+	$classEntry("com.sun.source.tree.DirectiveTree", ::com::sun::source::tree::DirectiveTree),
+	$classEntry("com.sun.source.tree.DoWhileLoopTree", ::com::sun::source::tree::DoWhileLoopTree),
+	$classEntry("com.sun.source.tree.EmptyStatementTree", ::com::sun::source::tree::EmptyStatementTree),
+	$classEntry("com.sun.source.tree.EnhancedForLoopTree", ::com::sun::source::tree::EnhancedForLoopTree),
+	$classEntry("com.sun.source.tree.ErroneousTree", ::com::sun::source::tree::ErroneousTree),
+	$classEntry("com.sun.source.tree.ExportsTree", ::com::sun::source::tree::ExportsTree),
+	$classEntry("com.sun.source.tree.ExpressionStatementTree", ::com::sun::source::tree::ExpressionStatementTree),
+	$classEntry("com.sun.source.tree.ExpressionTree", ::com::sun::source::tree::ExpressionTree),
+	$classEntry("com.sun.source.tree.ForLoopTree", ::com::sun::source::tree::ForLoopTree),
+	$classEntry("com.sun.source.tree.GuardedPatternTree", ::com::sun::source::tree::GuardedPatternTree),
+	$classEntry("com.sun.source.tree.IdentifierTree", ::com::sun::source::tree::IdentifierTree),
+	$classEntry("com.sun.source.tree.IfTree", ::com::sun::source::tree::IfTree),
+	$classEntry("com.sun.source.tree.ImportTree", ::com::sun::source::tree::ImportTree),
+	$classEntry("com.sun.source.tree.InstanceOfTree", ::com::sun::source::tree::InstanceOfTree),
+	$classEntry("com.sun.source.tree.IntersectionTypeTree", ::com::sun::source::tree::IntersectionTypeTree),
+	$classEntry("com.sun.source.tree.LabeledStatementTree", ::com::sun::source::tree::LabeledStatementTree),
+	$classEntry("com.sun.source.tree.LambdaExpressionTree", ::com::sun::source::tree::LambdaExpressionTree),
+	$classEntry("com.sun.source.tree.LambdaExpressionTree$BodyKind", ::com::sun::source::tree::LambdaExpressionTree$BodyKind),
+	$classEntry("com.sun.source.tree.LineMap", ::com::sun::source::tree::LineMap),
+	$classEntry("com.sun.source.tree.LiteralTree", ::com::sun::source::tree::LiteralTree),
+	$classEntry("com.sun.source.tree.MemberReferenceTree", ::com::sun::source::tree::MemberReferenceTree),
+	$classEntry("com.sun.source.tree.MemberReferenceTree$ReferenceMode", ::com::sun::source::tree::MemberReferenceTree$ReferenceMode),
+	$classEntry("com.sun.source.tree.MemberSelectTree", ::com::sun::source::tree::MemberSelectTree),
+	$classEntry("com.sun.source.tree.MethodInvocationTree", ::com::sun::source::tree::MethodInvocationTree),
+	$classEntry("com.sun.source.tree.MethodTree", ::com::sun::source::tree::MethodTree),
+	$classEntry("com.sun.source.tree.ModifiersTree", ::com::sun::source::tree::ModifiersTree),
+	$classEntry("com.sun.source.tree.ModuleTree", ::com::sun::source::tree::ModuleTree),
+	$classEntry("com.sun.source.tree.ModuleTree$ModuleKind", ::com::sun::source::tree::ModuleTree$ModuleKind),
+	$classEntry("com.sun.source.tree.NewArrayTree", ::com::sun::source::tree::NewArrayTree),
+	$classEntry("com.sun.source.tree.NewClassTree", ::com::sun::source::tree::NewClassTree),
+	$classEntry("com.sun.source.tree.OpensTree", ::com::sun::source::tree::OpensTree),
+	$classEntry("com.sun.source.tree.PackageTree", ::com::sun::source::tree::PackageTree),
+	$classEntry("com.sun.source.tree.ParameterizedTypeTree", ::com::sun::source::tree::ParameterizedTypeTree),
+	$classEntry("com.sun.source.tree.ParenthesizedPatternTree", ::com::sun::source::tree::ParenthesizedPatternTree),
+	$classEntry("com.sun.source.tree.ParenthesizedTree", ::com::sun::source::tree::ParenthesizedTree),
+	$classEntry("com.sun.source.tree.PatternTree", ::com::sun::source::tree::PatternTree),
+	$classEntry("com.sun.source.tree.PrimitiveTypeTree", ::com::sun::source::tree::PrimitiveTypeTree),
+	$classEntry("com.sun.source.tree.ProvidesTree", ::com::sun::source::tree::ProvidesTree),
+	$classEntry("com.sun.source.tree.RequiresTree", ::com::sun::source::tree::RequiresTree),
+	$classEntry("com.sun.source.tree.ReturnTree", ::com::sun::source::tree::ReturnTree),
+	$classEntry("com.sun.source.tree.Scope", ::com::sun::source::tree::Scope),
+	$classEntry("com.sun.source.tree.StatementTree", ::com::sun::source::tree::StatementTree),
+	$classEntry("com.sun.source.tree.SwitchExpressionTree", ::com::sun::source::tree::SwitchExpressionTree),
+	$classEntry("com.sun.source.tree.SwitchTree", ::com::sun::source::tree::SwitchTree),
+	$classEntry("com.sun.source.tree.SynchronizedTree", ::com::sun::source::tree::SynchronizedTree),
+	$classEntry("com.sun.source.tree.ThrowTree", ::com::sun::source::tree::ThrowTree),
+	$classEntry("com.sun.source.tree.Tree", ::com::sun::source::tree::Tree),
+	$classEntry("com.sun.source.tree.Tree$Kind", ::com::sun::source::tree::Tree$Kind),
+	$classEntry("com.sun.source.tree.TreeVisitor", ::com::sun::source::tree::TreeVisitor),
+	$classEntry("com.sun.source.tree.TryTree", ::com::sun::source::tree::TryTree),
+	$classEntry("com.sun.source.tree.TypeCastTree", ::com::sun::source::tree::TypeCastTree),
+	$classEntry("com.sun.source.tree.TypeParameterTree", ::com::sun::source::tree::TypeParameterTree),
+	$classEntry("com.sun.source.tree.UnaryTree", ::com::sun::source::tree::UnaryTree),
+	$classEntry("com.sun.source.tree.UnionTypeTree", ::com::sun::source::tree::UnionTypeTree),
+	$classEntry("com.sun.source.tree.UsesTree", ::com::sun::source::tree::UsesTree),
+	$classEntry("com.sun.source.tree.VariableTree", ::com::sun::source::tree::VariableTree),
+	$classEntry("com.sun.source.tree.WhileLoopTree", ::com::sun::source::tree::WhileLoopTree),
+	$classEntry("com.sun.source.tree.WildcardTree", ::com::sun::source::tree::WildcardTree),
+	$classEntry("com.sun.source.tree.YieldTree", ::com::sun::source::tree::YieldTree),
+	$classEntry("com.sun.source.util.DocSourcePositions", ::com::sun::source::util::DocSourcePositions),
+	$classEntry("com.sun.source.util.DocTreeFactory", ::com::sun::source::util::DocTreeFactory),
+	$classEntry("com.sun.source.util.DocTreePath", ::com::sun::source::util::DocTreePath),
+	$classEntry("com.sun.source.util.DocTreePath$1", ::com::sun::source::util::DocTreePath$1),
+	$classEntry("com.sun.source.util.DocTreePath$1PathFinder", ::com::sun::source::util::DocTreePath$1PathFinder),
+	$classEntry("com.sun.source.util.DocTreePath$1Result", ::com::sun::source::util::DocTreePath$1Result),
+	$classEntry("com.sun.source.util.DocTreePathScanner", ::com::sun::source::util::DocTreePathScanner),
+	$classEntry("com.sun.source.util.DocTreeScanner", ::com::sun::source::util::DocTreeScanner),
+	$classEntry("com.sun.source.util.DocTrees", ::com::sun::source::util::DocTrees),
+	$classEntry("com.sun.source.util.JavacTask", ::com::sun::source::util::JavacTask),
+	$classEntry("com.sun.source.util.ParameterNameProvider", ::com::sun::source::util::ParameterNameProvider),
+	$classEntry("com.sun.source.util.Plugin", ::com::sun::source::util::Plugin),
+	$classEntry("com.sun.source.util.SimpleDocTreeVisitor", ::com::sun::source::util::SimpleDocTreeVisitor),
+	$classEntry("com.sun.source.util.SimpleTreeVisitor", ::com::sun::source::util::SimpleTreeVisitor),
+	$classEntry("com.sun.source.util.SourcePositions", ::com::sun::source::util::SourcePositions),
+	$classEntry("com.sun.source.util.TaskEvent", ::com::sun::source::util::TaskEvent),
+	$classEntry("com.sun.source.util.TaskEvent$Kind", ::com::sun::source::util::TaskEvent$Kind),
+	$classEntry("com.sun.source.util.TaskListener", ::com::sun::source::util::TaskListener),
+	$classEntry("com.sun.source.util.TreePath", ::com::sun::source::util::TreePath),
+	$classEntry("com.sun.source.util.TreePath$1", ::com::sun::source::util::TreePath$1),
+	$classEntry("com.sun.source.util.TreePath$1PathFinder", ::com::sun::source::util::TreePath$1PathFinder),
+	$classEntry("com.sun.source.util.TreePath$1Result", ::com::sun::source::util::TreePath$1Result),
+	$classEntry("com.sun.source.util.TreePathScanner", ::com::sun::source::util::TreePathScanner),
+	$classEntry("com.sun.source.util.TreeScanner", ::com::sun::source::util::TreeScanner),
+	$classEntry("com.sun.source.util.Trees", ::com::sun::source::util::Trees),
+	$classEntry("com.sun.tools.doclint.DocLint", ::com::sun::tools::doclint::DocLint),
+	$classEntry("com.sun.tools.doclint.DocLint$1", ::com::sun::tools::doclint::DocLint$1),
+	$classEntry("com.sun.tools.doclint.DocLint$NoDocLint", ::com::sun::tools::doclint::DocLint$NoDocLint),
+	$classEntry("com.sun.tools.javac.Main", ::com::sun::tools::javac::Main),
+	$classEntry("com.sun.tools.javac.api.BasicJavacTask", ::com::sun::tools::javac::api::BasicJavacTask),
+	$classEntry("com.sun.tools.javac.api.ClientCodeWrapper", ::com::sun::tools::javac::api::ClientCodeWrapper),
+	$classEntry("com.sun.tools.javac.api.ClientCodeWrapper$DiagnosticSourceUnwrapper", ::com::sun::tools::javac::api::ClientCodeWrapper$DiagnosticSourceUnwrapper),
+	$classEntry("com.sun.tools.javac.api.ClientCodeWrapper$Trusted", ::com::sun::tools::javac::api::ClientCodeWrapper$Trusted),
+	$classEntry("com.sun.tools.javac.api.ClientCodeWrapper$WrappedDiagnosticListener", ::com::sun::tools::javac::api::ClientCodeWrapper$WrappedDiagnosticListener),
+	$classEntry("com.sun.tools.javac.api.ClientCodeWrapper$WrappedFileObject", ::com::sun::tools::javac::api::ClientCodeWrapper$WrappedFileObject),
+	$classEntry("com.sun.tools.javac.api.ClientCodeWrapper$WrappedJavaFileManager", ::com::sun::tools::javac::api::ClientCodeWrapper$WrappedJavaFileManager),
+	$classEntry("com.sun.tools.javac.api.ClientCodeWrapper$WrappedJavaFileObject", ::com::sun::tools::javac::api::ClientCodeWrapper$WrappedJavaFileObject),
+	$classEntry("com.sun.tools.javac.api.ClientCodeWrapper$WrappedStandardJavaFileManager", ::com::sun::tools::javac::api::ClientCodeWrapper$WrappedStandardJavaFileManager),
+	$classEntry("com.sun.tools.javac.api.ClientCodeWrapper$WrappedTaskListener", ::com::sun::tools::javac::api::ClientCodeWrapper$WrappedTaskListener),
+	$classEntry("com.sun.tools.javac.api.DiagnosticFormatter", ::com::sun::tools::javac::api::DiagnosticFormatter),
+	$classEntry("com.sun.tools.javac.api.DiagnosticFormatter$Configuration", ::com::sun::tools::javac::api::DiagnosticFormatter$Configuration),
+	$classEntry("com.sun.tools.javac.api.DiagnosticFormatter$Configuration$DiagnosticPart", ::com::sun::tools::javac::api::DiagnosticFormatter$Configuration$DiagnosticPart),
+	$classEntry("com.sun.tools.javac.api.DiagnosticFormatter$Configuration$MultilineLimit", ::com::sun::tools::javac::api::DiagnosticFormatter$Configuration$MultilineLimit),
+	$classEntry("com.sun.tools.javac.api.DiagnosticFormatter$PositionKind", ::com::sun::tools::javac::api::DiagnosticFormatter$PositionKind),
+	$classEntry("com.sun.tools.javac.api.Entity", ::com::sun::tools::javac::api::Entity),
+	$classEntry("com.sun.tools.javac.api.Formattable", ::com::sun::tools::javac::api::Formattable),
+	$classEntry("com.sun.tools.javac.api.Formattable$LocalizedString", ::com::sun::tools::javac::api::Formattable$LocalizedString),
+	$classEntry("com.sun.tools.javac.api.JavacScope", ::com::sun::tools::javac::api::JavacScope),
+	$classEntry("com.sun.tools.javac.api.JavacScope$1", ::com::sun::tools::javac::api::JavacScope$1),
+	$classEntry("com.sun.tools.javac.api.JavacScope$2", ::com::sun::tools::javac::api::JavacScope$2),
+	$classEntry("com.sun.tools.javac.api.JavacTaskImpl", ::com::sun::tools::javac::api::JavacTaskImpl),
+	$classEntry("com.sun.tools.javac.api.JavacTaskImpl$1", ::com::sun::tools::javac::api::JavacTaskImpl$1),
+	$classEntry("com.sun.tools.javac.api.JavacTaskImpl$2", ::com::sun::tools::javac::api::JavacTaskImpl$2),
+	$classEntry("com.sun.tools.javac.api.JavacTaskImpl$3", ::com::sun::tools::javac::api::JavacTaskImpl$3),
+	$classEntry("com.sun.tools.javac.api.JavacTaskImpl$Filter", ::com::sun::tools::javac::api::JavacTaskImpl$Filter),
+	$classEntry("com.sun.tools.javac.api.JavacTaskPool", ::com::sun::tools::javac::api::JavacTaskPool),
+	$classEntry("com.sun.tools.javac.api.JavacTaskPool$ReusableContext", ::com::sun::tools::javac::api::JavacTaskPool$ReusableContext),
+	$classEntry("com.sun.tools.javac.api.JavacTaskPool$ReusableContext$1", ::com::sun::tools::javac::api::JavacTaskPool$ReusableContext$1),
+	$classEntry("com.sun.tools.javac.api.JavacTaskPool$ReusableContext$ReusableJavaCompiler", ::com::sun::tools::javac::api::JavacTaskPool$ReusableContext$ReusableJavaCompiler),
+	$classEntry("com.sun.tools.javac.api.JavacTaskPool$ReusableContext$ReusableLog", ::com::sun::tools::javac::api::JavacTaskPool$ReusableContext$ReusableLog),
+	$classEntry("com.sun.tools.javac.api.JavacTaskPool$ReusableContext$ReusableLog$1", ::com::sun::tools::javac::api::JavacTaskPool$ReusableContext$ReusableLog$1),
+	$classEntry("com.sun.tools.javac.api.JavacTaskPool$Worker", ::com::sun::tools::javac::api::JavacTaskPool$Worker),
+	$classEntry("com.sun.tools.javac.api.JavacTool", ::com::sun::tools::javac::api::JavacTool),
+	$classEntry("com.sun.tools.javac.api.JavacTrees", ::com::sun::tools::javac::api::JavacTrees),
+	$classEntry("com.sun.tools.javac.api.JavacTrees$1", ::com::sun::tools::javac::api::JavacTrees$1),
+	$classEntry("com.sun.tools.javac.api.JavacTrees$2", ::com::sun::tools::javac::api::JavacTrees$2),
+	$classEntry("com.sun.tools.javac.api.JavacTrees$3", ::com::sun::tools::javac::api::JavacTrees$3),
+	$classEntry("com.sun.tools.javac.api.JavacTrees$4", ::com::sun::tools::javac::api::JavacTrees$4),
+	$classEntry("com.sun.tools.javac.api.JavacTrees$5", ::com::sun::tools::javac::api::JavacTrees$5),
+	$classEntry("com.sun.tools.javac.api.JavacTrees$6", ::com::sun::tools::javac::api::JavacTrees$6),
+	$classEntry("com.sun.tools.javac.api.JavacTrees$7", ::com::sun::tools::javac::api::JavacTrees$7),
+	$classEntry("com.sun.tools.javac.api.JavacTrees$8", ::com::sun::tools::javac::api::JavacTrees$8),
+	$classEntry("com.sun.tools.javac.api.JavacTrees$Copier", ::com::sun::tools::javac::api::JavacTrees$Copier),
+	$classEntry("com.sun.tools.javac.api.JavacTrees$HtmlFileObject", ::com::sun::tools::javac::api::JavacTrees$HtmlFileObject),
+	$classEntry("com.sun.tools.javac.api.Messages", ::com::sun::tools::javac::api::Messages),
+	$classEntry("com.sun.tools.javac.api.MultiTaskListener", ::com::sun::tools::javac::api::MultiTaskListener),
+	$classEntry("com.sun.tools.javac.api.WrappingJavaFileManager", ::com::sun::tools::javac::api::WrappingJavaFileManager),
+	$classEntry("com.sun.tools.javac.code.AnnoConstruct", ::com::sun::tools::javac::code::AnnoConstruct),
+	$classEntry("com.sun.tools.javac.code.Attribute", ::com::sun::tools::javac::code::Attribute),
+	$classEntry("com.sun.tools.javac.code.Attribute$1", ::com::sun::tools::javac::code::Attribute$1),
+	$classEntry("com.sun.tools.javac.code.Attribute$Array", ::com::sun::tools::javac::code::Attribute$Array),
+	$classEntry("com.sun.tools.javac.code.Attribute$Class", ::com::sun::tools::javac::code::Attribute$Class),
+	$classEntry("com.sun.tools.javac.code.Attribute$Compound", ::com::sun::tools::javac::code::Attribute$Compound),
+	$classEntry("com.sun.tools.javac.code.Attribute$Constant", ::com::sun::tools::javac::code::Attribute$Constant),
+	$classEntry("com.sun.tools.javac.code.Attribute$Enum", ::com::sun::tools::javac::code::Attribute$Enum),
+	$classEntry("com.sun.tools.javac.code.Attribute$Error", ::com::sun::tools::javac::code::Attribute$Error),
+	$classEntry("com.sun.tools.javac.code.Attribute$RetentionPolicy", ::com::sun::tools::javac::code::Attribute$RetentionPolicy),
+	$classEntry("com.sun.tools.javac.code.Attribute$TypeCompound", ::com::sun::tools::javac::code::Attribute$TypeCompound),
+	$classEntry("com.sun.tools.javac.code.Attribute$UnresolvedClass", ::com::sun::tools::javac::code::Attribute$UnresolvedClass),
+	$classEntry("com.sun.tools.javac.code.Attribute$Visitor", ::com::sun::tools::javac::code::Attribute$Visitor),
+	$classEntry("com.sun.tools.javac.code.BoundKind", ::com::sun::tools::javac::code::BoundKind),
+	$classEntry("com.sun.tools.javac.code.ClassFinder", ::com::sun::tools::javac::code::ClassFinder),
+	$classEntry("com.sun.tools.javac.code.ClassFinder$1", ::com::sun::tools::javac::code::ClassFinder$1),
+	$classEntry("com.sun.tools.javac.code.ClassFinder$2", ::com::sun::tools::javac::code::ClassFinder$2),
+	$classEntry("com.sun.tools.javac.code.ClassFinder$BadClassFile", ::com::sun::tools::javac::code::ClassFinder$BadClassFile),
+	$classEntry("com.sun.tools.javac.code.ClassFinder$BadEnclosingMethodAttr", ::com::sun::tools::javac::code::ClassFinder$BadEnclosingMethodAttr),
+	$classEntry("com.sun.tools.javac.code.DeferredCompletionFailureHandler", ::com::sun::tools::javac::code::DeferredCompletionFailureHandler),
+	$classEntry("com.sun.tools.javac.code.DeferredCompletionFailureHandler$1", ::com::sun::tools::javac::code::DeferredCompletionFailureHandler$1),
+	$classEntry("com.sun.tools.javac.code.DeferredCompletionFailureHandler$1$1", ::com::sun::tools::javac::code::DeferredCompletionFailureHandler$1$1),
+	$classEntry("com.sun.tools.javac.code.DeferredCompletionFailureHandler$2", ::com::sun::tools::javac::code::DeferredCompletionFailureHandler$2),
+	$classEntry("com.sun.tools.javac.code.DeferredCompletionFailureHandler$3", ::com::sun::tools::javac::code::DeferredCompletionFailureHandler$3),
+	$classEntry("com.sun.tools.javac.code.DeferredCompletionFailureHandler$DeferredCompleter", ::com::sun::tools::javac::code::DeferredCompletionFailureHandler$DeferredCompleter),
+	$classEntry("com.sun.tools.javac.code.DeferredCompletionFailureHandler$FlipSymbolDescription", ::com::sun::tools::javac::code::DeferredCompletionFailureHandler$FlipSymbolDescription),
+	$classEntry("com.sun.tools.javac.code.DeferredCompletionFailureHandler$Handler", ::com::sun::tools::javac::code::DeferredCompletionFailureHandler$Handler),
+	$classEntry("com.sun.tools.javac.code.DeferredLintHandler", ::com::sun::tools::javac::code::DeferredLintHandler),
+	$classEntry("com.sun.tools.javac.code.DeferredLintHandler$1", ::com::sun::tools::javac::code::DeferredLintHandler$1),
+	$classEntry("com.sun.tools.javac.code.DeferredLintHandler$LintLogger", ::com::sun::tools::javac::code::DeferredLintHandler$LintLogger),
+	$classEntry("com.sun.tools.javac.code.Directive", ::com::sun::tools::javac::code::Directive),
+	$classEntry("com.sun.tools.javac.code.Directive$ExportsDirective", ::com::sun::tools::javac::code::Directive$ExportsDirective),
+	$classEntry("com.sun.tools.javac.code.Directive$ExportsFlag", ::com::sun::tools::javac::code::Directive$ExportsFlag),
+	$classEntry("com.sun.tools.javac.code.Directive$OpensDirective", ::com::sun::tools::javac::code::Directive$OpensDirective),
+	$classEntry("com.sun.tools.javac.code.Directive$OpensFlag", ::com::sun::tools::javac::code::Directive$OpensFlag),
+	$classEntry("com.sun.tools.javac.code.Directive$ProvidesDirective", ::com::sun::tools::javac::code::Directive$ProvidesDirective),
+	$classEntry("com.sun.tools.javac.code.Directive$RequiresDirective", ::com::sun::tools::javac::code::Directive$RequiresDirective),
+	$classEntry("com.sun.tools.javac.code.Directive$RequiresFlag", ::com::sun::tools::javac::code::Directive$RequiresFlag),
+	$classEntry("com.sun.tools.javac.code.Directive$UsesDirective", ::com::sun::tools::javac::code::Directive$UsesDirective),
+	$classEntry("com.sun.tools.javac.code.Flags", ::com::sun::tools::javac::code::Flags),
+	$classEntry("com.sun.tools.javac.code.Flags$Flag", ::com::sun::tools::javac::code::Flags$Flag),
+	$classEntry("com.sun.tools.javac.code.Flags$Flag$1", ::com::sun::tools::javac::code::Flags$Flag$1),
+	$classEntry("com.sun.tools.javac.code.Kinds", ::com::sun::tools::javac::code::Kinds),
+	$classEntry("com.sun.tools.javac.code.Kinds$1", ::com::sun::tools::javac::code::Kinds$1),
+	$classEntry("com.sun.tools.javac.code.Kinds$Kind", ::com::sun::tools::javac::code::Kinds$Kind),
+	$classEntry("com.sun.tools.javac.code.Kinds$Kind$Category", ::com::sun::tools::javac::code::Kinds$Kind$Category),
+	$classEntry("com.sun.tools.javac.code.Kinds$KindName", ::com::sun::tools::javac::code::Kinds$KindName),
+	$classEntry("com.sun.tools.javac.code.Kinds$KindSelector", ::com::sun::tools::javac::code::Kinds$KindSelector),
+	$classEntry("com.sun.tools.javac.code.Lint", ::com::sun::tools::javac::code::Lint),
+	$classEntry("com.sun.tools.javac.code.Lint$AugmentVisitor", ::com::sun::tools::javac::code::Lint$AugmentVisitor),
+	$classEntry("com.sun.tools.javac.code.Lint$LintCategory", ::com::sun::tools::javac::code::Lint$LintCategory),
+	$classEntry("com.sun.tools.javac.code.MissingInfoHandler", ::com::sun::tools::javac::code::MissingInfoHandler),
+	$classEntry("com.sun.tools.javac.code.ModuleFinder", ::com::sun::tools::javac::code::ModuleFinder),
+	$classEntry("com.sun.tools.javac.code.ModuleFinder$1", ::com::sun::tools::javac::code::ModuleFinder$1),
+	$classEntry("com.sun.tools.javac.code.ModuleFinder$2", ::com::sun::tools::javac::code::ModuleFinder$2),
+	$classEntry("com.sun.tools.javac.code.ModuleFinder$ModuleLocationIterator", ::com::sun::tools::javac::code::ModuleFinder$ModuleLocationIterator),
+	$classEntry("com.sun.tools.javac.code.ModuleFinder$ModuleNameFromSourceReader", ::com::sun::tools::javac::code::ModuleFinder$ModuleNameFromSourceReader),
+	$classEntry("com.sun.tools.javac.code.Preview", ::com::sun::tools::javac::code::Preview),
+	$classEntry("com.sun.tools.javac.code.Preview$1", ::com::sun::tools::javac::code::Preview$1),
+	$classEntry("com.sun.tools.javac.code.Printer", ::com::sun::tools::javac::code::Printer),
+	$classEntry("com.sun.tools.javac.code.Printer$1", ::com::sun::tools::javac::code::Printer$1),
+	$classEntry("com.sun.tools.javac.code.Scope", ::com::sun::tools::javac::code::Scope),
+	$classEntry("com.sun.tools.javac.code.Scope$CompoundScope", ::com::sun::tools::javac::code::Scope$CompoundScope),
+	$classEntry("com.sun.tools.javac.code.Scope$Entry", ::com::sun::tools::javac::code::Scope$Entry),
+	$classEntry("com.sun.tools.javac.code.Scope$ErrorScope", ::com::sun::tools::javac::code::Scope$ErrorScope),
+	$classEntry("com.sun.tools.javac.code.Scope$FilterImportScope", ::com::sun::tools::javac::code::Scope$FilterImportScope),
+	$classEntry("com.sun.tools.javac.code.Scope$FilterImportScope$1", ::com::sun::tools::javac::code::Scope$FilterImportScope$1),
+	$classEntry("com.sun.tools.javac.code.Scope$FilterImportScope$2", ::com::sun::tools::javac::code::Scope$FilterImportScope$2),
+	$classEntry("com.sun.tools.javac.code.Scope$FilterImportScope$SymbolImporter", ::com::sun::tools::javac::code::Scope$FilterImportScope$SymbolImporter),
+	$classEntry("com.sun.tools.javac.code.Scope$ImportFilter", ::com::sun::tools::javac::code::Scope$ImportFilter),
+	$classEntry("com.sun.tools.javac.code.Scope$ImportScope", ::com::sun::tools::javac::code::Scope$ImportScope),
+	$classEntry("com.sun.tools.javac.code.Scope$ImportScope$1", ::com::sun::tools::javac::code::Scope$ImportScope$1),
+	$classEntry("com.sun.tools.javac.code.Scope$LookupKind", ::com::sun::tools::javac::code::Scope$LookupKind),
+	$classEntry("com.sun.tools.javac.code.Scope$NamedImportScope", ::com::sun::tools::javac::code::Scope$NamedImportScope),
+	$classEntry("com.sun.tools.javac.code.Scope$NamedImportScope$SingleEntryScope", ::com::sun::tools::javac::code::Scope$NamedImportScope$SingleEntryScope),
+	$classEntry("com.sun.tools.javac.code.Scope$ScopeImpl", ::com::sun::tools::javac::code::Scope$ScopeImpl),
+	$classEntry("com.sun.tools.javac.code.Scope$ScopeImpl$1", ::com::sun::tools::javac::code::Scope$ScopeImpl$1),
+	$classEntry("com.sun.tools.javac.code.Scope$ScopeImpl$2", ::com::sun::tools::javac::code::Scope$ScopeImpl$2),
+	$classEntry("com.sun.tools.javac.code.Scope$ScopeListener", ::com::sun::tools::javac::code::Scope$ScopeListener),
+	$classEntry("com.sun.tools.javac.code.Scope$ScopeListenerList", ::com::sun::tools::javac::code::Scope$ScopeListenerList),
+	$classEntry("com.sun.tools.javac.code.Scope$StarImportScope", ::com::sun::tools::javac::code::Scope$StarImportScope),
+	$classEntry("com.sun.tools.javac.code.Scope$WriteableScope", ::com::sun::tools::javac::code::Scope$WriteableScope),
+	$classEntry("com.sun.tools.javac.code.Source", ::com::sun::tools::javac::code::Source),
+	$classEntry("com.sun.tools.javac.code.Source$1", ::com::sun::tools::javac::code::Source$1),
+	$classEntry("com.sun.tools.javac.code.Source$Feature", ::com::sun::tools::javac::code::Source$Feature),
+	$classEntry("com.sun.tools.javac.code.Source$Feature$DiagKind", ::com::sun::tools::javac::code::Source$Feature$DiagKind),
+	$classEntry("com.sun.tools.javac.code.Symbol", ::com::sun::tools::javac::code::Symbol),
+	$classEntry("com.sun.tools.javac.code.Symbol$1", ::com::sun::tools::javac::code::Symbol$1),
+	$classEntry("com.sun.tools.javac.code.Symbol$BindingSymbol", ::com::sun::tools::javac::code::Symbol$BindingSymbol),
+	$classEntry("com.sun.tools.javac.code.Symbol$ClassSymbol", ::com::sun::tools::javac::code::Symbol$ClassSymbol),
+	$classEntry("com.sun.tools.javac.code.Symbol$Completer", ::com::sun::tools::javac::code::Symbol$Completer),
+	$classEntry("com.sun.tools.javac.code.Symbol$Completer$1", ::com::sun::tools::javac::code::Symbol$Completer$1),
+	$classEntry("com.sun.tools.javac.code.Symbol$CompletionFailure", ::com::sun::tools::javac::code::Symbol$CompletionFailure),
+	$classEntry("com.sun.tools.javac.code.Symbol$DelegatedSymbol", ::com::sun::tools::javac::code::Symbol$DelegatedSymbol),
+	$classEntry("com.sun.tools.javac.code.Symbol$DynamicMethodSymbol", ::com::sun::tools::javac::code::Symbol$DynamicMethodSymbol),
+	$classEntry("com.sun.tools.javac.code.Symbol$DynamicVarSymbol", ::com::sun::tools::javac::code::Symbol$DynamicVarSymbol),
+	$classEntry("com.sun.tools.javac.code.Symbol$MethodHandleSymbol", ::com::sun::tools::javac::code::Symbol$MethodHandleSymbol),
+	$classEntry("com.sun.tools.javac.code.Symbol$MethodSymbol", ::com::sun::tools::javac::code::Symbol$MethodSymbol),
+	$classEntry("com.sun.tools.javac.code.Symbol$MethodSymbol$1", ::com::sun::tools::javac::code::Symbol$MethodSymbol$1),
+	$classEntry("com.sun.tools.javac.code.Symbol$ModuleFlags", ::com::sun::tools::javac::code::Symbol$ModuleFlags),
+	$classEntry("com.sun.tools.javac.code.Symbol$ModuleResolutionFlags", ::com::sun::tools::javac::code::Symbol$ModuleResolutionFlags),
+	$classEntry("com.sun.tools.javac.code.Symbol$ModuleSymbol", ::com::sun::tools::javac::code::Symbol$ModuleSymbol),
+	$classEntry("com.sun.tools.javac.code.Symbol$OperatorSymbol", ::com::sun::tools::javac::code::Symbol$OperatorSymbol),
+	$classEntry("com.sun.tools.javac.code.Symbol$OperatorSymbol$AccessCode", ::com::sun::tools::javac::code::Symbol$OperatorSymbol$AccessCode),
+	$classEntry("com.sun.tools.javac.code.Symbol$PackageSymbol", ::com::sun::tools::javac::code::Symbol$PackageSymbol),
+	$classEntry("com.sun.tools.javac.code.Symbol$ParamSymbol", ::com::sun::tools::javac::code::Symbol$ParamSymbol),
+	$classEntry("com.sun.tools.javac.code.Symbol$RecordComponent", ::com::sun::tools::javac::code::Symbol$RecordComponent),
+	$classEntry("com.sun.tools.javac.code.Symbol$RootPackageSymbol", ::com::sun::tools::javac::code::Symbol$RootPackageSymbol),
+	$classEntry("com.sun.tools.javac.code.Symbol$TypeSymbol", ::com::sun::tools::javac::code::Symbol$TypeSymbol),
+	$classEntry("com.sun.tools.javac.code.Symbol$TypeVariableSymbol", ::com::sun::tools::javac::code::Symbol$TypeVariableSymbol),
+	$classEntry("com.sun.tools.javac.code.Symbol$VarSymbol", ::com::sun::tools::javac::code::Symbol$VarSymbol),
+	$classEntry("com.sun.tools.javac.code.Symbol$VarSymbol$1", ::com::sun::tools::javac::code::Symbol$VarSymbol$1),
+	$classEntry("com.sun.tools.javac.code.Symbol$Visitor", ::com::sun::tools::javac::code::Symbol$Visitor),
+	$classEntry("com.sun.tools.javac.code.SymbolMetadata", ::com::sun::tools::javac::code::SymbolMetadata),
+	$classEntry("com.sun.tools.javac.code.Symtab", ::com::sun::tools::javac::code::Symtab),
+	$classEntry("com.sun.tools.javac.code.Symtab$1", ::com::sun::tools::javac::code::Symtab$1),
+	$classEntry("com.sun.tools.javac.code.Symtab$2", ::com::sun::tools::javac::code::Symtab$2),
+	$classEntry("com.sun.tools.javac.code.Symtab$3", ::com::sun::tools::javac::code::Symtab$3),
+	$classEntry("com.sun.tools.javac.code.Symtab$4", ::com::sun::tools::javac::code::Symtab$4),
+	$classEntry("com.sun.tools.javac.code.Symtab$5", ::com::sun::tools::javac::code::Symtab$5),
+	$classEntry("com.sun.tools.javac.code.Symtab$6", ::com::sun::tools::javac::code::Symtab$6),
+	$classEntry("com.sun.tools.javac.code.Symtab$7", ::com::sun::tools::javac::code::Symtab$7),
+	$classEntry("com.sun.tools.javac.code.TargetType", ::com::sun::tools::javac::code::TargetType),
+	$classEntry("com.sun.tools.javac.code.Type", ::com::sun::tools::javac::code::Type),
+	$classEntry("com.sun.tools.javac.code.Type$1", ::com::sun::tools::javac::code::Type$1),
+	$classEntry("com.sun.tools.javac.code.Type$2", ::com::sun::tools::javac::code::Type$2),
+	$classEntry("com.sun.tools.javac.code.Type$3", ::com::sun::tools::javac::code::Type$3),
+	$classEntry("com.sun.tools.javac.code.Type$4", ::com::sun::tools::javac::code::Type$4),
+	$classEntry("com.sun.tools.javac.code.Type$5", ::com::sun::tools::javac::code::Type$5),
+	$classEntry("com.sun.tools.javac.code.Type$ArrayType", ::com::sun::tools::javac::code::Type$ArrayType),
+	$classEntry("com.sun.tools.javac.code.Type$ArrayType$1", ::com::sun::tools::javac::code::Type$ArrayType$1),
+	$classEntry("com.sun.tools.javac.code.Type$ArrayType$2", ::com::sun::tools::javac::code::Type$ArrayType$2),
+	$classEntry("com.sun.tools.javac.code.Type$BottomType", ::com::sun::tools::javac::code::Type$BottomType),
+	$classEntry("com.sun.tools.javac.code.Type$CapturedType", ::com::sun::tools::javac::code::Type$CapturedType),
+	$classEntry("com.sun.tools.javac.code.Type$CapturedType$1", ::com::sun::tools::javac::code::Type$CapturedType$1),
+	$classEntry("com.sun.tools.javac.code.Type$ClassType", ::com::sun::tools::javac::code::Type$ClassType),
+	$classEntry("com.sun.tools.javac.code.Type$ClassType$1", ::com::sun::tools::javac::code::Type$ClassType$1),
+	$classEntry("com.sun.tools.javac.code.Type$ClassType$2", ::com::sun::tools::javac::code::Type$ClassType$2),
+	$classEntry("com.sun.tools.javac.code.Type$DelegatedType", ::com::sun::tools::javac::code::Type$DelegatedType),
+	$classEntry("com.sun.tools.javac.code.Type$ErasedClassType", ::com::sun::tools::javac::code::Type$ErasedClassType),
+	$classEntry("com.sun.tools.javac.code.Type$ErrorType", ::com::sun::tools::javac::code::Type$ErrorType),
+	$classEntry("com.sun.tools.javac.code.Type$ErrorType$1", ::com::sun::tools::javac::code::Type$ErrorType$1),
+	$classEntry("com.sun.tools.javac.code.Type$ForAll", ::com::sun::tools::javac::code::Type$ForAll),
+	$classEntry("com.sun.tools.javac.code.Type$IntersectionClassType", ::com::sun::tools::javac::code::Type$IntersectionClassType),
+	$classEntry("com.sun.tools.javac.code.Type$JCNoType", ::com::sun::tools::javac::code::Type$JCNoType),
+	$classEntry("com.sun.tools.javac.code.Type$JCPrimitiveType", ::com::sun::tools::javac::code::Type$JCPrimitiveType),
+	$classEntry("com.sun.tools.javac.code.Type$JCPrimitiveType$1", ::com::sun::tools::javac::code::Type$JCPrimitiveType$1),
+	$classEntry("com.sun.tools.javac.code.Type$JCPrimitiveType$2", ::com::sun::tools::javac::code::Type$JCPrimitiveType$2),
+	$classEntry("com.sun.tools.javac.code.Type$JCVoidType", ::com::sun::tools::javac::code::Type$JCVoidType),
+	$classEntry("com.sun.tools.javac.code.Type$MethodType", ::com::sun::tools::javac::code::Type$MethodType),
+	$classEntry("com.sun.tools.javac.code.Type$ModuleType", ::com::sun::tools::javac::code::Type$ModuleType),
+	$classEntry("com.sun.tools.javac.code.Type$PackageType", ::com::sun::tools::javac::code::Type$PackageType),
+	$classEntry("com.sun.tools.javac.code.Type$StructuralTypeMapping", ::com::sun::tools::javac::code::Type$StructuralTypeMapping),
+	$classEntry("com.sun.tools.javac.code.Type$StructuralTypeMapping$1", ::com::sun::tools::javac::code::Type$StructuralTypeMapping$1),
+	$classEntry("com.sun.tools.javac.code.Type$StructuralTypeMapping$2", ::com::sun::tools::javac::code::Type$StructuralTypeMapping$2),
+	$classEntry("com.sun.tools.javac.code.Type$StructuralTypeMapping$3", ::com::sun::tools::javac::code::Type$StructuralTypeMapping$3),
+	$classEntry("com.sun.tools.javac.code.Type$StructuralTypeMapping$4", ::com::sun::tools::javac::code::Type$StructuralTypeMapping$4),
+	$classEntry("com.sun.tools.javac.code.Type$TypeVar", ::com::sun::tools::javac::code::Type$TypeVar),
+	$classEntry("com.sun.tools.javac.code.Type$TypeVar$1", ::com::sun::tools::javac::code::Type$TypeVar$1),
+	$classEntry("com.sun.tools.javac.code.Type$UndetVar", ::com::sun::tools::javac::code::Type$UndetVar),
+	$classEntry("com.sun.tools.javac.code.Type$UndetVar$1", ::com::sun::tools::javac::code::Type$UndetVar$1),
+	$classEntry("com.sun.tools.javac.code.Type$UndetVar$InferenceBound", ::com::sun::tools::javac::code::Type$UndetVar$InferenceBound),
+	$classEntry("com.sun.tools.javac.code.Type$UndetVar$InferenceBound$1", ::com::sun::tools::javac::code::Type$UndetVar$InferenceBound$1),
+	$classEntry("com.sun.tools.javac.code.Type$UndetVar$InferenceBound$2", ::com::sun::tools::javac::code::Type$UndetVar$InferenceBound$2),
+	$classEntry("com.sun.tools.javac.code.Type$UndetVar$InferenceBound$3", ::com::sun::tools::javac::code::Type$UndetVar$InferenceBound$3),
+	$classEntry("com.sun.tools.javac.code.Type$UndetVar$Kind", ::com::sun::tools::javac::code::Type$UndetVar$Kind),
+	$classEntry("com.sun.tools.javac.code.Type$UndetVar$UndetVarListener", ::com::sun::tools::javac::code::Type$UndetVar$UndetVarListener),
+	$classEntry("com.sun.tools.javac.code.Type$UnionClassType", ::com::sun::tools::javac::code::Type$UnionClassType),
+	$classEntry("com.sun.tools.javac.code.Type$UnknownType", ::com::sun::tools::javac::code::Type$UnknownType),
+	$classEntry("com.sun.tools.javac.code.Type$Visitor", ::com::sun::tools::javac::code::Type$Visitor),
+	$classEntry("com.sun.tools.javac.code.Type$WildcardType", ::com::sun::tools::javac::code::Type$WildcardType),
+	$classEntry("com.sun.tools.javac.code.Type$WildcardType$1", ::com::sun::tools::javac::code::Type$WildcardType$1),
+	$classEntry("com.sun.tools.javac.code.TypeAnnotationPosition", ::com::sun::tools::javac::code::TypeAnnotationPosition),
+	$classEntry("com.sun.tools.javac.code.TypeAnnotationPosition$1", ::com::sun::tools::javac::code::TypeAnnotationPosition$1),
+	$classEntry("com.sun.tools.javac.code.TypeAnnotationPosition$TypePathEntry", ::com::sun::tools::javac::code::TypeAnnotationPosition$TypePathEntry),
+	$classEntry("com.sun.tools.javac.code.TypeAnnotationPosition$TypePathEntryKind", ::com::sun::tools::javac::code::TypeAnnotationPosition$TypePathEntryKind),
+	$classEntry("com.sun.tools.javac.code.TypeAnnotations", ::com::sun::tools::javac::code::TypeAnnotations),
+	$classEntry("com.sun.tools.javac.code.TypeAnnotations$1", ::com::sun::tools::javac::code::TypeAnnotations$1),
+	$classEntry("com.sun.tools.javac.code.TypeAnnotations$AnnotationType", ::com::sun::tools::javac::code::TypeAnnotations$AnnotationType),
+	$classEntry("com.sun.tools.javac.code.TypeAnnotations$TypeAnnotationPositions", ::com::sun::tools::javac::code::TypeAnnotations$TypeAnnotationPositions),
+	$classEntry("com.sun.tools.javac.code.TypeAnnotations$TypeAnnotationPositions$1", ::com::sun::tools::javac::code::TypeAnnotations$TypeAnnotationPositions$1),
+	$classEntry("com.sun.tools.javac.code.TypeMetadata", ::com::sun::tools::javac::code::TypeMetadata),
+	$classEntry("com.sun.tools.javac.code.TypeMetadata$Annotations", ::com::sun::tools::javac::code::TypeMetadata$Annotations),
+	$classEntry("com.sun.tools.javac.code.TypeMetadata$Entry", ::com::sun::tools::javac::code::TypeMetadata$Entry),
+	$classEntry("com.sun.tools.javac.code.TypeMetadata$Entry$Kind", ::com::sun::tools::javac::code::TypeMetadata$Entry$Kind),
+	$classEntry("com.sun.tools.javac.code.TypeTag", ::com::sun::tools::javac::code::TypeTag),
+	$classEntry("com.sun.tools.javac.code.TypeTag$1", ::com::sun::tools::javac::code::TypeTag$1),
+	$classEntry("com.sun.tools.javac.code.TypeTag$NumericClasses", ::com::sun::tools::javac::code::TypeTag$NumericClasses),
+	$classEntry("com.sun.tools.javac.code.Types", ::com::sun::tools::javac::code::Types),
+	$classEntry("com.sun.tools.javac.code.Types$1", ::com::sun::tools::javac::code::Types$1),
+	$classEntry("com.sun.tools.javac.code.Types$10", ::com::sun::tools::javac::code::Types$10),
+	$classEntry("com.sun.tools.javac.code.Types$11", ::com::sun::tools::javac::code::Types$11),
+	$classEntry("com.sun.tools.javac.code.Types$12", ::com::sun::tools::javac::code::Types$12),
+	$classEntry("com.sun.tools.javac.code.Types$13", ::com::sun::tools::javac::code::Types$13),
+	$classEntry("com.sun.tools.javac.code.Types$14", ::com::sun::tools::javac::code::Types$14),
+	$classEntry("com.sun.tools.javac.code.Types$15", ::com::sun::tools::javac::code::Types$15),
+	$classEntry("com.sun.tools.javac.code.Types$16", ::com::sun::tools::javac::code::Types$16),
+	$classEntry("com.sun.tools.javac.code.Types$17", ::com::sun::tools::javac::code::Types$17),
+	$classEntry("com.sun.tools.javac.code.Types$18", ::com::sun::tools::javac::code::Types$18),
+	$classEntry("com.sun.tools.javac.code.Types$19", ::com::sun::tools::javac::code::Types$19),
+	$classEntry("com.sun.tools.javac.code.Types$2", ::com::sun::tools::javac::code::Types$2),
+	$classEntry("com.sun.tools.javac.code.Types$20", ::com::sun::tools::javac::code::Types$20),
+	$classEntry("com.sun.tools.javac.code.Types$21", ::com::sun::tools::javac::code::Types$21),
+	$classEntry("com.sun.tools.javac.code.Types$22", ::com::sun::tools::javac::code::Types$22),
+	$classEntry("com.sun.tools.javac.code.Types$23", ::com::sun::tools::javac::code::Types$23),
+	$classEntry("com.sun.tools.javac.code.Types$23$1", ::com::sun::tools::javac::code::Types$23$1),
+	$classEntry("com.sun.tools.javac.code.Types$23$2", ::com::sun::tools::javac::code::Types$23$2),
+	$classEntry("com.sun.tools.javac.code.Types$24", ::com::sun::tools::javac::code::Types$24),
+	$classEntry("com.sun.tools.javac.code.Types$25", ::com::sun::tools::javac::code::Types$25),
+	$classEntry("com.sun.tools.javac.code.Types$3", ::com::sun::tools::javac::code::Types$3),
+	$classEntry("com.sun.tools.javac.code.Types$4", ::com::sun::tools::javac::code::Types$4),
+	$classEntry("com.sun.tools.javac.code.Types$5", ::com::sun::tools::javac::code::Types$5),
+	$classEntry("com.sun.tools.javac.code.Types$6", ::com::sun::tools::javac::code::Types$6),
+	$classEntry("com.sun.tools.javac.code.Types$7", ::com::sun::tools::javac::code::Types$7),
+	$classEntry("com.sun.tools.javac.code.Types$8", ::com::sun::tools::javac::code::Types$8),
+	$classEntry("com.sun.tools.javac.code.Types$9", ::com::sun::tools::javac::code::Types$9),
+	$classEntry("com.sun.tools.javac.code.Types$AdaptFailure", ::com::sun::tools::javac::code::Types$AdaptFailure),
+	$classEntry("com.sun.tools.javac.code.Types$Adapter", ::com::sun::tools::javac::code::Types$Adapter),
+	$classEntry("com.sun.tools.javac.code.Types$CandidatesCache", ::com::sun::tools::javac::code::Types$CandidatesCache),
+	$classEntry("com.sun.tools.javac.code.Types$CandidatesCache$Entry", ::com::sun::tools::javac::code::Types$CandidatesCache$Entry),
+	$classEntry("com.sun.tools.javac.code.Types$CaptureScanner", ::com::sun::tools::javac::code::Types$CaptureScanner),
+	$classEntry("com.sun.tools.javac.code.Types$ClosureHolder", ::com::sun::tools::javac::code::Types$ClosureHolder),
+	$classEntry("com.sun.tools.javac.code.Types$DefaultSymbolVisitor", ::com::sun::tools::javac::code::Types$DefaultSymbolVisitor),
+	$classEntry("com.sun.tools.javac.code.Types$DefaultTypeVisitor", ::com::sun::tools::javac::code::Types$DefaultTypeVisitor),
+	$classEntry("com.sun.tools.javac.code.Types$DescriptorCache", ::com::sun::tools::javac::code::Types$DescriptorCache),
+	$classEntry("com.sun.tools.javac.code.Types$DescriptorCache$1", ::com::sun::tools::javac::code::Types$DescriptorCache$1),
+	$classEntry("com.sun.tools.javac.code.Types$DescriptorCache$Entry", ::com::sun::tools::javac::code::Types$DescriptorCache$Entry),
+	$classEntry("com.sun.tools.javac.code.Types$DescriptorCache$FunctionDescriptor", ::com::sun::tools::javac::code::Types$DescriptorCache$FunctionDescriptor),
+	$classEntry("com.sun.tools.javac.code.Types$DescriptorFilter", ::com::sun::tools::javac::code::Types$DescriptorFilter),
+	$classEntry("com.sun.tools.javac.code.Types$FunctionDescriptorLookupError", ::com::sun::tools::javac::code::Types$FunctionDescriptorLookupError),
+	$classEntry("com.sun.tools.javac.code.Types$HasSameArgs", ::com::sun::tools::javac::code::Types$HasSameArgs),
+	$classEntry("com.sun.tools.javac.code.Types$HashCodeVisitor", ::com::sun::tools::javac::code::Types$HashCodeVisitor),
+	$classEntry("com.sun.tools.javac.code.Types$ImplementationCache", ::com::sun::tools::javac::code::Types$ImplementationCache),
+	$classEntry("com.sun.tools.javac.code.Types$ImplementationCache$Entry", ::com::sun::tools::javac::code::Types$ImplementationCache$Entry),
+	$classEntry("com.sun.tools.javac.code.Types$MapVisitor", ::com::sun::tools::javac::code::Types$MapVisitor),
+	$classEntry("com.sun.tools.javac.code.Types$MembersClosureCache", ::com::sun::tools::javac::code::Types$MembersClosureCache),
+	$classEntry("com.sun.tools.javac.code.Types$MembersClosureCache$MembersScope", ::com::sun::tools::javac::code::Types$MembersClosureCache$MembersScope),
+	$classEntry("com.sun.tools.javac.code.Types$MethodFilter", ::com::sun::tools::javac::code::Types$MethodFilter),
+	$classEntry("com.sun.tools.javac.code.Types$MostSpecificReturnCheck", ::com::sun::tools::javac::code::Types$MostSpecificReturnCheck),
+	$classEntry("com.sun.tools.javac.code.Types$MostSpecificReturnCheck$1", ::com::sun::tools::javac::code::Types$MostSpecificReturnCheck$1),
+	$classEntry("com.sun.tools.javac.code.Types$MostSpecificReturnCheck$2", ::com::sun::tools::javac::code::Types$MostSpecificReturnCheck$2),
+	$classEntry("com.sun.tools.javac.code.Types$ProjectionKind", ::com::sun::tools::javac::code::Types$ProjectionKind),
+	$classEntry("com.sun.tools.javac.code.Types$ProjectionKind$1", ::com::sun::tools::javac::code::Types$ProjectionKind$1),
+	$classEntry("com.sun.tools.javac.code.Types$ProjectionKind$2", ::com::sun::tools::javac::code::Types$ProjectionKind$2),
+	$classEntry("com.sun.tools.javac.code.Types$Rewriter", ::com::sun::tools::javac::code::Types$Rewriter),
+	$classEntry("com.sun.tools.javac.code.Types$SignatureGenerator", ::com::sun::tools::javac::code::Types$SignatureGenerator),
+	$classEntry("com.sun.tools.javac.code.Types$SignatureGenerator$InvalidSignatureException", ::com::sun::tools::javac::code::Types$SignatureGenerator$InvalidSignatureException),
+	$classEntry("com.sun.tools.javac.code.Types$SimpleVisitor", ::com::sun::tools::javac::code::Types$SimpleVisitor),
+	$classEntry("com.sun.tools.javac.code.Types$Subst", ::com::sun::tools::javac::code::Types$Subst),
+	$classEntry("com.sun.tools.javac.code.Types$Subst$1", ::com::sun::tools::javac::code::Types$Subst$1),
+	$classEntry("com.sun.tools.javac.code.Types$Subst$2", ::com::sun::tools::javac::code::Types$Subst$2),
+	$classEntry("com.sun.tools.javac.code.Types$TypeMapping", ::com::sun::tools::javac::code::Types$TypeMapping),
+	$classEntry("com.sun.tools.javac.code.Types$TypePair", ::com::sun::tools::javac::code::Types$TypePair),
+	$classEntry("com.sun.tools.javac.code.Types$TypeProjection", ::com::sun::tools::javac::code::Types$TypeProjection),
+	$classEntry("com.sun.tools.javac.code.Types$TypeProjection$1", ::com::sun::tools::javac::code::Types$TypeProjection$1),
+	$classEntry("com.sun.tools.javac.code.Types$TypeProjection$2", ::com::sun::tools::javac::code::Types$TypeProjection$2),
+	$classEntry("com.sun.tools.javac.code.Types$TypeProjection$TypeArgumentProjection", ::com::sun::tools::javac::code::Types$TypeProjection$TypeArgumentProjection),
+	$classEntry("com.sun.tools.javac.code.Types$TypeProjection$TypeArgumentProjection$1", ::com::sun::tools::javac::code::Types$TypeProjection$TypeArgumentProjection$1),
+	$classEntry("com.sun.tools.javac.code.Types$TypeRelation", ::com::sun::tools::javac::code::Types$TypeRelation),
+	$classEntry("com.sun.tools.javac.code.Types$UnaryVisitor", ::com::sun::tools::javac::code::Types$UnaryVisitor),
+	$classEntry("com.sun.tools.javac.code.Types$UniqueType", ::com::sun::tools::javac::code::Types$UniqueType),
+	$classEntry("com.sun.tools.javac.comp.Analyzer", ::com::sun::tools::javac::comp::Analyzer),
+	$classEntry("com.sun.tools.javac.comp.Analyzer$1", ::com::sun::tools::javac::comp::Analyzer$1),
+	$classEntry("com.sun.tools.javac.comp.Analyzer$2", ::com::sun::tools::javac::comp::Analyzer$2),
+	$classEntry("com.sun.tools.javac.comp.Analyzer$AnalyzerCopier", ::com::sun::tools::javac::comp::Analyzer$AnalyzerCopier),
+	$classEntry("com.sun.tools.javac.comp.Analyzer$AnalyzerMode", ::com::sun::tools::javac::comp::Analyzer$AnalyzerMode),
+	$classEntry("com.sun.tools.javac.comp.Analyzer$DeferredAnalysisHelper", ::com::sun::tools::javac::comp::Analyzer$DeferredAnalysisHelper),
+	$classEntry("com.sun.tools.javac.comp.Analyzer$DiamondInitializer", ::com::sun::tools::javac::comp::Analyzer$DiamondInitializer),
+	$classEntry("com.sun.tools.javac.comp.Analyzer$LambdaAnalyzer", ::com::sun::tools::javac::comp::Analyzer$LambdaAnalyzer),
+	$classEntry("com.sun.tools.javac.comp.Analyzer$RedundantLocalVarTypeAnalyzer", ::com::sun::tools::javac::comp::Analyzer$RedundantLocalVarTypeAnalyzer),
+	$classEntry("com.sun.tools.javac.comp.Analyzer$RedundantLocalVarTypeAnalyzerBase", ::com::sun::tools::javac::comp::Analyzer$RedundantLocalVarTypeAnalyzerBase),
+	$classEntry("com.sun.tools.javac.comp.Analyzer$RedundantLocalVarTypeAnalyzerForEach", ::com::sun::tools::javac::comp::Analyzer$RedundantLocalVarTypeAnalyzerForEach),
+	$classEntry("com.sun.tools.javac.comp.Analyzer$RedundantTypeArgAnalyzer", ::com::sun::tools::javac::comp::Analyzer$RedundantTypeArgAnalyzer),
+	$classEntry("com.sun.tools.javac.comp.Analyzer$RewritingContext", ::com::sun::tools::javac::comp::Analyzer$RewritingContext),
+	$classEntry("com.sun.tools.javac.comp.Analyzer$StatementAnalyzer", ::com::sun::tools::javac::comp::Analyzer$StatementAnalyzer),
+	$classEntry("com.sun.tools.javac.comp.Analyzer$StatementScanner", ::com::sun::tools::javac::comp::Analyzer$StatementScanner),
+	$classEntry("com.sun.tools.javac.comp.Analyzer$TreeRewriter", ::com::sun::tools::javac::comp::Analyzer$TreeRewriter),
+	$classEntry("com.sun.tools.javac.comp.Annotate", ::com::sun::tools::javac::comp::Annotate),
+	$classEntry("com.sun.tools.javac.comp.Annotate$1", ::com::sun::tools::javac::comp::Annotate$1),
+	$classEntry("com.sun.tools.javac.comp.Annotate$2", ::com::sun::tools::javac::comp::Annotate$2),
+	$classEntry("com.sun.tools.javac.comp.Annotate$AnnotationContext", ::com::sun::tools::javac::comp::Annotate$AnnotationContext),
+	$classEntry("com.sun.tools.javac.comp.Annotate$AnnotationTypeCompleter", ::com::sun::tools::javac::comp::Annotate$AnnotationTypeCompleter),
+	$classEntry("com.sun.tools.javac.comp.Annotate$AnnotationTypeMetadata", ::com::sun::tools::javac::comp::Annotate$AnnotationTypeMetadata),
+	$classEntry("com.sun.tools.javac.comp.Annotate$AnnotationTypeMetadata$1", ::com::sun::tools::javac::comp::Annotate$AnnotationTypeMetadata$1),
+	$classEntry("com.sun.tools.javac.comp.Annotate$AnnotationTypeVisitor", ::com::sun::tools::javac::comp::Annotate$AnnotationTypeVisitor),
+	$classEntry("com.sun.tools.javac.comp.Annotate$AnnotationValueContext", ::com::sun::tools::javac::comp::Annotate$AnnotationValueContext),
+	$classEntry("com.sun.tools.javac.comp.Annotate$Queues", ::com::sun::tools::javac::comp::Annotate$Queues),
+	$classEntry("com.sun.tools.javac.comp.Annotate$TypeAnnotate", ::com::sun::tools::javac::comp::Annotate$TypeAnnotate),
+	$classEntry("com.sun.tools.javac.comp.ArgumentAttr", ::com::sun::tools::javac::comp::ArgumentAttr),
+	$classEntry("com.sun.tools.javac.comp.ArgumentAttr$1", ::com::sun::tools::javac::comp::ArgumentAttr$1),
+	$classEntry("com.sun.tools.javac.comp.ArgumentAttr$2", ::com::sun::tools::javac::comp::ArgumentAttr$2),
+	$classEntry("com.sun.tools.javac.comp.ArgumentAttr$ArgumentType", ::com::sun::tools::javac::comp::ArgumentAttr$ArgumentType),
+	$classEntry("com.sun.tools.javac.comp.ArgumentAttr$ConditionalType", ::com::sun::tools::javac::comp::ArgumentAttr$ConditionalType),
+	$classEntry("com.sun.tools.javac.comp.ArgumentAttr$ExplicitLambdaType", ::com::sun::tools::javac::comp::ArgumentAttr$ExplicitLambdaType),
+	$classEntry("com.sun.tools.javac.comp.ArgumentAttr$ExplicitLambdaType$1", ::com::sun::tools::javac::comp::ArgumentAttr$ExplicitLambdaType$1),
+	$classEntry("com.sun.tools.javac.comp.ArgumentAttr$LocalCacheContext", ::com::sun::tools::javac::comp::ArgumentAttr$LocalCacheContext),
+	$classEntry("com.sun.tools.javac.comp.ArgumentAttr$ParensType", ::com::sun::tools::javac::comp::ArgumentAttr$ParensType),
+	$classEntry("com.sun.tools.javac.comp.ArgumentAttr$ResolvedConstructorType", ::com::sun::tools::javac::comp::ArgumentAttr$ResolvedConstructorType),
+	$classEntry("com.sun.tools.javac.comp.ArgumentAttr$ResolvedMemberType", ::com::sun::tools::javac::comp::ArgumentAttr$ResolvedMemberType),
+	$classEntry("com.sun.tools.javac.comp.ArgumentAttr$ResolvedMethodType", ::com::sun::tools::javac::comp::ArgumentAttr$ResolvedMethodType),
+	$classEntry("com.sun.tools.javac.comp.ArgumentAttr$SwitchExpressionType", ::com::sun::tools::javac::comp::ArgumentAttr$SwitchExpressionType),
+	$classEntry("com.sun.tools.javac.comp.ArgumentAttr$SwitchExpressionType$1", ::com::sun::tools::javac::comp::ArgumentAttr$SwitchExpressionType$1),
+	$classEntry("com.sun.tools.javac.comp.ArgumentAttr$UniquePos", ::com::sun::tools::javac::comp::ArgumentAttr$UniquePos),
+	$classEntry("com.sun.tools.javac.comp.Attr", ::com::sun::tools::javac::comp::Attr),
+	$classEntry("com.sun.tools.javac.comp.Attr$1", ::com::sun::tools::javac::comp::Attr$1),
+	$classEntry("com.sun.tools.javac.comp.Attr$10", ::com::sun::tools::javac::comp::Attr$10),
+	$classEntry("com.sun.tools.javac.comp.Attr$11", ::com::sun::tools::javac::comp::Attr$11),
+	$classEntry("com.sun.tools.javac.comp.Attr$12", ::com::sun::tools::javac::comp::Attr$12),
+	$classEntry("com.sun.tools.javac.comp.Attr$13", ::com::sun::tools::javac::comp::Attr$13),
+	$classEntry("com.sun.tools.javac.comp.Attr$2", ::com::sun::tools::javac::comp::Attr$2),
+	$classEntry("com.sun.tools.javac.comp.Attr$3", ::com::sun::tools::javac::comp::Attr$3),
+	$classEntry("com.sun.tools.javac.comp.Attr$4", ::com::sun::tools::javac::comp::Attr$4),
+	$classEntry("com.sun.tools.javac.comp.Attr$5", ::com::sun::tools::javac::comp::Attr$5),
+	$classEntry("com.sun.tools.javac.comp.Attr$6", ::com::sun::tools::javac::comp::Attr$6),
+	$classEntry("com.sun.tools.javac.comp.Attr$7", ::com::sun::tools::javac::comp::Attr$7),
+	$classEntry("com.sun.tools.javac.comp.Attr$8", ::com::sun::tools::javac::comp::Attr$8),
+	$classEntry("com.sun.tools.javac.comp.Attr$9", ::com::sun::tools::javac::comp::Attr$9),
+	$classEntry("com.sun.tools.javac.comp.Attr$BreakAttr", ::com::sun::tools::javac::comp::Attr$BreakAttr),
+	$classEntry("com.sun.tools.javac.comp.Attr$CheckMode", ::com::sun::tools::javac::comp::Attr$CheckMode),
+	$classEntry("com.sun.tools.javac.comp.Attr$CheckMode$1", ::com::sun::tools::javac::comp::Attr$CheckMode$1),
+	$classEntry("com.sun.tools.javac.comp.Attr$CheckMode$2", ::com::sun::tools::javac::comp::Attr$CheckMode$2),
+	$classEntry("com.sun.tools.javac.comp.Attr$ExpressionLambdaReturnContext", ::com::sun::tools::javac::comp::Attr$ExpressionLambdaReturnContext),
+	$classEntry("com.sun.tools.javac.comp.Attr$FunctionalReturnContext", ::com::sun::tools::javac::comp::Attr$FunctionalReturnContext),
+	$classEntry("com.sun.tools.javac.comp.Attr$IdentAttributer", ::com::sun::tools::javac::comp::Attr$IdentAttributer),
+	$classEntry("com.sun.tools.javac.comp.Attr$LocalInitScanner", ::com::sun::tools::javac::comp::Attr$LocalInitScanner),
+	$classEntry("com.sun.tools.javac.comp.Attr$MethodAttrInfo", ::com::sun::tools::javac::comp::Attr$MethodAttrInfo),
+	$classEntry("com.sun.tools.javac.comp.Attr$PostAttrAnalyzer", ::com::sun::tools::javac::comp::Attr$PostAttrAnalyzer),
+	$classEntry("com.sun.tools.javac.comp.Attr$RecoveryInfo", ::com::sun::tools::javac::comp::Attr$RecoveryInfo),
+	$classEntry("com.sun.tools.javac.comp.Attr$RecoveryInfo$1", ::com::sun::tools::javac::comp::Attr$RecoveryInfo$1),
+	$classEntry("com.sun.tools.javac.comp.Attr$ResultInfo", ::com::sun::tools::javac::comp::Attr$ResultInfo),
+	$classEntry("com.sun.tools.javac.comp.Attr$TargetInfo", ::com::sun::tools::javac::comp::Attr$TargetInfo),
+	$classEntry("com.sun.tools.javac.comp.Attr$TypeAnnotationsValidator", ::com::sun::tools::javac::comp::Attr$TypeAnnotationsValidator),
+	$classEntry("com.sun.tools.javac.comp.AttrContext", ::com::sun::tools::javac::comp::AttrContext),
+	$classEntry("com.sun.tools.javac.comp.AttrContextEnv", ::com::sun::tools::javac::comp::AttrContextEnv),
+	$classEntry("com.sun.tools.javac.comp.AttrRecover", ::com::sun::tools::javac::comp::AttrRecover),
+	$classEntry("com.sun.tools.javac.comp.AttrRecover$1", ::com::sun::tools::javac::comp::AttrRecover$1),
+	$classEntry("com.sun.tools.javac.comp.AttrRecover$1$1", ::com::sun::tools::javac::comp::AttrRecover$1$1),
+	$classEntry("com.sun.tools.javac.comp.AttrRecover$RecoverTodo", ::com::sun::tools::javac::comp::AttrRecover$RecoverTodo),
+	$classEntry("com.sun.tools.javac.comp.AttrRecover$RecoveryErrorType", ::com::sun::tools::javac::comp::AttrRecover$RecoveryErrorType),
+	$classEntry("com.sun.tools.javac.comp.Check", ::com::sun::tools::javac::comp::Check),
+	$classEntry("com.sun.tools.javac.comp.Check$1", ::com::sun::tools::javac::comp::Check$1),
+	$classEntry("com.sun.tools.javac.comp.Check$1AnnotationValidator", ::com::sun::tools::javac::comp::Check$1AnnotationValidator),
+	$classEntry("com.sun.tools.javac.comp.Check$1SpecialTreeVisitor", ::com::sun::tools::javac::comp::Check$1SpecialTreeVisitor),
+	$classEntry("com.sun.tools.javac.comp.Check$2", ::com::sun::tools::javac::comp::Check$2),
+	$classEntry("com.sun.tools.javac.comp.Check$3", ::com::sun::tools::javac::comp::Check$3),
+	$classEntry("com.sun.tools.javac.comp.Check$4", ::com::sun::tools::javac::comp::Check$4),
+	$classEntry("com.sun.tools.javac.comp.Check$5", ::com::sun::tools::javac::comp::Check$5),
+	$classEntry("com.sun.tools.javac.comp.Check$CheckContext", ::com::sun::tools::javac::comp::Check$CheckContext),
+	$classEntry("com.sun.tools.javac.comp.Check$ClashFilter", ::com::sun::tools::javac::comp::Check$ClashFilter),
+	$classEntry("com.sun.tools.javac.comp.Check$ConversionWarner", ::com::sun::tools::javac::comp::Check$ConversionWarner),
+	$classEntry("com.sun.tools.javac.comp.Check$CycleChecker", ::com::sun::tools::javac::comp::Check$CycleChecker),
+	$classEntry("com.sun.tools.javac.comp.Check$DefaultMethodClashFilter", ::com::sun::tools::javac::comp::Check$DefaultMethodClashFilter),
+	$classEntry("com.sun.tools.javac.comp.Check$NestedCheckContext", ::com::sun::tools::javac::comp::Check$NestedCheckContext),
+	$classEntry("com.sun.tools.javac.comp.Check$Validator", ::com::sun::tools::javac::comp::Check$Validator),
+	$classEntry("com.sun.tools.javac.comp.CompileStates", ::com::sun::tools::javac::comp::CompileStates),
+	$classEntry("com.sun.tools.javac.comp.CompileStates$CompileState", ::com::sun::tools::javac::comp::CompileStates$CompileState),
+	$classEntry("com.sun.tools.javac.comp.ConstFold", ::com::sun::tools::javac::comp::ConstFold),
+	$classEntry("com.sun.tools.javac.comp.ConstFold$1", ::com::sun::tools::javac::comp::ConstFold$1),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr", ::com::sun::tools::javac::comp::DeferredAttr),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr$1", ::com::sun::tools::javac::comp::DeferredAttr$1),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr$2", ::com::sun::tools::javac::comp::DeferredAttr$2),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr$2$1", ::com::sun::tools::javac::comp::DeferredAttr$2$1),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr$3", ::com::sun::tools::javac::comp::DeferredAttr$3),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr$4", ::com::sun::tools::javac::comp::DeferredAttr$4),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr$5", ::com::sun::tools::javac::comp::DeferredAttr$5),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr$AttrMode", ::com::sun::tools::javac::comp::DeferredAttr$AttrMode),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr$AttributionMode", ::com::sun::tools::javac::comp::DeferredAttr$AttributionMode),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr$CheckStuckPolicy", ::com::sun::tools::javac::comp::DeferredAttr$CheckStuckPolicy),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr$CheckStuckPolicy$1", ::com::sun::tools::javac::comp::DeferredAttr$CheckStuckPolicy$1),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr$CheckStuckPolicy$2", ::com::sun::tools::javac::comp::DeferredAttr$CheckStuckPolicy$2),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr$DeferredAttrContext", ::com::sun::tools::javac::comp::DeferredAttr$DeferredAttrContext),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr$DeferredAttrContext$StuckNode", ::com::sun::tools::javac::comp::DeferredAttr$DeferredAttrContext$StuckNode),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr$DeferredAttrDiagHandler", ::com::sun::tools::javac::comp::DeferredAttr$DeferredAttrDiagHandler),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr$DeferredAttrDiagHandler$PosScanner", ::com::sun::tools::javac::comp::DeferredAttr$DeferredAttrDiagHandler$PosScanner),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr$DeferredAttrNode", ::com::sun::tools::javac::comp::DeferredAttr$DeferredAttrNode),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr$DeferredAttrNode$1", ::com::sun::tools::javac::comp::DeferredAttr$DeferredAttrNode$1),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr$DeferredAttrNode$LambdaBodyStructChecker", ::com::sun::tools::javac::comp::DeferredAttr$DeferredAttrNode$LambdaBodyStructChecker),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr$DeferredAttrNode$StructuralStuckChecker", ::com::sun::tools::javac::comp::DeferredAttr$DeferredAttrNode$StructuralStuckChecker),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr$DeferredStuckPolicy", ::com::sun::tools::javac::comp::DeferredAttr$DeferredStuckPolicy),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr$DeferredType", ::com::sun::tools::javac::comp::DeferredAttr$DeferredType),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr$DeferredType$SpeculativeCache", ::com::sun::tools::javac::comp::DeferredAttr$DeferredType$SpeculativeCache),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr$DeferredType$SpeculativeCache$Entry", ::com::sun::tools::javac::comp::DeferredAttr$DeferredType$SpeculativeCache$Entry),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr$DeferredTypeMap", ::com::sun::tools::javac::comp::DeferredAttr$DeferredTypeMap),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr$FilterScanner", ::com::sun::tools::javac::comp::DeferredAttr$FilterScanner),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr$LambdaReturnScanner", ::com::sun::tools::javac::comp::DeferredAttr$LambdaReturnScanner),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr$OverloadStuckPolicy", ::com::sun::tools::javac::comp::DeferredAttr$OverloadStuckPolicy),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr$PolyScanner", ::com::sun::tools::javac::comp::DeferredAttr$PolyScanner),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr$RecoveryDeferredTypeMap", ::com::sun::tools::javac::comp::DeferredAttr$RecoveryDeferredTypeMap),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr$RecoveryDeferredTypeMap$1", ::com::sun::tools::javac::comp::DeferredAttr$RecoveryDeferredTypeMap$1),
+	$classEntry("com.sun.tools.javac.comp.DeferredAttr$SwitchExpressionScanner", ::com::sun::tools::javac::comp::DeferredAttr$SwitchExpressionScanner),
+	$classEntry("com.sun.tools.javac.comp.Enter", ::com::sun::tools::javac::comp::Enter),
+	$classEntry("com.sun.tools.javac.comp.Enter$1", ::com::sun::tools::javac::comp::Enter$1),
+	$classEntry("com.sun.tools.javac.comp.Enter$UnenterScanner", ::com::sun::tools::javac::comp::Enter$UnenterScanner),
+	$classEntry("com.sun.tools.javac.comp.Env", ::com::sun::tools::javac::comp::Env),
+	$classEntry("com.sun.tools.javac.comp.Env$1", ::com::sun::tools::javac::comp::Env$1),
+	$classEntry("com.sun.tools.javac.comp.Flow", ::com::sun::tools::javac::comp::Flow),
+	$classEntry("com.sun.tools.javac.comp.Flow$1", ::com::sun::tools::javac::comp::Flow$1),
+	$classEntry("com.sun.tools.javac.comp.Flow$AliveAnalyzer", ::com::sun::tools::javac::comp::Flow$AliveAnalyzer),
+	$classEntry("com.sun.tools.javac.comp.Flow$AssignAnalyzer", ::com::sun::tools::javac::comp::Flow$AssignAnalyzer),
+	$classEntry("com.sun.tools.javac.comp.Flow$AssignAnalyzer$1", ::com::sun::tools::javac::comp::Flow$AssignAnalyzer$1),
+	$classEntry("com.sun.tools.javac.comp.Flow$AssignAnalyzer$AssignPendingExit", ::com::sun::tools::javac::comp::Flow$AssignAnalyzer$AssignPendingExit),
+	$classEntry("com.sun.tools.javac.comp.Flow$BaseAnalyzer", ::com::sun::tools::javac::comp::Flow$BaseAnalyzer),
+	$classEntry("com.sun.tools.javac.comp.Flow$BaseAnalyzer$JumpKind", ::com::sun::tools::javac::comp::Flow$BaseAnalyzer$JumpKind),
+	$classEntry("com.sun.tools.javac.comp.Flow$BaseAnalyzer$JumpKind$1", ::com::sun::tools::javac::comp::Flow$BaseAnalyzer$JumpKind$1),
+	$classEntry("com.sun.tools.javac.comp.Flow$BaseAnalyzer$JumpKind$2", ::com::sun::tools::javac::comp::Flow$BaseAnalyzer$JumpKind$2),
+	$classEntry("com.sun.tools.javac.comp.Flow$BaseAnalyzer$JumpKind$3", ::com::sun::tools::javac::comp::Flow$BaseAnalyzer$JumpKind$3),
+	$classEntry("com.sun.tools.javac.comp.Flow$BaseAnalyzer$PendingExit", ::com::sun::tools::javac::comp::Flow$BaseAnalyzer$PendingExit),
+	$classEntry("com.sun.tools.javac.comp.Flow$CaptureAnalyzer", ::com::sun::tools::javac::comp::Flow$CaptureAnalyzer),
+	$classEntry("com.sun.tools.javac.comp.Flow$FlowAnalyzer", ::com::sun::tools::javac::comp::Flow$FlowAnalyzer),
+	$classEntry("com.sun.tools.javac.comp.Flow$FlowAnalyzer$ThrownPendingExit", ::com::sun::tools::javac::comp::Flow$FlowAnalyzer$ThrownPendingExit),
+	$classEntry("com.sun.tools.javac.comp.Flow$FlowKind", ::com::sun::tools::javac::comp::Flow$FlowKind),
+	$classEntry("com.sun.tools.javac.comp.Flow$LambdaAliveAnalyzer", ::com::sun::tools::javac::comp::Flow$LambdaAliveAnalyzer),
+	$classEntry("com.sun.tools.javac.comp.Flow$LambdaAssignAnalyzer", ::com::sun::tools::javac::comp::Flow$LambdaAssignAnalyzer),
+	$classEntry("com.sun.tools.javac.comp.Flow$LambdaFlowAnalyzer", ::com::sun::tools::javac::comp::Flow$LambdaFlowAnalyzer),
+	$classEntry("com.sun.tools.javac.comp.Flow$Liveness", ::com::sun::tools::javac::comp::Flow$Liveness),
+	$classEntry("com.sun.tools.javac.comp.Flow$Liveness$1", ::com::sun::tools::javac::comp::Flow$Liveness$1),
+	$classEntry("com.sun.tools.javac.comp.Flow$Liveness$2", ::com::sun::tools::javac::comp::Flow$Liveness$2),
+	$classEntry("com.sun.tools.javac.comp.Flow$Liveness$3", ::com::sun::tools::javac::comp::Flow$Liveness$3),
+	$classEntry("com.sun.tools.javac.comp.Flow$SnippetAliveAnalyzer", ::com::sun::tools::javac::comp::Flow$SnippetAliveAnalyzer),
+	$classEntry("com.sun.tools.javac.comp.Flow$SnippetBreakAnalyzer", ::com::sun::tools::javac::comp::Flow$SnippetBreakAnalyzer),
+	$classEntry("com.sun.tools.javac.comp.Infer", ::com::sun::tools::javac::comp::Infer),
+	$classEntry("com.sun.tools.javac.comp.Infer$1", ::com::sun::tools::javac::comp::Infer$1),
+	$classEntry("com.sun.tools.javac.comp.Infer$2", ::com::sun::tools::javac::comp::Infer$2),
+	$classEntry("com.sun.tools.javac.comp.Infer$3", ::com::sun::tools::javac::comp::Infer$3),
+	$classEntry("com.sun.tools.javac.comp.Infer$4", ::com::sun::tools::javac::comp::Infer$4),
+	$classEntry("com.sun.tools.javac.comp.Infer$AbstractIncorporationEngine", ::com::sun::tools::javac::comp::Infer$AbstractIncorporationEngine),
+	$classEntry("com.sun.tools.javac.comp.Infer$BestLeafSolver", ::com::sun::tools::javac::comp::Infer$BestLeafSolver),
+	$classEntry("com.sun.tools.javac.comp.Infer$BoundFilter", ::com::sun::tools::javac::comp::Infer$BoundFilter),
+	$classEntry("com.sun.tools.javac.comp.Infer$CheckBounds", ::com::sun::tools::javac::comp::Infer$CheckBounds),
+	$classEntry("com.sun.tools.javac.comp.Infer$CheckInst", ::com::sun::tools::javac::comp::Infer$CheckInst),
+	$classEntry("com.sun.tools.javac.comp.Infer$CheckUpperBounds", ::com::sun::tools::javac::comp::Infer$CheckUpperBounds),
+	$classEntry("com.sun.tools.javac.comp.Infer$DependencyKind", ::com::sun::tools::javac::comp::Infer$DependencyKind),
+	$classEntry("com.sun.tools.javac.comp.Infer$EqCheckLegacy", ::com::sun::tools::javac::comp::Infer$EqCheckLegacy),
+	$classEntry("com.sun.tools.javac.comp.Infer$FreeTypeListener", ::com::sun::tools::javac::comp::Infer$FreeTypeListener),
+	$classEntry("com.sun.tools.javac.comp.Infer$GraphInferenceSteps", ::com::sun::tools::javac::comp::Infer$GraphInferenceSteps),
+	$classEntry("com.sun.tools.javac.comp.Infer$GraphSolver", ::com::sun::tools::javac::comp::Infer$GraphSolver),
+	$classEntry("com.sun.tools.javac.comp.Infer$GraphSolver$InferenceGraph", ::com::sun::tools::javac::comp::Infer$GraphSolver$InferenceGraph),
+	$classEntry("com.sun.tools.javac.comp.Infer$GraphSolver$InferenceGraph$Node", ::com::sun::tools::javac::comp::Infer$GraphSolver$InferenceGraph$Node),
+	$classEntry("com.sun.tools.javac.comp.Infer$GraphStrategy", ::com::sun::tools::javac::comp::Infer$GraphStrategy),
+	$classEntry("com.sun.tools.javac.comp.Infer$GraphStrategy$NodeNotFoundException", ::com::sun::tools::javac::comp::Infer$GraphStrategy$NodeNotFoundException),
+	$classEntry("com.sun.tools.javac.comp.Infer$ImplicitArgType", ::com::sun::tools::javac::comp::Infer$ImplicitArgType),
+	$classEntry("com.sun.tools.javac.comp.Infer$IncorporationAction", ::com::sun::tools::javac::comp::Infer$IncorporationAction),
+	$classEntry("com.sun.tools.javac.comp.Infer$IncorporationBinaryOp", ::com::sun::tools::javac::comp::Infer$IncorporationBinaryOp),
+	$classEntry("com.sun.tools.javac.comp.Infer$IncorporationBinaryOpKind", ::com::sun::tools::javac::comp::Infer$IncorporationBinaryOpKind),
+	$classEntry("com.sun.tools.javac.comp.Infer$IncorporationBinaryOpKind$1", ::com::sun::tools::javac::comp::Infer$IncorporationBinaryOpKind$1),
+	$classEntry("com.sun.tools.javac.comp.Infer$IncorporationBinaryOpKind$2", ::com::sun::tools::javac::comp::Infer$IncorporationBinaryOpKind$2),
+	$classEntry("com.sun.tools.javac.comp.Infer$InferenceException", ::com::sun::tools::javac::comp::Infer$InferenceException),
+	$classEntry("com.sun.tools.javac.comp.Infer$InferenceStep", ::com::sun::tools::javac::comp::Infer$InferenceStep),
+	$classEntry("com.sun.tools.javac.comp.Infer$InferenceStep$1", ::com::sun::tools::javac::comp::Infer$InferenceStep$1),
+	$classEntry("com.sun.tools.javac.comp.Infer$InferenceStep$2", ::com::sun::tools::javac::comp::Infer$InferenceStep$2),
+	$classEntry("com.sun.tools.javac.comp.Infer$InferenceStep$3", ::com::sun::tools::javac::comp::Infer$InferenceStep$3),
+	$classEntry("com.sun.tools.javac.comp.Infer$InferenceStep$4", ::com::sun::tools::javac::comp::Infer$InferenceStep$4),
+	$classEntry("com.sun.tools.javac.comp.Infer$InferenceStep$5", ::com::sun::tools::javac::comp::Infer$InferenceStep$5),
+	$classEntry("com.sun.tools.javac.comp.Infer$InferenceStep$6", ::com::sun::tools::javac::comp::Infer$InferenceStep$6),
+	$classEntry("com.sun.tools.javac.comp.Infer$LeafSolver", ::com::sun::tools::javac::comp::Infer$LeafSolver),
+	$classEntry("com.sun.tools.javac.comp.Infer$LegacyInferenceSteps", ::com::sun::tools::javac::comp::Infer$LegacyInferenceSteps),
+	$classEntry("com.sun.tools.javac.comp.Infer$PartiallyInferredMethodType", ::com::sun::tools::javac::comp::Infer$PartiallyInferredMethodType),
+	$classEntry("com.sun.tools.javac.comp.Infer$PropagateBounds", ::com::sun::tools::javac::comp::Infer$PropagateBounds),
+	$classEntry("com.sun.tools.javac.comp.Infer$SubstBounds", ::com::sun::tools::javac::comp::Infer$SubstBounds),
+	$classEntry("com.sun.tools.javac.comp.InferenceContext", ::com::sun::tools::javac::comp::InferenceContext),
+	$classEntry("com.sun.tools.javac.comp.InferenceContext$1", ::com::sun::tools::javac::comp::InferenceContext$1),
+	$classEntry("com.sun.tools.javac.comp.InferenceContext$2", ::com::sun::tools::javac::comp::InferenceContext$2),
+	$classEntry("com.sun.tools.javac.comp.InferenceContext$3", ::com::sun::tools::javac::comp::InferenceContext$3),
+	$classEntry("com.sun.tools.javac.comp.InferenceContext$ReachabilityVisitor", ::com::sun::tools::javac::comp::InferenceContext$ReachabilityVisitor),
+	$classEntry("com.sun.tools.javac.comp.LambdaToMethod", ::com::sun::tools::javac::comp::LambdaToMethod),
+	$classEntry("com.sun.tools.javac.comp.LambdaToMethod$1", ::com::sun::tools::javac::comp::LambdaToMethod$1),
+	$classEntry("com.sun.tools.javac.comp.LambdaToMethod$1LambdaBodyTranslator", ::com::sun::tools::javac::comp::LambdaToMethod$1LambdaBodyTranslator),
+	$classEntry("com.sun.tools.javac.comp.LambdaToMethod$DedupedLambda", ::com::sun::tools::javac::comp::LambdaToMethod$DedupedLambda),
+	$classEntry("com.sun.tools.javac.comp.LambdaToMethod$KlassInfo", ::com::sun::tools::javac::comp::LambdaToMethod$KlassInfo),
+	$classEntry("com.sun.tools.javac.comp.LambdaToMethod$L2MSignatureGenerator", ::com::sun::tools::javac::comp::LambdaToMethod$L2MSignatureGenerator),
+	$classEntry("com.sun.tools.javac.comp.LambdaToMethod$LambdaAnalyzerPreprocessor", ::com::sun::tools::javac::comp::LambdaToMethod$LambdaAnalyzerPreprocessor),
+	$classEntry("com.sun.tools.javac.comp.LambdaToMethod$LambdaAnalyzerPreprocessor$1", ::com::sun::tools::javac::comp::LambdaToMethod$LambdaAnalyzerPreprocessor$1),
+	$classEntry("com.sun.tools.javac.comp.LambdaToMethod$LambdaAnalyzerPreprocessor$Frame", ::com::sun::tools::javac::comp::LambdaToMethod$LambdaAnalyzerPreprocessor$Frame),
+	$classEntry("com.sun.tools.javac.comp.LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext", ::com::sun::tools::javac::comp::LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext),
+	$classEntry("com.sun.tools.javac.comp.LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$1", ::com::sun::tools::javac::comp::LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$1),
+	$classEntry("com.sun.tools.javac.comp.LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$2", ::com::sun::tools::javac::comp::LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$2),
+	$classEntry("com.sun.tools.javac.comp.LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$3", ::com::sun::tools::javac::comp::LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$3),
+	$classEntry("com.sun.tools.javac.comp.LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$4", ::com::sun::tools::javac::comp::LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext$4),
+	$classEntry("com.sun.tools.javac.comp.LambdaToMethod$LambdaAnalyzerPreprocessor$ReferenceTranslationContext", ::com::sun::tools::javac::comp::LambdaToMethod$LambdaAnalyzerPreprocessor$ReferenceTranslationContext),
+	$classEntry("com.sun.tools.javac.comp.LambdaToMethod$LambdaAnalyzerPreprocessor$SyntheticMethodNameCounter", ::com::sun::tools::javac::comp::LambdaToMethod$LambdaAnalyzerPreprocessor$SyntheticMethodNameCounter),
+	$classEntry("com.sun.tools.javac.comp.LambdaToMethod$LambdaAnalyzerPreprocessor$TranslationContext", ::com::sun::tools::javac::comp::LambdaToMethod$LambdaAnalyzerPreprocessor$TranslationContext),
+	$classEntry("com.sun.tools.javac.comp.LambdaToMethod$LambdaSymbolKind", ::com::sun::tools::javac::comp::LambdaToMethod$LambdaSymbolKind),
+	$classEntry("com.sun.tools.javac.comp.LambdaToMethod$MemberReferenceToLambda", ::com::sun::tools::javac::comp::LambdaToMethod$MemberReferenceToLambda),
+	$classEntry("com.sun.tools.javac.comp.Lower", ::com::sun::tools::javac::comp::Lower),
+	$classEntry("com.sun.tools.javac.comp.Lower$1", ::com::sun::tools::javac::comp::Lower$1),
+	$classEntry("com.sun.tools.javac.comp.Lower$1Patcher", ::com::sun::tools::javac::comp::Lower$1Patcher),
+	$classEntry("com.sun.tools.javac.comp.Lower$2", ::com::sun::tools::javac::comp::Lower$2),
+	$classEntry("com.sun.tools.javac.comp.Lower$AssignopDependencyScanner", ::com::sun::tools::javac::comp::Lower$AssignopDependencyScanner),
+	$classEntry("com.sun.tools.javac.comp.Lower$BasicFreeVarCollector", ::com::sun::tools::javac::comp::Lower$BasicFreeVarCollector),
+	$classEntry("com.sun.tools.javac.comp.Lower$ClassMap", ::com::sun::tools::javac::comp::Lower$ClassMap),
+	$classEntry("com.sun.tools.javac.comp.Lower$EnumMapping", ::com::sun::tools::javac::comp::Lower$EnumMapping),
+	$classEntry("com.sun.tools.javac.comp.Lower$FreeVarCollector", ::com::sun::tools::javac::comp::Lower$FreeVarCollector),
+	$classEntry("com.sun.tools.javac.comp.Lower$LowerSignatureGenerator", ::com::sun::tools::javac::comp::Lower$LowerSignatureGenerator),
+	$classEntry("com.sun.tools.javac.comp.Lower$TreeBuilder", ::com::sun::tools::javac::comp::Lower$TreeBuilder),
+	$classEntry("com.sun.tools.javac.comp.MatchBindingsComputer", ::com::sun::tools::javac::comp::MatchBindingsComputer),
+	$classEntry("com.sun.tools.javac.comp.MatchBindingsComputer$1", ::com::sun::tools::javac::comp::MatchBindingsComputer$1),
+	$classEntry("com.sun.tools.javac.comp.MatchBindingsComputer$MatchBindings", ::com::sun::tools::javac::comp::MatchBindingsComputer$MatchBindings),
+	$classEntry("com.sun.tools.javac.comp.MemberEnter", ::com::sun::tools::javac::comp::MemberEnter),
+	$classEntry("com.sun.tools.javac.comp.MemberEnter$InitTreeVisitor", ::com::sun::tools::javac::comp::MemberEnter$InitTreeVisitor),
+	$classEntry("com.sun.tools.javac.comp.Modules", ::com::sun::tools::javac::comp::Modules),
+	$classEntry("com.sun.tools.javac.comp.Modules$1", ::com::sun::tools::javac::comp::Modules$1),
+	$classEntry("com.sun.tools.javac.comp.Modules$2", ::com::sun::tools::javac::comp::Modules$2),
+	$classEntry("com.sun.tools.javac.comp.Modules$3", ::com::sun::tools::javac::comp::Modules$3),
+	$classEntry("com.sun.tools.javac.comp.Modules$ModuleVisitor", ::com::sun::tools::javac::comp::Modules$ModuleVisitor),
+	$classEntry("com.sun.tools.javac.comp.Modules$PackageNameFinder", ::com::sun::tools::javac::comp::Modules$PackageNameFinder),
+	$classEntry("com.sun.tools.javac.comp.Modules$UsesProvidesVisitor", ::com::sun::tools::javac::comp::Modules$UsesProvidesVisitor),
+	$classEntry("com.sun.tools.javac.comp.Operators", ::com::sun::tools::javac::comp::Operators),
+	$classEntry("com.sun.tools.javac.comp.Operators$1", ::com::sun::tools::javac::comp::Operators$1),
+	$classEntry("com.sun.tools.javac.comp.Operators$BinaryBooleanOperator", ::com::sun::tools::javac::comp::Operators$BinaryBooleanOperator),
+	$classEntry("com.sun.tools.javac.comp.Operators$BinaryEqualityOperator", ::com::sun::tools::javac::comp::Operators$BinaryEqualityOperator),
+	$classEntry("com.sun.tools.javac.comp.Operators$BinaryNumericOperator", ::com::sun::tools::javac::comp::Operators$BinaryNumericOperator),
+	$classEntry("com.sun.tools.javac.comp.Operators$BinaryOperatorHelper", ::com::sun::tools::javac::comp::Operators$BinaryOperatorHelper),
+	$classEntry("com.sun.tools.javac.comp.Operators$BinaryShiftOperator", ::com::sun::tools::javac::comp::Operators$BinaryShiftOperator),
+	$classEntry("com.sun.tools.javac.comp.Operators$BinaryStringOperator", ::com::sun::tools::javac::comp::Operators$BinaryStringOperator),
+	$classEntry("com.sun.tools.javac.comp.Operators$ComparisonKind", ::com::sun::tools::javac::comp::Operators$ComparisonKind),
+	$classEntry("com.sun.tools.javac.comp.Operators$OperatorHelper", ::com::sun::tools::javac::comp::Operators$OperatorHelper),
+	$classEntry("com.sun.tools.javac.comp.Operators$OperatorType", ::com::sun::tools::javac::comp::Operators$OperatorType),
+	$classEntry("com.sun.tools.javac.comp.Operators$UnaryBooleanOperator", ::com::sun::tools::javac::comp::Operators$UnaryBooleanOperator),
+	$classEntry("com.sun.tools.javac.comp.Operators$UnaryNumericOperator", ::com::sun::tools::javac::comp::Operators$UnaryNumericOperator),
+	$classEntry("com.sun.tools.javac.comp.Operators$UnaryOperatorHelper", ::com::sun::tools::javac::comp::Operators$UnaryOperatorHelper),
+	$classEntry("com.sun.tools.javac.comp.Operators$UnaryPrefixPostfixOperator", ::com::sun::tools::javac::comp::Operators$UnaryPrefixPostfixOperator),
+	$classEntry("com.sun.tools.javac.comp.Operators$UnaryReferenceOperator", ::com::sun::tools::javac::comp::Operators$UnaryReferenceOperator),
+	$classEntry("com.sun.tools.javac.comp.Resolve", ::com::sun::tools::javac::comp::Resolve),
+	$classEntry("com.sun.tools.javac.comp.Resolve$1", ::com::sun::tools::javac::comp::Resolve$1),
+	$classEntry("com.sun.tools.javac.comp.Resolve$10", ::com::sun::tools::javac::comp::Resolve$10),
+	$classEntry("com.sun.tools.javac.comp.Resolve$11", ::com::sun::tools::javac::comp::Resolve$11),
+	$classEntry("com.sun.tools.javac.comp.Resolve$12", ::com::sun::tools::javac::comp::Resolve$12),
+	$classEntry("com.sun.tools.javac.comp.Resolve$13", ::com::sun::tools::javac::comp::Resolve$13),
+	$classEntry("com.sun.tools.javac.comp.Resolve$14", ::com::sun::tools::javac::comp::Resolve$14),
+	$classEntry("com.sun.tools.javac.comp.Resolve$15", ::com::sun::tools::javac::comp::Resolve$15),
+	$classEntry("com.sun.tools.javac.comp.Resolve$16", ::com::sun::tools::javac::comp::Resolve$16),
+	$classEntry("com.sun.tools.javac.comp.Resolve$17", ::com::sun::tools::javac::comp::Resolve$17),
+	$classEntry("com.sun.tools.javac.comp.Resolve$18", ::com::sun::tools::javac::comp::Resolve$18),
+	$classEntry("com.sun.tools.javac.comp.Resolve$2", ::com::sun::tools::javac::comp::Resolve$2),
+	$classEntry("com.sun.tools.javac.comp.Resolve$3", ::com::sun::tools::javac::comp::Resolve$3),
+	$classEntry("com.sun.tools.javac.comp.Resolve$4", ::com::sun::tools::javac::comp::Resolve$4),
+	$classEntry("com.sun.tools.javac.comp.Resolve$4$1", ::com::sun::tools::javac::comp::Resolve$4$1),
+	$classEntry("com.sun.tools.javac.comp.Resolve$5", ::com::sun::tools::javac::comp::Resolve$5),
+	$classEntry("com.sun.tools.javac.comp.Resolve$6", ::com::sun::tools::javac::comp::Resolve$6),
+	$classEntry("com.sun.tools.javac.comp.Resolve$7", ::com::sun::tools::javac::comp::Resolve$7),
+	$classEntry("com.sun.tools.javac.comp.Resolve$8", ::com::sun::tools::javac::comp::Resolve$8),
+	$classEntry("com.sun.tools.javac.comp.Resolve$9", ::com::sun::tools::javac::comp::Resolve$9),
+	$classEntry("com.sun.tools.javac.comp.Resolve$AbstractMethodCheck", ::com::sun::tools::javac::comp::Resolve$AbstractMethodCheck),
+	$classEntry("com.sun.tools.javac.comp.Resolve$AbstractMethodCheck$SharedInapplicableMethodException", ::com::sun::tools::javac::comp::Resolve$AbstractMethodCheck$SharedInapplicableMethodException),
+	$classEntry("com.sun.tools.javac.comp.Resolve$AccessError", ::com::sun::tools::javac::comp::Resolve$AccessError),
+	$classEntry("com.sun.tools.javac.comp.Resolve$AmbiguityError", ::com::sun::tools::javac::comp::Resolve$AmbiguityError),
+	$classEntry("com.sun.tools.javac.comp.Resolve$ArrayConstructorReferenceLookupHelper", ::com::sun::tools::javac::comp::Resolve$ArrayConstructorReferenceLookupHelper),
+	$classEntry("com.sun.tools.javac.comp.Resolve$BadClassFileError", ::com::sun::tools::javac::comp::Resolve$BadClassFileError),
+	$classEntry("com.sun.tools.javac.comp.Resolve$BadConstructorReferenceError", ::com::sun::tools::javac::comp::Resolve$BadConstructorReferenceError),
+	$classEntry("com.sun.tools.javac.comp.Resolve$BadMethodReferenceError", ::com::sun::tools::javac::comp::Resolve$BadMethodReferenceError),
+	$classEntry("com.sun.tools.javac.comp.Resolve$BadRestrictedTypeError", ::com::sun::tools::javac::comp::Resolve$BadRestrictedTypeError),
+	$classEntry("com.sun.tools.javac.comp.Resolve$BadVarargsMethod", ::com::sun::tools::javac::comp::Resolve$BadVarargsMethod),
+	$classEntry("com.sun.tools.javac.comp.Resolve$BasicLookupHelper", ::com::sun::tools::javac::comp::Resolve$BasicLookupHelper),
+	$classEntry("com.sun.tools.javac.comp.Resolve$ConstructorReferenceLookupHelper", ::com::sun::tools::javac::comp::Resolve$ConstructorReferenceLookupHelper),
+	$classEntry("com.sun.tools.javac.comp.Resolve$DiamondError", ::com::sun::tools::javac::comp::Resolve$DiamondError),
+	$classEntry("com.sun.tools.javac.comp.Resolve$InapplicableMethodException", ::com::sun::tools::javac::comp::Resolve$InapplicableMethodException),
+	$classEntry("com.sun.tools.javac.comp.Resolve$InapplicableSymbolError", ::com::sun::tools::javac::comp::Resolve$InapplicableSymbolError),
+	$classEntry("com.sun.tools.javac.comp.Resolve$InapplicableSymbolsError", ::com::sun::tools::javac::comp::Resolve$InapplicableSymbolsError),
+	$classEntry("com.sun.tools.javac.comp.Resolve$InapplicableSymbolsError$1", ::com::sun::tools::javac::comp::Resolve$InapplicableSymbolsError$1),
+	$classEntry("com.sun.tools.javac.comp.Resolve$InapplicableSymbolsError$MostSpecificMap", ::com::sun::tools::javac::comp::Resolve$InapplicableSymbolsError$MostSpecificMap),
+	$classEntry("com.sun.tools.javac.comp.Resolve$InterfaceLookupPhase", ::com::sun::tools::javac::comp::Resolve$InterfaceLookupPhase),
+	$classEntry("com.sun.tools.javac.comp.Resolve$InterfaceLookupPhase$1", ::com::sun::tools::javac::comp::Resolve$InterfaceLookupPhase$1),
+	$classEntry("com.sun.tools.javac.comp.Resolve$InterfaceLookupPhase$2", ::com::sun::tools::javac::comp::Resolve$InterfaceLookupPhase$2),
+	$classEntry("com.sun.tools.javac.comp.Resolve$InvalidSymbolError", ::com::sun::tools::javac::comp::Resolve$InvalidSymbolError),
+	$classEntry("com.sun.tools.javac.comp.Resolve$InvisibleSymbolError", ::com::sun::tools::javac::comp::Resolve$InvisibleSymbolError),
+	$classEntry("com.sun.tools.javac.comp.Resolve$LogResolveHelper", ::com::sun::tools::javac::comp::Resolve$LogResolveHelper),
+	$classEntry("com.sun.tools.javac.comp.Resolve$LookupFilter", ::com::sun::tools::javac::comp::Resolve$LookupFilter),
+	$classEntry("com.sun.tools.javac.comp.Resolve$LookupHelper", ::com::sun::tools::javac::comp::Resolve$LookupHelper),
+	$classEntry("com.sun.tools.javac.comp.Resolve$MethodCheck", ::com::sun::tools::javac::comp::Resolve$MethodCheck),
+	$classEntry("com.sun.tools.javac.comp.Resolve$MethodCheckContext", ::com::sun::tools::javac::comp::Resolve$MethodCheckContext),
+	$classEntry("com.sun.tools.javac.comp.Resolve$MethodCheckDiag", ::com::sun::tools::javac::comp::Resolve$MethodCheckDiag),
+	$classEntry("com.sun.tools.javac.comp.Resolve$MethodReferenceCheck", ::com::sun::tools::javac::comp::Resolve$MethodReferenceCheck),
+	$classEntry("com.sun.tools.javac.comp.Resolve$MethodReferenceCheck$1", ::com::sun::tools::javac::comp::Resolve$MethodReferenceCheck$1),
+	$classEntry("com.sun.tools.javac.comp.Resolve$MethodReferenceLookupHelper", ::com::sun::tools::javac::comp::Resolve$MethodReferenceLookupHelper),
+	$classEntry("com.sun.tools.javac.comp.Resolve$MethodReferenceLookupHelper$1", ::com::sun::tools::javac::comp::Resolve$MethodReferenceLookupHelper$1),
+	$classEntry("com.sun.tools.javac.comp.Resolve$MethodResolutionContext", ::com::sun::tools::javac::comp::Resolve$MethodResolutionContext),
+	$classEntry("com.sun.tools.javac.comp.Resolve$MethodResolutionContext$Candidate", ::com::sun::tools::javac::comp::Resolve$MethodResolutionContext$Candidate),
+	$classEntry("com.sun.tools.javac.comp.Resolve$MethodResolutionDiagHelper", ::com::sun::tools::javac::comp::Resolve$MethodResolutionDiagHelper),
+	$classEntry("com.sun.tools.javac.comp.Resolve$MethodResolutionDiagHelper$1", ::com::sun::tools::javac::comp::Resolve$MethodResolutionDiagHelper$1),
+	$classEntry("com.sun.tools.javac.comp.Resolve$MethodResolutionDiagHelper$2", ::com::sun::tools::javac::comp::Resolve$MethodResolutionDiagHelper$2),
+	$classEntry("com.sun.tools.javac.comp.Resolve$MethodResolutionDiagHelper$ArgMismatchRewriter", ::com::sun::tools::javac::comp::Resolve$MethodResolutionDiagHelper$ArgMismatchRewriter),
+	$classEntry("com.sun.tools.javac.comp.Resolve$MethodResolutionDiagHelper$DiagnosticRewriter", ::com::sun::tools::javac::comp::Resolve$MethodResolutionDiagHelper$DiagnosticRewriter),
+	$classEntry("com.sun.tools.javac.comp.Resolve$MethodResolutionDiagHelper$Template", ::com::sun::tools::javac::comp::Resolve$MethodResolutionDiagHelper$Template),
+	$classEntry("com.sun.tools.javac.comp.Resolve$MethodResolutionPhase", ::com::sun::tools::javac::comp::Resolve$MethodResolutionPhase),
+	$classEntry("com.sun.tools.javac.comp.Resolve$MethodResolutionPhase$1", ::com::sun::tools::javac::comp::Resolve$MethodResolutionPhase$1),
+	$classEntry("com.sun.tools.javac.comp.Resolve$MethodResultInfo", ::com::sun::tools::javac::comp::Resolve$MethodResultInfo),
+	$classEntry("com.sun.tools.javac.comp.Resolve$MostSpecificCheck", ::com::sun::tools::javac::comp::Resolve$MostSpecificCheck),
+	$classEntry("com.sun.tools.javac.comp.Resolve$MostSpecificCheck$MostSpecificCheckContext", ::com::sun::tools::javac::comp::Resolve$MostSpecificCheck$MostSpecificCheckContext),
+	$classEntry("com.sun.tools.javac.comp.Resolve$MostSpecificCheck$MostSpecificCheckContext$MostSpecificFunctionReturnChecker", ::com::sun::tools::javac::comp::Resolve$MostSpecificCheck$MostSpecificCheckContext$MostSpecificFunctionReturnChecker),
+	$classEntry("com.sun.tools.javac.comp.Resolve$MostSpecificCheck$MostSpecificCheckContext$MostSpecificFunctionReturnChecker$1", ::com::sun::tools::javac::comp::Resolve$MostSpecificCheck$MostSpecificCheckContext$MostSpecificFunctionReturnChecker$1),
+	$classEntry("com.sun.tools.javac.comp.Resolve$RecoveryLoadClass", ::com::sun::tools::javac::comp::Resolve$RecoveryLoadClass),
+	$classEntry("com.sun.tools.javac.comp.Resolve$ReferenceChooser", ::com::sun::tools::javac::comp::Resolve$ReferenceChooser),
+	$classEntry("com.sun.tools.javac.comp.Resolve$ReferenceLookupHelper", ::com::sun::tools::javac::comp::Resolve$ReferenceLookupHelper),
+	$classEntry("com.sun.tools.javac.comp.Resolve$ReferenceLookupResult", ::com::sun::tools::javac::comp::Resolve$ReferenceLookupResult),
+	$classEntry("com.sun.tools.javac.comp.Resolve$ReferenceLookupResult$StaticKind", ::com::sun::tools::javac::comp::Resolve$ReferenceLookupResult$StaticKind),
+	$classEntry("com.sun.tools.javac.comp.Resolve$ResolveDeferredRecoveryMap", ::com::sun::tools::javac::comp::Resolve$ResolveDeferredRecoveryMap),
+	$classEntry("com.sun.tools.javac.comp.Resolve$ResolveError", ::com::sun::tools::javac::comp::Resolve$ResolveError),
+	$classEntry("com.sun.tools.javac.comp.Resolve$StaticError", ::com::sun::tools::javac::comp::Resolve$StaticError),
+	$classEntry("com.sun.tools.javac.comp.Resolve$SymbolNotFoundError", ::com::sun::tools::javac::comp::Resolve$SymbolNotFoundError),
+	$classEntry("com.sun.tools.javac.comp.Resolve$UnboundMethodReferenceLookupHelper", ::com::sun::tools::javac::comp::Resolve$UnboundMethodReferenceLookupHelper),
+	$classEntry("com.sun.tools.javac.comp.Resolve$VerboseResolutionMode", ::com::sun::tools::javac::comp::Resolve$VerboseResolutionMode),
+	$classEntry("com.sun.tools.javac.comp.Todo", ::com::sun::tools::javac::comp::Todo),
+	$classEntry("com.sun.tools.javac.comp.Todo$FileQueue", ::com::sun::tools::javac::comp::Todo$FileQueue),
+	$classEntry("com.sun.tools.javac.comp.TransPatterns", ::com::sun::tools::javac::comp::TransPatterns),
+	$classEntry("com.sun.tools.javac.comp.TransPatterns$1", ::com::sun::tools::javac::comp::TransPatterns$1),
+	$classEntry("com.sun.tools.javac.comp.TransPatterns$2", ::com::sun::tools::javac::comp::TransPatterns$2),
+	$classEntry("com.sun.tools.javac.comp.TransPatterns$3", ::com::sun::tools::javac::comp::TransPatterns$3),
+	$classEntry("com.sun.tools.javac.comp.TransPatterns$BasicBindingContext", ::com::sun::tools::javac::comp::TransPatterns$BasicBindingContext),
+	$classEntry("com.sun.tools.javac.comp.TransPatterns$BindingContext", ::com::sun::tools::javac::comp::TransPatterns$BindingContext),
+	$classEntry("com.sun.tools.javac.comp.TransPatterns$BindingDeclarationFenceBindingContext", ::com::sun::tools::javac::comp::TransPatterns$BindingDeclarationFenceBindingContext),
+	$classEntry("com.sun.tools.javac.comp.TransTypes", ::com::sun::tools::javac::comp::TransTypes),
+	$classEntry("com.sun.tools.javac.comp.TreeDiffer", ::com::sun::tools::javac::comp::TreeDiffer),
+	$classEntry("com.sun.tools.javac.comp.TreeHasher", ::com::sun::tools::javac::comp::TreeHasher),
+	$classEntry("com.sun.tools.javac.comp.TypeEnter", ::com::sun::tools::javac::comp::TypeEnter),
+	$classEntry("com.sun.tools.javac.comp.TypeEnter$1", ::com::sun::tools::javac::comp::TypeEnter$1),
+	$classEntry("com.sun.tools.javac.comp.TypeEnter$AbstractHeaderPhase", ::com::sun::tools::javac::comp::TypeEnter$AbstractHeaderPhase),
+	$classEntry("com.sun.tools.javac.comp.TypeEnter$AbstractHeaderPhase$1", ::com::sun::tools::javac::comp::TypeEnter$AbstractHeaderPhase$1),
+	$classEntry("com.sun.tools.javac.comp.TypeEnter$AbstractHeaderPhase$Synthesizer", ::com::sun::tools::javac::comp::TypeEnter$AbstractHeaderPhase$Synthesizer),
+	$classEntry("com.sun.tools.javac.comp.TypeEnter$AbstractHeaderPhase$Synthesizer$1", ::com::sun::tools::javac::comp::TypeEnter$AbstractHeaderPhase$Synthesizer$1),
+	$classEntry("com.sun.tools.javac.comp.TypeEnter$AbstractHeaderPhase$Synthesizer$2", ::com::sun::tools::javac::comp::TypeEnter$AbstractHeaderPhase$Synthesizer$2),
+	$classEntry("com.sun.tools.javac.comp.TypeEnter$AbstractMembersPhase", ::com::sun::tools::javac::comp::TypeEnter$AbstractMembersPhase),
+	$classEntry("com.sun.tools.javac.comp.TypeEnter$AnonClassConstructorHelper", ::com::sun::tools::javac::comp::TypeEnter$AnonClassConstructorHelper),
+	$classEntry("com.sun.tools.javac.comp.TypeEnter$BasicConstructorHelper", ::com::sun::tools::javac::comp::TypeEnter$BasicConstructorHelper),
+	$classEntry("com.sun.tools.javac.comp.TypeEnter$DefaultConstructorHelper", ::com::sun::tools::javac::comp::TypeEnter$DefaultConstructorHelper),
+	$classEntry("com.sun.tools.javac.comp.TypeEnter$HeaderPhase", ::com::sun::tools::javac::comp::TypeEnter$HeaderPhase),
+	$classEntry("com.sun.tools.javac.comp.TypeEnter$HierarchyPhase", ::com::sun::tools::javac::comp::TypeEnter$HierarchyPhase),
+	$classEntry("com.sun.tools.javac.comp.TypeEnter$ImportsPhase", ::com::sun::tools::javac::comp::TypeEnter$ImportsPhase),
+	$classEntry("com.sun.tools.javac.comp.TypeEnter$MembersPhase", ::com::sun::tools::javac::comp::TypeEnter$MembersPhase),
+	$classEntry("com.sun.tools.javac.comp.TypeEnter$PermitsPhase", ::com::sun::tools::javac::comp::TypeEnter$PermitsPhase),
+	$classEntry("com.sun.tools.javac.comp.TypeEnter$Phase", ::com::sun::tools::javac::comp::TypeEnter$Phase),
+	$classEntry("com.sun.tools.javac.comp.TypeEnter$RecordConstructorHelper", ::com::sun::tools::javac::comp::TypeEnter$RecordConstructorHelper),
+	$classEntry("com.sun.tools.javac.comp.TypeEnter$RecordPhase", ::com::sun::tools::javac::comp::TypeEnter$RecordPhase),
+	$classEntry("com.sun.tools.javac.comp.TypeEnvs", ::com::sun::tools::javac::comp::TypeEnvs),
+	$classEntry("com.sun.tools.javac.file.BaseFileManager", ::com::sun::tools::javac::file::BaseFileManager),
+	$classEntry("com.sun.tools.javac.file.BaseFileManager$1", ::com::sun::tools::javac::file::BaseFileManager$1),
+	$classEntry("com.sun.tools.javac.file.BaseFileManager$2", ::com::sun::tools::javac::file::BaseFileManager$2),
+	$classEntry("com.sun.tools.javac.file.BaseFileManager$3", ::com::sun::tools::javac::file::BaseFileManager$3),
+	$classEntry("com.sun.tools.javac.file.BaseFileManager$ByteBufferCache", ::com::sun::tools::javac::file::BaseFileManager$ByteBufferCache),
+	$classEntry("com.sun.tools.javac.file.BaseFileManager$ContentCacheEntry", ::com::sun::tools::javac::file::BaseFileManager$ContentCacheEntry),
+	$classEntry("com.sun.tools.javac.file.CacheFSInfo", ::com::sun::tools::javac::file::CacheFSInfo),
+	$classEntry("com.sun.tools.javac.file.FSInfo", ::com::sun::tools::javac::file::FSInfo),
+	$classEntry("com.sun.tools.javac.file.JRTIndex", ::com::sun::tools::javac::file::JRTIndex),
+	$classEntry("com.sun.tools.javac.file.JRTIndex$CtSym", ::com::sun::tools::javac::file::JRTIndex$CtSym),
+	$classEntry("com.sun.tools.javac.file.JRTIndex$Entry", ::com::sun::tools::javac::file::JRTIndex$Entry),
+	$classEntry("com.sun.tools.javac.file.JavacFileManager", ::com::sun::tools::javac::file::JavacFileManager),
+	$classEntry("com.sun.tools.javac.file.JavacFileManager$1", ::com::sun::tools::javac::file::JavacFileManager$1),
+	$classEntry("com.sun.tools.javac.file.JavacFileManager$2", ::com::sun::tools::javac::file::JavacFileManager$2),
+	$classEntry("com.sun.tools.javac.file.JavacFileManager$3", ::com::sun::tools::javac::file::JavacFileManager$3),
+	$classEntry("com.sun.tools.javac.file.JavacFileManager$ArchiveContainer", ::com::sun::tools::javac::file::JavacFileManager$ArchiveContainer),
+	$classEntry("com.sun.tools.javac.file.JavacFileManager$ArchiveContainer$1", ::com::sun::tools::javac::file::JavacFileManager$ArchiveContainer$1),
+	$classEntry("com.sun.tools.javac.file.JavacFileManager$ArchiveContainer$2", ::com::sun::tools::javac::file::JavacFileManager$ArchiveContainer$2),
+	$classEntry("com.sun.tools.javac.file.JavacFileManager$Container", ::com::sun::tools::javac::file::JavacFileManager$Container),
+	$classEntry("com.sun.tools.javac.file.JavacFileManager$DirectoryContainer", ::com::sun::tools::javac::file::JavacFileManager$DirectoryContainer),
+	$classEntry("com.sun.tools.javac.file.JavacFileManager$JRTImageContainer", ::com::sun::tools::javac::file::JavacFileManager$JRTImageContainer),
+	$classEntry("com.sun.tools.javac.file.JavacFileManager$PathAndContainer", ::com::sun::tools::javac::file::JavacFileManager$PathAndContainer),
+	$classEntry("com.sun.tools.javac.file.JavacFileManager$SortFiles", ::com::sun::tools::javac::file::JavacFileManager$SortFiles),
+	$classEntry("com.sun.tools.javac.file.JavacFileManager$SortFiles$1", ::com::sun::tools::javac::file::JavacFileManager$SortFiles$1),
+	$classEntry("com.sun.tools.javac.file.JavacFileManager$SortFiles$2", ::com::sun::tools::javac::file::JavacFileManager$SortFiles$2),
+	$classEntry("com.sun.tools.javac.file.Locations", ::com::sun::tools::javac::file::Locations),
+	$classEntry("com.sun.tools.javac.file.Locations$1", ::com::sun::tools::javac::file::Locations$1),
+	$classEntry("com.sun.tools.javac.file.Locations$BasicLocationHandler", ::com::sun::tools::javac::file::Locations$BasicLocationHandler),
+	$classEntry("com.sun.tools.javac.file.Locations$BootClassPathLocationHandler", ::com::sun::tools::javac::file::Locations$BootClassPathLocationHandler),
+	$classEntry("com.sun.tools.javac.file.Locations$ClassPathLocationHandler", ::com::sun::tools::javac::file::Locations$ClassPathLocationHandler),
+	$classEntry("com.sun.tools.javac.file.Locations$LocationHandler", ::com::sun::tools::javac::file::Locations$LocationHandler),
+	$classEntry("com.sun.tools.javac.file.Locations$ModuleLocationHandler", ::com::sun::tools::javac::file::Locations$ModuleLocationHandler),
+	$classEntry("com.sun.tools.javac.file.Locations$ModulePathLocationHandler", ::com::sun::tools::javac::file::Locations$ModulePathLocationHandler),
+	$classEntry("com.sun.tools.javac.file.Locations$ModulePathLocationHandler$ModulePathIterator", ::com::sun::tools::javac::file::Locations$ModulePathLocationHandler$ModulePathIterator),
+	$classEntry("com.sun.tools.javac.file.Locations$ModuleSourcePathLocationHandler", ::com::sun::tools::javac::file::Locations$ModuleSourcePathLocationHandler),
+	$classEntry("com.sun.tools.javac.file.Locations$ModuleTable", ::com::sun::tools::javac::file::Locations$ModuleTable),
+	$classEntry("com.sun.tools.javac.file.Locations$OutputLocationHandler", ::com::sun::tools::javac::file::Locations$OutputLocationHandler),
+	$classEntry("com.sun.tools.javac.file.Locations$PatchModulesLocationHandler", ::com::sun::tools::javac::file::Locations$PatchModulesLocationHandler),
+	$classEntry("com.sun.tools.javac.file.Locations$SearchPath", ::com::sun::tools::javac::file::Locations$SearchPath),
+	$classEntry("com.sun.tools.javac.file.Locations$SimpleLocationHandler", ::com::sun::tools::javac::file::Locations$SimpleLocationHandler),
+	$classEntry("com.sun.tools.javac.file.Locations$SystemModulesLocationHandler", ::com::sun::tools::javac::file::Locations$SystemModulesLocationHandler),
+	$classEntry("com.sun.tools.javac.file.PathFileObject", ::com::sun::tools::javac::file::PathFileObject),
+	$classEntry("com.sun.tools.javac.file.PathFileObject$CannotCreateUriError", ::com::sun::tools::javac::file::PathFileObject$CannotCreateUriError),
+	$classEntry("com.sun.tools.javac.file.PathFileObject$DirectoryFileObject", ::com::sun::tools::javac::file::PathFileObject$DirectoryFileObject),
+	$classEntry("com.sun.tools.javac.file.PathFileObject$JRTFileObject", ::com::sun::tools::javac::file::PathFileObject$JRTFileObject),
+	$classEntry("com.sun.tools.javac.file.PathFileObject$JarFileObject", ::com::sun::tools::javac::file::PathFileObject$JarFileObject),
+	$classEntry("com.sun.tools.javac.file.PathFileObject$SimpleFileObject", ::com::sun::tools::javac::file::PathFileObject$SimpleFileObject),
+	$classEntry("com.sun.tools.javac.file.RelativePath", ::com::sun::tools::javac::file::RelativePath),
+	$classEntry("com.sun.tools.javac.file.RelativePath$RelativeDirectory", ::com::sun::tools::javac::file::RelativePath$RelativeDirectory),
+	$classEntry("com.sun.tools.javac.file.RelativePath$RelativeFile", ::com::sun::tools::javac::file::RelativePath$RelativeFile),
+	$classEntry("com.sun.tools.javac.jvm.ByteCodes", ::com::sun::tools::javac::jvm::ByteCodes),
+	$classEntry("com.sun.tools.javac.jvm.CRTFlags", ::com::sun::tools::javac::jvm::CRTFlags),
+	$classEntry("com.sun.tools.javac.jvm.CRTable", ::com::sun::tools::javac::jvm::CRTable),
+	$classEntry("com.sun.tools.javac.jvm.CRTable$CRTEntry", ::com::sun::tools::javac::jvm::CRTable$CRTEntry),
+	$classEntry("com.sun.tools.javac.jvm.CRTable$SourceComputer", ::com::sun::tools::javac::jvm::CRTable$SourceComputer),
+	$classEntry("com.sun.tools.javac.jvm.CRTable$SourceRange", ::com::sun::tools::javac::jvm::CRTable$SourceRange),
+	$classEntry("com.sun.tools.javac.jvm.ClassFile", ::com::sun::tools::javac::jvm::ClassFile),
+	$classEntry("com.sun.tools.javac.jvm.ClassFile$Version", ::com::sun::tools::javac::jvm::ClassFile$Version),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader", ::com::sun::tools::javac::jvm::ClassReader),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$1", ::com::sun::tools::javac::jvm::ClassReader$1),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$10", ::com::sun::tools::javac::jvm::ClassReader$10),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$11", ::com::sun::tools::javac::jvm::ClassReader$11),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$12", ::com::sun::tools::javac::jvm::ClassReader$12),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$13", ::com::sun::tools::javac::jvm::ClassReader$13),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$14", ::com::sun::tools::javac::jvm::ClassReader$14),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$15", ::com::sun::tools::javac::jvm::ClassReader$15),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$16", ::com::sun::tools::javac::jvm::ClassReader$16),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$17", ::com::sun::tools::javac::jvm::ClassReader$17),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$18", ::com::sun::tools::javac::jvm::ClassReader$18),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$19", ::com::sun::tools::javac::jvm::ClassReader$19),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$2", ::com::sun::tools::javac::jvm::ClassReader$2),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$20", ::com::sun::tools::javac::jvm::ClassReader$20),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$21", ::com::sun::tools::javac::jvm::ClassReader$21),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$22", ::com::sun::tools::javac::jvm::ClassReader$22),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$23", ::com::sun::tools::javac::jvm::ClassReader$23),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$24", ::com::sun::tools::javac::jvm::ClassReader$24),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$25", ::com::sun::tools::javac::jvm::ClassReader$25),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$26", ::com::sun::tools::javac::jvm::ClassReader$26),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$27", ::com::sun::tools::javac::jvm::ClassReader$27),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$28", ::com::sun::tools::javac::jvm::ClassReader$28),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$3", ::com::sun::tools::javac::jvm::ClassReader$3),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$4", ::com::sun::tools::javac::jvm::ClassReader$4),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$5", ::com::sun::tools::javac::jvm::ClassReader$5),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$6", ::com::sun::tools::javac::jvm::ClassReader$6),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$7", ::com::sun::tools::javac::jvm::ClassReader$7),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$8", ::com::sun::tools::javac::jvm::ClassReader$8),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$9", ::com::sun::tools::javac::jvm::ClassReader$9),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$AnnotationCompleter", ::com::sun::tools::javac::jvm::ClassReader$AnnotationCompleter),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$AnnotationDefaultCompleter", ::com::sun::tools::javac::jvm::ClassReader$AnnotationDefaultCompleter),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$AnnotationDeproxy", ::com::sun::tools::javac::jvm::ClassReader$AnnotationDeproxy),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$ArrayAttributeProxy", ::com::sun::tools::javac::jvm::ClassReader$ArrayAttributeProxy),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$AttributeKind", ::com::sun::tools::javac::jvm::ClassReader$AttributeKind),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$AttributeReader", ::com::sun::tools::javac::jvm::ClassReader$AttributeReader),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$ClassAttributeProxy", ::com::sun::tools::javac::jvm::ClassReader$ClassAttributeProxy),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$CompleterDeproxy", ::com::sun::tools::javac::jvm::ClassReader$CompleterDeproxy),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$CompoundAnnotationProxy", ::com::sun::tools::javac::jvm::ClassReader$CompoundAnnotationProxy),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$EnumAttributeProxy", ::com::sun::tools::javac::jvm::ClassReader$EnumAttributeProxy),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$InterimProvidesDirective", ::com::sun::tools::javac::jvm::ClassReader$InterimProvidesDirective),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$InterimUsesDirective", ::com::sun::tools::javac::jvm::ClassReader$InterimUsesDirective),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$ParameterAnnotations", ::com::sun::tools::javac::jvm::ClassReader$ParameterAnnotations),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$ProxyType", ::com::sun::tools::javac::jvm::ClassReader$ProxyType),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$ProxyVisitor", ::com::sun::tools::javac::jvm::ClassReader$ProxyVisitor),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$SourceFileObject", ::com::sun::tools::javac::jvm::ClassReader$SourceFileObject),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$TypeAnnotationCompleter", ::com::sun::tools::javac::jvm::ClassReader$TypeAnnotationCompleter),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$TypeAnnotationProxy", ::com::sun::tools::javac::jvm::ClassReader$TypeAnnotationProxy),
+	$classEntry("com.sun.tools.javac.jvm.ClassReader$UsesProvidesCompleter", ::com::sun::tools::javac::jvm::ClassReader$UsesProvidesCompleter),
+	$classEntry("com.sun.tools.javac.jvm.ClassWriter", ::com::sun::tools::javac::jvm::ClassWriter),
+	$classEntry("com.sun.tools.javac.jvm.ClassWriter$1", ::com::sun::tools::javac::jvm::ClassWriter$1),
+	$classEntry("com.sun.tools.javac.jvm.ClassWriter$AttributeWriter", ::com::sun::tools::javac::jvm::ClassWriter$AttributeWriter),
+	$classEntry("com.sun.tools.javac.jvm.ClassWriter$PoolOverflow", ::com::sun::tools::javac::jvm::ClassWriter$PoolOverflow),
+	$classEntry("com.sun.tools.javac.jvm.ClassWriter$StackMapTableFrame", ::com::sun::tools::javac::jvm::ClassWriter$StackMapTableFrame),
+	$classEntry("com.sun.tools.javac.jvm.ClassWriter$StackMapTableFrame$AppendFrame", ::com::sun::tools::javac::jvm::ClassWriter$StackMapTableFrame$AppendFrame),
+	$classEntry("com.sun.tools.javac.jvm.ClassWriter$StackMapTableFrame$ChopFrame", ::com::sun::tools::javac::jvm::ClassWriter$StackMapTableFrame$ChopFrame),
+	$classEntry("com.sun.tools.javac.jvm.ClassWriter$StackMapTableFrame$FullFrame", ::com::sun::tools::javac::jvm::ClassWriter$StackMapTableFrame$FullFrame),
+	$classEntry("com.sun.tools.javac.jvm.ClassWriter$StackMapTableFrame$SameFrame", ::com::sun::tools::javac::jvm::ClassWriter$StackMapTableFrame$SameFrame),
+	$classEntry("com.sun.tools.javac.jvm.ClassWriter$StackMapTableFrame$SameLocals1StackItemFrame", ::com::sun::tools::javac::jvm::ClassWriter$StackMapTableFrame$SameLocals1StackItemFrame),
+	$classEntry("com.sun.tools.javac.jvm.ClassWriter$StringOverflow", ::com::sun::tools::javac::jvm::ClassWriter$StringOverflow),
+	$classEntry("com.sun.tools.javac.jvm.Code", ::com::sun::tools::javac::jvm::Code),
+	$classEntry("com.sun.tools.javac.jvm.Code$1", ::com::sun::tools::javac::jvm::Code$1),
+	$classEntry("com.sun.tools.javac.jvm.Code$Chain", ::com::sun::tools::javac::jvm::Code$Chain),
+	$classEntry("com.sun.tools.javac.jvm.Code$LocalVar", ::com::sun::tools::javac::jvm::Code$LocalVar),
+	$classEntry("com.sun.tools.javac.jvm.Code$LocalVar$Range", ::com::sun::tools::javac::jvm::Code$LocalVar$Range),
+	$classEntry("com.sun.tools.javac.jvm.Code$Mneumonics", ::com::sun::tools::javac::jvm::Code$Mneumonics),
+	$classEntry("com.sun.tools.javac.jvm.Code$StackMapFormat", ::com::sun::tools::javac::jvm::Code$StackMapFormat),
+	$classEntry("com.sun.tools.javac.jvm.Code$StackMapFormat$1", ::com::sun::tools::javac::jvm::Code$StackMapFormat$1),
+	$classEntry("com.sun.tools.javac.jvm.Code$StackMapFormat$2", ::com::sun::tools::javac::jvm::Code$StackMapFormat$2),
+	$classEntry("com.sun.tools.javac.jvm.Code$StackMapFrame", ::com::sun::tools::javac::jvm::Code$StackMapFrame),
+	$classEntry("com.sun.tools.javac.jvm.Code$State", ::com::sun::tools::javac::jvm::Code$State),
+	$classEntry("com.sun.tools.javac.jvm.Gen", ::com::sun::tools::javac::jvm::Gen),
+	$classEntry("com.sun.tools.javac.jvm.Gen$1", ::com::sun::tools::javac::jvm::Gen$1),
+	$classEntry("com.sun.tools.javac.jvm.Gen$2", ::com::sun::tools::javac::jvm::Gen$2),
+	$classEntry("com.sun.tools.javac.jvm.Gen$3", ::com::sun::tools::javac::jvm::Gen$3),
+	$classEntry("com.sun.tools.javac.jvm.Gen$4", ::com::sun::tools::javac::jvm::Gen$4),
+	$classEntry("com.sun.tools.javac.jvm.Gen$ClassReferenceVisitor", ::com::sun::tools::javac::jvm::Gen$ClassReferenceVisitor),
+	$classEntry("com.sun.tools.javac.jvm.Gen$CodeSizeOverflow", ::com::sun::tools::javac::jvm::Gen$CodeSizeOverflow),
+	$classEntry("com.sun.tools.javac.jvm.Gen$GenContext", ::com::sun::tools::javac::jvm::Gen$GenContext),
+	$classEntry("com.sun.tools.javac.jvm.Gen$GenFinalizer", ::com::sun::tools::javac::jvm::Gen$GenFinalizer),
+	$classEntry("com.sun.tools.javac.jvm.Items", ::com::sun::tools::javac::jvm::Items),
+	$classEntry("com.sun.tools.javac.jvm.Items$1", ::com::sun::tools::javac::jvm::Items$1),
+	$classEntry("com.sun.tools.javac.jvm.Items$AssignItem", ::com::sun::tools::javac::jvm::Items$AssignItem),
+	$classEntry("com.sun.tools.javac.jvm.Items$CondItem", ::com::sun::tools::javac::jvm::Items$CondItem),
+	$classEntry("com.sun.tools.javac.jvm.Items$DynamicItem", ::com::sun::tools::javac::jvm::Items$DynamicItem),
+	$classEntry("com.sun.tools.javac.jvm.Items$ImmediateItem", ::com::sun::tools::javac::jvm::Items$ImmediateItem),
+	$classEntry("com.sun.tools.javac.jvm.Items$IndexedItem", ::com::sun::tools::javac::jvm::Items$IndexedItem),
+	$classEntry("com.sun.tools.javac.jvm.Items$Item", ::com::sun::tools::javac::jvm::Items$Item),
+	$classEntry("com.sun.tools.javac.jvm.Items$LocalItem", ::com::sun::tools::javac::jvm::Items$LocalItem),
+	$classEntry("com.sun.tools.javac.jvm.Items$MemberItem", ::com::sun::tools::javac::jvm::Items$MemberItem),
+	$classEntry("com.sun.tools.javac.jvm.Items$SelfItem", ::com::sun::tools::javac::jvm::Items$SelfItem),
+	$classEntry("com.sun.tools.javac.jvm.Items$StackItem", ::com::sun::tools::javac::jvm::Items$StackItem),
+	$classEntry("com.sun.tools.javac.jvm.Items$StaticItem", ::com::sun::tools::javac::jvm::Items$StaticItem),
+	$classEntry("com.sun.tools.javac.jvm.JNIWriter", ::com::sun::tools::javac::jvm::JNIWriter),
+	$classEntry("com.sun.tools.javac.jvm.JNIWriter$1", ::com::sun::tools::javac::jvm::JNIWriter$1),
+	$classEntry("com.sun.tools.javac.jvm.JNIWriter$EncoderType", ::com::sun::tools::javac::jvm::JNIWriter$EncoderType),
+	$classEntry("com.sun.tools.javac.jvm.JNIWriter$SimpleTypeVisitor", ::com::sun::tools::javac::jvm::JNIWriter$SimpleTypeVisitor),
+	$classEntry("com.sun.tools.javac.jvm.JNIWriter$TypeSignature", ::com::sun::tools::javac::jvm::JNIWriter$TypeSignature),
+	$classEntry("com.sun.tools.javac.jvm.JNIWriter$TypeSignature$JvmTypeVisitor", ::com::sun::tools::javac::jvm::JNIWriter$TypeSignature$JvmTypeVisitor),
+	$classEntry("com.sun.tools.javac.jvm.JNIWriter$TypeSignature$SignatureException", ::com::sun::tools::javac::jvm::JNIWriter$TypeSignature$SignatureException),
+	$classEntry("com.sun.tools.javac.jvm.ModuleNameReader", ::com::sun::tools::javac::jvm::ModuleNameReader),
+	$classEntry("com.sun.tools.javac.jvm.ModuleNameReader$BadClassFile", ::com::sun::tools::javac::jvm::ModuleNameReader$BadClassFile),
+	$classEntry("com.sun.tools.javac.jvm.PoolConstant", ::com::sun::tools::javac::jvm::PoolConstant),
+	$classEntry("com.sun.tools.javac.jvm.PoolConstant$Dynamic", ::com::sun::tools::javac::jvm::PoolConstant$Dynamic),
+	$classEntry("com.sun.tools.javac.jvm.PoolConstant$Dynamic$BsmKey", ::com::sun::tools::javac::jvm::PoolConstant$Dynamic$BsmKey),
+	$classEntry("com.sun.tools.javac.jvm.PoolConstant$LoadableConstant", ::com::sun::tools::javac::jvm::PoolConstant$LoadableConstant),
+	$classEntry("com.sun.tools.javac.jvm.PoolConstant$LoadableConstant$BasicConstant", ::com::sun::tools::javac::jvm::PoolConstant$LoadableConstant$BasicConstant),
+	$classEntry("com.sun.tools.javac.jvm.PoolConstant$NameAndType", ::com::sun::tools::javac::jvm::PoolConstant$NameAndType),
+	$classEntry("com.sun.tools.javac.jvm.PoolReader", ::com::sun::tools::javac::jvm::PoolReader),
+	$classEntry("com.sun.tools.javac.jvm.PoolReader$ImmutablePoolHelper", ::com::sun::tools::javac::jvm::PoolReader$ImmutablePoolHelper),
+	$classEntry("com.sun.tools.javac.jvm.PoolWriter", ::com::sun::tools::javac::jvm::PoolWriter),
+	$classEntry("com.sun.tools.javac.jvm.PoolWriter$1", ::com::sun::tools::javac::jvm::PoolWriter$1),
+	$classEntry("com.sun.tools.javac.jvm.PoolWriter$SharedSignatureGenerator", ::com::sun::tools::javac::jvm::PoolWriter$SharedSignatureGenerator),
+	$classEntry("com.sun.tools.javac.jvm.PoolWriter$WriteablePoolHelper", ::com::sun::tools::javac::jvm::PoolWriter$WriteablePoolHelper),
+	$classEntry("com.sun.tools.javac.jvm.Profile", ::com::sun::tools::javac::jvm::Profile),
+	$classEntry("com.sun.tools.javac.jvm.Profile$1", ::com::sun::tools::javac::jvm::Profile$1),
+	$classEntry("com.sun.tools.javac.jvm.StringConcat", ::com::sun::tools::javac::jvm::StringConcat),
+	$classEntry("com.sun.tools.javac.jvm.StringConcat$Indy", ::com::sun::tools::javac::jvm::StringConcat$Indy),
+	$classEntry("com.sun.tools.javac.jvm.StringConcat$IndyConstants", ::com::sun::tools::javac::jvm::StringConcat$IndyConstants),
+	$classEntry("com.sun.tools.javac.jvm.StringConcat$IndyPlain", ::com::sun::tools::javac::jvm::StringConcat$IndyPlain),
+	$classEntry("com.sun.tools.javac.jvm.StringConcat$Inline", ::com::sun::tools::javac::jvm::StringConcat$Inline),
+	$classEntry("com.sun.tools.javac.jvm.Target", ::com::sun::tools::javac::jvm::Target),
+	$classEntry("com.sun.tools.javac.jvm.UninitializedType", ::com::sun::tools::javac::jvm::UninitializedType),
+	$classEntry("com.sun.tools.javac.launcher.Main", ::com::sun::tools::javac::launcher::Main),
+	$classEntry("com.sun.tools.javac.launcher.Main$1", ::com::sun::tools::javac::launcher::Main$1),
+	$classEntry("com.sun.tools.javac.launcher.Main$Context", ::com::sun::tools::javac::launcher::Main$Context),
+	$classEntry("com.sun.tools.javac.launcher.Main$Fault", ::com::sun::tools::javac::launcher::Main$Fault),
+	$classEntry("com.sun.tools.javac.launcher.Main$MainClassListener", ::com::sun::tools::javac::launcher::Main$MainClassListener),
+	$classEntry("com.sun.tools.javac.launcher.Main$MemoryClassLoader", ::com::sun::tools::javac::launcher::Main$MemoryClassLoader),
+	$classEntry("com.sun.tools.javac.launcher.Main$MemoryClassLoader$1", ::com::sun::tools::javac::launcher::Main$MemoryClassLoader$1),
+	$classEntry("com.sun.tools.javac.launcher.Main$MemoryClassLoader$MemoryURLConnection", ::com::sun::tools::javac::launcher::Main$MemoryClassLoader$MemoryURLConnection),
+	$classEntry("com.sun.tools.javac.launcher.Main$MemoryClassLoader$MemoryURLStreamHandler", ::com::sun::tools::javac::launcher::Main$MemoryClassLoader$MemoryURLStreamHandler),
+	$classEntry("com.sun.tools.javac.launcher.Main$MemoryFileManager", ::com::sun::tools::javac::launcher::Main$MemoryFileManager),
+	$classEntry("com.sun.tools.javac.launcher.Main$MemoryFileManager$1", ::com::sun::tools::javac::launcher::Main$MemoryFileManager$1),
+	$classEntry("com.sun.tools.javac.launcher.Main$MemoryFileManager$1$1", ::com::sun::tools::javac::launcher::Main$MemoryFileManager$1$1),
+	$classEntry("com.sun.tools.javac.main.Arguments", ::com::sun::tools::javac::main::Arguments),
+	$classEntry("com.sun.tools.javac.main.Arguments$1", ::com::sun::tools::javac::main::Arguments$1),
+	$classEntry("com.sun.tools.javac.main.Arguments$2", ::com::sun::tools::javac::main::Arguments$2),
+	$classEntry("com.sun.tools.javac.main.Arguments$3", ::com::sun::tools::javac::main::Arguments$3),
+	$classEntry("com.sun.tools.javac.main.Arguments$ErrorMode", ::com::sun::tools::javac::main::Arguments$ErrorMode),
+	$classEntry("com.sun.tools.javac.main.Arguments$ErrorReporter", ::com::sun::tools::javac::main::Arguments$ErrorReporter),
+	$classEntry("com.sun.tools.javac.main.CommandLine", ::com::sun::tools::javac::main::CommandLine),
+	$classEntry("com.sun.tools.javac.main.CommandLine$Tokenizer", ::com::sun::tools::javac::main::CommandLine$Tokenizer),
+	$classEntry("com.sun.tools.javac.main.CommandLine$UnmatchedQuote", ::com::sun::tools::javac::main::CommandLine$UnmatchedQuote),
+	$classEntry("com.sun.tools.javac.main.DelegatingJavaFileManager", ::com::sun::tools::javac::main::DelegatingJavaFileManager),
+	$classEntry("com.sun.tools.javac.main.DelegatingJavaFileManager$DelegatingSJFM", ::com::sun::tools::javac::main::DelegatingJavaFileManager$DelegatingSJFM),
+	$classEntry("com.sun.tools.javac.main.JavaCompiler", ::com::sun::tools::javac::main::JavaCompiler),
+	$classEntry("com.sun.tools.javac.main.JavaCompiler$1", ::com::sun::tools::javac::main::JavaCompiler$1),
+	$classEntry("com.sun.tools.javac.main.JavaCompiler$1MethodBodyRemover", ::com::sun::tools::javac::main::JavaCompiler$1MethodBodyRemover),
+	$classEntry("com.sun.tools.javac.main.JavaCompiler$1ScanNested", ::com::sun::tools::javac::main::JavaCompiler$1ScanNested),
+	$classEntry("com.sun.tools.javac.main.JavaCompiler$2", ::com::sun::tools::javac::main::JavaCompiler$2),
+	$classEntry("com.sun.tools.javac.main.JavaCompiler$CompilePolicy", ::com::sun::tools::javac::main::JavaCompiler$CompilePolicy),
+	$classEntry("com.sun.tools.javac.main.JavaCompiler$ImplicitSourcePolicy", ::com::sun::tools::javac::main::JavaCompiler$ImplicitSourcePolicy),
+	$classEntry("com.sun.tools.javac.main.JavacToolProvider", ::com::sun::tools::javac::main::JavacToolProvider),
+	$classEntry("com.sun.tools.javac.main.Main", ::com::sun::tools::javac::main::Main),
+	$classEntry("com.sun.tools.javac.main.Main$1", ::com::sun::tools::javac::main::Main$1),
+	$classEntry("com.sun.tools.javac.main.Main$Result", ::com::sun::tools::javac::main::Main$Result),
+	$classEntry("com.sun.tools.javac.main.Option", ::com::sun::tools::javac::main::Option),
+	$classEntry("com.sun.tools.javac.main.Option$1", ::com::sun::tools::javac::main::Option$1),
+	$classEntry("com.sun.tools.javac.main.Option$10", ::com::sun::tools::javac::main::Option$10),
+	$classEntry("com.sun.tools.javac.main.Option$11", ::com::sun::tools::javac::main::Option$11),
+	$classEntry("com.sun.tools.javac.main.Option$12", ::com::sun::tools::javac::main::Option$12),
+	$classEntry("com.sun.tools.javac.main.Option$13", ::com::sun::tools::javac::main::Option$13),
+	$classEntry("com.sun.tools.javac.main.Option$14", ::com::sun::tools::javac::main::Option$14),
+	$classEntry("com.sun.tools.javac.main.Option$15", ::com::sun::tools::javac::main::Option$15),
+	$classEntry("com.sun.tools.javac.main.Option$16", ::com::sun::tools::javac::main::Option$16),
+	$classEntry("com.sun.tools.javac.main.Option$17", ::com::sun::tools::javac::main::Option$17),
+	$classEntry("com.sun.tools.javac.main.Option$18", ::com::sun::tools::javac::main::Option$18),
+	$classEntry("com.sun.tools.javac.main.Option$19", ::com::sun::tools::javac::main::Option$19),
+	$classEntry("com.sun.tools.javac.main.Option$2", ::com::sun::tools::javac::main::Option$2),
+	$classEntry("com.sun.tools.javac.main.Option$20", ::com::sun::tools::javac::main::Option$20),
+	$classEntry("com.sun.tools.javac.main.Option$21", ::com::sun::tools::javac::main::Option$21),
+	$classEntry("com.sun.tools.javac.main.Option$22", ::com::sun::tools::javac::main::Option$22),
+	$classEntry("com.sun.tools.javac.main.Option$23", ::com::sun::tools::javac::main::Option$23),
+	$classEntry("com.sun.tools.javac.main.Option$24", ::com::sun::tools::javac::main::Option$24),
+	$classEntry("com.sun.tools.javac.main.Option$25", ::com::sun::tools::javac::main::Option$25),
+	$classEntry("com.sun.tools.javac.main.Option$26", ::com::sun::tools::javac::main::Option$26),
+	$classEntry("com.sun.tools.javac.main.Option$27", ::com::sun::tools::javac::main::Option$27),
+	$classEntry("com.sun.tools.javac.main.Option$28", ::com::sun::tools::javac::main::Option$28),
+	$classEntry("com.sun.tools.javac.main.Option$29", ::com::sun::tools::javac::main::Option$29),
+	$classEntry("com.sun.tools.javac.main.Option$3", ::com::sun::tools::javac::main::Option$3),
+	$classEntry("com.sun.tools.javac.main.Option$30", ::com::sun::tools::javac::main::Option$30),
+	$classEntry("com.sun.tools.javac.main.Option$31", ::com::sun::tools::javac::main::Option$31),
+	$classEntry("com.sun.tools.javac.main.Option$32", ::com::sun::tools::javac::main::Option$32),
+	$classEntry("com.sun.tools.javac.main.Option$33", ::com::sun::tools::javac::main::Option$33),
+	$classEntry("com.sun.tools.javac.main.Option$34", ::com::sun::tools::javac::main::Option$34),
+	$classEntry("com.sun.tools.javac.main.Option$35", ::com::sun::tools::javac::main::Option$35),
+	$classEntry("com.sun.tools.javac.main.Option$36", ::com::sun::tools::javac::main::Option$36),
+	$classEntry("com.sun.tools.javac.main.Option$37", ::com::sun::tools::javac::main::Option$37),
+	$classEntry("com.sun.tools.javac.main.Option$38", ::com::sun::tools::javac::main::Option$38),
+	$classEntry("com.sun.tools.javac.main.Option$39", ::com::sun::tools::javac::main::Option$39),
+	$classEntry("com.sun.tools.javac.main.Option$4", ::com::sun::tools::javac::main::Option$4),
+	$classEntry("com.sun.tools.javac.main.Option$40", ::com::sun::tools::javac::main::Option$40),
+	$classEntry("com.sun.tools.javac.main.Option$41", ::com::sun::tools::javac::main::Option$41),
+	$classEntry("com.sun.tools.javac.main.Option$5", ::com::sun::tools::javac::main::Option$5),
+	$classEntry("com.sun.tools.javac.main.Option$6", ::com::sun::tools::javac::main::Option$6),
+	$classEntry("com.sun.tools.javac.main.Option$7", ::com::sun::tools::javac::main::Option$7),
+	$classEntry("com.sun.tools.javac.main.Option$8", ::com::sun::tools::javac::main::Option$8),
+	$classEntry("com.sun.tools.javac.main.Option$9", ::com::sun::tools::javac::main::Option$9),
+	$classEntry("com.sun.tools.javac.main.Option$ArgKind", ::com::sun::tools::javac::main::Option$ArgKind),
+	$classEntry("com.sun.tools.javac.main.Option$ChoiceKind", ::com::sun::tools::javac::main::Option$ChoiceKind),
+	$classEntry("com.sun.tools.javac.main.Option$HiddenGroup", ::com::sun::tools::javac::main::Option$HiddenGroup),
+	$classEntry("com.sun.tools.javac.main.Option$InvalidValueException", ::com::sun::tools::javac::main::Option$InvalidValueException),
+	$classEntry("com.sun.tools.javac.main.Option$OptionGroup", ::com::sun::tools::javac::main::Option$OptionGroup),
+	$classEntry("com.sun.tools.javac.main.Option$OptionKind", ::com::sun::tools::javac::main::Option$OptionKind),
+	$classEntry("com.sun.tools.javac.main.Option$PkgInfo", ::com::sun::tools::javac::main::Option$PkgInfo),
+	$classEntry("com.sun.tools.javac.main.OptionHelper", ::com::sun::tools::javac::main::OptionHelper),
+	$classEntry("com.sun.tools.javac.main.OptionHelper$GrumpyHelper", ::com::sun::tools::javac::main::OptionHelper$GrumpyHelper),
+	$classEntry("com.sun.tools.javac.model.AnnotationProxyMaker", ::com::sun::tools::javac::model::AnnotationProxyMaker),
+	$classEntry("com.sun.tools.javac.model.AnnotationProxyMaker$MirroredTypeExceptionProxy", ::com::sun::tools::javac::model::AnnotationProxyMaker$MirroredTypeExceptionProxy),
+	$classEntry("com.sun.tools.javac.model.AnnotationProxyMaker$MirroredTypesExceptionProxy", ::com::sun::tools::javac::model::AnnotationProxyMaker$MirroredTypesExceptionProxy),
+	$classEntry("com.sun.tools.javac.model.AnnotationProxyMaker$ValueVisitor", ::com::sun::tools::javac::model::AnnotationProxyMaker$ValueVisitor),
+	$classEntry("com.sun.tools.javac.model.AnnotationProxyMaker$ValueVisitor$1AnnotationTypeMismatchExceptionProxy", ::com::sun::tools::javac::model::AnnotationProxyMaker$ValueVisitor$1AnnotationTypeMismatchExceptionProxy),
+	$classEntry("com.sun.tools.javac.model.FilteredMemberList", ::com::sun::tools::javac::model::FilteredMemberList),
+	$classEntry("com.sun.tools.javac.model.JavacElements", ::com::sun::tools::javac::model::JavacElements),
+	$classEntry("com.sun.tools.javac.model.JavacElements$1", ::com::sun::tools::javac::model::JavacElements$1),
+	$classEntry("com.sun.tools.javac.model.JavacElements$1TS", ::com::sun::tools::javac::model::JavacElements$1TS),
+	$classEntry("com.sun.tools.javac.model.JavacElements$1Vis", ::com::sun::tools::javac::model::JavacElements$1Vis),
+	$classEntry("com.sun.tools.javac.model.JavacElements$2Vis", ::com::sun::tools::javac::model::JavacElements$2Vis),
+	$classEntry("com.sun.tools.javac.model.JavacTypes", ::com::sun::tools::javac::model::JavacTypes),
+	$classEntry("com.sun.tools.javac.model.JavacTypes$1", ::com::sun::tools::javac::model::JavacTypes$1),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser", ::com::sun::tools::javac::parser::DocCommentParser),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser$1", ::com::sun::tools::javac::parser::DocCommentParser$1),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser$10", ::com::sun::tools::javac::parser::DocCommentParser$10),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser$11", ::com::sun::tools::javac::parser::DocCommentParser$11),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser$12", ::com::sun::tools::javac::parser::DocCommentParser$12),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser$13", ::com::sun::tools::javac::parser::DocCommentParser$13),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser$14", ::com::sun::tools::javac::parser::DocCommentParser$14),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser$15", ::com::sun::tools::javac::parser::DocCommentParser$15),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser$16", ::com::sun::tools::javac::parser::DocCommentParser$16),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser$17", ::com::sun::tools::javac::parser::DocCommentParser$17),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser$18", ::com::sun::tools::javac::parser::DocCommentParser$18),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser$19", ::com::sun::tools::javac::parser::DocCommentParser$19),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser$2", ::com::sun::tools::javac::parser::DocCommentParser$2),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser$20", ::com::sun::tools::javac::parser::DocCommentParser$20),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser$21", ::com::sun::tools::javac::parser::DocCommentParser$21),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser$22", ::com::sun::tools::javac::parser::DocCommentParser$22),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser$23", ::com::sun::tools::javac::parser::DocCommentParser$23),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser$24", ::com::sun::tools::javac::parser::DocCommentParser$24),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser$25", ::com::sun::tools::javac::parser::DocCommentParser$25),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser$26", ::com::sun::tools::javac::parser::DocCommentParser$26),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser$3", ::com::sun::tools::javac::parser::DocCommentParser$3),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser$4", ::com::sun::tools::javac::parser::DocCommentParser$4),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser$5", ::com::sun::tools::javac::parser::DocCommentParser$5),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser$6", ::com::sun::tools::javac::parser::DocCommentParser$6),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser$7", ::com::sun::tools::javac::parser::DocCommentParser$7),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser$8", ::com::sun::tools::javac::parser::DocCommentParser$8),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser$9", ::com::sun::tools::javac::parser::DocCommentParser$9),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser$ParseException", ::com::sun::tools::javac::parser::DocCommentParser$ParseException),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser$Phase", ::com::sun::tools::javac::parser::DocCommentParser$Phase),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser$TagParser", ::com::sun::tools::javac::parser::DocCommentParser$TagParser),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser$TagParser$Kind", ::com::sun::tools::javac::parser::DocCommentParser$TagParser$Kind),
+	$classEntry("com.sun.tools.javac.parser.DocCommentParser$WhitespaceRetentionPolicy", ::com::sun::tools::javac::parser::DocCommentParser$WhitespaceRetentionPolicy),
+	$classEntry("com.sun.tools.javac.parser.JavaTokenizer", ::com::sun::tools::javac::parser::JavaTokenizer),
+	$classEntry("com.sun.tools.javac.parser.JavaTokenizer$BasicComment", ::com::sun::tools::javac::parser::JavaTokenizer$BasicComment),
+	$classEntry("com.sun.tools.javac.parser.JavacParser", ::com::sun::tools::javac::parser::JavacParser),
+	$classEntry("com.sun.tools.javac.parser.JavacParser$1", ::com::sun::tools::javac::parser::JavacParser$1),
+	$classEntry("com.sun.tools.javac.parser.JavacParser$AbstractEndPosTable", ::com::sun::tools::javac::parser::JavacParser$AbstractEndPosTable),
+	$classEntry("com.sun.tools.javac.parser.JavacParser$BasicErrorRecoveryAction", ::com::sun::tools::javac::parser::JavacParser$BasicErrorRecoveryAction),
+	$classEntry("com.sun.tools.javac.parser.JavacParser$BasicErrorRecoveryAction$1", ::com::sun::tools::javac::parser::JavacParser$BasicErrorRecoveryAction$1),
+	$classEntry("com.sun.tools.javac.parser.JavacParser$BasicErrorRecoveryAction$2", ::com::sun::tools::javac::parser::JavacParser$BasicErrorRecoveryAction$2),
+	$classEntry("com.sun.tools.javac.parser.JavacParser$EmptyEndPosTable", ::com::sun::tools::javac::parser::JavacParser$EmptyEndPosTable),
+	$classEntry("com.sun.tools.javac.parser.JavacParser$EnumeratorEstimate", ::com::sun::tools::javac::parser::JavacParser$EnumeratorEstimate),
+	$classEntry("com.sun.tools.javac.parser.JavacParser$ErrorRecoveryAction", ::com::sun::tools::javac::parser::JavacParser$ErrorRecoveryAction),
+	$classEntry("com.sun.tools.javac.parser.JavacParser$LambdaClassifier", ::com::sun::tools::javac::parser::JavacParser$LambdaClassifier),
+	$classEntry("com.sun.tools.javac.parser.JavacParser$LambdaParameterKind", ::com::sun::tools::javac::parser::JavacParser$LambdaParameterKind),
+	$classEntry("com.sun.tools.javac.parser.JavacParser$ParensResult", ::com::sun::tools::javac::parser::JavacParser$ParensResult),
+	$classEntry("com.sun.tools.javac.parser.JavacParser$PatternResult", ::com::sun::tools::javac::parser::JavacParser$PatternResult),
+	$classEntry("com.sun.tools.javac.parser.JavacParser$SimpleEndPosTable", ::com::sun::tools::javac::parser::JavacParser$SimpleEndPosTable),
+	$classEntry("com.sun.tools.javac.parser.JavadocTokenizer", ::com::sun::tools::javac::parser::JavadocTokenizer),
+	$classEntry("com.sun.tools.javac.parser.JavadocTokenizer$JavadocComment", ::com::sun::tools::javac::parser::JavadocTokenizer$JavadocComment),
+	$classEntry("com.sun.tools.javac.parser.JavadocTokenizer$OffsetMap", ::com::sun::tools::javac::parser::JavadocTokenizer$OffsetMap),
+	$classEntry("com.sun.tools.javac.parser.LazyDocCommentTable", ::com::sun::tools::javac::parser::LazyDocCommentTable),
+	$classEntry("com.sun.tools.javac.parser.LazyDocCommentTable$Entry", ::com::sun::tools::javac::parser::LazyDocCommentTable$Entry),
+	$classEntry("com.sun.tools.javac.parser.Lexer", ::com::sun::tools::javac::parser::Lexer),
+	$classEntry("com.sun.tools.javac.parser.Parser", ::com::sun::tools::javac::parser::Parser),
+	$classEntry("com.sun.tools.javac.parser.ParserFactory", ::com::sun::tools::javac::parser::ParserFactory),
+	$classEntry("com.sun.tools.javac.parser.ReferenceParser", ::com::sun::tools::javac::parser::ReferenceParser),
+	$classEntry("com.sun.tools.javac.parser.ReferenceParser$ParseException", ::com::sun::tools::javac::parser::ReferenceParser$ParseException),
+	$classEntry("com.sun.tools.javac.parser.ReferenceParser$Reference", ::com::sun::tools::javac::parser::ReferenceParser$Reference),
+	$classEntry("com.sun.tools.javac.parser.Scanner", ::com::sun::tools::javac::parser::Scanner),
+	$classEntry("com.sun.tools.javac.parser.ScannerFactory", ::com::sun::tools::javac::parser::ScannerFactory),
+	$classEntry("com.sun.tools.javac.parser.TextBlockSupport", ::com::sun::tools::javac::parser::TextBlockSupport),
+	$classEntry("com.sun.tools.javac.parser.TextBlockSupport$WhitespaceChecks", ::com::sun::tools::javac::parser::TextBlockSupport$WhitespaceChecks),
+	$classEntry("com.sun.tools.javac.parser.Tokens", ::com::sun::tools::javac::parser::Tokens),
+	$classEntry("com.sun.tools.javac.parser.Tokens$1", ::com::sun::tools::javac::parser::Tokens$1),
+	$classEntry("com.sun.tools.javac.parser.Tokens$Comment", ::com::sun::tools::javac::parser::Tokens$Comment),
+	$classEntry("com.sun.tools.javac.parser.Tokens$Comment$CommentStyle", ::com::sun::tools::javac::parser::Tokens$Comment$CommentStyle),
+	$classEntry("com.sun.tools.javac.parser.Tokens$NamedToken", ::com::sun::tools::javac::parser::Tokens$NamedToken),
+	$classEntry("com.sun.tools.javac.parser.Tokens$NumericToken", ::com::sun::tools::javac::parser::Tokens$NumericToken),
+	$classEntry("com.sun.tools.javac.parser.Tokens$StringToken", ::com::sun::tools::javac::parser::Tokens$StringToken),
+	$classEntry("com.sun.tools.javac.parser.Tokens$Token", ::com::sun::tools::javac::parser::Tokens$Token),
+	$classEntry("com.sun.tools.javac.parser.Tokens$Token$Tag", ::com::sun::tools::javac::parser::Tokens$Token$Tag),
+	$classEntry("com.sun.tools.javac.parser.Tokens$TokenKind", ::com::sun::tools::javac::parser::Tokens$TokenKind),
+	$classEntry("com.sun.tools.javac.parser.UnicodeReader", ::com::sun::tools::javac::parser::UnicodeReader),
+	$classEntry("com.sun.tools.javac.parser.UnicodeReader$1", ::com::sun::tools::javac::parser::UnicodeReader$1),
+	$classEntry("com.sun.tools.javac.parser.UnicodeReader$PositionTrackingReader", ::com::sun::tools::javac::parser::UnicodeReader$PositionTrackingReader),
+	$classEntry("com.sun.tools.javac.parser.UnicodeReader$UnicodeEscapeResult", ::com::sun::tools::javac::parser::UnicodeReader$UnicodeEscapeResult),
+	$classEntry("com.sun.tools.javac.platform.JDKPlatformProvider", ::com::sun::tools::javac::platform::JDKPlatformProvider),
+	$classEntry("com.sun.tools.javac.platform.JDKPlatformProvider$PlatformDescriptionImpl", ::com::sun::tools::javac::platform::JDKPlatformProvider$PlatformDescriptionImpl),
+	$classEntry("com.sun.tools.javac.platform.JDKPlatformProvider$PlatformDescriptionImpl$1", ::com::sun::tools::javac::platform::JDKPlatformProvider$PlatformDescriptionImpl$1),
+	$classEntry("com.sun.tools.javac.platform.JDKPlatformProvider$PlatformDescriptionImpl$1$1", ::com::sun::tools::javac::platform::JDKPlatformProvider$PlatformDescriptionImpl$1$1),
+	$classEntry("com.sun.tools.javac.platform.JDKPlatformProvider$PlatformDescriptionImpl$SigJavaFileObject", ::com::sun::tools::javac::platform::JDKPlatformProvider$PlatformDescriptionImpl$SigJavaFileObject),
+	$classEntry("com.sun.tools.javac.platform.PlatformDescription", ::com::sun::tools::javac::platform::PlatformDescription),
+	$classEntry("com.sun.tools.javac.platform.PlatformDescription$PluginInfo", ::com::sun::tools::javac::platform::PlatformDescription$PluginInfo),
+	$classEntry("com.sun.tools.javac.platform.PlatformProvider", ::com::sun::tools::javac::platform::PlatformProvider),
+	$classEntry("com.sun.tools.javac.platform.PlatformProvider$PlatformNotSupported", ::com::sun::tools::javac::platform::PlatformProvider$PlatformNotSupported),
+	$classEntry("com.sun.tools.javac.platform.PlatformUtils", ::com::sun::tools::javac::platform::PlatformUtils),
+	$classEntry("com.sun.tools.javac.processing.AnnotationProcessingError", ::com::sun::tools::javac::processing::AnnotationProcessingError),
+	$classEntry("com.sun.tools.javac.processing.JavacFiler", ::com::sun::tools::javac::processing::JavacFiler),
+	$classEntry("com.sun.tools.javac.processing.JavacFiler$1", ::com::sun::tools::javac::processing::JavacFiler$1),
+	$classEntry("com.sun.tools.javac.processing.JavacFiler$FilerInputFileObject", ::com::sun::tools::javac::processing::JavacFiler$FilerInputFileObject),
+	$classEntry("com.sun.tools.javac.processing.JavacFiler$FilerInputJavaFileObject", ::com::sun::tools::javac::processing::JavacFiler$FilerInputJavaFileObject),
+	$classEntry("com.sun.tools.javac.processing.JavacFiler$FilerOutputFileObject", ::com::sun::tools::javac::processing::JavacFiler$FilerOutputFileObject),
+	$classEntry("com.sun.tools.javac.processing.JavacFiler$FilerOutputJavaFileObject", ::com::sun::tools::javac::processing::JavacFiler$FilerOutputJavaFileObject),
+	$classEntry("com.sun.tools.javac.processing.JavacFiler$FilerOutputStream", ::com::sun::tools::javac::processing::JavacFiler$FilerOutputStream),
+	$classEntry("com.sun.tools.javac.processing.JavacFiler$FilerWriter", ::com::sun::tools::javac::processing::JavacFiler$FilerWriter),
+	$classEntry("com.sun.tools.javac.processing.JavacFiler$Tuple3", ::com::sun::tools::javac::processing::JavacFiler$Tuple3),
+	$classEntry("com.sun.tools.javac.processing.JavacMessager", ::com::sun::tools::javac::processing::JavacMessager),
+	$classEntry("com.sun.tools.javac.processing.JavacMessager$1", ::com::sun::tools::javac::processing::JavacMessager$1),
+	$classEntry("com.sun.tools.javac.processing.JavacProcessingEnvironment", ::com::sun::tools::javac::processing::JavacProcessingEnvironment),
+	$classEntry("com.sun.tools.javac.processing.JavacProcessingEnvironment$1", ::com::sun::tools::javac::processing::JavacProcessingEnvironment$1),
+	$classEntry("com.sun.tools.javac.processing.JavacProcessingEnvironment$2", ::com::sun::tools::javac::processing::JavacProcessingEnvironment$2),
+	$classEntry("com.sun.tools.javac.processing.JavacProcessingEnvironment$ComputeAnnotationSet", ::com::sun::tools::javac::processing::JavacProcessingEnvironment$ComputeAnnotationSet),
+	$classEntry("com.sun.tools.javac.processing.JavacProcessingEnvironment$DiscoveredProcessors", ::com::sun::tools::javac::processing::JavacProcessingEnvironment$DiscoveredProcessors),
+	$classEntry("com.sun.tools.javac.processing.JavacProcessingEnvironment$DiscoveredProcessors$ProcessorStateIterator", ::com::sun::tools::javac::processing::JavacProcessingEnvironment$DiscoveredProcessors$ProcessorStateIterator),
+	$classEntry("com.sun.tools.javac.processing.JavacProcessingEnvironment$ImplicitCompleter", ::com::sun::tools::javac::processing::JavacProcessingEnvironment$ImplicitCompleter),
+	$classEntry("com.sun.tools.javac.processing.JavacProcessingEnvironment$NameProcessIterator", ::com::sun::tools::javac::processing::JavacProcessingEnvironment$NameProcessIterator),
+	$classEntry("com.sun.tools.javac.processing.JavacProcessingEnvironment$NameServiceIterator", ::com::sun::tools::javac::processing::JavacProcessingEnvironment$NameServiceIterator),
+	$classEntry("com.sun.tools.javac.processing.JavacProcessingEnvironment$ProcessorState", ::com::sun::tools::javac::processing::JavacProcessingEnvironment$ProcessorState),
+	$classEntry("com.sun.tools.javac.processing.JavacProcessingEnvironment$Round", ::com::sun::tools::javac::processing::JavacProcessingEnvironment$Round),
+	$classEntry("com.sun.tools.javac.processing.JavacProcessingEnvironment$ServiceIterator", ::com::sun::tools::javac::processing::JavacProcessingEnvironment$ServiceIterator),
+	$classEntry("com.sun.tools.javac.processing.JavacRoundEnvironment", ::com::sun::tools::javac::processing::JavacRoundEnvironment),
+	$classEntry("com.sun.tools.javac.processing.JavacRoundEnvironment$AnnotationSetMultiScanner", ::com::sun::tools::javac::processing::JavacRoundEnvironment$AnnotationSetMultiScanner),
+	$classEntry("com.sun.tools.javac.processing.JavacRoundEnvironment$AnnotationSetScanner", ::com::sun::tools::javac::processing::JavacRoundEnvironment$AnnotationSetScanner),
+	$classEntry("com.sun.tools.javac.processing.PrintingProcessor", ::com::sun::tools::javac::processing::PrintingProcessor),
+	$classEntry("com.sun.tools.javac.processing.PrintingProcessor$1", ::com::sun::tools::javac::processing::PrintingProcessor$1),
+	$classEntry("com.sun.tools.javac.processing.PrintingProcessor$PrintingElementVisitor", ::com::sun::tools::javac::processing::PrintingProcessor$PrintingElementVisitor),
+	$classEntry("com.sun.tools.javac.processing.PrintingProcessor$PrintingElementVisitor$1", ::com::sun::tools::javac::processing::PrintingProcessor$PrintingElementVisitor$1),
+	$classEntry("com.sun.tools.javac.processing.PrintingProcessor$PrintingElementVisitor$2", ::com::sun::tools::javac::processing::PrintingProcessor$PrintingElementVisitor$2),
+	$classEntry("com.sun.tools.javac.processing.PrintingProcessor$PrintingElementVisitor$PrintDirective", ::com::sun::tools::javac::processing::PrintingProcessor$PrintingElementVisitor$PrintDirective),
+	$classEntry("com.sun.tools.javac.processing.ServiceProxy", ::com::sun::tools::javac::processing::ServiceProxy),
+	$classEntry("com.sun.tools.javac.processing.ServiceProxy$ServiceConfigurationError", ::com::sun::tools::javac::processing::ServiceProxy$ServiceConfigurationError),
+	$classEntry("com.sun.tools.javac.resources.CompilerProperties", ::com::sun::tools::javac::resources::CompilerProperties),
+	$classEntry("com.sun.tools.javac.resources.CompilerProperties$Errors", ::com::sun::tools::javac::resources::CompilerProperties$Errors),
+	$classEntry("com.sun.tools.javac.resources.CompilerProperties$Fragments", ::com::sun::tools::javac::resources::CompilerProperties$Fragments),
+	$classEntry("com.sun.tools.javac.resources.CompilerProperties$Notes", ::com::sun::tools::javac::resources::CompilerProperties$Notes),
+	$classEntry("com.sun.tools.javac.resources.CompilerProperties$Warnings", ::com::sun::tools::javac::resources::CompilerProperties$Warnings),
+	$classEntry("com.sun.tools.javac.resources.LauncherProperties", ::com::sun::tools::javac::resources::LauncherProperties),
+	$classEntry("com.sun.tools.javac.resources.LauncherProperties$Errors", ::com::sun::tools::javac::resources::LauncherProperties$Errors),
+	$classEntry("com.sun.tools.javac.resources.compiler", ::com::sun::tools::javac::resources::compiler),
+	$classEntry("com.sun.tools.javac.resources.compiler_ja", ::com::sun::tools::javac::resources::compiler_ja),
+	$classEntry("com.sun.tools.javac.resources.compiler_zh_CN", ::com::sun::tools::javac::resources::compiler_zh_CN),
+	$classEntry("com.sun.tools.javac.resources.ct", ::com::sun::tools::javac::resources::ct),
+	$classEntry("com.sun.tools.javac.resources.javac", ::com::sun::tools::javac::resources::javac),
+	$classEntry("com.sun.tools.javac.resources.javac_ja", ::com::sun::tools::javac::resources::javac_ja),
+	$classEntry("com.sun.tools.javac.resources.javac_zh_CN", ::com::sun::tools::javac::resources::javac_zh_CN),
+	$classEntry("com.sun.tools.javac.resources.launcher", ::com::sun::tools::javac::resources::launcher),
+	$classEntry("com.sun.tools.javac.resources.launcher_ja", ::com::sun::tools::javac::resources::launcher_ja),
+	$classEntry("com.sun.tools.javac.resources.launcher_zh_CN", ::com::sun::tools::javac::resources::launcher_zh_CN),
+	$classEntry("com.sun.tools.javac.resources.legacy", ::com::sun::tools::javac::resources::legacy),
+	$classEntry("com.sun.tools.javac.resources.version", ::com::sun::tools::javac::resources::version),
+	$classEntry("com.sun.tools.javac.tree.DCTree", ::com::sun::tools::javac::tree::DCTree),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCAttribute", ::com::sun::tools::javac::tree::DCTree$DCAttribute),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCAuthor", ::com::sun::tools::javac::tree::DCTree$DCAuthor),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCBlockTag", ::com::sun::tools::javac::tree::DCTree$DCBlockTag),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCComment", ::com::sun::tools::javac::tree::DCTree$DCComment),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCDeprecated", ::com::sun::tools::javac::tree::DCTree$DCDeprecated),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCDocComment", ::com::sun::tools::javac::tree::DCTree$DCDocComment),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCDocRoot", ::com::sun::tools::javac::tree::DCTree$DCDocRoot),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCDocType", ::com::sun::tools::javac::tree::DCTree$DCDocType),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCEndElement", ::com::sun::tools::javac::tree::DCTree$DCEndElement),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCEndPosTree", ::com::sun::tools::javac::tree::DCTree$DCEndPosTree),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCEntity", ::com::sun::tools::javac::tree::DCTree$DCEntity),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCErroneous", ::com::sun::tools::javac::tree::DCTree$DCErroneous),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCHidden", ::com::sun::tools::javac::tree::DCTree$DCHidden),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCIdentifier", ::com::sun::tools::javac::tree::DCTree$DCIdentifier),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCIndex", ::com::sun::tools::javac::tree::DCTree$DCIndex),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCInheritDoc", ::com::sun::tools::javac::tree::DCTree$DCInheritDoc),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCInlineTag", ::com::sun::tools::javac::tree::DCTree$DCInlineTag),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCLink", ::com::sun::tools::javac::tree::DCTree$DCLink),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCLiteral", ::com::sun::tools::javac::tree::DCTree$DCLiteral),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCParam", ::com::sun::tools::javac::tree::DCTree$DCParam),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCProvides", ::com::sun::tools::javac::tree::DCTree$DCProvides),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCReference", ::com::sun::tools::javac::tree::DCTree$DCReference),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCReturn", ::com::sun::tools::javac::tree::DCTree$DCReturn),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCSee", ::com::sun::tools::javac::tree::DCTree$DCSee),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCSerial", ::com::sun::tools::javac::tree::DCTree$DCSerial),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCSerialData", ::com::sun::tools::javac::tree::DCTree$DCSerialData),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCSerialField", ::com::sun::tools::javac::tree::DCTree$DCSerialField),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCSince", ::com::sun::tools::javac::tree::DCTree$DCSince),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCStartElement", ::com::sun::tools::javac::tree::DCTree$DCStartElement),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCSummary", ::com::sun::tools::javac::tree::DCTree$DCSummary),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCSystemProperty", ::com::sun::tools::javac::tree::DCTree$DCSystemProperty),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCText", ::com::sun::tools::javac::tree::DCTree$DCText),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCThrows", ::com::sun::tools::javac::tree::DCTree$DCThrows),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCUnknownBlockTag", ::com::sun::tools::javac::tree::DCTree$DCUnknownBlockTag),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCUnknownInlineTag", ::com::sun::tools::javac::tree::DCTree$DCUnknownInlineTag),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCUses", ::com::sun::tools::javac::tree::DCTree$DCUses),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCValue", ::com::sun::tools::javac::tree::DCTree$DCValue),
+	$classEntry("com.sun.tools.javac.tree.DCTree$DCVersion", ::com::sun::tools::javac::tree::DCTree$DCVersion),
+	$classEntry("com.sun.tools.javac.tree.DocCommentTable", ::com::sun::tools::javac::tree::DocCommentTable),
+	$classEntry("com.sun.tools.javac.tree.DocPretty", ::com::sun::tools::javac::tree::DocPretty),
+	$classEntry("com.sun.tools.javac.tree.DocPretty$1", ::com::sun::tools::javac::tree::DocPretty$1),
+	$classEntry("com.sun.tools.javac.tree.DocPretty$UncheckedIOException", ::com::sun::tools::javac::tree::DocPretty$UncheckedIOException),
+	$classEntry("com.sun.tools.javac.tree.DocTreeMaker", ::com::sun::tools::javac::tree::DocTreeMaker),
+	$classEntry("com.sun.tools.javac.tree.DocTreeMaker$1", ::com::sun::tools::javac::tree::DocTreeMaker$1),
+	$classEntry("com.sun.tools.javac.tree.DocTreeMaker$2", ::com::sun::tools::javac::tree::DocTreeMaker$2),
+	$classEntry("com.sun.tools.javac.tree.EndPosTable", ::com::sun::tools::javac::tree::EndPosTable),
+	$classEntry("com.sun.tools.javac.tree.JCTree", ::com::sun::tools::javac::tree::JCTree),
+	$classEntry("com.sun.tools.javac.tree.JCTree$1", ::com::sun::tools::javac::tree::JCTree$1),
+	$classEntry("com.sun.tools.javac.tree.JCTree$Factory", ::com::sun::tools::javac::tree::JCTree$Factory),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCAnnotatedType", ::com::sun::tools::javac::tree::JCTree$JCAnnotatedType),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCAnnotation", ::com::sun::tools::javac::tree::JCTree$JCAnnotation),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCArrayAccess", ::com::sun::tools::javac::tree::JCTree$JCArrayAccess),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCArrayTypeTree", ::com::sun::tools::javac::tree::JCTree$JCArrayTypeTree),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCAssert", ::com::sun::tools::javac::tree::JCTree$JCAssert),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCAssign", ::com::sun::tools::javac::tree::JCTree$JCAssign),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCAssignOp", ::com::sun::tools::javac::tree::JCTree$JCAssignOp),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCBinary", ::com::sun::tools::javac::tree::JCTree$JCBinary),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCBindingPattern", ::com::sun::tools::javac::tree::JCTree$JCBindingPattern),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCBlock", ::com::sun::tools::javac::tree::JCTree$JCBlock),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCBreak", ::com::sun::tools::javac::tree::JCTree$JCBreak),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCCase", ::com::sun::tools::javac::tree::JCTree$JCCase),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCCaseLabel", ::com::sun::tools::javac::tree::JCTree$JCCaseLabel),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCCatch", ::com::sun::tools::javac::tree::JCTree$JCCatch),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCClassDecl", ::com::sun::tools::javac::tree::JCTree$JCClassDecl),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCCompilationUnit", ::com::sun::tools::javac::tree::JCTree$JCCompilationUnit),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCConditional", ::com::sun::tools::javac::tree::JCTree$JCConditional),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCContinue", ::com::sun::tools::javac::tree::JCTree$JCContinue),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCDefaultCaseLabel", ::com::sun::tools::javac::tree::JCTree$JCDefaultCaseLabel),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCDirective", ::com::sun::tools::javac::tree::JCTree$JCDirective),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCDoWhileLoop", ::com::sun::tools::javac::tree::JCTree$JCDoWhileLoop),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCEnhancedForLoop", ::com::sun::tools::javac::tree::JCTree$JCEnhancedForLoop),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCErroneous", ::com::sun::tools::javac::tree::JCTree$JCErroneous),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCExports", ::com::sun::tools::javac::tree::JCTree$JCExports),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCExpression", ::com::sun::tools::javac::tree::JCTree$JCExpression),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCExpressionStatement", ::com::sun::tools::javac::tree::JCTree$JCExpressionStatement),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCFieldAccess", ::com::sun::tools::javac::tree::JCTree$JCFieldAccess),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCForLoop", ::com::sun::tools::javac::tree::JCTree$JCForLoop),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCFunctionalExpression", ::com::sun::tools::javac::tree::JCTree$JCFunctionalExpression),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCGuardPattern", ::com::sun::tools::javac::tree::JCTree$JCGuardPattern),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCIdent", ::com::sun::tools::javac::tree::JCTree$JCIdent),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCIf", ::com::sun::tools::javac::tree::JCTree$JCIf),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCImport", ::com::sun::tools::javac::tree::JCTree$JCImport),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCInstanceOf", ::com::sun::tools::javac::tree::JCTree$JCInstanceOf),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCLabeledStatement", ::com::sun::tools::javac::tree::JCTree$JCLabeledStatement),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCLambda", ::com::sun::tools::javac::tree::JCTree$JCLambda),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCLambda$ParameterKind", ::com::sun::tools::javac::tree::JCTree$JCLambda$ParameterKind),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCLiteral", ::com::sun::tools::javac::tree::JCTree$JCLiteral),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCMemberReference", ::com::sun::tools::javac::tree::JCTree$JCMemberReference),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCMemberReference$OverloadKind", ::com::sun::tools::javac::tree::JCTree$JCMemberReference$OverloadKind),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCMemberReference$ReferenceKind", ::com::sun::tools::javac::tree::JCTree$JCMemberReference$ReferenceKind),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCMethodDecl", ::com::sun::tools::javac::tree::JCTree$JCMethodDecl),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCMethodInvocation", ::com::sun::tools::javac::tree::JCTree$JCMethodInvocation),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCModifiers", ::com::sun::tools::javac::tree::JCTree$JCModifiers),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCModuleDecl", ::com::sun::tools::javac::tree::JCTree$JCModuleDecl),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCNewArray", ::com::sun::tools::javac::tree::JCTree$JCNewArray),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCNewClass", ::com::sun::tools::javac::tree::JCTree$JCNewClass),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCOpens", ::com::sun::tools::javac::tree::JCTree$JCOpens),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCOperatorExpression", ::com::sun::tools::javac::tree::JCTree$JCOperatorExpression),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCOperatorExpression$OperandPos", ::com::sun::tools::javac::tree::JCTree$JCOperatorExpression$OperandPos),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCPackageDecl", ::com::sun::tools::javac::tree::JCTree$JCPackageDecl),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCParens", ::com::sun::tools::javac::tree::JCTree$JCParens),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCParenthesizedPattern", ::com::sun::tools::javac::tree::JCTree$JCParenthesizedPattern),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCPattern", ::com::sun::tools::javac::tree::JCTree$JCPattern),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCPolyExpression", ::com::sun::tools::javac::tree::JCTree$JCPolyExpression),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCPolyExpression$PolyKind", ::com::sun::tools::javac::tree::JCTree$JCPolyExpression$PolyKind),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCPrimitiveTypeTree", ::com::sun::tools::javac::tree::JCTree$JCPrimitiveTypeTree),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCProvides", ::com::sun::tools::javac::tree::JCTree$JCProvides),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCRequires", ::com::sun::tools::javac::tree::JCTree$JCRequires),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCReturn", ::com::sun::tools::javac::tree::JCTree$JCReturn),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCSkip", ::com::sun::tools::javac::tree::JCTree$JCSkip),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCStatement", ::com::sun::tools::javac::tree::JCTree$JCStatement),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCSwitch", ::com::sun::tools::javac::tree::JCTree$JCSwitch),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCSwitchExpression", ::com::sun::tools::javac::tree::JCTree$JCSwitchExpression),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCSynchronized", ::com::sun::tools::javac::tree::JCTree$JCSynchronized),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCThrow", ::com::sun::tools::javac::tree::JCTree$JCThrow),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCTry", ::com::sun::tools::javac::tree::JCTree$JCTry),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCTypeApply", ::com::sun::tools::javac::tree::JCTree$JCTypeApply),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCTypeCast", ::com::sun::tools::javac::tree::JCTree$JCTypeCast),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCTypeIntersection", ::com::sun::tools::javac::tree::JCTree$JCTypeIntersection),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCTypeParameter", ::com::sun::tools::javac::tree::JCTree$JCTypeParameter),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCTypeUnion", ::com::sun::tools::javac::tree::JCTree$JCTypeUnion),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCUnary", ::com::sun::tools::javac::tree::JCTree$JCUnary),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCUses", ::com::sun::tools::javac::tree::JCTree$JCUses),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCVariableDecl", ::com::sun::tools::javac::tree::JCTree$JCVariableDecl),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCWhileLoop", ::com::sun::tools::javac::tree::JCTree$JCWhileLoop),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCWildcard", ::com::sun::tools::javac::tree::JCTree$JCWildcard),
+	$classEntry("com.sun.tools.javac.tree.JCTree$JCYield", ::com::sun::tools::javac::tree::JCTree$JCYield),
+	$classEntry("com.sun.tools.javac.tree.JCTree$LetExpr", ::com::sun::tools::javac::tree::JCTree$LetExpr),
+	$classEntry("com.sun.tools.javac.tree.JCTree$Tag", ::com::sun::tools::javac::tree::JCTree$Tag),
+	$classEntry("com.sun.tools.javac.tree.JCTree$TypeBoundKind", ::com::sun::tools::javac::tree::JCTree$TypeBoundKind),
+	$classEntry("com.sun.tools.javac.tree.JCTree$Visitor", ::com::sun::tools::javac::tree::JCTree$Visitor),
+	$classEntry("com.sun.tools.javac.tree.Pretty", ::com::sun::tools::javac::tree::Pretty),
+	$classEntry("com.sun.tools.javac.tree.Pretty$1", ::com::sun::tools::javac::tree::Pretty$1),
+	$classEntry("com.sun.tools.javac.tree.Pretty$1UsedVisitor", ::com::sun::tools::javac::tree::Pretty$1UsedVisitor),
+	$classEntry("com.sun.tools.javac.tree.Pretty$UncheckedIOException", ::com::sun::tools::javac::tree::Pretty$UncheckedIOException),
+	$classEntry("com.sun.tools.javac.tree.TreeCopier", ::com::sun::tools::javac::tree::TreeCopier),
+	$classEntry("com.sun.tools.javac.tree.TreeCopier$1", ::com::sun::tools::javac::tree::TreeCopier$1),
+	$classEntry("com.sun.tools.javac.tree.TreeInfo", ::com::sun::tools::javac::tree::TreeInfo),
+	$classEntry("com.sun.tools.javac.tree.TreeInfo$1", ::com::sun::tools::javac::tree::TreeInfo$1),
+	$classEntry("com.sun.tools.javac.tree.TreeInfo$1DiagScanner", ::com::sun::tools::javac::tree::TreeInfo$1DiagScanner),
+	$classEntry("com.sun.tools.javac.tree.TreeInfo$1PathFinder", ::com::sun::tools::javac::tree::TreeInfo$1PathFinder),
+	$classEntry("com.sun.tools.javac.tree.TreeInfo$1Result", ::com::sun::tools::javac::tree::TreeInfo$1Result),
+	$classEntry("com.sun.tools.javac.tree.TreeInfo$2", ::com::sun::tools::javac::tree::TreeInfo$2),
+	$classEntry("com.sun.tools.javac.tree.TreeInfo$DeclScanner", ::com::sun::tools::javac::tree::TreeInfo$DeclScanner),
+	$classEntry("com.sun.tools.javac.tree.TreeInfo$PatternPrimaryType", ::com::sun::tools::javac::tree::TreeInfo$PatternPrimaryType),
+	$classEntry("com.sun.tools.javac.tree.TreeInfo$PosKind", ::com::sun::tools::javac::tree::TreeInfo$PosKind),
+	$classEntry("com.sun.tools.javac.tree.TreeInfo$TypeAnnotationFinder", ::com::sun::tools::javac::tree::TreeInfo$TypeAnnotationFinder),
+	$classEntry("com.sun.tools.javac.tree.TreeMaker", ::com::sun::tools::javac::tree::TreeMaker),
+	$classEntry("com.sun.tools.javac.tree.TreeMaker$1", ::com::sun::tools::javac::tree::TreeMaker$1),
+	$classEntry("com.sun.tools.javac.tree.TreeMaker$2", ::com::sun::tools::javac::tree::TreeMaker$2),
+	$classEntry("com.sun.tools.javac.tree.TreeMaker$AnnotationBuilder", ::com::sun::tools::javac::tree::TreeMaker$AnnotationBuilder),
+	$classEntry("com.sun.tools.javac.tree.TreeScanner", ::com::sun::tools::javac::tree::TreeScanner),
+	$classEntry("com.sun.tools.javac.tree.TreeTranslator", ::com::sun::tools::javac::tree::TreeTranslator),
+	$classEntry("com.sun.tools.javac.util.Abort", ::com::sun::tools::javac::util::Abort),
+	$classEntry("com.sun.tools.javac.util.AbstractDiagnosticFormatter", ::com::sun::tools::javac::util::AbstractDiagnosticFormatter),
+	$classEntry("com.sun.tools.javac.util.AbstractDiagnosticFormatter$1", ::com::sun::tools::javac::util::AbstractDiagnosticFormatter$1),
+	$classEntry("com.sun.tools.javac.util.AbstractDiagnosticFormatter$2", ::com::sun::tools::javac::util::AbstractDiagnosticFormatter$2),
+	$classEntry("com.sun.tools.javac.util.AbstractDiagnosticFormatter$SimpleConfiguration", ::com::sun::tools::javac::util::AbstractDiagnosticFormatter$SimpleConfiguration),
+	$classEntry("com.sun.tools.javac.util.AbstractLog", ::com::sun::tools::javac::util::AbstractLog),
+	$classEntry("com.sun.tools.javac.util.ArrayUtils", ::com::sun::tools::javac::util::ArrayUtils),
+	$classEntry("com.sun.tools.javac.util.Assert", ::com::sun::tools::javac::util::Assert),
+	$classEntry("com.sun.tools.javac.util.BasicDiagnosticFormatter", ::com::sun::tools::javac::util::BasicDiagnosticFormatter),
+	$classEntry("com.sun.tools.javac.util.BasicDiagnosticFormatter$1", ::com::sun::tools::javac::util::BasicDiagnosticFormatter$1),
+	$classEntry("com.sun.tools.javac.util.BasicDiagnosticFormatter$BasicConfiguration", ::com::sun::tools::javac::util::BasicDiagnosticFormatter$BasicConfiguration),
+	$classEntry("com.sun.tools.javac.util.BasicDiagnosticFormatter$BasicConfiguration$BasicFormatKind", ::com::sun::tools::javac::util::BasicDiagnosticFormatter$BasicConfiguration$BasicFormatKind),
+	$classEntry("com.sun.tools.javac.util.BasicDiagnosticFormatter$BasicConfiguration$SourcePosition", ::com::sun::tools::javac::util::BasicDiagnosticFormatter$BasicConfiguration$SourcePosition),
+	$classEntry("com.sun.tools.javac.util.Bits", ::com::sun::tools::javac::util::Bits),
+	$classEntry("com.sun.tools.javac.util.Bits$1", ::com::sun::tools::javac::util::Bits$1),
+	$classEntry("com.sun.tools.javac.util.Bits$BitsState", ::com::sun::tools::javac::util::Bits$BitsState),
+	$classEntry("com.sun.tools.javac.util.ByteBuffer", ::com::sun::tools::javac::util::ByteBuffer),
+	$classEntry("com.sun.tools.javac.util.ClientCodeException", ::com::sun::tools::javac::util::ClientCodeException),
+	$classEntry("com.sun.tools.javac.util.Constants", ::com::sun::tools::javac::util::Constants),
+	$classEntry("com.sun.tools.javac.util.Constants$1", ::com::sun::tools::javac::util::Constants$1),
+	$classEntry("com.sun.tools.javac.util.Context", ::com::sun::tools::javac::util::Context),
+	$classEntry("com.sun.tools.javac.util.Context$Factory", ::com::sun::tools::javac::util::Context$Factory),
+	$classEntry("com.sun.tools.javac.util.Context$Key", ::com::sun::tools::javac::util::Context$Key),
+	$classEntry("com.sun.tools.javac.util.Convert", ::com::sun::tools::javac::util::Convert),
+	$classEntry("com.sun.tools.javac.util.DefinedBy", ::com::sun::tools::javac::util::DefinedBy),
+	$classEntry("com.sun.tools.javac.util.DefinedBy$Api", ::com::sun::tools::javac::util::DefinedBy$Api),
+	$classEntry("com.sun.tools.javac.util.Dependencies", ::com::sun::tools::javac::util::Dependencies),
+	$classEntry("com.sun.tools.javac.util.Dependencies$CompletionCause", ::com::sun::tools::javac::util::Dependencies$CompletionCause),
+	$classEntry("com.sun.tools.javac.util.Dependencies$DummyDependencies", ::com::sun::tools::javac::util::Dependencies$DummyDependencies),
+	$classEntry("com.sun.tools.javac.util.Dependencies$GraphDependencies", ::com::sun::tools::javac::util::Dependencies$GraphDependencies),
+	$classEntry("com.sun.tools.javac.util.Dependencies$GraphDependencies$CompletionNode", ::com::sun::tools::javac::util::Dependencies$GraphDependencies$CompletionNode),
+	$classEntry("com.sun.tools.javac.util.Dependencies$GraphDependencies$CompletionNode$Kind", ::com::sun::tools::javac::util::Dependencies$GraphDependencies$CompletionNode$Kind),
+	$classEntry("com.sun.tools.javac.util.Dependencies$GraphDependencies$DependenciesMode", ::com::sun::tools::javac::util::Dependencies$GraphDependencies$DependenciesMode),
+	$classEntry("com.sun.tools.javac.util.Dependencies$GraphDependencies$FilterVisitor", ::com::sun::tools::javac::util::Dependencies$GraphDependencies$FilterVisitor),
+	$classEntry("com.sun.tools.javac.util.Dependencies$GraphDependencies$Node", ::com::sun::tools::javac::util::Dependencies$GraphDependencies$Node),
+	$classEntry("com.sun.tools.javac.util.Dependencies$GraphDependencies$PruneVisitor", ::com::sun::tools::javac::util::Dependencies$GraphDependencies$PruneVisitor),
+	$classEntry("com.sun.tools.javac.util.DiagnosticSource", ::com::sun::tools::javac::util::DiagnosticSource),
+	$classEntry("com.sun.tools.javac.util.DiagnosticSource$1", ::com::sun::tools::javac::util::DiagnosticSource$1),
+	$classEntry("com.sun.tools.javac.util.FatalError", ::com::sun::tools::javac::util::FatalError),
+	$classEntry("com.sun.tools.javac.util.ForwardingDiagnosticFormatter", ::com::sun::tools::javac::util::ForwardingDiagnosticFormatter),
+	$classEntry("com.sun.tools.javac.util.ForwardingDiagnosticFormatter$ForwardingConfiguration", ::com::sun::tools::javac::util::ForwardingDiagnosticFormatter$ForwardingConfiguration),
+	$classEntry("com.sun.tools.javac.util.GraphUtils", ::com::sun::tools::javac::util::GraphUtils),
+	$classEntry("com.sun.tools.javac.util.GraphUtils$AbstractNode", ::com::sun::tools::javac::util::GraphUtils$AbstractNode),
+	$classEntry("com.sun.tools.javac.util.GraphUtils$DependencyKind", ::com::sun::tools::javac::util::GraphUtils$DependencyKind),
+	$classEntry("com.sun.tools.javac.util.GraphUtils$DotVisitor", ::com::sun::tools::javac::util::GraphUtils$DotVisitor),
+	$classEntry("com.sun.tools.javac.util.GraphUtils$DottableNode", ::com::sun::tools::javac::util::GraphUtils$DottableNode),
+	$classEntry("com.sun.tools.javac.util.GraphUtils$Node", ::com::sun::tools::javac::util::GraphUtils$Node),
+	$classEntry("com.sun.tools.javac.util.GraphUtils$NodeVisitor", ::com::sun::tools::javac::util::GraphUtils$NodeVisitor),
+	$classEntry("com.sun.tools.javac.util.GraphUtils$Tarjan", ::com::sun::tools::javac::util::GraphUtils$Tarjan),
+	$classEntry("com.sun.tools.javac.util.GraphUtils$TarjanNode", ::com::sun::tools::javac::util::GraphUtils$TarjanNode),
+	$classEntry("com.sun.tools.javac.util.IntHashTable", ::com::sun::tools::javac::util::IntHashTable),
+	$classEntry("com.sun.tools.javac.util.Iterators", ::com::sun::tools::javac::util::Iterators),
+	$classEntry("com.sun.tools.javac.util.Iterators$1", ::com::sun::tools::javac::util::Iterators$1),
+	$classEntry("com.sun.tools.javac.util.Iterators$2", ::com::sun::tools::javac::util::Iterators$2),
+	$classEntry("com.sun.tools.javac.util.Iterators$CompoundIterator", ::com::sun::tools::javac::util::Iterators$CompoundIterator),
+	$classEntry("com.sun.tools.javac.util.JCDiagnostic", ::com::sun::tools::javac::util::JCDiagnostic),
+	$classEntry("com.sun.tools.javac.util.JCDiagnostic$1", ::com::sun::tools::javac::util::JCDiagnostic$1),
+	$classEntry("com.sun.tools.javac.util.JCDiagnostic$DiagnosticFlag", ::com::sun::tools::javac::util::JCDiagnostic$DiagnosticFlag),
+	$classEntry("com.sun.tools.javac.util.JCDiagnostic$DiagnosticInfo", ::com::sun::tools::javac::util::JCDiagnostic$DiagnosticInfo),
+	$classEntry("com.sun.tools.javac.util.JCDiagnostic$DiagnosticPosition", ::com::sun::tools::javac::util::JCDiagnostic$DiagnosticPosition),
+	$classEntry("com.sun.tools.javac.util.JCDiagnostic$DiagnosticType", ::com::sun::tools::javac::util::JCDiagnostic$DiagnosticType),
+	$classEntry("com.sun.tools.javac.util.JCDiagnostic$Error", ::com::sun::tools::javac::util::JCDiagnostic$Error),
+	$classEntry("com.sun.tools.javac.util.JCDiagnostic$Factory", ::com::sun::tools::javac::util::JCDiagnostic$Factory),
+	$classEntry("com.sun.tools.javac.util.JCDiagnostic$Fragment", ::com::sun::tools::javac::util::JCDiagnostic$Fragment),
+	$classEntry("com.sun.tools.javac.util.JCDiagnostic$MultilineDiagnostic", ::com::sun::tools::javac::util::JCDiagnostic$MultilineDiagnostic),
+	$classEntry("com.sun.tools.javac.util.JCDiagnostic$Note", ::com::sun::tools::javac::util::JCDiagnostic$Note),
+	$classEntry("com.sun.tools.javac.util.JCDiagnostic$SimpleDiagnosticPosition", ::com::sun::tools::javac::util::JCDiagnostic$SimpleDiagnosticPosition),
+	$classEntry("com.sun.tools.javac.util.JCDiagnostic$SourcePosition", ::com::sun::tools::javac::util::JCDiagnostic$SourcePosition),
+	$classEntry("com.sun.tools.javac.util.JCDiagnostic$Warning", ::com::sun::tools::javac::util::JCDiagnostic$Warning),
+	$classEntry("com.sun.tools.javac.util.JavacMessages", ::com::sun::tools::javac::util::JavacMessages),
+	$classEntry("com.sun.tools.javac.util.JavacMessages$ResourceBundleHelper", ::com::sun::tools::javac::util::JavacMessages$ResourceBundleHelper),
+	$classEntry("com.sun.tools.javac.util.LayoutCharacters", ::com::sun::tools::javac::util::LayoutCharacters),
+	$classEntry("com.sun.tools.javac.util.List", ::com::sun::tools::javac::util::List),
+	$classEntry("com.sun.tools.javac.util.List$1", ::com::sun::tools::javac::util::List$1),
+	$classEntry("com.sun.tools.javac.util.List$2", ::com::sun::tools::javac::util::List$2),
+	$classEntry("com.sun.tools.javac.util.List$3", ::com::sun::tools::javac::util::List$3),
+	$classEntry("com.sun.tools.javac.util.ListBuffer", ::com::sun::tools::javac::util::ListBuffer),
+	$classEntry("com.sun.tools.javac.util.ListBuffer$1", ::com::sun::tools::javac::util::ListBuffer$1),
+	$classEntry("com.sun.tools.javac.util.Log", ::com::sun::tools::javac::util::Log),
+	$classEntry("com.sun.tools.javac.util.Log$1", ::com::sun::tools::javac::util::Log$1),
+	$classEntry("com.sun.tools.javac.util.Log$DefaultDiagnosticHandler", ::com::sun::tools::javac::util::Log$DefaultDiagnosticHandler),
+	$classEntry("com.sun.tools.javac.util.Log$DeferredDiagnosticHandler", ::com::sun::tools::javac::util::Log$DeferredDiagnosticHandler),
+	$classEntry("com.sun.tools.javac.util.Log$DiagnosticHandler", ::com::sun::tools::javac::util::Log$DiagnosticHandler),
+	$classEntry("com.sun.tools.javac.util.Log$DiscardDiagnosticHandler", ::com::sun::tools::javac::util::Log$DiscardDiagnosticHandler),
+	$classEntry("com.sun.tools.javac.util.Log$PrefixKind", ::com::sun::tools::javac::util::Log$PrefixKind),
+	$classEntry("com.sun.tools.javac.util.Log$WriterKind", ::com::sun::tools::javac::util::Log$WriterKind),
+	$classEntry("com.sun.tools.javac.util.MandatoryWarningHandler", ::com::sun::tools::javac::util::MandatoryWarningHandler),
+	$classEntry("com.sun.tools.javac.util.MandatoryWarningHandler$DeferredDiagnosticKind", ::com::sun::tools::javac::util::MandatoryWarningHandler$DeferredDiagnosticKind),
+	$classEntry("com.sun.tools.javac.util.MatchingUtils", ::com::sun::tools::javac::util::MatchingUtils),
+	$classEntry("com.sun.tools.javac.util.ModuleHelper", ::com::sun::tools::javac::util::ModuleHelper),
+	$classEntry("com.sun.tools.javac.util.Name", ::com::sun::tools::javac::util::Name),
+	$classEntry("com.sun.tools.javac.util.Name$NameMapper", ::com::sun::tools::javac::util::Name$NameMapper),
+	$classEntry("com.sun.tools.javac.util.Name$Table", ::com::sun::tools::javac::util::Name$Table),
+	$classEntry("com.sun.tools.javac.util.Names", ::com::sun::tools::javac::util::Names),
+	$classEntry("com.sun.tools.javac.util.Options", ::com::sun::tools::javac::util::Options),
+	$classEntry("com.sun.tools.javac.util.Pair", ::com::sun::tools::javac::util::Pair),
+	$classEntry("com.sun.tools.javac.util.Position", ::com::sun::tools::javac::util::Position),
+	$classEntry("com.sun.tools.javac.util.Position$LineMap", ::com::sun::tools::javac::util::Position$LineMap),
+	$classEntry("com.sun.tools.javac.util.Position$LineMapImpl", ::com::sun::tools::javac::util::Position$LineMapImpl),
+	$classEntry("com.sun.tools.javac.util.Position$LineTabMapImpl", ::com::sun::tools::javac::util::Position$LineTabMapImpl),
+	$classEntry("com.sun.tools.javac.util.PropagatedException", ::com::sun::tools::javac::util::PropagatedException),
+	$classEntry("com.sun.tools.javac.util.RawDiagnosticFormatter", ::com::sun::tools::javac::util::RawDiagnosticFormatter),
+	$classEntry("com.sun.tools.javac.util.RawDiagnosticFormatter$RawDiagnosticPosHelper", ::com::sun::tools::javac::util::RawDiagnosticFormatter$RawDiagnosticPosHelper),
+	$classEntry("com.sun.tools.javac.util.RichDiagnosticFormatter", ::com::sun::tools::javac::util::RichDiagnosticFormatter),
+	$classEntry("com.sun.tools.javac.util.RichDiagnosticFormatter$1", ::com::sun::tools::javac::util::RichDiagnosticFormatter$1),
+	$classEntry("com.sun.tools.javac.util.RichDiagnosticFormatter$2", ::com::sun::tools::javac::util::RichDiagnosticFormatter$2),
+	$classEntry("com.sun.tools.javac.util.RichDiagnosticFormatter$ClassNameSimplifier", ::com::sun::tools::javac::util::RichDiagnosticFormatter$ClassNameSimplifier),
+	$classEntry("com.sun.tools.javac.util.RichDiagnosticFormatter$RichConfiguration", ::com::sun::tools::javac::util::RichDiagnosticFormatter$RichConfiguration),
+	$classEntry("com.sun.tools.javac.util.RichDiagnosticFormatter$RichConfiguration$RichFormatterFeature", ::com::sun::tools::javac::util::RichDiagnosticFormatter$RichConfiguration$RichFormatterFeature),
+	$classEntry("com.sun.tools.javac.util.RichDiagnosticFormatter$RichPrinter", ::com::sun::tools::javac::util::RichDiagnosticFormatter$RichPrinter),
+	$classEntry("com.sun.tools.javac.util.RichDiagnosticFormatter$WhereClauseKind", ::com::sun::tools::javac::util::RichDiagnosticFormatter$WhereClauseKind),
+	$classEntry("com.sun.tools.javac.util.SharedNameTable", ::com::sun::tools::javac::util::SharedNameTable),
+	$classEntry("com.sun.tools.javac.util.SharedNameTable$NameImpl", ::com::sun::tools::javac::util::SharedNameTable$NameImpl),
+	$classEntry("com.sun.tools.javac.util.StringUtils", ::com::sun::tools::javac::util::StringUtils),
+	$classEntry("com.sun.tools.javac.util.UnsharedNameTable", ::com::sun::tools::javac::util::UnsharedNameTable),
+	$classEntry("com.sun.tools.javac.util.UnsharedNameTable$HashEntry", ::com::sun::tools::javac::util::UnsharedNameTable$HashEntry),
+	$classEntry("com.sun.tools.javac.util.UnsharedNameTable$NameImpl", ::com::sun::tools::javac::util::UnsharedNameTable$NameImpl),
+	$classEntry("com.sun.tools.javac.util.Warner", ::com::sun::tools::javac::util::Warner),
+	$classEntry("com.sun.tools.sjavac.AutoFlushWriter", ::com::sun::tools::sjavac::AutoFlushWriter),
+	$classEntry("com.sun.tools.sjavac.BuildState", ::com::sun::tools::sjavac::BuildState),
+	$classEntry("com.sun.tools.sjavac.CleanProperties", ::com::sun::tools::sjavac::CleanProperties),
+	$classEntry("com.sun.tools.sjavac.CompileChunk", ::com::sun::tools::sjavac::CompileChunk),
+	$classEntry("com.sun.tools.sjavac.CompileJavaPackages", ::com::sun::tools::sjavac::CompileJavaPackages),
+	$classEntry("com.sun.tools.sjavac.CompileProperties", ::com::sun::tools::sjavac::CompileProperties),
+	$classEntry("com.sun.tools.sjavac.CopyFile", ::com::sun::tools::sjavac::CopyFile),
+	$classEntry("com.sun.tools.sjavac.JavacState", ::com::sun::tools::sjavac::JavacState),
+	$classEntry("com.sun.tools.sjavac.Log", ::com::sun::tools::sjavac::Log),
+	$classEntry("com.sun.tools.sjavac.Log$Level", ::com::sun::tools::sjavac::Log$Level),
+	$classEntry("com.sun.tools.sjavac.Main", ::com::sun::tools::sjavac::Main),
+	$classEntry("com.sun.tools.sjavac.Module", ::com::sun::tools::sjavac::Module),
+	$classEntry("com.sun.tools.sjavac.Package", ::com::sun::tools::sjavac::Package),
+	$classEntry("com.sun.tools.sjavac.ProblemException", ::com::sun::tools::sjavac::ProblemException),
+	$classEntry("com.sun.tools.sjavac.PubApiExtractor", ::com::sun::tools::sjavac::PubApiExtractor),
+	$classEntry("com.sun.tools.sjavac.Source", ::com::sun::tools::sjavac::Source),
+	$classEntry("com.sun.tools.sjavac.Source$1", ::com::sun::tools::sjavac::Source$1),
+	$classEntry("com.sun.tools.sjavac.Transformer", ::com::sun::tools::sjavac::Transformer),
+	$classEntry("com.sun.tools.sjavac.Util", ::com::sun::tools::sjavac::Util),
+	$classEntry("com.sun.tools.sjavac.client.ClientMain", ::com::sun::tools::sjavac::client::ClientMain),
+	$classEntry("com.sun.tools.sjavac.client.PortFileInaccessibleException", ::com::sun::tools::sjavac::client::PortFileInaccessibleException),
+	$classEntry("com.sun.tools.sjavac.client.SjavacClient", ::com::sun::tools::sjavac::client::SjavacClient),
+	$classEntry("com.sun.tools.sjavac.comp.CompilationService", ::com::sun::tools::sjavac::comp::CompilationService),
+	$classEntry("com.sun.tools.sjavac.comp.FileObjectWithLocation", ::com::sun::tools::sjavac::comp::FileObjectWithLocation),
+	$classEntry("com.sun.tools.sjavac.comp.JavaFileObjectWithLocation", ::com::sun::tools::sjavac::comp::JavaFileObjectWithLocation),
+	$classEntry("com.sun.tools.sjavac.comp.PathAndPackageVerifier", ::com::sun::tools::sjavac::comp::PathAndPackageVerifier),
+	$classEntry("com.sun.tools.sjavac.comp.PathAndPackageVerifier$EnclosingPkgIterator", ::com::sun::tools::sjavac::comp::PathAndPackageVerifier$EnclosingPkgIterator),
+	$classEntry("com.sun.tools.sjavac.comp.PathAndPackageVerifier$ParentIterator", ::com::sun::tools::sjavac::comp::PathAndPackageVerifier$ParentIterator),
+	$classEntry("com.sun.tools.sjavac.comp.PooledSjavac", ::com::sun::tools::sjavac::comp::PooledSjavac),
+	$classEntry("com.sun.tools.sjavac.comp.PubAPIs", ::com::sun::tools::sjavac::comp::PubAPIs),
+	$classEntry("com.sun.tools.sjavac.comp.PubapiVisitor", ::com::sun::tools::sjavac::comp::PubapiVisitor),
+	$classEntry("com.sun.tools.sjavac.comp.SjavacImpl", ::com::sun::tools::sjavac::comp::SjavacImpl),
+	$classEntry("com.sun.tools.sjavac.comp.SmartFileManager", ::com::sun::tools::sjavac::comp::SmartFileManager),
+	$classEntry("com.sun.tools.sjavac.comp.SmartFileObject", ::com::sun::tools::sjavac::comp::SmartFileObject),
+	$classEntry("com.sun.tools.sjavac.comp.SmartWriter", ::com::sun::tools::sjavac::comp::SmartWriter),
+	$classEntry("com.sun.tools.sjavac.comp.dependencies.NewDependencyCollector", ::com::sun::tools::sjavac::comp::dependencies::NewDependencyCollector),
+	$classEntry("com.sun.tools.sjavac.comp.dependencies.PublicApiCollector", ::com::sun::tools::sjavac::comp::dependencies::PublicApiCollector),
+	$classEntry("com.sun.tools.sjavac.comp.dependencies.PublicApiCollector$1", ::com::sun::tools::sjavac::comp::dependencies::PublicApiCollector$1),
+	$classEntry("com.sun.tools.sjavac.options.ArgumentIterator", ::com::sun::tools::sjavac::options::ArgumentIterator),
+	$classEntry("com.sun.tools.sjavac.options.Option", ::com::sun::tools::sjavac::options::Option),
+	$classEntry("com.sun.tools.sjavac.options.Option$1", ::com::sun::tools::sjavac::options::Option$1),
+	$classEntry("com.sun.tools.sjavac.options.Option$10", ::com::sun::tools::sjavac::options::Option$10),
+	$classEntry("com.sun.tools.sjavac.options.Option$11", ::com::sun::tools::sjavac::options::Option$11),
+	$classEntry("com.sun.tools.sjavac.options.Option$12", ::com::sun::tools::sjavac::options::Option$12),
+	$classEntry("com.sun.tools.sjavac.options.Option$13", ::com::sun::tools::sjavac::options::Option$13),
+	$classEntry("com.sun.tools.sjavac.options.Option$14", ::com::sun::tools::sjavac::options::Option$14),
+	$classEntry("com.sun.tools.sjavac.options.Option$15", ::com::sun::tools::sjavac::options::Option$15),
+	$classEntry("com.sun.tools.sjavac.options.Option$16", ::com::sun::tools::sjavac::options::Option$16),
+	$classEntry("com.sun.tools.sjavac.options.Option$17", ::com::sun::tools::sjavac::options::Option$17),
+	$classEntry("com.sun.tools.sjavac.options.Option$18", ::com::sun::tools::sjavac::options::Option$18),
+	$classEntry("com.sun.tools.sjavac.options.Option$19", ::com::sun::tools::sjavac::options::Option$19),
+	$classEntry("com.sun.tools.sjavac.options.Option$2", ::com::sun::tools::sjavac::options::Option$2),
+	$classEntry("com.sun.tools.sjavac.options.Option$20", ::com::sun::tools::sjavac::options::Option$20),
+	$classEntry("com.sun.tools.sjavac.options.Option$21", ::com::sun::tools::sjavac::options::Option$21),
+	$classEntry("com.sun.tools.sjavac.options.Option$22", ::com::sun::tools::sjavac::options::Option$22),
+	$classEntry("com.sun.tools.sjavac.options.Option$23", ::com::sun::tools::sjavac::options::Option$23),
+	$classEntry("com.sun.tools.sjavac.options.Option$24", ::com::sun::tools::sjavac::options::Option$24),
+	$classEntry("com.sun.tools.sjavac.options.Option$25", ::com::sun::tools::sjavac::options::Option$25),
+	$classEntry("com.sun.tools.sjavac.options.Option$26", ::com::sun::tools::sjavac::options::Option$26),
+	$classEntry("com.sun.tools.sjavac.options.Option$3", ::com::sun::tools::sjavac::options::Option$3),
+	$classEntry("com.sun.tools.sjavac.options.Option$4", ::com::sun::tools::sjavac::options::Option$4),
+	$classEntry("com.sun.tools.sjavac.options.Option$5", ::com::sun::tools::sjavac::options::Option$5),
+	$classEntry("com.sun.tools.sjavac.options.Option$6", ::com::sun::tools::sjavac::options::Option$6),
+	$classEntry("com.sun.tools.sjavac.options.Option$7", ::com::sun::tools::sjavac::options::Option$7),
+	$classEntry("com.sun.tools.sjavac.options.Option$8", ::com::sun::tools::sjavac::options::Option$8),
+	$classEntry("com.sun.tools.sjavac.options.Option$9", ::com::sun::tools::sjavac::options::Option$9),
+	$classEntry("com.sun.tools.sjavac.options.OptionHelper", ::com::sun::tools::sjavac::options::OptionHelper),
+	$classEntry("com.sun.tools.sjavac.options.Options", ::com::sun::tools::sjavac::options::Options),
+	$classEntry("com.sun.tools.sjavac.options.Options$1StateArgs", ::com::sun::tools::sjavac::options::Options$1StateArgs),
+	$classEntry("com.sun.tools.sjavac.options.Options$ArgDecoderOptionHelper", ::com::sun::tools::sjavac::options::Options$ArgDecoderOptionHelper),
+	$classEntry("com.sun.tools.sjavac.options.SourceLocation", ::com::sun::tools::sjavac::options::SourceLocation),
+	$classEntry("com.sun.tools.sjavac.pubapi.ArrayTypeDesc", ::com::sun::tools::sjavac::pubapi::ArrayTypeDesc),
+	$classEntry("com.sun.tools.sjavac.pubapi.PrimitiveTypeDesc", ::com::sun::tools::sjavac::pubapi::PrimitiveTypeDesc),
+	$classEntry("com.sun.tools.sjavac.pubapi.PubApi", ::com::sun::tools::sjavac::pubapi::PubApi),
+	$classEntry("com.sun.tools.sjavac.pubapi.PubApiTypeParam", ::com::sun::tools::sjavac::pubapi::PubApiTypeParam),
+	$classEntry("com.sun.tools.sjavac.pubapi.PubMethod", ::com::sun::tools::sjavac::pubapi::PubMethod),
+	$classEntry("com.sun.tools.sjavac.pubapi.PubType", ::com::sun::tools::sjavac::pubapi::PubType),
+	$classEntry("com.sun.tools.sjavac.pubapi.PubVar", ::com::sun::tools::sjavac::pubapi::PubVar),
+	$classEntry("com.sun.tools.sjavac.pubapi.ReferenceTypeDesc", ::com::sun::tools::sjavac::pubapi::ReferenceTypeDesc),
+	$classEntry("com.sun.tools.sjavac.pubapi.TypeDesc", ::com::sun::tools::sjavac::pubapi::TypeDesc),
+	$classEntry("com.sun.tools.sjavac.pubapi.TypeDesc$1", ::com::sun::tools::sjavac::pubapi::TypeDesc$1),
+	$classEntry("com.sun.tools.sjavac.pubapi.TypeVarTypeDesc", ::com::sun::tools::sjavac::pubapi::TypeVarTypeDesc),
+	$classEntry("com.sun.tools.sjavac.server.CompilationSubResult", ::com::sun::tools::sjavac::server::CompilationSubResult),
+	$classEntry("com.sun.tools.sjavac.server.IdleResetSjavac", ::com::sun::tools::sjavac::server::IdleResetSjavac),
+	$classEntry("com.sun.tools.sjavac.server.IdleResetSjavac$1", ::com::sun::tools::sjavac::server::IdleResetSjavac$1),
+	$classEntry("com.sun.tools.sjavac.server.PortFile", ::com::sun::tools::sjavac::server::PortFile),
+	$classEntry("com.sun.tools.sjavac.server.PortFileMonitor", ::com::sun::tools::sjavac::server::PortFileMonitor),
+	$classEntry("com.sun.tools.sjavac.server.PortFileMonitor$1", ::com::sun::tools::sjavac::server::PortFileMonitor$1),
+	$classEntry("com.sun.tools.sjavac.server.RequestHandler", ::com::sun::tools::sjavac::server::RequestHandler),
+	$classEntry("com.sun.tools.sjavac.server.RequestHandler$1", ::com::sun::tools::sjavac::server::RequestHandler$1),
+	$classEntry("com.sun.tools.sjavac.server.ServerMain", ::com::sun::tools::sjavac::server::ServerMain),
+	$classEntry("com.sun.tools.sjavac.server.Sjavac", ::com::sun::tools::sjavac::server::Sjavac),
+	$classEntry("com.sun.tools.sjavac.server.SjavacServer", ::com::sun::tools::sjavac::server::SjavacServer),
+	$classEntry("com.sun.tools.sjavac.server.SysInfo", ::com::sun::tools::sjavac::server::SysInfo),
+	$classEntry("com.sun.tools.sjavac.server.Terminable", ::com::sun::tools::sjavac::server::Terminable),
+	$classEntry("com.sun.tools.sjavac.server.log.LazyInitFileLog", ::com::sun::tools::sjavac::server::log::LazyInitFileLog),
+	$classEntry("com.sun.tools.sjavac.server.log.LoggingOutputStream", ::com::sun::tools::sjavac::server::log::LoggingOutputStream),
+	$classEntry("com.sun.tools.sjavac.server.log.LoggingOutputStream$EolTrackingByteArrayOutputStream", ::com::sun::tools::sjavac::server::log::LoggingOutputStream$EolTrackingByteArrayOutputStream),
+	$classEntry("jdk.internal.shellsupport.doc.JavadocFormatter", ::jdk::internal::shellsupport::doc::JavadocFormatter),
+	$classEntry("jdk.internal.shellsupport.doc.JavadocFormatter$1", ::jdk::internal::shellsupport::doc::JavadocFormatter$1),
+	$classEntry("jdk.internal.shellsupport.doc.JavadocFormatter$2", ::jdk::internal::shellsupport::doc::JavadocFormatter$2),
+	$classEntry("jdk.internal.shellsupport.doc.JavadocFormatter$3", ::jdk::internal::shellsupport::doc::JavadocFormatter$3),
+	$classEntry("jdk.internal.shellsupport.doc.JavadocFormatter$FormatJavadocScanner", ::jdk::internal::shellsupport::doc::JavadocFormatter$FormatJavadocScanner),
+	$classEntry("jdk.internal.shellsupport.doc.JavadocFormatter$HtmlTag", ::jdk::internal::shellsupport::doc::JavadocFormatter$HtmlTag),
+	$classEntry("jdk.internal.shellsupport.doc.JavadocFormatter$Sections", ::jdk::internal::shellsupport::doc::JavadocFormatter$Sections),
+	$classEntry("jdk.internal.shellsupport.doc.JavadocFormatter$Sections$1", ::jdk::internal::shellsupport::doc::JavadocFormatter$Sections$1),
+	$classEntry("jdk.internal.shellsupport.doc.JavadocFormatter$Sections$2", ::jdk::internal::shellsupport::doc::JavadocFormatter$Sections$2),
+	$classEntry("jdk.internal.shellsupport.doc.JavadocFormatter$Sections$3", ::jdk::internal::shellsupport::doc::JavadocFormatter$Sections$3),
+	$classEntry("jdk.internal.shellsupport.doc.JavadocFormatter$Sections$4", ::jdk::internal::shellsupport::doc::JavadocFormatter$Sections$4),
+	$classEntry("jdk.internal.shellsupport.doc.JavadocHelper", ::jdk::internal::shellsupport::doc::JavadocHelper),
+	$classEntry("jdk.internal.shellsupport.doc.JavadocHelper$1", ::jdk::internal::shellsupport::doc::JavadocHelper$1),
+	$classEntry("jdk.internal.shellsupport.doc.JavadocHelper$2", ::jdk::internal::shellsupport::doc::JavadocHelper$2),
+	$classEntry("jdk.internal.shellsupport.doc.JavadocHelper$OnDemandJavadocHelper", ::jdk::internal::shellsupport::doc::JavadocHelper$OnDemandJavadocHelper),
+	$classEntry("jdk.internal.shellsupport.doc.JavadocHelper$OnDemandJavadocHelper$1", ::jdk::internal::shellsupport::doc::JavadocHelper$OnDemandJavadocHelper$1),
+	$classEntry("jdk.internal.shellsupport.doc.JavadocHelper$OnDemandJavadocHelper$1$1", ::jdk::internal::shellsupport::doc::JavadocHelper$OnDemandJavadocHelper$1$1),
+	$classEntry("jdk.internal.shellsupport.doc.JavadocHelper$OnDemandJavadocHelper$1$2", ::jdk::internal::shellsupport::doc::JavadocHelper$OnDemandJavadocHelper$1$2),
+	$classEntry("jdk.internal.shellsupport.doc.JavadocHelper$OnDemandJavadocHelper$1$3", ::jdk::internal::shellsupport::doc::JavadocHelper$OnDemandJavadocHelper$1$3),
+	$classEntry("jdk.internal.shellsupport.doc.JavadocHelper$OnDemandJavadocHelper$2", ::jdk::internal::shellsupport::doc::JavadocHelper$OnDemandJavadocHelper$2),
+	$classEntry("jdk.internal.shellsupport.doc.JavadocHelper$OnDemandJavadocHelper$3", ::jdk::internal::shellsupport::doc::JavadocHelper$OnDemandJavadocHelper$3),
+	$classEntry("jdk.internal.shellsupport.doc.JavadocHelper$OnDemandJavadocHelper$PatchModuleFileManager", ::jdk::internal::shellsupport::doc::JavadocHelper$OnDemandJavadocHelper$PatchModuleFileManager),
+	$classEntry("jdk.internal.shellsupport.doc.JavadocHelper$OnDemandJavadocHelper$PatchModuleFileManager$1", ::jdk::internal::shellsupport::doc::JavadocHelper$OnDemandJavadocHelper$PatchModuleFileManager$1),
+	$classEntry("sun.tools.serialver.Res", ::sun::tools::serialver::Res),
+	$classEntry("sun.tools.serialver.SerialVer", ::sun::tools::serialver::SerialVer)
+};
+
+const char* _jdk$compiler_packages_[] = {
+	"com.sun.source.doctree",
+	"com.sun.source.tree",
+	"com.sun.source.util",
+	"com.sun.tools.doclint",
+	"com.sun.tools.javac",
+	"com.sun.tools.javac.api",
+	"com.sun.tools.javac.code",
+	"com.sun.tools.javac.comp",
+	"com.sun.tools.javac.file",
+	"com.sun.tools.javac.jvm",
+	"com.sun.tools.javac.launcher",
+	"com.sun.tools.javac.main",
+	"com.sun.tools.javac.model",
+	"com.sun.tools.javac.parser",
+	"com.sun.tools.javac.platform",
+	"com.sun.tools.javac.processing",
+	"com.sun.tools.javac.resources",
+	"com.sun.tools.javac.tree",
+	"com.sun.tools.javac.util",
+	"com.sun.tools.sjavac",
+	"com.sun.tools.sjavac.client",
+	"com.sun.tools.sjavac.comp",
+	"com.sun.tools.sjavac.comp.dependencies",
+	"com.sun.tools.sjavac.options",
+	"com.sun.tools.sjavac.pubapi",
+	"com.sun.tools.sjavac.server",
+	"com.sun.tools.sjavac.server.log",
+	"jdk.internal.shellsupport.doc",
+	"sun.tools.serialver"
+};
+
+void jdk$compiler$PreloadClass(void* eventData) {
+	::java::lang::PreloadClassEvent* event = (::java::lang::PreloadClassEvent*)eventData;
+	int32_t length = $lengthOf(_jdk$compiler_classes_);
+	for (int i = 0; i < length; i++) {
+		::java::lang::ClassEntry* classEntry = &_jdk$compiler_classes_[i];
+		if (event->preinit) {
+			if ($hasFlag(classEntry->mark, $PREINIT)) {
+				classEntry->loader(nullptr, true);
+				continue;
+			}
+		}
+		if (event->preload) {
+			if ($hasFlag(classEntry->mark, $PRELOAD) || $hasFlag(classEntry->mark, $PREINIT)) {
+				classEntry->loader(nullptr, false);
+			}
+		}
+	}
+}
+
+void jdk$compiler$LibEventAction(int32_t eventType, void* eventData) {
+	if (eventType == JCPP_LIB_EVENT_TYPE_PRELOAD_CLASS) {
+		jdk$compiler$PreloadClass(eventData);
+	}
+	if (eventType == JCPP_LIB_EVENT_TYPE_THREAD_START) {
+		$setCurrentObjectStack();
+	}
+}
+
+$StringArray* jdk$compiler$GetPackages() {
+	int32_t length = $lengthOf(_jdk$compiler_packages_);
+	$var($StringArray, packages, $new($StringArray, length));
+	for (int32_t i = 0; i < length; i++) {
+		packages->set(i, $str(_jdk$compiler_packages_[i]));
+	}
+	return packages;
+}
+
+::java::lang::ClassEntry* jdk$compiler$GetClassEntry($String* name) {
+	int32_t begin = 0;
+	int32_t end = $lengthOf(_jdk$compiler_classes_) - 1;
+	while (begin <= end) {
+		int32_t mid = begin + (end - begin) / 2;
+		::java::lang::ClassEntry* classEntry = &_jdk$compiler_classes_[mid];
+		int32_t ret = name->compareTo(classEntry->name);
+		if (ret < 0) {
+			end = mid - 1;
+		} else if (ret > 0) {
+			begin = mid + 1;
+		} else {
+			return classEntry;
+		}
+	}
+	return nullptr;
+}
+
+$bytes* jdk$compiler$GetResource($String* name) {
+	return nullptr;
+}
+
+void jdk$compiler::init() {
+	::java$base::init();
+	::java$compiler::init();
+	::jdk$zipfs::init();
+	::java::lang::Library lib = {
+		"jdk.compiler", "17.35", "",
+		&_jdk$compiler_ModuleInfo_,
+		jdk$compiler$LibEventAction,
+		jdk$compiler$GetPackages,
+		jdk$compiler$GetClassEntry,
+		jdk$compiler$GetResource
+	};
+	$System::addLibrary(&lib);
+}

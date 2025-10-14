@@ -1,0 +1,36 @@
+#ifndef _jdk_internal_shellsupport_doc_JavadocFormatter$Sections$2_h_
+#define _jdk_internal_shellsupport_doc_JavadocFormatter$Sections$2_h_
+//$ class jdk.internal.shellsupport.doc.JavadocFormatter$Sections$2
+//$ extends jdk.internal.shellsupport.doc.JavadocFormatter$Sections
+
+#include <jdk/internal/shellsupport/doc/JavadocFormatter$Sections.h>
+
+namespace com {
+	namespace sun {
+		namespace source {
+			namespace doctree {
+				class DocTree;
+			}
+		}
+	}
+}
+
+namespace jdk {
+	namespace internal {
+		namespace shellsupport {
+			namespace doc {
+
+class JavadocFormatter$Sections$2 : public ::jdk::internal::shellsupport::doc::JavadocFormatter$Sections {
+	$class(JavadocFormatter$Sections$2, $NO_CLASS_INIT, ::jdk::internal::shellsupport::doc::JavadocFormatter$Sections)
+public:
+	JavadocFormatter$Sections$2();
+	void init$($String* $enum$name, int32_t $enum$ordinal);
+	virtual bool matches(::com::sun::source::doctree::DocTree* t) override;
+};
+
+			} // doc
+		} // shellsupport
+	} // internal
+} // jdk
+
+#endif // _jdk_internal_shellsupport_doc_JavadocFormatter$Sections$2_h_
