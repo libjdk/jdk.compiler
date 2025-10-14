@@ -220,7 +220,7 @@ bool Locations$SystemModulesLocationHandler::handleOption($Option* option, $Stri
 	if (value == nullptr) {
 		$init($Locations);
 		$set(this, systemJavaHome, $Locations::javaHome);
-	} else if (value->equals("none"_s)) {
+	} else if ($nc(value)->equals("none"_s)) {
 		$set(this, systemJavaHome, nullptr);
 	} else {
 		update($(this->this$0->getPath(value, $$new($StringArray, 0))));

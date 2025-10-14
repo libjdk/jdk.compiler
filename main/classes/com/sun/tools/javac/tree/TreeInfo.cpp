@@ -1207,10 +1207,10 @@ int32_t TreeInfo::endPos($JCTree* tree) {
 				$var($JCTree$JCTry, t, $cast($JCTree$JCTry, tree));
 				return endPos((t->finalizer != nullptr) ? static_cast<$JCTree*>(t->finalizer) : ($nc(t->catchers)->nonEmpty() ? static_cast<$JCTree*>($nc(($cast($JCTree$JCCatch, $($nc(t->catchers)->last()))))->body) : static_cast<$JCTree*>(t->body)));
 			} else {
-				if (tree->hasTag($JCTree$Tag::SWITCH) && ($cast($JCTree$JCSwitch, tree))->endpos != $Position::NOPOS) {
+				if (tree->hasTag($JCTree$Tag::SWITCH) && $nc(($cast($JCTree$JCSwitch, tree)))->endpos != $Position::NOPOS) {
 					return ($cast($JCTree$JCSwitch, tree))->endpos;
 				} else {
-					if (tree->hasTag($JCTree$Tag::SWITCH_EXPRESSION) && ($cast($JCTree$JCSwitchExpression, tree))->endpos != $Position::NOPOS) {
+					if (tree->hasTag($JCTree$Tag::SWITCH_EXPRESSION) && $nc(($cast($JCTree$JCSwitchExpression, tree)))->endpos != $Position::NOPOS) {
 						return ($cast($JCTree$JCSwitchExpression, tree))->endpos;
 					} else {
 						return tree->pos$;
@@ -1226,19 +1226,19 @@ int32_t TreeInfo::getStartPos($JCTree* tree) {
 		return $Position::NOPOS;
 	}
 	$init($TreeInfo$2);
-	switch ($nc($TreeInfo$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($(tree->getTag())))->ordinal())) {
+	switch ($nc($TreeInfo$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($($nc(tree)->getTag())))->ordinal())) {
 	case 28:
 		{
 			{
 				$var($JCTree$JCModuleDecl, md, $cast($JCTree$JCModuleDecl, tree));
-				return $nc($nc($nc(md)->mods)->annotations)->isEmpty() ? $nc(md)->pos$ : $nc(($cast($JCTree$JCAnnotation, $nc($nc(md->mods)->annotations)->head)))->pos$;
+				return $nc($nc(md->mods)->annotations)->isEmpty() ? md->pos$ : $nc(($cast($JCTree$JCAnnotation, $nc($nc(md->mods)->annotations)->head)))->pos$;
 			}
 		}
 	case 29:
 		{
 			{
 				$var($JCTree$JCPackageDecl, pd, $cast($JCTree$JCPackageDecl, tree));
-				return $nc($nc(pd)->annotations)->isEmpty() ? $nc(pd)->pos$ : $nc(($cast($JCTree$JCAnnotation, $nc(pd->annotations)->head)))->pos$;
+				return $nc(pd->annotations)->isEmpty() ? pd->pos$ : $nc(($cast($JCTree$JCAnnotation, $nc(pd->annotations)->head)))->pos$;
 			}
 		}
 	case 1:
@@ -1320,7 +1320,7 @@ int32_t TreeInfo::getStartPos($JCTree* tree) {
 		{
 			{
 				$var($JCTree$JCClassDecl, node, $cast($JCTree$JCClassDecl, tree));
-				if ($nc($nc(node)->mods)->pos$ != $Position::NOPOS) {
+				if ($nc(node->mods)->pos$ != $Position::NOPOS) {
 					return $nc(node->mods)->pos$;
 				}
 				break;
@@ -1342,13 +1342,13 @@ int32_t TreeInfo::getStartPos($JCTree* tree) {
 		{
 			{
 				$var($JCTree$JCMethodDecl, node, $cast($JCTree$JCMethodDecl, tree));
-				if ($nc($nc(node)->mods)->pos$ != $Position::NOPOS) {
+				if ($nc(node->mods)->pos$ != $Position::NOPOS) {
 					return $nc(node->mods)->pos$;
 				}
-				if ($nc($nc(node)->typarams)->nonEmpty()) {
+				if ($nc(node->typarams)->nonEmpty()) {
 					return getStartPos($cast($JCTree, $nc(node->typarams)->head));
 				}
-				return $nc(node)->restype == nullptr ? $nc(node)->pos$ : getStartPos(node->restype);
+				return node->restype == nullptr ? node->pos$ : getStartPos(node->restype);
 			}
 		}
 	case 5:
@@ -1371,7 +1371,7 @@ int32_t TreeInfo::getStartPos($JCTree* tree) {
 		{
 			{
 				$var($JCTree$JCAnnotatedType, node, $cast($JCTree$JCAnnotatedType, tree));
-				if ($nc($nc(node)->annotations)->nonEmpty()) {
+				if ($nc(node->annotations)->nonEmpty()) {
 					$init($JCTree$Tag);
 					bool var$0 = $nc(node->underlyingType)->hasTag($JCTree$Tag::TYPEARRAY);
 					if (var$0 || $nc(node->underlyingType)->hasTag($JCTree$Tag::SELECT)) {
@@ -1388,7 +1388,7 @@ int32_t TreeInfo::getStartPos($JCTree* tree) {
 		{
 			{
 				$var($JCTree$JCNewClass, node, $cast($JCTree$JCNewClass, tree));
-				if ($nc(node)->encl != nullptr) {
+				if (node->encl != nullptr) {
 					return getStartPos(node->encl);
 				}
 				break;
@@ -1398,7 +1398,7 @@ int32_t TreeInfo::getStartPos($JCTree* tree) {
 		{
 			{
 				$var($JCTree$JCVariableDecl, node, $cast($JCTree$JCVariableDecl, tree));
-				if ($nc(node)->startPos != $Position::NOPOS) {
+				if (node->startPos != $Position::NOPOS) {
 					return node->startPos;
 				} else if ($nc(node->mods)->pos$ != $Position::NOPOS) {
 					return $nc(node->mods)->pos$;
@@ -1413,21 +1413,21 @@ int32_t TreeInfo::getStartPos($JCTree* tree) {
 		{
 			{
 				$var($JCTree$JCBindingPattern, node, $cast($JCTree$JCBindingPattern, tree));
-				return getStartPos($nc(node)->var);
+				return getStartPos(node->var);
 			}
 		}
 	case 56:
 		{
 			{
 				$var($JCTree$JCGuardPattern, node, $cast($JCTree$JCGuardPattern, tree));
-				return getStartPos($nc(node)->patt);
+				return getStartPos(node->patt);
 			}
 		}
 	case 26:
 		{
 			{
 				$var($JCTree$JCErroneous, node, $cast($JCTree$JCErroneous, tree));
-				if ($nc(node)->errs != nullptr && $nc(node->errs)->nonEmpty()) {
+				if (node->errs != nullptr && $nc(node->errs)->nonEmpty()) {
 					return getStartPos($cast($JCTree, $nc(node->errs)->head));
 				}
 			}
@@ -1448,7 +1448,7 @@ int32_t TreeInfo::getEndPos($JCTree* tree, $EndPosTable* endPosTable) {
 		return mapPos;
 	}
 	$init($TreeInfo$2);
-	switch ($nc($TreeInfo$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($(tree->getTag())))->ordinal())) {
+	switch ($nc($TreeInfo$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($($nc(tree)->getTag())))->ordinal())) {
 	case 15:
 		{}
 	case 16:
@@ -1548,7 +1548,7 @@ int32_t TreeInfo::getEndPos($JCTree* tree, $EndPosTable* endPosTable) {
 		{
 			{
 				$var($JCTree$JCIf, node, $cast($JCTree$JCIf, tree));
-				if ($nc(node)->elsepart == nullptr) {
+				if (node->elsepart == nullptr) {
 					return getEndPos(node->thenpart, endPosTable);
 				} else {
 					return getEndPos(node->elsepart, endPosTable);
@@ -1575,7 +1575,7 @@ int32_t TreeInfo::getEndPos($JCTree* tree, $EndPosTable* endPosTable) {
 		{
 			{
 				$var($JCTree$JCTry, node, $cast($JCTree$JCTry, tree));
-				if ($nc(node)->finalizer != nullptr) {
+				if (node->finalizer != nullptr) {
 					return getEndPos(node->finalizer, endPosTable);
 				} else if (!$nc(node->catchers)->isEmpty()) {
 					return getEndPos($cast($JCTree, $($nc(node->catchers)->last())), endPosTable);
@@ -1608,21 +1608,21 @@ int32_t TreeInfo::getEndPos($JCTree* tree, $EndPosTable* endPosTable) {
 		{
 			{
 				$var($JCTree$JCParenthesizedPattern, node, $cast($JCTree$JCParenthesizedPattern, tree));
-				return getEndPos($nc(node)->pattern, endPosTable);
+				return getEndPos(node->pattern, endPosTable);
 			}
 		}
 	case 56:
 		{
 			{
 				$var($JCTree$JCGuardPattern, node, $cast($JCTree$JCGuardPattern, tree));
-				return getEndPos($nc(node)->expr, endPosTable);
+				return getEndPos(node->expr, endPosTable);
 			}
 		}
 	case 26:
 		{
 			{
 				$var($JCTree$JCErroneous, node, $cast($JCTree$JCErroneous, tree));
-				if ($nc(node)->errs != nullptr && $nc(node->errs)->nonEmpty()) {
+				if (node->errs != nullptr && $nc(node->errs)->nonEmpty()) {
 					return getEndPos($cast($JCTree, $($nc(node->errs)->last())), endPosTable);
 				}
 			}
@@ -1638,10 +1638,10 @@ $JCDiagnostic$DiagnosticPosition* TreeInfo::diagEndPos($JCTree* tree) {
 
 int32_t TreeInfo::finalizerPos($JCTree* tree, $TreeInfo$PosKind* posKind) {
 	$init($JCTree$Tag);
-	if (tree->hasTag($JCTree$Tag::TRY)) {
+	if ($nc(tree)->hasTag($JCTree$Tag::TRY)) {
 		$var($JCTree$JCTry, t, $cast($JCTree$JCTry, tree));
-		$Assert::checkNonNull($nc(t)->finalizer);
-		return $nc(posKind)->toPos($nc(t)->finalizer);
+		$Assert::checkNonNull(t->finalizer);
+		return $nc(posKind)->toPos(t->finalizer);
 	} else {
 		if (tree->hasTag($JCTree$Tag::SYNCHRONIZED)) {
 			return endPos($nc(($cast($JCTree$JCSynchronized, tree)))->body);
@@ -1664,7 +1664,7 @@ $JCDiagnostic$DiagnosticPosition* TreeInfo::diagnosticPositionFor($Symbol* sym, 
 	{
 	}
 	$var($TreeInfo$1DiagScanner, s, $new($TreeInfo$1DiagScanner, sym));
-	tree->accept(s);
+	$nc(tree)->accept(s);
 	$var($JCTree, decl, s->result);
 	if (decl == nullptr && returnNullIfNotFound) {
 		return nullptr;
@@ -1678,7 +1678,7 @@ $JCDiagnostic$DiagnosticPosition* TreeInfo::diagnosticPositionFor($Symbol* sym, 
 
 $JCTree* TreeInfo::declarationFor($Symbol* sym, $JCTree* tree) {
 	$var($TreeInfo$DeclScanner, s, $new($TreeInfo$DeclScanner, sym));
-	tree->accept(s);
+	$nc(tree)->accept(s);
 	return s->result;
 }
 
@@ -1735,7 +1735,7 @@ $JCTree* TreeInfo::referencedStatement($JCTree$JCLabeledStatement* tree) {
 $JCTree$JCExpression* TreeInfo::skipParens($JCTree$JCExpression* tree$renamed) {
 	$var($JCTree$JCExpression, tree, tree$renamed);
 	$init($JCTree$Tag);
-	while (tree->hasTag($JCTree$Tag::PARENS)) {
+	while ($nc(tree)->hasTag($JCTree$Tag::PARENS)) {
 		$assign(tree, $nc(($cast($JCTree$JCParens, tree)))->expr);
 	}
 	return tree;
@@ -1743,7 +1743,7 @@ $JCTree$JCExpression* TreeInfo::skipParens($JCTree$JCExpression* tree$renamed) {
 
 $JCTree* TreeInfo::skipParens($JCTree* tree) {
 	$init($JCTree$Tag);
-	if (tree->hasTag($JCTree$Tag::PARENS)) {
+	if ($nc(tree)->hasTag($JCTree$Tag::PARENS)) {
 		return skipParens($cast($JCTree$JCParens, tree));
 	} else {
 		return tree;
@@ -1763,7 +1763,7 @@ $List* TreeInfo::types($List* trees) {
 
 $Name* TreeInfo::name($JCTree* tree) {
 	$init($TreeInfo$2);
-	switch ($nc($TreeInfo$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($(tree->getTag())))->ordinal())) {
+	switch ($nc($TreeInfo$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($($nc(tree)->getTag())))->ordinal())) {
 	case 4:
 		{
 			return $nc(($cast($JCTree$JCIdent, tree)))->name;
@@ -1789,7 +1789,7 @@ $Name* TreeInfo::fullName($JCTree* tree$renamed) {
 		$init($TreeInfo$2);
 	{
 		$var($Name, sname, nullptr)
-		switch ($nc($TreeInfo$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($(tree->getTag())))->ordinal())) {
+		switch ($nc($TreeInfo$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($($nc(tree)->getTag())))->ordinal())) {
 		case 4:
 			{
 				return $nc(($cast($JCTree$JCIdent, tree)))->name;
@@ -1918,7 +1918,7 @@ $Symbol* TreeInfo::symbol($JCTree* tree$renamed) {
 	$var($JCTree, tree, tree$renamed);
 	$assign(tree, skipParens(tree));
 	$init($TreeInfo$2);
-	switch ($nc($TreeInfo$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($(tree->getTag())))->ordinal())) {
+	switch ($nc($TreeInfo$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($($nc(tree)->getTag())))->ordinal())) {
 	case 4:
 		{
 			return $nc(($cast($JCTree$JCIdent, tree)))->sym;
@@ -1950,7 +1950,7 @@ $JCTree$JCModifiers* TreeInfo::getModifiers($JCTree* tree$renamed) {
 	$var($JCTree, tree, tree$renamed);
 	$assign(tree, skipParens(tree));
 	$init($TreeInfo$2);
-	switch ($nc($TreeInfo$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($(tree->getTag())))->ordinal())) {
+	switch ($nc($TreeInfo$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($($nc(tree)->getTag())))->ordinal())) {
 	case 8:
 		{
 			return $nc(($cast($JCTree$JCVariableDecl, tree)))->mods;
@@ -1978,7 +1978,7 @@ bool TreeInfo::nonstaticSelect($JCTree* tree$renamed) {
 	$var($JCTree, tree, tree$renamed);
 	$assign(tree, skipParens(tree));
 	$init($JCTree$Tag);
-	if (!tree->hasTag($JCTree$Tag::SELECT)) {
+	if (!$nc(tree)->hasTag($JCTree$Tag::SELECT)) {
 		return false;
 	}
 	$var($JCTree$JCFieldAccess, s, $cast($JCTree$JCFieldAccess, tree));
@@ -1991,7 +1991,7 @@ void TreeInfo::setSymbol($JCTree* tree$renamed, $Symbol* sym) {
 	$var($JCTree, tree, tree$renamed);
 	$assign(tree, skipParens(tree));
 	$init($TreeInfo$2);
-	switch ($nc($TreeInfo$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($(tree->getTag())))->ordinal())) {
+	switch ($nc($TreeInfo$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($($nc(tree)->getTag())))->ordinal())) {
 	case 4:
 		{
 			$set($nc($cast($JCTree$JCIdent, tree)), sym, sym);
@@ -2009,7 +2009,7 @@ void TreeInfo::setSymbol($JCTree* tree$renamed, $Symbol* sym) {
 
 int64_t TreeInfo::flags($JCTree* tree) {
 	$init($TreeInfo$2);
-	switch ($nc($TreeInfo$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($(tree->getTag())))->ordinal())) {
+	switch ($nc($TreeInfo$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($($nc(tree)->getTag())))->ordinal())) {
 	case 8:
 		{
 			return $nc($nc(($cast($JCTree$JCVariableDecl, tree)))->mods)->flags;
@@ -2394,7 +2394,7 @@ $Tree$Kind* TreeInfo::tagToKind($JCTree$Tag* tag) {
 
 $JCTree$JCExpression* TreeInfo::typeIn($JCTree$JCExpression* tree) {
 	$init($TreeInfo$2);
-	switch ($nc($TreeInfo$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($(tree->getTag())))->ordinal())) {
+	switch ($nc($TreeInfo$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($($nc(tree)->getTag())))->ordinal())) {
 	case 7:
 		{
 			return $nc(($cast($JCTree$JCAnnotatedType, tree)))->underlyingType;
@@ -2474,7 +2474,7 @@ bool TreeInfo::containsTypeAnnotation($JCTree* e) {
 
 bool TreeInfo::isModuleInfo($JCTree$JCCompilationUnit* tree) {
 	$init($JavaFileObject$Kind);
-	bool var$0 = $nc(tree->sourcefile)->isNameCompatible("module-info"_s, $JavaFileObject$Kind::SOURCE);
+	bool var$0 = $nc($nc(tree)->sourcefile)->isNameCompatible("module-info"_s, $JavaFileObject$Kind::SOURCE);
 	return var$0 && tree->getModuleDecl() != nullptr;
 }
 
@@ -2491,7 +2491,7 @@ $JCTree$JCModuleDecl* TreeInfo::getModule($JCTree$JCCompilationUnit* t) {
 
 bool TreeInfo::isPackageInfo($JCTree$JCCompilationUnit* tree) {
 	$init($JavaFileObject$Kind);
-	return $nc(tree->sourcefile)->isNameCompatible("package-info"_s, $JavaFileObject$Kind::SOURCE);
+	return $nc($nc(tree)->sourcefile)->isNameCompatible("package-info"_s, $JavaFileObject$Kind::SOURCE);
 }
 
 bool TreeInfo::isErrorEnumSwitch($JCTree$JCExpression* selector, $List* cases) {

@@ -120,7 +120,7 @@ void Modules$1::complete($Symbol* sym) {
 		}
 	}
 	$init($JavaFileObject$Kind);
-	if ($nc(msym->module_info)->classfile == nullptr || $nc($nc(msym->module_info)->classfile)->getKind() == $JavaFileObject$Kind::CLASS) {
+	if ($nc($nc(msym)->module_info)->classfile == nullptr || $nc($nc($nc(msym)->module_info)->classfile)->getKind() == $JavaFileObject$Kind::CLASS) {
 		this->this$0->completeModule(msym);
 	}
 }

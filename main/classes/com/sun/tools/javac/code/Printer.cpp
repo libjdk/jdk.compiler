@@ -429,7 +429,7 @@ $String* Printer::className($Type$ClassType* t, bool longform, $Locale* locale) 
 		$var($Type$ClassType, norm, $cast($Type$ClassType, $nc(t->tsym)->type));
 		if (norm == nullptr) {
 			$assign(s, localize(locale, "compiler.misc.anonymous.class"_s, $$new($ObjectArray, {($Object*)nullptr})));
-		} else if (norm->interfaces_field != nullptr && $nc(norm->interfaces_field)->nonEmpty()) {
+		} else if ($nc(norm)->interfaces_field != nullptr && $nc(norm->interfaces_field)->nonEmpty()) {
 			$assign(s, localize(locale, "compiler.misc.anonymous.class"_s, $$new($ObjectArray, {$($of(visit($cast($Type, $nc(norm->interfaces_field)->head), locale)))})));
 		} else {
 			$assign(s, localize(locale, "compiler.misc.anonymous.class"_s, $$new($ObjectArray, {$($of(visit(norm->supertype_field, locale)))})));
@@ -470,7 +470,7 @@ $String* Printer::printMethodArgs($List* args$renamed, bool varArgs, $Locale* lo
 }
 
 $String* Printer::visitClassSymbol($Symbol$ClassSymbol* sym, $Locale* locale) {
-	return $nc(sym->name)->isEmpty() ? localize(locale, "compiler.misc.anonymous.class"_s, $$new($ObjectArray, {$of(sym->flatname)})) : $nc(sym->fullname)->toString();
+	return $nc($nc(sym)->name)->isEmpty() ? localize(locale, "compiler.misc.anonymous.class"_s, $$new($ObjectArray, {$of($nc(sym)->flatname)})) : $nc($nc(sym)->fullname)->toString();
 }
 
 $String* Printer::visitMethodSymbol($Symbol$MethodSymbol* s, $Locale* locale) {

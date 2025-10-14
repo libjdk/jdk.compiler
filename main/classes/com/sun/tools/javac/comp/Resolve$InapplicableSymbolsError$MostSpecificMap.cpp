@@ -99,7 +99,7 @@ void Resolve$InapplicableSymbolsError$MostSpecificMap::put($Resolve$MethodResolu
 				}
 				if ($nc($nc(c)->sym)->overrides(s, $cast($Symbol$TypeSymbol, $nc(s)->owner), $nc(this->this$1->this$0)->types, false)) {
 					overridden->add(s);
-				} else if (s->overrides(c->sym, $cast($Symbol$TypeSymbol, $nc(c->sym)->owner), $nc(this->this$1->this$0)->types, false)) {
+				} else if ($nc(s)->overrides(c->sym, $cast($Symbol$TypeSymbol, $nc(c->sym)->owner), $nc(this->this$1->this$0)->types, false)) {
 					return;
 				}
 			}

@@ -750,7 +750,7 @@ bool Symbol::isAccessibleIn(Symbol* clazz, $Types* types) {
 				$assign(thisPackage, this->packge());
 				{
 					$var(Symbol, sup, clazz);
-					for (; sup != nullptr && sup != this->owner; $assign(sup, $nc($(types->supertype($nc(sup)->type)))->tsym)) {
+					for (; sup != nullptr && sup != this->owner; $assign(sup, $nc($($nc(types)->supertype($nc(sup)->type)))->tsym)) {
 						$init($TypeTag);
 						while ($nc($nc(sup)->type)->hasTag($TypeTag::TYPEVAR)) {
 							$assign(sup, $nc($($nc(sup->type)->getUpperBound()))->tsym);

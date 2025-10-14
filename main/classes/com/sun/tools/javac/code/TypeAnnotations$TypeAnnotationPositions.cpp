@@ -580,12 +580,12 @@ $Type* TypeAnnotations$TypeAnnotationPositions::typeWithAnnotations($JCTree* typ
 
 $Type* TypeAnnotations$TypeAnnotationPositions::rewriteArrayType($Type$ArrayType* type, $List* annotations, $TypeAnnotationPosition* pos) {
 	$var($Type$ArrayType, tomodify, $new($Type$ArrayType, type));
-	if (type->isVarargs()) {
+	if ($nc(type)->isVarargs()) {
 		$assign(tomodify, tomodify->makeVarargs());
 	}
 	$var($Type$ArrayType, res, tomodify);
 	$var($List, loc, $List::nil());
-	$var($Type, tmpType, type->elemtype);
+	$var($Type, tmpType, $nc(type)->elemtype);
 	$init($TypeAnnotationPosition$TypePathEntry);
 	$assign(loc, $nc(loc)->prepend($TypeAnnotationPosition$TypePathEntry::ARRAY));
 	$init($TypeTag);
@@ -617,7 +617,7 @@ $Type* TypeAnnotations$TypeAnnotationPositions::rewriteArrayType($Type$ArrayType
 
 $Type* TypeAnnotations$TypeAnnotationPositions::typeWithAnnotations($Type* type, $Type* stopAt, $List* annotations) {
 	$var($Type$Visitor, visitor, $new($TypeAnnotations$TypeAnnotationPositions$1, this, stopAt));
-	return $cast($Type, type->accept(visitor, $of(annotations)));
+	return $cast($Type, $nc(type)->accept(visitor, $of(annotations)));
 }
 
 $Attribute$TypeCompound* TypeAnnotations$TypeAnnotationPositions::toTypeCompound($Attribute$Compound* a, $TypeAnnotationPosition* p) {
@@ -896,7 +896,7 @@ $TypeAnnotationPosition* TypeAnnotations$TypeAnnotationPositions::resolveFrame($
 					int32_t type_index = $nc(invocation->typeargs)->indexOf(tree);
 					if (exsym == nullptr) {
 						$throwNew($AssertionError, $of($$str({"could not determine symbol for {"_s, invocation, "}"_s})));
-					} else if (exsym->isConstructor()) {
+					} else if ($nc(exsym)->isConstructor()) {
 						return $TypeAnnotationPosition::constructorInvocationTypeArg($($nc(location)->toList()), currentLambda, type_index, invocation->pos$);
 					} else {
 						return $TypeAnnotationPosition::methodInvocationTypeArg($($nc(location)->toList()), currentLambda, type_index, invocation->pos$);
@@ -933,7 +933,7 @@ $TypeAnnotationPosition* TypeAnnotations$TypeAnnotationPositions::resolveFrame($
 
 $ListBuffer* TypeAnnotations$TypeAnnotationPositions::locateNestedTypes($Type* type, $ListBuffer* depth$renamed) {
 	$var($ListBuffer, depth, depth$renamed);
-	$var($Type, encl, type->getEnclosingType());
+	$var($Type, encl, $nc(type)->getEnclosingType());
 	while (true) {
 		$init($TypeKind);
 		bool var$0 = encl != nullptr && encl->getKind() != $TypeKind::NONE;
@@ -1156,33 +1156,33 @@ void TypeAnnotations$TypeAnnotationPositions::visitVarDef($JCTree$JCVariableDecl
 			}
 		}
 	}
-	scan(static_cast<$JCTree*>(tree->mods));
-	scan(static_cast<$JCTree*>(tree->vartype));
+	scan(static_cast<$JCTree*>($nc(tree)->mods));
+	scan(static_cast<$JCTree*>($nc(tree)->vartype));
 	if (!this->sigOnly) {
-		scan(static_cast<$JCTree*>(tree->init));
+		scan(static_cast<$JCTree*>($nc(tree)->init));
 	}
 }
 
 void TypeAnnotations$TypeAnnotationPositions::visitBlock($JCTree$JCBlock* tree) {
 	if (!this->sigOnly) {
-		scan(tree->stats);
+		scan($nc(tree)->stats);
 	}
 }
 
 void TypeAnnotations$TypeAnnotationPositions::visitAnnotatedType($JCTree$JCAnnotatedType* tree) {
 	push(tree);
-	findPosition(tree, tree, tree->annotations);
+	findPosition(tree, tree, $nc(tree)->annotations);
 	pop();
 	$TreeScanner::visitAnnotatedType(tree);
 }
 
 void TypeAnnotations$TypeAnnotationPositions::visitTypeParameter($JCTree$JCTypeParameter* tree) {
-	findPosition(tree, $(peek2()), tree->annotations);
+	findPosition(tree, $(peek2()), $nc(tree)->annotations);
 	$TreeScanner::visitTypeParameter(tree);
 }
 
 void TypeAnnotations$TypeAnnotationPositions::propagateNewClassAnnotationsToOwner($JCTree$JCNewClass* tree) {
-	$var($Symbol, sym, $nc(tree->def)->sym);
+	$var($Symbol, sym, $nc($nc(tree)->def)->sym);
 	$var($Type, var$0, $nc($($nc($nc(sym)->owner)->enclClass()))->type);
 	$init($TypeAnnotationPosition$TypePathEntry);
 	$var($List, depth, $nc($($nc($(locateNestedTypes(var$0, $$new($ListBuffer))))->append($TypeAnnotationPosition$TypePathEntry::INNER_TYPE)))->toList());
@@ -1204,20 +1204,20 @@ void TypeAnnotations$TypeAnnotationPositions::propagateNewClassAnnotationsToOwne
 }
 
 void TypeAnnotations$TypeAnnotationPositions::visitNewClass($JCTree$JCNewClass* tree) {
-	if (tree->def != nullptr && $nc(tree->def)->sym != nullptr) {
+	if ($nc(tree)->def != nullptr && $nc(tree->def)->sym != nullptr) {
 		propagateNewClassAnnotationsToOwner(tree);
 	}
-	scan(static_cast<$JCTree*>(tree->encl));
-	scan(tree->typeargs);
-	if (tree->def == nullptr) {
+	scan(static_cast<$JCTree*>($nc(tree)->encl));
+	scan($nc(tree)->typeargs);
+	if ($nc(tree)->def == nullptr) {
 		scan(static_cast<$JCTree*>(tree->clazz));
 	}
-	scan(tree->args);
+	scan($nc(tree)->args);
 }
 
 void TypeAnnotations$TypeAnnotationPositions::visitNewArray($JCTree$JCNewArray* tree) {
-	findPosition(tree, tree, tree->annotations);
-	int32_t dimAnnosCount = $nc(tree->dimAnnotations)->size();
+	findPosition(tree, tree, $nc(tree)->annotations);
+	int32_t dimAnnosCount = $nc($nc(tree)->dimAnnotations)->size();
 	$var($ListBuffer, depth, $new($ListBuffer));
 	for (int32_t i = 0; i < dimAnnosCount; ++i) {
 		$var($ListBuffer, location, $new($ListBuffer));

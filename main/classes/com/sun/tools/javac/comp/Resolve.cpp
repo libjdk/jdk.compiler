@@ -1466,7 +1466,7 @@ $Type* Resolve::rawInstantiate($Env* env, $Type* site, $Symbol* m, $Attr$ResultI
 		return $nc(this->infer)->instantiateMethod(env, tvars, $cast($Type$MethodType, mt), resultInfo, $cast($Symbol$MethodSymbol, m), argtypes, allowBoxing, useVarargs, this->currentResolutionContext, warn);
 	}
 	$var($DeferredAttr$DeferredAttrContext, dc, $nc(this->currentResolutionContext)->deferredAttrContext(m, $nc(this->infer)->emptyContext, resultInfo, warn));
-	$nc($nc(this->currentResolutionContext)->methodCheck)->argumentsAcceptable(env, dc, argtypes, $(mt->getParameterTypes()), warn);
+	$nc($nc(this->currentResolutionContext)->methodCheck)->argumentsAcceptable(env, dc, argtypes, $($nc(mt)->getParameterTypes()), warn);
 	$nc(dc)->complete();
 	return mt;
 }
@@ -1679,10 +1679,10 @@ $Symbol* Resolve::selectBest($Env* env, $Type* site, $List* argtypes, $List* typ
 	bool var$0 = $nc(sym)->kind == $Kinds$Kind::ERR || (!$equals($nc(site)->tsym, $nc(sym)->owner) && !sym->isInheritedIn(site->tsym, this->types));
 	if (var$0 || !notOverriddenIn(site, sym)) {
 		return bestSoFar;
-	} else if (useVarargs && ((int64_t)(sym->flags() & (uint64_t)(int64_t)0x0000000400000000)) == 0) {
+	} else if (useVarargs && ((int64_t)($nc(sym)->flags() & (uint64_t)(int64_t)0x0000000400000000)) == 0) {
 		return $nc($nc(bestSoFar)->kind)->isResolutionError() ? static_cast<$Symbol*>($new($Resolve$BadVarargsMethod, this, $cast($Resolve$ResolveError, $($nc(bestSoFar)->baseSymbol())))) : bestSoFar;
 	}
-	$Assert::check(!$nc(sym->kind)->isResolutionError());
+	$Assert::check(!$nc($nc(sym)->kind)->isResolutionError());
 	try {
 		$nc($nc(this->types)->noWarnings)->clear();
 		$var($Type, mt, rawInstantiate(env, site, sym, nullptr, argtypes, typeargtypes, allowBoxing, useVarargs, $nc(this->types)->noWarnings));
@@ -1757,7 +1757,7 @@ $Symbol* Resolve::selectBest($Env* env, $Type* site, $List* argtypes, $List* typ
 		}
 		return bestSoFar;
 	}
-	return ($nc(bestSoFar->kind)->isResolutionError() && bestSoFar->kind != $Kinds$Kind::AMBIGUOUS) ? sym : mostSpecific(argtypes, sym, bestSoFar, env, site, useVarargs);
+	return ($nc($nc(bestSoFar)->kind)->isResolutionError() && bestSoFar->kind != $Kinds$Kind::AMBIGUOUS) ? sym : mostSpecific(argtypes, sym, bestSoFar, env, site, useVarargs);
 }
 
 $Symbol* Resolve::mostSpecific($List* argtypes, $Symbol* m1, $Symbol* m2, $Env* env, $Type* site, bool useVarargs) {
@@ -2012,7 +2012,7 @@ $Symbol* Resolve::findFun($Env* env, $Name* name, $List* argtypes, $List* typear
 			staticOnly = true;
 		}
 		$Assert::check($nc(($cast($AttrContext, env1->info)))->preferredTreeForDiagnostics == nullptr);
-		$set($nc($cast($AttrContext, env1->info)), preferredTreeForDiagnostics, env->tree);
+		$set($nc($cast($AttrContext, env1->info)), preferredTreeForDiagnostics, $nc(env)->tree);
 		{
 			$var($Throwable, var$0, nullptr);
 			$var($Symbol, var$2, nullptr);
@@ -2055,7 +2055,7 @@ $Symbol* Resolve::findFun($Env* env, $Name* name, $List* argtypes, $List* typear
 		return sym;
 	}
 	{
-		$var($Iterator, i$, $nc($($nc($nc(env->toplevel)->namedImportScope)->getSymbolsByName(name)))->iterator());
+		$var($Iterator, i$, $nc($($nc($nc($nc(env)->toplevel)->namedImportScope)->getSymbolsByName(name)))->iterator());
 		for (; $nc(i$)->hasNext();) {
 			$var($Symbol, currentSym, $cast($Symbol, i$->next()));
 			{
@@ -2100,7 +2100,7 @@ $Symbol* Resolve::findFun($Env* env, $Name* name, $List* argtypes, $List* typear
 
 $Symbol* Resolve::loadClass($Env* env, $Name* name, $Resolve$RecoveryLoadClass* recoveryLoadClass) {
 	try {
-		$var($Symbol$ClassSymbol, c, $nc(this->finder)->loadClass($nc(env->toplevel)->modle, name));
+		$var($Symbol$ClassSymbol, c, $nc(this->finder)->loadClass($nc($nc(env)->toplevel)->modle, name));
 		return isAccessible(env, static_cast<$Symbol$TypeSymbol*>(c)) ? static_cast<$Symbol*>(c) : static_cast<$Symbol*>($new($Resolve$AccessError, this, env, nullptr, c));
 	} catch ($ClassFinder$BadClassFile&) {
 		$var($ClassFinder$BadClassFile, err, $catch());
@@ -2117,7 +2117,7 @@ $Symbol* Resolve::loadClass($Env* env, $Name* name, $Resolve$RecoveryLoadClass* 
 }
 
 $Symbol* Resolve::lookupPackage($Env* env, $Name* name) {
-	$var($Symbol$PackageSymbol, pack, $nc(this->syms)->lookupPackage($nc(env->toplevel)->modle, name));
+	$var($Symbol$PackageSymbol, pack, $nc(this->syms)->lookupPackage($nc($nc(env)->toplevel)->modle, name));
 	if (this->allowModules && isImportOnDemand(env, name)) {
 		if ($nc($($nc(pack)->members()))->isEmpty()) {
 			$var($Env, var$0, env);
@@ -2132,10 +2132,10 @@ $Symbol* Resolve::lookupPackage($Env* env, $Name* name) {
 
 bool Resolve::isImportOnDemand($Env* env, $Name* name) {
 	$init($JCTree$Tag);
-	if (!$nc(env->tree)->hasTag($JCTree$Tag::IMPORT)) {
+	if (!$nc($nc(env)->tree)->hasTag($JCTree$Tag::IMPORT)) {
 		return false;
 	}
-	$var($JCTree, qualid, $nc(($cast($JCTree$JCImport, env->tree)))->qualid);
+	$var($JCTree, qualid, $nc(($cast($JCTree$JCImport, $nc(env)->tree)))->qualid);
 	if (!$nc(qualid)->hasTag($JCTree$Tag::SELECT)) {
 		return false;
 	}
@@ -2160,7 +2160,7 @@ $Symbol* Resolve::lookupInvisibleSymbol($Env* env, $Name* name, $Function* get, 
 	}
 	$var($Set, recoverableModules, $new($HashSet, $($nc(this->syms)->getAllModules())));
 	recoverableModules->add($nc(this->syms)->unnamedModule);
-	recoverableModules->remove($nc(env->toplevel)->modle);
+	recoverableModules->remove($nc($nc(env)->toplevel)->modle);
 	{
 		$var($Iterator, i$, recoverableModules->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -2193,7 +2193,7 @@ $Symbol* Resolve::createInvisibleSymbolError($Env* env, $Symbol* sym) {
 }
 
 bool Resolve::symbolPackageVisible($Env* env, $Symbol* sym) {
-	$var($Symbol$ModuleSymbol, envMod, $nc(env->toplevel)->modle);
+	$var($Symbol$ModuleSymbol, envMod, $nc($nc(env)->toplevel)->modle);
 	$var($Symbol$PackageSymbol, symPack, $nc(sym)->packge());
 	return envMod == $nc(symPack)->modle || $nc($nc(envMod)->visiblePackages)->containsKey($nc(symPack)->fullname);
 }
@@ -2269,7 +2269,7 @@ $Symbol* Resolve::findGlobalType($Env* env, $Scope* scope, $Name* name, $Resolve
 
 $Symbol* Resolve::findTypeVar($Env* env, $Name* name, bool staticOnly) {
 	{
-		$var($Iterator, i$, $nc($($nc($nc(($cast($AttrContext, env->info)))->scope)->getSymbolsByName(name)))->iterator());
+		$var($Iterator, i$, $nc($($nc($nc(($cast($AttrContext, $nc(env)->info)))->scope)->getSymbolsByName(name)))->iterator());
 		for (; $nc(i$)->hasNext();) {
 			$var($Symbol, sym, $cast($Symbol, i$->next()));
 			{
@@ -2297,26 +2297,26 @@ $Symbol* Resolve::findType($Env* env, $Name* name) {
 	bool staticOnly = false;
 	{
 		$var($Env, env1, env);
-		for (; env1->outer != nullptr; $assign(env1, env1->outer)) {
+		for (; $nc(env1)->outer != nullptr; $assign(env1, $nc(env1)->outer)) {
 			$var($Symbol, tyvar, findTypeVar(env1, name, staticOnly));
 			if (isStatic(env1)) {
 				staticOnly = true;
 			}
-			$assign(sym, findImmediateMemberType(env1, $nc($nc($nc(env1)->enclClass)->sym)->type, name, $nc(env1->enclClass)->sym));
+			$assign(sym, findImmediateMemberType(env1, $nc($nc(env1->enclClass)->sym)->type, name, $nc(env1->enclClass)->sym));
 			if (!$equals(tyvar, this->typeNotFound)) {
 				$init($Kinds$Kind);
-				if (env->baseClause || $equals(sym, this->typeNotFound) || ($nc(tyvar)->kind == $Kinds$Kind::TYP && tyvar->exists() && $nc(tyvar->owner)->kind == $Kinds$Kind::MTH)) {
+				if ($nc(env)->baseClause || $equals(sym, this->typeNotFound) || ($nc(tyvar)->kind == $Kinds$Kind::TYP && tyvar->exists() && $nc(tyvar->owner)->kind == $Kinds$Kind::MTH)) {
 					return tyvar;
 				}
 			}
 			if ($equals(sym, this->typeNotFound)) {
-				$assign(sym, findInheritedMemberType(env1, $nc($nc($nc(env1)->enclClass)->sym)->type, name, $nc(env1->enclClass)->sym));
+				$assign(sym, findInheritedMemberType(env1, $nc($nc(env1->enclClass)->sym)->type, name, $nc(env1->enclClass)->sym));
 			}
 			$init($Kinds$Kind);
 			$init($TypeTag);
 			bool var$2 = staticOnly && $nc(sym)->kind == $Kinds$Kind::TYP && $nc(sym->type)->hasTag($TypeTag::CLASS);
 			bool var$1 = var$2 && $nc($($nc(sym->type)->getEnclosingType()))->hasTag($TypeTag::CLASS);
-			bool var$0 = var$1 && $nc($nc($nc($nc(env1)->enclClass)->sym)->type)->isParameterized();
+			bool var$0 = var$1 && $nc($nc($nc(env1->enclClass)->sym)->type)->isParameterized();
 			if (var$0 && $nc($($nc(sym->type)->getEnclosingType()))->isParameterized()) {
 				return $new($Resolve$StaticError, this, sym);
 			} else if (sym->exists()) {
@@ -2324,14 +2324,14 @@ $Symbol* Resolve::findType($Env* env, $Name* name) {
 			} else {
 				$assign(bestSoFar, bestOf(bestSoFar, sym));
 			}
-			$var($JCTree$JCClassDecl, encl, $nc(env1)->baseClause ? $cast($JCTree$JCClassDecl, $nc(env1)->tree) : env1->enclClass);
+			$var($JCTree$JCClassDecl, encl, env1->baseClause ? $cast($JCTree$JCClassDecl, env1->tree) : env1->enclClass);
 			if (((int64_t)($nc($nc(encl)->sym)->flags() & (uint64_t)(int64_t)8)) != 0) {
 				staticOnly = true;
 			}
 		}
 	}
 	$init($JCTree$Tag);
-	if (!$nc(env->tree)->hasTag($JCTree$Tag::IMPORT)) {
+	if (!$nc($nc(env)->tree)->hasTag($JCTree$Tag::IMPORT)) {
 		$assign(sym, findGlobalType(env, $nc(env->toplevel)->namedImportScope, name, this->namedImportScopeRecovery));
 		if ($nc(sym)->exists()) {
 			return sym;
@@ -2401,7 +2401,7 @@ $Symbol* Resolve::findIdentInPackageInternal($Env* env, $Symbol$TypeSymbol* pck,
 	$init($Kinds$KindSelector);
 	if ($nc(kind)->contains($Kinds$KindSelector::TYP)) {
 		bool var$0 = this->allowModules && !kind->contains($Kinds$KindSelector::PCK);
-		$var($Resolve$RecoveryLoadClass, recoveryLoadClass, var$0 && !$nc(pck)->exists() && !$nc($nc(($cast($AttrContext, env->info)))->attributionMode)->isSpeculative$ ? this->doRecoveryLoadClass : this->noRecovery);
+		$var($Resolve$RecoveryLoadClass, recoveryLoadClass, var$0 && !$nc(pck)->exists() && !$nc($nc(($cast($AttrContext, $nc(env)->info)))->attributionMode)->isSpeculative$ ? this->doRecoveryLoadClass : this->noRecovery);
 		$var($Symbol, sym, loadClass(env, fullname, recoveryLoadClass));
 		if ($nc(sym)->exists()) {
 			if (name == sym->name) {
@@ -2501,11 +2501,11 @@ void Resolve::checkNonAbstract($JCDiagnostic$DiagnosticPosition* pos, $Symbol* s
 }
 
 $Symbol* Resolve::resolveIdent($JCDiagnostic$DiagnosticPosition* pos, $Env* env, $Name* name, $Kinds$KindSelector* kind) {
-	return accessBase($(findIdent(pos, env, name, kind)), pos, $nc($nc(env->enclClass)->sym)->type, name, false);
+	return accessBase($(findIdent(pos, env, name, kind)), pos, $nc($nc($nc(env)->enclClass)->sym)->type, name, false);
 }
 
 $Symbol* Resolve::resolveMethod($JCDiagnostic$DiagnosticPosition* pos, $Env* env, $Name* name, $List* argtypes, $List* typeargtypes) {
-	return lookupMethod(env, pos, static_cast<$Symbol*>($nc(env->enclClass)->sym), this->resolveMethodCheck, static_cast<$Resolve$LookupHelper*>($$new($Resolve$10, this, name, $nc($nc(env->enclClass)->sym)->type, argtypes, typeargtypes)));
+	return lookupMethod(env, pos, static_cast<$Symbol*>($nc($nc(env)->enclClass)->sym), this->resolveMethodCheck, static_cast<$Resolve$LookupHelper*>($$new($Resolve$10, this, name, $nc($nc(env->enclClass)->sym)->type, argtypes, typeargtypes)));
 }
 
 $Symbol* Resolve::resolveQualifiedMethod($JCDiagnostic$DiagnosticPosition* pos, $Env* env, $Type* site, $Name* name, $List* argtypes, $List* typeargtypes) {
@@ -2587,8 +2587,8 @@ $Symbol$MethodSymbol* Resolve::resolveInternalConstructor($JCDiagnostic$Diagnost
 
 $Symbol* Resolve::findConstructor($JCDiagnostic$DiagnosticPosition* pos, $Env* env, $Type* site, $List* argtypes, $List* typeargtypes, bool allowBoxing, bool useVarargs) {
 	$var($Symbol, sym, findMethod(env, site, $nc(this->names)->init, argtypes, typeargtypes, allowBoxing, useVarargs));
-	$nc(this->chk)->checkDeprecated(pos, $nc($nc(($cast($AttrContext, env->info)))->scope)->owner, sym);
-	$nc(this->chk)->checkPreview(pos, $nc($nc(($cast($AttrContext, env->info)))->scope)->owner, sym);
+	$nc(this->chk)->checkDeprecated(pos, $nc($nc(($cast($AttrContext, $nc(env)->info)))->scope)->owner, sym);
+	$nc(this->chk)->checkPreview(pos, $nc($nc(($cast($AttrContext, $nc(env)->info)))->scope)->owner, sym);
 	return sym;
 }
 
@@ -2598,8 +2598,8 @@ $Symbol* Resolve::resolveDiamond($JCDiagnostic$DiagnosticPosition* pos, $Env* en
 
 $Symbol* Resolve::findDiamond($JCDiagnostic$DiagnosticPosition* pos, $Env* env, $Type* site, $List* argtypes, $List* typeargtypes, bool allowBoxing, bool useVarargs) {
 	$var($Symbol, sym, findDiamond(env, site, argtypes, typeargtypes, allowBoxing, useVarargs));
-	$nc(this->chk)->checkDeprecated(pos, $nc($nc(($cast($AttrContext, env->info)))->scope)->owner, sym);
-	$nc(this->chk)->checkPreview(pos, $nc($nc(($cast($AttrContext, env->info)))->scope)->owner, sym);
+	$nc(this->chk)->checkDeprecated(pos, $nc($nc(($cast($AttrContext, $nc(env)->info)))->scope)->owner, sym);
+	$nc(this->chk)->checkPreview(pos, $nc($nc(($cast($AttrContext, $nc(env)->info)))->scope)->owner, sym);
 	return sym;
 }
 
@@ -2631,7 +2631,7 @@ $Symbol* Resolve::getMemberReference($JCDiagnostic$DiagnosticPosition* pos, $Env
 	$assign(site, $nc(this->types)->capture(site));
 	$init($Resolve$MethodResolutionPhase);
 	$var($Resolve$ReferenceLookupHelper, lookupHelper, makeReferenceLookupHelper(referenceTree, site, name, $($List::nil()), nullptr, $Resolve$MethodResolutionPhase::VARARITY));
-	$var($Env, newEnv, env->dup(env->tree, $($nc(($cast($AttrContext, env->info)))->dup())));
+	$var($Env, newEnv, $nc(env)->dup(env->tree, $($nc(($cast($AttrContext, env->info)))->dup())));
 	$var($Symbol, sym, lookupMethod(newEnv, $($nc(env->tree)->pos()), static_cast<$Symbol*>($nc(site)->tsym), this->nilMethodCheck, static_cast<$Resolve$LookupHelper*>(lookupHelper)));
 	$set($nc($cast($AttrContext, env->info)), pendingResolutionPhase, $nc(($cast($AttrContext, $nc(newEnv)->info)))->pendingResolutionPhase);
 	return sym;
@@ -2642,7 +2642,7 @@ $Resolve$ReferenceLookupHelper* Resolve::makeReferenceLookupHelper($JCTree$JCMem
 		return $new($Resolve$MethodReferenceLookupHelper, this, referenceTree, name, site, argtypes, typeargtypes, maxPhase);
 	} else {
 		$init($TypeTag);
-		if (site->hasTag($TypeTag::ARRAY)) {
+		if ($nc(site)->hasTag($TypeTag::ARRAY)) {
 			return $new($Resolve$ArrayConstructorReferenceLookupHelper, this, referenceTree, site, argtypes, typeargtypes, maxPhase);
 		} else {
 			return $new($Resolve$ConstructorReferenceLookupHelper, this, referenceTree, site, argtypes, typeargtypes, maxPhase);
@@ -2653,7 +2653,7 @@ $Resolve$ReferenceLookupHelper* Resolve::makeReferenceLookupHelper($JCTree$JCMem
 $Pair* Resolve::resolveMemberReference($Env* env, $JCTree$JCMemberReference* referenceTree, $Type* site, $Name* name, $List* argtypes, $List* typeargtypes, $Type* descriptor, $Resolve$MethodCheck* methodCheck, $InferenceContext* inferenceContext, $Resolve$ReferenceChooser* referenceChooser) {
 	$init($Resolve$MethodResolutionPhase);
 	$var($Resolve$ReferenceLookupHelper, boundLookupHelper, makeReferenceLookupHelper(referenceTree, site, name, argtypes, typeargtypes, $Resolve$MethodResolutionPhase::VARARITY));
-	$var($Env, boundEnv, env->dup(env->tree, $($nc(($cast($AttrContext, env->info)))->dup())));
+	$var($Env, boundEnv, $nc(env)->dup(env->tree, $($nc(($cast($AttrContext, env->info)))->dup())));
 	$var($Resolve$MethodResolutionContext, boundSearchResolveContext, $new($Resolve$MethodResolutionContext, this));
 	$set(boundSearchResolveContext, methodCheck, methodCheck);
 	$var($Symbol, boundSym, lookupMethod(boundEnv, $($nc(env->tree)->pos()), static_cast<$Symbol*>($nc(site)->tsym), boundSearchResolveContext, static_cast<$Resolve$LookupHelper*>(boundLookupHelper)));
@@ -2763,7 +2763,7 @@ $Symbol* Resolve::lookupMethod($Env* env, $JCDiagnostic$DiagnosticPosition* pos,
 						$var($Symbol, sym, $nc(lookupHelper)->lookup(env, phase));
 						lookupHelper->debug(pos, sym);
 						$assign(bestSoFar, $nc(phase)->mergeResults(bestSoFar, sym));
-						$set($nc($cast($AttrContext, env->info)), pendingResolutionPhase, (prevBest == bestSoFar) ? prevPhase : phase);
+						$set($nc($cast($AttrContext, $nc(env)->info)), pendingResolutionPhase, (prevBest == bestSoFar) ? prevPhase : phase);
 					}
 				}
 			}
@@ -2798,7 +2798,7 @@ $Symbol* Resolve::resolveSelf($JCDiagnostic$DiagnosticPosition* pos, $Env* env, 
 				if (staticOnly) {
 					$assign(sym, $new($Resolve$StaticError, this, sym));
 				}
-				return accessBase(sym, pos, $nc($nc(env->enclClass)->sym)->type, name, true);
+				return accessBase(sym, pos, $nc($nc($nc(env)->enclClass)->sym)->type, name, true);
 			}
 		}
 		if (((int64_t)($nc($nc(env1->enclClass)->sym)->flags() & (uint64_t)(int64_t)8)) != 0) {
@@ -2808,21 +2808,21 @@ $Symbol* Resolve::resolveSelf($JCDiagnostic$DiagnosticPosition* pos, $Env* env, 
 	}
 	bool var$1 = $nc(c)->isInterface() && name == $nc(this->names)->_super;
 	bool var$0 = var$1 && !isStatic(env);
-	if (var$0 && $nc(this->types)->isDirectSuperInterface(c, $nc(env->enclClass)->sym)) {
+	if (var$0 && $nc(this->types)->isDirectSuperInterface(c, $nc($nc(env)->enclClass)->sym)) {
 		{
-			$var($Iterator, i$, $nc($(pruneInterfaces($nc(env->enclClass)->type)))->iterator());
+			$var($Iterator, i$, $nc($(pruneInterfaces($nc($nc(env)->enclClass)->type)))->iterator());
 			for (; $nc(i$)->hasNext();) {
 				$var($Type, t, $cast($Type, i$->next()));
 				{
 					if ($nc(t)->tsym == c) {
-						$set($nc($cast($AttrContext, env->info)), defaultSuperCallSite, t);
+						$set($nc($cast($AttrContext, $nc(env)->info)), defaultSuperCallSite, t);
 						return $new($Symbol$VarSymbol, 0, $nc(this->names)->_super, $($nc(this->types)->asSuper($nc(env->enclClass)->type, c)), $nc(env->enclClass)->sym);
 					}
 				}
 			}
 		}
 		{
-			$var($Iterator, i$, $nc($($nc(this->types)->directSupertypes($nc(env->enclClass)->type)))->iterator());
+			$var($Iterator, i$, $nc($($nc(this->types)->directSupertypes($nc($nc(env)->enclClass)->type)))->iterator());
 			for (; $nc(i$)->hasNext();) {
 				$var($Type, i, $cast($Type, i$->next()));
 				{
@@ -2875,7 +2875,7 @@ $Symbol* Resolve::resolveSelfContaining($JCDiagnostic$DiagnosticPosition* pos, $
 		$nc(this->log)->error(pos, $($CompilerProperties$Errors::EnclClassRequired(member)));
 		return $nc(this->syms)->errSymbol;
 	} else {
-		return accessBase(sym, pos, $nc($nc(env->enclClass)->sym)->type, $nc(sym)->name, true);
+		return accessBase(sym, pos, $nc($nc($nc(env)->enclClass)->sym)->type, $nc(sym)->name, true);
 	}
 }
 
@@ -2891,7 +2891,7 @@ bool Resolve::enclosingInstanceMissing($Env* env, $Type* type) {
 
 $Symbol* Resolve::resolveSelfContainingInternal($Env* env, $Symbol* member, bool isSuperCall) {
 	$var($Name, name, $nc(this->names)->_this);
-	$var($Env, env1, isSuperCall ? env->outer : env);
+	$var($Env, env1, isSuperCall ? $nc(env)->outer : env);
 	bool staticOnly = false;
 	if (env1 != nullptr) {
 		while (env1 != nullptr && env1->outer != nullptr) {
@@ -2923,15 +2923,15 @@ $Type* Resolve::resolveImplicitThis($JCDiagnostic$DiagnosticPosition* pos, $Env*
 $Type* Resolve::resolveImplicitThis($JCDiagnostic$DiagnosticPosition* pos, $Env* env, $Type* t, bool isSuperCall) {
 	$init($Kinds$KindSelector);
 	$var($Type, thisType, $nc(($nc($nc($nc($nc(t)->tsym)->owner)->kind)->matches($Kinds$KindSelector::VAL_MTH) ? $(resolveSelf(pos, env, $nc($($nc(t)->getEnclosingType()))->tsym, $nc(this->names)->_this)) : $(resolveSelfContaining(pos, env, $nc(t)->tsym, isSuperCall))))->type);
-	if ($nc(($cast($AttrContext, env->info)))->isSelfCall && $equals($nc(thisType)->tsym, $nc(env->enclClass)->sym)) {
+	if ($nc(($cast($AttrContext, $nc(env)->info)))->isSelfCall && $equals($nc(thisType)->tsym, $nc(env->enclClass)->sym)) {
 		$nc(this->log)->error(pos, $($CompilerProperties$Errors::CantRefBeforeCtorCalled("this"_s)));
 	}
 	return thisType;
 }
 
 void Resolve::logAccessErrorInternal($Env* env, $JCTree* tree, $Type* type) {
-	$var($Resolve$AccessError, error, $new($Resolve$AccessError, this, env, $nc(env->enclClass)->type, $nc(type)->tsym));
-	logResolveError(error, $($nc(tree)->pos()), $nc(env->enclClass)->sym, $nc(env->enclClass)->type, nullptr, nullptr, nullptr);
+	$var($Resolve$AccessError, error, $new($Resolve$AccessError, this, env, $nc($nc(env)->enclClass)->type, $nc(type)->tsym));
+	logResolveError(error, $($nc(tree)->pos()), $nc($nc(env)->enclClass)->sym, $nc(env->enclClass)->type, nullptr, nullptr, nullptr);
 }
 
 void Resolve::logResolveError($Resolve$ResolveError* error, $JCDiagnostic$DiagnosticPosition* pos, $Symbol* location, $Type* site, $Name* name, $List* argtypes, $List* typeargtypes) {
@@ -2968,7 +2968,7 @@ $Object* Resolve::methodArguments($List* argtypes) {
 }
 
 $JCDiagnostic* Resolve::inaccessiblePackageReason($Env* env, $Symbol$PackageSymbol* sym) {
-	if (!$nc($nc($nc(env->toplevel)->modle)->readModules)->contains($nc(sym)->modle)) {
+	if (!$nc($nc($nc($nc(env)->toplevel)->modle)->readModules)->contains($nc(sym)->modle)) {
 		if ($nc(sym)->modle != $nc(this->syms)->unnamedModule) {
 			if ($nc(env->toplevel)->modle != $nc(this->syms)->unnamedModule) {
 				return $nc(this->diags)->fragment($($CompilerProperties$Fragments::NotDefAccessDoesNotRead($nc(env->toplevel)->modle, sym, sym->modle)));
@@ -2978,7 +2978,7 @@ $JCDiagnostic* Resolve::inaccessiblePackageReason($Env* env, $Symbol$PackageSymb
 		} else {
 			return $nc(this->diags)->fragment($($CompilerProperties$Fragments::NotDefAccessDoesNotReadUnnamed(sym, $nc(env->toplevel)->modle)));
 		}
-	} else if ($nc($($nc($nc($nc($(sym->packge()))->modle)->exports)->stream()))->anyMatch(static_cast<$Predicate*>($$new(Resolve$$Lambda$lambda$inaccessiblePackageReason$8$8, sym)))) {
+	} else if ($nc($($nc($nc($nc($($nc(sym)->packge()))->modle)->exports)->stream()))->anyMatch(static_cast<$Predicate*>($$new(Resolve$$Lambda$lambda$inaccessiblePackageReason$8$8, sym)))) {
 		if ($nc(env->toplevel)->modle != $nc(this->syms)->unnamedModule) {
 			return $nc(this->diags)->fragment($($CompilerProperties$Fragments::NotDefAccessNotExportedToModule(sym, sym->modle, $nc(env->toplevel)->modle)));
 		} else {
@@ -2998,12 +2998,12 @@ bool Resolve::lambda$inaccessiblePackageReason$8($Symbol$PackageSymbol* sym, $Di
 
 bool Resolve::lambda$lookupPackage$7($Symbol$PackageSymbol* sym) {
 	$init(Resolve);
-	sym->complete();
+	$nc(sym)->complete();
 	return !$nc($(sym->members()))->isEmpty();
 }
 
 $Symbol* Resolve::lambda$new$6($Env* env, $Name* name) {
-	$var($Scope, importScope, $nc(env->toplevel)->starImportScope);
+	$var($Scope, importScope, $nc($nc(env)->toplevel)->starImportScope);
 	$var($Name, var$0, $Convert::shortName(name));
 	$var($Symbol, existing, $nc(importScope)->findFirst(var$0, static_cast<$Predicate*>($$new(Resolve$$Lambda$lambda$new$3$9, name))));
 	if (existing != nullptr) {
@@ -3018,7 +3018,7 @@ $Symbol* Resolve::lambda$new$6($Env* env, $Name* name) {
 }
 
 $Symbol* Resolve::lambda$new$4($Env* env, $Name* name) {
-	$var($Scope, importScope, $nc(env->toplevel)->namedImportScope);
+	$var($Scope, importScope, $nc($nc(env)->toplevel)->namedImportScope);
 	$var($Name, var$0, $Convert::shortName(name));
 	$var($Symbol, existing, $nc(importScope)->findFirst(var$0, static_cast<$Predicate*>($$new(Resolve$$Lambda$lambda$new$3$9, name))));
 	if (existing != nullptr) {
@@ -3030,7 +3030,7 @@ $Symbol* Resolve::lambda$new$4($Env* env, $Name* name) {
 bool Resolve::lambda$new$3($Name* name, $Symbol* sym) {
 	$init(Resolve);
 	$init($Kinds$Kind);
-	return sym->kind == $Kinds$Kind::TYP && sym->flatName() == name;
+	return $nc(sym)->kind == $Kinds$Kind::TYP && sym->flatName() == name;
 }
 
 $Symbol* Resolve::lambda$new$2($Env* env, $Name* name) {

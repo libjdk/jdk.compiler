@@ -347,7 +347,7 @@ $Types$DescriptorCache$FunctionDescriptor* Types$DescriptorCache::findDescriptor
 				if (abstracts->isEmpty()) {
 					abstracts->append(sym);
 				} else {
-					bool var$3 = sym->name == $nc(($cast($Symbol, $(abstracts->first()))))->name;
+					bool var$3 = $nc(sym)->name == $nc(($cast($Symbol, $(abstracts->first()))))->name;
 					if (var$3 && this->this$0->overrideEquivalent(mtype, $(this->this$0->memberType($nc(origin)->type, $cast($Symbol, $(abstracts->first())))))) {
 						if (!$nc($($nc($($nc($(abstracts->stream()))->filter(static_cast<$Predicate*>($$new(Types$DescriptorCache$$Lambda$lambda$findDescriptorInternal$0, this, sym)))))->map(static_cast<$Function*>($$new(Types$DescriptorCache$$Lambda$lambda$findDescriptorInternal$1$1, this, origin)))))->anyMatch(static_cast<$Predicate*>($$new(Types$DescriptorCache$$Lambda$lambda$findDescriptorInternal$2$2, this, mtype)))) {
 							abstracts->append(sym);

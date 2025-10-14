@@ -165,7 +165,7 @@ void JavacElements$2Vis::visitArray($Attribute$Array* array) {
 				}
 			}
 		}
-	} else if ($nc(array->values)->length == 1) {
+	} else if ($nc($nc(array)->values)->length == 1) {
 		$set(this, result, this->this$0->matchAttributeToTree(this->val$findme, $nc(array->values)->get(0), this->val$tree));
 	}
 }

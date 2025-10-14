@@ -2281,7 +2281,7 @@ $JCTree$JCExpression* JavacParser::term3() {
 								{
 									if (this->permitTypeAnnotationsPushBack) {
 										$set(this, typeAnnotationsPushedBack, annos);
-									} else if (annos->nonEmpty()) {
+									} else if ($nc(annos)->nonEmpty()) {
 										illegal($nc(($cast($JCTree$JCAnnotation, annos->head)))->pos$);
 									}
 									loop$break = true;
@@ -3277,7 +3277,7 @@ $JCTree$JCExpression* JavacParser::bracketsOpt($JCTree$JCExpression* t$renamed, 
 		int32_t pos = $nc(this->token$)->pos;
 		nextToken();
 		$assign(t, bracketsOptCont(t, pos, nextLevelAnnotations));
-	} else if (!nextLevelAnnotations->isEmpty()) {
+	} else if (!$nc(nextLevelAnnotations)->isEmpty()) {
 		if (this->permitTypeAnnotationsPushBack) {
 			$set(this, typeAnnotationsPushedBack, nextLevelAnnotations);
 		} else {
@@ -4034,7 +4034,7 @@ $JCTree$JCStatement* JavacParser::parseSimpleStatement() {
 							nextToken();
 							$assign(finalizer, block());
 						}
-					} else if (resources->isEmpty()) {
+					} else if ($nc(resources)->isEmpty()) {
 						$init($JCDiagnostic$DiagnosticFlag);
 						$init($CompilerProperties$Errors);
 						$nc(this->log)->error($JCDiagnostic$DiagnosticFlag::SYNTAX, pos, $CompilerProperties$Errors::TryWithoutCatchFinallyOrResourceDecls);
@@ -4844,7 +4844,7 @@ $JCTree$JCVariableDecl* JavacParser::variableDeclaratorRest(int32_t pos, $JCTree
 			if (typeName != $nc(this->names)->var) {
 				reportSyntaxError(elemType->pos$, $($CompilerProperties$Errors::RestrictedTypeNotAllowedHere(typeName)));
 			} else {
-				if (type->hasTag($JCTree$Tag::TYPEARRAY) && !compound) {
+				if ($nc(type)->hasTag($JCTree$Tag::TYPEARRAY) && !compound) {
 					reportSyntaxError(elemType->pos$, $($CompilerProperties$Errors::RestrictedTypeNotAllowedArray(typeName)));
 				} else {
 					declaredUsingVar = true;
@@ -4949,8 +4949,8 @@ $JCTree$JCVariableDecl* JavacParser::variableDeclaratorId($JCTree$JCModifiers* m
 		$assign(name, $nc(this->token$)->name());
 		nextToken();
 	} else {
-		bool var$1 = this->allowThisIdent || !lambdaParameter || $nc(this->LAX_IDENTIFIER)->test($nc(this->token$)->kind) || mods->flags != $Flags::PARAMETER;
-		if (var$1 || $nc(mods->annotations)->nonEmpty()) {
+		bool var$1 = this->allowThisIdent || !lambdaParameter || $nc(this->LAX_IDENTIFIER)->test($nc(this->token$)->kind) || $nc(mods)->flags != $Flags::PARAMETER;
+		if (var$1 || $nc($nc(mods)->annotations)->nonEmpty()) {
 			$var($JCTree$JCExpression, pn, qualident(false));
 			$init($JCTree$Tag);
 			if ($nc(pn)->hasTag($JCTree$Tag::IDENT) && $nc(($cast($JCTree$JCIdent, pn)))->name != $nc(this->names)->_this) {
@@ -4976,7 +4976,7 @@ $JCTree$JCVariableDecl* JavacParser::variableDeclaratorId($JCTree$JCModifiers* m
 			$assign(name, $nc(this->names)->empty);
 		}
 	}
-	if (((int64_t)(mods->flags & (uint64_t)$Flags::VARARGS)) != 0 && $nc(this->token$)->kind == $Tokens$TokenKind::LBRACKET) {
+	if (((int64_t)($nc(mods)->flags & (uint64_t)$Flags::VARARGS)) != 0 && $nc(this->token$)->kind == $Tokens$TokenKind::LBRACKET) {
 		$init($CompilerProperties$Errors);
 		$nc(this->log)->error($nc(this->token$)->pos, $CompilerProperties$Errors::VarargsAndOldArraySyntax);
 	}
@@ -5680,7 +5680,7 @@ $List* JavacParser::classOrInterfaceOrRecordBodyDeclaration($Name* className, bo
 		if ($nc(this->token$)->kind == $Tokens$TokenKind::CLASS || this->allowRecords && isRecordStart() || $nc(this->token$)->kind == $Tokens$TokenKind::INTERFACE || $nc(this->token$)->kind == $Tokens$TokenKind::ENUM) {
 			return $List::of($(classOrRecordOrInterfaceOrEnumDeclaration(mods, dc)));
 		} else {
-			if ($nc(this->token$)->kind == $Tokens$TokenKind::LBRACE && ((int64_t)(((int64_t)(mods->flags & (uint64_t)(int64_t)$Flags::StandardFlags)) & (uint64_t)(int64_t)~$Flags::STATIC)) == 0 && $nc(mods->annotations)->isEmpty()) {
+			if ($nc(this->token$)->kind == $Tokens$TokenKind::LBRACE && ((int64_t)(((int64_t)($nc(mods)->flags & (uint64_t)(int64_t)$Flags::StandardFlags)) & (uint64_t)(int64_t)~$Flags::STATIC)) == 0 && $nc(mods->annotations)->isEmpty()) {
 				if (isInterface) {
 					$init($JCDiagnostic$DiagnosticFlag);
 					$init($CompilerProperties$Errors);
@@ -5720,11 +5720,11 @@ $List* JavacParser::classOrInterfaceOrRecordBodyDeclaration($Name* className, bo
 					$assign(type, unannotatedType(false));
 				}
 				if (($nc(this->token$)->kind == $Tokens$TokenKind::LPAREN && !isInterface || isRecord && $nc(this->token$)->kind == $Tokens$TokenKind::LBRACE) && $nc(type)->hasTag($JCTree$Tag::IDENT)) {
-					if (isInterface || tk->name() != className) {
+					if (isInterface || $nc(tk)->name() != className) {
 						$init($JCDiagnostic$DiagnosticFlag);
 						$init($CompilerProperties$Errors);
 						$nc(this->log)->error($JCDiagnostic$DiagnosticFlag::SYNTAX, pos, $CompilerProperties$Errors::InvalidMethDeclRetTypeReq);
-					} else if (annosAfterParams->nonEmpty()) {
+					} else if ($nc(annosAfterParams)->nonEmpty()) {
 						illegal($nc(($cast($JCTree$JCAnnotation, annosAfterParams->head)))->pos$);
 					}
 					if (isRecord && $nc(this->token$)->kind == $Tokens$TokenKind::LBRACE) {
@@ -5743,7 +5743,7 @@ $List* JavacParser::classOrInterfaceOrRecordBodyDeclaration($Name* className, bo
 						$var($Name, name, ident());
 						if ($nc(this->token$)->kind == $Tokens$TokenKind::LPAREN) {
 							return $List::of($(methodDeclaratorRest(pos, mods, type, name, typarams, isInterface, isVoid, false, dc)));
-						} else if (!isVoid && typarams->isEmpty()) {
+						} else if (!isVoid && $nc(typarams)->isEmpty()) {
 							if (!isRecord || (isRecord && ((int64_t)(mods->flags & (uint64_t)(int64_t)$Flags::STATIC)) != 0)) {
 								$var($List, defs, $nc($(variableDeclaratorsRest(pos, mods, type, name, isInterface, dc, $$new($ListBuffer), false)))->toList());
 								accept($Tokens$TokenKind::SEMI);
@@ -5926,11 +5926,11 @@ bool JavacParser::allowedAfterSealedOrNonSealed($Tokens$Token* next, bool local,
 $JCTree* JavacParser::methodDeclaratorRest(int32_t pos, $JCTree$JCModifiers* mods, $JCTree$JCExpression* type$renamed, $Name* name, $List* typarams, bool isInterface, bool isVoid, bool isRecord, $Tokens$Comment* dc) {
 	$var($JCTree$JCExpression, type, type$renamed);
 	if (isInterface) {
-		if (((int64_t)(mods->flags & (uint64_t)(int64_t)$Flags::STATIC)) != 0) {
+		if (((int64_t)($nc(mods)->flags & (uint64_t)(int64_t)$Flags::STATIC)) != 0) {
 			$init($Source$Feature);
 			checkSourceLevel($Source$Feature::STATIC_INTERFACE_METHODS);
 		}
-		if (((int64_t)(mods->flags & (uint64_t)(int64_t)$Flags::PRIVATE)) != 0) {
+		if (((int64_t)($nc(mods)->flags & (uint64_t)(int64_t)$Flags::PRIVATE)) != 0) {
 			$init($Source$Feature);
 			checkSourceLevel($Source$Feature::PRIVATE_INTERFACE_METHODS);
 		}
@@ -6114,8 +6114,8 @@ $List* JavacParser::implicitParameters(bool hasParens) {
 
 $JCTree$JCModifiers* JavacParser::optFinal(int64_t flags) {
 	$var($JCTree$JCModifiers, mods, modifiersOpt());
-	checkNoMods((int64_t)(mods->flags & (uint64_t)(int64_t)~($Flags::FINAL | $Flags::DEPRECATED)));
-	mods->flags |= flags;
+	checkNoMods((int64_t)($nc(mods)->flags & (uint64_t)(int64_t)~($Flags::FINAL | $Flags::DEPRECATED)));
+	$nc(mods)->flags |= flags;
 	return mods;
 }
 
@@ -6173,12 +6173,12 @@ $JCTree$JCExpression* JavacParser::insertAnnotationsToMostInner($JCTree$JCExpres
 
 $JCTree$JCVariableDecl* JavacParser::formalParameter(bool lambdaParameter, bool recordComponent) {
 	$var($JCTree$JCModifiers, mods, !recordComponent ? optFinal($Flags::PARAMETER) : modifiersOpt());
-	if (recordComponent && mods->flags != 0) {
+	if (recordComponent && $nc(mods)->flags != 0) {
 		$init($CompilerProperties$Errors);
 		$nc(this->log)->error(mods->pos$, $CompilerProperties$Errors::RecordCantDeclareFieldModifiers);
 	}
 	if (recordComponent) {
-		mods->flags |= (($Flags::RECORD | $Flags::FINAL) | $Flags::PRIVATE) | $Flags::GENERATED_MEMBER;
+		$nc(mods)->flags |= (($Flags::RECORD | $Flags::FINAL) | $Flags::PRIVATE) | $Flags::GENERATED_MEMBER;
 	}
 	this->permitTypeAnnotationsPushBack = true;
 	$var($JCTree$JCExpression, type, parseType(lambdaParameter));
@@ -6187,7 +6187,7 @@ $JCTree$JCVariableDecl* JavacParser::formalParameter(bool lambdaParameter, bool 
 	if ($nc(this->token$)->kind == $Tokens$TokenKind::ELLIPSIS) {
 		$var($List, varargsAnnos, this->typeAnnotationsPushedBack);
 		$set(this, typeAnnotationsPushedBack, $List::nil());
-		mods->flags |= $Flags::VARARGS;
+		$nc(mods)->flags |= $Flags::VARARGS;
 		$assign(type, insertAnnotationsToMostInner(type, varargsAnnos, true));
 		nextToken();
 	} else {
@@ -6238,7 +6238,7 @@ int32_t JavacParser::earlier(int32_t pos1, int32_t pos2) {
 $JCTree$Tag* JavacParser::optag($Tokens$TokenKind* token) {
 	$init(JavacParser);
 	$init($JavacParser$1);
-	switch ($nc($JavacParser$1::$SwitchMap$com$sun$tools$javac$parser$Tokens$TokenKind)->get((token)->ordinal())) {
+	switch ($nc($JavacParser$1::$SwitchMap$com$sun$tools$javac$parser$Tokens$TokenKind)->get($nc((token))->ordinal())) {
 	case 95:
 		{
 			$init($JCTree$Tag);
@@ -6405,7 +6405,7 @@ $JCTree$Tag* JavacParser::optag($Tokens$TokenKind* token) {
 $JCTree$Tag* JavacParser::unoptag($Tokens$TokenKind* token) {
 	$init(JavacParser);
 	$init($JavacParser$1);
-	switch ($nc($JavacParser$1::$SwitchMap$com$sun$tools$javac$parser$Tokens$TokenKind)->get((token)->ordinal())) {
+	switch ($nc($JavacParser$1::$SwitchMap$com$sun$tools$javac$parser$Tokens$TokenKind)->get($nc((token))->ordinal())) {
 	case 82:
 		{
 			$init($JCTree$Tag);
@@ -6447,7 +6447,7 @@ $JCTree$Tag* JavacParser::unoptag($Tokens$TokenKind* token) {
 $TypeTag* JavacParser::typetag($Tokens$TokenKind* token) {
 	$init(JavacParser);
 	$init($JavacParser$1);
-	switch ($nc($JavacParser$1::$SwitchMap$com$sun$tools$javac$parser$Tokens$TokenKind)->get((token)->ordinal())) {
+	switch ($nc($JavacParser$1::$SwitchMap$com$sun$tools$javac$parser$Tokens$TokenKind)->get($nc((token))->ordinal())) {
 	case 22:
 		{
 			$init($TypeTag);
@@ -6505,7 +6505,7 @@ void JavacParser::checkSourceLevel(int32_t pos, $Source$Feature* feature) {
 	if (var$0 && !$nc(this->preview)->isEnabled()) {
 		$init($JCDiagnostic$DiagnosticFlag);
 		$nc(this->log)->error($JCDiagnostic$DiagnosticFlag::SOURCE_LEVEL, pos, $($nc(this->preview)->disabledError(feature)));
-	} else if (!feature->allowedInSource(this->source)) {
+	} else if (!$nc(feature)->allowedInSource(this->source)) {
 		$init($JCDiagnostic$DiagnosticFlag);
 		$nc(this->log)->error($JCDiagnostic$DiagnosticFlag::SOURCE_LEVEL, pos, $(feature->error($nc(this->source)->name$)));
 	} else if ($nc(this->preview)->isPreview(feature)) {

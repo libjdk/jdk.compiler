@@ -1705,7 +1705,7 @@ void Modules::setCompilationUnitModules($List* trees, $Set* rootModules, $Symbol
 					$Assert::error("too many modules"_s);
 				}
 			}
-		} else if (rootModules->size() == 1) {
+		} else if ($nc(rootModules)->size() == 1) {
 			$assign(module, $cast($Symbol$ModuleSymbol, $nc($(rootModules->iterator()))->next()));
 			$nc(module)->complete();
 			$set(module, completer, static_cast<$Symbol$Completer*>($new(Modules$$Lambda$lambda$setCompilationUnitModules$2$3, this)));
@@ -1724,7 +1724,7 @@ void Modules::setCompilationUnitModules($List* trees, $Set* rootModules, $Symbol
 			$assign(module, this->defaultModule);
 		}
 		{
-			$var($Iterator, i$, trees->iterator());
+			$var($Iterator, i$, $nc(trees)->iterator());
 			for (; $nc(i$)->hasNext();) {
 				$var($JCTree$JCCompilationUnit, tree, $cast($JCTree$JCCompilationUnit, i$->next()));
 				{
@@ -1786,7 +1786,7 @@ $String* Modules::singleModuleOverride($List* trees) {
 	}
 	$var($Set, override$, $new($LinkedHashSet));
 	{
-		$var($Iterator, i$, trees->iterator());
+		$var($Iterator, i$, $nc(trees)->iterator());
 		for (; $nc(i$)->hasNext();) {
 			$var($JCTree$JCCompilationUnit, tree, $cast($JCTree$JCCompilationUnit, i$->next()));
 			{

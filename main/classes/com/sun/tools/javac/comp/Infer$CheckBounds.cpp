@@ -201,7 +201,7 @@ $EnumSet* Infer$CheckBounds::boundsToCheck() {
 bool Infer$CheckBounds::checkBound($Type* s, $Type* t, $Type$UndetVar$InferenceBound* ib_s, $Type$UndetVar$InferenceBound* ib_t, $Warner* warn) {
 	if ($nc(ib_s)->lessThan(ib_t)) {
 		return isSubtype(s, t, warn);
-	} else if (ib_t->lessThan(ib_s)) {
+	} else if ($nc(ib_t)->lessThan(ib_s)) {
 		return isSubtype(t, s, warn);
 	} else {
 		return isSameType(s, t);

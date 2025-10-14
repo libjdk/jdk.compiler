@@ -857,7 +857,7 @@ void InferenceContext::solveLegacy(bool partial, $Warner* warn, $EnumSet* steps)
 		$var($List, solvedVars, solveBasic(steps));
 		if ($nc($(restvars()))->isEmpty() || partial) {
 			break;
-		} else if (solvedVars->isEmpty()) {
+		} else if ($nc(solvedVars)->isEmpty()) {
 			$nc(this->infer)->instantiateAsUninferredVars($(restvars()), this);
 			break;
 		} else {

@@ -92,7 +92,7 @@ void Option$20::process($OptionHelper* helper, $String* option, $String* arg) {
 	$var($String, prev, $nc(helper)->get($Option::DEFAULT_MODULE_FOR_CREATED_FILES));
 	if (prev != nullptr) {
 		$throw($(helper->newInvalidValueException($($CompilerProperties$Errors::OptionTooMany($Option::DEFAULT_MODULE_FOR_CREATED_FILES->primaryName)))));
-	} else if (arg->isEmpty()) {
+	} else if ($nc(arg)->isEmpty()) {
 		$throw($(helper->newInvalidValueException($($CompilerProperties$Errors::NoValueForOption(option)))));
 	} else if ($nc($($nc($(getPattern()))->matcher(arg)))->matches()) {
 		helper->put($Option::DEFAULT_MODULE_FOR_CREATED_FILES->primaryName, arg);

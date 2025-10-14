@@ -133,7 +133,7 @@ TypeMetadata* TypeMetadata::combineAll(TypeMetadata* other) {
 					} else {
 						out->add(key, $cast($TypeMetadata$Entry, $($nc(this->contents)->get(key))));
 					}
-				} else if ($nc(other->contents)->containsKey(key)) {
+				} else if ($nc($nc(other)->contents)->containsKey(key)) {
 					out->add(key, $cast($TypeMetadata$Entry, $($nc(other->contents)->get(key))));
 				}
 			}

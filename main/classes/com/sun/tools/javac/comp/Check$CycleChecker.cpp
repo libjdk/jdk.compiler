@@ -216,7 +216,7 @@ void Check$CycleChecker::checkClass($JCDiagnostic$DiagnosticPosition* pos, $Symb
 	if ($nc(this->seenClasses)->contains(c)) {
 		this->errorFound = true;
 		this->this$0->noteCyclic(pos, $cast($Symbol$ClassSymbol, c));
-	} else if (!$nc(c->type)->isErroneous()) {
+	} else if (!$nc($nc(c)->type)->isErroneous()) {
 		{
 			$var($Throwable, var$0, nullptr);
 			bool return$1 = false;

@@ -240,7 +240,7 @@ $Type* Types$TypeProjection::visitArrayType($Type$ArrayType* t, $Types$Projectio
 		return t;
 	} else {
 		$init($TypeTag);
-		if (elemtype1->hasTag($TypeTag::BOT)) {
+		if ($nc(elemtype1)->hasTag($TypeTag::BOT)) {
 			return $nc(this->this$0->syms)->botType;
 		} else {
 			return $new($Types$TypeProjection$2, this, elemtype1, t->tsym, t->metadata);

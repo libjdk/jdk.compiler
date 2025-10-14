@@ -2157,7 +2157,7 @@ void Code::resolve($Code$Chain* chain$renamed, int32_t target) {
 }
 
 void Code::resolve($Code$Chain* chain) {
-	$Assert::check(!this->alive || chain == nullptr || $nc(this->state)->stacksize == $nc(chain->state)->stacksize && $nc(this->state)->nlocks == $nc(chain->state)->nlocks);
+	$Assert::check(!this->alive || chain == nullptr || $nc(this->state)->stacksize == $nc($nc(chain)->state)->stacksize && $nc(this->state)->nlocks == $nc(chain->state)->nlocks);
 	$set(this, pendingJumps, mergeChains(chain, this->pendingJumps));
 }
 

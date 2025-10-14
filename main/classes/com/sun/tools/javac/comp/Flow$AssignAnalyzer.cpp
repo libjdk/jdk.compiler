@@ -426,11 +426,11 @@ void Flow$AssignAnalyzer::letInit($JCDiagnostic$DiagnosticPosition* pos, $Symbol
 }
 
 void Flow$AssignAnalyzer::uninit($Symbol$VarSymbol* sym) {
-	if (!$nc(this->inits)->isMember(sym->adr)) {
-		$nc(this->uninits)->excl(sym->adr);
-		$nc(this->uninitsTry)->excl(sym->adr);
+	if (!$nc(this->inits)->isMember($nc(sym)->adr)) {
+		$nc(this->uninits)->excl($nc(sym)->adr);
+		$nc(this->uninitsTry)->excl($nc(sym)->adr);
 	} else {
-		$nc(this->uninits)->excl(sym->adr);
+		$nc(this->uninits)->excl($nc(sym)->adr);
 	}
 }
 
@@ -454,7 +454,7 @@ void Flow$AssignAnalyzer::checkInit($JCDiagnostic$DiagnosticPosition* pos, $Symb
 
 void Flow$AssignAnalyzer::checkInit($JCDiagnostic$DiagnosticPosition* pos, $Symbol$VarSymbol* sym, $JCDiagnostic$Error* errkey) {
 	$init($Kinds$Kind);
-	bool var$0 = (sym->adr >= this->firstadr || $nc(sym->owner)->kind != $Kinds$Kind::TYP) && trackable(sym);
+	bool var$0 = ($nc(sym)->adr >= this->firstadr || $nc($nc(sym)->owner)->kind != $Kinds$Kind::TYP) && trackable(sym);
 	if (var$0 && !$nc(this->inits)->isMember(sym->adr) && ((int64_t)(sym->flags_field & (uint64_t)(int64_t)0x0000040000000000)) == 0) {
 		$nc(this->this$0->log)->error(pos, errkey);
 		$nc(this->inits)->incl(sym->adr);
@@ -540,7 +540,7 @@ void Flow$AssignAnalyzer::scanCond($JCTree* tree) {
 			split(tree->type != $nc(this->this$0->syms)->unknownType);
 		}
 	}
-	if (tree->type != $nc(this->this$0->syms)->unknownType) {
+	if ($nc(tree)->type != $nc(this->this$0->syms)->unknownType) {
 		resetBits($$new($BitsArray, {
 			this->inits,
 			this->uninits
@@ -1175,13 +1175,13 @@ void Flow$AssignAnalyzer::visitTry($JCTree$JCTry* tree) {
 }
 
 void Flow$AssignAnalyzer::visitConditional($JCTree$JCConditional* tree) {
-	scanCond(tree->cond);
+	scanCond($nc(tree)->cond);
 	$var($Bits, initsBeforeElse, $new($Bits, this->initsWhenFalse));
 	$var($Bits, uninitsBeforeElse, $new($Bits, this->uninitsWhenFalse));
 	$nc(this->inits)->assign(this->initsWhenTrue);
 	$nc(this->uninits)->assign(this->uninitsWhenTrue);
 	$init($TypeTag);
-	bool var$0 = $nc($nc(tree->truepart)->type)->hasTag($TypeTag::BOOLEAN);
+	bool var$0 = $nc($nc($nc(tree)->truepart)->type)->hasTag($TypeTag::BOOLEAN);
 	if (var$0 && $nc($nc(tree->falsepart)->type)->hasTag($TypeTag::BOOLEAN)) {
 		scanCond(tree->truepart);
 		$var($Bits, initsAfterThenWhenTrue, $new($Bits, this->initsWhenTrue));
@@ -1208,13 +1208,13 @@ void Flow$AssignAnalyzer::visitConditional($JCTree$JCConditional* tree) {
 }
 
 void Flow$AssignAnalyzer::visitIf($JCTree$JCIf* tree) {
-	scanCond(tree->cond);
+	scanCond($nc(tree)->cond);
 	$var($Bits, initsBeforeElse, $new($Bits, this->initsWhenFalse));
 	$var($Bits, uninitsBeforeElse, $new($Bits, this->uninitsWhenFalse));
 	$nc(this->inits)->assign(this->initsWhenTrue);
 	$nc(this->uninits)->assign(this->uninitsWhenTrue);
-	scan(static_cast<$JCTree*>(tree->thenpart));
-	if (tree->elsepart != nullptr) {
+	scan(static_cast<$JCTree*>($nc(tree)->thenpart));
+	if ($nc(tree)->elsepart != nullptr) {
 		$var($Bits, initsAfterThen, $new($Bits, this->inits));
 		$var($Bits, uninitsAfterThen, $new($Bits, this->uninits));
 		$nc(this->inits)->assign(initsBeforeElse);
@@ -1233,7 +1233,7 @@ void Flow$AssignAnalyzer::visitBreak($JCTree$JCBreak* tree) {
 }
 
 void Flow$AssignAnalyzer::visitYield($JCTree$JCYield* tree) {
-	$var($JCTree$JCSwitchExpression, expr, $cast($JCTree$JCSwitchExpression, tree->target));
+	$var($JCTree$JCSwitchExpression, expr, $cast($JCTree$JCSwitchExpression, $nc(tree)->target));
 	$init($TypeTag);
 	if (expr != nullptr && $nc(expr->type)->hasTag($TypeTag::BOOLEAN)) {
 		scanCond(tree->value);
@@ -1256,24 +1256,24 @@ void Flow$AssignAnalyzer::visitContinue($JCTree$JCContinue* tree) {
 }
 
 void Flow$AssignAnalyzer::visitReturn($JCTree$JCReturn* tree) {
-	scanExpr(tree->expr);
+	scanExpr($nc(tree)->expr);
 	recordExit($$new($Flow$AssignAnalyzer$AssignPendingExit, this, tree, this->inits, this->uninits));
 }
 
 void Flow$AssignAnalyzer::visitThrow($JCTree$JCThrow* tree) {
-	scanExpr(tree->expr);
+	scanExpr($nc(tree)->expr);
 	markDead();
 }
 
 void Flow$AssignAnalyzer::visitApply($JCTree$JCMethodInvocation* tree) {
-	scanExpr(tree->meth);
-	scanExprs(tree->args);
+	scanExpr($nc(tree)->meth);
+	scanExprs($nc(tree)->args);
 }
 
 void Flow$AssignAnalyzer::visitNewClass($JCTree$JCNewClass* tree) {
-	scanExpr(tree->encl);
-	scanExprs(tree->args);
-	scan(static_cast<$JCTree*>(tree->def));
+	scanExpr($nc(tree)->encl);
+	scanExprs($nc(tree)->args);
+	scan(static_cast<$JCTree*>($nc(tree)->def));
 }
 
 void Flow$AssignAnalyzer::visitLambda($JCTree$JCLambda* tree) {
@@ -1288,7 +1288,7 @@ void Flow$AssignAnalyzer::visitLambda($JCTree$JCLambda* tree) {
 			this->returnadr = this->nextadr;
 			$set(this, pendingExits, $new($ListBuffer));
 			{
-				$var($List, l, tree->params);
+				$var($List, l, $nc(tree)->params);
 				for (; $nc(l)->nonEmpty(); $assign(l, $nc(l)->tail)) {
 					$var($JCTree$JCVariableDecl, def, $cast($JCTree$JCVariableDecl, l->head));
 					scan(static_cast<$JCTree*>(def));
@@ -1318,16 +1318,16 @@ void Flow$AssignAnalyzer::visitLambda($JCTree$JCLambda* tree) {
 }
 
 void Flow$AssignAnalyzer::visitNewArray($JCTree$JCNewArray* tree) {
-	scanExprs(tree->dims);
-	scanExprs(tree->elems);
+	scanExprs($nc(tree)->dims);
+	scanExprs($nc(tree)->elems);
 }
 
 void Flow$AssignAnalyzer::visitAssert($JCTree$JCAssert* tree) {
 	$var($Bits, initsExit, $new($Bits, this->inits));
 	$var($Bits, uninitsExit, $new($Bits, this->uninits));
-	scanCond(tree->cond);
+	scanCond($nc(tree)->cond);
 	uninitsExit->andSet(this->uninitsWhenTrue);
-	if (tree->detail != nullptr) {
+	if ($nc(tree)->detail != nullptr) {
 		$nc(this->inits)->assign(this->initsWhenFalse);
 		$nc(this->uninits)->assign(this->uninitsWhenFalse);
 		scanExpr(tree->detail);
@@ -1337,32 +1337,32 @@ void Flow$AssignAnalyzer::visitAssert($JCTree$JCAssert* tree) {
 }
 
 void Flow$AssignAnalyzer::visitAssign($JCTree$JCAssign* tree) {
-	if (!$TreeInfo::isIdentOrThisDotIdent(tree->lhs)) {
-		scanExpr(tree->lhs);
+	if (!$TreeInfo::isIdentOrThisDotIdent($nc(tree)->lhs)) {
+		scanExpr($nc(tree)->lhs);
 	}
-	scanExpr(tree->rhs);
-	letInit(tree->lhs);
+	scanExpr($nc(tree)->rhs);
+	letInit($nc(tree)->lhs);
 }
 
 void Flow$AssignAnalyzer::visitSelect($JCTree$JCFieldAccess* tree) {
 	$Flow$BaseAnalyzer::visitSelect(tree);
 	$init($Kinds$Kind);
-	if ($TreeInfo::isThisQualifier(tree->selected) && $nc(tree->sym)->kind == $Kinds$Kind::VAR) {
+	if ($TreeInfo::isThisQualifier($nc(tree)->selected) && $nc($nc(tree)->sym)->kind == $Kinds$Kind::VAR) {
 		checkInit($(tree->pos()), $cast($Symbol$VarSymbol, tree->sym));
 	}
 }
 
 void Flow$AssignAnalyzer::visitAssignop($JCTree$JCAssignOp* tree) {
-	scanExpr(tree->lhs);
-	scanExpr(tree->rhs);
-	letInit(tree->lhs);
+	scanExpr($nc(tree)->lhs);
+	scanExpr($nc(tree)->rhs);
+	letInit($nc(tree)->lhs);
 }
 
 void Flow$AssignAnalyzer::visitUnary($JCTree$JCUnary* tree) {
 		$init($Flow$1);
 	{
 		$var($Bits, t, nullptr)
-		switch ($nc($Flow$1::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($(tree->getTag())))->ordinal())) {
+		switch ($nc($Flow$1::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($($nc(tree)->getTag())))->ordinal())) {
 		case 1:
 			{
 				scanCond(tree->arg);
@@ -1401,7 +1401,7 @@ void Flow$AssignAnalyzer::visitBinary($JCTree$JCBinary* tree) {
 		$var($Bits, uninitsWhenFalseLeft, nullptr)
 		$var($Bits, initsWhenTrueLeft, nullptr)
 		$var($Bits, uninitsWhenTrueLeft, nullptr)
-		switch ($nc($Flow$1::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($(tree->getTag())))->ordinal())) {
+		switch ($nc($Flow$1::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($($nc(tree)->getTag())))->ordinal())) {
 		case 6:
 			{
 				scanCond(tree->lhs);
@@ -1437,7 +1437,7 @@ void Flow$AssignAnalyzer::visitBinary($JCTree$JCBinary* tree) {
 
 void Flow$AssignAnalyzer::visitIdent($JCTree$JCIdent* tree) {
 	$init($Kinds$Kind);
-	if ($nc(tree->sym)->kind == $Kinds$Kind::VAR) {
+	if ($nc($nc(tree)->sym)->kind == $Kinds$Kind::VAR) {
 		checkInit($(tree->pos()), $cast($Symbol$VarSymbol, tree->sym));
 		referenced(tree->sym);
 	}
@@ -1445,7 +1445,7 @@ void Flow$AssignAnalyzer::visitIdent($JCTree$JCIdent* tree) {
 
 void Flow$AssignAnalyzer::visitBindingPattern($JCTree$JCBindingPattern* tree) {
 	$Flow$BaseAnalyzer::visitBindingPattern(tree);
-	initParam(tree->var);
+	initParam($nc(tree)->var);
 }
 
 void Flow$AssignAnalyzer::referenced($Symbol* sym) {
@@ -1453,7 +1453,7 @@ void Flow$AssignAnalyzer::referenced($Symbol* sym) {
 }
 
 void Flow$AssignAnalyzer::visitAnnotatedType($JCTree$JCAnnotatedType* tree) {
-	$nc(tree->underlyingType)->accept(this);
+	$nc($nc(tree)->underlyingType)->accept(this);
 }
 
 void Flow$AssignAnalyzer::visitModuleDef($JCTree$JCModuleDecl* tree) {
@@ -1467,7 +1467,7 @@ void Flow$AssignAnalyzer::analyzeTree($Env* env, $JCTree* tree, $TreeMaker* make
 	{
 		$var($Throwable, var$0, nullptr);
 		try {
-			this->startPos = $nc($(tree->pos()))->getStartPosition();
+			this->startPos = $nc($($nc(tree)->pos()))->getStartPosition();
 			if (this->vardecls == nullptr) {
 				$set(this, vardecls, $new($JCTree$JCVariableDeclArray, 32));
 			} else {

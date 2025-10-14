@@ -113,9 +113,9 @@ $Resolve$ReferenceLookupResult* Resolve$16::unboundResult($Resolve$ReferenceLook
 		bool var$7 = unboundRes->isSuccess();
 		bool var$6 = var$7 && !$nc(unboundRes->sym)->isStatic();
 		if (var$6) {
-			bool var$8 = !boundRes->isSuccess();
+			bool var$8 = !$nc(boundRes)->isSuccess();
 			$init($Resolve$ReferenceLookupResult$StaticKind);
-			var$6 = (var$8 || boundRes->hasKind($Resolve$ReferenceLookupResult$StaticKind::NON_STATIC));
+			var$6 = (var$8 || $nc(boundRes)->hasKind($Resolve$ReferenceLookupResult$StaticKind::NON_STATIC));
 		}
 		if (var$6) {
 			return unboundRes;

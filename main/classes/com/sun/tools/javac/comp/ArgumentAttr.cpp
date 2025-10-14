@@ -679,7 +679,7 @@ void ArgumentAttr::visitReference($JCTree$JCMemberReference* tree) {
 		bool var$7 = var$8 || ((int64_t)(res->flags() & (uint64_t)$Flags::VARARGS)) != 0;
 		if (!var$7) {
 			bool var$10 = $TreeInfo::isStaticSelector(exprTree, $nc($nc($nc(tree)->name)->table)->names);
-			bool var$9 = var$10 && $nc(exprTree->type)->isRaw();
+			bool var$9 = var$10 && $nc($nc(exprTree)->type)->isRaw();
 			var$7 = (var$9 && !$nc(exprTree->type)->hasTag($TypeTag::ARRAY));
 		}
 		if (var$7) {

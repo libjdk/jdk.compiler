@@ -1545,7 +1545,7 @@ void ClassReader::attachAnnotations($Symbol* sym, $List* annotations) {
 						setFlagIfAttributeTrue(proxy, sym, $nc(this->names)->reflective, 0x0400000000000000);
 					} else {
 						$init($Kinds$Kind);
-						if ($nc(proxy->type)->tsym == $nc($nc(this->syms)->valueBasedType)->tsym && sym->kind == $Kinds$Kind::TYP) {
+						if ($nc(proxy->type)->tsym == $nc($nc(this->syms)->valueBasedType)->tsym && $nc(sym)->kind == $Kinds$Kind::TYP) {
 							sym->flags_field |= 0x0020000000000000;
 						}
 					}
@@ -1559,7 +1559,7 @@ void ClassReader::attachAnnotations($Symbol* sym, $List* annotations) {
 
 void ClassReader::setFlagIfAttributeTrue($ClassReader$CompoundAnnotationProxy* proxy, $Symbol* sym, $Name* attribute, int64_t flag) {
 	{
-		$var($Iterator, i$, $nc(proxy->values)->iterator());
+		$var($Iterator, i$, $nc($nc(proxy)->values)->iterator());
 		for (; $nc(i$)->hasNext();) {
 			$var($Pair, v, $cast($Pair, i$->next()));
 			{
@@ -2172,7 +2172,7 @@ void ClassReader::enterTypevars($Symbol* sym, $Type* t) {
 		}
 	} else {
 		$init($Kinds$Kind);
-		if (sym->kind == $Kinds$Kind::MTH && !sym->isStatic()) {
+		if ($nc(sym)->kind == $Kinds$Kind::MTH && !sym->isStatic()) {
 			enterTypevars(sym->owner, $nc(sym->owner)->type);
 		}
 	}

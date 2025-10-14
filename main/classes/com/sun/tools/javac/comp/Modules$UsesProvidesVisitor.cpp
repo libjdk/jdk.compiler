@@ -490,7 +490,7 @@ void Modules$UsesProvidesVisitor::visitProvides($JCTree$JCProvides* tree) {
 				} else if (!$nc(this->this$0->types)->isSubtype(it, st)) {
 					$init($CompilerProperties$Errors);
 					$nc(this->this$0->log)->error($($nc(implName)->pos()), $CompilerProperties$Errors::ServiceImplementationMustBeSubtypeOfServiceInterface);
-				} else if (((int64_t)(impl->flags() & (uint64_t)(int64_t)1024)) != 0) {
+				} else if (((int64_t)($nc(impl)->flags() & (uint64_t)(int64_t)1024)) != 0) {
 					$var($JCDiagnostic$DiagnosticPosition, var$3, $nc(implName)->pos());
 					$nc(this->this$0->log)->error(var$3, $($CompilerProperties$Errors::ServiceImplementationIsAbstract(impl)));
 				} else if (impl->isInner()) {
@@ -501,7 +501,7 @@ void Modules$UsesProvidesVisitor::visitProvides($JCTree$JCProvides* tree) {
 					if (constr == nullptr) {
 						$var($JCDiagnostic$DiagnosticPosition, var$5, $nc(implName)->pos());
 						$nc(this->this$0->log)->error(var$5, $($CompilerProperties$Errors::ServiceImplementationDoesntHaveANoArgsConstructor(impl)));
-					} else if (((int64_t)(constr->flags() & (uint64_t)(int64_t)1)) == 0) {
+					} else if (((int64_t)($nc(constr)->flags() & (uint64_t)(int64_t)1)) == 0) {
 						$var($JCDiagnostic$DiagnosticPosition, var$6, $nc(implName)->pos());
 						$nc(this->this$0->log)->error(var$6, $($CompilerProperties$Errors::ServiceImplementationNoArgsConstructorNotPublic(impl)));
 					}
@@ -529,7 +529,7 @@ void Modules$UsesProvidesVisitor::visitProvides($JCTree$JCProvides* tree) {
 }
 
 void Modules$UsesProvidesVisitor::visitRequires($JCTree$JCRequires* tree) {
-	if (tree->directive != nullptr && $nc($(this->this$0->allModules()))->contains($nc(tree->directive)->module)) {
+	if ($nc(tree)->directive != nullptr && $nc($(this->this$0->allModules()))->contains($nc(tree->directive)->module)) {
 		$nc(this->this$0->chk)->checkDeprecated($($nc(tree->moduleName)->pos()), static_cast<$Symbol*>(this->msym), static_cast<$Symbol*>($nc(tree->directive)->module));
 		$nc(this->this$0->chk)->checkPreview($($nc(tree->moduleName)->pos()), this->msym, $nc(tree->directive)->module);
 		$nc(this->this$0->chk)->checkModuleRequires($($nc(tree->moduleName)->pos()), tree->directive);
@@ -538,21 +538,21 @@ void Modules$UsesProvidesVisitor::visitRequires($JCTree$JCRequires* tree) {
 }
 
 void Modules$UsesProvidesVisitor::visitUses($JCTree$JCUses* tree) {
-	$var($Type, st, $nc(this->this$0->attr)->attribType(tree->qualid, this->env, $nc(this->this$0->syms)->objectType));
-	$var($Symbol, sym, $TreeInfo::symbol(tree->qualid));
+	$var($Type, st, $nc(this->this$0->attr)->attribType($nc(tree)->qualid, this->env, $nc(this->this$0->syms)->objectType));
+	$var($Symbol, sym, $TreeInfo::symbol($nc(tree)->qualid));
 	if (((int64_t)($nc(sym)->flags() & (uint64_t)(int64_t)16384)) != 0) {
-		$var($JCDiagnostic$DiagnosticPosition, var$0, $nc(tree->qualid)->pos());
+		$var($JCDiagnostic$DiagnosticPosition, var$0, $nc($nc(tree)->qualid)->pos());
 		$nc(this->this$0->log)->error(var$0, $($CompilerProperties$Errors::ServiceDefinitionIsEnum($nc(st)->tsym)));
 	} else {
 		$init($TypeTag);
-		if (st->hasTag($TypeTag::CLASS)) {
+		if ($nc(st)->hasTag($TypeTag::CLASS)) {
 			$var($Symbol$ClassSymbol, service, $cast($Symbol$ClassSymbol, st->tsym));
 			if ($nc(this->allUses)->add(service)) {
 				$var($Directive$UsesDirective, d, $new($Directive$UsesDirective, service));
 				$set($nc(this->msym), uses, $nc($nc(this->msym)->uses)->prepend(d));
 				$set($nc(this->msym), directives, $nc($nc(this->msym)->directives)->prepend(d));
 			} else {
-				$var($JCDiagnostic$DiagnosticPosition, var$1, tree->pos());
+				$var($JCDiagnostic$DiagnosticPosition, var$1, $nc(tree)->pos());
 				$nc(this->this$0->log)->error(var$1, $($CompilerProperties$Errors::DuplicateUses(service)));
 			}
 		}
@@ -573,7 +573,7 @@ void Modules$UsesProvidesVisitor::checkForCorrectness() {
 						{
 							$var($Symbol$PackageSymbol, implementationDefiningPackage, $nc(impl)->packge());
 							if ($nc(implementationDefiningPackage)->modle != this->msym) {
-								$var($JCDiagnostic$DiagnosticPosition, var$0, tree->pos());
+								$var($JCDiagnostic$DiagnosticPosition, var$0, $nc(tree)->pos());
 								$nc(this->this$0->log)->error(var$0, $($CompilerProperties$Errors::ServiceImplementationNotInRightModule(implementationDefiningPackage->modle)));
 							}
 							$var($Symbol$PackageSymbol, interfaceDeclaringPackage, $nc(provides->service)->packge());
@@ -608,7 +608,7 @@ void Modules$UsesProvidesVisitor::checkForCorrectness() {
 									}
 								}
 								if (warn) {
-									$var($JCDiagnostic$DiagnosticPosition, var$1, tree->pos());
+									$var($JCDiagnostic$DiagnosticPosition, var$1, $nc(tree)->pos());
 									$nc(this->this$0->log)->warning(var$1, $($CompilerProperties$Warnings::ServiceProvidedButNotExportedOrUsed(provides->service)));
 								}
 							}

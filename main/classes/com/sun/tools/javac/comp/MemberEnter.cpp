@@ -379,7 +379,7 @@ void MemberEnter::visitVarDef($JCTree$JCVariableDecl* tree) {
 		try {
 			if ($TreeInfo::isEnumInit(tree)) {
 				$nc(this->attr)->attribIdentAsEnumType(localEnv, $cast($JCTree$JCIdent, $nc(tree)->vartype));
-			} else if (!tree->isImplicitlyTyped()) {
+			} else if (!$nc(tree)->isImplicitlyTyped()) {
 				$nc(this->attr)->attribType(static_cast<$JCTree*>(tree->vartype), localEnv);
 				if ($TreeInfo::isReceiverParam(tree)) {
 					checkReceiver(tree, localEnv);

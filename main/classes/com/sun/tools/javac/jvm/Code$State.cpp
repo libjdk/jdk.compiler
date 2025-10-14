@@ -356,7 +356,7 @@ void Code$State::dump(int32_t pc) {
 			$var($Code$LocalVar, var, $nc(this->this$0->lvar)->get(i));
 			if (var == nullptr) {
 				$nc($System::err)->println("(none)"_s);
-			} else if (var->sym == nullptr) {
+			} else if ($nc(var)->sym == nullptr) {
 				$nc($System::err)->println("UNKNOWN!"_s);
 			} else {
 				$var($String, var$0, $$str({""_s, var->sym, " of type "_s}));

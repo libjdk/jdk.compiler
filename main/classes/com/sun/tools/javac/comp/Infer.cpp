@@ -692,7 +692,7 @@ $Type* Infer::generateReturnConstraints($JCTree* tree, $Attr$ResultInfo* resultI
 	if ($nc(qtype)->hasTag($TypeTag::VOID)) {
 		$assign(to, $nc(this->syms)->voidType);
 	} else {
-		if (to->hasTag($TypeTag::NONE)) {
+		if ($nc(to)->hasTag($TypeTag::NONE)) {
 			$assign(to, $nc(from)->isPrimitive() ? from : $nc(this->syms)->objectType);
 		} else {
 			if (qtype->hasTag($TypeTag::UNDETVAR)) {
@@ -700,7 +700,7 @@ $Type* Infer::generateReturnConstraints($JCTree* tree, $Attr$ResultInfo* resultI
 				if (var$1 && (this->allowGraphInference || !to->isPrimitive())) {
 					$assign(to, generateReferenceToTargetConstraint(tree, $cast($Type$UndetVar, qtype), to, resultInfo, inferenceContext));
 				}
-			} else if (rsInfoInfContext->free(resultInfo->pt)) {
+			} else if ($nc(rsInfoInfContext)->free(resultInfo->pt)) {
 				$assign(qtype, inferenceContext->asUndetVar($(rsInfoInfContext->cachedCapture(tree, from, !resultInfo->checkMode->updateTreeType()))));
 			}
 		}
@@ -717,7 +717,7 @@ $Type* Infer::generateReturnConstraints($JCTree* tree, $Attr$ResultInfo* resultI
 }
 
 bool Infer::needsEagerInstantiation($Type$UndetVar* from, $Type* to, $InferenceContext* inferenceContext) {
-	if (to->isPrimitive()) {
+	if ($nc(to)->isPrimitive()) {
 		{
 			$var($Iterator, i$, $nc($($nc(from)->getBounds($($Type$UndetVar$InferenceBound::values()))))->iterator());
 			for (; $nc(i$)->hasNext();) {
@@ -775,7 +775,7 @@ bool Infer::needsEagerInstantiation($Type$UndetVar* from, $Type* to, $InferenceC
 			}
 		}
 	}
-	if (to->isParameterized()) {
+	if ($nc(to)->isParameterized()) {
 		{
 				$init($Type$UndetVar$InferenceBound);
 			$var($Iterator, i$, $nc($($nc(from)->getBounds($$new($Type$UndetVar$InferenceBoundArray, {
@@ -839,7 +839,7 @@ void Infer::instantiateAsUninferredVars($List* vars, $InferenceContext* inferenc
 					$set(fresh_tvar, type, $new($Type$TypeVar, fresh_tvar, $(static_cast<$Type*>($nc(this->types)->makeIntersectionType($(uv->getBounds($$new($Type$UndetVar$InferenceBoundArray, {$Type$UndetVar$InferenceBound::UPPER})))))), $nc(this->syms)->botType));
 					todo->append(uv);
 					uv->setInst(fresh_tvar->type);
-				} else if (upperBounds->nonEmpty()) {
+				} else if ($nc(upperBounds)->nonEmpty()) {
 					uv->setInst($($nc(this->types)->glb(upperBounds)));
 				} else {
 					uv->setInst($nc(this->syms)->objectType);

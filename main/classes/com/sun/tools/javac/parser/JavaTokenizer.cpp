@@ -250,7 +250,7 @@ void JavaTokenizer::checkSourceLevel(int32_t pos, $Source$Feature* feature) {
 	if (var$0 && !$nc(this->preview)->isEnabled()) {
 		$init($JCDiagnostic$DiagnosticFlag);
 		lexError($JCDiagnostic$DiagnosticFlag::SOURCE_LEVEL, pos, $($nc(this->preview)->disabledError(feature)));
-	} else if (!feature->allowedInSource(this->source)) {
+	} else if (!$nc(feature)->allowedInSource(this->source)) {
 		$init($JCDiagnostic$DiagnosticFlag);
 		lexError($JCDiagnostic$DiagnosticFlag::SOURCE_LEVEL, pos, $(feature->error($nc(this->source)->name$)));
 	} else if ($nc(this->preview)->isPreview(feature)) {

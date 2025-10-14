@@ -585,7 +585,7 @@ bool JavacFiler::containedInInitialInputs($String* typename$) {
 	$var($Symbol$ClassSymbol, existingClass, $cast($Symbol$ClassSymbol, $nc(this->elementUtils)->getTypeElement(typename$)));
 	if (existingClass != nullptr) {
 		$assign(sourceFile, existingClass->sourcefile);
-	} else if (typename$->endsWith(".package-info"_s)) {
+	} else if ($nc(typename$)->endsWith(".package-info"_s)) {
 		int32_t var$0 = typename$->length();
 		$var($String, targetName, typename$->substring(0, var$0 - ".package-info"_s->length()));
 		$var($Symbol$PackageSymbol, existingPackage, $cast($Symbol$PackageSymbol, $nc(this->elementUtils)->getPackageElement(targetName)));

@@ -166,8 +166,8 @@ bool ClassWriter$StackMapTableFrame::isSameType($Type* t1, $Type* t2, $Types* ty
 				return false;
 			}
 		} else {
-			bool var$2 = t2->hasTag($TypeTag::UNINITIALIZED_THIS);
-			if (var$2 || t2->hasTag($TypeTag::UNINITIALIZED_OBJECT)) {
+			bool var$2 = $nc(t2)->hasTag($TypeTag::UNINITIALIZED_THIS);
+			if (var$2 || $nc(t2)->hasTag($TypeTag::UNINITIALIZED_OBJECT)) {
 				return false;
 			}
 		}

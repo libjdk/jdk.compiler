@@ -81,12 +81,12 @@ CRTable$SourceRange* CRTable$SourceRange::mergeWith(CRTable$SourceRange* sr) {
 	}
 	if (this->startPos == $Position::NOPOS) {
 		this->startPos = $nc(sr)->startPos;
-	} else if (sr->startPos != $Position::NOPOS) {
+	} else if ($nc(sr)->startPos != $Position::NOPOS) {
 		this->startPos = (this->startPos < sr->startPos ? this->startPos : sr->startPos);
 	}
 	if (this->endPos == $Position::NOPOS) {
-		this->endPos = sr->endPos;
-	} else if (sr->endPos != $Position::NOPOS) {
+		this->endPos = $nc(sr)->endPos;
+	} else if ($nc(sr)->endPos != $Position::NOPOS) {
 		this->endPos = (this->endPos > sr->endPos ? this->endPos : sr->endPos);
 	}
 	return this;

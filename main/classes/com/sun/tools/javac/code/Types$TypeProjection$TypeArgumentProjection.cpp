@@ -133,7 +133,7 @@ $Type* Types$TypeProjection$TypeArgumentProjection::visitType($Type* t, $Types$P
 		bk = $BoundKind::EXTENDS;
 	} else {
 		$init($TypeTag);
-		if (!lower->hasTag($TypeTag::BOT)) {
+		if (!$nc(lower)->hasTag($TypeTag::BOT)) {
 			$assign(bound, lower);
 			$init($BoundKind);
 			bk = $BoundKind::SUPER;

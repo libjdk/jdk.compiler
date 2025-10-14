@@ -490,7 +490,7 @@ int32_t Scope$ScopeImpl::getIndex($Name* name) {
 			if (d < 0) {
 				d = i;
 			}
-		} else if ($nc(e->sym)->name == name) {
+		} else if ($nc($nc(e)->sym)->name == name) {
 			return i;
 		}
 		i = (int32_t)((i + x) & (uint32_t)this->hashMask);

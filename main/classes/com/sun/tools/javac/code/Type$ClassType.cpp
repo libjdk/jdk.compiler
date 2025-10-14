@@ -309,7 +309,7 @@ $String* Type$ClassType::className($Symbol* sym, bool longform) {
 		$var(Type$ClassType, norm, $cast(Type$ClassType, $nc(this->tsym)->type));
 		if (norm == nullptr) {
 			$assign(s, $Log::getLocalizedString("anonymous.class"_s, $$new($ObjectArray, {($Object*)nullptr})));
-		} else if (norm->interfaces_field != nullptr && $nc(norm->interfaces_field)->nonEmpty()) {
+		} else if ($nc(norm)->interfaces_field != nullptr && $nc(norm->interfaces_field)->nonEmpty()) {
 			$assign(s, $Log::getLocalizedString("anonymous.class"_s, $$new($ObjectArray, {$nc(norm->interfaces_field)->head})));
 		} else {
 			$assign(s, $Log::getLocalizedString("anonymous.class"_s, $$new($ObjectArray, {$of(norm->supertype_field)})));

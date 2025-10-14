@@ -278,7 +278,7 @@ void Option$6::process($OptionHelper* helper, $String* option, $String* arg) {
 	$var($String, prev, $nc(helper)->get($Option::MODULE_SOURCE_PATH));
 	if (prev == nullptr) {
 		$Option::process(helper, option, arg);
-	} else if ($nc($(moduleSpecificForm->matcher(arg)))->matches()) {
+	} else if ($nc($($nc(moduleSpecificForm)->matcher(arg)))->matches()) {
 		$var($String, argModule, $nc(arg)->substring(0, arg->indexOf((int32_t)u'=')));
 		bool isRepeated = $nc($($nc($($nc($($Arrays::stream($($nc(prev)->split($cstr({'\0'}))))))->filter(static_cast<$Predicate*>($$new(Option$6$$Lambda$lambda$process$0, moduleSpecificForm)))))->map(static_cast<$Function*>($$new(Option$6$$Lambda$lambda$process$1$1)))))->anyMatch(static_cast<$Predicate*>($$new(Option$6$$Lambda$lambda$process$2$2, argModule)));
 		if (isRepeated) {

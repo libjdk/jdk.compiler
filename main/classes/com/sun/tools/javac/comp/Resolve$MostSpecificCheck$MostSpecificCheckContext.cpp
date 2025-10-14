@@ -160,7 +160,7 @@ bool Resolve$MostSpecificCheck$MostSpecificCheckContext::unrelatedInterfaces($Ty
 			}
 		}
 		return true;
-	} else if (s->isCompound()) {
+	} else if ($nc(s)->isCompound()) {
 		{
 			$var($Iterator, i$, $nc($($nc($nc(this->this$1->this$0)->types)->interfaces(s)))->iterator());
 			for (; $nc(i$)->hasNext();) {

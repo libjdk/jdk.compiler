@@ -751,7 +751,7 @@ void ClassFinder::init$($Context* context) {
 		if (var$1) {
 			bool var$2 = $nc(javacFileManager)->isDefaultBootClassPath();
 			useCtProps = var$2 && javacFileManager->isSymbolFileEnabled();
-		} else if ($nc($($of(fm)->getClass()->getName()))->equals("com.sun.tools.sjavac.comp.SmartFileManager"_s)) {
+		} else if ($nc($($nc($of(fm))->getClass()->getName()))->equals("com.sun.tools.sjavac.comp.SmartFileManager"_s)) {
 			useCtProps = !options->isSet("ignore.symbol.file"_s);
 		} else {
 			useCtProps = false;
@@ -986,15 +986,15 @@ void ClassFinder::includeClassFile($Symbol$PackageSymbol* p, $JavaFileObject* fi
 		}
 		if (isPkgInfo) {
 			$set(p, package_info, c);
-		} else if ($equals(c->owner, p)) {
+		} else if ($equals($nc(c)->owner, p)) {
 			$nc(p->members_field)->enter(c);
 		}
-	} else if (!this->preferCurrent && c->classfile != nullptr && ((int64_t)(c->flags_field & (uint64_t)(int64_t)seen)) == 0) {
+	} else if (!this->preferCurrent && $nc(c)->classfile != nullptr && ((int64_t)(c->flags_field & (uint64_t)(int64_t)seen)) == 0) {
 		if (((int64_t)(c->flags_field & (uint64_t)(int64_t)(0x02000000 | 0x04000000))) != 0) {
 			$set(c, classfile, preferredFileObject(file, c->classfile));
 		}
 	}
-	c->flags_field |= seen;
+	$nc(c)->flags_field |= seen;
 }
 
 $JavaFileObject* ClassFinder::preferredFileObject($JavaFileObject* a, $JavaFileObject* b) {

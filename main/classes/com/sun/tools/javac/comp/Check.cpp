@@ -2356,7 +2356,7 @@ $Type* Check::checkDiamond($JCTree$JCNewClass* tree, $Type* t) {
 			$var($JCDiagnostic$DiagnosticPosition, var$3, $nc($nc(tree)->clazz)->pos());
 			$nc(this->log)->error(var$3, $($CompilerProperties$Errors::CantApplyDiamond1(t, $($CompilerProperties$Fragments::DiamondNonGeneric(t)))));
 			return $nc(this->types)->createErrorType(t);
-		} else if (tree->typeargs != nullptr && $nc(tree->typeargs)->nonEmpty()) {
+		} else if ($nc(tree)->typeargs != nullptr && $nc(tree->typeargs)->nonEmpty()) {
 			$var($JCDiagnostic$DiagnosticPosition, var$4, $nc(tree->clazz)->pos());
 			$nc(this->log)->error(var$4, $($CompilerProperties$Errors::CantApplyDiamond1(t, $($CompilerProperties$Fragments::DiamondAndExplicitParams(t)))));
 			return $nc(this->types)->createErrorType(t);
@@ -3073,7 +3073,7 @@ void Check::checkOverride($JCTree* tree, $Symbol$MethodSymbol* m, $Symbol$Method
 		$nc(this->log)->error(var$19, $($CompilerProperties$Errors::OverrideMethDoesntThrow($(cannotOverride(m, other)), $cast($Type, $nc(unhandledUnerased)->head))));
 		$nc(m)->flags_field |= 0x0000200000000000;
 		return;
-	} else if (unhandledUnerased->nonEmpty()) {
+	} else if ($nc(unhandledUnerased)->nonEmpty()) {
 		$var($JCDiagnostic$DiagnosticPosition, var$20, $TreeInfo::diagnosticPositionFor(static_cast<$Symbol*>(m), tree));
 		warnUnchecked(var$20, $($CompilerProperties$Warnings::OverrideUncheckedThrown($(cannotOverride(m, other)), $cast($Type, unhandledUnerased->head))));
 		return;
@@ -3422,7 +3422,7 @@ void Check::checkOverride($Env* env, $JCTree$JCMethodDecl* tree, $Symbol$MethodS
 			for (; $nc(i$)->hasNext();) {
 				$var($JCTree$JCAnnotation, a, $cast($JCTree$JCAnnotation, i$->next()));
 				{
-					if ($nc($nc(a->annotationType)->type)->tsym == $nc($nc(this->syms)->overrideType)->tsym) {
+					if ($nc($nc($nc(a)->annotationType)->type)->tsym == $nc($nc(this->syms)->overrideType)->tsym) {
 						$assign(pos, a->pos());
 						break;
 					}
@@ -3443,7 +3443,7 @@ void Check::checkOverride($JCTree* tree, $Type* site, $Symbol$ClassSymbol* origi
 			$var($Symbol, sym, $cast($Symbol, i$->next()));
 			{
 				if ($nc(m)->overrides(sym, origin, this->types, false)) {
-					if (((int64_t)(sym->flags() & (uint64_t)(int64_t)1024)) == 0) {
+					if (((int64_t)($nc(sym)->flags() & (uint64_t)(int64_t)1024)) == 0) {
 						checkOverride(tree, m, $cast($Symbol$MethodSymbol, sym), origin);
 					}
 				}
@@ -3577,7 +3577,7 @@ void Check::checkNonCyclic1($JCDiagnostic$DiagnosticPosition* pos, $Type* t, $Li
 		$nc(tv)->setUpperBound($($nc(this->types)->createErrorType(t)));
 		$nc(this->log)->error(pos, $($CompilerProperties$Errors::CyclicInheritance(t)));
 	} else {
-		if (t->hasTag($TypeTag::TYPEVAR)) {
+		if ($nc(t)->hasTag($TypeTag::TYPEVAR)) {
 			$assign(tv, $cast($Type$TypeVar, t));
 			$assign(seen, seen->prepend(tv));
 			{
@@ -3637,10 +3637,10 @@ bool Check::checkNonCyclicInternal($JCDiagnostic$DiagnosticPosition* pos, $Type*
 		}
 	}
 	if (complete) {
-		complete = (((int64_t)(c->flags_field & (uint64_t)(int64_t)0x10000000)) == 0) && c->isCompleted();
+		complete = (((int64_t)($nc(c)->flags_field & (uint64_t)(int64_t)0x10000000)) == 0) && c->isCompleted();
 	}
 	if (complete) {
-		c->flags_field |= 0x40000000;
+		$nc(c)->flags_field |= 0x40000000;
 	}
 	return complete;
 }
@@ -3681,9 +3681,9 @@ void Check::checkImplementations($JCTree* tree, $Symbol$ClassSymbol* origin, $Sy
 						$var($Symbol, sym, $cast($Symbol, i$->next()));
 						{
 							$init($Kinds$Kind);
-							if (sym->kind == $Kinds$Kind::MTH && ((int64_t)(sym->flags() & (uint64_t)(int64_t)(8 | 1024))) == 1024) {
+							if ($nc(sym)->kind == $Kinds$Kind::MTH && ((int64_t)(sym->flags() & (uint64_t)(int64_t)(8 | 1024))) == 1024) {
 								$var($Symbol$MethodSymbol, absmeth, $cast($Symbol$MethodSymbol, sym));
-								$var($Symbol$MethodSymbol, implmeth, $nc(absmeth)->implementation(origin, this->types, false));
+								$var($Symbol$MethodSymbol, implmeth, absmeth->implementation(origin, this->types, false));
 								bool var$0 = implmeth != nullptr && implmeth != absmeth;
 								if (var$0) {
 									int64_t var$1 = ((int64_t)($nc(implmeth->owner)->flags() & (uint64_t)(int64_t)512));
@@ -3734,13 +3734,13 @@ void Check::checkOverrideClashes($JCDiagnostic$DiagnosticPosition* pos, $Type* s
 	$var($List, potentiallyAmbiguousList, $List::nil());
 	bool overridesAny = false;
 	$var($ArrayList, symbolsByName, $new($ArrayList));
-	$nc($($nc($($nc(this->types)->membersClosure(site, false)))->getSymbolsByName(sym->name, static_cast<$Predicate*>(cf))))->forEach(static_cast<$Consumer*>($$new(Check$$Lambda$add$7, static_cast<$ArrayList*>(symbolsByName))));
+	$nc($($nc($($nc(this->types)->membersClosure(site, false)))->getSymbolsByName($nc(sym)->name, static_cast<$Predicate*>(cf))))->forEach(static_cast<$Consumer*>($$new(Check$$Lambda$add$7, static_cast<$ArrayList*>(symbolsByName))));
 	{
 		$var($Iterator, i$, symbolsByName->iterator());
 		for (; $nc(i$)->hasNext();) {
 			$var($Symbol, m1, $cast($Symbol, i$->next()));
 			{
-				if (!sym->overrides(m1, $nc(site)->tsym, this->types, false)) {
+				if (!$nc(sym)->overrides(m1, $nc(site)->tsym, this->types, false)) {
 					if ($equals(m1, sym)) {
 						continue;
 					}
@@ -3761,7 +3761,7 @@ void Check::checkOverrideClashes($JCDiagnostic$DiagnosticPosition* pos, $Type* s
 							if (m2 == m1) {
 								continue;
 							}
-							$var($Type, var$1, sym->type);
+							$var($Type, var$1, $nc(sym)->type);
 							$var($Type, var$2, $nc(this->types)->memberType(site, m2));
 							$init($Source$Feature);
 							bool var$0 = !$nc(this->types)->isSubSignature(var$1, var$2, $Source$Feature::STRICT_METHOD_CLASH_CHECK->allowedInSource(this->source));
@@ -3770,7 +3770,7 @@ void Check::checkOverrideClashes($JCDiagnostic$DiagnosticPosition* pos, $Type* s
 								var$0 = $nc(this->types)->hasSameArgs(var$3, $($nc(m1)->erasure(this->types)));
 							}
 							if (var$0) {
-								sym->flags_field |= 0x0000040000000000;
+								$nc(sym)->flags_field |= 0x0000040000000000;
 								if ($equals(m1, sym)) {
 									$var($Name, var$4, $nc(m1)->name);
 									$var($1List, var$5, static_cast<$1List*>($nc($($nc($($nc(this->types)->memberType(site, m1)))->asMethodType()))->getParameterTypes()));
@@ -3814,18 +3814,18 @@ void Check::checkOverrideClashes($JCDiagnostic$DiagnosticPosition* pos, $Type* s
 void Check::checkHideClashes($JCDiagnostic$DiagnosticPosition* pos, $Type* site, $Symbol$MethodSymbol* sym) {
 	$var($Check$ClashFilter, cf, $new($Check$ClashFilter, this, site));
 	{
-		$var($Iterator, i$, $nc($($nc($($nc(this->types)->membersClosure(site, true)))->getSymbolsByName(sym->name, static_cast<$Predicate*>(cf))))->iterator());
+		$var($Iterator, i$, $nc($($nc($($nc(this->types)->membersClosure(site, true)))->getSymbolsByName($nc(sym)->name, static_cast<$Predicate*>(cf))))->iterator());
 		for (; $nc(i$)->hasNext();) {
 			$var($Symbol, s, $cast($Symbol, i$->next()));
 			{
-				$var($Type, var$0, sym->type);
+				$var($Type, var$0, $nc(sym)->type);
 				$var($Type, var$1, $nc(this->types)->memberType(site, s));
 				$init($Source$Feature);
 				if (!$nc(this->types)->isSubSignature(var$0, var$1, $Source$Feature::STRICT_METHOD_CLASH_CHECK->allowedInSource(this->source))) {
 					$var($Type, var$2, $nc(s)->erasure(this->types));
-					if ($nc(this->types)->hasSameArgs(var$2, $(sym->erasure(this->types)))) {
+					if ($nc(this->types)->hasSameArgs(var$2, $($nc(sym)->erasure(this->types)))) {
 						$var($Symbol, var$3, static_cast<$Symbol*>(sym));
-						$var($Symbol, var$4, sym->location());
+						$var($Symbol, var$4, $nc(sym)->location());
 						$var($Symbol, var$5, s);
 						$nc(this->log)->error(pos, $($CompilerProperties$Errors::NameClashSameErasureNoHide(var$3, var$4, var$5, $($nc(s)->location()))));
 						return;
@@ -3973,16 +3973,16 @@ void Check::checkAccessFromSerializableElement($JCTree* tree, bool isLambda) {
 	if (var$0) {
 		$var($Symbol, sym, $TreeInfo::symbol(tree));
 		$init($Kinds$KindSelector);
-		if (!$nc(sym->kind)->matches($Kinds$KindSelector::VAL_MTH)) {
+		if (!$nc($nc(sym)->kind)->matches($Kinds$KindSelector::VAL_MTH)) {
 			return;
 		}
-		if (sym->kind == $Kinds$Kind::VAR) {
+		if ($nc(sym)->kind == $Kinds$Kind::VAR) {
 			bool var$2 = ((int64_t)(sym->flags() & (uint64_t)(int64_t)0x0000000200000000)) != 0;
 			if (var$2 || sym->isDirectlyOrIndirectlyLocal() || sym->name == $nc(this->names)->_this || sym->name == $nc(this->names)->_super) {
 				return;
 			}
 		}
-		bool var$3 = !$nc(this->types)->isSubtype($nc(sym->owner)->type, $nc(this->syms)->serializableType);
+		bool var$3 = !$nc(this->types)->isSubtype($nc($nc(sym)->owner)->type, $nc(this->syms)->serializableType);
 		if (var$3 && isEffectivelyNonPublic(sym)) {
 			if (isLambda) {
 				if (belongsToRestrictedPackage(sym)) {
@@ -4001,11 +4001,11 @@ void Check::checkAccessFromSerializableElement($JCTree* tree, bool isLambda) {
 
 bool Check::isEffectivelyNonPublic($Symbol* sym$renamed) {
 	$var($Symbol, sym, sym$renamed);
-	if (sym->packge() == $nc(this->syms)->rootPackage) {
+	if ($nc(sym)->packge() == $nc(this->syms)->rootPackage) {
 		return false;
 	}
 	$init($Kinds$Kind);
-	while (sym->kind != $Kinds$Kind::PCK) {
+	while ($nc(sym)->kind != $Kinds$Kind::PCK) {
 		if (((int64_t)(sym->flags() & (uint64_t)(int64_t)1)) == 0) {
 			return true;
 		}
@@ -4015,7 +4015,7 @@ bool Check::isEffectivelyNonPublic($Symbol* sym$renamed) {
 }
 
 bool Check::belongsToRestrictedPackage($Symbol* sym) {
-	$var($String, fullName, $nc($nc($(sym->packge()))->fullname)->toString());
+	$var($String, fullName, $nc($nc($($nc(sym)->packge()))->fullname)->toString());
 	bool var$2 = $nc(fullName)->startsWith("java."_s);
 	bool var$1 = var$2 || $nc(fullName)->startsWith("javax."_s);
 	bool var$0 = var$1 || $nc(fullName)->startsWith("sun."_s);
@@ -4121,7 +4121,7 @@ void Check::validateAnnotationMethod($JCDiagnostic$DiagnosticPosition* pos, $Sym
 					$var($Symbol, sym, $cast($Symbol, i$->next()));
 					{
 						$init($Kinds$Kind);
-						bool var$0 = sym->kind == $Kinds$Kind::MTH && ((int64_t)(sym->flags() & (uint64_t)(int64_t)(1 | 4))) != 0;
+						bool var$0 = $nc(sym)->kind == $Kinds$Kind::MTH && ((int64_t)(sym->flags() & (uint64_t)(int64_t)(1 | 4))) != 0;
 						if (var$0 && $nc(this->types)->overrideEquivalent($nc(m)->type, sym->type)) {
 							$nc(this->log)->error(pos, $($CompilerProperties$Errors::IntfAnnotationMemberClash(sym, sup)));
 						}
@@ -4182,7 +4182,7 @@ void Check::validateAnnotation($JCTree$JCAnnotation* a, $JCTree* declarationTree
 		}
 		if (!appliesToRecords) {
 			$init($CompilerProperties$Errors);
-			$nc(this->log)->error($(a->pos()), $CompilerProperties$Errors::AnnotationTypeNotApplicable);
+			$nc(this->log)->error($($nc(a)->pos()), $CompilerProperties$Errors::AnnotationTypeNotApplicable);
 		} else {
 			$var($Symbol$ClassSymbol, recordClass, $cast($Symbol$ClassSymbol, s->owner));
 			$var($Symbol$RecordComponent, rc, $nc(recordClass)->getRecordComponent($cast($Symbol$VarSymbol, s)));
@@ -4194,7 +4194,7 @@ void Check::validateAnnotation($JCTree$JCAnnotation* a, $JCTree* declarationTree
 			}
 		}
 	}
-	if ($nc($nc(a->type)->tsym)->isAnnotationType()) {
+	if ($nc($nc($nc(a)->type)->tsym)->isAnnotationType()) {
 		$var($Optional, applicableTargetsOp, getApplicableTargets(a, s));
 		if (!$nc(applicableTargetsOp)->isEmpty()) {
 			$var($Set, applicableTargets, $cast($Set, applicableTargetsOp->get()));
@@ -4236,7 +4236,7 @@ void Check::validateAnnotation($JCTree$JCAnnotation* a, $JCTree* declarationTree
 			}
 		}
 	}
-	if ($nc($nc(a->annotationType)->type)->tsym == $nc($nc(this->syms)->functionalInterfaceType)->tsym) {
+	if ($nc($nc($nc(a)->annotationType)->type)->tsym == $nc($nc(this->syms)->functionalInterfaceType)->tsym) {
 		if (s->kind != $Kinds$Kind::TYP) {
 			$init($CompilerProperties$Errors);
 			$nc(this->log)->error($(a->pos()), $CompilerProperties$Errors::BadFunctionalIntfAnno);
@@ -4251,10 +4251,10 @@ void Check::validateAnnotation($JCTree$JCAnnotation* a, $JCTree* declarationTree
 }
 
 void Check::validateTypeAnnotation($JCTree$JCAnnotation* a, bool isTypeParameter) {
-	$Assert::checkNonNull(a->type);
+	$Assert::checkNonNull($nc(a)->type);
 	validateAnnotationTree(a);
 	$init($JCTree$Tag);
-	bool var$1 = a->hasTag($JCTree$Tag::TYPE_ANNOTATION);
+	bool var$1 = $nc(a)->hasTag($JCTree$Tag::TYPE_ANNOTATION);
 	bool var$0 = var$1 && !$nc($nc(a->annotationType)->type)->isErroneous();
 	if (var$0 && !isTypeAnnotation(a, isTypeParameter)) {
 		$var($JCDiagnostic$DiagnosticPosition, var$2, a->pos());
@@ -4474,7 +4474,7 @@ void Check::validateDefault($Symbol* container, $JCDiagnostic$DiagnosticPosition
 
 bool Check::isOverrider($Symbol* s) {
 	$init($Kinds$Kind);
-	if (s->kind != $Kinds$Kind::MTH || s->isStatic()) {
+	if ($nc(s)->kind != $Kinds$Kind::MTH || $nc(s)->isStatic()) {
 		return false;
 	}
 	$var($Symbol$MethodSymbol, m, $cast($Symbol$MethodSymbol, s));
@@ -4493,7 +4493,7 @@ bool Check::isOverrider($Symbol* s) {
 					for (; $nc(i$)->hasNext();) {
 						$var($Symbol, sym, $cast($Symbol, i$->next()));
 						{
-							bool var$0 = !sym->isStatic();
+							bool var$0 = !$nc(sym)->isStatic();
 							if (var$0 && m->overrides(sym, owner, this->types, true)) {
 								return true;
 							}
@@ -4507,7 +4507,7 @@ bool Check::isOverrider($Symbol* s) {
 }
 
 bool Check::isTypeAnnotation($JCTree$JCAnnotation* a, bool isTypeParameter) {
-	$var($List, targets, $nc(this->typeAnnotations)->annotationTargets($nc($nc(a->annotationType)->type)->tsym));
+	$var($List, targets, $nc(this->typeAnnotations)->annotationTargets($nc($nc($nc(a)->annotationType)->type)->tsym));
 	return (targets == nullptr) ? false : $nc($($nc(targets)->stream()))->anyMatch(static_cast<$Predicate*>($$new(Check$$Lambda$lambda$isTypeAnnotation$9$9, this, isTypeParameter)));
 }
 
@@ -4517,7 +4517,7 @@ bool Check::isTypeAnnotation($Attribute* a, bool isTypeParameter) {
 }
 
 $NameArray* Check::getTargetNames($JCTree$JCAnnotation* a) {
-	return getTargetNames($nc($nc(a->annotationType)->type)->tsym);
+	return getTargetNames($nc($nc($nc(a)->annotationType)->type)->tsym);
 }
 
 $NameArray* Check::getTargetNames($Symbol$TypeSymbol* annoSym) {
@@ -4555,7 +4555,7 @@ bool Check::annotationApplicable($JCTree$JCAnnotation* a, $Symbol* s) {
 }
 
 $Optional* Check::getApplicableTargets($JCTree$JCAnnotation* a, $Symbol* s) {
-	$var($Attribute$Array, arr, getAttributeTargetAttribute($nc($nc(a->annotationType)->type)->tsym));
+	$var($Attribute$Array, arr, getAttributeTargetAttribute($nc($nc($nc(a)->annotationType)->type)->tsym));
 	$var($NameArray, targets, nullptr);
 	$var($Set, applicableTargets, $new($HashSet));
 	if (arr == nullptr) {
@@ -4585,53 +4585,53 @@ $Optional* Check::getApplicableTargets($JCTree$JCAnnotation* a, $Symbol* s) {
 			{
 				if (target == $nc(this->names)->TYPE) {
 					$init($Kinds$Kind);
-					if (s->kind == $Kinds$Kind::TYP) {
+					if ($nc(s)->kind == $Kinds$Kind::TYP) {
 						applicableTargets->add($nc(this->names)->TYPE);
 					}
 				} else if (target == $nc(this->names)->FIELD) {
 					$init($Kinds$Kind);
-					if (s->kind == $Kinds$Kind::VAR && $nc(s->owner)->kind != $Kinds$Kind::MTH) {
+					if ($nc(s)->kind == $Kinds$Kind::VAR && $nc(s->owner)->kind != $Kinds$Kind::MTH) {
 						applicableTargets->add($nc(this->names)->FIELD);
 					}
 				} else if (target == $nc(this->names)->RECORD_COMPONENT) {
 					$init($ElementKind);
-					if (s->getKind() == $ElementKind::RECORD_COMPONENT) {
+					if ($nc(s)->getKind() == $ElementKind::RECORD_COMPONENT) {
 						applicableTargets->add($nc(this->names)->RECORD_COMPONENT);
 					}
 				} else if (target == $nc(this->names)->METHOD) {
 					$init($Kinds$Kind);
-					if (s->kind == $Kinds$Kind::MTH && !s->isConstructor()) {
+					if ($nc(s)->kind == $Kinds$Kind::MTH && !s->isConstructor()) {
 						applicableTargets->add($nc(this->names)->METHOD);
 					}
 				} else if (target == $nc(this->names)->PARAMETER) {
 					$init($Kinds$Kind);
-					if (s->kind == $Kinds$Kind::VAR && ($nc(s->owner)->kind == $Kinds$Kind::MTH && ((int64_t)(s->flags() & (uint64_t)(int64_t)0x0000000200000000)) != 0)) {
+					if ($nc(s)->kind == $Kinds$Kind::VAR && ($nc(s->owner)->kind == $Kinds$Kind::MTH && ((int64_t)(s->flags() & (uint64_t)(int64_t)0x0000000200000000)) != 0)) {
 						applicableTargets->add($nc(this->names)->PARAMETER);
 					}
 				} else if (target == $nc(this->names)->CONSTRUCTOR) {
 					$init($Kinds$Kind);
-					if (s->kind == $Kinds$Kind::MTH && s->isConstructor()) {
+					if ($nc(s)->kind == $Kinds$Kind::MTH && s->isConstructor()) {
 						applicableTargets->add($nc(this->names)->CONSTRUCTOR);
 					}
 				} else if (target == $nc(this->names)->LOCAL_VARIABLE) {
 					$init($Kinds$Kind);
-					if (s->kind == $Kinds$Kind::VAR && $nc(s->owner)->kind == $Kinds$Kind::MTH && ((int64_t)(s->flags() & (uint64_t)(int64_t)0x0000000200000000)) == 0) {
+					if ($nc(s)->kind == $Kinds$Kind::VAR && $nc(s->owner)->kind == $Kinds$Kind::MTH && ((int64_t)(s->flags() & (uint64_t)(int64_t)0x0000000200000000)) == 0) {
 						applicableTargets->add($nc(this->names)->LOCAL_VARIABLE);
 					}
 				} else if (target == $nc(this->names)->ANNOTATION_TYPE) {
 					$init($Kinds$Kind);
-					if (s->kind == $Kinds$Kind::TYP && ((int64_t)(s->flags() & (uint64_t)(int64_t)8192)) != 0) {
+					if ($nc(s)->kind == $Kinds$Kind::TYP && ((int64_t)(s->flags() & (uint64_t)(int64_t)8192)) != 0) {
 						applicableTargets->add($nc(this->names)->ANNOTATION_TYPE);
 					}
 				} else if (target == $nc(this->names)->PACKAGE) {
 					$init($Kinds$Kind);
-					if (s->kind == $Kinds$Kind::PCK) {
+					if ($nc(s)->kind == $Kinds$Kind::PCK) {
 						applicableTargets->add($nc(this->names)->PACKAGE);
 					}
 				} else if (target == $nc(this->names)->TYPE_USE) {
 					$init($Kinds$Kind);
 					$init($TypeTag);
-					if (s->kind == $Kinds$Kind::VAR && $nc(s->owner)->kind == $Kinds$Kind::MTH && $nc(s->type)->hasTag($TypeTag::NONE)) {
+					if ($nc(s)->kind == $Kinds$Kind::VAR && $nc(s->owner)->kind == $Kinds$Kind::MTH && $nc(s->type)->hasTag($TypeTag::NONE)) {
 						continue;
 					} else {
 						bool var$5 = s->kind == $Kinds$Kind::TYP || s->kind == $Kinds$Kind::VAR;
@@ -4647,12 +4647,12 @@ $Optional* Check::getApplicableTargets($JCTree$JCAnnotation* a, $Symbol* s) {
 				} else if (target == $nc(this->names)->TYPE_PARAMETER) {
 					$init($Kinds$Kind);
 					$init($TypeTag);
-					if (s->kind == $Kinds$Kind::TYP && $nc(s->type)->hasTag($TypeTag::TYPEVAR)) {
+					if ($nc(s)->kind == $Kinds$Kind::TYP && $nc(s->type)->hasTag($TypeTag::TYPEVAR)) {
 						applicableTargets->add($nc(this->names)->TYPE_PARAMETER);
 					}
 				} else if (target == $nc(this->names)->MODULE) {
 					$init($Kinds$Kind);
-					if (s->kind == $Kinds$Kind::MDL) {
+					if ($nc(s)->kind == $Kinds$Kind::MDL) {
 						applicableTargets->add($nc(this->names)->MODULE);
 					}
 				} else {
@@ -4665,7 +4665,7 @@ $Optional* Check::getApplicableTargets($JCTree$JCAnnotation* a, $Symbol* s) {
 }
 
 $Attribute$Array* Check::getAttributeTargetAttribute($Symbol$TypeSymbol* s) {
-	$var($Attribute$Compound, atTarget, $nc($(s->getAnnotationTypeMetadata()))->getTarget());
+	$var($Attribute$Compound, atTarget, $nc($($nc(s)->getAnnotationTypeMetadata()))->getTarget());
 	if (atTarget == nullptr) {
 		return nullptr;
 	}
@@ -4704,7 +4704,7 @@ bool Check::validateAnnotationDeferErrors($JCTree$JCAnnotation* a) {
 
 bool Check::validateAnnotation($JCTree$JCAnnotation* a) {
 	bool isValid = true;
-	$var($Annotate$AnnotationTypeMetadata, metadata, $nc($nc($nc(a->annotationType)->type)->tsym)->getAnnotationTypeMetadata());
+	$var($Annotate$AnnotationTypeMetadata, metadata, $nc($nc($nc($nc(a)->annotationType)->type)->tsym)->getAnnotationTypeMetadata());
 	$var($Set, elements, $nc(metadata)->getAnnotationElements());
 	{
 		$var($Iterator, i$, $nc(a->args)->iterator());
@@ -4754,15 +4754,15 @@ bool Check::validateAnnotation($JCTree$JCAnnotation* a) {
 }
 
 bool Check::validateTargetAnnotationValue($JCTree$JCAnnotation* a) {
-	if ($nc($nc(a->annotationType)->type)->tsym != $nc($nc(this->syms)->annotationTargetType)->tsym || $nc(a->args)->tail == nullptr) {
+	if ($nc($nc($nc(a)->annotationType)->type)->tsym != $nc($nc(this->syms)->annotationTargetType)->tsym || $nc($nc(a)->args)->tail == nullptr) {
 		return true;
 	}
 	bool isValid = true;
 	$init($JCTree$Tag);
-	if (!$nc(($cast($JCTree$JCExpression, $nc(a->args)->head)))->hasTag($JCTree$Tag::ASSIGN)) {
+	if (!$nc(($cast($JCTree$JCExpression, $nc($nc(a)->args)->head)))->hasTag($JCTree$Tag::ASSIGN)) {
 		return false;
 	}
-	$var($JCTree$JCAssign, assign, $cast($JCTree$JCAssign, $nc(a->args)->head));
+	$var($JCTree$JCAssign, assign, $cast($JCTree$JCAssign, $nc($nc(a)->args)->head));
 	$var($Symbol, m, $TreeInfo::symbol($nc(assign)->lhs));
 	if ($nc(m)->name != $nc(this->names)->value) {
 		return false;
@@ -4792,7 +4792,7 @@ bool Check::validateTargetAnnotationValue($JCTree$JCAnnotation* a) {
 void Check::checkDeprecatedAnnotation($JCDiagnostic$DiagnosticPosition* pos, $Symbol* s) {
 	$init($Lint$LintCategory);
 	bool var$3 = $nc(this->lint)->isEnabled($Lint$LintCategory::DEP_ANN);
-	bool var$2 = var$3 && s->isDeprecatableViaAnnotation();
+	bool var$2 = var$3 && $nc(s)->isDeprecatableViaAnnotation();
 	bool var$1 = var$2 && ((int64_t)(s->flags() & (uint64_t)(int64_t)0x00020000)) != 0;
 	bool var$0 = var$1 && !$nc($nc(this->syms)->deprecatedType)->isErroneous();
 	if (var$0 && s->attribute($nc($nc(this->syms)->deprecatedType)->tsym) == nullptr) {
@@ -4800,7 +4800,7 @@ void Check::checkDeprecatedAnnotation($JCDiagnostic$DiagnosticPosition* pos, $Sy
 		$nc(this->log)->warning($Lint$LintCategory::DEP_ANN, pos, $CompilerProperties$Warnings::MissingDeprecatedAnnotation);
 	}
 	bool var$4 = $nc(this->lint)->isEnabled($Lint$LintCategory::DEPRECATION);
-	if (var$4 && !s->isDeprecatableViaAnnotation()) {
+	if (var$4 && !$nc(s)->isDeprecatableViaAnnotation()) {
 		bool var$5 = !$nc($nc(this->syms)->deprecatedType)->isErroneous();
 		if (var$5 && s->attribute($nc($nc(this->syms)->deprecatedType)->tsym) != nullptr) {
 			$nc(this->log)->warning($Lint$LintCategory::DEPRECATION, pos, $($CompilerProperties$Warnings::DeprecatedAnnotationHasNoEffect($($Kinds::kindName(s)))));
@@ -4813,9 +4813,9 @@ void Check::checkDeprecated($JCDiagnostic$DiagnosticPosition* pos, $Symbol* othe
 }
 
 void Check::checkDeprecated($Supplier* pos, $Symbol* other, $Symbol* s) {
-	bool var$1 = s->isDeprecatedForRemoval();
+	bool var$1 = $nc(s)->isDeprecatedForRemoval();
 	if (!var$1) {
-		bool var$2 = s->isDeprecated();
+		bool var$2 = $nc(s)->isDeprecated();
 		var$1 = var$2 && !$nc(other)->isDeprecated();
 	}
 	bool var$0 = (var$1);
@@ -4824,26 +4824,26 @@ void Check::checkDeprecated($Supplier* pos, $Symbol* other, $Symbol* s) {
 		var$0 = (var$3 || s->outermostClass() == nullptr);
 	}
 	$init($Kinds$Kind);
-	if (var$0 && s->kind != $Kinds$Kind::PCK) {
+	if (var$0 && $nc(s)->kind != $Kinds$Kind::PCK) {
 		$nc(this->deferredLintHandler)->report(static_cast<$DeferredLintHandler$LintLogger*>($$new(Check$$Lambda$lambda$checkDeprecated$11$11, this, pos, s)));
 	}
 }
 
 void Check::checkSunAPI($JCDiagnostic$DiagnosticPosition* pos, $Symbol* s) {
-	if (((int64_t)(s->flags() & (uint64_t)(int64_t)0x0000004000000000)) != 0) {
+	if (((int64_t)($nc(s)->flags() & (uint64_t)(int64_t)0x0000004000000000)) != 0) {
 		$nc(this->deferredLintHandler)->report(static_cast<$DeferredLintHandler$LintLogger*>($$new(Check$$Lambda$lambda$checkSunAPI$12$12, this, pos, s)));
 	}
 }
 
 void Check::checkProfile($JCDiagnostic$DiagnosticPosition* pos, $Symbol* s) {
 	$init($Profile);
-	if (this->profile != $Profile::DEFAULT && ((int64_t)(s->flags() & (uint64_t)(int64_t)0x0000200000000000)) != 0) {
+	if (this->profile != $Profile::DEFAULT && ((int64_t)($nc(s)->flags() & (uint64_t)(int64_t)0x0000200000000000)) != 0) {
 		$nc(this->log)->error(pos, $($CompilerProperties$Errors::NotInProfile(s, this->profile)));
 	}
 }
 
 void Check::checkPreview($JCDiagnostic$DiagnosticPosition* pos, $Symbol* other, $Symbol* s) {
-	bool var$0 = ((int64_t)(s->flags() & (uint64_t)(int64_t)0x0100000000000000)) != 0;
+	bool var$0 = ((int64_t)($nc(s)->flags() & (uint64_t)(int64_t)0x0100000000000000)) != 0;
 	if (var$0) {
 		var$0 = $nc($(s->packge()))->modle != $nc($($nc(other)->packge()))->modle;
 	}
@@ -4921,7 +4921,7 @@ void Check::checkNonCyclicElementsInternal($JCDiagnostic$DiagnosticPosition* pos
 					$var($Symbol, s, $cast($Symbol, i$->next()));
 					{
 						$init($Kinds$Kind);
-						if (s->kind != $Kinds$Kind::MTH) {
+						if ($nc(s)->kind != $Kinds$Kind::MTH) {
 							continue;
 						}
 						checkAnnotationResType(pos, $($nc($nc(($cast($Symbol$MethodSymbol, s)))->type)->getReturnType()));
@@ -4983,7 +4983,7 @@ void Check::checkCyclicConstructors($JCTree$JCClassDecl* tree) {
 	$assign(ctors, $fcast($SymbolArray, $nc($(callMap->keySet()))->toArray(ctors)));
 	{
 		$var($SymbolArray, arr$, ctors);
-		int32_t len$ = arr$->length;
+		int32_t len$ = $nc(arr$)->length;
 		int32_t i$ = 0;
 		for (; i$ < len$; ++i$) {
 			$var($Symbol, caller, arr$->get(i$));
@@ -5031,30 +5031,30 @@ void Check::checkEmptyIf($JCTree$JCIf* tree) {
 }
 
 bool Check::checkUnique($JCDiagnostic$DiagnosticPosition* pos, $Symbol* sym, $Scope* s) {
-	if ($nc(sym->type)->isErroneous()) {
+	if ($nc($nc(sym)->type)->isErroneous()) {
 		return true;
 	}
-	if ($nc(sym->owner)->name == $nc(this->names)->any) {
+	if ($nc($nc(sym)->owner)->name == $nc(this->names)->any) {
 		return false;
 	}
 	{
 		$init($Scope$LookupKind);
-		$var($Iterator, i$, $nc($(s->getSymbolsByName(sym->name, $Scope$LookupKind::NON_RECURSIVE)))->iterator());
+		$var($Iterator, i$, $nc($($nc(s)->getSymbolsByName($nc(sym)->name, $Scope$LookupKind::NON_RECURSIVE)))->iterator());
 		for (; $nc(i$)->hasNext();) {
 			$var($Symbol, byName, $cast($Symbol, i$->next()));
 			{
-				bool var$0 = sym != byName && ((int64_t)($nc(byName)->flags() & (uint64_t)(int64_t)0x0000040000000000)) == 0 && sym->kind == byName->kind && sym->name != $nc(this->names)->error;
+				bool var$0 = sym != byName && ((int64_t)($nc(byName)->flags() & (uint64_t)(int64_t)0x0000040000000000)) == 0 && $nc(sym)->kind == byName->kind && sym->name != $nc(this->names)->error;
 				if (var$0) {
 					$init($Kinds$Kind);
-					bool var$1 = sym->kind != $Kinds$Kind::MTH || $nc(this->types)->hasSameArgs(sym->type, $nc(byName)->type);
+					bool var$1 = sym->kind != $Kinds$Kind::MTH || $nc(this->types)->hasSameArgs($nc(sym)->type, $nc(byName)->type);
 					if (!var$1) {
-						$var($Type, var$2, $nc(this->types)->erasure(sym->type));
+						$var($Type, var$2, $nc(this->types)->erasure($nc(sym)->type));
 						var$1 = $nc(this->types)->hasSameArgs(var$2, $($nc(this->types)->erasure($nc(byName)->type)));
 					}
 					var$0 = (var$1);
 				}
 				if (var$0) {
-					int64_t var$3 = ((int64_t)(sym->flags() & (uint64_t)(int64_t)0x0000000400000000));
+					int64_t var$3 = ((int64_t)($nc(sym)->flags() & (uint64_t)(int64_t)0x0000000400000000));
 					if (var$3 != ((int64_t)($nc(byName)->flags() & (uint64_t)(int64_t)0x0000000400000000))) {
 						sym->flags_field |= 0x0000040000000000;
 						varargsDuplicateError(pos, sym, byName);
@@ -5135,10 +5135,10 @@ void Check::checkImportsUnique($JCTree$JCCompilationUnit* toplevel) {
 
 bool Check::checkUniqueImport($JCDiagnostic$DiagnosticPosition* pos, $Scope* ordinallyImportedSoFar, $Scope* staticallyImportedSoFar, $Scope* topLevelScope, $Symbol* sym, bool staticImport) {
 	$var($Predicate, duplicates, static_cast<$Predicate*>($new(Check$$Lambda$lambda$checkUniqueImport$18$18, sym)));
-	$var($Symbol, ordinaryClashing, $nc(ordinallyImportedSoFar)->findFirst(sym->name, duplicates));
+	$var($Symbol, ordinaryClashing, $nc(ordinallyImportedSoFar)->findFirst($nc(sym)->name, duplicates));
 	$var($Symbol, staticClashing, nullptr);
 	if (ordinaryClashing == nullptr && !staticImport) {
-		$assign(staticClashing, $nc(staticallyImportedSoFar)->findFirst(sym->name, duplicates));
+		$assign(staticClashing, $nc(staticallyImportedSoFar)->findFirst($nc(sym)->name, duplicates));
 	}
 	if (ordinaryClashing != nullptr || staticClashing != nullptr) {
 		if (ordinaryClashing != nullptr) {
@@ -5148,7 +5148,7 @@ bool Check::checkUniqueImport($JCDiagnostic$DiagnosticPosition* pos, $Scope* ord
 		}
 		return false;
 	}
-	$var($Symbol, clashing, $nc(topLevelScope)->findFirst(sym->name, duplicates));
+	$var($Symbol, clashing, $nc(topLevelScope)->findFirst($nc(sym)->name, duplicates));
 	if (clashing != nullptr) {
 		$nc(this->log)->error(pos, $($CompilerProperties$Errors::AlreadyDefinedThisUnit(clashing)));
 		return false;
@@ -5270,7 +5270,7 @@ void Check::checkFunctionalInterface($JCTree$JCClassDecl* tree, $Symbol$ClassSym
 				for (; $nc(i$)->hasNext();) {
 					$var($JCTree$JCAnnotation, a, $cast($JCTree$JCAnnotation, i$->next()));
 					{
-						if ($nc($nc(a->annotationType)->type)->tsym == $nc($nc(this->syms)->functionalInterfaceType)->tsym) {
+						if ($nc($nc($nc(a)->annotationType)->type)->tsym == $nc($nc(this->syms)->functionalInterfaceType)->tsym) {
 							$assign(pos, a->pos());
 							break;
 						}
@@ -5356,7 +5356,7 @@ bool Check::checkTypeContainsImportableElement($Symbol$TypeSymbol* tsym, $Symbol
 		for (; $nc(i$)->hasNext();) {
 			$var($Symbol, sym, $cast($Symbol, i$->next()));
 			{
-				bool var$1 = sym->isStatic();
+				bool var$1 = $nc(sym)->isStatic();
 				bool var$0 = var$1 && importAccessible(sym, packge);
 				if (var$0 && sym->isMemberOf(origin, this->types)) {
 					return true;
@@ -5369,7 +5369,7 @@ bool Check::checkTypeContainsImportableElement($Symbol$TypeSymbol* tsym, $Symbol
 
 bool Check::importAccessible($Symbol* sym, $Symbol$PackageSymbol* packge) {
 	try {
-		int32_t flags = (int32_t)((int64_t)(sym->flags() & (uint64_t)(int64_t)7));
+		int32_t flags = (int32_t)((int64_t)($nc(sym)->flags() & (uint64_t)(int64_t)7));
 		switch (flags) {
 		default:
 			{}
@@ -5428,7 +5428,7 @@ $Directive$ExportsDirective* Check::findExport($Symbol$PackageSymbol* pack) {
 bool Check::isAPISymbol($Symbol* sym$renamed) {
 	$var($Symbol, sym, sym$renamed);
 	$init($Kinds$Kind);
-	while (sym->kind != $Kinds$Kind::PCK) {
+	while ($nc(sym)->kind != $Kinds$Kind::PCK) {
 		bool var$0 = ((int64_t)(sym->flags() & (uint64_t)(int64_t)$Flags::PUBLIC)) == 0;
 		if (var$0 && ((int64_t)(sym->flags() & (uint64_t)(int64_t)$Flags::PROTECTED)) == 0) {
 			return false;
@@ -5623,7 +5623,7 @@ bool Check::lambda$checkUniqueImport$18($Symbol* sym, $Symbol* candidate) {
 bool Check::lambda$checkImportsUnique$17($Symbol* sym) {
 	$init(Check);
 	$init($Kinds$Kind);
-	return sym->kind == $Kinds$Kind::TYP;
+	return $nc(sym)->kind == $Kinds$Kind::TYP;
 }
 
 void Check::lambda$checkDivZero$16($JCDiagnostic$DiagnosticPosition* pos) {
@@ -5671,7 +5671,7 @@ bool Check::lambda$new$6($Symbol* s) {
 	$init(Check);
 	$init($Symbol$MethodSymbol);
 	bool var$0 = $nc($Symbol$MethodSymbol::implementation_filter)->test(s);
-	return var$0 && ((int64_t)(s->flags() & (uint64_t)(int64_t)0x0000200000000000)) == 0;
+	return var$0 && ((int64_t)($nc(s)->flags() & (uint64_t)(int64_t)0x0000200000000000)) == 0;
 }
 
 bool Check::lambda$checkOverride$5($JCTree$JCMethodDecl* tree, $Symbol$RecordComponent* rc) {

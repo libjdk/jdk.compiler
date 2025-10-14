@@ -251,18 +251,18 @@ $Void* RichDiagnosticFormatter$1::visitClassType($Type$ClassType* t, $Void* igno
 			}
 		}
 	}
-	$nc(this->this$0->nameSimplifier)->addUsage(t->tsym);
-	visit($(t->getTypeArguments()));
+	$nc(this->this$0->nameSimplifier)->addUsage($nc(t)->tsym);
+	visit($($nc(t)->getTypeArguments()));
 	$var($Type, enclosingType, nullptr);
 	try {
-		$assign(enclosingType, t->getEnclosingType());
+		$assign(enclosingType, $nc(t)->getEnclosingType());
 	} catch ($Symbol$CompletionFailure&) {
 		$var($Symbol$CompletionFailure, cf, $catch());
 		return nullptr;
 	}
 	$init($Type);
 	if (!$equals(enclosingType, $Type::noType)) {
-		visit($(t->getEnclosingType()));
+		visit($($nc(t)->getEnclosingType()));
 	}
 	return nullptr;
 }

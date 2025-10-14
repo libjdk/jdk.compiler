@@ -537,7 +537,7 @@ void TransTypes::addBridgeIfNeeded($JCDiagnostic$DiagnosticPosition* pos, $Symbo
 				bool var$6 = impl == meth && !$equals(impl->owner, origin) && ((int64_t)(impl->flags() & (uint64_t)(int64_t)16)) == 0;
 				bool var$5 = var$6 && ((int64_t)(meth->flags() & (uint64_t)(int64_t)(1024 | 1))) == 1;
 				if (var$5) {
-					int64_t var$7 = ((int64_t)(origin->flags() & (uint64_t)(int64_t)1));
+					int64_t var$7 = ((int64_t)($nc(origin)->flags() & (uint64_t)(int64_t)1));
 					var$5 = var$7 > ((int64_t)($nc(impl->owner)->flags() & (uint64_t)(int64_t)1));
 				}
 				if (var$5) {
@@ -865,7 +865,7 @@ void TransTypes::visitApply($JCTree$JCMethodInvocation* tree) {
 		$set(tree, varargsElement, $nc(this->types)->erasure(tree->varargsElement));
 	} else {
 		int32_t var$1 = $nc(tree->args)->length();
-		if (var$1 != argtypes->length()) {
+		if (var$1 != $nc(argtypes)->length()) {
 			$Assert::error($($String::format("Incorrect number of arguments; expected %d, found %d"_s, $$new($ObjectArray, {
 				$($of($Integer::valueOf($nc(tree->args)->length()))),
 				$($of($Integer::valueOf(argtypes->length())))
@@ -1015,14 +1015,14 @@ void TransTypes::visitIdent($JCTree$JCIdent* tree) {
 }
 
 void TransTypes::visitSelect($JCTree$JCFieldAccess* tree) {
-	$var($Type, t, $nc(this->types)->skipTypeVars($nc(tree->selected)->type, false));
+	$var($Type, t, $nc(this->types)->skipTypeVars($nc($nc(tree)->selected)->type, false));
 	if ($nc(t)->isCompound()) {
 		$var($JCTree$JCExpression, var$0, $cast($JCTree$JCExpression, translate(static_cast<$JCTree*>(tree->selected), $(erasure($nc(tree->selected)->type)))));
-		$set(tree, selected, coerce(var$0, $(erasure($nc($nc(tree->sym)->owner)->type))));
+		$set($nc(tree), selected, coerce(var$0, $(erasure($nc($nc(tree->sym)->owner)->type))));
 	} else {
-		$set(tree, selected, $cast($JCTree$JCExpression, translate(static_cast<$JCTree*>(tree->selected), $(erasure(t)))));
+		$set($nc(tree), selected, $cast($JCTree$JCExpression, translate(static_cast<$JCTree*>(tree->selected), $(erasure(t)))));
 	}
-	if ($nc(tree->type)->constValue() != nullptr) {
+	if ($nc($nc(tree)->type)->constValue() != nullptr) {
 		$set(this, result, tree);
 	} else {
 		$init($Kinds$Kind);
@@ -1036,38 +1036,38 @@ void TransTypes::visitSelect($JCTree$JCFieldAccess* tree) {
 }
 
 void TransTypes::visitReference($JCTree$JCMemberReference* tree) {
-	$var($Type, t, $nc(this->types)->skipTypeVars($nc(tree->expr)->type, false));
-	$var($Type, receiverTarget, $nc(t)->isCompound() ? erasure($nc($nc(tree->sym)->owner)->type) : erasure(t));
+	$var($Type, t, $nc(this->types)->skipTypeVars($nc($nc(tree)->expr)->type, false));
+	$var($Type, receiverTarget, $nc(t)->isCompound() ? erasure($nc($nc($nc(tree)->sym)->owner)->type) : erasure(t));
 	$init($JCTree$JCMemberReference$ReferenceKind);
-	if (tree->kind == $JCTree$JCMemberReference$ReferenceKind::UNBOUND) {
+	if ($nc(tree)->kind == $JCTree$JCMemberReference$ReferenceKind::UNBOUND) {
 		$set(tree, expr, $nc(this->make)->Type(receiverTarget));
 	} else {
 		$set(tree, expr, $cast($JCTree$JCExpression, translate(static_cast<$JCTree*>(tree->expr), receiverTarget)));
 	}
-	if (!$nc(tree->type)->isIntersection()) {
+	if (!$nc($nc(tree)->type)->isIntersection()) {
 		$set(tree, type, erasure(tree->type));
 	} else {
 		$set(tree, type, $nc(this->types)->erasure($nc($nc($($nc(this->types)->findDescriptorSymbol($nc(tree->type)->tsym)))->owner)->type));
 	}
-	if (tree->varargsElement != nullptr) {
+	if ($nc(tree)->varargsElement != nullptr) {
 		$set(tree, varargsElement, erasure(tree->varargsElement));
 	}
 	$set(this, result, tree);
 }
 
 void TransTypes::visitTypeArray($JCTree$JCArrayTypeTree* tree) {
-	$set(tree, elemtype, $cast($JCTree$JCExpression, translate(static_cast<$JCTree*>(tree->elemtype), ($Type*)nullptr)));
+	$set($nc(tree), elemtype, $cast($JCTree$JCExpression, translate(static_cast<$JCTree*>(tree->elemtype), ($Type*)nullptr)));
 	$set(tree, type, erasure(tree->type));
 	$set(this, result, tree);
 }
 
 void TransTypes::visitTypeApply($JCTree$JCTypeApply* tree) {
-	$var($JCTree, clazz, translate(static_cast<$JCTree*>(tree->clazz), ($Type*)nullptr));
+	$var($JCTree, clazz, translate(static_cast<$JCTree*>($nc(tree)->clazz), ($Type*)nullptr));
 	$set(this, result, clazz);
 }
 
 void TransTypes::visitTypeIntersection($JCTree$JCTypeIntersection* tree) {
-	$set(tree, bounds, translate(tree->bounds, ($Type*)nullptr));
+	$set($nc(tree), bounds, translate(tree->bounds, ($Type*)nullptr));
 	$set(tree, type, erasure(tree->type));
 	$set(this, result, tree);
 }

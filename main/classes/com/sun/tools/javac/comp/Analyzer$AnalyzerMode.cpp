@@ -140,7 +140,7 @@ $EnumSet* Analyzer$AnalyzerMode::getAnalyzerModes($String* opt, $Source* source)
 				bool var$0 = $nc(modes)->contains($$str({"-"_s, $nc(mode)->opt}));
 				if (var$0 || !$nc(mode)->feature->allowedInSource(source)) {
 					$nc(res)->remove(mode);
-				} else if (modes->contains(mode->opt)) {
+				} else if ($nc(modes)->contains(mode->opt)) {
 					$nc(res)->add(mode);
 				}
 			}

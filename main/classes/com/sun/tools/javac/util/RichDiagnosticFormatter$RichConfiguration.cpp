@@ -107,12 +107,12 @@ void RichDiagnosticFormatter$RichConfiguration::init$($Options* options, $Abstra
 					} else if (args->equals("where"_s)) {
 						$nc(this->features)->add($RichDiagnosticFormatter$RichConfiguration$RichFormatterFeature::WHERE_CLAUSES);
 					}
-					if (args->equals("-simpleNames"_s)) {
+					if ($nc(args)->equals("-simpleNames"_s)) {
 						$nc(this->features)->remove($RichDiagnosticFormatter$RichConfiguration$RichFormatterFeature::SIMPLE_NAMES);
 					} else if (args->equals("simpleNames"_s)) {
 						$nc(this->features)->add($RichDiagnosticFormatter$RichConfiguration$RichFormatterFeature::SIMPLE_NAMES);
 					}
-					if (args->equals("-disambiguateTvars"_s)) {
+					if ($nc(args)->equals("-disambiguateTvars"_s)) {
 						$nc(this->features)->remove($RichDiagnosticFormatter$RichConfiguration$RichFormatterFeature::UNIQUE_TYPEVAR_NAMES);
 					} else if (args->equals("disambiguateTvars"_s)) {
 						$nc(this->features)->add($RichDiagnosticFormatter$RichConfiguration$RichFormatterFeature::UNIQUE_TYPEVAR_NAMES);

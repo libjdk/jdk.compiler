@@ -110,7 +110,7 @@ JavaCompiler$CompilePolicy* JavaCompiler$CompilePolicy::decode($String* option) 
 	if (option == nullptr) {
 		$init($JavaCompiler);
 		return $JavaCompiler::DEFAULT_COMPILE_POLICY;
-	} else if (option->equals("simple"_s)) {
+	} else if ($nc(option)->equals("simple"_s)) {
 		return JavaCompiler$CompilePolicy::SIMPLE;
 	} else if (option->equals("byfile"_s)) {
 		return JavaCompiler$CompilePolicy::BY_FILE;

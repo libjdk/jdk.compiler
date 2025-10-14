@@ -227,7 +227,7 @@ void AttrRecover$1::visitReturn($JCTree$JCReturn* tree) {
 			$set(this, result, err);
 			$nc(this->val$rollback)->append(static_cast<$Runnable*>($$new(AttrRecover$1$$Lambda$lambda$visitReturn$0, this, this->val$lambda, err, tree)));
 		}
-	} else if (tree->expr == nullptr) {
+	} else if ($nc(tree)->expr == nullptr) {
 		$set(tree, expr, $nc($($nc(this->this$0->make)->Erroneous()))->setType($nc(this->this$0->syms)->errType));
 		$nc(this->val$rollback)->append(static_cast<$Runnable*>($$new(AttrRecover$1$$Lambda$lambda$visitReturn$1$1, tree)));
 	}

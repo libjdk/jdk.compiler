@@ -1045,7 +1045,7 @@ $Symbol$ClassSymbol* Symtab::enterClass($Symbol$ModuleSymbol* msym, $Name* name,
 		doEnterClass(msym, c);
 	} else {
 		$init($Kinds$Kind);
-		if ((c->name != name || !$equals(c->owner, owner)) && owner->kind == $Kinds$Kind::TYP && $nc(c->owner)->kind == $Kinds$Kind::PCK) {
+		if ((c->name != name || !$equals(c->owner, owner)) && $nc(owner)->kind == $Kinds$Kind::TYP && $nc(c->owner)->kind == $Kinds$Kind::PCK) {
 			$nc($($nc(c->owner)->members()))->remove(c);
 			$set(c, name, name);
 			$set(c, owner, owner);
@@ -1297,7 +1297,7 @@ $Symbol$VarSymbol* Symtab::lambda$getClassField$0($Type* type, $Types* types, $T
 	}
 	$var($Type, var$1, $nc(this->classType)->getEnclosingType());
 	$var($Type, t, $new($Type$ClassType, var$1, $($List::of(arg)), $nc(this->classType)->tsym));
-	return $new($Symbol$VarSymbol, (8 | 1) | 16, $nc(this->names)->_class, t, type->tsym);
+	return $new($Symbol$VarSymbol, (8 | 1) | 16, $nc(this->names)->_class, t, $nc(type)->tsym);
 }
 
 void clinit$Symtab($Class* class$) {

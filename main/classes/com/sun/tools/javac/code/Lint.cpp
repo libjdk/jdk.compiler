@@ -203,7 +203,7 @@ void Lint::init$($Context* context) {
 		for (; i$ < len$; ++i$) {
 			$Lint$LintCategory* lc = arr$->get(i$);
 			{
-				if (options->isSet($Option::XLINT_CUSTOM, $nc(lc)->option)) {
+				if ($nc(options)->isSet($Option::XLINT_CUSTOM, $nc(lc)->option)) {
 					$nc(this->values)->add(lc);
 				} else {
 					if (options->isSet($Option::XLINT_CUSTOM, $$str({"-"_s, $nc(lc)->option}))) {

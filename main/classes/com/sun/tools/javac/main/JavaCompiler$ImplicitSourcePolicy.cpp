@@ -108,7 +108,7 @@ JavaCompiler$ImplicitSourcePolicy* JavaCompiler$ImplicitSourcePolicy::decode($St
 	$init(JavaCompiler$ImplicitSourcePolicy);
 	if (option == nullptr) {
 		return JavaCompiler$ImplicitSourcePolicy::UNSET;
-	} else if (option->equals("none"_s)) {
+	} else if ($nc(option)->equals("none"_s)) {
 		return JavaCompiler$ImplicitSourcePolicy::NONE;
 	} else if (option->equals("class"_s)) {
 		return JavaCompiler$ImplicitSourcePolicy::CLASS;

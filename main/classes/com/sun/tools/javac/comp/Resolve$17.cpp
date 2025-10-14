@@ -105,7 +105,7 @@ $Resolve$ReferenceLookupResult* Resolve$17::unboundResult($Resolve$ReferenceLook
 	if (var$0 && !boundRes->hasKind($Resolve$ReferenceLookupResult$StaticKind::NON_STATIC)) {
 		return boundRes;
 	} else {
-		bool var$2 = unboundRes->isSuccess();
+		bool var$2 = $nc(unboundRes)->isSuccess();
 		if (var$2 && !unboundRes->hasKind($Resolve$ReferenceLookupResult$StaticKind::STATIC)) {
 			return unboundRes;
 		} else {

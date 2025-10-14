@@ -1230,7 +1230,7 @@ $List* Types::functionalInterfaceBridges($Symbol$TypeSymbol* origin) {
 			{
 				if (m2 == descSym) {
 					continue;
-				} else if (descSym->overrides(m2, origin, this, false)) {
+				} else if ($nc(descSym)->overrides(m2, origin, this, false)) {
 					{
 						$var($Iterator, i$, overridden->iterator());
 						for (; $nc(i$)->hasNext();) {
@@ -1335,7 +1335,7 @@ bool Types::isSubtypeUncheckedInternal($Type* t, $Type* s, bool capture, $Warner
 
 void Types::checkUnsafeVarargsConversion($Type* t, $Type* s, $Warner* warn) {
 	$init($TypeTag);
-	bool var$0 = !t->hasTag($TypeTag::ARRAY);
+	bool var$0 = !$nc(t)->hasTag($TypeTag::ARRAY);
 	if (var$0 || isReifiable(t)) {
 		return;
 	}
@@ -1348,14 +1348,14 @@ void Types::checkUnsafeVarargsConversion($Type* t, $Type* s, $Warner* warn) {
 		case 1:
 			{
 				$assign(to, $cast($Type$ArrayType, s));
-				bool var$2 = from->isVarargs();
+				bool var$2 = $nc(from)->isVarargs();
 				bool var$1 = var$2 && !$nc(to)->isVarargs();
 				shouldWarn = var$1 && !isReifiable(from);
 				break;
 			}
 		case 2:
 			{
-				shouldWarn = from->isVarargs();
+				shouldWarn = $nc(from)->isVarargs();
 				break;
 			}
 		}
@@ -1375,7 +1375,7 @@ bool Types::isSubtypeNoCapture($Type* t, $Type* s) {
 }
 
 bool Types::isSubtype($Type* t, $Type* s, bool capture) {
-	if (t->equalsIgnoreMetadata(s)) {
+	if ($nc(t)->equalsIgnoreMetadata(s)) {
 		return true;
 	}
 	if ($nc(s)->isPartial()) {
@@ -1396,7 +1396,7 @@ bool Types::isSubtype($Type* t, $Type* s, bool capture) {
 		return true;
 	}
 	$init($TypeTag);
-	bool var$0 = !t->hasTag($TypeTag::UNDETVAR);
+	bool var$0 = !$nc(t)->hasTag($TypeTag::UNDETVAR);
 	if (var$0 && !t->isCompound()) {
 		$var($Type, lower, cvarLowerBound($(wildLowerBound(s))));
 		if (s != lower && !$nc(lower)->hasTag($TypeTag::BOT)) {
@@ -1440,7 +1440,7 @@ bool Types::isSubtypesUnchecked($List* ts$renamed, $List* ss$renamed, $Warner* w
 
 bool Types::isSuperType($Type* t, $Type* s) {
 	$init($Types$25);
-	switch ($nc($Types$25::$SwitchMap$com$sun$tools$javac$code$TypeTag)->get($nc(($(t->getTag())))->ordinal())) {
+	switch ($nc($Types$25::$SwitchMap$com$sun$tools$javac$code$TypeTag)->get($nc(($($nc(t)->getTag())))->ordinal())) {
 	case 16:
 		{
 			return true;
@@ -1489,7 +1489,7 @@ bool Types::isSameType($Type* t, $Type* s) {
 
 bool Types::containedBy($Type* t, $Type* s) {
 	$init($Types$25);
-	switch ($nc($Types$25::$SwitchMap$com$sun$tools$javac$code$TypeTag)->get($nc(($(t->getTag())))->ordinal())) {
+	switch ($nc($Types$25::$SwitchMap$com$sun$tools$javac$code$TypeTag)->get($nc(($($nc(t)->getTag())))->ordinal())) {
 	case 17:
 		{
 			$init($TypeTag);
@@ -1573,7 +1573,7 @@ bool Types::isSameWildcard($Type$WildcardType* t, $Type* s) {
 		return false;
 	}
 	$var($Type$WildcardType, w, $cast($Type$WildcardType, s));
-	return $nc(w)->kind == t->kind && w->type == t->type;
+	return $nc(w)->kind == $nc(t)->kind && w->type == t->type;
 }
 
 bool Types::containsTypeEquivalent($List* ts$renamed, $List* ss$renamed) {
@@ -1603,7 +1603,7 @@ bool Types::isCastable($Type* t$renamed, $Type* s, $Warner* warn) {
 	if (t == s) {
 		return true;
 	}
-	bool var$0 = t->isPrimitive();
+	bool var$0 = $nc(t)->isPrimitive();
 	if (var$0 != $nc(s)->isPrimitive()) {
 		$assign(t, skipTypeVars(t, false));
 		bool var$1 = isConvertible(t, s, warn);
@@ -1634,7 +1634,7 @@ bool Types::isCastable($Type* t$renamed, $Type* s, $Warner* warn) {
 		result = $nc(($cast($Boolean, $($nc(this->isCastable$)->visit(t, s)))))->booleanValue();
 	}
 	$init($TypeTag);
-	bool var$7 = result && t->hasTag($TypeTag::CLASS);
+	bool var$7 = result && $nc(t)->hasTag($TypeTag::CLASS);
 	$init($Kinds$KindSelector);
 	bool var$6 = var$7 && $nc($nc(t->tsym)->kind)->matches($Kinds$KindSelector::TYP);
 	bool var$5 = var$6 && $nc(s)->hasTag($TypeTag::CLASS);
@@ -1644,8 +1644,8 @@ bool Types::isCastable($Type* t$renamed, $Type* s, $Warner* warn) {
 		var$4 = (var$8 || $nc(s->tsym)->isSealed());
 	}
 	if (var$4) {
-		bool var$9 = t->isCompound();
-		return (var$9 || $nc(s)->isCompound()) ? false : !areDisjoint($cast($Symbol$ClassSymbol, t->tsym), $cast($Symbol$ClassSymbol, $nc(s)->tsym));
+		bool var$9 = $nc(t)->isCompound();
+		return (var$9 || $nc(s)->isCompound()) ? false : !areDisjoint($cast($Symbol$ClassSymbol, $nc(t)->tsym), $cast($Symbol$ClassSymbol, $nc(s)->tsym));
 	}
 	return result;
 }
@@ -1708,7 +1708,7 @@ bool Types::notSoftSubtype($Type* t, $Type* s$renamed) {
 		return false;
 	}
 	$init($TypeTag);
-	if (t->hasTag($TypeTag::TYPEVAR)) {
+	if ($nc(t)->hasTag($TypeTag::TYPEVAR)) {
 		$var($Type$TypeVar, tv, $cast($Type$TypeVar, t));
 		$var($Type, var$0, tv->getUpperBound());
 		return !isCastable(var$0, $(relaxBound(s)), this->noWarnings);
@@ -1721,7 +1721,7 @@ bool Types::notSoftSubtype($Type* t, $Type* s$renamed) {
 
 $Type* Types::relaxBound($Type* t) {
 	$init($TypeTag);
-	return (t->hasTag($TypeTag::TYPEVAR)) ? rewriteQuantifiers($(skipTypeVars(t, false)), true, true) : t;
+	return ($nc(t)->hasTag($TypeTag::TYPEVAR)) ? rewriteQuantifiers($(skipTypeVars(t, false)), true, true) : t;
 }
 
 bool Types::isReifiable($Type* t) {
@@ -1739,7 +1739,7 @@ bool Types::isArray($Type* t$renamed) {
 
 $Type* Types::elemtype($Type* t) {
 	$init($Types$25);
-	switch ($nc($Types$25::$SwitchMap$com$sun$tools$javac$code$TypeTag)->get($nc(($(t->getTag())))->ordinal())) {
+	switch ($nc($Types$25::$SwitchMap$com$sun$tools$javac$code$TypeTag)->get($nc(($($nc(t)->getTag())))->ordinal())) {
 	case 14:
 		{
 			return elemtype($(wildUpperBound(t)));
@@ -1781,8 +1781,8 @@ int32_t Types::dimensions($Type* t$renamed) {
 
 $Type$ArrayType* Types::makeArrayType($Type* t) {
 	$init($TypeTag);
-	bool var$0 = t->hasTag($TypeTag::VOID);
-	if (var$0 || t->hasTag($TypeTag::PACKAGE)) {
+	bool var$0 = $nc(t)->hasTag($TypeTag::VOID);
+	if (var$0 || $nc(t)->hasTag($TypeTag::PACKAGE)) {
 		$Assert::error($$str({"Type t must not be a VOID or PACKAGE type, "_s, $(t->toString())}));
 	}
 	return $new($Type$ArrayType, t, $nc(this->syms)->arrayClass);
@@ -1798,7 +1798,7 @@ $Type* Types::asSuper($Type* t, $Symbol* sym) {
 $Type* Types::asOuterSuper($Type* t$renamed, $Symbol* sym) {
 	$var($Type, t, t$renamed);
 	$init($Types$25);
-	switch ($nc($Types$25::$SwitchMap$com$sun$tools$javac$code$TypeTag)->get($nc(($(t->getTag())))->ordinal())) {
+	switch ($nc($Types$25::$SwitchMap$com$sun$tools$javac$code$TypeTag)->get($nc(($($nc(t)->getTag())))->ordinal())) {
 	case 2:
 		{
 			do {
@@ -1833,7 +1833,7 @@ $Type* Types::asOuterSuper($Type* t$renamed, $Symbol* sym) {
 $Type* Types::asEnclosingSuper($Type* t$renamed, $Symbol* sym) {
 	$var($Type, t, t$renamed);
 	$init($Types$25);
-	switch ($nc($Types$25::$SwitchMap$com$sun$tools$javac$code$TypeTag)->get($nc(($(t->getTag())))->ordinal())) {
+	switch ($nc($Types$25::$SwitchMap$com$sun$tools$javac$code$TypeTag)->get($nc(($($nc(t)->getTag())))->ordinal())) {
 	case 2:
 		{
 			do {
@@ -1877,10 +1877,10 @@ bool Types::isAssignable($Type* t, $Type* s) {
 
 bool Types::isAssignable($Type* t, $Type* s, $Warner* warn) {
 	$init($TypeTag);
-	if (t->hasTag($TypeTag::ERROR)) {
+	if ($nc(t)->hasTag($TypeTag::ERROR)) {
 		return true;
 	}
-	bool var$0 = $nc($(t->getTag()))->isSubRangeOf($TypeTag::INT);
+	bool var$0 = $nc($($nc(t)->getTag()))->isSubRangeOf($TypeTag::INT);
 	if (var$0 && t->constValue() != nullptr) {
 		int32_t value = $nc(($cast($Number, $(t->constValue()))))->intValue();
 		$init($Types$25);
@@ -1922,11 +1922,11 @@ $Type* Types::erasure($Type* t) {
 }
 
 bool Types::eraseNotNeeded($Type* t) {
-	return (t->isPrimitive()) || ($nc($nc(this->syms)->stringType)->tsym == t->tsym);
+	return ($nc(t)->isPrimitive()) || ($nc($nc(this->syms)->stringType)->tsym == $nc(t)->tsym);
 }
 
 $Type* Types::erasure($Type* t, bool recurse) {
-	if (t->isPrimitive()) {
+	if ($nc(t)->isPrimitive()) {
 		return t;
 	} else {
 		$var($Type, out, $cast($Type, $nc(this->erasure$)->visit(t, $($Boolean::valueOf(recurse)))));
@@ -2004,10 +2004,10 @@ bool Types::isDerivedRaw($Type* t) {
 }
 
 bool Types::isDerivedRawInternal($Type* t) {
-	if (t->isErroneous()) {
+	if ($nc(t)->isErroneous()) {
 		return false;
 	}
-	bool var$1 = t->isRaw();
+	bool var$1 = $nc(t)->isRaw();
 	if (!var$1) {
 		bool var$2 = !$equals(supertype(t), $Type::noType);
 		var$1 = var$2 && isDerivedRaw($(supertype(t)));
@@ -2035,13 +2035,13 @@ void Types::setBounds($Type$TypeVar* t, $List* bounds) {
 }
 
 void Types::setBounds($Type$TypeVar* t, $List* bounds, bool allInterfaces) {
-	t->setUpperBound($nc($nc(bounds)->tail)->isEmpty() ? $cast($Type, $nc(bounds)->head) : $(static_cast<$Type*>(makeIntersectionType(bounds, allInterfaces))));
+	$nc(t)->setUpperBound($nc($nc(bounds)->tail)->isEmpty() ? $cast($Type, $nc(bounds)->head) : $(static_cast<$Type*>(makeIntersectionType(bounds, allInterfaces))));
 	t->rank_field = -1;
 }
 
 $List* Types::getBounds($Type$TypeVar* t) {
 	$init($TypeTag);
-	if ($nc($(t->getUpperBound()))->hasTag($TypeTag::NONE)) {
+	if ($nc($($nc(t)->getUpperBound()))->hasTag($TypeTag::NONE)) {
 		return $List::nil();
 	} else {
 		bool var$1 = $nc($(t->getUpperBound()))->isErroneous();
@@ -2102,7 +2102,7 @@ $Optional* Types::mergeAbstracts($List* ambiguousInOrder, $Type* site, bool sigC
 					return $Optional::empty();
 				} else {
 					$init($TypeTag);
-					if ($nc(s->type)->hasTag($TypeTag::FORALL)) {
+					if ($nc($nc(s)->type)->hasTag($TypeTag::FORALL)) {
 						shouldErase = true;
 					}
 				}
@@ -2258,7 +2258,7 @@ $List* Types::interfaceCandidates($Type* site, $Symbol$MethodSymbol* ms) {
 					bool var$0 = !$nc($nc(site)->tsym)->isInterface();
 					if (var$0 && !$nc($nc(s)->owner)->isInterface()) {
 						return $List::of($cast($Symbol$MethodSymbol, s));
-					} else if (!candidates2->contains(s)) {
+					} else if (!$nc(candidates2)->contains(s)) {
 						$assign(candidates2, candidates2->prepend($cast($Symbol$MethodSymbol, s)));
 					}
 				}
@@ -2319,7 +2319,7 @@ $List* Types::subst($List* ts, $List* from, $List* to) {
 }
 
 $Type* Types::subst($Type* t, $List* from, $List* to) {
-	return t->map($$new($Types$Subst, this, from, to));
+	return $nc(t)->map($$new($Types$Subst, this, from, to));
 }
 
 $List* Types::substBounds($List* tvars, $List* from$renamed, $List* to$renamed) {
@@ -2379,8 +2379,8 @@ $List* Types::substBounds($List* tvars, $List* from$renamed, $List* to$renamed) 
 }
 
 $Type$TypeVar* Types::substBound($Type$TypeVar* t, $List* from, $List* to) {
-	$var($Type, bound1, subst($(t->getUpperBound()), from, to));
-	if (bound1 == t->getUpperBound()) {
+	$var($Type, bound1, subst($($nc(t)->getUpperBound()), from, to));
+	if (bound1 == $nc(t)->getUpperBound()) {
 		return t;
 	} else {
 		$var($Type$TypeVar, tv, $new($Type$TypeVar, t->tsym, nullptr, $nc(this->syms)->botType, $(t->getMetadata())));
@@ -2392,7 +2392,7 @@ $Type$TypeVar* Types::substBound($Type$TypeVar* t, $List* from, $List* to) {
 }
 
 bool Types::hasSameBounds($Type$ForAll* t, $Type$ForAll* s) {
-	$var($List, l1, t->tvars);
+	$var($List, l1, $nc(t)->tvars);
 	$var($List, l2, $nc(s)->tvars);
 	while (true) {
 		bool var$1 = $nc(l1)->nonEmpty();
@@ -2451,7 +2451,7 @@ $Type* Types::createErrorType($Name* name, $Symbol$TypeSymbol* container, $Type*
 
 int32_t Types::rank($Type* t) {
 	$init($Types$25);
-	switch ($nc($Types$25::$SwitchMap$com$sun$tools$javac$code$TypeTag)->get($nc(($(t->getTag())))->ordinal())) {
+	switch ($nc($Types$25::$SwitchMap$com$sun$tools$javac$code$TypeTag)->get($nc(($($nc(t)->getTag())))->ordinal())) {
 	case 2:
 		{
 			{
@@ -2518,7 +2518,7 @@ $String* Types::toString($Symbol* t, $Locale* locale) {
 
 $String* Types::toString($Type* t) {
 	$init($TypeTag);
-	if (t->hasTag($TypeTag::FORALL)) {
+	if ($nc(t)->hasTag($TypeTag::FORALL)) {
 		$var($Type$ForAll, forAll, $cast($Type$ForAll, t));
 		return $str({$(typaramsString(forAll->tvars)), forAll->qtype});
 	}
@@ -2548,12 +2548,12 @@ $String* Types::typaramsString($List* tvars) {
 
 void Types::appendTyparamString($Type$TypeVar* t, $StringBuilder* buf) {
 	$nc(buf)->append($of(t));
-	bool var$0 = t->getUpperBound() == nullptr;
-	if (var$0 || $nc($nc($(t->getUpperBound()))->tsym)->getQualifiedName() == $nc(this->names)->java_lang_Object) {
+	bool var$0 = $nc(t)->getUpperBound() == nullptr;
+	if (var$0 || $nc($nc($($nc(t)->getUpperBound()))->tsym)->getQualifiedName() == $nc(this->names)->java_lang_Object) {
 		return;
 	}
 	buf->append(" extends "_s);
-	$var($Type, bound, t->getUpperBound());
+	$var($Type, bound, $nc(t)->getUpperBound());
 	if (!$nc(bound)->isCompound()) {
 		buf->append($of(bound));
 	} else if (((int64_t)($nc($nc($(erasure(static_cast<$Type*>(t))))->tsym)->flags() & (uint64_t)(int64_t)512)) == 0) {
@@ -2590,7 +2590,7 @@ $List* Types::closure($Type* t) {
 	$var($List, cl, $cast($List, $nc(this->closureCache)->get(t)));
 	if (cl == nullptr) {
 		$var($Type, st, supertype(t));
-		if (!t->isCompound()) {
+		if (!$nc(t)->isCompound()) {
 			$init($TypeTag);
 			if ($nc(st)->hasTag($TypeTag::CLASS)) {
 				$assign(cl, insert($(closure(st)), t));
@@ -2625,9 +2625,9 @@ $Collector* Types::closureCollector(bool minClosure, $BiPredicate* shouldSkip) {
 $List* Types::insert($List* cl, $Type* t, $BiPredicate* shouldSkip) {
 	if ($nc(cl)->isEmpty()) {
 		return cl->prepend(t);
-	} else if (shouldSkip->test(t, $cast($Type, cl->head))) {
+	} else if ($nc(shouldSkip)->test(t, $cast($Type, cl->head))) {
 		return cl;
-	} else if ($nc(t->tsym)->precedes($nc(($cast($Type, cl->head)))->tsym, this)) {
+	} else if ($nc($nc(t)->tsym)->precedes($nc(($cast($Type, cl->head)))->tsym, this)) {
 		return cl->prepend(t);
 	} else {
 		return $nc($(insert(cl->tail, t, shouldSkip)))->prepend($cast($Type, cl->head));
@@ -2641,9 +2641,9 @@ $List* Types::insert($List* cl, $Type* t) {
 $List* Types::union$($List* cl1, $List* cl2, $BiPredicate* shouldSkip) {
 	if ($nc(cl1)->isEmpty()) {
 		return cl2;
-	} else if (cl2->isEmpty()) {
+	} else if ($nc(cl2)->isEmpty()) {
 		return cl1;
-	} else if (shouldSkip->test($cast($Type, cl1->head), $cast($Type, cl2->head))) {
+	} else if ($nc(shouldSkip)->test($cast($Type, cl1->head), $cast($Type, cl2->head))) {
 		return $nc($(union$(cl1->tail, cl2->tail, shouldSkip)))->prepend($cast($Type, cl1->head));
 	} else if ($nc($nc(($cast($Type, cl2->head)))->tsym)->precedes($nc(($cast($Type, cl1->head)))->tsym, this)) {
 		return $nc($(union$(cl1, cl2->tail, shouldSkip)))->prepend($cast($Type, cl2->head));
@@ -2661,20 +2661,20 @@ $List* Types::intersect($List* cl1, $List* cl2) {
 		return cl1;
 	}
 	bool var$0 = $nc(cl1)->isEmpty();
-	if (var$0 || cl2->isEmpty()) {
+	if (var$0 || $nc(cl2)->isEmpty()) {
 		return $List::nil();
 	}
-	if ($nc($nc(($cast($Type, $nc(cl1)->head)))->tsym)->precedes($nc(($cast($Type, cl2->head)))->tsym, this)) {
+	if ($nc($nc(($cast($Type, $nc(cl1)->head)))->tsym)->precedes($nc(($cast($Type, $nc(cl2)->head)))->tsym, this)) {
 		return intersect(cl1->tail, cl2);
 	}
-	if ($nc($nc(($cast($Type, cl2->head)))->tsym)->precedes($nc(($cast($Type, $nc(cl1)->head)))->tsym, this)) {
+	if ($nc($nc(($cast($Type, $nc(cl2)->head)))->tsym)->precedes($nc(($cast($Type, $nc(cl1)->head)))->tsym, this)) {
 		return intersect(cl1, cl2->tail);
 	}
-	if (isSameType($cast($Type, $nc(cl1)->head), $cast($Type, cl2->head))) {
-		return $nc($(intersect($nc(cl1)->tail, cl2->tail)))->prepend($cast($Type, $nc(cl1)->head));
+	if (isSameType($cast($Type, $nc(cl1)->head), $cast($Type, $nc(cl2)->head))) {
+		return $nc($(intersect($nc(cl1)->tail, $nc(cl2)->tail)))->prepend($cast($Type, $nc(cl1)->head));
 	}
 	$init($TypeTag);
-	bool var$1 = $nc(($cast($Type, $nc(cl1)->head)))->tsym == $nc(($cast($Type, cl2->head)))->tsym && $nc(($cast($Type, cl1->head)))->hasTag($TypeTag::CLASS);
+	bool var$1 = $nc(($cast($Type, $nc(cl1)->head)))->tsym == $nc(($cast($Type, $nc(cl2)->head)))->tsym && $nc(($cast($Type, cl1->head)))->hasTag($TypeTag::CLASS);
 	if (var$1 && $nc(($cast($Type, cl2->head)))->hasTag($TypeTag::CLASS)) {
 		bool var$2 = $nc(($cast($Type, cl1->head)))->isParameterized();
 		if (var$2 && $nc(($cast($Type, cl2->head)))->isParameterized()) {
@@ -2686,7 +2686,7 @@ $List* Types::intersect($List* cl1, $List* cl2) {
 			return $nc($(intersect(cl1->tail, cl2->tail)))->prepend($(erasure($cast($Type, cl1->head))));
 		}
 	}
-	return intersect($nc(cl1)->tail, cl2->tail);
+	return intersect($nc(cl1)->tail, $nc(cl2)->tail);
 }
 
 $Type* Types::merge($Type* c1, $Type* c2) {
@@ -2987,8 +2987,8 @@ $Type* Types::glb($Type* t, $Type* s) {
 	if (s == nullptr) {
 		return t;
 	} else {
-		bool var$1 = t->isPrimitive();
-		if (var$1 || s->isPrimitive()) {
+		bool var$1 = $nc(t)->isPrimitive();
+		if (var$1 || $nc(s)->isPrimitive()) {
 			return $nc(this->syms)->errType;
 		} else if (isSubtypeNoCapture(t, s)) {
 			return t;
@@ -3049,8 +3049,8 @@ int32_t Types::hashCode($Type* t, bool strict) {
 }
 
 bool Types::resultSubtype($Type* t, $Type* s, $Warner* warner) {
-	$var($List, tvars, t->getTypeArguments());
-	$var($List, svars, s->getTypeArguments());
+	$var($List, tvars, $nc(t)->getTypeArguments());
+	$var($List, svars, $nc(s)->getTypeArguments());
 	$var($Type, tres, t->getReturnType());
 	$var($Type, sres, subst($(s->getReturnType()), svars, tvars));
 	return covariantReturnType(tres, sres, warner);
@@ -3091,24 +3091,24 @@ bool Types::returnTypeSubstitutable($Type* r1, $Type* r2, $Type* r2res, $Warner*
 bool Types::covariantReturnType($Type* t, $Type* s, $Warner* warner) {
 	bool var$0 = isSameType(t, s);
 	if (!var$0) {
-		bool var$2 = !t->isPrimitive();
-		bool var$1 = var$2 && !s->isPrimitive();
+		bool var$2 = !$nc(t)->isPrimitive();
+		bool var$1 = var$2 && !$nc(s)->isPrimitive();
 		var$0 = var$1 && isAssignable(t, s, warner);
 	}
 	return var$0;
 }
 
 $Symbol$ClassSymbol* Types::boxedClass($Type* t) {
-	return $nc(this->syms)->enterClass($nc(this->syms)->java_base, $nc($nc(this->syms)->boxedName)->get($nc($(t->getTag()))->ordinal()));
+	return $nc(this->syms)->enterClass($nc(this->syms)->java_base, $nc($nc(this->syms)->boxedName)->get($nc($($nc(t)->getTag()))->ordinal()));
 }
 
 $Type* Types::boxedTypeOrType($Type* t) {
-	return t->isPrimitive() ? $nc($(boxedClass(t)))->type : t;
+	return $nc(t)->isPrimitive() ? $nc($(boxedClass(t)))->type : t;
 }
 
 $Type* Types::unboxedType($Type* t) {
 	$init($TypeTag);
-	if (t->hasTag($TypeTag::ERROR)) {
+	if ($nc(t)->hasTag($TypeTag::ERROR)) {
 		$init($Type);
 		return $Type::noType;
 	}
@@ -3144,10 +3144,10 @@ $List* Types::capture($List* ts) {
 $Type* Types::capture($Type* t$renamed) {
 	$var($Type, t, t$renamed);
 	$init($TypeTag);
-	if (!t->hasTag($TypeTag::CLASS)) {
+	if (!$nc(t)->hasTag($TypeTag::CLASS)) {
 		return t;
 	}
-	if (!$equals(t->getEnclosingType(), $Type::noType)) {
+	if (!$equals($nc(t)->getEnclosingType(), $Type::noType)) {
 		$var($Type, capturedEncl, capture($(t->getEnclosingType())));
 		if (capturedEncl != t->getEnclosingType()) {
 			$var($Type, type1, memberType(capturedEncl, t->tsym));
@@ -3157,11 +3157,11 @@ $Type* Types::capture($Type* t$renamed) {
 		}
 	}
 	$var($Type$ClassType, cls, $cast($Type$ClassType, t));
-	bool var$2 = cls->isRaw();
-	if (var$2 || !cls->isParameterized()) {
+	bool var$2 = $nc(cls)->isRaw();
+	if (var$2 || !$nc(cls)->isParameterized()) {
 		return cls;
 	}
-	$var($Type$ClassType, G, $cast($Type$ClassType, $cast($Type, $nc($(cls->asElement()))->asType())));
+	$var($Type$ClassType, G, $cast($Type$ClassType, $cast($Type, $nc($($nc(cls)->asElement()))->asType())));
 	$var($List, A, $nc(G)->getTypeArguments());
 	$var($List, T, cls->getTypeArguments());
 	$var($List, S, freshTypeVariables(T));
@@ -3377,7 +3377,7 @@ void Types::adapt($Type* source, $Type* target, $ListBuffer* from, $ListBuffer* 
 
 void Types::adaptSelf($Type* t, $ListBuffer* from, $ListBuffer* to) {
 	try {
-		adapt($nc(t->tsym)->type, t, from, to);
+		adapt($nc($nc(t)->tsym)->type, t, from, to);
 	} catch ($Types$AdaptFailure&) {
 		$var($Types$AdaptFailure, ex, $catch());
 		$throwNew($AssertionError, $of(ex));
@@ -3520,7 +3520,7 @@ bool Types::lambda$areDisjoint$1($Symbol$ClassSymbol* other, $Symbol* sym) {
 bool Types::lambda$removeWildcards$0($Type* t) {
 	$init(Types);
 	$init($TypeTag);
-	return t->hasTag($TypeTag::WILDCARD);
+	return $nc(t)->hasTag($TypeTag::WILDCARD);
 }
 
 void clinit$Types($Class* class$) {

@@ -364,11 +364,11 @@ $DCTree$DCDocComment* DocCommentParser::parse() {
 	int32_t pos = $Position::NOPOS;
 	if (!$nc(preamble)->isEmpty()) {
 		pos = $nc(($cast($DCTree, preamble->head)))->pos$;
-	} else if (!body->isEmpty()) {
+	} else if (!$nc(body)->isEmpty()) {
 		pos = $nc(($cast($DCTree, body->head)))->pos$;
-	} else if (!tags->isEmpty()) {
+	} else if (!$nc(tags)->isEmpty()) {
 		pos = $nc(($cast($DCTree, tags->head)))->pos$;
-	} else if (!postamble->isEmpty()) {
+	} else if (!$nc(postamble)->isEmpty()) {
 		pos = $nc(($cast($DCTree, postamble->head)))->pos$;
 	}
 	$var($DCTree$DCDocComment, dc, $nc($($nc(this->m)->at(pos)))->newDocCommentTree(this->comment, body, tags, preamble, postamble));
@@ -519,7 +519,7 @@ $DCTree* DocCommentParser::blockTag() {
 			if (tp == nullptr) {
 				$var($List, content, blockContent());
 				return $cast($DCTree, $nc($($nc(this->m)->at(p)))->newUnknownBlockTagTree(name, content));
-			} else if (tp->allowsBlock()) {
+			} else if ($nc(tp)->allowsBlock()) {
 				$init($DocCommentParser$TagParser$Kind);
 				return tp->parse(p, $DocCommentParser$TagParser$Kind::BLOCK);
 			} else {

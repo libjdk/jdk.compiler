@@ -900,7 +900,7 @@ bool Arguments::validate() {
 					if ($nc(baseFileManager)->isDefaultBootClassPath()) {
 						$nc(this->log)->warning($Lint$LintCategory::OPTIONS, $($CompilerProperties$Warnings::SourceNoBootclasspath(source->name$)));
 					}
-				} else if (baseFileManager->isDefaultSystemModulesPath()) {
+				} else if ($nc(baseFileManager)->isDefaultSystemModulesPath()) {
 					$nc(this->log)->warning($Lint$LintCategory::OPTIONS, $($CompilerProperties$Warnings::SourceNoSystemModulesPath(source->name$)));
 				}
 			}
@@ -950,7 +950,7 @@ bool Arguments::validate() {
 		$Option::PATCH_MODULE
 	}));
 	bool var$14 = lintOptions && $nc(this->options)->isSet($Option::PARAMETERS);
-	if (var$14 && !target->hasMethodParameters()) {
+	if (var$14 && !$nc(target)->hasMethodParameters()) {
 		$nc(this->log)->warning($($CompilerProperties$Warnings::OptionParametersUnsupported(target, $Target::JDK1_8)));
 	}
 	$init($StandardLocation);

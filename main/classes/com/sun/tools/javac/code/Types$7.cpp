@@ -222,7 +222,7 @@ $Boolean* Types$7::visitClassType($Type$ClassType* t, $Type* s) {
 				return $Boolean::valueOf(true);
 			} else if (s->isRaw()) {
 				return $Boolean::valueOf(true);
-			} else if (t->isRaw()) {
+			} else if ($nc(t)->isRaw()) {
 				if (!this->this$0->isUnbounded(s)) {
 					$init($Lint$LintCategory);
 					$nc(($cast($Warner, $nc(this->this$0->warnStack)->head)))->warn($Lint$LintCategory::UNCHECKED);
@@ -286,7 +286,7 @@ $Boolean* Types$7::visitClassType($Type$ClassType* t, $Type* s) {
 		if (s->hasTag($TypeTag::CLASS)) {
 			if (((int64_t)($nc(s->tsym)->flags() & (uint64_t)(int64_t)512)) != 0) {
 				return $Boolean::valueOf((((int64_t)($nc($nc(t)->tsym)->flags() & (uint64_t)(int64_t)16)) == 0) ? this->this$0->sideCast(t, s, $cast($Warner, $nc(this->this$0->warnStack)->head)) : this->this$0->sideCastFinal(t, s, $cast($Warner, $nc(this->this$0->warnStack)->head)));
-			} else if (((int64_t)($nc(t->tsym)->flags() & (uint64_t)(int64_t)512)) != 0) {
+			} else if (((int64_t)($nc($nc(t)->tsym)->flags() & (uint64_t)(int64_t)512)) != 0) {
 				return $Boolean::valueOf((((int64_t)($nc(s->tsym)->flags() & (uint64_t)(int64_t)16)) == 0) ? this->this$0->sideCast(t, s, $cast($Warner, $nc(this->this$0->warnStack)->head)) : this->this$0->sideCastFinal(t, s, $cast($Warner, $nc(this->this$0->warnStack)->head)));
 			} else {
 				return $Boolean::valueOf(false);

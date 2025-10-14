@@ -110,7 +110,7 @@ $List* Types$16::visitClassType($Type$ClassType* t, $Void* ignored) {
 			$var($List, formals, $nc($nc(t->tsym)->type)->allparams());
 			if (t->hasErasedSupertypes()) {
 				$set(t, interfaces_field, this->this$0->erasureRecursive(interfaces));
-			} else if (formals->nonEmpty()) {
+			} else if ($nc(formals)->nonEmpty()) {
 				$set(t, interfaces_field, this->this$0->subst(interfaces, formals, actuals));
 			} else {
 				$set(t, interfaces_field, interfaces);

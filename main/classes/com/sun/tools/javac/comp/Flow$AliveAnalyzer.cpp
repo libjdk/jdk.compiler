@@ -883,7 +883,7 @@ void Flow$AliveAnalyzer::visitTry($JCTree$JCTry* tree) {
 	$var($ListBuffer, prevPendingExits, this->pendingExits);
 	$set(this, pendingExits, $new($ListBuffer));
 	{
-		$var($Iterator, i$, $nc(tree->resources)->iterator());
+		$var($Iterator, i$, $nc($nc(tree)->resources)->iterator());
 		for (; $nc(i$)->hasNext();) {
 			$var($JCTree, resource, $cast($JCTree, i$->next()));
 			{
@@ -956,9 +956,9 @@ void Flow$AliveAnalyzer::visitTry($JCTree$JCTry* tree) {
 }
 
 void Flow$AliveAnalyzer::visitIf($JCTree$JCIf* tree) {
-	scan(static_cast<$JCTree*>(tree->cond));
-	scanStat(tree->thenpart);
-	if (tree->elsepart != nullptr) {
+	scan(static_cast<$JCTree*>($nc(tree)->cond));
+	scanStat($nc(tree)->thenpart);
+	if ($nc(tree)->elsepart != nullptr) {
 		$Flow$Liveness* aliveAfterThen = this->alive;
 		$init($Flow$Liveness);
 		$set(this, alive, $Flow$Liveness::ALIVE);
@@ -975,7 +975,7 @@ void Flow$AliveAnalyzer::visitBreak($JCTree$JCBreak* tree) {
 }
 
 void Flow$AliveAnalyzer::visitYield($JCTree$JCYield* tree) {
-	scan(static_cast<$JCTree*>(tree->value));
+	scan(static_cast<$JCTree*>($nc(tree)->value));
 	recordExit($$new($Flow$BaseAnalyzer$PendingExit, tree));
 }
 
@@ -984,30 +984,30 @@ void Flow$AliveAnalyzer::visitContinue($JCTree$JCContinue* tree) {
 }
 
 void Flow$AliveAnalyzer::visitReturn($JCTree$JCReturn* tree) {
-	scan(static_cast<$JCTree*>(tree->expr));
+	scan(static_cast<$JCTree*>($nc(tree)->expr));
 	recordExit($$new($Flow$BaseAnalyzer$PendingExit, tree));
 }
 
 void Flow$AliveAnalyzer::visitThrow($JCTree$JCThrow* tree) {
-	scan(static_cast<$JCTree*>(tree->expr));
+	scan(static_cast<$JCTree*>($nc(tree)->expr));
 	markDead();
 }
 
 void Flow$AliveAnalyzer::visitApply($JCTree$JCMethodInvocation* tree) {
-	scan(static_cast<$JCTree*>(tree->meth));
-	scan(tree->args);
+	scan(static_cast<$JCTree*>($nc(tree)->meth));
+	scan($nc(tree)->args);
 }
 
 void Flow$AliveAnalyzer::visitNewClass($JCTree$JCNewClass* tree) {
-	scan(static_cast<$JCTree*>(tree->encl));
-	scan(tree->args);
-	if (tree->def != nullptr) {
+	scan(static_cast<$JCTree*>($nc(tree)->encl));
+	scan($nc(tree)->args);
+	if ($nc(tree)->def != nullptr) {
 		scan(static_cast<$JCTree*>(tree->def));
 	}
 }
 
 void Flow$AliveAnalyzer::visitLambda($JCTree$JCLambda* tree) {
-	if (tree->type != nullptr && $nc(tree->type)->isErroneous()) {
+	if ($nc(tree)->type != nullptr && $nc(tree->type)->isErroneous()) {
 		return;
 	}
 	$var($ListBuffer, prevPending, this->pendingExits);
@@ -1018,8 +1018,8 @@ void Flow$AliveAnalyzer::visitLambda($JCTree$JCLambda* tree) {
 			$set(this, pendingExits, $new($ListBuffer));
 			$init($Flow$Liveness);
 			$set(this, alive, $Flow$Liveness::ALIVE);
-			scanStat(tree->body);
-			tree->canCompleteNormally = this->alive != $Flow$Liveness::DEAD;
+			scanStat($nc(tree)->body);
+			$nc(tree)->canCompleteNormally = this->alive != $Flow$Liveness::DEAD;
 		} catch ($Throwable&) {
 			$assign(var$0, $catch());
 		} /*finally*/ {
