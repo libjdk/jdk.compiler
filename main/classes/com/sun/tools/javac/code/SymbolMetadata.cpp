@@ -175,6 +175,7 @@ void SymbolMetadata::setClassInitTypeAttributes($List* a) {
 }
 
 void SymbolMetadata::setAttributes(SymbolMetadata* other) {
+	$useLocalCurrentObjectStackCache();
 	if (other == nullptr) {
 		$throwNew($NullPointerException);
 	}
@@ -236,6 +237,7 @@ SymbolMetadata* SymbolMetadata::append($List* l) {
 }
 
 SymbolMetadata* SymbolMetadata::appendUniqueTypes($List* l) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(l)->isEmpty()) {
 	} else if ($nc(this->type_attributes)->isEmpty()) {
 		$set(this, type_attributes, l);
@@ -295,6 +297,7 @@ bool SymbolMetadata::isStarted() {
 }
 
 $List* SymbolMetadata::removeFromCompoundList($List* l, $Attribute$Compound* compound) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, lb, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc(l)->iterator());
@@ -311,6 +314,7 @@ $List* SymbolMetadata::removeFromCompoundList($List* l, $Attribute$Compound* com
 }
 
 void SymbolMetadata::removeDeclarationMetadata($Attribute$Compound* compound) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(this->attributes)->contains(compound)) {
 		$set(this, attributes, removeFromCompoundList(this->attributes, compound));
 	} else {

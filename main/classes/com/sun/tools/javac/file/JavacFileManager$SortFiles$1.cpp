@@ -69,6 +69,7 @@ void JavacFileManager$SortFiles$1::init$($String* $enum$name, int32_t $enum$ordi
 }
 
 int32_t JavacFileManager$SortFiles$1::compare($Path* f1, $Path* f2) {
+	$useLocalCurrentObjectStackCache();
 	return $nc($($nc(f1)->getFileName()))->compareTo($($nc(f2)->getFileName()));
 }
 

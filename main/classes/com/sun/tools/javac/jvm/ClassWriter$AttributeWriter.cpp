@@ -113,6 +113,7 @@ void ClassWriter$AttributeWriter::init$($ClassWriter* this$0) {
 }
 
 void ClassWriter$AttributeWriter::visitConstant($Attribute$Constant* _value) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	if ($nc($nc(_value)->type)->getTag() == $TypeTag::CLASS) {
 		$Assert::check($instanceOf($String, _value->value));
@@ -192,6 +193,7 @@ void ClassWriter$AttributeWriter::visitError($Attribute$Error* x) {
 }
 
 void ClassWriter$AttributeWriter::visitArray($Attribute$Array* array) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->this$0->databuf)->appendByte(u'[');
 	$nc(this->this$0->databuf)->appendChar($nc($nc(array)->values)->length);
 	{

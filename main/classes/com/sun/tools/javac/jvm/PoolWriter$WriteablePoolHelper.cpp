@@ -142,6 +142,7 @@ void PoolWriter$WriteablePoolHelper::init$($PoolWriter* this$0) {
 }
 
 int32_t PoolWriter$WriteablePoolHelper::writeIfNeeded($PoolConstant* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, key, $nc(p)->poolKey(this->this$0->types));
 	$var($Integer, index, $cast($Integer, $nc(this->keysToPos)->get(key)));
 	if (index == nullptr) {
@@ -159,6 +160,7 @@ int32_t PoolWriter$WriteablePoolHelper::writeIfNeeded($PoolConstant* p) {
 }
 
 void PoolWriter$WriteablePoolHelper::writeConstant($PoolConstant* c) {
+	$useLocalCurrentObjectStackCache();
 	int32_t tag = $nc(c)->poolTag();
 	switch (tag) {
 	case $ClassFile::CONSTANT_Class:

@@ -137,6 +137,7 @@ $ints* ClassWriter$1::$SwitchMap$com$sun$tools$javac$code$TypeTag = nullptr;
 $ints* ClassWriter$1::$SwitchMap$com$sun$tools$javac$code$Attribute$RetentionPolicy = nullptr;
 
 void clinit$ClassWriter$1($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(ClassWriter$1::$SwitchMap$com$sun$tools$javac$code$Kinds$Kind, $new($ints, $($Kinds$Kind::values())->length));
 	{
 		try {

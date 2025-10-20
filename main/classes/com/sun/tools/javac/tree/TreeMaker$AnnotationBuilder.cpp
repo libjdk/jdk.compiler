@@ -145,6 +145,7 @@ void TreeMaker$AnnotationBuilder::visitEnum($Attribute$Enum* e) {
 }
 
 void TreeMaker$AnnotationBuilder::visitError($Attribute$Error* e) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Attribute$UnresolvedClass, unresolvedClass, nullptr);
 		bool var$0 = $instanceOf($Attribute$UnresolvedClass, e);
@@ -177,6 +178,7 @@ void TreeMaker$AnnotationBuilder::visitCompound($Attribute$Compound* compound) {
 }
 
 $JCTree$JCAnnotation* TreeMaker$AnnotationBuilder::visitCompoundInternal($Attribute$Compound* compound) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, args, $new($ListBuffer));
 	{
 		$var($List, values, $nc(compound)->values);
@@ -191,6 +193,7 @@ $JCTree$JCAnnotation* TreeMaker$AnnotationBuilder::visitCompoundInternal($Attrib
 }
 
 $JCTree$JCAnnotation* TreeMaker$AnnotationBuilder::visitTypeCompoundInternal($Attribute$TypeCompound* compound) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, args, $new($ListBuffer));
 	{
 		$var($List, values, $nc(compound)->values);
@@ -205,6 +208,7 @@ $JCTree$JCAnnotation* TreeMaker$AnnotationBuilder::visitTypeCompoundInternal($At
 }
 
 void TreeMaker$AnnotationBuilder::visitArray($Attribute$Array* array) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, elems, $new($ListBuffer));
 	for (int32_t i = 0; i < $nc($nc(array)->values)->length; ++i) {
 		elems->append($(translate($nc(array->values)->get(i))));

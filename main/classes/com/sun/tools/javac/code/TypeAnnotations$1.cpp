@@ -123,6 +123,7 @@ $ints* TypeAnnotations$1::$SwitchMap$com$sun$source$tree$MemberReferenceTree$Ref
 $ints* TypeAnnotations$1::$SwitchMap$com$sun$tools$javac$code$TypeAnnotations$AnnotationType = nullptr;
 
 void clinit$TypeAnnotations$1($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(TypeAnnotations$1::$SwitchMap$com$sun$source$tree$Tree$Kind, $new($ints, $($Tree$Kind::values())->length));
 	{
 		try {

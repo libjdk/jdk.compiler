@@ -128,6 +128,7 @@ $Scope$CompoundScope* Types$MembersClosureCache::visitType($Type* t, $Void* _unu
 }
 
 $Scope$CompoundScope* Types$MembersClosureCache::visitClassType($Type$ClassType* t, $Void* _unused) {
+	$useLocalCurrentObjectStackCache();
 	if (!$nc(this->seenTypes)->add($nc(t)->tsym)) {
 		return $new($Scope$CompoundScope, $nc(t)->tsym);
 	}

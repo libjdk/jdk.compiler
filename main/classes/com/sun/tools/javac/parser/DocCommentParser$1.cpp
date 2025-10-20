@@ -91,6 +91,7 @@ void DocCommentParser$1::init$($DocCommentParser* this$0, $DocCommentParser$TagP
 }
 
 $DCTree* DocCommentParser$1::parse(int32_t pos) {
+	$useLocalCurrentObjectStackCache();
 	$var($1List, name, this->this$0->blockContent());
 	return $cast($DCTree, $nc($($nc(this->this$0->m)->at(pos)))->newAuthorTree(name));
 }

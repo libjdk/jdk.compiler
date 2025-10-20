@@ -589,6 +589,7 @@ $Type* Operators$OperatorType::lambda$static$0($Symtab* syms) {
 }
 
 void clinit$Operators$OperatorType($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(Operators$OperatorType::BYTE, $new(Operators$OperatorType, "BYTE"_s, 0, static_cast<$Function*>($$new(Operators$OperatorType$$Lambda$lambda$static$0))));
 	$assignStatic(Operators$OperatorType::SHORT, $new(Operators$OperatorType, "SHORT"_s, 1, static_cast<$Function*>($$new(Operators$OperatorType$$Lambda$lambda$static$1$1))));
 	$assignStatic(Operators$OperatorType::INT, $new(Operators$OperatorType, "INT"_s, 2, static_cast<$Function*>($$new(Operators$OperatorType$$Lambda$lambda$static$2$2))));

@@ -145,6 +145,7 @@ $String* RichDiagnosticFormatter$RichPrinter::capturedVarId($Type$CapturedType* 
 }
 
 $String* RichDiagnosticFormatter$RichPrinter::visitType($Type* t, $Locale* locale) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, s, $Printer::visitType(t, locale));
 	if (t == $nc(this->this$0->syms)->botType) {
 		$assign(s, localize(locale, "compiler.misc.type.null"_s, $$new($ObjectArray, 0)));
@@ -153,6 +154,7 @@ $String* RichDiagnosticFormatter$RichPrinter::visitType($Type* t, $Locale* local
 }
 
 $String* RichDiagnosticFormatter$RichPrinter::visitCapturedType($Type$CapturedType* t, $Locale* locale) {
+	$useLocalCurrentObjectStackCache();
 	$init($RichDiagnosticFormatter$RichConfiguration$RichFormatterFeature);
 	if ($nc($($cast($RichDiagnosticFormatter$RichConfiguration, this->this$0->getConfiguration())))->isEnabled($RichDiagnosticFormatter$RichConfiguration$RichFormatterFeature::WHERE_CLAUSES)) {
 		$init($RichDiagnosticFormatter$WhereClauseKind);
@@ -163,6 +165,7 @@ $String* RichDiagnosticFormatter$RichPrinter::visitCapturedType($Type$CapturedTy
 }
 
 $String* RichDiagnosticFormatter$RichPrinter::visitClassType($Type$ClassType* t, $Locale* locale) {
+	$useLocalCurrentObjectStackCache();
 	bool var$0 = $nc(t)->isCompound();
 	$init($RichDiagnosticFormatter$RichConfiguration$RichFormatterFeature);
 	if (var$0 && $nc($($cast($RichDiagnosticFormatter$RichConfiguration, this->this$0->getConfiguration())))->isEnabled($RichDiagnosticFormatter$RichConfiguration$RichFormatterFeature::WHERE_CLAUSES)) {
@@ -174,6 +177,7 @@ $String* RichDiagnosticFormatter$RichPrinter::visitClassType($Type$ClassType* t,
 }
 
 $String* RichDiagnosticFormatter$RichPrinter::className($Type$ClassType* t, bool longform, $Locale* locale) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, sym, $nc(t)->tsym);
 	bool var$0 = $nc($nc(sym)->name)->length() == 0;
 	$init($RichDiagnosticFormatter$RichConfiguration$RichFormatterFeature);
@@ -187,6 +191,7 @@ $String* RichDiagnosticFormatter$RichPrinter::className($Type$ClassType* t, bool
 }
 
 $String* RichDiagnosticFormatter$RichPrinter::visitTypeVar($Type$TypeVar* t, $Locale* locale) {
+	$useLocalCurrentObjectStackCache();
 	bool var$0 = this->this$0->unique(t);
 	$init($RichDiagnosticFormatter$RichConfiguration$RichFormatterFeature);
 	if (var$0 || !$nc($($cast($RichDiagnosticFormatter$RichConfiguration, this->this$0->getConfiguration())))->isEnabled($RichDiagnosticFormatter$RichConfiguration$RichFormatterFeature::UNIQUE_TYPEVAR_NAMES)) {
@@ -201,6 +206,7 @@ $String* RichDiagnosticFormatter$RichPrinter::visitTypeVar($Type$TypeVar* t, $Lo
 }
 
 $String* RichDiagnosticFormatter$RichPrinter::visitClassSymbol($Symbol$ClassSymbol* s, $Locale* locale) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc($nc(s)->type)->isCompound()) {
 		return visit(s->type, locale);
 	}
@@ -215,6 +221,7 @@ $String* RichDiagnosticFormatter$RichPrinter::visitClassSymbol($Symbol$ClassSymb
 }
 
 $String* RichDiagnosticFormatter$RichPrinter::visitMethodSymbol($Symbol$MethodSymbol* s, $Locale* locale) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, ownerName, visit($nc(s)->owner, locale));
 	if ($nc(s)->isStaticOrInstanceInit()) {
 		return ownerName;

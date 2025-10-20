@@ -192,6 +192,7 @@ void JavacTaskPool$ReusableContext::init$($List* arguments) {
 }
 
 void JavacTaskPool$ReusableContext::clear() {
+	$useLocalCurrentObjectStackCache();
 	$load($JavaFileManager);
 	$init($StandardLocation);
 	this->polluted |= $nc(($cast($JavaFileManager, $(get($JavaFileManager::class$)))))->hasLocation($StandardLocation::PATCH_MODULE_PATH);

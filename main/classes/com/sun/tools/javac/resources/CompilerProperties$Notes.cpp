@@ -219,6 +219,7 @@ $JCDiagnostic$Note* CompilerProperties$Notes::DeprecatedFilenameAdditional($Path
 
 $JCDiagnostic$Note* CompilerProperties$Notes::LambdaStat(bool arg0, $Symbol* arg1) {
 	$init(CompilerProperties$Notes);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Note, "compiler"_s, "lambda.stat"_s, $$new($ObjectArray, {
 		$($of($Boolean::valueOf(arg0))),
 		$of(arg1)
@@ -227,6 +228,7 @@ $JCDiagnostic$Note* CompilerProperties$Notes::LambdaStat(bool arg0, $Symbol* arg
 
 $JCDiagnostic$Note* CompilerProperties$Notes::MethodRefSearchResultsMulti($JCDiagnostic$Fragment* arg0, $String* arg1, int32_t arg2) {
 	$init(CompilerProperties$Notes);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Note, "compiler"_s, "method.ref.search.results.multi"_s, $$new($ObjectArray, {
 		$of(arg0),
 		$of(arg1),
@@ -236,6 +238,7 @@ $JCDiagnostic$Note* CompilerProperties$Notes::MethodRefSearchResultsMulti($JCDia
 
 $JCDiagnostic$Note* CompilerProperties$Notes::MrefStat(bool arg0, $Void* arg1) {
 	$init(CompilerProperties$Notes);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Note, "compiler"_s, "mref.stat"_s, $$new($ObjectArray, {
 		$($of($Boolean::valueOf(arg0))),
 		$of(arg1)
@@ -244,6 +247,7 @@ $JCDiagnostic$Note* CompilerProperties$Notes::MrefStat(bool arg0, $Void* arg1) {
 
 $JCDiagnostic$Note* CompilerProperties$Notes::MrefStat1(bool arg0, $Symbol* arg1) {
 	$init(CompilerProperties$Notes);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Note, "compiler"_s, "mref.stat.1"_s, $$new($ObjectArray, {
 		$($of($Boolean::valueOf(arg0))),
 		$of(arg1)
@@ -389,6 +393,7 @@ $JCDiagnostic$Note* CompilerProperties$Notes::VerboseL2mDeduplicate($Symbol* arg
 
 $JCDiagnostic$Note* CompilerProperties$Notes::VerboseResolveMulti($Name* arg0, $Symbol* arg1, int32_t arg2, $String* arg3, $List* arg4, $List* arg5) {
 	$init(CompilerProperties$Notes);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Note, "compiler"_s, "verbose.resolve.multi"_s, $$new($ObjectArray, {
 		$of(arg0),
 		$of(arg1),
@@ -401,6 +406,7 @@ $JCDiagnostic$Note* CompilerProperties$Notes::VerboseResolveMulti($Name* arg0, $
 
 $JCDiagnostic$Note* CompilerProperties$Notes::VerboseResolveMulti($Name* arg0, $Symbol* arg1, int32_t arg2, $String* arg3, $List* arg4, $JCDiagnostic* arg5) {
 	$init(CompilerProperties$Notes);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Note, "compiler"_s, "verbose.resolve.multi"_s, $$new($ObjectArray, {
 		$of(arg0),
 		$of(arg1),
@@ -413,6 +419,7 @@ $JCDiagnostic$Note* CompilerProperties$Notes::VerboseResolveMulti($Name* arg0, $
 
 $JCDiagnostic$Note* CompilerProperties$Notes::VerboseResolveMulti($Name* arg0, $Symbol* arg1, int32_t arg2, $String* arg3, $List* arg4, $JCDiagnostic$Fragment* arg5) {
 	$init(CompilerProperties$Notes);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Note, "compiler"_s, "verbose.resolve.multi"_s, $$new($ObjectArray, {
 		$of(arg0),
 		$of(arg1),
@@ -425,6 +432,7 @@ $JCDiagnostic$Note* CompilerProperties$Notes::VerboseResolveMulti($Name* arg0, $
 
 $JCDiagnostic$Note* CompilerProperties$Notes::VerboseResolveMulti($Name* arg0, $Symbol* arg1, int32_t arg2, $String* arg3, $JCDiagnostic* arg4, $List* arg5) {
 	$init(CompilerProperties$Notes);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Note, "compiler"_s, "verbose.resolve.multi"_s, $$new($ObjectArray, {
 		$of(arg0),
 		$of(arg1),
@@ -437,6 +445,7 @@ $JCDiagnostic$Note* CompilerProperties$Notes::VerboseResolveMulti($Name* arg0, $
 
 $JCDiagnostic$Note* CompilerProperties$Notes::VerboseResolveMulti($Name* arg0, $Symbol* arg1, int32_t arg2, $String* arg3, $JCDiagnostic* arg4, $JCDiagnostic* arg5) {
 	$init(CompilerProperties$Notes);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Note, "compiler"_s, "verbose.resolve.multi"_s, $$new($ObjectArray, {
 		$of(arg0),
 		$of(arg1),
@@ -449,6 +458,7 @@ $JCDiagnostic$Note* CompilerProperties$Notes::VerboseResolveMulti($Name* arg0, $
 
 $JCDiagnostic$Note* CompilerProperties$Notes::VerboseResolveMulti($Name* arg0, $Symbol* arg1, int32_t arg2, $String* arg3, $JCDiagnostic* arg4, $JCDiagnostic$Fragment* arg5) {
 	$init(CompilerProperties$Notes);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Note, "compiler"_s, "verbose.resolve.multi"_s, $$new($ObjectArray, {
 		$of(arg0),
 		$of(arg1),
@@ -461,6 +471,7 @@ $JCDiagnostic$Note* CompilerProperties$Notes::VerboseResolveMulti($Name* arg0, $
 
 $JCDiagnostic$Note* CompilerProperties$Notes::VerboseResolveMulti($Name* arg0, $Symbol* arg1, int32_t arg2, $String* arg3, $JCDiagnostic$Fragment* arg4, $List* arg5) {
 	$init(CompilerProperties$Notes);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Note, "compiler"_s, "verbose.resolve.multi"_s, $$new($ObjectArray, {
 		$of(arg0),
 		$of(arg1),
@@ -473,6 +484,7 @@ $JCDiagnostic$Note* CompilerProperties$Notes::VerboseResolveMulti($Name* arg0, $
 
 $JCDiagnostic$Note* CompilerProperties$Notes::VerboseResolveMulti($Name* arg0, $Symbol* arg1, int32_t arg2, $String* arg3, $JCDiagnostic$Fragment* arg4, $JCDiagnostic* arg5) {
 	$init(CompilerProperties$Notes);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Note, "compiler"_s, "verbose.resolve.multi"_s, $$new($ObjectArray, {
 		$of(arg0),
 		$of(arg1),
@@ -485,6 +497,7 @@ $JCDiagnostic$Note* CompilerProperties$Notes::VerboseResolveMulti($Name* arg0, $
 
 $JCDiagnostic$Note* CompilerProperties$Notes::VerboseResolveMulti($Name* arg0, $Symbol* arg1, int32_t arg2, $String* arg3, $JCDiagnostic$Fragment* arg4, $JCDiagnostic$Fragment* arg5) {
 	$init(CompilerProperties$Notes);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Note, "compiler"_s, "verbose.resolve.multi"_s, $$new($ObjectArray, {
 		$of(arg0),
 		$of(arg1),
@@ -604,6 +617,7 @@ $JCDiagnostic$Note* CompilerProperties$Notes::VerboseResolveMulti1($Name* arg0, 
 }
 
 void clinit$CompilerProperties$Notes($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(CompilerProperties$Notes::CompressedDiags, $new($JCDiagnostic$Note, "compiler"_s, "compressed.diags"_s, $$new($ObjectArray, 0)));
 	$assignStatic(CompilerProperties$Notes::DeprecatedPlural, $new($JCDiagnostic$Note, "compiler"_s, "deprecated.plural"_s, $$new($ObjectArray, 0)));
 	$assignStatic(CompilerProperties$Notes::DeprecatedPluralAdditional, $new($JCDiagnostic$Note, "compiler"_s, "deprecated.plural.additional"_s, $$new($ObjectArray, 0)));

@@ -77,6 +77,7 @@ void Types$20::init$() {
 }
 
 $Type$TypeVar* Types$20::visitTypeVar($Type$TypeVar* t, $Void* _unused) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$TypeSymbol, var$0, $nc(t)->tsym);
 	$var($Type, var$1, t->getUpperBound());
 	$var($Type, var$2, t->getLowerBound());

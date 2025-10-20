@@ -118,6 +118,7 @@ void Locations$BasicLocationHandler::setPathsForModule($String* moduleName, $Ite
 }
 
 $Path* Locations$BasicLocationHandler::checkSingletonDirectory($Iterable* paths) {
+	$useLocalCurrentObjectStackCache();
 	$var($Iterator, pathIter, $nc(paths)->iterator());
 	if (!$nc(pathIter)->hasNext()) {
 		$throwNew($IllegalArgumentException, "empty path for directory"_s);
@@ -131,6 +132,7 @@ $Path* Locations$BasicLocationHandler::checkSingletonDirectory($Iterable* paths)
 }
 
 $Path* Locations$BasicLocationHandler::checkDirectory($Path* path) {
+	$useLocalCurrentObjectStackCache();
 	$Objects::requireNonNull(path);
 	if (!$Files::exists(path, $$new($LinkOptionArray, 0))) {
 		$throwNew($FileNotFoundException, $$str({path, ": does not exist"_s}));

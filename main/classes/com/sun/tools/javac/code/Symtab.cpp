@@ -804,6 +804,7 @@ Symtab* Symtab::instance($Context* context) {
 }
 
 $Symbol$VarSymbol* Symtab::getClassField($Type* type, $Types* types) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, var$0, $of($new($Types$UniqueType, type, types)));
 	return $cast($Symbol$VarSymbol, $nc(this->classFields)->computeIfAbsent(var$0, static_cast<$Function*>($$new(Symtab$$Lambda$lambda$getClassField$0, this, type, types))));
 }
@@ -814,16 +815,19 @@ void Symtab::initType($Type* type, $Symbol$ClassSymbol* c) {
 }
 
 void Symtab::initType($Type* type, $String* name) {
+	$useLocalCurrentObjectStackCache();
 	initType(type, $$new($Symbol$ClassSymbol, 1, $($nc(this->names)->fromString(name)), type, this->rootPackage));
 }
 
 void Symtab::initType($Type* type, $String* name, $String* bname) {
+	$useLocalCurrentObjectStackCache();
 	initType(type, name);
 	int32_t var$0 = $nc($($nc(type)->getTag()))->ordinal();
 	$nc(this->boxedName)->set(var$0, $($nc(this->names)->fromString($$str({"java.lang."_s, bname}))));
 }
 
 $Type* Symtab::enterClass($String* s) {
+	$useLocalCurrentObjectStackCache();
 	return $nc($(enterClass(this->java_base, $($nc(this->names)->fromString(s)))))->type;
 }
 
@@ -833,12 +837,14 @@ void Symtab::synthesizeEmptyInterfaceIfMissing($Type* type) {
 }
 
 void Symtab::synthesizeBoxTypeIfMissing($Type* type) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$ClassSymbol, sym, enterClass(this->java_base, $nc(this->boxedName)->get($nc($($nc(type)->getTag()))->ordinal())));
 	$var($Symbol$Completer, completer, $nc(sym)->completer);
 	$set(sym, completer, $new($Symtab$2, this, completer, type));
 }
 
 $Type* Symtab::enterSyntheticAnnotation($String* name) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type$ClassType, type, $cast($Type$ClassType, $nc($(enterClass(this->java_base, $($nc(this->names)->fromString(name)))))->type));
 	$var($Symbol$ClassSymbol, sym, $cast($Symbol$ClassSymbol, $nc(type)->tsym));
 	$init($Symbol$Completer);
@@ -854,6 +860,7 @@ $Type* Symtab::enterSyntheticAnnotation($String* name) {
 }
 
 void Symtab::init$($Context* context) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	$set(this, byteType, $new($Type$JCPrimitiveType, $TypeTag::BYTE, nullptr));
 	$set(this, charType, $new($Type$JCPrimitiveType, $TypeTag::CHAR, nullptr));
@@ -1037,6 +1044,7 @@ $Symbol$ClassSymbol* Symtab::defineClass($Name* name, $Symbol* owner) {
 }
 
 $Symbol$ClassSymbol* Symtab::enterClass($Symbol$ModuleSymbol* msym, $Name* name, $Symbol$TypeSymbol* owner) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::checkNonNull(msym);
 	$var($Name, flatname, $Symbol$TypeSymbol::formFlatName(name, owner));
 	$var($Symbol$ClassSymbol, c, getClass(msym, flatname));
@@ -1056,6 +1064,7 @@ $Symbol$ClassSymbol* Symtab::enterClass($Symbol$ModuleSymbol* msym, $Name* name,
 }
 
 $Symbol$ClassSymbol* Symtab::getClass($Symbol$ModuleSymbol* msym, $Name* flatName) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::checkNonNull($of(msym), static_cast<$Supplier*>($$new(Symtab$$Lambda$toString$2, static_cast<$Name*>($nc(flatName)))));
 	return $cast($Symbol$ClassSymbol, $nc(($cast($Map, $($nc(this->classes)->getOrDefault(flatName, $($Collections::emptyMap()))))))->get(msym));
 }
@@ -1065,6 +1074,7 @@ $Symbol$PackageSymbol* Symtab::lookupPackage($Symbol$ModuleSymbol* msym, $Name* 
 }
 
 $Symbol$PackageSymbol* Symtab::lookupPackage($Symbol$ModuleSymbol* msym, $Name* flatName, bool onlyExisting) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::checkNonNull(msym);
 	if ($nc(flatName)->isEmpty()) {
 		return $nc(msym)->unnamedPackage;
@@ -1114,10 +1124,12 @@ $Iterable* Symtab::getAllClasses() {
 }
 
 void Symtab::doEnterClass($Symbol$ModuleSymbol* msym, $Symbol$ClassSymbol* cs) {
+	$useLocalCurrentObjectStackCache();
 	$nc(($cast($Map, $($nc(this->classes)->computeIfAbsent($nc(cs)->flatname, static_cast<$Function*>($$new(Symtab$$Lambda$lambda$doEnterClass$5$6)))))))->put(msym, cs);
 }
 
 $Symbol$ClassSymbol* Symtab::enterClass($Symbol$ModuleSymbol* msym, $Name* flatname) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::checkNonNull(msym);
 	$var($Symbol$PackageSymbol, ps, lookupPackage(msym, $($Convert::packagePart(flatname))));
 	$Assert::checkNonNull(ps);
@@ -1139,6 +1151,7 @@ bool Symtab::packageExists($Symbol$ModuleSymbol* msym, $Name* fullname) {
 }
 
 $Symbol$PackageSymbol* Symtab::enterPackage($Symbol$ModuleSymbol* currModule, $Name* fullname) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::checkNonNull(currModule);
 	$var($Symbol$PackageSymbol, p, getPackage(currModule, fullname));
 	if (p == nullptr) {
@@ -1154,6 +1167,7 @@ $Symbol$PackageSymbol* Symtab::enterPackage($Symbol$ModuleSymbol* currModule, $N
 }
 
 void Symtab::doEnterPackage($Symbol$ModuleSymbol* msym, $Symbol$PackageSymbol* pack) {
+	$useLocalCurrentObjectStackCache();
 	$nc(($cast($Map, $($nc(this->packages)->computeIfAbsent($nc(pack)->fullname, static_cast<$Function*>($$new(Symtab$$Lambda$lambda$doEnterClass$5$6)))))))->put(msym, pack);
 	$set($nc(msym), enclosedPackages, $nc(msym->enclosedPackages)->prepend(pack));
 }
@@ -1168,6 +1182,7 @@ void Symtab::addRootPackageFor($Symbol$ModuleSymbol* module) {
 }
 
 $Symbol$PackageSymbol* Symtab::getPackage($Symbol$ModuleSymbol* module, $Name* fullname) {
+	$useLocalCurrentObjectStackCache();
 	return $cast($Symbol$PackageSymbol, $nc(($cast($Map, $($nc(this->packages)->getOrDefault(fullname, $($Collections::emptyMap()))))))->get(module));
 }
 
@@ -1187,6 +1202,7 @@ $Symbol$ModuleSymbol* Symtab::getModule($Name* name) {
 }
 
 $Symbol$ModuleSymbol* Symtab::inferModule($Name* packageName) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(packageName)->isEmpty()) {
 		return this->java_base == this->noModule ? this->noModule : this->unnamedModule;
 	}
@@ -1214,6 +1230,7 @@ $Symbol$ModuleSymbol* Symtab::inferModule($Name* packageName) {
 }
 
 $List* Symtab::listPackageModules($Name* packageName) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(packageName)->isEmpty()) {
 		return $List::nil();
 	}
@@ -1240,10 +1257,12 @@ $Collection* Symtab::getAllModules() {
 }
 
 $Iterable* Symtab::getClassesForName($Name* candidate) {
+	$useLocalCurrentObjectStackCache();
 	return $nc(($cast($Map, $($nc(this->classes)->getOrDefault(candidate, $($Collections::emptyMap()))))))->values();
 }
 
 $Iterable* Symtab::getPackagesForName($Name* candidate) {
+	$useLocalCurrentObjectStackCache();
 	return $nc(($cast($Map, $($nc(this->packages)->getOrDefault(candidate, $($Collections::emptyMap()))))))->values();
 }
 
@@ -1266,6 +1285,7 @@ $Map* Symtab::lambda$doEnterClass$5($Name* n) {
 }
 
 $Iterator* Symtab::lambda$getAllClasses$4() {
+	$useLocalCurrentObjectStackCache();
 	$var($Iterable, var$0, static_cast<$Iterable*>($nc(this->classes)->values()));
 	return $Iterators::createCompoundIterator(var$0, static_cast<$Function*>($$new(Symtab$$Lambda$lambda$getAllClasses$3$10)));
 }
@@ -1285,6 +1305,7 @@ $Symbol$ModuleSymbol* Symtab::lambda$lookupPackage$1($Directive$RequiresDirectiv
 }
 
 $Symbol$VarSymbol* Symtab::lambda$getClassField$0($Type* type, $Types* types, $Types$UniqueType* k) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, arg, nullptr);
 	$init($TypeTag);
 	bool var$0 = $nc(type)->getTag() == $TypeTag::ARRAY;

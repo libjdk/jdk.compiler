@@ -186,6 +186,7 @@ $Element* Symbol$TypeVariableSymbol::getGenericElement() {
 }
 
 $1List* Symbol$TypeVariableSymbol::getBounds() {
+	$useLocalCurrentObjectStackCache();
 	$var($Type$TypeVar, t, $cast($Type$TypeVar, this->type));
 	$var($Type, bound, $nc(t)->getUpperBound());
 	if (!$nc(bound)->isCompound()) {
@@ -200,6 +201,7 @@ $1List* Symbol$TypeVariableSymbol::getBounds() {
 }
 
 $1List* Symbol$TypeVariableSymbol::getAnnotationMirrors() {
+	$useLocalCurrentObjectStackCache();
 	$var($List, candidates, $nc(this->owner)->getRawTypeAttributes());
 	int32_t index = $nc($($nc(this->owner)->getTypeParameters()))->indexOf(this);
 	$var($List, res, $List::nil());
@@ -218,6 +220,7 @@ $1List* Symbol$TypeVariableSymbol::getAnnotationMirrors() {
 }
 
 $Attribute$Compound* Symbol$TypeVariableSymbol::getAttribute($Class* annoType) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, name, $nc(annoType)->getName());
 	$var($List, candidates, $nc(this->owner)->getRawTypeAttributes());
 	int32_t index = $nc($($nc(this->owner)->getTypeParameters()))->indexOf(this);

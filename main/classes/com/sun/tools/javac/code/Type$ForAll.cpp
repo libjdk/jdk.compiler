@@ -249,6 +249,7 @@ $Type$MethodType* Type$ForAll::asMethodType() {
 }
 
 void Type$ForAll::complete() {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($List, l, this->tvars);
 		for (; $nc(l)->nonEmpty(); $assign(l, $nc(l)->tail)) {

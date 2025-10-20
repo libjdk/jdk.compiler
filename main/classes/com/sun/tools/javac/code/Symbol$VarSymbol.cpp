@@ -335,6 +335,7 @@ bool Symbol$VarSymbol::isResourceVariable() {
 }
 
 $Object* Symbol$VarSymbol::getConstValue() {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Callable, callableData, nullptr);
 		$init($ElementKind);

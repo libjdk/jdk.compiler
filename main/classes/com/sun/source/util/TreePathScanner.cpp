@@ -59,6 +59,7 @@ void TreePathScanner::init$() {
 }
 
 $Object* TreePathScanner::scan($TreePath* path, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, path, path);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -84,6 +85,7 @@ $Object* TreePathScanner::scan($TreePath* path, Object$* p) {
 }
 
 $Object* TreePathScanner::scan($Tree* tree, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	if (tree == nullptr) {
 		return $of(nullptr);
 	}

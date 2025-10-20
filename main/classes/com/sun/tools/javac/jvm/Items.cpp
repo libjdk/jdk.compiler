@@ -130,6 +130,7 @@ $Object* allocate$Items($Class* clazz) {
 }
 
 void Items::init$($PoolWriter* poolWriter, $Code* code, $Symtab* syms, $Types* types) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, stackItem, $new($Items$ItemArray, 9));
 	$set(this, code, code);
 	$set(this, poolWriter, poolWriter);

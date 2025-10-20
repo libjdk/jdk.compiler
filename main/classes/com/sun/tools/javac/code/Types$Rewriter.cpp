@@ -122,6 +122,7 @@ void Types$Rewriter::init$($Types* this$0, bool high, bool rewriteTypeVars) {
 }
 
 $Type* Types$Rewriter::visitClassType($Type$ClassType* t, $Void* s) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, rewritten, $new($ListBuffer));
 	bool changed = false;
 	{
@@ -151,12 +152,14 @@ $Type* Types$Rewriter::visitType($Type* t, $Void* s) {
 }
 
 $Type* Types$Rewriter::visitCapturedType($Type$CapturedType* t, $Void* s) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, w_bound, $nc($nc(t)->wildcard)->type);
 	$var($Type, bound, $nc(w_bound)->contains(t) ? this->this$0->erasure(w_bound) : $cast($Type, visit(w_bound)));
 	return rewriteAsWildcardType($cast($Type, $(visit(bound))), $nc(t->wildcard)->bound, $nc(t->wildcard)->kind);
 }
 
 $Type* Types$Rewriter::visitTypeVar($Type$TypeVar* t, $Void* s) {
+	$useLocalCurrentObjectStackCache();
 	if (this->rewriteTypeVars) {
 		$var($Type, bound, $nc($($nc(t)->getUpperBound()))->contains(t) ? this->this$0->erasure($($nc(t)->getUpperBound())) : $cast($Type, visit($($nc(t)->getUpperBound()))));
 		$init($BoundKind);
@@ -172,6 +175,7 @@ $Type* Types$Rewriter::visitWildcardType($Type$WildcardType* t, $Void* s) {
 }
 
 $Type* Types$Rewriter::rewriteAsWildcardType($Type* bound, $Type$TypeVar* formal, $BoundKind* bk) {
+	$useLocalCurrentObjectStackCache();
 	$init($Types$25);
 	switch ($nc($Types$25::$SwitchMap$com$sun$tools$javac$code$BoundKind)->get($nc((bk))->ordinal())) {
 	case 1:
@@ -195,6 +199,7 @@ $Type* Types$Rewriter::rewriteAsWildcardType($Type* bound, $Type$TypeVar* formal
 }
 
 $Type* Types$Rewriter::B($Type* t$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, t, t$renamed);
 	$init($TypeTag);
 	while ($nc(t)->hasTag($TypeTag::WILDCARD)) {

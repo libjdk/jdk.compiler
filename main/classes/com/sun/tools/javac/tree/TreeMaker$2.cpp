@@ -91,6 +91,7 @@ $ints* TreeMaker$2::$SwitchMap$com$sun$tools$javac$code$TypeTag = nullptr;
 $ints* TreeMaker$2::$SwitchMap$javax$lang$model$type$TypeKind = nullptr;
 
 void clinit$TreeMaker$2($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(TreeMaker$2::$SwitchMap$com$sun$tools$javac$code$TypeTag, $new($ints, $($TypeTag::values())->length));
 	{
 		try {

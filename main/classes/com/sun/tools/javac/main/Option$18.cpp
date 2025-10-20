@@ -82,6 +82,7 @@ void Option$18::init$($String* $enum$name, int32_t $enum$ordinal, $String* text,
 }
 
 void Option$18::process($OptionHelper* helper, $String* option) {
+	$useLocalCurrentObjectStackCache();
 	$var($Log, log, $nc(helper)->getLog());
 	$var($String, ownName, helper->getOwnName());
 	$init($Log$WriterKind);

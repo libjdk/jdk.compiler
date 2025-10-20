@@ -172,6 +172,7 @@ $Void* Types$CaptureScanner::visitType($Type* t, $Set* types) {
 }
 
 $Void* Types$CaptureScanner::visitClassType($Type$ClassType* t, $Set* seen) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(t)->isCompound()) {
 		$nc($(this->this$0->directSupertypes(t)))->forEach(static_cast<$Consumer*>($$new(Types$CaptureScanner$$Lambda$lambda$visitClassType$0, this, seen)));
 	} else {
@@ -198,6 +199,7 @@ $Void* Types$CaptureScanner::visitTypeVar($Type$TypeVar* t, $Set* seen) {
 }
 
 $Void* Types$CaptureScanner::visitCapturedType($Type$CapturedType* t, $Set* seen) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(seen)->add(t)) {
 		visit($($nc(t)->getUpperBound()), seen);
 		visit($($nc(t)->getLowerBound()), seen);

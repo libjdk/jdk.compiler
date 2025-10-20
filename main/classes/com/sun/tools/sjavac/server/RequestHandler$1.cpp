@@ -192,6 +192,7 @@ bool RequestHandler$1::isLevelLogged($Log$Level* l) {
 }
 
 void RequestHandler$1::printLogMsg($Log$Level* msgLevel, $String* msg) {
+	$useLocalCurrentObjectStackCache();
 	$nc($($nc($($Util::getLines(msg)))->map(static_cast<$Function*>($$new(RequestHandler$1$$Lambda$lambda$printLogMsg$0, msgLevel)))))->forEach(static_cast<$Consumer*>($$new(RequestHandler$1$$Lambda$lambda$printLogMsg$1$1, this, msgLevel)));
 }
 

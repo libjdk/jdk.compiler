@@ -295,6 +295,7 @@ void Option::init$($String* $enum$name, int32_t $enum$ordinal, $String* arg, $St
 }
 
 $List* Option::getFileListArg($ArgumentIterator* iter, $OptionHelper* helper) {
+	$useLocalCurrentObjectStackCache();
 	if (!$nc(iter)->hasNext()) {
 		$init($File);
 		$nc(helper)->reportError($$str({this->arg, " must be followed by a list of files separated by "_s, $File::pathSeparator}));
@@ -315,6 +316,7 @@ $List* Option::getFileListArg($ArgumentIterator* iter, $OptionHelper* helper) {
 }
 
 $Path* Option::getFileArg($ArgumentIterator* iter, $OptionHelper* helper, bool fileAcceptable, bool dirAcceptable) {
+	$useLocalCurrentObjectStackCache();
 	if (!$nc(iter)->hasNext()) {
 		$var($String, errmsg, $str({this->arg, " must be followed by "_s}));
 		if (fileAcceptable && dirAcceptable) {

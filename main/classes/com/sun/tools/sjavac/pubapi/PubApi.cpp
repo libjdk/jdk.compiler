@@ -889,6 +889,7 @@ void PubApi::init$() {
 }
 
 void PubApi::init$($Collection* types, $Collection* variables, $Collection* methods) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, types, $new($HashMap));
 	$set(this, variables, $new($HashMap));
 	$set(this, methods, $new($HashMap));
@@ -905,6 +906,7 @@ bool PubApi::isBackwardCompatibleWith(PubApi* older) {
 
 $String* PubApi::typeLine($PubType* type) {
 	$init(PubApi);
+	$useLocalCurrentObjectStackCache();
 	if ($nc($nc(type)->fqName)->isEmpty()) {
 		$throwNew($RuntimeException, $$str({"empty class name "_s, type}));
 	}
@@ -916,6 +918,7 @@ $String* PubApi::typeLine($PubType* type) {
 
 $String* PubApi::varLine($PubVar* var) {
 	$init(PubApi);
+	$useLocalCurrentObjectStackCache();
 	return $String::format("VAR %s%s %s%s"_s, $$new($ObjectArray, {
 		$($of(asString($nc(var)->modifiers))),
 		$($of($TypeDesc::encodeAsString($nc(var)->type))),
@@ -926,6 +929,7 @@ $String* PubApi::varLine($PubVar* var) {
 
 $String* PubApi::methodLine($PubMethod* method) {
 	$init(PubApi);
+	$useLocalCurrentObjectStackCache();
 	return $String::format("METHOD %s%s%s %s(%s)%s"_s, $$new($ObjectArray, {
 		$($of(asString($nc(method)->modifiers))),
 		$nc($nc(method)->typeParams)->isEmpty() ? $of(""_s) : ($of($$str({"<"_s, $cast($String, $($nc($($nc($($nc($nc(method)->typeParams)->stream()))->map(static_cast<$Function*>($$new(PubApi$$Lambda$asString$6)))))->collect($($Collectors::joining(","_s))))), "> "_s}))),
@@ -937,6 +941,7 @@ $String* PubApi::methodLine($PubMethod* method) {
 }
 
 $List* PubApi::asListOfStrings() {
+	$useLocalCurrentObjectStackCache();
 	$var($List, lines, $new($ArrayList));
 	$nc($($nc($($nc($($nc(this->types)->values()))->stream()))->sorted($($Comparator::comparing(static_cast<$Function*>($$new(PubApi$$Lambda$typeLine$7)))))))->forEach(static_cast<$Consumer*>($$new(PubApi$$Lambda$lambda$asListOfStrings$1$8, lines)));
 	$nc($($nc($($nc($($nc($($nc(this->variables)->values()))->stream()))->map(static_cast<$Function*>($$new(PubApi$$Lambda$varLine$9)))))->sorted()))->forEach(static_cast<$Consumer*>($$new(PubApi$$Lambda$add$10, static_cast<$List*>(lines))));
@@ -955,6 +960,7 @@ bool PubApi::equals(Object$* obj) {
 }
 
 int32_t PubApi::hashCode() {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$1 = $nc($($nc(this->types)->keySet()))->hashCode();
 	int32_t var$0 = var$1 ^ $nc($($nc(this->variables)->keySet()))->hashCode();
 	return var$0 ^ $nc($($nc(this->methods)->keySet()))->hashCode();
@@ -962,11 +968,13 @@ int32_t PubApi::hashCode() {
 
 $String* PubApi::commaSeparated($List* typeDescs) {
 	$init(PubApi);
+	$useLocalCurrentObjectStackCache();
 	return $cast($String, $nc($($nc($($nc(typeDescs)->stream()))->map(static_cast<$Function*>($$new(PubApi$$Lambda$encodeAsString$12)))))->collect($($Collectors::joining(","_s))));
 }
 
 $String* PubApi::asString($Set* modifiers) {
 	$init(PubApi);
+	$useLocalCurrentObjectStackCache();
 	return $cast($String, $nc($($nc($($nc($($nc(modifiers)->stream()))->map(static_cast<$Function*>($$new(PubApi$$Lambda$lambda$asString$2$13)))))->sorted()))->collect($($Collectors::joining())));
 }
 
@@ -983,6 +991,7 @@ PubApi* PubApi::mergeTypes(PubApi* api1, PubApi* api2) {
 }
 
 void PubApi::appendItem($String* l$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, l, l$renamed);
 	try {
 		if ($nc(l)->startsWith("  "_s)) {
@@ -1058,16 +1067,19 @@ void PubApi::addPubMethod($PubMethod* m) {
 
 $List* PubApi::parseTypeDescs($List* strs) {
 	$init(PubApi);
+	$useLocalCurrentObjectStackCache();
 	return $nc($($nc($($nc(strs)->stream()))->map(static_cast<$Function*>($$new(PubApi$$Lambda$decodeString$14)))))->toList();
 }
 
 $List* PubApi::parseTypeParams($List* strs) {
 	$init(PubApi);
+	$useLocalCurrentObjectStackCache();
 	return $nc($($nc($($nc(strs)->stream()))->map(static_cast<$Function*>($$new(PubApi$$Lambda$parseTypeParam$15)))))->toList();
 }
 
 $PubApiTypeParam* PubApi::parseTypeParam($String* typeParamString) {
 	$init(PubApi);
+	$useLocalCurrentObjectStackCache();
 	int32_t extPos = $nc(typeParamString)->indexOf(" extends "_s);
 	if (extPos == -1) {
 		return $new($PubApiTypeParam, typeParamString, $($Collections::emptyList()));
@@ -1079,6 +1091,7 @@ $PubApiTypeParam* PubApi::parseTypeParam($String* typeParamString) {
 }
 
 $Set* PubApi::parseModifiers($String* modifiers) {
+	$useLocalCurrentObjectStackCache();
 	if (modifiers == nullptr) {
 		return $Collections::emptySet();
 	}
@@ -1104,6 +1117,7 @@ $List* PubApi::splitOnTopLevelCommas($String* s) {
 
 $List* PubApi::splitOnTopLevelChars($String* s, char16_t split) {
 	$init(PubApi);
+	$useLocalCurrentObjectStackCache();
 	if ($nc(s)->isEmpty()) {
 		return $Collections::emptyList();
 	}
@@ -1147,6 +1161,7 @@ $List* PubApi::diff(PubApi* prevApi) {
 }
 
 $List* PubApi::diff($String* scopePrefix, PubApi* prevApi) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, diffs, $new($ArrayList));
 	{
 		$var($Set, var$0, $nc(this->types)->keySet());
@@ -1226,6 +1241,7 @@ $List* PubApi::diff($String* scopePrefix, PubApi* prevApi) {
 }
 
 $String* PubApi::toString() {
+	$useLocalCurrentObjectStackCache();
 	return $String::format("%s[types: %s, variables: %s, methods: %s]"_s, $$new($ObjectArray, {
 		$($of($of(this)->getClass()->getSimpleName())),
 		$($of($nc(this->types)->values())),
@@ -1246,6 +1262,7 @@ $String* PubApi::lambda$asString$2($Modifier* mod) {
 
 void PubApi::lambda$asListOfStrings$1($List* lines, $PubType* type) {
 	$init(PubApi);
+	$useLocalCurrentObjectStackCache();
 	$nc(lines)->add($(typeLine(type)));
 	{
 		$var($Iterator, i$, $nc($($nc($nc(type)->pubApi)->asListOfStrings()))->iterator());
@@ -1262,6 +1279,7 @@ $String* PubApi::lambda$varLine$0($String* v) {
 }
 
 void clinit$PubApi($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(PubApi::MODIFIERS, $cast($String, $nc($($nc($($nc($($Stream::of($($Modifier::values()))))->map(static_cast<$Function*>($$new(PubApi$$Lambda$name)))))->map(static_cast<$Function*>($$new(PubApi$$Lambda$toLowerCase$1)))))->collect($($Collectors::joining("|"_s, "("_s, ")"_s)))));
 	$assignStatic(PubApi::MOD_PATTERN, $Pattern::compile($$str({"("_s, PubApi::MODIFIERS, " )*"_s})));
 	$assignStatic(PubApi::METHOD_PATTERN, $Pattern::compile("(?<ret>.+?) (?<name>\\S+)\\((?<params>.*)\\)( throws (?<throws>.*))?"_s));

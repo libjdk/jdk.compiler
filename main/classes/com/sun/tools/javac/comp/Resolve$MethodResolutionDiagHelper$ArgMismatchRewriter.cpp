@@ -78,6 +78,7 @@ void Resolve$MethodResolutionDiagHelper$ArgMismatchRewriter::init$(int32_t cause
 }
 
 $JCDiagnostic* Resolve$MethodResolutionDiagHelper$ArgMismatchRewriter::rewriteDiagnostic($JCDiagnostic$Factory* diags, $JCDiagnostic$DiagnosticPosition* preferredPos, $DiagnosticSource* preferredSource, $JCDiagnostic$DiagnosticType* preferredKind, $JCDiagnostic* d) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCDiagnostic, cause, $cast($JCDiagnostic, $nc($($nc(d)->getArgs()))->get(this->causeIndex)));
 	$var($JCDiagnostic$DiagnosticPosition, pos, d->getDiagnosticPosition());
 	if (pos == nullptr) {

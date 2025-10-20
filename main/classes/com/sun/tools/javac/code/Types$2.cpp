@@ -113,6 +113,7 @@ $Type* Types$2::visitType($Type* t, $Symbol* sym) {
 }
 
 $Type* Types$2::visitClassType($Type$ClassType* t, $Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	if ($equals($nc(t)->tsym, sym)) {
 		return t;
 	}

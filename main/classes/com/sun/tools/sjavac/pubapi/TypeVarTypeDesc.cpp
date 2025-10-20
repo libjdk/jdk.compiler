@@ -72,6 +72,7 @@ int32_t TypeVarTypeDesc::hashCode() {
 }
 
 $String* TypeVarTypeDesc::toString() {
+	$useLocalCurrentObjectStackCache();
 	return $String::format("%s[identifier: %s]"_s, $$new($ObjectArray, {
 		$($of($of(this)->getClass()->getSimpleName())),
 		$of(this->identifier)

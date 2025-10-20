@@ -114,6 +114,7 @@ void LambdaToMethod$LambdaAnalyzerPreprocessor$1::addFreeVars($Symbol$ClassSymbo
 }
 
 void LambdaToMethod$LambdaAnalyzerPreprocessor$1::visitSymbol($Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$Kind);
 	if ($nc(sym)->kind == $Kinds$Kind::VAR && $nc(sym->owner)->kind == $Kinds$Kind::MTH && $nc(($cast($Symbol$VarSymbol, sym)))->getConstValue() == nullptr) {
 		$var($LambdaToMethod$LambdaAnalyzerPreprocessor$TranslationContext, localContext, this->this$1->context());

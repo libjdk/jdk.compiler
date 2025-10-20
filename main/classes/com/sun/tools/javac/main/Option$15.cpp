@@ -81,6 +81,7 @@ void Option$15::init$($String* $enum$name, int32_t $enum$ordinal, $String* text,
 }
 
 void Option$15::process($OptionHelper* helper, $String* option, $String* operand) {
+	$useLocalCurrentObjectStackCache();
 	$Profile* profile = $Profile::lookup(operand);
 	if (profile == nullptr) {
 		$throw($($nc(helper)->newInvalidValueException($($CompilerProperties$Errors::InvalidProfile(operand)))));

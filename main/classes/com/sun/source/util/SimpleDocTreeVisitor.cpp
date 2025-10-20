@@ -183,6 +183,7 @@ $Object* SimpleDocTreeVisitor::visit($DocTree* node, Object$* p) {
 }
 
 $Object* SimpleDocTreeVisitor::visit($Iterable* nodes, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, nullptr);
 	if (nodes != nullptr) {
 		{

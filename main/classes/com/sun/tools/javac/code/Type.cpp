@@ -328,6 +328,7 @@ Type* Type::getModelType() {
 
 $List* Type::getModelTypes($List* ts) {
 	$init(Type);
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, lb, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc(ts)->iterator());
@@ -389,11 +390,13 @@ Type* Type::stripMetadata() {
 }
 
 Type* Type::annotatedType($List* annos) {
+	$useLocalCurrentObjectStackCache();
 	$var($TypeMetadata$Entry, annoMetadata, $new($TypeMetadata$Annotations, annos));
 	return cloneWithMetadata($($nc(this->metadata)->combine(annoMetadata)));
 }
 
 bool Type::isAnnotated() {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeMetadata$Entry$Kind);
 	$var($TypeMetadata$Annotations, metadata, $cast($TypeMetadata$Annotations, getMetadataOfKind($TypeMetadata$Entry$Kind::ANNOTATIONS)));
 	return nullptr != metadata && !$nc($(metadata->getAnnotations()))->isEmpty();
@@ -416,6 +419,7 @@ $AnnotationArray* Type::getAnnotationsByType($Class* annotationType) {
 
 $List* Type::baseTypes($List* ts) {
 	$init(Type);
+	$useLocalCurrentObjectStackCache();
 	if ($nc(ts)->nonEmpty()) {
 		$var(Type, t, $nc(($cast(Type, ts->head)))->baseType());
 		$var($List, baseTypes, Type::baseTypes(ts->tail));
@@ -441,6 +445,7 @@ void Type::appendAnnotationsString($StringBuilder* sb) {
 }
 
 $String* Type::toString() {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, sb, $new($StringBuilder));
 	appendAnnotationsString(sb);
 	if (this->tsym == nullptr || $nc(this->tsym)->name == nullptr) {
@@ -457,6 +462,7 @@ $String* Type::toString() {
 
 $String* Type::toString($List* ts) {
 	$init(Type);
+	$useLocalCurrentObjectStackCache();
 	if ($nc(ts)->isEmpty()) {
 		return ""_s;
 	} else {
@@ -473,6 +479,7 @@ $String* Type::toString($List* ts) {
 }
 
 $String* Type::stringValue() {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, cv, $Assert::checkNonNull($(constValue())));
 	return $nc($of(cv))->toString();
 }
@@ -482,6 +489,7 @@ bool Type::equals(Object$* t) {
 }
 
 bool Type::equalsIgnoreMetadata(Type* t) {
+	$useLocalCurrentObjectStackCache();
 	return $nc($(typeNoMetadata()))->equals($($nc(t)->typeNoMetadata()));
 }
 
@@ -490,6 +498,7 @@ int32_t Type::hashCode() {
 }
 
 $String* Type::argtypes(bool varargs) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, args, getParameterTypes());
 	if (!varargs) {
 		return $nc(args)->toString();
@@ -612,6 +621,7 @@ bool Type::contains($List* ts, Type* t) {
 }
 
 bool Type::containsAny($List* ts) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(ts)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -626,6 +636,7 @@ bool Type::containsAny($List* ts) {
 
 bool Type::containsAny($List* ts1, $List* ts2) {
 	$init(Type);
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(ts1)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -640,6 +651,7 @@ bool Type::containsAny($List* ts1, $List* ts2) {
 
 $List* Type::filter($List* ts, $Predicate* tf) {
 	$init(Type);
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, buf, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc(ts)->iterator());

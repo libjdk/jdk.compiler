@@ -143,6 +143,7 @@ void Check$Validator::visitTypeArray($JCTree$JCArrayTypeTree* tree) {
 }
 
 void Check$Validator::visitTypeApply($JCTree$JCTypeApply* tree) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	if ($nc($nc(tree)->type)->hasTag($TypeTag::CLASS)) {
 		$var($List, args, tree->arguments);
@@ -198,6 +199,7 @@ void Check$Validator::visitWildcard($JCTree$JCWildcard* tree) {
 }
 
 void Check$Validator::visitSelect($JCTree$JCFieldAccess* tree) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	if ($nc($nc(tree)->type)->hasTag($TypeTag::CLASS)) {
 		visitSelectInternal(tree);
@@ -236,6 +238,7 @@ void Check$Validator::visitTree($JCTree* tree) {
 }
 
 void Check$Validator::validateTree($JCTree* tree, bool checkRaw, bool isOuter) {
+	$useLocalCurrentObjectStackCache();
 	if (tree != nullptr) {
 		bool prevCheckRaw = this->checkRaw;
 		this->checkRaw = checkRaw;

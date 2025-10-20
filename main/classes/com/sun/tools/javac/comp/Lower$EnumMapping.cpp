@@ -148,6 +148,7 @@ $Object* allocate$Lower$EnumMapping($Class* clazz) {
 }
 
 void Lower$EnumMapping::init$($Lower* this$0, $JCDiagnostic$DiagnosticPosition* pos, $Symbol$TypeSymbol* forEnum) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, this$0, this$0);
 	$set(this, pos, nullptr);
 	this->next = 1;
@@ -171,6 +172,7 @@ $JCTree$JCLiteral* Lower$EnumMapping::forConstant($Symbol$VarSymbol* v) {
 }
 
 void Lower$EnumMapping::translate() {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->this$0->make)->at($nc(this->pos)->getStartPosition());
 	$var($JCTree$JCClassDecl, owner, this->this$0->classDef($cast($Symbol$ClassSymbol, $nc(this->mapVar)->owner)));
 	$var($Symbol$MethodSymbol, valuesMethod, this->this$0->lookupMethod(this->pos, $nc(this->this$0->names)->values, $nc(this->forEnum)->type, $($List::nil())));

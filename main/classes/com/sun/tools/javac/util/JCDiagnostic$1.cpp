@@ -81,6 +81,7 @@ $ints* JCDiagnostic$1::$SwitchMap$com$sun$tools$javac$util$JCDiagnostic$Diagnost
 $ints* JCDiagnostic$1::$SwitchMap$com$sun$tools$javac$util$JCDiagnostic$DiagnosticType = nullptr;
 
 void clinit$JCDiagnostic$1($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(JCDiagnostic$1::$SwitchMap$com$sun$tools$javac$util$JCDiagnostic$DiagnosticFlag, $new($ints, $($JCDiagnostic$DiagnosticFlag::values())->length));
 	{
 		try {

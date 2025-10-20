@@ -95,6 +95,7 @@ void RichDiagnosticFormatter$ClassNameSimplifier::init$($RichDiagnosticFormatter
 }
 
 void RichDiagnosticFormatter$ClassNameSimplifier::addUsage($Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$var($Name, n, $cast($Name, $nc(sym)->getSimpleName()));
 	$var($List, conflicts, $cast($List, $nc(this->nameClashes)->get(n)));
 	if (conflicts == nullptr) {
@@ -106,6 +107,7 @@ void RichDiagnosticFormatter$ClassNameSimplifier::addUsage($Symbol* sym) {
 }
 
 $String* RichDiagnosticFormatter$ClassNameSimplifier::simplify($Symbol* s) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, name, $nc($($nc(s)->getQualifiedName()))->toString());
 	bool var$0 = !$nc(s->type)->isCompound();
 	if (var$0 && !$nc(s->type)->isPrimitive()) {

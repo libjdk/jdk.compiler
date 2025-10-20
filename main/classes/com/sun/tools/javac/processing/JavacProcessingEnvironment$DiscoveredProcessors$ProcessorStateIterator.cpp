@@ -107,6 +107,7 @@ void JavacProcessingEnvironment$DiscoveredProcessors$ProcessorStateIterator::ini
 }
 
 $Object* JavacProcessingEnvironment$DiscoveredProcessors$ProcessorStateIterator::next() {
+	$useLocalCurrentObjectStackCache();
 	if (!this->onProcIterator) {
 		if ($nc(this->innerIter)->hasNext()) {
 			return $of($cast($JavacProcessingEnvironment$ProcessorState, $nc(this->innerIter)->next()));
@@ -142,6 +143,7 @@ void JavacProcessingEnvironment$DiscoveredProcessors$ProcessorStateIterator::rem
 }
 
 void JavacProcessingEnvironment$DiscoveredProcessors$ProcessorStateIterator::runContributingProcs($RoundEnvironment* re) {
+	$useLocalCurrentObjectStackCache();
 	if (!this->onProcIterator) {
 		$var($Set, emptyTypeElements, $Collections::emptySet());
 		while ($nc(this->innerIter)->hasNext()) {

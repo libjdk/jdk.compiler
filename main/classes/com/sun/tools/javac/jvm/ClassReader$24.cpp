@@ -277,6 +277,7 @@ bool ClassReader$24::accepts($ClassReader$AttributeKind* kind) {
 }
 
 void ClassReader$24::read($Symbol* sym, int32_t attrLen) {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$Kind);
 	if ($nc(sym)->kind == $Kinds$Kind::TYP && $nc(sym->owner)->kind == $Kinds$Kind::MDL) {
 		$var($Symbol$ModuleSymbol, msym, $cast($Symbol$ModuleSymbol, sym->owner));

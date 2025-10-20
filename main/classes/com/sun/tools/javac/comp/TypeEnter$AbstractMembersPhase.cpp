@@ -106,6 +106,7 @@ void TypeEnter$AbstractMembersPhase::init$($TypeEnter* this$0, $Dependencies$Com
 }
 
 void TypeEnter$AbstractMembersPhase::doCompleteEnvs($List* envs) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, todo, $nc(this->todo)->prependList(envs));
 	if (this->completing) {
 		return;
@@ -132,6 +133,7 @@ void TypeEnter$AbstractMembersPhase::doCompleteEnvs($List* envs) {
 }
 
 void TypeEnter$AbstractMembersPhase::enterThisAndSuper($Symbol$ClassSymbol* sym, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type$ClassType, ct, $cast($Type$ClassType, $nc(sym)->type));
 	$var($Symbol$VarSymbol, thisSym, $new($Symbol$VarSymbol, 16 | 0x00040000, $nc(this->this$0->names)->_this, sym->type, sym));
 	thisSym->pos = $Position::FIRSTPOS;

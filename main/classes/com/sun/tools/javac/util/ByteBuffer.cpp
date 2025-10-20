@@ -128,6 +128,7 @@ void ByteBuffer::appendInt(int32_t x) {
 }
 
 void ByteBuffer::appendLong(int64_t x) {
+	$useLocalCurrentObjectStackCache();
 	$var($ByteArrayOutputStream, buffer, $new($ByteArrayOutputStream, 8));
 	$var($DataOutputStream, bufout, $new($DataOutputStream, buffer));
 	try {
@@ -140,6 +141,7 @@ void ByteBuffer::appendLong(int64_t x) {
 }
 
 void ByteBuffer::appendFloat(float x) {
+	$useLocalCurrentObjectStackCache();
 	$var($ByteArrayOutputStream, buffer, $new($ByteArrayOutputStream, 4));
 	$var($DataOutputStream, bufout, $new($DataOutputStream, buffer));
 	try {
@@ -152,6 +154,7 @@ void ByteBuffer::appendFloat(float x) {
 }
 
 void ByteBuffer::appendDouble(double x) {
+	$useLocalCurrentObjectStackCache();
 	$var($ByteArrayOutputStream, buffer, $new($ByteArrayOutputStream, 8));
 	$var($DataOutputStream, bufout, $new($DataOutputStream, buffer));
 	try {
@@ -203,6 +206,7 @@ int32_t ByteBuffer::getInt(int32_t bp) {
 }
 
 int64_t ByteBuffer::getLong(int32_t bp) {
+	$useLocalCurrentObjectStackCache();
 	$var($DataInputStream, elemsin, $new($DataInputStream, $$new($ByteArrayInputStream, this->elems, bp, 8)));
 	try {
 		return elemsin->readLong();
@@ -214,6 +218,7 @@ int64_t ByteBuffer::getLong(int32_t bp) {
 }
 
 float ByteBuffer::getFloat(int32_t bp) {
+	$useLocalCurrentObjectStackCache();
 	$var($DataInputStream, elemsin, $new($DataInputStream, $$new($ByteArrayInputStream, this->elems, bp, 4)));
 	try {
 		return elemsin->readFloat();
@@ -225,6 +230,7 @@ float ByteBuffer::getFloat(int32_t bp) {
 }
 
 double ByteBuffer::getDouble(int32_t bp) {
+	$useLocalCurrentObjectStackCache();
 	$var($DataInputStream, elemsin, $new($DataInputStream, $$new($ByteArrayInputStream, this->elems, bp, 8)));
 	try {
 		return elemsin->readDouble();

@@ -273,6 +273,7 @@ void Attr$TypeAnnotationsValidator::visitNewArray($JCTree$JCNewArray* tree) {
 }
 
 void Attr$TypeAnnotationsValidator::visitClassDef($JCTree$JCClassDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	if (this->sigOnly) {
 		scan(static_cast<$JCTree*>($nc(tree)->mods));
 		scan($nc(tree)->typarams);
@@ -301,6 +302,7 @@ void Attr$TypeAnnotationsValidator::visitBlock($JCTree$JCBlock* tree) {
 }
 
 void Attr$TypeAnnotationsValidator::validateAnnotatedType($JCTree* errtree, $Type* type) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(type)->isPrimitiveOrVoid()) {
 		return;
 	}
@@ -423,6 +425,7 @@ void Attr$TypeAnnotationsValidator::validateAnnotatedType($JCTree* errtree, $Typ
 }
 
 void Attr$TypeAnnotationsValidator::checkForDeclarationAnnotations($List* annotations, $Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(annotations)->iterator());
 		for (; $nc(i$)->hasNext();) {

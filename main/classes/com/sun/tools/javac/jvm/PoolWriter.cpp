@@ -187,6 +187,7 @@ int32_t PoolWriter::putDynamic($PoolConstant$Dynamic* d) {
 }
 
 int32_t PoolWriter::putDescriptor($Type* t) {
+	$useLocalCurrentObjectStackCache();
 	return putName($(typeSig($($nc(this->types)->erasure(t)))));
 }
 
@@ -195,6 +196,7 @@ int32_t PoolWriter::putDescriptor($Symbol* s) {
 }
 
 int32_t PoolWriter::putSignature($Symbol* s) {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$Kind);
 	if ($nc(s)->kind == $Kinds$Kind::TYP) {
 		return putName($(classSig(s->type)));
@@ -204,6 +206,7 @@ int32_t PoolWriter::putSignature($Symbol* s) {
 }
 
 int32_t PoolWriter::putConstant(Object$* o) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Integer, intVal, nullptr);
 		$var($Float, floatVal, nullptr);
@@ -281,6 +284,7 @@ int32_t PoolWriter::putName($Name* name) {
 }
 
 int32_t PoolWriter::putNameAndType($Symbol* s) {
+	$useLocalCurrentObjectStackCache();
 	return $nc(this->pool)->writeIfNeeded($$new($PoolConstant$NameAndType, $nc(s)->name, $(descriptorType(s))));
 }
 
@@ -293,6 +297,7 @@ int32_t PoolWriter::putModule($Symbol$ModuleSymbol* mod) {
 }
 
 void PoolWriter::enterInner($Symbol$ClassSymbol* c) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc($nc(c)->type)->isCompound()) {
 		$throwNew($AssertionError, $of($$str({"Unexpected intersection type: "_s, c->type})));
 	}
@@ -310,6 +315,7 @@ $Type* PoolWriter::descriptorType($Symbol* s) {
 }
 
 int32_t PoolWriter::makeBootstrapEntry($PoolConstant$Dynamic* dynamic) {
+	$useLocalCurrentObjectStackCache();
 	$var($PoolConstant$Dynamic$BsmKey, bsmKey, $nc(dynamic)->bsmKey(this->types));
 	$var($Integer, index, $cast($Integer, $nc(this->bootstrapMethods)->get(bsmKey)));
 	if (index == nullptr) {
@@ -343,6 +349,7 @@ $Name* PoolWriter::typeSig($Type* type) {
 }
 
 $Name* PoolWriter::classSig($Type* t) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->signatureGen)->reset();
 	$var($List, typarams, $nc(t)->getTypeArguments());
 	if ($nc(typarams)->nonEmpty()) {

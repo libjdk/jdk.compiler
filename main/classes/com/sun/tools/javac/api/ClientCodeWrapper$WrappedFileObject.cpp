@@ -100,6 +100,7 @@ void ClientCodeWrapper$WrappedFileObject::init$($ClientCodeWrapper* this$0, $Fil
 }
 
 $URI* ClientCodeWrapper$WrappedFileObject::toUri() {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientFileObject)->toUri();
 	} catch ($ClientCodeException&) {
@@ -116,6 +117,7 @@ $URI* ClientCodeWrapper$WrappedFileObject::toUri() {
 }
 
 $String* ClientCodeWrapper$WrappedFileObject::getName() {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientFileObject)->getName();
 	} catch ($ClientCodeException&) {
@@ -132,6 +134,7 @@ $String* ClientCodeWrapper$WrappedFileObject::getName() {
 }
 
 $InputStream* ClientCodeWrapper$WrappedFileObject::openInputStream() {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientFileObject)->openInputStream();
 	} catch ($ClientCodeException&) {
@@ -148,6 +151,7 @@ $InputStream* ClientCodeWrapper$WrappedFileObject::openInputStream() {
 }
 
 $OutputStream* ClientCodeWrapper$WrappedFileObject::openOutputStream() {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientFileObject)->openOutputStream();
 	} catch ($ClientCodeException&) {
@@ -164,6 +168,7 @@ $OutputStream* ClientCodeWrapper$WrappedFileObject::openOutputStream() {
 }
 
 $Reader* ClientCodeWrapper$WrappedFileObject::openReader(bool ignoreEncodingErrors) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientFileObject)->openReader(ignoreEncodingErrors);
 	} catch ($ClientCodeException&) {
@@ -180,6 +185,7 @@ $Reader* ClientCodeWrapper$WrappedFileObject::openReader(bool ignoreEncodingErro
 }
 
 $CharSequence* ClientCodeWrapper$WrappedFileObject::getCharContent(bool ignoreEncodingErrors) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientFileObject)->getCharContent(ignoreEncodingErrors);
 	} catch ($ClientCodeException&) {
@@ -196,6 +202,7 @@ $CharSequence* ClientCodeWrapper$WrappedFileObject::getCharContent(bool ignoreEn
 }
 
 $Writer* ClientCodeWrapper$WrappedFileObject::openWriter() {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientFileObject)->openWriter();
 	} catch ($ClientCodeException&) {
@@ -212,6 +219,7 @@ $Writer* ClientCodeWrapper$WrappedFileObject::openWriter() {
 }
 
 int64_t ClientCodeWrapper$WrappedFileObject::getLastModified() {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientFileObject)->getLastModified();
 	} catch ($ClientCodeException&) {
@@ -228,6 +236,7 @@ int64_t ClientCodeWrapper$WrappedFileObject::getLastModified() {
 }
 
 bool ClientCodeWrapper$WrappedFileObject::delete$() {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientFileObject)->delete$();
 	} catch ($ClientCodeException&) {

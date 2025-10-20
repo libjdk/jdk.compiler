@@ -266,6 +266,7 @@ void SjavacImpl::init$() {
 }
 
 $Main$Result* SjavacImpl::compile($StringArray* args) {
+	$useLocalCurrentObjectStackCache();
 	$var($Options, options, nullptr);
 	try {
 		$assign(options, $Options::parseArgs(args));
@@ -435,6 +436,7 @@ void SjavacImpl::shutdown() {
 
 bool SjavacImpl::validateOptions($Options* options) {
 	$init(SjavacImpl);
+	$useLocalCurrentObjectStackCache();
 	$var($String, err, nullptr);
 	if ($nc(options)->getDestDir() == nullptr) {
 		$assign(err, "Please specify output directory."_s);
@@ -461,6 +463,7 @@ bool SjavacImpl::validateOptions($Options* options) {
 
 bool SjavacImpl::srcDstOverlap($List* locs, $Path* dest) {
 	$init(SjavacImpl);
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(locs)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -478,6 +481,7 @@ bool SjavacImpl::srcDstOverlap($List* locs, $Path* dest) {
 
 bool SjavacImpl::isOverlapping($Path* p1$renamed, $Path* p2$renamed) {
 	$init(SjavacImpl);
+	$useLocalCurrentObjectStackCache();
 	$var($Path, p1, p1$renamed);
 	$var($Path, p2, p2$renamed);
 	$assign(p1, $nc($($nc(p1)->toAbsolutePath()))->normalize());
@@ -488,6 +492,7 @@ bool SjavacImpl::isOverlapping($Path* p1$renamed, $Path* p2$renamed) {
 
 bool SjavacImpl::createIfMissing($Path* dir) {
 	$init(SjavacImpl);
+	$useLocalCurrentObjectStackCache();
 	if ($Files::isDirectory(dir, $$new($LinkOptionArray, 0))) {
 		return true;
 	}
@@ -507,6 +512,7 @@ bool SjavacImpl::createIfMissing($Path* dir) {
 
 void SjavacImpl::findSourceFiles($List* sourceLocations, $Set* sourceTypes, $Map* foundFiles, $Map* foundModules, $Module* currentModule, bool permitSourcesInDefaultPackage, bool inLinksrc) {
 	$init(SjavacImpl);
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(sourceLocations)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -520,6 +526,7 @@ void SjavacImpl::findSourceFiles($List* sourceLocations, $Set* sourceTypes, $Map
 
 void SjavacImpl::printRound(int32_t round) {
 	$init(SjavacImpl);
+	$useLocalCurrentObjectStackCache();
 	$1Log::debug("****************************************"_s);
 	$1Log::debug($$str({"* Round "_s, $$str(round), "                              *"_s}));
 	$1Log::debug("****************************************"_s);

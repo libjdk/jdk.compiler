@@ -114,6 +114,7 @@ void Types$14::init$($Types* this$0) {
 }
 
 $Type* Types$14::combineMetadata($Type* s, $Type* t) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeMetadata);
 	if ($nc(t)->getMetadata() != $TypeMetadata::EMPTY) {
 		$init($Types$25);
@@ -156,12 +157,14 @@ $Type* Types$14::visitType($Type* t, $Boolean* recurse) {
 }
 
 $Type* Types$14::visitWildcardType($Type$WildcardType* t, $Boolean* recurse) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, var$0, this->this$0->wildUpperBound(t));
 	$var($Type, erased, this->this$0->erasure(var$0, $nc(recurse)->booleanValue()));
 	return combineMetadata(erased, t);
 }
 
 $Type* Types$14::visitClassType($Type$ClassType* t, $Boolean* recurse) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, erased, $nc($nc(t)->tsym)->erasure(this->this$0));
 	if ($nc((recurse))->booleanValue()) {
 		$var($Type, var$0, $nc(erased)->getEnclosingType());
@@ -175,6 +178,7 @@ $Type* Types$14::visitClassType($Type$ClassType* t, $Boolean* recurse) {
 }
 
 $Type* Types$14::visitTypeVar($Type$TypeVar* t, $Boolean* recurse) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, var$0, $nc(t)->getUpperBound());
 	$var($Type, erased, this->this$0->erasure(var$0, $nc(recurse)->booleanValue()));
 	return combineMetadata(erased, t);

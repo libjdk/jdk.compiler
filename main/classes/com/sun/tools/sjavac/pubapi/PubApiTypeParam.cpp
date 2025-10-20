@@ -129,6 +129,7 @@ int32_t PubApiTypeParam::hashCode() {
 }
 
 $String* PubApiTypeParam::asString() {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(this->bounds)->isEmpty()) {
 		return this->identifier;
 	}
@@ -137,6 +138,7 @@ $String* PubApiTypeParam::asString() {
 }
 
 $String* PubApiTypeParam::toString() {
+	$useLocalCurrentObjectStackCache();
 	return $String::format("%s[id: %s, bounds: %s]"_s, $$new($ObjectArray, {
 		$($of($of(this)->getClass()->getSimpleName())),
 		$of(this->identifier),

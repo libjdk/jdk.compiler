@@ -103,6 +103,7 @@ bool ClassReader$27::accepts($ClassReader$AttributeKind* kind) {
 }
 
 void ClassReader$27::read($Symbol* sym, int32_t attrLen) {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$Kind);
 	if ($nc(sym)->kind == $Kinds$Kind::TYP) {
 		$var($ListBuffer, subtypes, $new($ListBuffer));

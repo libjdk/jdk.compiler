@@ -112,6 +112,7 @@ void JavacTaskImpl$Filter::init$($JavacTaskImpl* this$0) {
 }
 
 void JavacTaskImpl$Filter::run($Queue* list, $Iterable* elements) {
+	$useLocalCurrentObjectStackCache();
 	$var($Set, set, $new($HashSet));
 	{
 		$var($Iterator, i$, $nc(elements)->iterator());

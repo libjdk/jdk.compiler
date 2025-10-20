@@ -92,6 +92,7 @@ void ClassReader$1::init$($ClassReader* this$0, $Type* outer, $List* typarams, $
 }
 
 $Type* ClassReader$1::getEnclosingType() {
+	$useLocalCurrentObjectStackCache();
 	if (!this->completed) {
 		this->completed = true;
 		$nc(this->tsym)->apiComplete();

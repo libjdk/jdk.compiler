@@ -91,6 +91,7 @@ void DocCommentParser$3::init$($DocCommentParser* this$0, $DocCommentParser$TagP
 }
 
 $DCTree* DocCommentParser$3::parse(int32_t pos) {
+	$useLocalCurrentObjectStackCache();
 	$var($1List, reason, this->this$0->blockContent());
 	return $cast($DCTree, $nc($($nc(this->this$0->m)->at(pos)))->newDeprecatedTree(reason));
 }

@@ -53,6 +53,7 @@ void ModuleHelper::init$() {
 
 void ModuleHelper::addExports($Module* from, $Module* to) {
 	$init(ModuleHelper);
+	$useLocalCurrentObjectStackCache();
 	$beforeCallerSensitive();
 	{
 		$var($StringArray, arr$, ModuleHelper::javacInternalPackages);

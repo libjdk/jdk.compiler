@@ -103,6 +103,7 @@ $Boolean* Types$10::visitType($Type* t, $Void* ignored) {
 }
 
 $Boolean* Types$10::visitClassType($Type$ClassType* t, $Void* ignored) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(t)->isCompound()) {
 		return $Boolean::valueOf(false);
 	} else {

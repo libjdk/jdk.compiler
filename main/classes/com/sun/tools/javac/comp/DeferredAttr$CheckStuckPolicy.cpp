@@ -180,6 +180,7 @@ $Set* DeferredAttr$CheckStuckPolicy::depVars() {
 }
 
 void DeferredAttr$CheckStuckPolicy::init$($DeferredAttr* this$0, $Attr$ResultInfo* resultInfo, $DeferredAttr$DeferredType* dt) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, this$0, this$0);
 	$DeferredAttr$PolyScanner::init$();
 	$set(this, stuckVars$, $new($LinkedHashSet));
@@ -197,6 +198,7 @@ void DeferredAttr$CheckStuckPolicy::typesInferred($InferenceContext* inferenceCo
 }
 
 void DeferredAttr$CheckStuckPolicy::visitLambda($JCTree$JCLambda* tree) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc($($nc(this->inferenceContext)->inferenceVars()))->contains(this->pt)) {
 		$nc(this->stuckVars$)->add(this->pt);
 	}
@@ -215,6 +217,7 @@ void DeferredAttr$CheckStuckPolicy::visitLambda($JCTree$JCLambda* tree) {
 }
 
 void DeferredAttr$CheckStuckPolicy::visitReference($JCTree$JCMemberReference* tree) {
+	$useLocalCurrentObjectStackCache();
 	scan(static_cast<$JCTree*>($nc(tree)->expr));
 	if ($nc($($nc(this->inferenceContext)->inferenceVars()))->contains(this->pt)) {
 		$nc(this->stuckVars$)->add(this->pt);
@@ -235,6 +238,7 @@ void DeferredAttr$CheckStuckPolicy::visitReference($JCTree$JCMemberReference* tr
 }
 
 void DeferredAttr$CheckStuckPolicy::scanLambdaBody($JCTree$JCLambda* lambda, $Type* pt) {
+	$useLocalCurrentObjectStackCache();
 	$init($LambdaExpressionTree$BodyKind);
 	if ($nc(lambda)->getBodyKind() == $LambdaExpressionTree$BodyKind::EXPRESSION) {
 		$var($Type, prevPt, this->pt);

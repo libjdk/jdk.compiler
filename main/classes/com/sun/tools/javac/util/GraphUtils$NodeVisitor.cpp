@@ -69,6 +69,7 @@ void GraphUtils$NodeVisitor::init$() {
 }
 
 void GraphUtils$NodeVisitor::visit($Collection* nodes, Object$* arg) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $$new($ArrayList, nodes)->iterator());
 		for (; $nc(i$)->hasNext();) {

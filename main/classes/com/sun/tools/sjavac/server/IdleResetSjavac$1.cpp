@@ -83,6 +83,7 @@ void IdleResetSjavac$1::init$($IdleResetSjavac* this$0) {
 }
 
 void IdleResetSjavac$1::run() {
+	$useLocalCurrentObjectStackCache();
 	$Log::setLogForCurrentThread($($ServerMain::getErrorLog()));
 	$nc(this->this$0->toShutdown)->shutdown($$str({"Server has been idle for "_s, $$str((this->this$0->idleTimeout / 1000)), " seconds."_s}));
 }

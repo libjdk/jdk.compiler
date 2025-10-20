@@ -103,6 +103,7 @@ void Infer$1::init$($Infer* this$0) {
 }
 
 $Type* Infer$1::visitTypeVar($Type$TypeVar* tv, $Void* aVoid) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type$UndetVar, uv, $new($Type$UndetVar, tv, $(this->this$0->incorporationEngine()), this->this$0->types));
 	if (((int64_t)($nc($nc(tv)->tsym)->flags() & (uint64_t)$Flags::THROWS)) != 0) {
 		uv->setThrow();

@@ -84,6 +84,7 @@ $ints* Symbol$1::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag = nullptr;
 $ints* Symbol$1::$SwitchMap$javax$lang$model$element$ElementKind = nullptr;
 
 void clinit$Symbol$1($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(Symbol$1::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag, $new($ints, $($JCTree$Tag::values())->length));
 	{
 		try {

@@ -562,6 +562,7 @@ TreeMaker* TreeMaker::at($JCDiagnostic$DiagnosticPosition* pos) {
 }
 
 $JCTree$JCCompilationUnit* TreeMaker::TopLevel($List* defs) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(defs)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -1033,6 +1034,7 @@ $JCTree$LetExpr* TreeMaker::LetExpr($List* defs, $JCTree$JCExpression* expr) {
 }
 
 $JCTree$JCClassDecl* TreeMaker::AnonymousClassDef($JCTree$JCModifiers* mods, $List* defs) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCModifiers, var$0, mods);
 	$var($Name, var$1, $nc(this->names)->empty);
 	$var($List, var$2, $List::nil());
@@ -1040,16 +1042,19 @@ $JCTree$JCClassDecl* TreeMaker::AnonymousClassDef($JCTree$JCModifiers* mods, $Li
 }
 
 $JCTree$LetExpr* TreeMaker::LetExpr($JCTree$JCVariableDecl* def, $JCTree$JCExpression* expr) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$LetExpr, tree, $new($JCTree$LetExpr, $($List::of(def)), expr));
 	tree->pos$ = this->pos;
 	return tree;
 }
 
 $JCTree$JCIdent* TreeMaker::Ident($Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	return $cast($JCTree$JCIdent, $nc($($$new($JCTree$JCIdent, ($nc(sym)->name != $nc(this->names)->empty) ? $nc(sym)->name : $(sym->flatName()), sym)->setPos(this->pos)))->setType($nc(sym)->type));
 }
 
 $JCTree$JCExpression* TreeMaker::Select($JCTree$JCExpression* base, $Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	return $nc($($$new($JCTree$JCFieldAccess, base, $nc(sym)->name, sym)->setPos(this->pos)))->setType($nc(sym)->type);
 }
 
@@ -1062,6 +1067,7 @@ $JCTree$JCExpression* TreeMaker::Ident($JCTree$JCVariableDecl* param) {
 }
 
 $List* TreeMaker::Idents($List* params) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, ids, $new($ListBuffer));
 	{
 		$var($List, l, params);
@@ -1077,6 +1083,7 @@ $JCTree$JCExpression* TreeMaker::This($Type* t) {
 }
 
 $JCTree$JCExpression* TreeMaker::QualThis($Type* t) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCExpression, var$0, Type(t));
 	return Select(var$0, static_cast<$Symbol*>($$new($Symbol$VarSymbol, 16, $nc(this->names)->_this, t, $nc(t)->tsym)));
 }
@@ -1086,6 +1093,7 @@ $JCTree$JCExpression* TreeMaker::ClassLiteral($Symbol$ClassSymbol* clazz) {
 }
 
 $JCTree$JCExpression* TreeMaker::ClassLiteral($Type* t) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$VarSymbol, lit, $new($Symbol$VarSymbol, (8 | 1) | 16, $nc(this->names)->_class, t, $nc(t)->tsym));
 	return Select($(Type(t)), static_cast<$Symbol*>(lit));
 }
@@ -1095,14 +1103,17 @@ $JCTree$JCIdent* TreeMaker::Super($Type* t, $Symbol$TypeSymbol* owner) {
 }
 
 $JCTree$JCMethodInvocation* TreeMaker::App($JCTree$JCExpression* meth, $List* args) {
+	$useLocalCurrentObjectStackCache();
 	return $nc($(Apply(nullptr, meth, args)))->setType($($nc($nc(meth)->type)->getReturnType()));
 }
 
 $JCTree$JCMethodInvocation* TreeMaker::App($JCTree$JCExpression* meth) {
+	$useLocalCurrentObjectStackCache();
 	return $nc($(Apply(nullptr, meth, $($List::nil()))))->setType($($nc($nc(meth)->type)->getReturnType()));
 }
 
 $JCTree$JCExpression* TreeMaker::Create($Symbol* ctor, $List* args) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, t, $nc($nc(ctor)->owner)->erasure(this->types));
 	$var($JCTree$JCNewClass, newclass, NewClass(nullptr, nullptr, $(Type(t)), args, nullptr));
 	$set($nc(newclass), constructor, ctor);
@@ -1111,6 +1122,7 @@ $JCTree$JCExpression* TreeMaker::Create($Symbol* ctor, $List* args) {
 }
 
 $JCTree$JCExpression* TreeMaker::Type($Type* t) {
+	$useLocalCurrentObjectStackCache();
 	if (t == nullptr) {
 		return nullptr;
 	}
@@ -1226,6 +1238,7 @@ $JCTree$JCExpression* TreeMaker::Type($Type* t) {
 }
 
 $List* TreeMaker::Types($List* ts) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, lb, $new($ListBuffer));
 	{
 		$var($List, l, ts);
@@ -1237,6 +1250,7 @@ $List* TreeMaker::Types($List* ts) {
 }
 
 $JCTree$JCVariableDecl* TreeMaker::VarDef($Symbol$VarSymbol* v, $JCTree$JCExpression* init) {
+	$useLocalCurrentObjectStackCache();
 	int64_t var$1 = $nc(v)->flags();
 	$var($JCTree$JCModifiers, var$0, Modifiers(var$1, $(Annotations($(v->getRawAttributes())))));
 	$var($Name, var$2, $nc(v)->name);
@@ -1244,6 +1258,7 @@ $JCTree$JCVariableDecl* TreeMaker::VarDef($Symbol$VarSymbol* v, $JCTree$JCExpres
 }
 
 $List* TreeMaker::Annotations($List* attributes) {
+	$useLocalCurrentObjectStackCache();
 	if (attributes == nullptr) {
 		return $List::nil();
 	}
@@ -1259,6 +1274,7 @@ $List* TreeMaker::Annotations($List* attributes) {
 }
 
 $JCTree$JCLiteral* TreeMaker::Literal(Object$* value) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCLiteral, result, nullptr);
 	$var($Boolean, boolVal, nullptr);
 	{
@@ -1326,6 +1342,7 @@ $JCTree$JCMethodDecl* TreeMaker::MethodDef($Symbol$MethodSymbol* m, $JCTree$JCBl
 }
 
 $JCTree$JCMethodDecl* TreeMaker::MethodDef($Symbol$MethodSymbol* m, $Type* mtype, $JCTree$JCBlock* body) {
+	$useLocalCurrentObjectStackCache();
 	int64_t var$1 = $nc(m)->flags();
 	$var($JCTree$JCModifiers, var$0, Modifiers(var$1, $(Annotations($(m->getRawAttributes())))));
 	$var($Name, var$2, $nc(m)->name);
@@ -1336,10 +1353,12 @@ $JCTree$JCMethodDecl* TreeMaker::MethodDef($Symbol$MethodSymbol* m, $Type* mtype
 }
 
 $JCTree$JCTypeParameter* TreeMaker::TypeParam($Name* name, $Type$TypeVar* tvar) {
+	$useLocalCurrentObjectStackCache();
 	return $cast($JCTree$JCTypeParameter, $nc($($nc($(TypeParameter(name, $(Types($($nc(this->types)->getBounds(tvar)))))))->setPos(this->pos)))->setType(tvar));
 }
 
 $List* TreeMaker::TypeParams($List* typarams) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, tparams, $new($ListBuffer));
 	{
 		$var($List, l, typarams);
@@ -1355,6 +1374,7 @@ $JCTree$JCVariableDecl* TreeMaker::Param($Name* name, $Type* argtype, $Symbol* o
 }
 
 $List* TreeMaker::Params($List* argtypes, $Symbol* owner) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, params, $new($ListBuffer));
 	$init($Kinds$Kind);
 	$var($Symbol$MethodSymbol, mth, ($nc(owner)->kind == $Kinds$Kind::MTH) ? ($cast($Symbol$MethodSymbol, owner)) : ($Symbol$MethodSymbol*)nullptr);
@@ -1389,20 +1409,24 @@ $JCTree$JCStatement* TreeMaker::Call($JCTree$JCExpression* apply) {
 }
 
 $JCTree$JCStatement* TreeMaker::Assignment($Symbol* v, $JCTree$JCExpression* rhs) {
+	$useLocalCurrentObjectStackCache();
 	return Exec($($nc($(Assign($(Ident(v)), rhs)))->setType($nc(v)->type)));
 }
 
 $JCTree$JCArrayAccess* TreeMaker::Indexed($Symbol* v, $JCTree$JCExpression* index) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCArrayAccess, tree, $new($JCTree$JCArrayAccess, $(QualIdent(v)), index));
 	$set(tree, type, $nc(($cast($Type$ArrayType, $nc(v)->type)))->elemtype);
 	return tree;
 }
 
 $JCTree$JCTypeCast* TreeMaker::TypeCast($Type* type, $JCTree$JCExpression* expr) {
+	$useLocalCurrentObjectStackCache();
 	return $cast($JCTree$JCTypeCast, $nc($(TypeCast($(static_cast<$JCTree*>(Type(type))), expr)))->setType(type));
 }
 
 bool TreeMaker::isUnqualifiable($Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$Kind);
 	if ($nc(sym)->name == $nc(this->names)->empty || $nc(sym)->owner == nullptr || $equals($nc(sym)->owner, $nc(this->syms)->rootPackage) || $nc($nc(sym)->owner)->kind == $Kinds$Kind::MTH || $nc($nc(sym)->owner)->kind == $Kinds$Kind::VAR) {
 		return true;
@@ -1429,10 +1453,12 @@ bool TreeMaker::isUnqualifiable($Symbol* sym) {
 }
 
 $Name* TreeMaker::paramName(int32_t i) {
+	$useLocalCurrentObjectStackCache();
 	return $nc(this->names)->fromString($$str({"x"_s, $$str(i)}));
 }
 
 $Name* TreeMaker::typaramName(int32_t i) {
+	$useLocalCurrentObjectStackCache();
 	return $nc(this->names)->fromString($$str({"A"_s, $$str(i)}));
 }
 

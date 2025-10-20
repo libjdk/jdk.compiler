@@ -150,6 +150,7 @@ void JavacRoundEnvironment::init$(bool processingOver, bool errorRaised, $Set* r
 }
 
 $String* JavacRoundEnvironment::toString() {
+	$useLocalCurrentObjectStackCache();
 	return $String::format("[errorRaised=%b, rootElements=%s, processingOver=%b]"_s, $$new($ObjectArray, {
 		$($of($Boolean::valueOf(this->errorRaised$))),
 		$of(this->rootElements),
@@ -170,6 +171,7 @@ $Set* JavacRoundEnvironment::getRootElements() {
 }
 
 $Set* JavacRoundEnvironment::getElementsAnnotatedWith($TypeElement* a) {
+	$useLocalCurrentObjectStackCache();
 	throwIfNotAnnotation(a);
 	$var($Set, result, $Collections::emptySet());
 	$var($JavacRoundEnvironment$AnnotationSetScanner, scanner, $new($JavacRoundEnvironment$AnnotationSetScanner, this, result));
@@ -184,6 +186,7 @@ $Set* JavacRoundEnvironment::getElementsAnnotatedWith($TypeElement* a) {
 }
 
 $Set* JavacRoundEnvironment::getElementsAnnotatedWithAny($TypeElementArray* annotations) {
+	$useLocalCurrentObjectStackCache();
 	$var($Set, annotationSet, $new($LinkedHashSet, $nc(annotations)->length));
 	{
 		$var($TypeElementArray, arr$, annotations);
@@ -210,6 +213,7 @@ $Set* JavacRoundEnvironment::getElementsAnnotatedWithAny($TypeElementArray* anno
 }
 
 $Set* JavacRoundEnvironment::getElementsAnnotatedWith($Class* a) {
+	$useLocalCurrentObjectStackCache();
 	throwIfNotAnnotation(a);
 	$var($String, name, $nc(a)->getCanonicalName());
 	if (name == nullptr) {
@@ -225,6 +229,7 @@ $Set* JavacRoundEnvironment::getElementsAnnotatedWith($Class* a) {
 }
 
 $Set* JavacRoundEnvironment::getElementsAnnotatedWithAny($Set* annotations) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, annotationsAsElements, $new($ArrayList, $nc(annotations)->size()));
 	{
 		$var($Iterator, i$, $nc(annotations)->iterator());
@@ -244,6 +249,7 @@ $Set* JavacRoundEnvironment::getElementsAnnotatedWithAny($Set* annotations) {
 }
 
 $TypeElement* JavacRoundEnvironment::annotationToElement($Class* annotation) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, name, $nc(annotation)->getCanonicalName());
 	$var($TypeElement, annotationElement, $nc(this->eltUtils)->getTypeElement(name));
 	if (annotationElement != nullptr) {

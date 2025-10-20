@@ -308,6 +308,7 @@ void TreeDiffer::init$($Collection* symbols, $Collection* otherSymbols) {
 
 $Map* TreeDiffer::equiv($Collection* symbols, $Collection* otherSymbols) {
 	$init(TreeDiffer);
+	$useLocalCurrentObjectStackCache();
 	$var($Map, result, $new($HashMap));
 	$var($Iterator, it, $nc(otherSymbols)->iterator());
 	{
@@ -326,6 +327,7 @@ $Map* TreeDiffer::equiv($Collection* symbols, $Collection* otherSymbols) {
 }
 
 bool TreeDiffer::scan($JCTree* tree$renamed, $JCTree* parameter$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree, parameter, parameter$renamed);
 	$var($JCTree, tree, tree$renamed);
 	if (tree == nullptr || parameter == nullptr) {
@@ -370,6 +372,7 @@ bool TreeDiffer::scan($JCTree* tree$renamed, $JCTree* parameter$renamed) {
 }
 
 bool TreeDiffer::scan($Iterable* xs, $Iterable* ys) {
+	$useLocalCurrentObjectStackCache();
 	if (xs == nullptr || ys == nullptr) {
 		return xs == nullptr && ys == nullptr;
 	}
@@ -392,6 +395,7 @@ bool TreeDiffer::scan($Iterable* xs, $Iterable* ys) {
 }
 
 bool TreeDiffer::scanDimAnnotations($List* xs, $List* ys) {
+	$useLocalCurrentObjectStackCache();
 	if (xs == nullptr || ys == nullptr) {
 		return xs == nullptr && ys == nullptr;
 	}
@@ -414,6 +418,7 @@ bool TreeDiffer::scanDimAnnotations($List* xs, $List* ys) {
 }
 
 void TreeDiffer::visitIdent($JCTree$JCIdent* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCIdent, that, $cast($JCTree$JCIdent, this->parameter));
 	$var($Symbol, symbol, $nc(tree)->sym);
 	$var($Symbol, otherSymbol, $nc(that)->sym);

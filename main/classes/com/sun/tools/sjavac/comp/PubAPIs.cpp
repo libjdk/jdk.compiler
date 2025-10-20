@@ -101,6 +101,7 @@ void PubAPIs::init$($Context* context) {
 }
 
 $Map* PubAPIs::getPubapis($Collection* explicitJFOs, bool explicits) {
+	$useLocalCurrentObjectStackCache();
 	$var($Map, result, $new($HashMap));
 	{
 		$var($Iterator, i$, $nc($($nc(this->publicApiPerClass)->keySet()))->iterator());
@@ -121,6 +122,7 @@ $Map* PubAPIs::getPubapis($Collection* explicitJFOs, bool explicits) {
 }
 
 void PubAPIs::visitPubapi($Element* e) {
+	$useLocalCurrentObjectStackCache();
 	if (e == nullptr) {
 		return;
 	}

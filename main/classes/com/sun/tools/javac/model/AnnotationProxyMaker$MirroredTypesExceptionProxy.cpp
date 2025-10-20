@@ -144,6 +144,7 @@ void AnnotationProxyMaker$MirroredTypesExceptionProxy::init$($List* ts) {
 }
 
 $String* AnnotationProxyMaker$MirroredTypesExceptionProxy::toString() {
+	$useLocalCurrentObjectStackCache();
 	return $cast($String, $nc($($nc($($nc(this->types)->stream()))->map(static_cast<$Function*>($$new(AnnotationProxyMaker$MirroredTypesExceptionProxy$$Lambda$lambda$toString$0)))))->collect($($Collectors::joining(", "_s, "{"_s, "}"_s))));
 }
 

@@ -109,6 +109,7 @@ $Type* Attr$9::visitIntersectionClassType($Type$IntersectionClassType* ict, $JCD
 }
 
 $Symbol$TypeSymbol* Attr$9::makeNotionalInterface($Type$IntersectionClassType* ict, $JCDiagnostic$DiagnosticPosition* pos) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, targs, $new($ListBuffer));
 	$var($ListBuffer, supertypes, $new($ListBuffer));
 	{

@@ -109,6 +109,7 @@ void TypeEnter$Phase::init$($TypeEnter* this$0, $Dependencies$CompletionCause* p
 }
 
 $List* TypeEnter$Phase::completeEnvs($List* envs) {
+	$useLocalCurrentObjectStackCache();
 	bool firstToComplete = $nc(this->queue)->isEmpty();
 	$var(TypeEnter$Phase, prevTopLevelPhase, this->this$0->topLevelPhase);
 	bool success = false;
@@ -140,6 +141,7 @@ $List* TypeEnter$Phase::completeEnvs($List* envs) {
 }
 
 void TypeEnter$Phase::doCompleteEnvs($List* envs) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(envs)->iterator());
 		for (; $nc(i$)->hasNext();) {

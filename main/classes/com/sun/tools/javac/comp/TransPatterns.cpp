@@ -653,6 +653,7 @@ void TransPatterns::init$($Context* context) {
 }
 
 void TransPatterns::visitTypeTest($JCTree$JCInstanceOf* tree) {
+	$useLocalCurrentObjectStackCache();
 	if ($instanceOf($JCTree$JCPattern, $nc(tree)->pattern)) {
 		$init($TypeTag);
 		$var($Type, tempType, $nc($nc(tree->expr)->type)->hasTag($TypeTag::BOT) ? $nc(this->syms)->objectType : $nc(tree->expr)->type);
@@ -697,6 +698,7 @@ void TransPatterns::visitTypeTest($JCTree$JCInstanceOf* tree) {
 }
 
 void TransPatterns::visitBindingPattern($JCTree$JCBindingPattern* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$BindingSymbol, binding, $cast($Symbol$BindingSymbol, $nc($nc(tree)->var)->sym));
 	$var($Type, castTargetType, principalType(tree));
 	$var($Symbol$VarSymbol, bindingVar, $nc(this->bindingContext)->bindingDeclared(binding));
@@ -718,6 +720,7 @@ void TransPatterns::visitParenthesizedPattern($JCTree$JCParenthesizedPattern* tr
 }
 
 void TransPatterns::visitGuardPattern($JCTree$JCGuardPattern* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCExpression, pattern, $cast($JCTree$JCExpression, this->translate(static_cast<$JCTree*>($nc(tree)->patt))));
 	$var($JCTree$JCExpression, guard, $cast($JCTree$JCExpression, translate(static_cast<$JCTree*>($nc(tree)->expr))));
 	$init($JCTree$Tag);
@@ -733,6 +736,7 @@ void TransPatterns::visitSwitchExpression($JCTree$JCSwitchExpression* tree) {
 }
 
 void TransPatterns::handleSwitch($JCTree* tree, $JCTree$JCExpression* selector$renamed, $List* cases$renamed, bool hasTotalPattern, bool patternSwitch) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, cases, cases$renamed);
 	$var($JCTree$JCExpression, selector, selector$renamed);
 	$var($Type, seltype, $nc(selector)->type);
@@ -896,10 +900,12 @@ void TransPatterns::handleSwitch($JCTree* tree, $JCTree$JCExpression* selector$r
 }
 
 $Type* TransPatterns::principalType($JCTree$JCPattern* p) {
+	$useLocalCurrentObjectStackCache();
 	return $nc(this->types)->boxedTypeOrType($($nc(this->types)->erasure($($nc($($TreeInfo::primaryPatternType(p)))->type()))));
 }
 
 $PoolConstant$LoadableConstant* TransPatterns::toLoadableConstant($JCTree$JCCaseLabel* l, $Type* selector) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(l)->isPattern()) {
 		$var($Type, principalType, this->principalType($cast($JCTree$JCPattern, l)));
 		if ($nc(this->types)->isSubtype(selector, principalType)) {
@@ -1056,6 +1062,7 @@ void TransPatterns::visitDoLoop($JCTree$JCDoWhileLoop* tree) {
 }
 
 void TransPatterns::visitMethodDef($JCTree$JCMethodDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$MethodSymbol, prevMethodSym, this->currentMethodSym);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -1074,6 +1081,7 @@ void TransPatterns::visitMethodDef($JCTree$JCMethodDecl* tree) {
 }
 
 void TransPatterns::visitIdent($JCTree$JCIdent* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$VarSymbol, bindingVar, nullptr);
 	if (((int64_t)($nc($nc(tree)->sym)->flags() & (uint64_t)$Flags::MATCH_BINDING)) != 0) {
 		$assign(bindingVar, $nc(this->bindingContext)->getBindingFor($cast($Symbol$BindingSymbol, tree->sym)));
@@ -1086,6 +1094,7 @@ void TransPatterns::visitIdent($JCTree$JCIdent* tree) {
 }
 
 void TransPatterns::visitBlock($JCTree$JCBlock* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, statements, $new($ListBuffer));
 	$set(this, bindingContext, $new($TransPatterns$2, this, statements));
 	$var($Symbol$MethodSymbol, oldMethodSym, this->currentMethodSym);
@@ -1116,6 +1125,7 @@ void TransPatterns::visitBlock($JCTree$JCBlock* tree) {
 }
 
 void TransPatterns::visitLambda($JCTree$JCLambda* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($TransPatterns$BindingContext, prevContent, this->bindingContext);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -1134,6 +1144,7 @@ void TransPatterns::visitLambda($JCTree$JCLambda* tree) {
 }
 
 void TransPatterns::visitClassDef($JCTree$JCClassDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$ClassSymbol, prevCurrentClass, this->currentClass);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -1152,6 +1163,7 @@ void TransPatterns::visitClassDef($JCTree$JCClassDecl* tree) {
 }
 
 void TransPatterns::visitVarDef($JCTree$JCVariableDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$MethodSymbol, prevMethodSym, this->currentMethodSym);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -1217,12 +1229,14 @@ $JCTree$JCUnary* TransPatterns::makeUnary($JCTree$Tag* optag, $JCTree$JCExpressi
 }
 
 $JCTree$JCExpression* TransPatterns::convert($JCTree$JCExpression* expr, $Type* target) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCExpression, result, $nc($($nc(this->make)->at($($nc(expr)->pos()))))->TypeCast($(static_cast<$JCTree*>($nc(this->make)->Type(target))), expr));
 	$set($nc(result), type, target);
 	return result;
 }
 
 $JCTree$JCExpression* TransPatterns::makeLit($Type* type, Object$* value) {
+	$useLocalCurrentObjectStackCache();
 	return $nc($($nc(this->make)->Literal($($nc(type)->getTag()), value)))->setType($($nc(type)->constType(value)));
 }
 

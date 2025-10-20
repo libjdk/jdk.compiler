@@ -220,6 +220,7 @@ void AttrRecover$1::init$($AttrRecover* this$0, bool val$voidCompatible, $ListBu
 }
 
 void AttrRecover$1::visitReturn($JCTree$JCReturn* tree) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, result, tree);
 	if (this->val$voidCompatible) {
 		if ($nc(tree)->expr != nullptr) {

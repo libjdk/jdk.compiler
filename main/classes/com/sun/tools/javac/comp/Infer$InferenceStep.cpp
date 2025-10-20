@@ -162,6 +162,7 @@ bool Infer$InferenceStep::accepts($Type$UndetVar* t, $InferenceContext* inferenc
 }
 
 $List* Infer$InferenceStep::filterBounds($Type$UndetVar* uv, $InferenceContext* inferenceContext) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, var$0, $nc(uv)->getBounds($$new($Type$UndetVar$InferenceBoundArray, {this->ib})));
 	return $Type::filter(var$0, $$new($Infer$BoundFilter, inferenceContext));
 }

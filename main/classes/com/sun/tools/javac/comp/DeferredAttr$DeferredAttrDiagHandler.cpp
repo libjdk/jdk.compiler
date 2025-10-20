@@ -131,6 +131,7 @@ void DeferredAttr$DeferredAttrDiagHandler::init$($Log* log, $JCTree* newTree) {
 
 bool DeferredAttr$DeferredAttrDiagHandler::lambda$new$0($JCTree* newTree, $JCDiagnostic* d) {
 	$init(DeferredAttr$DeferredAttrDiagHandler);
+	$useLocalCurrentObjectStackCache();
 	$var($DeferredAttr$DeferredAttrDiagHandler$PosScanner, posScanner, $new($DeferredAttr$DeferredAttrDiagHandler$PosScanner, $($nc(d)->getDiagnosticPosition())));
 	posScanner->scan(newTree);
 	return posScanner->found;

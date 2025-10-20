@@ -108,6 +108,7 @@ void JavacRoundEnvironment$AnnotationSetMultiScanner::init$($JavacRoundEnvironme
 }
 
 $Set* JavacRoundEnvironment$AnnotationSetMultiScanner::scan($Element* e, $Set* annotations) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($($nc(this->this$0->eltUtils)->getAllAnnotationMirrors(e)))->iterator());
 		for (; $nc(i$)->hasNext();) {

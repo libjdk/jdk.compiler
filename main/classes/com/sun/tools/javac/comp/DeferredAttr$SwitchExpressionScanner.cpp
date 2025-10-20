@@ -81,6 +81,7 @@ $Object* allocate$DeferredAttr$SwitchExpressionScanner($Class* clazz) {
 }
 
 void DeferredAttr$SwitchExpressionScanner::init$() {
+	$useLocalCurrentObjectStackCache();
 	$init($JCTree$Tag);
 	$DeferredAttr$FilterScanner::init$($($EnumSet::of(static_cast<$Enum*>($JCTree$Tag::BLOCK), $fcast($EnumArray, $$new($JCTree$TagArray, {
 		$JCTree$Tag::CASE,

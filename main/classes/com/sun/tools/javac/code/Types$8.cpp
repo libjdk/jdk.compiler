@@ -114,6 +114,7 @@ $Boolean* Types$8::visitType($Type* t, $Type* s) {
 }
 
 bool Types$8::isCastableRecursive($Type* t, $Type* s) {
+	$useLocalCurrentObjectStackCache();
 	$var($Types$TypePair, pair, $new($Types$TypePair, this->this$0, t, s));
 	if ($nc(this->cache)->add(pair)) {
 		{
@@ -142,6 +143,7 @@ bool Types$8::isCastableRecursive($Type* t, $Type* s) {
 }
 
 bool Types$8::notSoftSubtypeRecursive($Type* t, $Type* s) {
+	$useLocalCurrentObjectStackCache();
 	$var($Types$TypePair, pair, $new($Types$TypePair, this->this$0, t, s));
 	if ($nc(this->cache)->add(pair)) {
 		{
@@ -170,6 +172,7 @@ bool Types$8::notSoftSubtypeRecursive($Type* t, $Type* s) {
 }
 
 $Boolean* Types$8::visitWildcardType($Type$WildcardType* t, $Type* s) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(t)->isUnbound()) {
 		return $Boolean::valueOf(false);
 	}

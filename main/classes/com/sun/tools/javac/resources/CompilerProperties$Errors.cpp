@@ -2350,6 +2350,7 @@ $JCDiagnostic$Error* CompilerProperties$Errors::InvalidRepeatableAnnotationInval
 
 $JCDiagnostic$Error* CompilerProperties$Errors::InvalidRepeatableAnnotationMultipleValues($Type* arg0, int32_t arg1) {
 	$init(CompilerProperties$Errors);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Error, "compiler"_s, "invalid.repeatable.annotation.multiple.values"_s, $$new($ObjectArray, {
 		$of(arg0),
 		$($of($Integer::valueOf(arg1)))
@@ -3325,6 +3326,7 @@ $JCDiagnostic$Error* CompilerProperties$Errors::WrongNumberTypeArgs($String* arg
 }
 
 void clinit$CompilerProperties$Errors($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(CompilerProperties$Errors::AbstractMethCantHaveBody, $new($JCDiagnostic$Error, "compiler"_s, "abstract.meth.cant.have.body"_s, $$new($ObjectArray, 0)));
 	$assignStatic(CompilerProperties$Errors::AddmodsAllModulePathInvalid, $new($JCDiagnostic$Error, "compiler"_s, "addmods.all.module.path.invalid"_s, $$new($ObjectArray, 0)));
 	$assignStatic(CompilerProperties$Errors::AnnotationDeclNotAllowedHere, $new($JCDiagnostic$Error, "compiler"_s, "annotation.decl.not.allowed.here"_s, $$new($ObjectArray, 0)));

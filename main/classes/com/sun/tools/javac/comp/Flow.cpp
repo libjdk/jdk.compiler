@@ -163,6 +163,7 @@ Flow* Flow::instance($Context* context) {
 }
 
 void Flow::analyzeTree($Env* env, $TreeMaker* make) {
+	$useLocalCurrentObjectStackCache();
 	$$new($Flow$AliveAnalyzer, this)->analyzeTree(env, make);
 	$$new($Flow$AssignAnalyzer, this)->analyzeTree(env, make);
 	$$new($Flow$FlowAnalyzer, this)->analyzeTree(env, make);
@@ -170,6 +171,7 @@ void Flow::analyzeTree($Env* env, $TreeMaker* make) {
 }
 
 void Flow::analyzeLambda($Env* env, $JCTree$JCLambda* that, $TreeMaker* make, bool speculative) {
+	$useLocalCurrentObjectStackCache();
 	$var($Log$DiagnosticHandler, diagHandler, nullptr);
 	if (!speculative) {
 		$assign(diagHandler, $new($Log$DiscardDiagnosticHandler, this->log));
@@ -192,6 +194,7 @@ void Flow::analyzeLambda($Env* env, $JCTree$JCLambda* that, $TreeMaker* make, bo
 }
 
 $List* Flow::analyzeLambdaThrownTypes($Env* env, $JCTree$JCLambda* that, $TreeMaker* make) {
+	$useLocalCurrentObjectStackCache();
 	$var($Log$DiagnosticHandler, diagHandler, $new($Log$DiscardDiagnosticHandler, this->log));
 	{
 		$var($Throwable, var$0, nullptr);
@@ -220,6 +223,7 @@ $List* Flow::analyzeLambdaThrownTypes($Env* env, $JCTree$JCLambda* that, $TreeMa
 }
 
 bool Flow::aliveAfter($Env* env, $JCTree* that, $TreeMaker* make) {
+	$useLocalCurrentObjectStackCache();
 	$var($Log$DiagnosticHandler, diagHandler, $new($Log$DiscardDiagnosticHandler, this->log));
 	{
 		$var($Throwable, var$0, nullptr);
@@ -247,6 +251,7 @@ bool Flow::aliveAfter($Env* env, $JCTree* that, $TreeMaker* make) {
 }
 
 bool Flow::breaksOutOf($Env* env, $JCTree* loop, $JCTree* body, $TreeMaker* make) {
+	$useLocalCurrentObjectStackCache();
 	$var($Log$DiagnosticHandler, diagHandler, $new($Log$DiscardDiagnosticHandler, this->log));
 	{
 		$var($Throwable, var$0, nullptr);

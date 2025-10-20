@@ -185,6 +185,7 @@ $Tree$Kind* JCTree$JCCompilationUnit::getKind() {
 }
 
 $JCTree$JCModuleDecl* JCTree$JCCompilationUnit::getModuleDecl() {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(this->defs)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -224,6 +225,7 @@ $ExpressionTree* JCTree$JCCompilationUnit::getPackageName() {
 }
 
 $1List* JCTree$JCCompilationUnit::getImports() {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, imports, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc(this->defs)->iterator());

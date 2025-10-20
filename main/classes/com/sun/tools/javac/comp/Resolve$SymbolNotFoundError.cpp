@@ -122,6 +122,7 @@ void Resolve$SymbolNotFoundError::init$($Resolve* this$0, $Kinds$Kind* kind, $St
 }
 
 $JCDiagnostic* Resolve$SymbolNotFoundError::getDiagnostic($JCDiagnostic$DiagnosticType* dkind, $JCDiagnostic$DiagnosticPosition* pos, $Symbol* location$renamed, $Type* site, $Name* name, $List* argtypes$renamed, $List* typeargtypes$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, typeargtypes, typeargtypes$renamed);
 	$var($List, argtypes, argtypes$renamed);
 	$var($Symbol, location, location$renamed);
@@ -178,6 +179,7 @@ $Object* Resolve$SymbolNotFoundError::args($List* args) {
 }
 
 $String* Resolve$SymbolNotFoundError::getErrorKey($Kinds$KindName* kindname, bool hasTypeArgs, bool hasLocation) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, key, "cant.resolve"_s);
 	$var($String, suffix, hasLocation ? ".location"_s : ""_s);
 	$init($Resolve$18);
@@ -196,6 +198,7 @@ $String* Resolve$SymbolNotFoundError::getErrorKey($Kinds$KindName* kindname, boo
 }
 
 $JCDiagnostic* Resolve$SymbolNotFoundError::getLocationDiag($Symbol* location, $Type* site) {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$Kind);
 	if ($nc(location)->kind == $Kinds$Kind::VAR) {
 		return $nc(this->this$0->diags)->fragment($($CompilerProperties$Fragments::Location1($($Kinds::kindName(location)), location, location->type)));

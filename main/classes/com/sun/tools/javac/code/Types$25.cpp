@@ -114,6 +114,7 @@ $ints* Types$25::$SwitchMap$com$sun$tools$javac$code$BoundKind = nullptr;
 $ints* Types$25::$SwitchMap$com$sun$tools$javac$code$Types$ProjectionKind = nullptr;
 
 void clinit$Types$25($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(Types$25::$SwitchMap$javax$lang$model$type$TypeKind, $new($ints, $($TypeKind::values())->length));
 	{
 		try {

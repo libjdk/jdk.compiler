@@ -59,6 +59,7 @@ void DocTreePathScanner::init$() {
 }
 
 $Object* DocTreePathScanner::scan($DocTreePath* path, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, path, path);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -84,6 +85,7 @@ $Object* DocTreePathScanner::scan($DocTreePath* path, Object$* p) {
 }
 
 $Object* DocTreePathScanner::scan($DocTree* tree, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	if (tree == nullptr) {
 		return $of(nullptr);
 	}

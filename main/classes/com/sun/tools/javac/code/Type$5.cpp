@@ -88,6 +88,7 @@ $ints* Type$5::$SwitchMap$com$sun$tools$javac$code$Type$UndetVar$InferenceBound 
 $ints* Type$5::$SwitchMap$com$sun$tools$javac$code$TypeTag = nullptr;
 
 void clinit$Type$5($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(Type$5::$SwitchMap$com$sun$tools$javac$code$Type$UndetVar$InferenceBound, $new($ints, $($Type$UndetVar$InferenceBound::values())->length));
 	{
 		try {

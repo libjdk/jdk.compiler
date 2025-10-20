@@ -93,6 +93,7 @@ $String* PathFileObject$JarFileObject::getName() {
 }
 
 $String* PathFileObject$JarFileObject::inferBinaryName($Iterable* paths) {
+	$useLocalCurrentObjectStackCache();
 	$var($Path, root, $cast($Path, $nc($($nc($($nc($($nc(this->path)->getFileSystem()))->getRootDirectories()))->iterator()))->next()));
 	return toBinaryName($($nc(root)->relativize(this->path)));
 }
@@ -111,6 +112,7 @@ $PathFileObject* PathFileObject$JarFileObject::getSibling($String* baseName) {
 
 $URI* PathFileObject$JarFileObject::createJarUri($Path* jarFile, $String* entryName) {
 	$init(PathFileObject$JarFileObject);
+	$useLocalCurrentObjectStackCache();
 	$var($URI, jarURI, $nc($($nc(jarFile)->toUri()))->normalize());
 	$var($String, separator, $nc(entryName)->startsWith("/"_s) ? "!"_s : "!/"_s);
 	try {

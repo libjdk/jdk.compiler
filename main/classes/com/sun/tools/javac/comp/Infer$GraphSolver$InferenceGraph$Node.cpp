@@ -188,6 +188,7 @@ void Infer$GraphSolver$InferenceGraph$Node::addDependency(Infer$GraphSolver$Infe
 }
 
 void Infer$GraphSolver$InferenceGraph$Node::addDependencies($Set* depsToAdd) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(depsToAdd)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -210,6 +211,7 @@ $Set* Infer$GraphSolver$InferenceGraph$Node::closure() {
 }
 
 void Infer$GraphSolver$InferenceGraph$Node::closureInternal($Set* closure) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(closure)->add(this)) {
 		{
 			$var($Iterator, i$, $nc(this->deps)->iterator());
@@ -224,6 +226,7 @@ void Infer$GraphSolver$InferenceGraph$Node::closureInternal($Set* closure) {
 }
 
 bool Infer$GraphSolver$InferenceGraph$Node::isLeaf() {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(this->deps)->isEmpty()) {
 		return true;
 	}
@@ -242,6 +245,7 @@ bool Infer$GraphSolver$InferenceGraph$Node::isLeaf() {
 }
 
 void Infer$GraphSolver$InferenceGraph$Node::mergeWith($List* nodes) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(nodes)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -279,12 +283,14 @@ void Infer$GraphSolver$InferenceGraph$Node::graphChanged(Infer$GraphSolver$Infer
 }
 
 $Properties* Infer$GraphSolver$InferenceGraph$Node::nodeAttributes() {
+	$useLocalCurrentObjectStackCache();
 	$var($Properties, p, $new($Properties));
 	p->put("label"_s, $$str({"\""_s, $(toString()), "\""_s}));
 	return p;
 }
 
 $Properties* Infer$GraphSolver$InferenceGraph$Node::dependencyAttributes(Infer$GraphSolver$InferenceGraph$Node* sink, $GraphUtils$DependencyKind* dk) {
+	$useLocalCurrentObjectStackCache();
 	$var($Properties, p, $new($Properties));
 	p->put("style"_s, $nc(($cast($Infer$DependencyKind, dk)))->dotStyle);
 	$var($StringBuilder, buf, $new($StringBuilder));

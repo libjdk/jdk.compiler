@@ -135,6 +135,7 @@ bool LambdaToMethod$LambdaAnalyzerPreprocessor$ReferenceTranslationContext::rece
 }
 
 bool LambdaToMethod$LambdaAnalyzerPreprocessor$ReferenceTranslationContext::isPrivateInOtherClass() {
+	$useLocalCurrentObjectStackCache();
 	if (!LambdaToMethod$LambdaAnalyzerPreprocessor$ReferenceTranslationContext::$assertionsDisabled && ! !$nc(this->this$1->this$0)->nestmateLambdas) {
 		$throwNew($AssertionError);
 	}
@@ -147,6 +148,7 @@ bool LambdaToMethod$LambdaAnalyzerPreprocessor$ReferenceTranslationContext::isPr
 }
 
 bool LambdaToMethod$LambdaAnalyzerPreprocessor$ReferenceTranslationContext::interfaceParameterIsIntersectionOrUnionType() {
+	$useLocalCurrentObjectStackCache();
 	$var($List, tl, $nc($($nc(($cast($JCTree$JCMemberReference, this->tree)))->getDescriptorType($nc(this->this$1->this$0)->types)))->getParameterTypes());
 	for (; $nc(tl)->nonEmpty(); $assign(tl, $nc(tl)->tail)) {
 		$var($Type, pt, $cast($Type, tl->head));
@@ -156,6 +158,7 @@ bool LambdaToMethod$LambdaAnalyzerPreprocessor$ReferenceTranslationContext::inte
 }
 
 bool LambdaToMethod$LambdaAnalyzerPreprocessor$ReferenceTranslationContext::isIntersectionOrUnionType($Type* t) {
+	$useLocalCurrentObjectStackCache();
 		$init($LambdaToMethod$1);
 	{
 		$var($Type$TypeVar, tv, nullptr)

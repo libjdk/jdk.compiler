@@ -148,6 +148,7 @@ $Void* JavacTaskPool$ReusableContext$1::scan($Tree* tree, $Symtab* syms) {
 }
 
 $Void* JavacTaskPool$ReusableContext$1::visitClass($ClassTree* node, $Symtab* syms) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, sym, $nc(($cast($JCTree$JCClassDecl, node)))->sym);
 	if (sym != nullptr) {
 		$var($Symbol$ModuleSymbol, var$0, $nc($(sym->packge()))->modle);
@@ -163,6 +164,7 @@ $Void* JavacTaskPool$ReusableContext$1::visitClass($ClassTree* node, $Symtab* sy
 }
 
 bool JavacTaskPool$ReusableContext$1::isCoreClass($Symbol* s) {
+	$useLocalCurrentObjectStackCache();
 	return $nc($($nc($($nc(s)->flatName()))->toString()))->startsWith("java."_s);
 }
 

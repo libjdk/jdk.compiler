@@ -172,6 +172,7 @@ void PublicApiCollector::init$($Context* context, $Collection* explicitJFOs) {
 }
 
 void PublicApiCollector::finished($TaskEvent* e) {
+	$useLocalCurrentObjectStackCache();
 		$init($PublicApiCollector$1);
 	{
 		$var($PubAPIs, pa, nullptr)
@@ -204,6 +205,7 @@ void PublicApiCollector::finished($TaskEvent* e) {
 }
 
 void PublicApiCollector::collectClassSymbols($JCTree$JCCompilationUnit* cu) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($($cast($List, $nc(cu)->getTypeDecls())))->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -226,6 +228,7 @@ void PublicApiCollector::collectClassSymbols($JCTree$JCCompilationUnit* cu) {
 }
 
 void PublicApiCollector::extractPubApis() {
+	$useLocalCurrentObjectStackCache();
 	$var($PubAPIs, pubApis, $PubAPIs::instance(this->context));
 	$nc(this->classSymbols)->forEach(static_cast<$Consumer*>($$new(PublicApiCollector$$Lambda$visitPubapi, static_cast<$PubAPIs*>($nc(pubApis)))));
 }

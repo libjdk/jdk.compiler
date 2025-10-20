@@ -94,6 +94,7 @@ void ClassReader$TypeAnnotationCompleter::init$($ClassReader* this$0, $Symbol* s
 }
 
 $List* ClassReader$TypeAnnotationCompleter::deproxyTypeCompoundList($List* proxies) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, buf, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc(proxies)->iterator());
@@ -110,6 +111,7 @@ $List* ClassReader$TypeAnnotationCompleter::deproxyTypeCompoundList($List* proxi
 }
 
 void ClassReader$TypeAnnotationCompleter::run() {
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileObject, previousClassFile, this->this$0->currentClassFile);
 	{
 		$var($Throwable, var$0, nullptr);

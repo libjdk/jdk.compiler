@@ -126,6 +126,7 @@ void Resolve$1::init$($Resolve* this$0) {
 }
 
 void Resolve$1::visit($List* ts, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(ts)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -147,6 +148,7 @@ $Void* Resolve$1::visitArrayType($Type$ArrayType* t, $Env* env) {
 }
 
 $Void* Resolve$1::visitClassType($Type$ClassType* t, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	visit($($nc(t)->getTypeArguments()), env);
 	if (!this->this$0->isAccessible(env, static_cast<$Type*>(t), true)) {
 		$var($Symbol, var$0, static_cast<$Symbol*>($new($Resolve$AccessError, this->this$0, env, nullptr, $nc(t)->tsym)));
@@ -161,6 +163,7 @@ $Void* Resolve$1::visitWildcardType($Type$WildcardType* t, $Env* env) {
 }
 
 $Void* Resolve$1::visitMethodType($Type$MethodType* t, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	visit($($nc(t)->getParameterTypes()), env);
 	visit($($nc(t)->getReturnType()), env);
 	visit($($nc(t)->getThrownTypes()), env);

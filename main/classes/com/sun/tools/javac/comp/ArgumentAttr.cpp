@@ -595,6 +595,7 @@ $ArgumentAttr$LocalCacheContext* ArgumentAttr::withLocalCacheContext() {
 }
 
 $Type* ArgumentAttr::attribArg($JCTree* tree, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($Env, prevEnv, this->env);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -627,11 +628,13 @@ void ArgumentAttr::visitTree($JCTree* that) {
 }
 
 void ArgumentAttr::processArg($JCTree$JCExpression* that, $Function* argumentTypeFactory) {
+	$useLocalCurrentObjectStackCache();
 	$var($ArgumentAttr$UniquePos, pos, $new($ArgumentAttr$UniquePos, this, that));
 	processArg(that, static_cast<$Supplier*>($$new(ArgumentAttr$$Lambda$lambda$processArg$0, this, that, pos, argumentTypeFactory)));
 }
 
 void ArgumentAttr::processArg($JCTree$JCExpression* that, $Supplier* argumentTypeFactory) {
+	$useLocalCurrentObjectStackCache();
 	$var($ArgumentAttr$UniquePos, pos, $new($ArgumentAttr$UniquePos, this, that));
 	$var($ArgumentAttr$ArgumentType, cached, $cast($ArgumentAttr$ArgumentType, $nc(this->argumentTypeCache)->get(pos)));
 	if (cached != nullptr) {
@@ -656,6 +659,7 @@ void ArgumentAttr::visitSwitchExpression($JCTree$JCSwitchExpression* that) {
 }
 
 void ArgumentAttr::visitReference($JCTree$JCMemberReference* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Env, localEnv, $nc(this->env)->dup(tree));
 	$var($JCTree$JCExpression, exprTree, nullptr);
 	$var($JCTree, var$0, $cast($JCTree, $nc(tree)->getQualifierExpression()));
@@ -694,6 +698,7 @@ void ArgumentAttr::visitReference($JCTree$JCMemberReference* tree) {
 }
 
 void ArgumentAttr::visitLambda($JCTree$JCLambda* that) {
+	$useLocalCurrentObjectStackCache();
 	$init($JCTree$JCLambda$ParameterKind);
 	if ($nc(that)->paramKind == $JCTree$JCLambda$ParameterKind::EXPLICIT) {
 		processArg(static_cast<$JCTree$JCExpression*>(that), static_cast<$Supplier*>($$new(ArgumentAttr$$Lambda$lambda$visitLambda$4$4, this, that)));
@@ -703,6 +708,7 @@ void ArgumentAttr::visitLambda($JCTree$JCLambda* that) {
 }
 
 void ArgumentAttr::visitApply($JCTree$JCMethodInvocation* that) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc($($cast($List, $nc(that)->getTypeArguments())))->isEmpty()) {
 		processArg(static_cast<$JCTree$JCExpression*>(that), static_cast<$Function*>($$new(ArgumentAttr$$Lambda$lambda$visitApply$5$5, this, that)));
 	} else {
@@ -711,6 +717,7 @@ void ArgumentAttr::visitApply($JCTree$JCMethodInvocation* that) {
 }
 
 void ArgumentAttr::visitNewClass($JCTree$JCNewClass* that) {
+	$useLocalCurrentObjectStackCache();
 	if ($TreeInfo::isDiamond(that)) {
 		processArg(static_cast<$JCTree$JCExpression*>(that), static_cast<$Function*>($$new(ArgumentAttr$$Lambda$lambda$visitNewClass$6$6, this, that)));
 	} else {
@@ -744,6 +751,7 @@ $ArgumentAttr$ParensType* ArgumentAttr::lambda$visitParens$1($JCTree$JCParens* t
 }
 
 $ArgumentAttr$ArgumentType* ArgumentAttr::lambda$processArg$0($JCTree$JCExpression* that, $ArgumentAttr$UniquePos* pos, $Function* argumentTypeFactory) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCExpression, speculativeTree, $cast($JCTree$JCExpression, $nc(this->deferredAttr)->attribSpeculative(that, this->env, $$new($ArgumentAttr$1, this, static_cast<$Attr*>($nc(this->attr)), pos))));
 	return $cast($ArgumentAttr$ArgumentType, $nc(argumentTypeFactory)->apply(speculativeTree));
 }

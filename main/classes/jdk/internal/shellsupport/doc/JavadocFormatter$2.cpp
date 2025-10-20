@@ -108,6 +108,7 @@ void JavadocFormatter$2::init$($Map* val$result) {
 }
 
 $Void* JavadocFormatter$2::visitStartElement($StartElementTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	$init($JavadocFormatter$3);
 	switch ($nc($JavadocFormatter$3::$SwitchMap$jdk$internal$shellsupport$doc$JavadocFormatter$HtmlTag)->get($nc(($($JavadocFormatter::getHtmlTag($($nc(node)->getName())))))->ordinal())) {
 	case 16:
@@ -141,6 +142,7 @@ $Void* JavadocFormatter$2::visitEndElement($EndElementTree* node, $Void* p) {
 }
 
 $Void* JavadocFormatter$2::visitDocComment($DocCommentTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Throwable, var$0, nullptr);
 		$var($Void, var$2, nullptr);

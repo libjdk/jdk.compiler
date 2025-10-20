@@ -90,6 +90,7 @@ $ints* JNIWriter$1::$SwitchMap$com$sun$tools$javac$jvm$JNIWriter$EncoderType = n
 $ints* JNIWriter$1::$SwitchMap$javax$lang$model$type$TypeKind = nullptr;
 
 void clinit$JNIWriter$1($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(JNIWriter$1::$SwitchMap$com$sun$tools$javac$jvm$JNIWriter$EncoderType, $new($ints, $($JNIWriter$EncoderType::values())->length));
 	{
 		try {

@@ -120,6 +120,7 @@ void FilteredMemberList::init$($Scope* scope) {
 }
 
 int32_t FilteredMemberList::size() {
+	$useLocalCurrentObjectStackCache();
 	int32_t cnt = 0;
 	{
 		$init($Scope$LookupKind);
@@ -137,6 +138,7 @@ int32_t FilteredMemberList::size() {
 }
 
 $Object* FilteredMemberList::get(int32_t index) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$init($Scope$LookupKind);
 		$var($Iterator, i$, $nc($($nc(this->scope)->getSymbols($Scope$LookupKind::NON_RECURSIVE)))->iterator());
@@ -153,6 +155,7 @@ $Object* FilteredMemberList::get(int32_t index) {
 }
 
 $Iterator* FilteredMemberList::iterator() {
+	$useLocalCurrentObjectStackCache();
 	$init($Scope$LookupKind);
 	return $nc($($nc(this->scope)->getSymbols(static_cast<$Predicate*>($$new(FilteredMemberList$$Lambda$lambda$iterator$0)), $Scope$LookupKind::NON_RECURSIVE)))->iterator();
 }

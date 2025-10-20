@@ -82,6 +82,7 @@ int32_t ClassWriter$StackMapTableFrame$SameLocals1StackItemFrame::getFrameType()
 }
 
 void ClassWriter$StackMapTableFrame$SameLocals1StackItemFrame::write($ClassWriter* writer) {
+	$useLocalCurrentObjectStackCache();
 	$ClassWriter$StackMapTableFrame::write(writer);
 	if (getFrameType() == 247) {
 		$nc($nc(writer)->databuf)->appendChar(this->offsetDelta);

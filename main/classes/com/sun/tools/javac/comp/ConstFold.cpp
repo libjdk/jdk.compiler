@@ -149,6 +149,7 @@ double ConstFold::doubleValue(Object$* x) {
 }
 
 $Type* ConstFold::fold1(int32_t opcode, $Type* operand) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var($Object, od, $nc(operand)->constValue());
 		switch (opcode) {
@@ -221,6 +222,7 @@ $Type* ConstFold::fold1(int32_t opcode, $Type* operand) {
 }
 
 $Type* ConstFold::fold2(int32_t opcode, $Type* left, $Type* right) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		if (opcode > $ByteCodes::preMask) {
 			$var($Type, t1, fold2($sr(opcode, $ByteCodes::preShift), left, right));
@@ -527,6 +529,7 @@ $Type* ConstFold::fold2(int32_t opcode, $Type* left, $Type* right) {
 }
 
 $Type* ConstFold::coerce($Type* etype, $Type* ttype) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc($nc(etype)->tsym)->type == $nc($nc(ttype)->tsym)->type) {
 		return etype;
 	}

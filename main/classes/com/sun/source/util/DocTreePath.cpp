@@ -98,6 +98,7 @@ DocTreePath* DocTreePath::getPath($TreePath* treePath, $DocCommentTree* doc, $Do
 
 DocTreePath* DocTreePath::getPath(DocTreePath* path, $DocTree* target) {
 	$init(DocTreePath);
+	$useLocalCurrentObjectStackCache();
 	$Objects::requireNonNull(path);
 	$Objects::requireNonNull(target);
 	{

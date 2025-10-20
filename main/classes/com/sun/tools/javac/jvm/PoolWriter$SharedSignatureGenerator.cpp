@@ -97,6 +97,7 @@ void PoolWriter$SharedSignatureGenerator::init$($PoolWriter* this$0, $Types* typ
 }
 
 void PoolWriter$SharedSignatureGenerator::assembleSig($Type* type) {
+	$useLocalCurrentObjectStackCache();
 	$init($PoolWriter$1);
 	switch ($nc($PoolWriter$1::$SwitchMap$com$sun$tools$javac$code$TypeTag)->get($nc(($($nc(type)->getTag())))->ordinal())) {
 	case 1:

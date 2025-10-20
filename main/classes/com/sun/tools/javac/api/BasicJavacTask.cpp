@@ -274,6 +274,7 @@ $Collection* BasicJavacTask::getTaskListeners() {
 }
 
 $TypeMirror* BasicJavacTask::getTypeMirror($Iterable* path) {
+	$useLocalCurrentObjectStackCache();
 	$var($Tree, last, nullptr);
 	{
 		$var($Iterator, i$, $nc(path)->iterator());
@@ -326,6 +327,7 @@ $Context* BasicJavacTask::getContext() {
 }
 
 void BasicJavacTask::initPlugins($Set* pluginOpts) {
+	$useLocalCurrentObjectStackCache();
 	$load($PlatformDescription);
 	$var($PlatformDescription, platformProvider, $cast($PlatformDescription, $nc(this->context)->get($PlatformDescription::class$)));
 	if (platformProvider != nullptr) {
@@ -407,6 +409,7 @@ void BasicJavacTask::initPlugins($Set* pluginOpts) {
 }
 
 void BasicJavacTask::initPlugin($Plugin* p, $StringArray* args) {
+	$useLocalCurrentObjectStackCache();
 	$var($Module, m, $nc($of(p))->getClass()->getModule());
 	bool var$0 = $nc(m)->isNamed();
 	if (var$0 && $nc(this->options)->isSet("accessInternalAPI"_s)) {
@@ -416,6 +419,7 @@ void BasicJavacTask::initPlugin($Plugin* p, $StringArray* args) {
 }
 
 void BasicJavacTask::initDocLint($List* docLintOpts) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(docLintOpts)->isEmpty()) {
 		return;
 	}
@@ -431,6 +435,7 @@ void BasicJavacTask::initDocLint($List* docLintOpts) {
 
 $String* BasicJavacTask::lambda$initPlugins$0($Map$Entry* e) {
 	$init(BasicJavacTask);
+	$useLocalCurrentObjectStackCache();
 	$var($String, var$0, $$str({$cast($String, $($nc(e)->getKey())), "="_s}));
 	return $concat(var$0, $cast($String, $(e->getValue())));
 }

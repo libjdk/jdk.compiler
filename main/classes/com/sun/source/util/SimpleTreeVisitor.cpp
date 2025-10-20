@@ -293,6 +293,7 @@ $Object* SimpleTreeVisitor::visit($Tree* node, Object$* p) {
 }
 
 $Object* SimpleTreeVisitor::visit($Iterable* nodes, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, nullptr);
 	if (nodes != nullptr) {
 		{

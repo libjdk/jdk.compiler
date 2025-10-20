@@ -1061,6 +1061,7 @@ $Object* allocate$Resolve($Class* clazz) {
 $Context$Key* Resolve::resolveKey = nullptr;
 
 void Resolve::init$($Context* context) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, accessibilityChecker, $new($Resolve$1, this));
 	$set(this, nilMethodCheck, $new($Resolve$2, this));
 	$set(this, arityMethodCheck, $new($Resolve$3, this));
@@ -1135,6 +1136,7 @@ $Symbol* Resolve::bestOf($Symbol* s1, $Symbol* s2) {
 }
 
 void Resolve::reportVerboseResolutionDiagnostic($JCDiagnostic$DiagnosticPosition* dpos, $Name* name, $Type* site, $List* argtypes, $List* typeargtypes, $Symbol* bestSoFar) {
+	$useLocalCurrentObjectStackCache();
 	bool success = !$nc($nc(bestSoFar)->kind)->isResolutionError();
 	$init($Resolve$VerboseResolutionMode);
 	if (success && !$nc(this->verboseResolutionMode)->contains($Resolve$VerboseResolutionMode::SUCCESS)) {
@@ -1204,6 +1206,7 @@ void Resolve::reportVerboseResolutionDiagnostic($JCDiagnostic$DiagnosticPosition
 }
 
 $JCDiagnostic* Resolve::getVerboseApplicableCandidateDiag(int32_t pos, $Symbol* sym, $Type* inst) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCDiagnostic, subDiag, nullptr);
 	$init($TypeTag);
 	if ($nc($nc(sym)->type)->hasTag($TypeTag::FORALL)) {
@@ -1243,6 +1246,7 @@ bool Resolve::isAccessible($Env* env, $Symbol$TypeSymbol* c) {
 }
 
 bool Resolve::isAccessible($Env* env, $Symbol$TypeSymbol* c, bool checkInner) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(env)->enclMethod != nullptr && ((int64_t)($nc($nc(env->enclMethod)->mods)->flags & (uint64_t)(int64_t)0x20000000)) != 0) {
 		return true;
 	}
@@ -1303,6 +1307,7 @@ bool Resolve::isAccessible($Env* env, $Type* t) {
 }
 
 bool Resolve::isAccessible($Env* env, $Type* t, bool checkInner) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	if ($nc(t)->hasTag($TypeTag::ARRAY)) {
 		return isAccessible(env, $($nc(this->types)->cvarUpperBound($($nc(this->types)->elemtype(t)))));
@@ -1362,6 +1367,7 @@ bool Resolve::isAccessible($Env* env, $Type* site, $Symbol* sym, bool checkInner
 }
 
 bool Resolve::notOverriddenIn($Type* site, $Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$Kind);
 	bool var$0 = $nc(sym)->kind != $Kinds$Kind::MTH || $nc(sym)->isConstructor();
 	if (var$0 || $nc(sym)->isStatic()) {
@@ -1378,6 +1384,7 @@ bool Resolve::notOverriddenIn($Type* site, $Symbol* sym) {
 }
 
 bool Resolve::isProtectedAccessible($Symbol* sym, $Symbol$ClassSymbol* c$renamed, $Type* site) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$ClassSymbol, c, c$renamed);
 	$init($TypeTag);
 	$var($Type, newSite, $nc(site)->hasTag($TypeTag::TYPEVAR) ? $nc(site)->getUpperBound() : site);
@@ -1408,6 +1415,7 @@ void Resolve::checkAccessibleType($Env* env, $Type* t) {
 }
 
 $Type* Resolve::rawInstantiate($Env* env, $Type* site, $Symbol* m, $Attr$ResultInfo* resultInfo, $List* argtypes, $List* typeargtypes$renamed, bool allowBoxing, bool useVarargs, $Warner* warn) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, typeargtypes, typeargtypes$renamed);
 	$var($Type, mt, $nc(this->types)->memberType(site, m));
 	$var($List, tvars, $List::nil());
@@ -1472,6 +1480,7 @@ $Type* Resolve::rawInstantiate($Env* env, $Type* site, $Symbol* m, $Attr$ResultI
 }
 
 $Type* Resolve::checkMethod($Env* env, $Type* site, $Symbol* m, $Attr$ResultInfo* resultInfo, $List* argtypes, $List* typeargtypes, $Warner* warn) {
+	$useLocalCurrentObjectStackCache();
 	$var($Resolve$MethodResolutionContext, prevContext, this->currentResolutionContext);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -1523,6 +1532,7 @@ $Type* Resolve::instantiate($Env* env, $Type* site, $Symbol* m, $Attr$ResultInfo
 }
 
 $Symbol* Resolve::findField($Env* env, $Type* site, $Name* name, $Symbol$TypeSymbol* c$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$TypeSymbol, c, c$renamed);
 	$init($TypeTag);
 	while ($nc($nc(c)->type)->hasTag($TypeTag::TYPEVAR)) {
@@ -1569,6 +1579,7 @@ $Symbol* Resolve::findField($Env* env, $Type* site, $Name* name, $Symbol$TypeSym
 }
 
 $Symbol$VarSymbol* Resolve::resolveInternalField($JCDiagnostic$DiagnosticPosition* pos, $Env* env, $Type* site, $Name* name) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, sym, findField(env, site, name, $nc(site)->tsym));
 	$init($Kinds$Kind);
 	if ($nc(sym)->kind == $Kinds$Kind::VAR) {
@@ -1579,6 +1590,7 @@ $Symbol$VarSymbol* Resolve::resolveInternalField($JCDiagnostic$DiagnosticPositio
 }
 
 $Symbol* Resolve::findVar($Env* env, $Name* name) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, bestSoFar, this->varNotFound);
 	$var($Env, env1, env);
 	bool staticOnly = false;
@@ -1674,6 +1686,7 @@ $Symbol* Resolve::findVar($Env* env, $Name* name) {
 }
 
 $Symbol* Resolve::selectBest($Env* env, $Type* site, $List* argtypes, $List* typeargtypes, $Symbol* sym, $Symbol* bestSoFar$renamed, bool allowBoxing, bool useVarargs) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, bestSoFar, bestSoFar$renamed);
 	$init($Kinds$Kind);
 	bool var$0 = $nc(sym)->kind == $Kinds$Kind::ERR || (!$equals($nc(site)->tsym, $nc(sym)->owner) && !sym->isInheritedIn(site->tsym, this->types));
@@ -1761,6 +1774,7 @@ $Symbol* Resolve::selectBest($Env* env, $Type* site, $List* argtypes, $List* typ
 }
 
 $Symbol* Resolve::mostSpecific($List* argtypes, $Symbol* m1, $Symbol* m2, $Env* env, $Type* site, bool useVarargs) {
+	$useLocalCurrentObjectStackCache();
 		$init($Resolve$18);
 	{
 		bool m1SignatureMoreSpecific = false;
@@ -1852,6 +1866,7 @@ $Symbol* Resolve::mostSpecific($List* argtypes, $Symbol* m1, $Symbol* m2, $Env* 
 }
 
 bool Resolve::signatureMoreSpecific($List* actuals, $Env* env, $Type* site, $Symbol* m1, $Symbol* m2, bool useVarargs) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->noteWarner)->clear();
 	int32_t var$1 = $nc($($nc($nc(m1)->type)->getParameterTypes()))->length();
 	int32_t var$0 = $Math::max(var$1, $nc(actuals)->length());
@@ -1886,6 +1901,7 @@ bool Resolve::signatureMoreSpecific($List* actuals, $Env* env, $Type* site, $Sym
 }
 
 $List* Resolve::adjustArgs($List* args, $Symbol* msym, int32_t length, bool allowVarargs) {
+	$useLocalCurrentObjectStackCache();
 	if (((int64_t)($nc(msym)->flags() & (uint64_t)(int64_t)0x0000000400000000)) != 0 && allowVarargs) {
 		$var($Type, varargsElem, $nc(this->types)->elemtype($cast($Type, $($nc(args)->last()))));
 		if (varargsElem == nullptr) {
@@ -1911,6 +1927,7 @@ $Symbol* Resolve::ambiguityError($Symbol* m1, $Symbol* m2) {
 }
 
 $Symbol* Resolve::findMethodInScope($Env* env, $Type* site, $Name* name, $List* argtypes, $List* typeargtypes, $Scope* sc, $Symbol* bestSoFar$renamed, bool allowBoxing, bool useVarargs, bool abstractok) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, bestSoFar, bestSoFar$renamed);
 	{
 		$var($Iterator, i$, $nc($($nc(sc)->getSymbolsByName(name, static_cast<$Predicate*>($$new($Resolve$LookupFilter, this, abstractok)))))->iterator());
@@ -1931,6 +1948,7 @@ $Symbol* Resolve::findMethod($Env* env, $Type* site, $Name* name, $List* argtype
 }
 
 $Symbol* Resolve::findMethod($Env* env, $Type* site, $Name* name, $List* argtypes, $List* typeargtypes, $Type* intype, $Symbol* bestSoFar$renamed, bool allowBoxing, bool useVarargs) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, bestSoFar, bestSoFar$renamed);
 	$var($ListArray, itypes, $new($ListArray, {
 		$($List::nil()),
@@ -2004,6 +2022,7 @@ $Iterable* Resolve::superclasses($Type* intype) {
 }
 
 $Symbol* Resolve::findFun($Env* env, $Name* name, $List* argtypes, $List* typeargtypes, bool allowBoxing, bool useVarargs) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, bestSoFar, this->methodNotFound);
 	$var($Env, env1, env);
 	bool staticOnly = false;
@@ -2099,6 +2118,7 @@ $Symbol* Resolve::findFun($Env* env, $Name* name, $List* argtypes, $List* typear
 }
 
 $Symbol* Resolve::loadClass($Env* env, $Name* name, $Resolve$RecoveryLoadClass* recoveryLoadClass) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var($Symbol$ClassSymbol, c, $nc(this->finder)->loadClass($nc($nc(env)->toplevel)->modle, name));
 		return isAccessible(env, static_cast<$Symbol$TypeSymbol*>(c)) ? static_cast<$Symbol*>(c) : static_cast<$Symbol*>($new($Resolve$AccessError, this, env, nullptr, c));
@@ -2117,6 +2137,7 @@ $Symbol* Resolve::loadClass($Env* env, $Name* name, $Resolve$RecoveryLoadClass* 
 }
 
 $Symbol* Resolve::lookupPackage($Env* env, $Name* name) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$PackageSymbol, pack, $nc(this->syms)->lookupPackage($nc($nc(env)->toplevel)->modle, name));
 	if (this->allowModules && isImportOnDemand(env, name)) {
 		if ($nc($($nc(pack)->members()))->isEmpty()) {
@@ -2146,6 +2167,7 @@ bool Resolve::isImportOnDemand($Env* env, $Name* name) {
 }
 
 $Symbol* Resolve::lookupInvisibleSymbol($Env* env, $Name* name, $Function* get, $BiFunction* load, $Predicate* validate, $Symbol* defaultResult) {
+	$useLocalCurrentObjectStackCache();
 	$var($Iterable, candidates, $cast($Iterable, $nc(get)->apply(name)));
 	{
 		$var($Iterator, i$, $nc(candidates)->iterator());
@@ -2193,12 +2215,14 @@ $Symbol* Resolve::createInvisibleSymbolError($Env* env, $Symbol* sym) {
 }
 
 bool Resolve::symbolPackageVisible($Env* env, $Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$ModuleSymbol, envMod, $nc($nc(env)->toplevel)->modle);
 	$var($Symbol$PackageSymbol, symPack, $nc(sym)->packge());
 	return envMod == $nc(symPack)->modle || $nc($nc(envMod)->visiblePackages)->containsKey($nc(symPack)->fullname);
 }
 
 $Symbol* Resolve::findImmediateMemberType($Env* env, $Type* site, $Name* name, $Symbol$TypeSymbol* c) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($($nc($($nc(c)->members()))->getSymbolsByName(name)))->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -2215,6 +2239,7 @@ $Symbol* Resolve::findImmediateMemberType($Env* env, $Type* site, $Name* name, $
 }
 
 $Symbol* Resolve::findInheritedMemberType($Env* env, $Type* site, $Name* name, $Symbol$TypeSymbol* c) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, bestSoFar, this->typeNotFound);
 	$var($Symbol, sym, nullptr);
 	$var($Type, st, $nc(this->types)->supertype($nc(c)->type));
@@ -2248,6 +2273,7 @@ $Symbol* Resolve::findMemberType($Env* env, $Type* site, $Name* name, $Symbol$Ty
 }
 
 $Symbol* Resolve::findGlobalType($Env* env, $Scope* scope, $Name* name, $Resolve$RecoveryLoadClass* recoveryLoadClass) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, bestSoFar, this->typeNotFound);
 	{
 		$var($Iterator, i$, $nc($($nc(scope)->getSymbolsByName(name)))->iterator());
@@ -2268,6 +2294,7 @@ $Symbol* Resolve::findGlobalType($Env* env, $Scope* scope, $Name* name, $Resolve
 }
 
 $Symbol* Resolve::findTypeVar($Env* env, $Name* name, bool staticOnly) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($($nc($nc(($cast($AttrContext, $nc(env)->info)))->scope)->getSymbolsByName(name)))->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -2289,6 +2316,7 @@ $Symbol* Resolve::findTypeVar($Env* env, $Name* name, bool staticOnly) {
 }
 
 $Symbol* Resolve::findType($Env* env, $Name* name) {
+	$useLocalCurrentObjectStackCache();
 	if (name == $nc(this->names)->empty) {
 		return this->typeNotFound;
 	}
@@ -2365,6 +2393,7 @@ $Symbol* Resolve::findIdent($JCDiagnostic$DiagnosticPosition* pos, $Env* env, $N
 }
 
 $Symbol* Resolve::findIdentInternal($Env* env, $Name* name, $Kinds$KindSelector* kind) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, bestSoFar, this->typeNotFound);
 	$var($Symbol, sym, nullptr);
 	$init($Kinds$KindSelector);
@@ -2396,6 +2425,7 @@ $Symbol* Resolve::findIdentInPackage($JCDiagnostic$DiagnosticPosition* pos, $Env
 }
 
 $Symbol* Resolve::findIdentInPackageInternal($Env* env, $Symbol$TypeSymbol* pck, $Name* name, $Kinds$KindSelector* kind) {
+	$useLocalCurrentObjectStackCache();
 	$var($Name, fullname, $Symbol$TypeSymbol::formFullName(name, pck));
 	$var($Symbol, bestSoFar, this->typeNotFound);
 	$init($Kinds$KindSelector);
@@ -2422,6 +2452,7 @@ $Symbol* Resolve::findIdentInType($JCDiagnostic$DiagnosticPosition* pos, $Env* e
 }
 
 $Symbol* Resolve::findIdentInTypeInternal($Env* env, $Type* site, $Name* name, $Kinds$KindSelector* kind) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, bestSoFar, this->typeNotFound);
 	$var($Symbol, sym, nullptr);
 	$init($Kinds$KindSelector);
@@ -2445,6 +2476,7 @@ $Symbol* Resolve::findIdentInTypeInternal($Env* env, $Type* site, $Name* name, $
 }
 
 $Symbol* Resolve::checkRestrictedType($JCDiagnostic$DiagnosticPosition* pos, $Symbol* bestSoFar$renamed, $Name* name) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, bestSoFar, bestSoFar$renamed);
 	$init($Kinds$Kind);
 	if ($nc(bestSoFar)->kind == $Kinds$Kind::TYP || $nc(bestSoFar)->kind == $Kinds$Kind::ABSENT_TYP) {
@@ -2462,6 +2494,7 @@ $Symbol* Resolve::checkRestrictedType($JCDiagnostic$DiagnosticPosition* pos, $Sy
 }
 
 $Symbol* Resolve::accessInternal($Symbol* sym$renamed, $JCDiagnostic$DiagnosticPosition* pos, $Symbol* location, $Type* site, $Name* name, bool qualified, $List* argtypes$renamed, $List* typeargtypes, $Resolve$LogResolveHelper* logResolveHelper) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, argtypes, argtypes$renamed);
 	$var($Symbol, sym, sym$renamed);
 	if ($nc($nc(sym)->kind)->isResolutionError()) {
@@ -2492,6 +2525,7 @@ $Symbol* Resolve::accessBase($Symbol* sym, $JCDiagnostic$DiagnosticPosition* pos
 }
 
 void Resolve::checkNonAbstract($JCDiagnostic$DiagnosticPosition* pos, $Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	bool var$0 = ((int64_t)($nc(sym)->flags() & (uint64_t)(int64_t)1024)) != 0;
 	if (var$0 && ((int64_t)(sym->flags() & (uint64_t)(int64_t)0x0000080000000000)) == 0) {
 		$var($Kinds$KindName, var$1, $Kinds::kindName(sym));
@@ -2526,6 +2560,7 @@ $Symbol* Resolve::findPolymorphicSignatureInstance($Env* env, $Symbol* spMethod,
 }
 
 $Symbol* Resolve::findPolymorphicSignatureInstance($Symbol* spMethod, $Type* mtype$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, mtype, mtype$renamed);
 	{
 		$var($Iterator, i$, $nc($($nc(this->polymorphicSignatureScope)->getSymbolsByName($nc(spMethod)->name)))->iterator());
@@ -2554,6 +2589,7 @@ $Symbol* Resolve::findPolymorphicSignatureInstance($Symbol* spMethod, $Type* mty
 }
 
 $Symbol$MethodSymbol* Resolve::resolveInternalMethod($JCDiagnostic$DiagnosticPosition* pos, $Env* env, $Type* site, $Name* name, $List* argtypes, $List* typeargtypes) {
+	$useLocalCurrentObjectStackCache();
 	$var($Resolve$MethodResolutionContext, resolveContext, $new($Resolve$MethodResolutionContext, this));
 	resolveContext->internalResolution = true;
 	$var($Symbol, sym, resolveQualifiedMethod(resolveContext, pos, env, $nc(site)->tsym, site, name, argtypes, typeargtypes));
@@ -2574,6 +2610,7 @@ $Symbol* Resolve::resolveConstructor($Resolve$MethodResolutionContext* resolveCo
 }
 
 $Symbol$MethodSymbol* Resolve::resolveInternalConstructor($JCDiagnostic$DiagnosticPosition* pos, $Env* env, $Type* site, $List* argtypes, $List* typeargtypes) {
+	$useLocalCurrentObjectStackCache();
 	$var($Resolve$MethodResolutionContext, resolveContext, $new($Resolve$MethodResolutionContext, this));
 	resolveContext->internalResolution = true;
 	$var($Symbol, sym, resolveConstructor(resolveContext, pos, env, site, argtypes, typeargtypes));
@@ -2604,6 +2641,7 @@ $Symbol* Resolve::findDiamond($JCDiagnostic$DiagnosticPosition* pos, $Env* env, 
 }
 
 $Symbol* Resolve::findDiamond($Env* env, $Type* site, $List* argtypes, $List* typeargtypes, bool allowBoxing, bool useVarargs) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, bestSoFar, this->methodNotFound);
 	$var($Symbol$TypeSymbol, tsym, $nc($nc(site)->tsym)->isInterface() ? $nc($nc(this->syms)->objectType)->tsym : $nc(site)->tsym);
 	{
@@ -2627,6 +2665,7 @@ $Symbol* Resolve::findDiamond($Env* env, $Type* site, $List* argtypes, $List* ty
 }
 
 $Symbol* Resolve::getMemberReference($JCDiagnostic$DiagnosticPosition* pos, $Env* env, $JCTree$JCMemberReference* referenceTree, $Type* site$renamed, $Name* name) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, site, site$renamed);
 	$assign(site, $nc(this->types)->capture(site));
 	$init($Resolve$MethodResolutionPhase);
@@ -2651,6 +2690,7 @@ $Resolve$ReferenceLookupHelper* Resolve::makeReferenceLookupHelper($JCTree$JCMem
 }
 
 $Pair* Resolve::resolveMemberReference($Env* env, $JCTree$JCMemberReference* referenceTree, $Type* site, $Name* name, $List* argtypes, $List* typeargtypes, $Type* descriptor, $Resolve$MethodCheck* methodCheck, $InferenceContext* inferenceContext, $Resolve$ReferenceChooser* referenceChooser) {
+	$useLocalCurrentObjectStackCache();
 	$init($Resolve$MethodResolutionPhase);
 	$var($Resolve$ReferenceLookupHelper, boundLookupHelper, makeReferenceLookupHelper(referenceTree, site, name, argtypes, typeargtypes, $Resolve$MethodResolutionPhase::VARARITY));
 	$var($Env, boundEnv, $nc(env)->dup(env->tree, $($nc(($cast($AttrContext, env->info)))->dup())));
@@ -2689,6 +2729,7 @@ $Pair* Resolve::resolveMemberReference($Env* env, $JCTree$JCMemberReference* ref
 }
 
 void Resolve::dumpMethodReferenceSearchResults($JCTree$JCMemberReference* referenceTree, $Resolve$MethodResolutionContext* resolutionContext, $Symbol* bestSoFar, bool bound) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, subDiags, $new($ListBuffer));
 	int32_t pos = 0;
 	int32_t mostSpecificPos = -1;
@@ -2741,6 +2782,7 @@ $Symbol* Resolve::lookupMethod($Env* env, $JCDiagnostic$DiagnosticPosition* pos,
 }
 
 $Symbol* Resolve::lookupMethod($Env* env, $JCDiagnostic$DiagnosticPosition* pos, $Symbol* location, $Resolve$MethodResolutionContext* resolveContext, $Resolve$LookupHelper* lookupHelper) {
+	$useLocalCurrentObjectStackCache();
 	$var($Resolve$MethodResolutionContext, prevResolutionContext, this->currentResolutionContext);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -2786,6 +2828,7 @@ $Symbol* Resolve::lookupMethod($Env* env, $JCDiagnostic$DiagnosticPosition* pos,
 }
 
 $Symbol* Resolve::resolveSelf($JCDiagnostic$DiagnosticPosition* pos, $Env* env, $Symbol$TypeSymbol* c, $Name* name) {
+	$useLocalCurrentObjectStackCache();
 	$var($Env, env1, env);
 	bool staticOnly = false;
 	while ($nc(env1)->outer != nullptr) {
@@ -2840,6 +2883,7 @@ $Symbol* Resolve::resolveSelf($JCDiagnostic$DiagnosticPosition* pos, $Env* env, 
 }
 
 $List* Resolve::pruneInterfaces($Type* t) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, result, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc($($nc(this->types)->interfaces(t)))->iterator());
@@ -2870,6 +2914,7 @@ $List* Resolve::pruneInterfaces($Type* t) {
 }
 
 $Symbol* Resolve::resolveSelfContaining($JCDiagnostic$DiagnosticPosition* pos, $Env* env, $Symbol* member, bool isSuperCall) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, sym, resolveSelfContainingInternal(env, member, isSuperCall));
 	if (sym == nullptr) {
 		$nc(this->log)->error(pos, $($CompilerProperties$Errors::EnclClassRequired(member)));
@@ -2880,6 +2925,7 @@ $Symbol* Resolve::resolveSelfContaining($JCDiagnostic$DiagnosticPosition* pos, $
 }
 
 bool Resolve::enclosingInstanceMissing($Env* env, $Type* type) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	bool var$0 = $nc(type)->hasTag($TypeTag::CLASS);
 	if (var$0 && $nc($(type->getEnclosingType()))->hasTag($TypeTag::CLASS)) {
@@ -2890,6 +2936,7 @@ bool Resolve::enclosingInstanceMissing($Env* env, $Type* type) {
 }
 
 $Symbol* Resolve::resolveSelfContainingInternal($Env* env, $Symbol* member, bool isSuperCall) {
+	$useLocalCurrentObjectStackCache();
 	$var($Name, name, $nc(this->names)->_this);
 	$var($Env, env1, isSuperCall ? $nc(env)->outer : env);
 	bool staticOnly = false;
@@ -2921,6 +2968,7 @@ $Type* Resolve::resolveImplicitThis($JCDiagnostic$DiagnosticPosition* pos, $Env*
 }
 
 $Type* Resolve::resolveImplicitThis($JCDiagnostic$DiagnosticPosition* pos, $Env* env, $Type* t, bool isSuperCall) {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$KindSelector);
 	$var($Type, thisType, $nc(($nc($nc($nc($nc(t)->tsym)->owner)->kind)->matches($Kinds$KindSelector::VAL_MTH) ? $(resolveSelf(pos, env, $nc($($nc(t)->getEnclosingType()))->tsym, $nc(this->names)->_this)) : $(resolveSelfContaining(pos, env, $nc(t)->tsym, isSuperCall))))->type);
 	if ($nc(($cast($AttrContext, $nc(env)->info)))->isSelfCall && $equals($nc(thisType)->tsym, $nc(env->enclClass)->sym)) {
@@ -2930,6 +2978,7 @@ $Type* Resolve::resolveImplicitThis($JCDiagnostic$DiagnosticPosition* pos, $Env*
 }
 
 void Resolve::logAccessErrorInternal($Env* env, $JCTree* tree, $Type* type) {
+	$useLocalCurrentObjectStackCache();
 	$var($Resolve$AccessError, error, $new($Resolve$AccessError, this, env, $nc($nc(env)->enclClass)->type, $nc(type)->tsym));
 	logResolveError(error, $($nc(tree)->pos()), $nc($nc(env)->enclClass)->sym, $nc(env->enclClass)->type, nullptr, nullptr, nullptr);
 }
@@ -2945,6 +2994,7 @@ void Resolve::logResolveError($Resolve$ResolveError* error, $JCDiagnostic$Diagno
 }
 
 $Object* Resolve::methodArguments($List* argtypes) {
+	$useLocalCurrentObjectStackCache();
 	if (argtypes == nullptr || $nc(argtypes)->isEmpty()) {
 		return $of(this->noArgs);
 	} else {
@@ -2968,6 +3018,7 @@ $Object* Resolve::methodArguments($List* argtypes) {
 }
 
 $JCDiagnostic* Resolve::inaccessiblePackageReason($Env* env, $Symbol$PackageSymbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	if (!$nc($nc($nc($nc(env)->toplevel)->modle)->readModules)->contains($nc(sym)->modle)) {
 		if ($nc(sym)->modle != $nc(this->syms)->unnamedModule) {
 			if ($nc(env->toplevel)->modle != $nc(this->syms)->unnamedModule) {
@@ -3003,6 +3054,7 @@ bool Resolve::lambda$lookupPackage$7($Symbol$PackageSymbol* sym) {
 }
 
 $Symbol* Resolve::lambda$new$6($Env* env, $Name* name) {
+	$useLocalCurrentObjectStackCache();
 	$var($Scope, importScope, $nc($nc(env)->toplevel)->starImportScope);
 	$var($Name, var$0, $Convert::shortName(name));
 	$var($Symbol, existing, $nc(importScope)->findFirst(var$0, static_cast<$Predicate*>($$new(Resolve$$Lambda$lambda$new$3$9, name))));
@@ -3018,6 +3070,7 @@ $Symbol* Resolve::lambda$new$6($Env* env, $Name* name) {
 }
 
 $Symbol* Resolve::lambda$new$4($Env* env, $Name* name) {
+	$useLocalCurrentObjectStackCache();
 	$var($Scope, importScope, $nc($nc(env)->toplevel)->namedImportScope);
 	$var($Name, var$0, $Convert::shortName(name));
 	$var($Symbol, existing, $nc(importScope)->findFirst(var$0, static_cast<$Predicate*>($$new(Resolve$$Lambda$lambda$new$3$9, name))));

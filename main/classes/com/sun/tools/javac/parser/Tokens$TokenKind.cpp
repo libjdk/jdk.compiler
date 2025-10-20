@@ -674,6 +674,7 @@ $String* Tokens$TokenKind::getKind() {
 }
 
 $String* Tokens$TokenKind::toString($Locale* locale, $Messages* messages) {
+	$useLocalCurrentObjectStackCache();
 	return this->name$ != nullptr ? toString() : $nc(messages)->getLocalizedString(locale, $$str({"compiler.misc."_s, $(toString())}), $$new($ObjectArray, 0));
 }
 

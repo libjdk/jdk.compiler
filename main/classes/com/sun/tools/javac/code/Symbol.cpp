@@ -293,6 +293,7 @@ $List* Symbol::getRawTypeAttributes() {
 }
 
 $Attribute$Compound* Symbol::attribute(Symbol* anno) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($(getRawAttributes()))->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -478,6 +479,7 @@ $Type* Symbol::erasure($Types* types) {
 }
 
 $Type* Symbol::externalType($Types* types) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, t, erasure(types));
 	if (this->name == $nc($nc($nc(this->name)->table)->names)->init && $nc(this->owner)->hasOuterInstance()) {
 		$var($Type, outerThisType, $nc(types)->erasure($($nc($nc(this->owner)->type)->getEnclosingType())));
@@ -628,6 +630,7 @@ $Symbol$ClassSymbol* Symbol::enclClass() {
 }
 
 $Symbol$ClassSymbol* Symbol::outermostClass() {
+	$useLocalCurrentObjectStackCache();
 	$var(Symbol, sym, this);
 	$var(Symbol, prev, nullptr);
 	$init($Kinds$Kind);
@@ -682,6 +685,7 @@ bool Symbol::hiddenIn($Symbol$ClassSymbol* clazz, $Types* types) {
 }
 
 Symbol* Symbol::hiddenInInternal($Symbol$ClassSymbol* currentClass, $Types* types) {
+	$useLocalCurrentObjectStackCache();
 	if ($equals(currentClass, this->owner)) {
 		return this;
 	}
@@ -728,6 +732,7 @@ Symbol* Symbol::hiddenInInternal($Symbol$ClassSymbol* currentClass, $Types* type
 }
 
 bool Symbol::isAccessibleIn(Symbol* clazz, $Types* types) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Symbol$PackageSymbol, thisPackage, nullptr)
 		switch ((int32_t)((int64_t)(this->flags_field & (uint64_t)(int64_t)$Flags::AccessFlags))) {
@@ -839,6 +844,7 @@ $1List* Symbol::getEnclosedElements() {
 }
 
 $List* Symbol::getTypeParameters() {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, l, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc($($nc(this->type)->getTypeArguments()))->iterator());

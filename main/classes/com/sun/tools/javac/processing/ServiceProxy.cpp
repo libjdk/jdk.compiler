@@ -89,16 +89,19 @@ void ServiceProxy::init$() {
 
 void ServiceProxy::fail($Class* service, $String* msg) {
 	$init(ServiceProxy);
+	$useLocalCurrentObjectStackCache();
 	$throwNew($ServiceProxy$ServiceConfigurationError, $$str({$($nc(service)->getName()), ": "_s, msg}));
 }
 
 void ServiceProxy::fail($Class* service, $URL* u, int32_t line, $String* msg) {
 	$init(ServiceProxy);
+	$useLocalCurrentObjectStackCache();
 	fail(service, $$str({u, ":"_s, $$str(line), ": "_s, msg}));
 }
 
 bool ServiceProxy::parse($Class* service, $URL* u) {
 	$init(ServiceProxy);
+	$useLocalCurrentObjectStackCache();
 	$var($InputStream, in, nullptr);
 	$var($BufferedReader, r, nullptr);
 	{
@@ -179,6 +182,7 @@ bool ServiceProxy::parse($Class* service, $URL* u) {
 
 bool ServiceProxy::hasService($Class* service, $URLArray* urls) {
 	$init(ServiceProxy);
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($URLArray, arr$, urls);
 		int32_t len$ = $nc(arr$)->length;

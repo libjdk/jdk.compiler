@@ -92,6 +92,7 @@ $Object* allocate$Symtab$4($Class* clazz) {
 }
 
 void Symtab$4::init$($Symtab* this$0, $Name* name, $Symbol* owner) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, this$0, this$0);
 	$Symbol$ModuleSymbol::init$(name, owner);
 	{

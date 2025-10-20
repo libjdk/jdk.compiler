@@ -91,6 +91,7 @@ void Attr$3::init$($Attr* this$0, $Check$CheckContext* enclosingContext) {
 }
 
 void Attr$3::report($JCDiagnostic$DiagnosticPosition* pos, $JCDiagnostic* details) {
+	$useLocalCurrentObjectStackCache();
 	$nc($nc(this->this$0->chk)->basicHandler)->report(pos, $($nc(this->this$0->diags)->fragment($($CompilerProperties$Fragments::TryNotApplicableToType(details)))));
 }
 

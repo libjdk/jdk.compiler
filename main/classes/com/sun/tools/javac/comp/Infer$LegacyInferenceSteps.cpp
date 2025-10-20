@@ -106,6 +106,7 @@ void Infer$LegacyInferenceSteps::init$($String* $enum$name, int32_t $enum$ordina
 }
 
 void clinit$Infer$LegacyInferenceSteps($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$init($Infer$InferenceStep);
 	$assignStatic(Infer$LegacyInferenceSteps::EQ_LOWER, $new(Infer$LegacyInferenceSteps, "EQ_LOWER"_s, 0, $($EnumSet::of(static_cast<$Enum*>($Infer$InferenceStep::EQ), static_cast<$Enum*>($Infer$InferenceStep::LOWER)))));
 	$assignStatic(Infer$LegacyInferenceSteps::EQ_UPPER, $new(Infer$LegacyInferenceSteps, "EQ_UPPER"_s, 1, $($EnumSet::of(static_cast<$Enum*>($Infer$InferenceStep::EQ), static_cast<$Enum*>($Infer$InferenceStep::UPPER_LEGACY)))));

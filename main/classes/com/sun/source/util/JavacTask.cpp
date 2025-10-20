@@ -83,6 +83,7 @@ void JavacTask::init$() {
 
 JavacTask* JavacTask::instance($ProcessingEnvironment* processingEnvironment) {
 	$init(JavacTask);
+	$useLocalCurrentObjectStackCache();
 	if (!$nc($($nc($of(processingEnvironment))->getClass()->getName()))->equals("com.sun.tools.javac.processing.JavacProcessingEnvironment"_s)) {
 		$throwNew($IllegalArgumentException);
 	}

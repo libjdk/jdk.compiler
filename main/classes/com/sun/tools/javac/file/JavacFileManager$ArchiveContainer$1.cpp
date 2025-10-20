@@ -96,6 +96,7 @@ void JavacFileManager$ArchiveContainer$1::init$($JavacFileManager$ArchiveContain
 }
 
 $FileVisitResult* JavacFileManager$ArchiveContainer$1::preVisitDirectory($Path* dir, $BasicFileAttributes* attrs) {
+	$useLocalCurrentObjectStackCache();
 	if (this->this$1->isValid($($nc(dir)->getFileName()))) {
 		$nc(this->this$1->packages)->put($$new($RelativePath$RelativeDirectory, $($nc($($nc(this->val$root)->relativize(dir)))->toString())), dir);
 		$init($FileVisitResult);

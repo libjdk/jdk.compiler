@@ -1319,6 +1319,7 @@ Modules* Modules::instance($Context* context) {
 }
 
 void Modules::init$($Context* context) {
+	$useLocalCurrentObjectStackCache();
 	$JCTree$Visitor::init$();
 	$set(this, extraAddMods, $new($HashSet));
 	$set(this, extraLimitMods, $new($HashSet));
@@ -1368,6 +1369,7 @@ void Modules::addExtraAddModules($StringArray* extras) {
 }
 
 void Modules::initModules($List* trees) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::check(!this->inInitModules);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -1392,6 +1394,7 @@ bool Modules::enter($List* trees, $Symbol$ClassSymbol* c) {
 }
 
 bool Modules::enter($List* trees, $Consumer* init, $Symbol$ClassSymbol* c) {
+	$useLocalCurrentObjectStackCache();
 	if (!this->allowModules) {
 		{
 			$var($Iterator, i$, $nc(trees)->iterator());
@@ -1452,6 +1455,7 @@ bool Modules::modulesInitialized() {
 }
 
 $Set* Modules::enterModules($List* trees, $Symbol$ClassSymbol* c) {
+	$useLocalCurrentObjectStackCache();
 	$var($Set, modules, $new($LinkedHashSet));
 	{
 		$var($Iterator, i$, $nc(trees)->iterator());
@@ -1479,6 +1483,7 @@ $Set* Modules::enterModules($List* trees, $Symbol$ClassSymbol* c) {
 }
 
 void Modules::enterModule($JCTree$JCCompilationUnit* toplevel, $Symbol$ClassSymbol* c, $Set* modules) {
+	$useLocalCurrentObjectStackCache();
 	$init($JavaFileObject$Kind);
 	bool isModuleInfo = $nc($nc(toplevel)->sourcefile)->isNameCompatible("module-info"_s, $JavaFileObject$Kind::SOURCE);
 	bool isModuleDecl = toplevel->getModuleDecl() != nullptr;
@@ -1528,6 +1533,7 @@ void Modules::enterModule($JCTree$JCCompilationUnit* toplevel, $Symbol$ClassSymb
 }
 
 void Modules::setCompilationUnitModules($List* trees, $Set* rootModules, $Symbol$ClassSymbol* c) {
+	$useLocalCurrentObjectStackCache();
 	if (this->multiModuleMode) {
 		bool patchesAutomaticModules = false;
 		{
@@ -1740,6 +1746,7 @@ void Modules::setCompilationUnitModules($List* trees, $Set* rootModules, $Symbol
 }
 
 void Modules::checkSourceLocation($JCTree$JCCompilationUnit* tree, $Symbol$ModuleSymbol* msym) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var($JavaFileObject, fo, $nc(tree)->sourcefile);
 		if ($nc(this->fileManager)->contains($nc(msym)->sourceLocation, fo)) {
@@ -1780,6 +1787,7 @@ void Modules::checkSourceLocation($JCTree$JCCompilationUnit* tree, $Symbol$Modul
 }
 
 $String* Modules::singleModuleOverride($List* trees) {
+	$useLocalCurrentObjectStackCache();
 	$init($StandardLocation);
 	if (!$nc(this->fileManager)->hasLocation($StandardLocation::PATCH_MODULE_PATH)) {
 		return nullptr;
@@ -1821,6 +1829,7 @@ $String* Modules::singleModuleOverride($List* trees) {
 }
 
 $JavaFileManager$Location* Modules::getModuleLocation($JCTree$JCCompilationUnit* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileObject, fo, $nc(tree)->sourcefile);
 	$init($StandardLocation);
 	$var($JavaFileManager$Location, loc, $nc(this->fileManager)->getLocationForModule(static_cast<$JavaFileManager$Location*>($StandardLocation::MODULE_SOURCE_PATH), fo));
@@ -1832,6 +1841,7 @@ $JavaFileManager$Location* Modules::getModuleLocation($JCTree$JCCompilationUnit*
 }
 
 void Modules::checkNoAllModulePath() {
+	$useLocalCurrentObjectStackCache();
 	if (this->addModsOpt != nullptr && $nc($($Arrays::asList($($nc(this->addModsOpt)->split(","_s)))))->contains(Modules::ALL_MODULE_PATH)) {
 		$init($CompilerProperties$Errors);
 		$nc(this->log)->error($CompilerProperties$Errors::AddmodsAllModulePathInvalid);
@@ -1839,6 +1849,7 @@ void Modules::checkNoAllModulePath() {
 }
 
 void Modules::setupAutomaticModule($Symbol$ModuleSymbol* msym) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var($ListBuffer, directives, $new($ListBuffer));
 		$var($ListBuffer, exports, $new($ListBuffer));
@@ -1871,6 +1882,7 @@ void Modules::setupAutomaticModule($Symbol$ModuleSymbol* msym) {
 }
 
 void Modules::completeAutomaticModule($Symbol$ModuleSymbol* msym) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, directives, $new($ListBuffer));
 	directives->addAll(static_cast<$Collection*>(static_cast<$AbstractCollection*>($nc(msym)->directives)));
 	$var($ListBuffer, requires, $new($ListBuffer));
@@ -1921,6 +1933,7 @@ $Set* Modules::allModules() {
 }
 
 void Modules::setupAllModules() {
+	$useLocalCurrentObjectStackCache();
 	$Assert::checkNonNull(this->rootModules);
 	$Assert::checkNull(this->allModules$);
 	$var($Set, observable, nullptr);
@@ -2088,6 +2101,7 @@ bool Modules::isInModuleGraph($Symbol$ModuleSymbol* msym) {
 }
 
 $Set* Modules::computeTransitiveClosure($Set* base, $Set* rootModules, $Set* observable) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, primaryTodo, $List::nil());
 	$var($List, secondaryTodo, $List::nil());
 	{
@@ -2162,6 +2176,7 @@ $Set* Modules::computeTransitiveClosure($Set* base, $Set* rootModules, $Set* obs
 }
 
 $Symbol$ModuleSymbol* Modules::getObservableModule($Name* name) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$ModuleSymbol, mod, $nc(this->syms)->getModule(name));
 	if ($nc($(allModules()))->contains(mod)) {
 		return mod;
@@ -2175,6 +2190,7 @@ $Symbol$Completer* Modules::getUnnamedModuleCompleter() {
 }
 
 void Modules::completeModule($Symbol$ModuleSymbol* msym) {
+	$useLocalCurrentObjectStackCache();
 	if (this->inInitModules) {
 		$set($nc(msym), completer, static_cast<$Symbol$Completer*>($new(Modules$$Lambda$lambda$completeModule$18$16, this, msym)));
 		return;
@@ -2247,6 +2263,7 @@ void Modules::completeModule($Symbol$ModuleSymbol* msym) {
 }
 
 $Set* Modules::retrieveRequiresTransitive($Symbol$ModuleSymbol* msym) {
+	$useLocalCurrentObjectStackCache();
 	$var($Set, requiresTransitive, $cast($Set, $nc(this->requiresTransitiveCache)->get(msym)));
 	if (requiresTransitive == nullptr) {
 		$assign(requiresTransitive, $new($HashSet));
@@ -2293,6 +2310,7 @@ $Set* Modules::retrieveRequiresTransitive($Symbol$ModuleSymbol* msym) {
 }
 
 void Modules::initVisiblePackages($Symbol$ModuleSymbol* msym, $Collection* readable) {
+	$useLocalCurrentObjectStackCache();
 	initAddExports();
 	$set($nc(msym), visiblePackages, $new($LinkedHashMap));
 	$set(msym, readModules, $new($HashSet, readable));
@@ -2313,6 +2331,7 @@ void Modules::initVisiblePackages($Symbol$ModuleSymbol* msym, $Collection* reada
 }
 
 void Modules::addVisiblePackages($Symbol$ModuleSymbol* msym, $Map* seenPackages, $Symbol$ModuleSymbol* exportsFrom, $Collection* exports) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(exports)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -2355,6 +2374,7 @@ void Modules::addVisiblePackages($Symbol$ModuleSymbol* msym, $Map* seenPackages,
 }
 
 void Modules::initAddExports() {
+	$useLocalCurrentObjectStackCache();
 	if (this->addExports != nullptr) {
 		return;
 	}
@@ -2445,6 +2465,7 @@ bool Modules::isKnownModule($Symbol$ModuleSymbol* msym, $Set* unknownModules) {
 }
 
 void Modules::initAddReads() {
+	$useLocalCurrentObjectStackCache();
 	if (this->addReads != nullptr) {
 		return;
 	}
@@ -2519,6 +2540,7 @@ void Modules::initAddReads() {
 }
 
 void Modules::checkCyclicDependencies($JCTree$JCModuleDecl* mod) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($nc(mod)->directives)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -2569,6 +2591,7 @@ bool Modules::isValidName($CharSequence* name) {
 }
 
 $String* Modules::toString($Symbol$ModuleSymbol* msym) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, var$9, $$str({$nc(msym)->name, "[kind:"_s, msym->kind, ";locn:"_s}));
 	$var($String, var$8, $$concat(var$9, $(toString(msym->sourceLocation))));
 	$var($String, var$7, $$concat(var$8, ","));
@@ -2669,6 +2692,7 @@ bool Modules::lambda$setupAllModules$11($Symbol$ModuleSymbol* sym) {
 }
 
 bool Modules::lambda$setupAllModules$10($Symbol$ModuleSymbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$nc(sym)->complete();
 	bool var$0 = !$nc(sym->name)->startsWith(this->java_);
 	return var$0 && $nc($($nc(sym->exports)->stream()))->anyMatch(static_cast<$Predicate*>($$new(Modules$$Lambda$lambda$setupAllModules$7$23)));
@@ -2676,6 +2700,7 @@ bool Modules::lambda$setupAllModules$10($Symbol$ModuleSymbol* sym) {
 
 bool Modules::lambda$setupAllModules$8($Symbol$ModuleSymbol* sym) {
 	$init(Modules);
+	$useLocalCurrentObjectStackCache();
 	$nc(sym)->complete();
 	return $nc($($nc(sym->exports)->stream()))->anyMatch(static_cast<$Predicate*>($$new(Modules$$Lambda$lambda$setupAllModules$7$23)));
 }
@@ -2696,6 +2721,7 @@ bool Modules::lambda$setupAllModules$5($Set* observable, $Symbol$ModuleSymbol* s
 }
 
 void Modules::lambda$getUsesProvidesCompleter$4($Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$ModuleSymbol, msym, $cast($Symbol$ModuleSymbol, sym));
 	$nc(msym)->complete();
 	$var($Env, env, $nc(this->typeEnvs)->get(msym));

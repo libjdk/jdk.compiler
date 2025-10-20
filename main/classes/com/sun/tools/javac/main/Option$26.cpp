@@ -92,6 +92,7 @@ void Option$26::init$($String* $enum$name, int32_t $enum$ordinal, $String* text,
 }
 
 void Option$26::process($OptionHelper* helper, $String* option, $String* arg) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var($Log, log, $nc(helper)->getLog());
 		$nc(log)->setWriters($$new($PrintWriter, static_cast<$Writer*>($$new($FileWriter, arg)), true));

@@ -81,6 +81,7 @@ void Infer$InferenceStep$5::init$($String* $enum$name, int32_t $enum$ordinal, $T
 }
 
 bool Infer$InferenceStep$5::accepts($Type$UndetVar* t, $InferenceContext* inferenceContext) {
+	$useLocalCurrentObjectStackCache();
 	bool var$0 = !$nc(inferenceContext)->free($($nc(t)->getBounds($$new($Type$UndetVar$InferenceBoundArray, {this->ib}))));
 	return var$0 && !$nc(t)->isCaptured();
 }

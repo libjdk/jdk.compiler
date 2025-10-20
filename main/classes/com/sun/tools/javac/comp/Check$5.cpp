@@ -111,6 +111,7 @@ $ints* Check$5::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag = nullptr;
 $ints* Check$5::$SwitchMap$com$sun$tools$javac$code$Kinds$Kind = nullptr;
 
 void clinit$Check$5($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(Check$5::$SwitchMap$com$sun$tools$javac$code$Lint$LintCategory, $new($ints, $($Lint$LintCategory::values())->length));
 	{
 		try {

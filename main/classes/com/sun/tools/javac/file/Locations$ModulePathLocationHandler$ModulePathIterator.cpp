@@ -174,6 +174,7 @@ void Locations$ModulePathLocationHandler$ModulePathIterator::init$($Locations$Mo
 }
 
 bool Locations$ModulePathLocationHandler$ModulePathIterator::hasNext() {
+	$useLocalCurrentObjectStackCache();
 	if (this->next$ != nullptr) {
 		return true;
 	}
@@ -204,6 +205,7 @@ $Object* Locations$ModulePathLocationHandler$ModulePathIterator::next() {
 }
 
 $Set* Locations$ModulePathLocationHandler$ModulePathIterator::scanDirectory($Path* path) {
+	$useLocalCurrentObjectStackCache();
 	$var($Set, paths, $new($LinkedHashSet));
 	$var($Path, moduleInfoClass, nullptr);
 	try {
@@ -296,6 +298,7 @@ $Set* Locations$ModulePathLocationHandler$ModulePathIterator::scanDirectory($Pat
 }
 
 $Set* Locations$ModulePathLocationHandler$ModulePathIterator::scanFile($Path* path) {
+	$useLocalCurrentObjectStackCache();
 	$var($Pair, module, inferModuleName(path));
 	if (module == nullptr) {
 		return $Collections::emptySet();
@@ -308,6 +311,7 @@ $Set* Locations$ModulePathLocationHandler$ModulePathIterator::scanFile($Path* pa
 }
 
 $Pair* Locations$ModulePathLocationHandler$ModulePathIterator::inferModuleName($Path* p) {
+	$useLocalCurrentObjectStackCache();
 	if ($Files::isDirectory(p, $$new($LinkOptionArray, 0))) {
 		bool var$0 = $Files::exists($($nc(p)->resolve("module-info.class"_s)), $$new($LinkOptionArray, 0));
 		if (var$0 || $Files::exists($($nc(p)->resolve("module-info.sig"_s)), $$new($LinkOptionArray, 0))) {

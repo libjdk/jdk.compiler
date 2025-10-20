@@ -156,6 +156,7 @@ void TypeEnter$HeaderPhase::init$($TypeEnter* this$0) {
 }
 
 void TypeEnter$HeaderPhase::runPhase($Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCClassDecl, tree, $nc(env)->enclClass);
 	$var($Symbol$ClassSymbol, sym, $nc(tree)->sym);
 	$var($Type$ClassType, ct, $cast($Type$ClassType, $nc(sym)->type));

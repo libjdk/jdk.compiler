@@ -100,6 +100,7 @@ $Resolve$ReferenceLookupResult* Resolve$16::boundResult($Resolve$ReferenceLookup
 }
 
 $Resolve$ReferenceLookupResult* Resolve$16::unboundResult($Resolve$ReferenceLookupResult* boundRes, $Resolve$ReferenceLookupResult* unboundRes) {
+	$useLocalCurrentObjectStackCache();
 	bool var$1 = $nc(boundRes)->isSuccess();
 	bool var$0 = var$1 && $nc(boundRes->sym)->isStatic();
 	if (var$0) {

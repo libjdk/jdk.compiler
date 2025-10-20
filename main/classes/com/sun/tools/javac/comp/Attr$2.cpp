@@ -89,6 +89,7 @@ void Attr$2::init$($Attr* this$0, $Check$CheckContext* enclosingContext) {
 }
 
 void Attr$2::report($JCDiagnostic$DiagnosticPosition* pos, $JCDiagnostic* details) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->enclosingContext)->report(pos, $($nc(this->this$0->diags)->fragment($($CompilerProperties$Fragments::IncompatibleTypeInSwitchExpression(details)))));
 }
 

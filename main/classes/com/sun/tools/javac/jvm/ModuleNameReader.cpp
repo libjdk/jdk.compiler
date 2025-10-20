@@ -181,6 +181,7 @@ void ModuleNameReader::init$() {
 }
 
 $String* ModuleNameReader::readModuleName($Path* p) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($InputStream, in, $Files::newInputStream(p, $$new($OpenOptionArray, 0)));
 		{
@@ -223,6 +224,7 @@ $String* ModuleNameReader::readModuleName($Path* p) {
 }
 
 $String* ModuleNameReader::readModuleName($JavaFileObject* jfo) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($InputStream, in, $nc(jfo)->openInputStream());
 		{
@@ -265,6 +267,7 @@ $String* ModuleNameReader::readModuleName($JavaFileObject* jfo) {
 }
 
 $String* ModuleNameReader::readModuleName($InputStream* in) {
+	$useLocalCurrentObjectStackCache();
 	this->bp = 0;
 	$nc(this->buf)->reset();
 	$nc(this->buf)->appendStream(in);
@@ -303,6 +306,7 @@ $String* ModuleNameReader::readModuleName($InputStream* in) {
 }
 
 void ModuleNameReader::checkZero(int32_t count, $String* name) {
+	$useLocalCurrentObjectStackCache();
 	if (count != 0) {
 		$throwNew($ModuleNameReader$BadClassFile, $$str({"invalid "_s, name, " for module: "_s, $$str(count)}));
 	}

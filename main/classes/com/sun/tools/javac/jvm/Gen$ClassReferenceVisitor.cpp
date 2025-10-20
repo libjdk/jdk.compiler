@@ -122,6 +122,7 @@ void Gen$ClassReferenceVisitor::visitSelect($JCTree$JCFieldAccess* tree) {
 }
 
 void Gen$ClassReferenceVisitor::visitIdent($JCTree$JCIdent* tree) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Symbol$ClassSymbol, classSymbol, nullptr);
 		$var($Symbol, patt32126$temp, $nc($nc(tree)->sym)->owner);

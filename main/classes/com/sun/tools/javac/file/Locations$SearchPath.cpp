@@ -258,6 +258,7 @@ Locations$SearchPath* Locations$SearchPath::emptyPathDefault($Path* x) {
 }
 
 Locations$SearchPath* Locations$SearchPath::addDirectories($String* dirs, bool warn) {
+	$useLocalCurrentObjectStackCache();
 	bool prev = this->expandJarClassPaths$;
 	this->expandJarClassPaths$ = true;
 	{
@@ -299,6 +300,7 @@ Locations$SearchPath* Locations$SearchPath::addDirectories($String* dirs) {
 }
 
 void Locations$SearchPath::addDirectory($Path* dir, bool warn) {
+	$useLocalCurrentObjectStackCache();
 	if (!$Files::isDirectory(dir, $$new($LinkOptionArray, 0))) {
 		if (warn) {
 			$init($Lint$LintCategory);
@@ -353,6 +355,7 @@ Locations$SearchPath* Locations$SearchPath::addFiles($String* files) {
 }
 
 Locations$SearchPath* Locations$SearchPath::addFiles($Iterable* files, bool warn) {
+	$useLocalCurrentObjectStackCache();
 	if (files != nullptr) {
 		{
 			$var($Iterator, i$, files->iterator());
@@ -372,6 +375,7 @@ Locations$SearchPath* Locations$SearchPath::addFiles($Iterable* files) {
 }
 
 void Locations$SearchPath::addFile($Path* file, bool warn) {
+	$useLocalCurrentObjectStackCache();
 	if (contains(file)) {
 		return;
 	}
@@ -427,6 +431,7 @@ void Locations$SearchPath::addFile($Path* file, bool warn) {
 }
 
 void Locations$SearchPath::addJarClassPath($Path* jarFile, bool warn) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		{
 			$var($Iterator, i$, $nc($($nc(this->this$0->fsInfo)->getJarClassPath(jarFile)))->iterator());

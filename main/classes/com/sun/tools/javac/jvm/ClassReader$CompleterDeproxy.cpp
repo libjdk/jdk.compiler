@@ -161,6 +161,7 @@ void ClassReader$CompleterDeproxy::init$($ClassReader* this$0, $Symbol$ClassSymb
 }
 
 void ClassReader$CompleterDeproxy::complete($Symbol$ClassSymbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::check(this->proxyOn == sym);
 	$var($Attribute$Compound, theTarget, nullptr);
 	$var($Attribute$Compound, theRepeatable, nullptr);
@@ -183,6 +184,7 @@ void ClassReader$CompleterDeproxy::complete($Symbol$ClassSymbol* sym) {
 }
 
 $JCDiagnostic* ClassReader$CompleterDeproxy::lambda$complete$0($Exception* e) {
+	$useLocalCurrentObjectStackCache();
 	return $nc(this->this$0->diagFactory)->fragment($($CompilerProperties$Fragments::ExceptionMessage($($nc(e)->getMessage()))));
 }
 

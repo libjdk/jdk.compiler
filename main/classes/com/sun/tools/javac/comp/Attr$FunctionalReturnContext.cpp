@@ -89,11 +89,13 @@ void Attr$FunctionalReturnContext::init$($Attr* this$0, $Check$CheckContext* enc
 }
 
 bool Attr$FunctionalReturnContext::compatible($Type* found, $Type* req, $Warner* warn) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, var$0, $nc($(inferenceContext()))->asUndetVar(found));
 	return $nc($nc(this->this$0->chk)->basicHandler)->compatible(var$0, $($nc($(inferenceContext()))->asUndetVar(req)), warn);
 }
 
 void Attr$FunctionalReturnContext::report($JCDiagnostic$DiagnosticPosition* pos, $JCDiagnostic* details) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->enclosingContext)->report(pos, $($nc(this->this$0->diags)->fragment($($CompilerProperties$Fragments::IncompatibleRetTypeInLambda(details)))));
 }
 

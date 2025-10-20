@@ -299,6 +299,7 @@ void JavacTaskPool::init$(int32_t maxPoolSize) {
 }
 
 $Object* JavacTaskPool::getTask($Writer* out, $JavaFileManager* fileManager, $DiagnosticListener* diagnosticListener, $Iterable* options, $Iterable* classes, $Iterable* compilationUnits, $JavacTaskPool$Worker* worker) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, opts, $cast($List, $nc($($StreamSupport::stream($($nc(options)->spliterator()), false)))->collect($($Collectors::toCollection(static_cast<$Supplier*>($$new(JavacTaskPool$$Lambda$ArrayList)))))));
 	$var($JavacTaskPool$ReusableContext, ctx, nullptr);
 	$synchronized(this) {
@@ -337,10 +338,12 @@ $Object* JavacTaskPool::getTask($Writer* out, $JavaFileManager* fileManager, $Di
 }
 
 int64_t JavacTaskPool::cacheSize() {
+	$useLocalCurrentObjectStackCache();
 	return $nc($($nc($($nc($($nc(this->options2Contexts)->values()))->stream()))->flatMap(static_cast<$Function*>($$new(JavacTaskPool$$Lambda$stream$1)))))->count();
 }
 
 void JavacTaskPool::printStatistics($PrintStream* out) {
+	$useLocalCurrentObjectStackCache();
 	$nc(out)->println($$str({$$str(this->statReused), " reused Contexts"_s}));
 	out->println($$str({$$str(this->statNew), " newly created Contexts"_s}));
 	out->println($$str({$$str(this->statPolluted), " polluted Contexts"_s}));

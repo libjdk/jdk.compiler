@@ -67,12 +67,14 @@ $Object* allocate$PoolConstant$Dynamic($Class* clazz) {
 }
 
 $PoolConstant$Dynamic$BsmKey* PoolConstant$Dynamic::bsmKey($Types* types) {
+	$useLocalCurrentObjectStackCache();
 	$var($Types, var$0, types);
 	$var($PoolConstant$LoadableConstant, var$1, bootstrapMethod());
 	return $new($PoolConstant$Dynamic$BsmKey, var$0, var$1, $(staticArgs()));
 }
 
 $Object* PoolConstant$Dynamic::poolKey($Types* types) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, var$0, $of(bsmKey(types)));
 	return $of($new($Pair, var$0, $($nc($(dynamicType()))->poolKey(types))));
 }

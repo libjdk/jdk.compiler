@@ -98,6 +98,7 @@ void Resolve$BadRestrictedTypeError::init$($Resolve* this$0, $Name* typeName) {
 }
 
 $JCDiagnostic* Resolve$BadRestrictedTypeError::getDiagnostic($JCDiagnostic$DiagnosticType* dkind, $JCDiagnostic$DiagnosticPosition* pos, $Symbol* location, $Type* site, $Name* name, $List* argtypes, $List* typeargtypes) {
+	$useLocalCurrentObjectStackCache();
 	return $nc(this->this$0->diags)->create(dkind, $($nc(this->this$0->log)->currentSource()), pos, "illegal.ref.to.restricted.type"_s, $$new($ObjectArray, {$of(this->typeName)}));
 }
 

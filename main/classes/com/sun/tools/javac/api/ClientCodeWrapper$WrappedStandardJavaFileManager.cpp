@@ -259,6 +259,7 @@ void ClientCodeWrapper$WrappedStandardJavaFileManager::init$($ClientCodeWrapper*
 }
 
 $Iterable* ClientCodeWrapper$WrappedStandardJavaFileManager::getJavaFileObjectsFromFiles($Iterable* files) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(($cast($StandardJavaFileManager, this->clientJavaFileManager)))->getJavaFileObjectsFromFiles(files);
 	} catch ($ClientCodeException&) {
@@ -275,6 +276,7 @@ $Iterable* ClientCodeWrapper$WrappedStandardJavaFileManager::getJavaFileObjectsF
 }
 
 $Iterable* ClientCodeWrapper$WrappedStandardJavaFileManager::getJavaFileObjectsFromPaths($Collection* paths) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(($cast($StandardJavaFileManager, this->clientJavaFileManager)))->getJavaFileObjectsFromPaths(paths);
 	} catch ($ClientCodeException&) {
@@ -291,6 +293,7 @@ $Iterable* ClientCodeWrapper$WrappedStandardJavaFileManager::getJavaFileObjectsF
 }
 
 $Iterable* ClientCodeWrapper$WrappedStandardJavaFileManager::getJavaFileObjectsFromPaths($Iterable* paths) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(($cast($StandardJavaFileManager, this->clientJavaFileManager)))->getJavaFileObjectsFromPaths(paths);
 	} catch ($ClientCodeException&) {
@@ -307,6 +310,7 @@ $Iterable* ClientCodeWrapper$WrappedStandardJavaFileManager::getJavaFileObjectsF
 }
 
 $Iterable* ClientCodeWrapper$WrappedStandardJavaFileManager::getJavaFileObjects($FileArray* files) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(($cast($StandardJavaFileManager, this->clientJavaFileManager)))->getJavaFileObjects(files);
 	} catch ($ClientCodeException&) {
@@ -323,6 +327,7 @@ $Iterable* ClientCodeWrapper$WrappedStandardJavaFileManager::getJavaFileObjects(
 }
 
 $Iterable* ClientCodeWrapper$WrappedStandardJavaFileManager::getJavaFileObjects($PathArray* paths) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(($cast($StandardJavaFileManager, this->clientJavaFileManager)))->getJavaFileObjects(paths);
 	} catch ($ClientCodeException&) {
@@ -339,6 +344,7 @@ $Iterable* ClientCodeWrapper$WrappedStandardJavaFileManager::getJavaFileObjects(
 }
 
 $Iterable* ClientCodeWrapper$WrappedStandardJavaFileManager::getJavaFileObjectsFromStrings($Iterable* names) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(($cast($StandardJavaFileManager, this->clientJavaFileManager)))->getJavaFileObjectsFromStrings(names);
 	} catch ($ClientCodeException&) {
@@ -355,6 +361,7 @@ $Iterable* ClientCodeWrapper$WrappedStandardJavaFileManager::getJavaFileObjectsF
 }
 
 $Iterable* ClientCodeWrapper$WrappedStandardJavaFileManager::getJavaFileObjects($StringArray* names) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(($cast($StandardJavaFileManager, this->clientJavaFileManager)))->getJavaFileObjects(names);
 	} catch ($ClientCodeException&) {
@@ -371,6 +378,7 @@ $Iterable* ClientCodeWrapper$WrappedStandardJavaFileManager::getJavaFileObjects(
 }
 
 void ClientCodeWrapper$WrappedStandardJavaFileManager::setLocation($JavaFileManager$Location* location, $Iterable* files) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$nc(($cast($StandardJavaFileManager, this->clientJavaFileManager)))->setLocation(location, files);
 	} catch ($ClientCodeException&) {
@@ -386,6 +394,7 @@ void ClientCodeWrapper$WrappedStandardJavaFileManager::setLocation($JavaFileMana
 }
 
 void ClientCodeWrapper$WrappedStandardJavaFileManager::setLocationFromPaths($JavaFileManager$Location* location, $Collection* paths) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$nc(($cast($StandardJavaFileManager, this->clientJavaFileManager)))->setLocationFromPaths(location, paths);
 	} catch ($ClientCodeException&) {
@@ -401,6 +410,7 @@ void ClientCodeWrapper$WrappedStandardJavaFileManager::setLocationFromPaths($Jav
 }
 
 $Iterable* ClientCodeWrapper$WrappedStandardJavaFileManager::getLocation($JavaFileManager$Location* location) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(($cast($StandardJavaFileManager, this->clientJavaFileManager)))->getLocation(location);
 	} catch ($ClientCodeException&) {
@@ -417,6 +427,7 @@ $Iterable* ClientCodeWrapper$WrappedStandardJavaFileManager::getLocation($JavaFi
 }
 
 $Iterable* ClientCodeWrapper$WrappedStandardJavaFileManager::getLocationAsPaths($JavaFileManager$Location* location) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(($cast($StandardJavaFileManager, this->clientJavaFileManager)))->getLocationAsPaths(location);
 	} catch ($ClientCodeException&) {
@@ -433,6 +444,7 @@ $Iterable* ClientCodeWrapper$WrappedStandardJavaFileManager::getLocationAsPaths(
 }
 
 $Path* ClientCodeWrapper$WrappedStandardJavaFileManager::asPath($FileObject* file) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(($cast($StandardJavaFileManager, this->clientJavaFileManager)))->asPath(file);
 	} catch ($ClientCodeException&) {
@@ -449,6 +461,7 @@ $Path* ClientCodeWrapper$WrappedStandardJavaFileManager::asPath($FileObject* fil
 }
 
 void ClientCodeWrapper$WrappedStandardJavaFileManager::setPathFactory($StandardJavaFileManager$PathFactory* f) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$nc(($cast($StandardJavaFileManager, this->clientJavaFileManager)))->setPathFactory(f);
 	} catch ($ClientCodeException&) {
@@ -464,6 +477,7 @@ void ClientCodeWrapper$WrappedStandardJavaFileManager::setPathFactory($StandardJ
 }
 
 void ClientCodeWrapper$WrappedStandardJavaFileManager::setLocationForModule($JavaFileManager$Location* location, $String* moduleName, $Collection* paths) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$init($System);
 		$nc($System::out)->println("invoking wrapped setLocationForModule"_s);

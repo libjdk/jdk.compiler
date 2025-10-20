@@ -86,6 +86,7 @@ void JavacTaskImpl$1::init$($JavacTaskImpl* this$0, $ListBuffer* val$results) {
 }
 
 void JavacTaskImpl$1::process($Env* env) {
+	$useLocalCurrentObjectStackCache();
 	this->this$0->handleFlowResults($($nc(this->this$0->compiler)->flow($($nc(this->this$0->compiler)->attribute(env)))), this->val$results);
 }
 

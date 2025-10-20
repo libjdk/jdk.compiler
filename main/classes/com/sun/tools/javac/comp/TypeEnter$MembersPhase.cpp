@@ -416,6 +416,7 @@ void TypeEnter$MembersPhase::init$($TypeEnter* this$0) {
 }
 
 void TypeEnter$MembersPhase::runPhase($Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCClassDecl, tree, $nc(env)->enclClass);
 	$var($Symbol$ClassSymbol, sym, $nc(tree)->sym);
 	$var($Type$ClassType, ct, $cast($Type$ClassType, $nc(sym)->type));
@@ -448,6 +449,7 @@ void TypeEnter$MembersPhase::runPhase($Env* env) {
 }
 
 $TypeEnter$DefaultConstructorHelper* TypeEnter$MembersPhase::getDefaultConstructorHelper($Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCClassDecl, tree, $nc(env)->enclClass);
 	$var($Symbol$ClassSymbol, sym, $nc(tree)->sym);
 	$var($TypeEnter$DefaultConstructorHelper, helper, nullptr);
@@ -481,6 +483,7 @@ $TypeEnter$DefaultConstructorHelper* TypeEnter$MembersPhase::getDefaultConstruct
 }
 
 void TypeEnter$MembersPhase::finishClass($JCTree$JCClassDecl* tree, $JCTree* defaultConstructor, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	bool var$0 = ((int64_t)($nc($nc(tree)->mods)->flags & (uint64_t)(int64_t)$Flags::ENUM)) != 0 && !$nc($nc(tree->sym)->type)->hasTag($TypeTag::ERROR);
 	if (var$0 && ((int64_t)($nc($nc($($nc(this->this$0->types)->supertype($nc(tree->sym)->type)))->tsym)->flags() & (uint64_t)(int64_t)$Flags::ENUM)) == 0) {
@@ -505,6 +508,7 @@ void TypeEnter$MembersPhase::finishClass($JCTree$JCClassDecl* tree, $JCTree* def
 }
 
 void TypeEnter$MembersPhase::addAccessor($JCTree$JCVariableDecl* tree, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$MethodSymbol, implSym, this->this$0->lookupMethod($nc($nc(env)->enclClass)->sym, $nc($nc(tree)->sym)->name, $($List::nil())));
 	$var($Symbol$RecordComponent, rec, $nc(($cast($Symbol$ClassSymbol, $nc($nc(tree)->sym)->owner)))->getRecordComponent(tree->sym));
 	if (implSym == nullptr || ((int64_t)($nc(implSym)->flags_field & (uint64_t)(int64_t)0x01000000)) != 0) {
@@ -526,6 +530,7 @@ void TypeEnter$MembersPhase::addAccessor($JCTree$JCVariableDecl* tree, $Env* env
 }
 
 void TypeEnter$MembersPhase::addEnumMembers($JCTree$JCClassDecl* tree, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCExpression, valuesType, $nc(this->this$0->make)->Type($$new($Type$ArrayType, $nc($nc(tree)->sym)->type, $nc(this->this$0->syms)->arrayClass)));
 	$var($JCTree$JCModifiers, var$0, $nc(this->this$0->make)->Modifiers($Flags::PUBLIC | $Flags::STATIC));
 	$var($Name, var$1, $nc(this->this$0->names)->values);
@@ -546,6 +551,7 @@ void TypeEnter$MembersPhase::addEnumMembers($JCTree$JCClassDecl* tree, $Env* env
 }
 
 $JCTree$JCMethodDecl* TypeEnter$MembersPhase::getCanonicalConstructorDecl($JCTree$JCClassDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, recordComponentErasedTypes, $nc(this->this$0->types)->erasure($($nc($($TreeInfo::recordFields(tree)))->map(static_cast<$Function*>($$new(TypeEnter$MembersPhase$$Lambda$lambda$getCanonicalConstructorDecl$2$2))))));
 	$var($JCTree$JCMethodDecl, canonicalDecl, nullptr);
 	{
@@ -567,6 +573,7 @@ $JCTree$JCMethodDecl* TypeEnter$MembersPhase::getCanonicalConstructorDecl($JCTre
 }
 
 void TypeEnter$MembersPhase::addRecordMembersIfNeeded($JCTree$JCClassDecl* tree, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	if (this->this$0->lookupMethod($nc(tree)->sym, $nc(this->this$0->names)->toString$, $($List::nil())) == nullptr) {
 		$var($JCTree$JCModifiers, var$0, $nc(this->this$0->make)->Modifiers((($Flags::PUBLIC | $Flags::RECORD) | $Flags::FINAL) | $Flags::GENERATED_MEMBER));
 		$var($Name, var$1, $nc(this->this$0->names)->toString$);

@@ -248,12 +248,14 @@ $String* Options::getServerConf() {
 }
 
 Options* Options::parseArgs($StringArray* args) {
+	$useLocalCurrentObjectStackCache();
 	$var(Options, options, $new(Options));
 	$$new($Options$ArgDecoderOptionHelper, static_cast<Options*>(options))->traverse(args);
 	return options;
 }
 
 bool Options::isJavaFilesAmongJavacArgs() {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(this->javacArgs)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -267,6 +269,7 @@ bool Options::isJavaFilesAmongJavacArgs() {
 }
 
 $String* Options::getStateArgsString() {
+	$useLocalCurrentObjectStackCache();
 	{
 	}
 	$var($Options$1StateArgs, args, $new($Options$1StateArgs, this));
@@ -322,6 +325,7 @@ $String* Options::getStateArgsString() {
 }
 
 $StringArray* Options::prepJavacArgs() {
+	$useLocalCurrentObjectStackCache();
 	$var($List, args, $new($ArrayList));
 	args->add("-d"_s);
 	args->add($($nc(this->destDir)->toString()));
@@ -351,6 +355,7 @@ $StringArray* Options::prepJavacArgs() {
 }
 
 $String* Options::concatenateSourceLocations($List* locs) {
+	$useLocalCurrentObjectStackCache();
 	$init($File);
 	$var($StringJoiner, joiner, $new($StringJoiner, $File::pathSeparator));
 	{

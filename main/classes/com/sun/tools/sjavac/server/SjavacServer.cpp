@@ -124,6 +124,7 @@ $String* SjavacServer::LINE_TYPE_RC = nullptr;
 $Map* SjavacServer::allPortFiles = nullptr;
 
 void SjavacServer::init$($String* settings) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, var$0, $Util::extractStringOption("portfile"_s, settings));
 	int32_t var$1 = $Util::extractIntOption("poolsize"_s, settings, $nc($($Runtime::getRuntime()))->availableProcessors());
 	SjavacServer::init$(var$0, var$1, $Util::extractIntOption("keepalive"_s, settings, 120));
@@ -141,6 +142,7 @@ $PortFile* SjavacServer::getPortFile($String* filename) {
 	$load(SjavacServer);
 	$synchronized(class$) {
 		$init(SjavacServer);
+		$useLocalCurrentObjectStackCache();
 		if (SjavacServer::allPortFiles == nullptr) {
 			$assignStatic(SjavacServer::allPortFiles, $new($HashMap));
 		}
@@ -176,6 +178,7 @@ void SjavacServer::addBuildTime(int64_t inc) {
 }
 
 int32_t SjavacServer::startServer() {
+	$useLocalCurrentObjectStackCache();
 	int64_t serverStart = $System::currentTimeMillis();
 	$set(this, portFile, getPortFile(this->portfilename));
 	$synchronized(this->portFile) {
@@ -221,6 +224,7 @@ int32_t SjavacServer::startServer() {
 }
 
 void SjavacServer::shutdown($String* quitMsg) {
+	$useLocalCurrentObjectStackCache();
 	if (!$nc(this->keepAcceptingRequests)->compareAndSet(true, false)) {
 		return;
 	}

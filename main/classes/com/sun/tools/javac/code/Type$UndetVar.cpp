@@ -222,6 +222,7 @@ $Object* Type$UndetVar::accept($Type$Visitor* v, Object$* s) {
 }
 
 void Type$UndetVar::init$($Type$TypeVar* origin, $Type$UndetVar$UndetVarListener* listener, $Types* types) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	$Type$DelegatedType::init$($TypeTag::UNDETVAR, origin);
 	$set(this, incorporationActions, $new($ArrayDeque));
@@ -267,6 +268,7 @@ $String* Type$UndetVar::toString() {
 }
 
 $String* Type$UndetVar::debugString() {
+	$useLocalCurrentObjectStackCache();
 	$var($String, result, $str({"inference var = "_s, this->qtype, "\n"_s}));
 	if (this->inst != nullptr) {
 		$plusAssign(result, $$str({"inst = "_s, this->inst, $$str(u'\n')}));
@@ -303,6 +305,7 @@ Type$UndetVar* Type$UndetVar::dup($Types* types) {
 }
 
 void Type$UndetVar::dupTo(Type$UndetVar* uv2, $Types* types) {
+	$useLocalCurrentObjectStackCache();
 	$set($nc(uv2), listener, nullptr);
 	$nc(uv2->bounds)->clear();
 	{
@@ -365,6 +368,7 @@ void Type$UndetVar::setInst($Type* inst) {
 }
 
 $List* Type$UndetVar::getBounds($Type$UndetVar$InferenceBoundArray* ibs) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, buf, $new($ListBuffer));
 	{
 		$var($Type$UndetVar$InferenceBoundArray, arr$, ibs);
@@ -381,6 +385,7 @@ $List* Type$UndetVar::getBounds($Type$UndetVar$InferenceBoundArray* ibs) {
 }
 
 $List* Type$UndetVar::getDeclaredBounds() {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, buf, $new($ListBuffer));
 	int32_t count = 0;
 	{
@@ -404,6 +409,7 @@ void Type$UndetVar::setBounds($Type$UndetVar$InferenceBound* ib, $List* newBound
 }
 
 void Type$UndetVar::addBound($Type$UndetVar$InferenceBound* ib, $Type* bound$renamed, $Types* types) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, bound, bound$renamed);
 	if ($nc(types)->mapCapturesToBounds) {
 			$init($Type$5);
@@ -431,6 +437,7 @@ void Type$UndetVar::addBound($Type$UndetVar$InferenceBound* ib, $Type* bound$ren
 }
 
 void Type$UndetVar::addBound($Type$UndetVar$InferenceBound* ib, $Type* bound, $Types* types, bool update) {
+	$useLocalCurrentObjectStackCache();
 	$init($Type$UndetVar$Kind);
 	if (this->kind == $Type$UndetVar$Kind::CAPTURED && !update) {
 		$init($TypeTag);
@@ -461,6 +468,7 @@ void Type$UndetVar::addBound($Type$UndetVar$InferenceBound* ib, $Type* bound, $T
 }
 
 void Type$UndetVar::substBounds($List* from, $List* to, $Types* types) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, boundsChanged, $new($ListBuffer));
 	$var($Type$UndetVar$UndetVarListener, prevListener, this->listener);
 	{

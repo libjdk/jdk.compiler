@@ -102,6 +102,7 @@ Resolve$ReferenceLookupHelper* Resolve$ReferenceLookupHelper::unboundLookup($Inf
 }
 
 $Symbol* Resolve$ReferenceLookupHelper::access($Env* env, $JCDiagnostic$DiagnosticPosition* pos, $Symbol* location, $Symbol* sym$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, sym, sym$renamed);
 	$init($Kinds$Kind);
 	if ($nc(sym)->kind == $Kinds$Kind::AMBIGUOUS) {

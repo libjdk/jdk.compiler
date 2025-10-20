@@ -122,6 +122,7 @@ $Object* allocate$Main$MemoryClassLoader($Class* clazz) {
 int32_t Main$MemoryClassLoader::DOT_CLASS_LENGTH = 0;
 
 void Main$MemoryClassLoader::init$($Map* sourceFileClasses, $ClassLoader* parent, $Path* file) {
+	$useLocalCurrentObjectStackCache();
 	$ClassLoader::init$(parent);
 	$var($String, var$0, $$str({"sourcelauncher-"_s, $($of(this)->getClass()->getSimpleName())}));
 	$set(this, PROTOCOL, $concat(var$0, $$str(hashCode())));
@@ -155,6 +156,7 @@ $Class* Main$MemoryClassLoader::loadClass($String* name, bool resolve) {
 }
 
 $URL* Main$MemoryClassLoader::getResource($String* name) {
+	$useLocalCurrentObjectStackCache();
 	$beforeCallerSensitive();
 	if ($nc(this->sourceFileClasses)->containsKey($(toBinaryName(name)))) {
 		return findResource(name);
@@ -164,6 +166,7 @@ $URL* Main$MemoryClassLoader::getResource($String* name) {
 }
 
 $Enumeration* Main$MemoryClassLoader::getResources($String* name) {
+	$useLocalCurrentObjectStackCache();
 	$beforeCallerSensitive();
 	$var($URL, u, findResource(name));
 	$var($Enumeration, e, $nc($(getParent()))->getResources(name));
@@ -188,6 +191,7 @@ $Class* Main$MemoryClassLoader::findClass($String* name) {
 }
 
 $URL* Main$MemoryClassLoader::findResource($String* name) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, binaryName, toBinaryName(name));
 	if (binaryName == nullptr || $nc(this->sourceFileClasses)->get(binaryName) == nullptr) {
 		return nullptr;

@@ -111,6 +111,7 @@ void Option$PkgInfo::init$($String* $enum$name, int32_t $enum$ordinal) {
 
 Option$PkgInfo* Option$PkgInfo::get($Options* options) {
 	$init(Option$PkgInfo);
+	$useLocalCurrentObjectStackCache();
 	$init($Option);
 	$var($String, v, $nc(options)->get($Option::XPKGINFO));
 	return (v == nullptr ? Option$PkgInfo::LEGACY : Option$PkgInfo::valueOf($($StringUtils::toUpperCase(v))));

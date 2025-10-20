@@ -118,6 +118,7 @@ void StringConcat$IndyPlain::init$($Context* context) {
 }
 
 void StringConcat$IndyPlain::emit($JCDiagnostic$DiagnosticPosition* pos, $List* args, bool generateFirstArg, $Type* type) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, split, this->split(args));
 	bool first = true;
 	{
@@ -162,6 +163,7 @@ void StringConcat$IndyPlain::emit($JCDiagnostic$DiagnosticPosition* pos, $List* 
 }
 
 void StringConcat$IndyPlain::doCall($Type* type, $JCDiagnostic$DiagnosticPosition* pos, $List* dynamicArgTypes) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type$MethodType, indyType, $new($Type$MethodType, dynamicArgTypes, type, $($List::nil()), $nc(this->syms)->methodClass));
 	int32_t prevPos = $nc(this->make)->pos;
 	{

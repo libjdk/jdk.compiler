@@ -104,6 +104,7 @@ void Symtab$2::init$($Symtab* this$0, $Symbol$Completer* val$completer, $Type* v
 }
 
 void Symtab$2::complete($Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$nc(this->val$completer)->complete(sym);
 	} catch ($Symbol$CompletionFailure&) {

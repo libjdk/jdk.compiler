@@ -370,6 +370,7 @@ void DeferredAttr::init$($Context* context) {
 }
 
 $JCTree$JCLambda* DeferredAttr::attribSpeculativeLambda($JCTree$JCLambda* that, $Env* env, $Attr$ResultInfo* resultInfo) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, stats, $new($ListBuffer));
 	stats->addAll(static_cast<$Collection*>(static_cast<$AbstractCollection*>($nc(that)->params)));
 	$init($LambdaExpressionTree$BodyKind);
@@ -430,6 +431,7 @@ $JCTree* DeferredAttr::attribSpeculative($JCTree* tree, $Env* env, $Attr$ResultI
 }
 
 $JCTree* DeferredAttr::attribSpeculative($JCTree* tree, $Env* env, $Attr$ResultInfo* resultInfo, $Supplier* diagHandlerCreator, $DeferredAttr$AttributionMode* attributionMode, $ArgumentAttr$LocalCacheContext* localCache) {
+	$useLocalCurrentObjectStackCache();
 	$var($Env, speculativeEnv, $nc(env)->dup(tree, $($nc(($cast($AttrContext, env->info)))->dup($($nc($nc(($cast($AttrContext, env->info)))->scope)->dupUnshared($nc($nc(($cast($AttrContext, env->info)))->scope)->owner))))));
 	$set($nc($cast($AttrContext, $nc(speculativeEnv)->info)), attributionMode, attributionMode);
 	$var($Log$DiagnosticHandler, deferredDiagnosticHandler, diagHandlerCreator != nullptr ? $cast($Log$DiagnosticHandler, $nc(diagHandlerCreator)->get()) : static_cast<$Log$DiagnosticHandler*>($new($DeferredAttr$DeferredAttrDiagHandler, this->log, tree)));

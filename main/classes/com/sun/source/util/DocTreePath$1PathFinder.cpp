@@ -71,6 +71,7 @@ void DocTreePath$1PathFinder::init$() {
 }
 
 $DocTreePath* DocTreePath$1PathFinder::scan($DocTree* tree, $DocTree* target) {
+	$useLocalCurrentObjectStackCache();
 	if (tree == target) {
 		$throwNew($DocTreePath$1Result, $$new($DocTreePath, $(getCurrentPath()), target));
 	}

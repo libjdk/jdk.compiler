@@ -83,6 +83,7 @@ $ints* DeferredAttr$5::$SwitchMap$com$sun$tools$javac$code$Kinds$Kind = nullptr;
 $ints* DeferredAttr$5::$SwitchMap$com$sun$tools$javac$comp$DeferredAttr$AttrMode = nullptr;
 
 void clinit$DeferredAttr$5($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(DeferredAttr$5::$SwitchMap$com$sun$tools$javac$code$Kinds$Kind, $new($ints, $($Kinds$Kind::values())->length));
 	{
 		try {

@@ -147,6 +147,7 @@ int32_t JavadocTokenizer$JavadocComment::getSourcePos(int32_t pos) {
 }
 
 void JavadocTokenizer$JavadocComment::scanDocComment() {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Throwable, var$0, nullptr);
 		bool return$1 = false;

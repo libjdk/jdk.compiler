@@ -70,6 +70,7 @@ void TextBlockSupport::init$() {
 }
 
 $Set* TextBlockSupport::checkWhitespace($String* string) {
+	$useLocalCurrentObjectStackCache();
 	$var($Set, checks, $new($HashSet));
 	if ($nc(string)->isEmpty()) {
 		return checks;

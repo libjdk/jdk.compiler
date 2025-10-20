@@ -226,6 +226,7 @@ Source* Source::valueOf($String* name) {
 
 Source* Source::instance($Context* context) {
 	$init(Source);
+	$useLocalCurrentObjectStackCache();
 	Source* instance = $cast(Source, $nc(context)->get(Source::sourceKey));
 	if (instance == nullptr) {
 		$var($Options, options, $Options::instance(context));
@@ -467,6 +468,7 @@ $SourceVersion* Source::toSourceVersion(Source* source) {
 }
 
 void clinit$Source($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(Source::JDK1_2, $new(Source, "JDK1_2"_s, 0, "1.2"_s));
 	$assignStatic(Source::JDK1_3, $new(Source, "JDK1_3"_s, 1, "1.3"_s));
 	$assignStatic(Source::JDK1_4, $new(Source, "JDK1_4"_s, 2, "1.4"_s));

@@ -96,6 +96,7 @@ void LambdaToMethod$L2MSignatureGenerator::append(char16_t ch) {
 }
 
 void LambdaToMethod$L2MSignatureGenerator::append($bytes* ba) {
+	$useLocalCurrentObjectStackCache();
 	$var($Name, name, $nc(this->this$0->names)->fromUtf(ba));
 	$nc(this->sb)->append($($nc(name)->toString()));
 }

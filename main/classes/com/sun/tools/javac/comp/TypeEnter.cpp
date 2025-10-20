@@ -638,6 +638,7 @@ void TypeEnter::init$($Context* context) {
 }
 
 void TypeEnter::ensureImportsChecked($List* trees) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(trees)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -653,6 +654,7 @@ void TypeEnter::ensureImportsChecked($List* trees) {
 }
 
 void TypeEnter::complete($Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	if (!this->completionEnabled) {
 		$Assert::check(((int64_t)($nc(sym)->flags() & (uint64_t)(int64_t)$Flags::COMPOUND)) == 0);
 		$set($nc(sym), completer, this);
@@ -706,6 +708,7 @@ void TypeEnter::complete($Symbol* sym) {
 }
 
 void TypeEnter::finishImports($JCTree$JCCompilationUnit* toplevel, $Runnable* resolve) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileObject, prev, $nc(this->log)->useSource($nc(toplevel)->sourcefile));
 	{
 		$var($Throwable, var$0, nullptr);
@@ -733,6 +736,7 @@ void TypeEnter::finishImports($JCTree$JCCompilationUnit* toplevel, $Runnable* re
 }
 
 $Symbol$MethodSymbol* TypeEnter::lookupMethod($Symbol$TypeSymbol* tsym, $Name* name, $List* argtypes) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($($nc($($nc(tsym)->members()))->getSymbolsByName(name, static_cast<$Predicate*>($$new(TypeEnter$$Lambda$lambda$lookupMethod$2$2)))))->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -748,6 +752,7 @@ $Symbol$MethodSymbol* TypeEnter::lookupMethod($Symbol$TypeSymbol* tsym, $Name* n
 }
 
 $JCTree* TypeEnter::defaultConstructor($TreeMaker* make, $TypeEnter$DefaultConstructorHelper* helper) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, initType, $nc(helper)->constructorType());
 	$var($Symbol$MethodSymbol, initSym, helper->constructorSymbol());
 	$var($ListBuffer, stats, $new($ListBuffer));
@@ -773,6 +778,7 @@ void TypeEnter::markDeprecated($Symbol* sym, $List* annotations, $Env* env) {
 }
 
 void TypeEnter::handleDeprecatedAnnotations($List* annotations, $Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($List, al, annotations);
 		for (; !$nc(al)->isEmpty(); $assign(al, $nc(al)->tail)) {
@@ -789,11 +795,13 @@ void TypeEnter::handleDeprecatedAnnotations($List* annotations, $Symbol* sym) {
 }
 
 void TypeEnter::setFlagIfAttributeTrue($JCTree$JCAnnotation* a, $Symbol* sym, $Name* attribute, int64_t flag) {
+	$useLocalCurrentObjectStackCache();
 	$nc($($nc($($nc($($nc($($nc($($nc($nc(a)->args)->stream()))->filter(static_cast<$Predicate*>($$new(TypeEnter$$Lambda$lambda$setFlagIfAttributeTrue$3$4)))))->map(static_cast<$Function*>($$new(TypeEnter$$Lambda$lambda$setFlagIfAttributeTrue$4$5)))))->filter(static_cast<$Predicate*>($$new(TypeEnter$$Lambda$lambda$setFlagIfAttributeTrue$5$6, attribute)))))->findFirst()))->ifPresent(static_cast<$Consumer*>($$new(TypeEnter$$Lambda$lambda$setFlagIfAttributeTrue$6$7, sym, flag)));
 }
 
 void TypeEnter::lambda$setFlagIfAttributeTrue$6($Symbol* sym, int64_t flag, $JCTree$JCAssign* assign) {
 	$init(TypeEnter);
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCExpression, rhs, $TreeInfo::skipParens($nc(assign)->rhs));
 	$init($JCTree$Tag);
 	bool var$0 = $nc(rhs)->hasTag($JCTree$Tag::LITERAL);

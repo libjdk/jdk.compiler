@@ -98,6 +98,7 @@ void Resolve$BasicLookupHelper::init$($Resolve* this$0, $Name* name, $Type* site
 }
 
 $Symbol* Resolve$BasicLookupHelper::lookup($Env* env, $Resolve$MethodResolutionPhase* phase) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, sym, doLookup(env, phase));
 	$init($Kinds$Kind);
 	if ($nc(sym)->kind == $Kinds$Kind::AMBIGUOUS) {

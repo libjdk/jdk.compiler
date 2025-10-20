@@ -92,6 +92,7 @@ $ints* Code$1::$SwitchMap$com$sun$tools$javac$code$TypeTag = nullptr;
 $ints* Code$1::$SwitchMap$com$sun$tools$javac$jvm$Code$StackMapFormat = nullptr;
 
 void clinit$Code$1($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(Code$1::$SwitchMap$com$sun$tools$javac$code$TypeTag, $new($ints, $($TypeTag::values())->length));
 	{
 		try {

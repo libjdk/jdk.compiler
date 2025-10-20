@@ -97,6 +97,7 @@ void DocCommentParser$12::init$($DocCommentParser* this$0, $DocCommentParser$Tag
 }
 
 $DCTree* DocCommentParser$12::parse(int32_t pos) {
+	$useLocalCurrentObjectStackCache();
 	this->this$0->skipWhitespace();
 	bool typaram = false;
 	if (this->this$0->ch == u'<') {

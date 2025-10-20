@@ -284,6 +284,7 @@ Type$MethodType* Type$MethodType::asMethodType() {
 }
 
 void Type$MethodType::complete() {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($List, l, this->argtypes$);
 		for (; $nc(l)->nonEmpty(); $assign(l, $nc(l)->tail)) {

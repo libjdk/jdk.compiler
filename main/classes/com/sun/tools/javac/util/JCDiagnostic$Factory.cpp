@@ -255,6 +255,7 @@ JCDiagnostic$Factory* JCDiagnostic$Factory::instance($Context* context) {
 }
 
 void JCDiagnostic$Factory::init$($Context* context) {
+	$useLocalCurrentObjectStackCache();
 	JCDiagnostic$Factory::init$($($JavacMessages::instance(context)), "compiler"_s);
 	$nc(context)->put(JCDiagnostic$Factory::diagnosticFactoryKey, $of(this));
 	$var($Options, options, $Options::instance(context));
@@ -281,6 +282,7 @@ $JCDiagnostic* JCDiagnostic$Factory::error($JCDiagnostic$DiagnosticFlag* flag, $
 }
 
 $JCDiagnostic* JCDiagnostic$Factory::error($JCDiagnostic$DiagnosticFlag* flag, $DiagnosticSource* source, $JCDiagnostic$DiagnosticPosition* pos, $JCDiagnostic$Error* errorKey) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCDiagnostic, diag, create(($Lint$LintCategory*)nullptr, $(static_cast<$Set*>($EnumSet::copyOf(static_cast<$Collection*>(this->defaultErrorFlags)))), source, pos, static_cast<$JCDiagnostic$DiagnosticInfo*>(errorKey)));
 	if (flag != nullptr) {
 		$nc(diag)->setFlag(flag);
@@ -334,6 +336,7 @@ $JCDiagnostic* JCDiagnostic$Factory::fragment($JCDiagnostic$Fragment* fragmentKe
 }
 
 $JCDiagnostic* JCDiagnostic$Factory::create($JCDiagnostic$DiagnosticType* kind, $DiagnosticSource* source, $JCDiagnostic$DiagnosticPosition* pos, $String* key, $ObjectArray* args) {
+	$useLocalCurrentObjectStackCache();
 	$load($JCDiagnostic$DiagnosticFlag);
 	$var($Set, var$0, static_cast<$Set*>($EnumSet::noneOf($JCDiagnostic$DiagnosticFlag::class$)));
 	$var($DiagnosticSource, var$1, source);
@@ -355,6 +358,7 @@ $JCDiagnostic* JCDiagnostic$Factory::create($Lint$LintCategory* lc, $Set* flags,
 }
 
 $JCDiagnostic$DiagnosticInfo* JCDiagnostic$Factory::normalize($JCDiagnostic$DiagnosticInfo* diagnosticInfo) {
+	$useLocalCurrentObjectStackCache();
 	return $JCDiagnostic$DiagnosticInfo::of($nc(diagnosticInfo)->type, diagnosticInfo->prefix, diagnosticInfo->code, $($nc($($nc($($Stream::of(diagnosticInfo->args)))->map(static_cast<$Function*>($$new(JCDiagnostic$Factory$$Lambda$lambda$normalize$1$1, this)))))->toArray()));
 }
 

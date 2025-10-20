@@ -97,6 +97,7 @@ $Symbol$OperatorSymbol* Operators$BinaryEqualityOperator::resolve($Type* t1, $Ty
 }
 
 $Operators$ComparisonKind* Operators$BinaryEqualityOperator::getKind($Type* arg1, $Type* arg2) {
+	$useLocalCurrentObjectStackCache();
 	bool arg1Primitive = $nc(arg1)->isPrimitive();
 	bool arg2Primitive = $nc(arg2)->isPrimitive();
 	if (arg1Primitive && arg2Primitive) {

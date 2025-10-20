@@ -85,6 +85,7 @@ void SerialVer::init$() {
 
 void SerialVer::initializeLoader($String* cp) {
 	$init(SerialVer);
+	$useLocalCurrentObjectStackCache();
 	$init($File);
 	$var($StringArray, paths, $nc(cp)->split($File::pathSeparator));
 	int32_t count = paths->length;
@@ -97,6 +98,7 @@ void SerialVer::initializeLoader($String* cp) {
 
 $String* SerialVer::serialSyntax($String* classname) {
 	$init(SerialVer);
+	$useLocalCurrentObjectStackCache();
 	$var($String, ret, nullptr);
 	bool classFound = false;
 	if ($nc(classname)->indexOf((int32_t)u'$') != -1) {
@@ -132,6 +134,7 @@ $String* SerialVer::serialSyntax($String* classname) {
 
 $String* SerialVer::resolveClass($String* classname) {
 	$init(SerialVer);
+	$useLocalCurrentObjectStackCache();
 	$beforeCallerSensitive();
 	$Class* cl = $Class::forName(classname, false, SerialVer::loader);
 	$var($ObjectStreamClass, desc, $ObjectStreamClass::lookup(cl));
@@ -144,6 +147,7 @@ $String* SerialVer::resolveClass($String* classname) {
 
 void SerialVer::main($StringArray* args) {
 	$init(SerialVer);
+	$useLocalCurrentObjectStackCache();
 	$var($String, envcp, nullptr);
 	int32_t i = 0;
 	if ($nc(args)->length == 0) {

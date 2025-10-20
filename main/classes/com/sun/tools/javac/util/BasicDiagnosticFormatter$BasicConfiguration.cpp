@@ -118,6 +118,7 @@ $Object* allocate$BasicDiagnosticFormatter$BasicConfiguration($Class* clazz) {
 }
 
 void BasicDiagnosticFormatter$BasicConfiguration::init$($Options* options) {
+	$useLocalCurrentObjectStackCache();
 	$init($DiagnosticFormatter$Configuration$DiagnosticPart);
 	$AbstractDiagnosticFormatter$SimpleConfiguration::init$(options, $($EnumSet::of($DiagnosticFormatter$Configuration$DiagnosticPart::SUMMARY, $DiagnosticFormatter$Configuration$DiagnosticPart::DETAILS, $DiagnosticFormatter$Configuration$DiagnosticPart::SUBDIAGNOSTICS, $DiagnosticFormatter$Configuration$DiagnosticPart::SOURCE)));
 	initFormat();

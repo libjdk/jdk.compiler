@@ -153,12 +153,14 @@ void Analyzer$2::init$($Analyzer* this$0) {
 }
 
 void Analyzer$2::queue($Analyzer$RewritingContext* rewriting) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, var$0, $of($nc($nc($nc($nc(rewriting)->env)->enclClass)->sym)->outermostClass()));
 	$var($Queue, s, $cast($Queue, $nc(this->Q)->computeIfAbsent(var$0, static_cast<$Function*>($$new(Analyzer$2$$Lambda$lambda$queue$0)))));
 	$nc(s)->add(rewriting);
 }
 
 void Analyzer$2::flush($Env* flushEnv) {
+	$useLocalCurrentObjectStackCache();
 	if (!$nc(this->Q)->isEmpty()) {
 		$var($Analyzer$DeferredAnalysisHelper, prevHelper, this->this$0->deferredAnalysisHelper);
 		{

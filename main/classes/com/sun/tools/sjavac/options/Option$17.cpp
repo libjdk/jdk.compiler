@@ -69,6 +69,7 @@ void Option$17::init$($String* $enum$name, int32_t $enum$ordinal, $String* arg, 
 }
 
 void Option$17::processMatching($ArgumentIterator* iter, $OptionHelper* helper) {
+	$useLocalCurrentObjectStackCache();
 	$nc(helper)->logLevel($($nc($($nc(iter)->current()))->substring($nc(this->arg)->length())));
 }
 

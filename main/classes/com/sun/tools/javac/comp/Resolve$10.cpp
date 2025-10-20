@@ -91,6 +91,7 @@ void Resolve$10::init$($Resolve* this$0, $Name* name, $Type* site, $List* argtyp
 }
 
 $Symbol* Resolve$10::doLookup($Env* env, $Resolve$MethodResolutionPhase* phase) {
+	$useLocalCurrentObjectStackCache();
 	$var($Env, var$0, env);
 	$var($Name, var$1, this->name);
 	$var($List, var$2, this->argtypes);

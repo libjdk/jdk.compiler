@@ -349,6 +349,7 @@ void DocCommentParser::init$($ParserFactory* fac) {
 }
 
 $DCTree$DCDocComment* DocCommentParser::parse() {
+	$useLocalCurrentObjectStackCache();
 	$var($String, c, $nc(this->comment)->getText());
 	$set(this, buf, $new($chars, $nc(c)->length() + 1));
 	c->getChars(0, c->length(), this->buf, 0);
@@ -395,6 +396,7 @@ $List* DocCommentParser::blockContent() {
 }
 
 $List* DocCommentParser::blockContent($DocCommentParser$Phase* phase) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, trees, $new($ListBuffer));
 	this->textStart = -1;
 	bool loop$break = false;
@@ -502,6 +504,7 @@ $List* DocCommentParser::blockContent($DocCommentParser$Phase* phase) {
 }
 
 $List* DocCommentParser::blockTags() {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, tags, $new($ListBuffer));
 	while (this->bp < this->buflen && this->ch == u'@') {
 		tags->add($(blockTag()));
@@ -510,6 +513,7 @@ $List* DocCommentParser::blockTags() {
 }
 
 $DCTree* DocCommentParser::blockTag() {
+	$useLocalCurrentObjectStackCache();
 	int32_t p = this->bp;
 	try {
 		nextChar();
@@ -553,6 +557,7 @@ void DocCommentParser::inlineTag($ListBuffer* list) {
 }
 
 $DCTree* DocCommentParser::inlineTag() {
+	$useLocalCurrentObjectStackCache();
 	int32_t p = this->bp - 1;
 	try {
 		nextChar();
@@ -590,6 +595,7 @@ $DCTree* DocCommentParser::inlineTag() {
 }
 
 $DCTree$DCText* DocCommentParser::inlineText($DocCommentParser$WhitespaceRetentionPolicy* whitespacePolicy) {
+	$useLocalCurrentObjectStackCache();
 	$init($DocCommentParser$26);
 	switch ($nc($DocCommentParser$26::$SwitchMap$com$sun$tools$javac$parser$DocCommentParser$WhitespaceRetentionPolicy)->get($nc((whitespacePolicy))->ordinal())) {
 	case 1:
@@ -659,6 +665,7 @@ $DCTree$DCText* DocCommentParser::inlineText($DocCommentParser$WhitespaceRetenti
 }
 
 $DCTree$DCReference* DocCommentParser::reference(bool allowMember) {
+	$useLocalCurrentObjectStackCache();
 	int32_t pos = this->bp;
 	int32_t depth = 0;
 	bool loop$break = false;
@@ -739,6 +746,7 @@ $DCTree$DCReference* DocCommentParser::reference(bool allowMember) {
 }
 
 $DCTree$DCIdentifier* DocCommentParser::identifier() {
+	$useLocalCurrentObjectStackCache();
 	skipWhitespace();
 	int32_t pos = this->bp;
 	if (isJavaIdentifierStart(this->ch)) {
@@ -749,6 +757,7 @@ $DCTree$DCIdentifier* DocCommentParser::identifier() {
 }
 
 $DCTree$DCText* DocCommentParser::quotedString() {
+	$useLocalCurrentObjectStackCache();
 	int32_t pos = this->bp;
 	nextChar();
 	bool loop$break = false;
@@ -791,6 +800,7 @@ $DCTree$DCText* DocCommentParser::quotedString() {
 }
 
 $DCTree$DCText* DocCommentParser::inlineWord() {
+	$useLocalCurrentObjectStackCache();
 	int32_t pos = this->bp;
 	int32_t depth = 0;
 	bool loop$break = false;
@@ -841,6 +851,7 @@ $DCTree$DCText* DocCommentParser::inlineWord() {
 }
 
 $List* DocCommentParser::inlineContent() {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, trees, $new($ListBuffer));
 	skipWhitespace();
 	int32_t pos = this->bp;
@@ -940,6 +951,7 @@ void DocCommentParser::entity($ListBuffer* list) {
 }
 
 $DCTree* DocCommentParser::entity() {
+	$useLocalCurrentObjectStackCache();
 	int32_t p = this->bp;
 	nextChar();
 	$var($Name, name, nullptr);
@@ -977,6 +989,7 @@ $DCTree* DocCommentParser::entity() {
 }
 
 bool DocCommentParser::isEndPreamble() {
+	$useLocalCurrentObjectStackCache();
 	int32_t savedpos = this->bp;
 	{
 		$var($Throwable, var$0, nullptr);
@@ -1063,6 +1076,7 @@ bool DocCommentParser::isEndPreamble() {
 }
 
 bool DocCommentParser::isEndBody() {
+	$useLocalCurrentObjectStackCache();
 	int32_t savedpos = this->bp;
 	{
 		$var($Throwable, var$0, nullptr);
@@ -1128,6 +1142,7 @@ bool DocCommentParser::isEndBody() {
 }
 
 bool DocCommentParser::peek($String* s$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, s, s$renamed);
 	int32_t savedpos = this->bp;
 	{
@@ -1174,6 +1189,7 @@ bool DocCommentParser::peek($String* s$renamed) {
 }
 
 $DCTree* DocCommentParser::html() {
+	$useLocalCurrentObjectStackCache();
 	int32_t p = this->bp;
 	nextChar();
 	if (isIdentifierStart(this->ch)) {
@@ -1244,6 +1260,7 @@ $DCTree* DocCommentParser::html() {
 }
 
 $List* DocCommentParser::htmlAttrs() {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, attrs, $new($ListBuffer));
 	skipWhitespace();
 	bool loop$break = false;
@@ -1314,6 +1331,7 @@ void DocCommentParser::attrValueChar($ListBuffer* list) {
 }
 
 void DocCommentParser::addPendingText($ListBuffer* list, int32_t textEnd) {
+	$useLocalCurrentObjectStackCache();
 	if (this->textStart != -1) {
 		if (this->textStart <= textEnd) {
 			$nc(list)->add($($nc($($nc(this->m)->at(this->textStart)))->newTextTree($(newString(this->textStart, textEnd + 1)))));
@@ -1323,6 +1341,7 @@ void DocCommentParser::addPendingText($ListBuffer* list, int32_t textEnd) {
 }
 
 $DCTree$DCErroneous* DocCommentParser::erroneous($String* code, int32_t pos) {
+	$useLocalCurrentObjectStackCache();
 	int32_t i = this->bp - 1;
 	bool loop$break = false;
 	while (i > pos) {
@@ -1466,6 +1485,7 @@ $String* DocCommentParser::newString(int32_t start, int32_t end) {
 }
 
 $Map* DocCommentParser::createTagParsers() {
+	$useLocalCurrentObjectStackCache();
 		$init($DocCommentParser$TagParser$Kind);
 		$init($DocTree$Kind);
 	$var($DocCommentParser$TagParserArray, parsers, $new($DocCommentParser$TagParserArray, {

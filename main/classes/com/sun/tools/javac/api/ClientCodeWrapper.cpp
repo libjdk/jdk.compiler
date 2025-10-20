@@ -185,6 +185,7 @@ $JavaFileObject* ClientCodeWrapper::wrap($JavaFileObject* fo) {
 }
 
 $Iterable* ClientCodeWrapper::wrapJavaFileObjects($Iterable* list) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, wrapped, $new($ArrayList));
 	{
 		$var($Iterator, i$, $nc(list)->iterator());
@@ -231,6 +232,7 @@ $TaskListener* ClientCodeWrapper::unwrap($TaskListener* l) {
 }
 
 $Collection* ClientCodeWrapper::unwrap($Collection* listeners) {
+	$useLocalCurrentObjectStackCache();
 	$var($Collection, c, static_cast<$Collection*>(static_cast<$AbstractCollection*>(static_cast<$AbstractList*>($new($ArrayList, $nc(listeners)->size())))));
 	{
 		$var($Iterator, i$, $nc(listeners)->iterator());
@@ -253,6 +255,7 @@ $Diagnostic* ClientCodeWrapper::unwrap($Diagnostic* diagnostic) {
 }
 
 bool ClientCodeWrapper::isTrusted(Object$* o) {
+	$useLocalCurrentObjectStackCache();
 	$Class* c = $nc($of(o))->getClass();
 	$var($Boolean, trusted, $cast($Boolean, $nc(this->trustedClasses)->get(c)));
 	if (trusted == nullptr) {

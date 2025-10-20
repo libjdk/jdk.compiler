@@ -325,6 +325,7 @@ Analyzer* Analyzer::instance($Context* context) {
 }
 
 void Analyzer::init$($Context* context) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, analyzers, $new($Analyzer$StatementAnalyzerArray, {
 		static_cast<$Analyzer$StatementAnalyzer*>($$new($Analyzer$DiamondInitializer, this)),
 		static_cast<$Analyzer$StatementAnalyzer*>($$new($Analyzer$LambdaAnalyzer, this)),
@@ -352,6 +353,7 @@ void Analyzer::init$($Context* context) {
 }
 
 $Env* Analyzer::copyEnvIfNeeded($JCTree* tree, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	bool var$1 = !$nc(this->analyzerModes)->isEmpty() && !$nc($nc(($cast($AttrContext, $nc(env)->info)))->attributionMode)->isSpeculative$;
 	bool var$0 = var$1 && $TreeInfo::isStatement(tree);
 	$init($JCTree$Tag);
@@ -372,6 +374,7 @@ void Analyzer::analyzeIfNeeded($JCTree* tree, $Env* env) {
 }
 
 void Analyzer::analyze($JCTree$JCStatement* statement, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($Analyzer$StatementScanner, statementScanner, $new($Analyzer$StatementScanner, this, statement, env));
 	statementScanner->scan();
 	if (!$nc(statementScanner->rewritings)->isEmpty()) {
@@ -388,6 +391,7 @@ void Analyzer::analyze($JCTree$JCStatement* statement, $Env* env) {
 }
 
 void Analyzer::doAnalysis($Analyzer$RewritingContext* rewriting) {
+	$useLocalCurrentObjectStackCache();
 	$var($DiagnosticSource, prevSource, $nc(this->log)->currentSource());
 	$var($ArgumentAttr$LocalCacheContext, localCacheContext, $nc(this->argumentAttr)->withLocalCacheContext());
 	{

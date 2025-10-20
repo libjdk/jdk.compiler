@@ -85,6 +85,7 @@ void LoggingOutputStream::init$($OutputStream* out, $Log$Level* level, $String* 
 }
 
 void LoggingOutputStream::write(int32_t b) {
+	$useLocalCurrentObjectStackCache();
 	$FilterOutputStream::write(b);
 	$nc(this->buf)->write(b);
 	if ($nc(this->buf)->isLineComplete()) {

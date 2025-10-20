@@ -195,6 +195,7 @@ $List* TypeAnnotationPosition::emptyPath = nullptr;
 TypeAnnotationPosition* TypeAnnotationPosition::unknown = nullptr;
 
 $String* TypeAnnotationPosition::toString() {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, sb, $new($StringBuilder));
 	sb->append(u'[');
 	sb->append($of(this->type));
@@ -382,6 +383,7 @@ void TypeAnnotationPosition::setCatchInfo(int32_t catchType, int32_t startPos) {
 
 $List* TypeAnnotationPosition::getTypePathFromBinary($1List* list) {
 	$init(TypeAnnotationPosition);
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, loc, $new($ListBuffer));
 	$var($Iterator, iter, $nc(list)->iterator());
 	while ($nc(iter)->hasNext()) {
@@ -396,6 +398,7 @@ $List* TypeAnnotationPosition::getTypePathFromBinary($1List* list) {
 
 $List* TypeAnnotationPosition::getBinaryFromTypePath($1List* locs) {
 	$init(TypeAnnotationPosition);
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, loc, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc(locs)->iterator());

@@ -139,6 +139,7 @@ void Resolve$VerboseResolutionMode::init$($String* $enum$name, int32_t $enum$ord
 
 $EnumSet* Resolve$VerboseResolutionMode::getVerboseResolutionMode($Options* opts) {
 	$init(Resolve$VerboseResolutionMode);
+	$useLocalCurrentObjectStackCache();
 	$var($String, s, $nc(opts)->get("debug.verboseResolution"_s));
 	$var($EnumSet, res, $EnumSet::noneOf(Resolve$VerboseResolutionMode::class$));
 	if (s == nullptr) {

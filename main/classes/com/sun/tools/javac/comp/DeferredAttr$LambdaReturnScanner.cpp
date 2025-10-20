@@ -81,6 +81,7 @@ $Object* allocate$DeferredAttr$LambdaReturnScanner($Class* clazz) {
 }
 
 void DeferredAttr$LambdaReturnScanner::init$() {
+	$useLocalCurrentObjectStackCache();
 	$init($JCTree$Tag);
 	$DeferredAttr$FilterScanner::init$($($EnumSet::of(static_cast<$Enum*>($JCTree$Tag::BLOCK), $fcast($EnumArray, $$new($JCTree$TagArray, {
 		$JCTree$Tag::CASE,

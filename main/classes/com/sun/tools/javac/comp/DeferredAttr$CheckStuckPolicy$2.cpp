@@ -91,6 +91,7 @@ void DeferredAttr$CheckStuckPolicy$2::init$($DeferredAttr$CheckStuckPolicy* this
 }
 
 void DeferredAttr$CheckStuckPolicy$2::visitYield($JCTree$JCYield* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, prevPt, this->this$1->pt);
 	{
 		$var($Throwable, var$0, nullptr);

@@ -853,6 +853,7 @@ $String* JavaCompiler::fullVersion() {
 
 $String* JavaCompiler::version($String* key) {
 	$init(JavaCompiler);
+	$useLocalCurrentObjectStackCache();
 	$beforeCallerSensitive();
 	if (JavaCompiler::versionRB == nullptr) {
 		try {
@@ -872,6 +873,7 @@ $String* JavaCompiler::version($String* key) {
 }
 
 void JavaCompiler::init$($Context* context) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, sourceCompleter, static_cast<$Symbol$Completer*>($new(JavaCompiler$$Lambda$lambda$new$0, this)));
 	this->explicitAnnotationProcessingRequested$ = false;
 	$set(this, closeables, $List::nil());
@@ -986,6 +988,7 @@ int32_t JavaCompiler::warningCount() {
 }
 
 $CharSequence* JavaCompiler::readSource($JavaFileObject* filename) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$nc(this->inputFiles)->add(filename);
 		return $nc(filename)->getCharContent(false);
@@ -998,6 +1001,7 @@ $CharSequence* JavaCompiler::readSource($JavaFileObject* filename) {
 }
 
 $JCTree$JCCompilationUnit* JavaCompiler::parse($JavaFileObject* filename, $CharSequence* content) {
+	$useLocalCurrentObjectStackCache();
 	int64_t msec = now();
 	$var($JCTree$JCCompilationUnit, tree, $nc(this->make)->TopLevel($($List::nil())));
 	if (content != nullptr) {
@@ -1036,11 +1040,13 @@ bool JavaCompiler::keepComments() {
 }
 
 $JCTree$JCCompilationUnit* JavaCompiler::parse($String* filename) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavacFileManager, fm, $cast($JavacFileManager, this->fileManager));
 	return parse($cast($JavaFileObject, $($nc($($nc($($nc(fm)->getJavaFileObjectsFromStrings($(static_cast<$Iterable*>(static_cast<$Collection*>(static_cast<$AbstractCollection*>($List::of(filename))))))))->iterator()))->next())));
 }
 
 $JCTree$JCCompilationUnit* JavaCompiler::parse($JavaFileObject* filename) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileObject, prev, $nc(this->log)->useSource(filename));
 	{
 		$var($Throwable, var$0, nullptr);
@@ -1070,6 +1076,7 @@ $JCTree$JCCompilationUnit* JavaCompiler::parse($JavaFileObject* filename) {
 }
 
 $Symbol* JavaCompiler::resolveBinaryNameOrIdent($String* name) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$ModuleSymbol, msym, nullptr);
 	$var($String, typeName, nullptr);
 	int32_t sep = $nc(name)->indexOf((int32_t)u'/');
@@ -1091,6 +1098,7 @@ $Symbol* JavaCompiler::resolveBinaryNameOrIdent($String* name) {
 }
 
 $Symbol* JavaCompiler::resolveBinaryNameOrIdent($Symbol$ModuleSymbol* msym, $String* name) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var($Name, flatname, $nc(this->names)->fromString($($nc(name)->replace(static_cast<$CharSequence*>("/"_s), static_cast<$CharSequence*>("."_s)))));
 		return $nc(this->finder)->loadClass(msym, flatname);
@@ -1102,6 +1110,7 @@ $Symbol* JavaCompiler::resolveBinaryNameOrIdent($Symbol$ModuleSymbol* msym, $Str
 }
 
 $Symbol* JavaCompiler::resolveIdent($Symbol$ModuleSymbol* msym, $String* name) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(name)->equals(""_s)) {
 		return $nc(this->syms)->errSymbol;
 	}
@@ -1150,6 +1159,7 @@ $Symbol* JavaCompiler::resolveIdent($Symbol$ModuleSymbol* msym, $String* name) {
 }
 
 $JavaFileObject* JavaCompiler::genCode($Env* env, $JCTree$JCClassDecl* cdef) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		bool var$0 = $nc(this->gen)->genClass(env, cdef);
 		if (var$0 && (errorCount() == 0)) {
@@ -1171,6 +1181,7 @@ $JavaFileObject* JavaCompiler::genCode($Env* env, $JCTree$JCClassDecl* cdef) {
 }
 
 $JavaFileObject* JavaCompiler::printSource($Env* env, $JCTree$JCClassDecl* cdef) {
+	$useLocalCurrentObjectStackCache();
 	$init($StandardLocation);
 	$init($JavaFileObject$Kind);
 	$var($JavaFileObject, outFile, $nc(this->fileManager)->getJavaFileForOutput($StandardLocation::CLASS_OUTPUT, $($nc($nc($nc(cdef)->sym)->flatname)->toString()), $JavaFileObject$Kind::SOURCE, nullptr));
@@ -1218,6 +1229,7 @@ void JavaCompiler::readSourceFile($Symbol$ClassSymbol* c) {
 }
 
 void JavaCompiler::readSourceFile($JCTree$JCCompilationUnit* tree$renamed, $Symbol$ClassSymbol* c) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCCompilationUnit, tree, tree$renamed);
 	if (this->completionFailureName == $nc(c)->fullname) {
 		$throwNew($Symbol$CompletionFailure, c, static_cast<$Supplier*>($$new(JavaCompiler$$Lambda$lambda$readSourceFile$1$3, this)), this->dcfh);
@@ -1283,12 +1295,14 @@ void JavaCompiler::readSourceFile($JCTree$JCCompilationUnit* tree$renamed, $Symb
 }
 
 void JavaCompiler::compile($List* sourceFileObject) {
+	$useLocalCurrentObjectStackCache();
 	$var($Collection, var$0, static_cast<$Collection*>(static_cast<$AbstractCollection*>(sourceFileObject)));
 	$var($Collection, var$1, static_cast<$Collection*>(static_cast<$AbstractCollection*>($List::nil())));
 	compile(var$0, var$1, nullptr, $(static_cast<$Collection*>(static_cast<$AbstractCollection*>($List::nil()))));
 }
 
 void JavaCompiler::compile($Collection* sourceFileObjects, $Collection* classnames, $Iterable* processors, $Collection* addModules) {
+	$useLocalCurrentObjectStackCache();
 	if (!$nc(this->taskListener)->isEmpty()) {
 		$init($TaskEvent$Kind);
 		$nc(this->taskListener)->started($$new($TaskEvent, $TaskEvent$Kind::COMPILATION));
@@ -1419,6 +1433,7 @@ $List* JavaCompiler::parseFiles($Iterable* fileObjects) {
 }
 
 $List* JavaCompiler::parseFiles($Iterable* fileObjects, bool force) {
+	$useLocalCurrentObjectStackCache();
 	$init($CompileStates$CompileState);
 	if (!force && shouldStop($CompileStates$CompileState::PARSE)) {
 		return $List::nil();
@@ -1454,6 +1469,7 @@ $List* JavaCompiler::initModules($List* roots) {
 }
 
 $List* JavaCompiler::enterTrees($List* roots) {
+	$useLocalCurrentObjectStackCache();
 	if (!$nc(this->taskListener)->isEmpty()) {
 		{
 			$var($Iterator, i$, $nc(roots)->iterator());
@@ -1524,6 +1540,7 @@ $List* JavaCompiler::enterTrees($List* roots) {
 }
 
 void JavaCompiler::initProcessAnnotations($Iterable* processors, $Collection* initialFiles, $Collection* initialClassNames) {
+	$useLocalCurrentObjectStackCache();
 	$init($Option);
 	if ($nc(this->options)->isSet($Option::PROC, "none"_s)) {
 		this->processAnnotations$ = false;
@@ -1553,6 +1570,7 @@ void JavaCompiler::processAnnotations($List* roots) {
 }
 
 void JavaCompiler::processAnnotations($List* roots, $Collection* classnames) {
+	$useLocalCurrentObjectStackCache();
 	$init($CompileStates$CompileState);
 	if (shouldStop($CompileStates$CompileState::PROCESS)) {
 		if (this->processAnnotations$) {
@@ -1655,6 +1673,7 @@ void JavaCompiler::processAnnotations($List* roots, $Collection* classnames) {
 }
 
 bool JavaCompiler::unrecoverableError() {
+	$useLocalCurrentObjectStackCache();
 	if (this->deferredDiagnosticHandler != nullptr) {
 		{
 			$var($Iterator, i$, $nc($($nc(this->deferredDiagnosticHandler)->getDiagnostics()))->iterator());
@@ -1693,6 +1712,7 @@ void JavaCompiler::setDeferredDiagnosticHandler($Log$DeferredDiagnosticHandler* 
 }
 
 $Queue* JavaCompiler::attribute($Queue* envs) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, results, $new($ListBuffer));
 	while (!$nc(envs)->isEmpty()) {
 		results->append($(attribute($cast($Env, $(envs->remove())))));
@@ -1702,6 +1722,7 @@ $Queue* JavaCompiler::attribute($Queue* envs) {
 }
 
 $Env* JavaCompiler::attribute($Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$init($CompileStates$CompileState);
 	if ($nc(this->compileStates)->isDone(env, $CompileStates$CompileState::ATTR)) {
 		return env;
@@ -1740,6 +1761,7 @@ $Env* JavaCompiler::attribute($Env* env) {
 }
 
 $Queue* JavaCompiler::flow($Queue* envs) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, results, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc(envs)->iterator());
@@ -1762,6 +1784,7 @@ $Queue* JavaCompiler::flow($Env* env) {
 }
 
 void JavaCompiler::flow($Env* env, $Queue* results) {
+	$useLocalCurrentObjectStackCache();
 	$init($CompileStates$CompileState);
 	if ($nc(this->compileStates)->isDone(env, $CompileStates$CompileState::FLOW)) {
 		$nc(results)->add(env);
@@ -1825,6 +1848,7 @@ void JavaCompiler::flow($Env* env, $Queue* results) {
 }
 
 $Queue* JavaCompiler::desugar($Queue* envs) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, results, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc(envs)->iterator());
@@ -1838,6 +1862,7 @@ $Queue* JavaCompiler::desugar($Queue* envs) {
 }
 
 void JavaCompiler::desugar($Env* env, $Queue* results) {
+	$useLocalCurrentObjectStackCache();
 	$init($CompileStates$CompileState);
 	if (shouldStop($CompileStates$CompileState::TRANSTYPES)) {
 		return;
@@ -1973,6 +1998,7 @@ void JavaCompiler::generate($Queue* queue) {
 }
 
 void JavaCompiler::generate($Queue* queue, $Queue* results) {
+	$useLocalCurrentObjectStackCache();
 	$init($CompileStates$CompileState);
 	if (shouldStop($CompileStates$CompileState::GENERATE)) {
 		return;
@@ -2042,6 +2068,7 @@ void JavaCompiler::generate($Queue* queue, $Queue* results) {
 }
 
 $Map* JavaCompiler::groupByFile($Queue* envs) {
+	$useLocalCurrentObjectStackCache();
 	$var($Map, map, $new($LinkedHashMap));
 	{
 		$var($Iterator, i$, $nc(envs)->iterator());
@@ -2105,6 +2132,7 @@ $Name* JavaCompiler::findPackageInFile($JavaFileObject* fo) {
 }
 
 $Name* JavaCompiler::parseAndGetName($JavaFileObject* fo, $Function* tree2Name) {
+	$useLocalCurrentObjectStackCache();
 	$var($Log$DiagnosticHandler, dh, $new($Log$DiscardDiagnosticHandler, this->log));
 	$var($JavaFileObject, prevSource, $nc(this->log)->useSource(fo));
 	{
@@ -2140,6 +2168,7 @@ $Name* JavaCompiler::parseAndGetName($JavaFileObject* fo, $Function* tree2Name) 
 }
 
 void JavaCompiler::close() {
+	$useLocalCurrentObjectStackCache();
 	$set(this, rootClasses, nullptr);
 	$set(this, finder, nullptr);
 	$set(this, reader, nullptr);
@@ -2216,6 +2245,7 @@ void JavaCompiler::printNote($String* lines) {
 }
 
 void JavaCompiler::printCount($String* kind, int32_t count) {
+	$useLocalCurrentObjectStackCache();
 	if (count != 0) {
 		$var($String, key, nullptr);
 		if (count == 1) {
@@ -2230,6 +2260,7 @@ void JavaCompiler::printCount($String* kind, int32_t count) {
 }
 
 void JavaCompiler::printSuppressedCount(int32_t shown, int32_t suppressed, $String* diagKey) {
+	$useLocalCurrentObjectStackCache();
 	if (suppressed > 0) {
 		int32_t total = shown + suppressed;
 		$init($Log$WriterKind);
@@ -2258,11 +2289,13 @@ void JavaCompiler::newRound() {
 
 $Name* JavaCompiler::lambda$findPackageInFile$4($JCTree$JCCompilationUnit* t) {
 	$init(JavaCompiler);
+	$useLocalCurrentObjectStackCache();
 	return $cast($JCTree$JCPackageDecl, $nc(t)->getPackage()) != nullptr ? $TreeInfo::fullName($($cast($JCTree, $nc($($cast($JCTree$JCPackageDecl, $nc(t)->getPackage())))->getPackageName()))) : ($Name*)nullptr;
 }
 
 $Name* JavaCompiler::lambda$readModuleName$3($JCTree$JCCompilationUnit* t) {
 	$init(JavaCompiler);
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCModuleDecl, md, $nc(t)->getModuleDecl());
 	return md != nullptr ? $TreeInfo::fullName($($cast($JCTree, $nc(md)->getName()))) : ($Name*)nullptr;
 }

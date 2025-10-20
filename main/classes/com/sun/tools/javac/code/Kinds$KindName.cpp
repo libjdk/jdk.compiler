@@ -195,6 +195,7 @@ $String* Kinds$KindName::getKind() {
 }
 
 $String* Kinds$KindName::toString($Locale* locale, $Messages* messages) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, s, toString());
 	return $nc(messages)->getLocalizedString(locale, $$str({"compiler.misc."_s, s}), $$new($ObjectArray, 0));
 }

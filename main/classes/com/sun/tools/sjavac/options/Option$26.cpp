@@ -74,6 +74,7 @@ void Option$26::init$($String* $enum$name, int32_t $enum$ordinal, $String* arg, 
 }
 
 void Option$26::processMatching($ArgumentIterator* iter, $OptionHelper* helper) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, p, $nc($($nc(iter)->current()))->substring($nc(this->arg)->length()));
 	$nc(helper)->stateDir($($Paths::get(p, $$new($StringArray, 0))));
 }

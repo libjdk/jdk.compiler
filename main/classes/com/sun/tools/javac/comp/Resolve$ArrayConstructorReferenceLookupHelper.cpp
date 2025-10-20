@@ -111,6 +111,7 @@ void Resolve$ArrayConstructorReferenceLookupHelper::init$($Resolve* this$0, $JCT
 }
 
 $Symbol* Resolve$ArrayConstructorReferenceLookupHelper::lookup($Env* env, $Resolve$MethodResolutionPhase* phase) {
+	$useLocalCurrentObjectStackCache();
 	$var($Scope$WriteableScope, sc, $Scope$WriteableScope::create($nc(this->this$0->syms)->arrayClass));
 	$var($Symbol$MethodSymbol, arrayConstr, $new($Symbol$MethodSymbol, 1, this->name, nullptr, $nc(this->site)->tsym));
 	$var($List, var$0, $List::of($nc(this->this$0->syms)->intType));

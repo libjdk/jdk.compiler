@@ -257,6 +257,7 @@ $CRTable$SourceRange* CRTable$SourceComputer::csp($JCTree* tree) {
 }
 
 $CRTable$SourceRange* CRTable$SourceComputer::csp($List* trees) {
+	$useLocalCurrentObjectStackCache();
 	if ((trees == nullptr) || !($nc(trees)->nonEmpty())) {
 		return nullptr;
 	}
@@ -272,6 +273,7 @@ $CRTable$SourceRange* CRTable$SourceComputer::csp($List* trees) {
 }
 
 $CRTable$SourceRange* CRTable$SourceComputer::cspCases($List* trees) {
+	$useLocalCurrentObjectStackCache();
 	if ((trees == nullptr) || !($nc(trees)->nonEmpty())) {
 		return nullptr;
 	}
@@ -287,6 +289,7 @@ $CRTable$SourceRange* CRTable$SourceComputer::cspCases($List* trees) {
 }
 
 $CRTable$SourceRange* CRTable$SourceComputer::cspCatchers($List* trees) {
+	$useLocalCurrentObjectStackCache();
 	if ((trees == nullptr) || !($nc(trees)->nonEmpty())) {
 		return nullptr;
 	}
@@ -302,6 +305,7 @@ $CRTable$SourceRange* CRTable$SourceComputer::cspCatchers($List* trees) {
 }
 
 void CRTable$SourceComputer::visitMethodDef($JCTree$JCMethodDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp(static_cast<$JCTree*>($nc(tree)->body))));
@@ -309,6 +313,7 @@ void CRTable$SourceComputer::visitMethodDef($JCTree$JCMethodDecl* tree) {
 }
 
 void CRTable$SourceComputer::visitVarDef($JCTree$JCVariableDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	csp(static_cast<$JCTree*>($nc(tree)->vartype));
@@ -330,6 +335,7 @@ void CRTable$SourceComputer::visitBlock($JCTree$JCBlock* tree) {
 }
 
 void CRTable$SourceComputer::visitDoLoop($JCTree$JCDoWhileLoop* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp(static_cast<$JCTree*>($nc(tree)->body))));
@@ -338,6 +344,7 @@ void CRTable$SourceComputer::visitDoLoop($JCTree$JCDoWhileLoop* tree) {
 }
 
 void CRTable$SourceComputer::visitWhileLoop($JCTree$JCWhileLoop* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp(static_cast<$JCTree*>($nc(tree)->cond))));
@@ -346,6 +353,7 @@ void CRTable$SourceComputer::visitWhileLoop($JCTree$JCWhileLoop* tree) {
 }
 
 void CRTable$SourceComputer::visitForLoop($JCTree$JCForLoop* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp($nc(tree)->init)));
@@ -356,6 +364,7 @@ void CRTable$SourceComputer::visitForLoop($JCTree$JCForLoop* tree) {
 }
 
 void CRTable$SourceComputer::visitForeachLoop($JCTree$JCEnhancedForLoop* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp(static_cast<$JCTree*>($nc(tree)->var))));
@@ -365,6 +374,7 @@ void CRTable$SourceComputer::visitForeachLoop($JCTree$JCEnhancedForLoop* tree) {
 }
 
 void CRTable$SourceComputer::visitLabelled($JCTree$JCLabeledStatement* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp(static_cast<$JCTree*>($nc(tree)->body))));
@@ -372,6 +382,7 @@ void CRTable$SourceComputer::visitLabelled($JCTree$JCLabeledStatement* tree) {
 }
 
 void CRTable$SourceComputer::visitSwitch($JCTree$JCSwitch* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp(static_cast<$JCTree*>($nc(tree)->selector))));
@@ -380,6 +391,7 @@ void CRTable$SourceComputer::visitSwitch($JCTree$JCSwitch* tree) {
 }
 
 void CRTable$SourceComputer::visitSwitchExpression($JCTree$JCSwitchExpression* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp(static_cast<$JCTree*>($nc(tree)->selector))));
@@ -388,6 +400,7 @@ void CRTable$SourceComputer::visitSwitchExpression($JCTree$JCSwitchExpression* t
 }
 
 void CRTable$SourceComputer::visitCase($JCTree$JCCase* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp($nc(tree)->labels)));
@@ -400,6 +413,7 @@ void CRTable$SourceComputer::visitDefaultCaseLabel($JCTree$JCDefaultCaseLabel* t
 }
 
 void CRTable$SourceComputer::visitSynchronized($JCTree$JCSynchronized* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp(static_cast<$JCTree*>($nc(tree)->lock))));
@@ -408,6 +422,7 @@ void CRTable$SourceComputer::visitSynchronized($JCTree$JCSynchronized* tree) {
 }
 
 void CRTable$SourceComputer::visitTry($JCTree$JCTry* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp($nc(tree)->resources)));
@@ -418,6 +433,7 @@ void CRTable$SourceComputer::visitTry($JCTree$JCTry* tree) {
 }
 
 void CRTable$SourceComputer::visitCatch($JCTree$JCCatch* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp(static_cast<$JCTree*>($nc(tree)->param))));
@@ -426,6 +442,7 @@ void CRTable$SourceComputer::visitCatch($JCTree$JCCatch* tree) {
 }
 
 void CRTable$SourceComputer::visitConditional($JCTree$JCConditional* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp(static_cast<$JCTree*>($nc(tree)->cond))));
@@ -435,6 +452,7 @@ void CRTable$SourceComputer::visitConditional($JCTree$JCConditional* tree) {
 }
 
 void CRTable$SourceComputer::visitIf($JCTree$JCIf* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp(static_cast<$JCTree*>($nc(tree)->cond))));
@@ -444,6 +462,7 @@ void CRTable$SourceComputer::visitIf($JCTree$JCIf* tree) {
 }
 
 void CRTable$SourceComputer::visitExec($JCTree$JCExpressionStatement* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp(static_cast<$JCTree*>($nc(tree)->expr))));
@@ -457,6 +476,7 @@ void CRTable$SourceComputer::visitBreak($JCTree$JCBreak* tree) {
 }
 
 void CRTable$SourceComputer::visitYield($JCTree$JCYield* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp(static_cast<$JCTree*>($nc(tree)->value))));
@@ -470,6 +490,7 @@ void CRTable$SourceComputer::visitContinue($JCTree$JCContinue* tree) {
 }
 
 void CRTable$SourceComputer::visitReturn($JCTree$JCReturn* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp(static_cast<$JCTree*>($nc(tree)->expr))));
@@ -477,6 +498,7 @@ void CRTable$SourceComputer::visitReturn($JCTree$JCReturn* tree) {
 }
 
 void CRTable$SourceComputer::visitThrow($JCTree$JCThrow* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp(static_cast<$JCTree*>($nc(tree)->expr))));
@@ -484,6 +506,7 @@ void CRTable$SourceComputer::visitThrow($JCTree$JCThrow* tree) {
 }
 
 void CRTable$SourceComputer::visitAssert($JCTree$JCAssert* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp(static_cast<$JCTree*>($nc(tree)->cond))));
@@ -492,6 +515,7 @@ void CRTable$SourceComputer::visitAssert($JCTree$JCAssert* tree) {
 }
 
 void CRTable$SourceComputer::visitApply($JCTree$JCMethodInvocation* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp(static_cast<$JCTree*>($nc(tree)->meth))));
@@ -500,6 +524,7 @@ void CRTable$SourceComputer::visitApply($JCTree$JCMethodInvocation* tree) {
 }
 
 void CRTable$SourceComputer::visitNewClass($JCTree$JCNewClass* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp(static_cast<$JCTree*>($nc(tree)->encl))));
@@ -510,6 +535,7 @@ void CRTable$SourceComputer::visitNewClass($JCTree$JCNewClass* tree) {
 }
 
 void CRTable$SourceComputer::visitNewArray($JCTree$JCNewArray* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp(static_cast<$JCTree*>($nc(tree)->elemtype))));
@@ -519,6 +545,7 @@ void CRTable$SourceComputer::visitNewArray($JCTree$JCNewArray* tree) {
 }
 
 void CRTable$SourceComputer::visitParens($JCTree$JCParens* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp(static_cast<$JCTree*>($nc(tree)->expr))));
@@ -526,6 +553,7 @@ void CRTable$SourceComputer::visitParens($JCTree$JCParens* tree) {
 }
 
 void CRTable$SourceComputer::visitAssign($JCTree$JCAssign* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp(static_cast<$JCTree*>($nc(tree)->lhs))));
@@ -534,6 +562,7 @@ void CRTable$SourceComputer::visitAssign($JCTree$JCAssign* tree) {
 }
 
 void CRTable$SourceComputer::visitAssignop($JCTree$JCAssignOp* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp(static_cast<$JCTree*>($nc(tree)->lhs))));
@@ -542,6 +571,7 @@ void CRTable$SourceComputer::visitAssignop($JCTree$JCAssignOp* tree) {
 }
 
 void CRTable$SourceComputer::visitUnary($JCTree$JCUnary* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp(static_cast<$JCTree*>($nc(tree)->arg))));
@@ -549,6 +579,7 @@ void CRTable$SourceComputer::visitUnary($JCTree$JCUnary* tree) {
 }
 
 void CRTable$SourceComputer::visitBinary($JCTree$JCBinary* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp(static_cast<$JCTree*>($nc(tree)->lhs))));
@@ -557,6 +588,7 @@ void CRTable$SourceComputer::visitBinary($JCTree$JCBinary* tree) {
 }
 
 void CRTable$SourceComputer::visitTypeCast($JCTree$JCTypeCast* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp($nc(tree)->clazz)));
@@ -565,6 +597,7 @@ void CRTable$SourceComputer::visitTypeCast($JCTree$JCTypeCast* tree) {
 }
 
 void CRTable$SourceComputer::visitTypeTest($JCTree$JCInstanceOf* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp(static_cast<$JCTree*>($nc(tree)->expr))));
@@ -573,6 +606,7 @@ void CRTable$SourceComputer::visitTypeTest($JCTree$JCInstanceOf* tree) {
 }
 
 void CRTable$SourceComputer::visitIndexed($JCTree$JCArrayAccess* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp(static_cast<$JCTree*>($nc(tree)->indexed))));
@@ -581,6 +615,7 @@ void CRTable$SourceComputer::visitIndexed($JCTree$JCArrayAccess* tree) {
 }
 
 void CRTable$SourceComputer::visitSelect($JCTree$JCFieldAccess* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp(static_cast<$JCTree*>($nc(tree)->selected))));
@@ -606,6 +641,7 @@ void CRTable$SourceComputer::visitTypeIdent($JCTree$JCPrimitiveTypeTree* tree) {
 }
 
 void CRTable$SourceComputer::visitTypeArray($JCTree$JCArrayTypeTree* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp(static_cast<$JCTree*>($nc(tree)->elemtype))));
@@ -613,6 +649,7 @@ void CRTable$SourceComputer::visitTypeArray($JCTree$JCArrayTypeTree* tree) {
 }
 
 void CRTable$SourceComputer::visitTypeApply($JCTree$JCTypeApply* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp(static_cast<$JCTree*>($nc(tree)->clazz))));
@@ -621,6 +658,7 @@ void CRTable$SourceComputer::visitTypeApply($JCTree$JCTypeApply* tree) {
 }
 
 void CRTable$SourceComputer::visitLetExpr($JCTree$LetExpr* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp($nc(tree)->defs)));
@@ -629,6 +667,7 @@ void CRTable$SourceComputer::visitLetExpr($JCTree$LetExpr* tree) {
 }
 
 void CRTable$SourceComputer::visitTypeParameter($JCTree$JCTypeParameter* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp($nc(tree)->bounds)));
@@ -636,6 +675,7 @@ void CRTable$SourceComputer::visitTypeParameter($JCTree$JCTypeParameter* tree) {
 }
 
 void CRTable$SourceComputer::visitTypeUnion($JCTree$JCTypeUnion* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = startPos(tree);
 	$var($CRTable$SourceRange, sr, $new($CRTable$SourceRange, var$0, endPos(tree)));
 	sr->mergeWith($(csp($nc(tree)->alternatives)));

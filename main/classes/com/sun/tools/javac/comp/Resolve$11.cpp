@@ -103,6 +103,7 @@ void Resolve$11::init$($Resolve* this$0, $Name* name, $Type* site, $List* argtyp
 }
 
 $Symbol* Resolve$11::doLookup($Env* env, $Resolve$MethodResolutionPhase* phase) {
+	$useLocalCurrentObjectStackCache();
 	$var($Env, var$0, env);
 	$var($Type, var$1, this->site);
 	$var($Name, var$2, this->name);
@@ -113,6 +114,7 @@ $Symbol* Resolve$11::doLookup($Env* env, $Resolve$MethodResolutionPhase* phase) 
 }
 
 $Symbol* Resolve$11::access($Env* env, $JCDiagnostic$DiagnosticPosition* pos, $Symbol* location, $Symbol* sym$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, sym, sym$renamed);
 	if ($nc($nc(sym)->kind)->isResolutionError()) {
 		$assign(sym, $Resolve$BasicLookupHelper::access(env, pos, location, sym));

@@ -189,6 +189,7 @@ $Module* BuildState::findModuleFromPackageName($String* pkg) {
 }
 
 void BuildState::flattenPackagesSourcesAndArtifacts($Map* m) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, modules$, m);
 	{
 		$var($Iterator, i$, $nc($($nc(this->modules$)->values()))->iterator());
@@ -246,6 +247,7 @@ void BuildState::flattenPackagesSourcesAndArtifacts($Map* m) {
 }
 
 void BuildState::flattenArtifacts($Map* m) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, modules$, m);
 	{
 		$var($Iterator, i$, $nc($($nc(this->modules$)->values()))->iterator());
@@ -283,6 +285,7 @@ void BuildState::flattenArtifacts($Map* m) {
 }
 
 void BuildState::calculateDependents() {
+	$useLocalCurrentObjectStackCache();
 	$set(this, dependents$, $new($HashMap));
 	{
 		$var($Iterator, i$, $nc($($nc(this->packages$)->keySet()))->iterator());
@@ -314,6 +317,7 @@ void BuildState::calculateDependents() {
 }
 
 void BuildState::checkInternalState($String* msg, bool linkedOnly, $Map* srcs) {
+	$useLocalCurrentObjectStackCache();
 	bool baad = false;
 	$var($Map, original, $new($HashMap));
 	$var($Map, calculated, $new($HashMap));
@@ -397,12 +401,14 @@ void BuildState::checkInternalState($String* msg, bool linkedOnly, $Map* srcs) {
 }
 
 $Module* BuildState::loadModule($String* l) {
+	$useLocalCurrentObjectStackCache();
 	$var($Module, m, $Module::load(l));
 	$nc(this->modules$)->put($($nc(m)->name()), m);
 	return m;
 }
 
 $Package* BuildState::loadPackage($Module* lastModule, $String* l) {
+	$useLocalCurrentObjectStackCache();
 	$var($Package, p, $Package::load(lastModule, l));
 	$nc(lastModule)->addPackage(p);
 	$nc(this->packages$)->put($($nc(p)->name()), p);
@@ -410,6 +416,7 @@ $Package* BuildState::loadPackage($Module* lastModule, $String* l) {
 }
 
 $Source* BuildState::loadSource($Package* lastPackage, $String* l, bool is_generated) {
+	$useLocalCurrentObjectStackCache();
 	$var($Source, s, $Source::load(lastPackage, l, is_generated));
 	$nc(lastPackage)->addSource(s);
 	$nc(this->sources$)->put($($nc(s)->name()), s);
@@ -417,6 +424,7 @@ $Source* BuildState::loadSource($Package* lastPackage, $String* l, bool is_gener
 }
 
 void BuildState::copyPackagesExcept(BuildState* prev, $Set* recompiled, $Set* removed) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($($nc($($nc(prev)->packages()))->keySet()))->iterator());
 		for (; $nc(i$)->hasNext();) {

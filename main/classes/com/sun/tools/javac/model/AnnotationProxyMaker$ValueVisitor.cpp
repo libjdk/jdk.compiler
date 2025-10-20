@@ -146,6 +146,7 @@ void AnnotationProxyMaker$ValueVisitor::init$($AnnotationProxyMaker* this$0, $Sy
 }
 
 $Object* AnnotationProxyMaker$ValueVisitor::getValue($Attribute* attr) {
+	$useLocalCurrentObjectStackCache();
 	$beforeCallerSensitive();
 	$var($Method, method, nullptr);
 	try {
@@ -171,6 +172,7 @@ void AnnotationProxyMaker$ValueVisitor::visitClass($Attribute$Class* c) {
 }
 
 void AnnotationProxyMaker$ValueVisitor::visitArray($Attribute$Array* a) {
+	$useLocalCurrentObjectStackCache();
 	$var($Name, elemName, $nc($nc($nc(($cast($Type$ArrayType, $nc(a)->type)))->elemtype)->tsym)->getQualifiedName());
 	if ($nc($of(elemName))->equals($nc($nc(elemName->table)->names)->java_lang_Class)) {
 		$var($ListBuffer, elems, $new($ListBuffer));
@@ -227,6 +229,7 @@ void AnnotationProxyMaker$ValueVisitor::visitArray($Attribute$Array* a) {
 }
 
 void AnnotationProxyMaker$ValueVisitor::visitEnum($Attribute$Enum* e) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(this->returnClass)->isEnum()) {
 		$var($String, constName, $nc($nc(e)->value)->toString());
 		try {

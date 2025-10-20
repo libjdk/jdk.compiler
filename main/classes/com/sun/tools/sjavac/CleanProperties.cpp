@@ -101,6 +101,7 @@ void CleanProperties::setExtra($Options* a) {
 }
 
 bool CleanProperties::transform($CompilationService* sjavac, $Map* pkgSrcs, $Set* visibleSrcs, $Map* oldPackageDependencies, $URI* destRoot, $Map* packageArtifacts, $Map* packageDependencies, $Map* packageCpDependencies, $Map* packagePublicApis, $Map* dependencyPublicApis, int32_t debugLevel, bool incremental, int32_t numCores) {
+	$useLocalCurrentObjectStackCache();
 	bool rc = true;
 	{
 		$var($Iterator, i$, $nc($($nc(pkgSrcs)->keySet()))->iterator());
@@ -129,6 +130,7 @@ bool CleanProperties::transform($CompilationService* sjavac, $Map* pkgSrcs, $Set
 }
 
 bool CleanProperties::clean($String* pkgName, $String* pkgNameF, $File* src, $File* destRoot, int32_t debugLevel, $Map* packageArtifacts) {
+	$useLocalCurrentObjectStackCache();
 	$var($Properties, p, $new($Properties));
 	try {
 		p->load(static_cast<$InputStream*>($$new($FileInputStream, src)));

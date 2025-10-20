@@ -105,6 +105,7 @@ void TypeEnter$RecordPhase::init$($TypeEnter* this$0) {
 }
 
 void TypeEnter$RecordPhase::runPhase($Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCClassDecl, tree, $nc(env)->enclClass);
 	$var($Symbol$ClassSymbol, sym, $nc(tree)->sym);
 	if (((int64_t)($nc(sym)->flags_field & (uint64_t)(int64_t)0x2000000000000000)) != 0) {

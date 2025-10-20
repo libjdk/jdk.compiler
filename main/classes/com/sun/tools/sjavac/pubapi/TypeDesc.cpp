@@ -106,6 +106,7 @@ void TypeDesc::init$($TypeKind* typeKind) {
 
 TypeDesc* TypeDesc::decodeString($String* s$renamed) {
 	$init(TypeDesc);
+	$useLocalCurrentObjectStackCache();
 	$var($String, s, s$renamed);
 	$assign(s, $nc(s)->trim());
 	if (s->endsWith("[]"_s)) {
@@ -124,6 +125,7 @@ TypeDesc* TypeDesc::decodeString($String* s$renamed) {
 
 $String* TypeDesc::encodeAsString(TypeDesc* td) {
 	$init(TypeDesc);
+	$useLocalCurrentObjectStackCache();
 	$init($TypeKind);
 	if ($nc($nc(td)->typeKind)->isPrimitive() || $nc(td)->typeKind == $TypeKind::VOID) {
 		return $StringUtils::toLowerCase($($nc(td->typeKind)->toString()));
@@ -142,6 +144,7 @@ $String* TypeDesc::encodeAsString(TypeDesc* td) {
 
 TypeDesc* TypeDesc::fromType($TypeMirror* type) {
 	$init(TypeDesc);
+	$useLocalCurrentObjectStackCache();
 	$var($TypeVisitor, v, $new($TypeDesc$1));
 	$var(TypeDesc, td, $cast(TypeDesc, v->visit(type)));
 	if (td == nullptr) {

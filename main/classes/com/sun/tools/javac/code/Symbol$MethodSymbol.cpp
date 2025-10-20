@@ -396,6 +396,7 @@ $Set* Symbol$MethodSymbol::getModifiers() {
 }
 
 $String* Symbol$MethodSymbol::toString() {
+	$useLocalCurrentObjectStackCache();
 	if (((int64_t)(flags() & (uint64_t)(int64_t)0x00100000)) != 0) {
 		return $nc($nc(this->owner)->name)->toString();
 	} else {
@@ -424,6 +425,7 @@ $Symbol$MethodHandleSymbol* Symbol$MethodSymbol::asHandle() {
 }
 
 $Symbol* Symbol$MethodSymbol::implemented($Symbol$TypeSymbol* c, $Types* types) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, impl, nullptr);
 	{
 		$var($List, is, $nc(types)->interfaces($nc(c)->type));
@@ -439,6 +441,7 @@ $Symbol* Symbol$MethodSymbol::implemented($Symbol$TypeSymbol* c, $Types* types) 
 }
 
 $Symbol* Symbol$MethodSymbol::implementedIn($Symbol$TypeSymbol* c, $Types* types) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, impl, nullptr);
 	{
 		$var($Iterator, i$, $nc($($nc($($nc(c)->members()))->getSymbolsByName(this->name)))->iterator());
@@ -460,6 +463,7 @@ $Symbol* Symbol$MethodSymbol::implementedIn($Symbol$TypeSymbol* c, $Types* types
 }
 
 bool Symbol$MethodSymbol::binaryOverrides($Symbol* _other, $Symbol$TypeSymbol* origin, $Types* types) {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$Kind);
 	if (isConstructor() || $nc(_other)->kind != $Kinds$Kind::MTH) {
 		return false;
@@ -488,6 +492,7 @@ bool Symbol$MethodSymbol::binaryOverrides($Symbol* _other, $Symbol$TypeSymbol* o
 }
 
 Symbol$MethodSymbol* Symbol$MethodSymbol::binaryImplementation($Symbol$ClassSymbol* origin, $Types* types) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Symbol$TypeSymbol, c, origin);
 		for (; c != nullptr; $assign(c, $nc($($nc(types)->supertype($nc(c)->type)))->tsym)) {
@@ -513,6 +518,7 @@ bool Symbol$MethodSymbol::overrides($Symbol* _other, $Symbol$TypeSymbol* origin,
 }
 
 bool Symbol$MethodSymbol::overrides($Symbol* _other, $Symbol$TypeSymbol* origin, $Types* types, bool checkResult, bool requireConcreteIfInherited) {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$Kind);
 	if (isConstructor() || $nc(_other)->kind != $Kinds$Kind::MTH) {
 		return false;
@@ -602,6 +608,7 @@ Symbol$MethodSymbol* Symbol$MethodSymbol::implementation($Symbol$TypeSymbol* ori
 }
 
 Symbol$MethodSymbol* Symbol$MethodSymbol::implementation($Symbol$TypeSymbol* origin, $Types* types, bool checkResult, $Predicate* implFilter) {
+	$useLocalCurrentObjectStackCache();
 	$var(Symbol$MethodSymbol, res, $nc(types)->implementation(this, origin, checkResult, implFilter));
 	if (res != nullptr) {
 		return res;
@@ -615,6 +622,7 @@ Symbol$MethodSymbol* Symbol$MethodSymbol::implementation($Symbol$TypeSymbol* ori
 }
 
 $List* Symbol$MethodSymbol::params() {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->owner)->complete();
 	if (this->params$ == nullptr) {
 		$var($ListBuffer, newParams, $new($ListBuffer));
@@ -688,6 +696,7 @@ $Object* Symbol$MethodSymbol::accept($Symbol$Visitor* v, Object$* p) {
 }
 
 $Type* Symbol$MethodSymbol::getReceiverType() {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, result, $nc($($cast($Type, asType())))->getReceiverType());
 	return (result == nullptr) ? static_cast<$Type*>($Type::noType) : result;
 }

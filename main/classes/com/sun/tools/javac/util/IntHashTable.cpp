@@ -140,6 +140,7 @@ int32_t IntHashTable::remove(Object$* key) {
 }
 
 void IntHashTable::rehash() {
+	$useLocalCurrentObjectStackCache();
 	$var($ObjectArray, oldObjsTable, this->objs);
 	$var($ints, oldIntsTable, this->ints);
 	int32_t newCapacity = $nc(oldObjsTable)->length << 1;

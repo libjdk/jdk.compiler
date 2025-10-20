@@ -117,6 +117,7 @@ void AbstractDiagnosticFormatter$SimpleConfiguration::init$($Set* parts) {
 }
 
 void AbstractDiagnosticFormatter$SimpleConfiguration::init$($Options* options, $Set* parts) {
+	$useLocalCurrentObjectStackCache();
 	AbstractDiagnosticFormatter$SimpleConfiguration::init$(parts);
 	$var($String, showSource, nullptr);
 	if (($assign(showSource, $nc(options)->get("diags.showSource"_s))) != nullptr) {

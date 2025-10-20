@@ -110,6 +110,7 @@ bool ClassReader$26::accepts($ClassReader$AttributeKind* kind) {
 }
 
 void ClassReader$26::read($Symbol* sym, int32_t attrLen) {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$Kind);
 	if ($nc(sym)->kind == $Kinds$Kind::TYP) {
 		sym->flags_field |= 0x2000000000000000;

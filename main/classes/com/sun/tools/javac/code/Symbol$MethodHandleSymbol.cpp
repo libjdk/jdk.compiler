@@ -128,6 +128,7 @@ void Symbol$MethodHandleSymbol::init$($Symbol* msym, bool getter) {
 }
 
 int32_t Symbol$MethodHandleSymbol::referenceKind() {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$Kind);
 	if ($nc(this->refSym)->kind == $Kinds$Kind::VAR) {
 		return this->getter ? $nc(this->refSym)->isStatic() ? $ClassFile::REF_getStatic : $ClassFile::REF_getField : $nc(this->refSym)->isStatic() ? $ClassFile::REF_putStatic : $ClassFile::REF_putField;
@@ -160,6 +161,7 @@ int32_t Symbol$MethodHandleSymbol::poolTag() {
 }
 
 $Object* Symbol$MethodHandleSymbol::poolKey($Types* types) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, var$0, $of(baseSymbol()));
 	return $of($new($Pair, var$0, $($Integer::valueOf(referenceKind()))));
 }

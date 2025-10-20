@@ -135,6 +135,7 @@ $Object* allocate$PoolConstant$Dynamic$BsmKey($Class* clazz) {
 }
 
 void PoolConstant$Dynamic$BsmKey::init$($Types* types, $PoolConstant$LoadableConstant* bsm, $PoolConstant$LoadableConstantArray* staticArgs) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, bsm, bsm);
 	$set(this, bsmKey, $nc(bsm)->poolKey(types));
 	$set(this, staticArgs, staticArgs);

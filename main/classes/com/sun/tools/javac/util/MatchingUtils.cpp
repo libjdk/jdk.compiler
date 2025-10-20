@@ -61,6 +61,7 @@ void MatchingUtils::init$() {
 
 bool MatchingUtils::isValidImportString($String* s) {
 	$init(MatchingUtils);
+	$useLocalCurrentObjectStackCache();
 	if ($nc(s)->equals("*"_s)) {
 		return true;
 	}
@@ -94,6 +95,7 @@ bool MatchingUtils::isValidImportString($String* s) {
 
 $String* MatchingUtils::validImportStringToPatternString($String* s) {
 	$init(MatchingUtils);
+	$useLocalCurrentObjectStackCache();
 	if ($nc(s)->equals("*"_s)) {
 		return MatchingUtils::allMatchesString;
 	} else {

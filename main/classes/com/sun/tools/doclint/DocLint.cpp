@@ -140,6 +140,7 @@ DocLint* DocLint::newDocLint() {
 	$load(DocLint);
 	$synchronized(class$) {
 		$init(DocLint);
+		$useLocalCurrentObjectStackCache();
 		$beforeCallerSensitive();
 		if (DocLint::docLintProvider == nullptr) {
 			$assignStatic(DocLint::docLintProvider, $cast($ServiceLoader$Provider, $nc($($nc($($nc($($nc($($ServiceLoader::load(DocLint::class$, $($ClassLoader::getSystemClassLoader()))))->stream()))->filter(static_cast<$Predicate*>($$new(DocLint$$Lambda$lambda$newDocLint$0)))))->findFirst()))->orElse($$new($DocLint$1))));
@@ -150,6 +151,7 @@ DocLint* DocLint::newDocLint() {
 
 bool DocLint::lambda$newDocLint$0($ServiceLoader$Provider* p_) {
 	$init(DocLint);
+	$useLocalCurrentObjectStackCache();
 	return $nc($($nc(($cast(DocLint, $($nc(p_)->get()))))->getName()))->equals("doclint"_s);
 }
 

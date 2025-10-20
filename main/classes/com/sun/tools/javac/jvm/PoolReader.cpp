@@ -266,6 +266,7 @@ $Name* PoolReader::getName(int32_t index) {
 }
 
 $Type* PoolReader::getType(int32_t index) {
+	$useLocalCurrentObjectStackCache();
 	return $cast($Type, $nc($(getName(index)))->map(static_cast<$Name$NameMapper*>($$new(PoolReader$$Lambda$sigToType, static_cast<$ClassReader*>($nc(this->reader))))));
 }
 
@@ -282,6 +283,7 @@ bool PoolReader::hasTag(int32_t index, int32_t tag) {
 }
 
 $Object* PoolReader::getUtf8(int32_t index, $Name$NameMapper* mapper) {
+	$useLocalCurrentObjectStackCache();
 	int32_t tag = $nc(this->pool)->tag(index);
 	int32_t offset = $nc(this->pool)->offset(index);
 	if (tag == 1) {
@@ -296,6 +298,7 @@ $Object* PoolReader::getUtf8(int32_t index, $Name$NameMapper* mapper) {
 }
 
 $Object* PoolReader::resolve($ByteBuffer* poolbuf, int32_t tag, int32_t offset) {
+	$useLocalCurrentObjectStackCache();
 	switch (tag) {
 	case 1:
 		{
@@ -365,6 +368,7 @@ $Object* PoolReader::resolve($ByteBuffer* poolbuf, int32_t tag, int32_t offset) 
 }
 
 int32_t PoolReader::readPool($ByteBuffer* poolbuf, int32_t offset) {
+	$useLocalCurrentObjectStackCache();
 	int32_t poolSize = $nc(poolbuf)->getChar(offset);
 	int32_t index = 1;
 	offset += 2;

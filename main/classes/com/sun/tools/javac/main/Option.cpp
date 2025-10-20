@@ -917,6 +917,7 @@ Option* Option::lookup($String* arg, $Set* options) {
 
 void Option::showHelp($Log* log, $Option$OptionKind* kind) {
 	$init(Option);
+	$useLocalCurrentObjectStackCache();
 	$var($Comparator, comp, $new($Option$40));
 	$nc($($nc($($nc($($nc($(getJavaCompilerOptions()))->stream()))->filter(static_cast<$Predicate*>($$new(Option$$Lambda$lambda$showHelp$0, kind)))))->sorted(comp)))->forEach(static_cast<$Consumer*>($$new(Option$$Lambda$lambda$showHelp$1$1, log)));
 }
@@ -945,6 +946,7 @@ void Option::init$($String* $enum$name, int32_t $enum$ordinal, $String* text, $S
 }
 
 void Option::init$($String* $enum$name, int32_t $enum$ordinal, $String* text, $String* descrKey, $Option$OptionKind* kind, $Option$OptionGroup* group, $Option$ChoiceKind* choiceKind, $StringArray* choices) {
+	$useLocalCurrentObjectStackCache();
 	$init($Option$ArgKind);
 	Option::init$($enum$name, $enum$ordinal, text, nullptr, descrKey, kind, group, choiceKind, $$new($LinkedHashSet, $(static_cast<$Collection*>($Arrays::asList(choices)))), $Option$ArgKind::REQUIRED);
 }
@@ -988,6 +990,7 @@ bool Option::hasSeparateArg() {
 }
 
 bool Option::matches($String* option) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($StringArray, arr$, this->names);
 		int32_t len$ = $nc(arr$)->length;
@@ -1005,6 +1008,7 @@ bool Option::matches($String* option) {
 }
 
 bool Option::matches($String* option, $String* name) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(name)->startsWith("--"_s)) {
 		bool var$0 = $nc(option)->equals(name);
 		if (!var$0) {
@@ -1047,6 +1051,7 @@ bool Option::matches($String* option, $String* name) {
 }
 
 void Option::handleOption($OptionHelper* helper, $String* arg, $Iterator* rest) {
+	$useLocalCurrentObjectStackCache();
 	if (hasArg()) {
 		$var($String, option, nullptr);
 		$var($String, operand, nullptr);
@@ -1082,6 +1087,7 @@ void Option::process($OptionHelper* helper, $String* option) {
 }
 
 void Option::process($OptionHelper* helper, $String* option, $String* arg) {
+	$useLocalCurrentObjectStackCache();
 	if (this->choices != nullptr) {
 		$init($Option$ChoiceKind);
 		if (this->choiceKind == $Option$ChoiceKind::ONEOF) {
@@ -1139,11 +1145,13 @@ int32_t Option::findSeparator($String* word) {
 }
 
 void Option::help($Log* log) {
+	$useLocalCurrentObjectStackCache();
 	$init($Log$PrefixKind);
 	help(log, $($nc(log)->localize($Log$PrefixKind::JAVAC, this->descrKey, $$new($ObjectArray, 0))));
 }
 
 void Option::help($Log* log, $String* descr) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, synopses, $cast($String, $nc($($nc($($Arrays::stream(this->names)))->map(static_cast<$Function*>($$new(Option$$Lambda$lambda$help$2$2, this, log)))))->collect($($Collectors::joining(", "_s)))));
 	bool var$1 = $nc(synopses)->length() < Option::DEFAULT_SYNOPSIS_WIDTH;
 	bool var$0 = var$1 && !$nc(descr)->contains("\n"_s);
@@ -1181,6 +1189,7 @@ void Option::help($Log* log, $String* descr) {
 }
 
 $String* Option::helpSynopsis($String* name, $Log* log) {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, sb, $new($StringBuilder));
 	sb->append(name);
 	if (this->argsNameKey == nullptr) {
@@ -1215,6 +1224,7 @@ $String* Option::helpSynopsis($String* name, $Log* log) {
 
 $Set* Option::getXLintChoices() {
 	$init(Option);
+	$useLocalCurrentObjectStackCache();
 	$var($Set, choices, $new($LinkedHashSet));
 	choices->add("all"_s);
 	{
@@ -1252,6 +1262,7 @@ $Set* Option::getJavacToolOptions() {
 
 $Set* Option::getOptions($Option$OptionGroup* group) {
 	$init(Option);
+	$useLocalCurrentObjectStackCache();
 	return $cast($Set, $nc($($nc($($Arrays::stream($(Option::values()))))->filter(static_cast<$Predicate*>($$new(Option$$Lambda$lambda$getOptions$3$3, group)))))->collect($($Collectors::toCollection(static_cast<$Supplier*>($$new(Option$$Lambda$lambda$getOptions$4$4))))));
 }
 
@@ -1280,6 +1291,7 @@ bool Option::lambda$showHelp$0($Option$OptionKind* kind, Option* o) {
 }
 
 void clinit$Option($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(Option::SMALL_INDENT, "  "_s);
 	$assignStatic(Option::LARGE_INDENT, "        "_s);
 	$assignStatic(Option::COMPACT_FORMAT, $str({Option::SMALL_INDENT, "%-"_s, $$str(Option::DEFAULT_SYNOPSIS_WIDTH), "s %s"_s}));

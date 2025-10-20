@@ -92,6 +92,7 @@ void Scope$ScopeListenerList::symbolRemoved($Symbol* sym, $Scope* scope) {
 }
 
 void Scope$ScopeListenerList::walkReferences($Symbol* sym, $Scope* scope, bool isRemove) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, newListeners, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc(this->listeners)->iterator());

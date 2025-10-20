@@ -94,6 +94,7 @@ void Option$13::init$($String* $enum$name, int32_t $enum$ordinal, $String* text,
 }
 
 void Option$13::process($OptionHelper* helper, $String* option, $String* operand) {
+	$useLocalCurrentObjectStackCache();
 	$Target* target = $Target::lookup(operand);
 	if (target == nullptr) {
 		$throw($($nc(helper)->newInvalidValueException($($CompilerProperties$Errors::InvalidTarget(operand)))));
@@ -102,6 +103,7 @@ void Option$13::process($OptionHelper* helper, $String* option, $String* operand
 }
 
 void Option$13::help($Log* log) {
+	$useLocalCurrentObjectStackCache();
 	$var($StringJoiner, sj, $new($StringJoiner, ", "_s));
 	{
 		$var($TargetArray, arr$, $Target::values());

@@ -96,6 +96,7 @@ void OptionHelper::init$() {
 }
 
 void OptionHelper::traverse($StringArray* args) {
+	$useLocalCurrentObjectStackCache();
 	$var($Iterable, allArgs, nullptr);
 	try {
 		$assign(allArgs, $CommandLine::parse($($List::of(args))));

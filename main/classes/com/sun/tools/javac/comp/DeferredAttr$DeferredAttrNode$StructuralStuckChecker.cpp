@@ -277,6 +277,7 @@ void DeferredAttr$DeferredAttrNode$StructuralStuckChecker::check($DeferredAttr$D
 }
 
 void DeferredAttr$DeferredAttrNode$StructuralStuckChecker::visitLambda($JCTree$JCLambda* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Check$CheckContext, checkContext, $nc(this->resultInfo)->checkContext);
 	$var($Type, pt, $nc(this->resultInfo)->pt);
 	if (!$nc($nc(this->inferenceContext)->inferencevars)->contains(pt)) {
@@ -328,6 +329,7 @@ void DeferredAttr$DeferredAttrNode$StructuralStuckChecker::visitLambda($JCTree$J
 }
 
 bool DeferredAttr$DeferredAttrNode$StructuralStuckChecker::canLambdaBodyCompleteNormally($JCTree$JCLambda* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, oldParams, $nc(tree)->params);
 	$var($ArgumentAttr$LocalCacheContext, localCacheContext, $nc($nc(this->this$1->this$0)->argumentAttr)->withLocalCacheContext());
 	{
@@ -371,6 +373,7 @@ void DeferredAttr$DeferredAttrNode$StructuralStuckChecker::visitSwitchExpression
 }
 
 void DeferredAttr$DeferredAttrNode$StructuralStuckChecker::visitReference($JCTree$JCMemberReference* tree) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::checkNonNull($($nc(tree)->getOverloadKind()));
 	$var($Check$CheckContext, checkContext, $nc(this->resultInfo)->checkContext);
 	$var($Type, pt, $nc(this->resultInfo)->pt);

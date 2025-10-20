@@ -433,6 +433,7 @@ void Pretty::close(int32_t contextPrec, int32_t ownPrec) {
 }
 
 void Pretty::print(Object$* s) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->out)->write($($Convert::escapeUnicode($($nc($of(s))->toString()))));
 }
 
@@ -447,6 +448,7 @@ $String* Pretty::toSimpleString($JCTree* tree) {
 
 $String* Pretty::toSimpleString($JCTree* tree, int32_t maxLength) {
 	$init(Pretty);
+	$useLocalCurrentObjectStackCache();
 	$var($StringWriter, s, $new($StringWriter));
 	try {
 		$$new(Pretty, s, false)->printExpr(tree);
@@ -466,6 +468,7 @@ $String* Pretty::toSimpleString($JCTree* tree, int32_t maxLength) {
 }
 
 void Pretty::printExpr($JCTree* tree, int32_t prec) {
+	$useLocalCurrentObjectStackCache();
 	int32_t prevPrec = this->prec;
 	{
 		$var($Throwable, var$0, nullptr);
@@ -569,6 +572,7 @@ void Pretty::printTypeAnnotations($List* trees) {
 }
 
 void Pretty::printDocComment($JCTree* tree) {
+	$useLocalCurrentObjectStackCache();
 	if (this->docComments != nullptr) {
 		$var($String, dc, $nc(this->docComments)->getCommentText(tree));
 		if (dc != nullptr) {
@@ -624,6 +628,7 @@ void Pretty::printBlock($List* stats) {
 }
 
 void Pretty::printEnumBody($List* stats) {
+	$useLocalCurrentObjectStackCache();
 	print("{"_s);
 	println();
 	indent();
@@ -665,6 +670,7 @@ bool Pretty::isEnumerator($JCTree* t) {
 }
 
 void Pretty::printUnit($JCTree$JCCompilationUnit* tree, $JCTree$JCClassDecl* cdef) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, docComments, $nc(tree)->docComments);
 	printDocComment(tree);
 	bool firstImport = true;
@@ -847,6 +853,7 @@ void Pretty::visitImport($JCTree$JCImport* tree) {
 }
 
 void Pretty::visitClassDef($JCTree$JCClassDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		println();
 		align();
@@ -900,6 +907,7 @@ void Pretty::visitClassDef($JCTree$JCClassDecl* tree) {
 }
 
 void Pretty::visitMethodDef($JCTree$JCMethodDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		if ($nc(tree)->name == $nc($nc($nc(tree->name)->table)->names)->init && this->enclClassName == nullptr && this->sourceOutput) {
 			return;
@@ -945,6 +953,7 @@ void Pretty::visitMethodDef($JCTree$JCMethodDecl* tree) {
 }
 
 void Pretty::visitVarDef($JCTree$JCVariableDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		if (this->docComments != nullptr && $nc(this->docComments)->hasComment(tree)) {
 			println();
@@ -1099,6 +1108,7 @@ void Pretty::visitWhileLoop($JCTree$JCWhileLoop* tree) {
 }
 
 void Pretty::visitForLoop($JCTree$JCForLoop* tree) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		print("for ("_s);
 		if ($nc($nc(tree)->init)->nonEmpty()) {
@@ -1149,6 +1159,7 @@ void Pretty::visitForeachLoop($JCTree$JCEnhancedForLoop* tree) {
 }
 
 void Pretty::visitLabelled($JCTree$JCLabeledStatement* tree) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		print($$str({$nc(tree)->label, ": "_s}));
 		printStat($nc(tree)->body);
@@ -1181,6 +1192,7 @@ void Pretty::visitSwitch($JCTree$JCSwitch* tree) {
 }
 
 void Pretty::visitCase($JCTree$JCCase* tree) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		bool var$0 = $nc($nc(tree)->labels)->size() == 1;
 		$init($JCTree$Tag);
@@ -1294,6 +1306,7 @@ void Pretty::visitSynchronized($JCTree$JCSynchronized* tree) {
 }
 
 void Pretty::visitTry($JCTree$JCTry* tree) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		print("try "_s);
 		if ($nc($nc(tree)->resources)->nonEmpty()) {
@@ -1395,6 +1408,7 @@ void Pretty::visitExec($JCTree$JCExpressionStatement* tree) {
 }
 
 void Pretty::visitBreak($JCTree$JCBreak* tree) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		print("break"_s);
 		if ($nc(tree)->label != nullptr) {
@@ -1420,6 +1434,7 @@ void Pretty::visitYield($JCTree$JCYield* tree) {
 }
 
 void Pretty::visitContinue($JCTree$JCContinue* tree) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		print("continue"_s);
 		if ($nc(tree)->label != nullptr) {
@@ -1473,6 +1488,7 @@ void Pretty::visitAssert($JCTree$JCAssert* tree) {
 }
 
 void Pretty::visitApply($JCTree$JCMethodInvocation* tree) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		if (!$nc($nc(tree)->typeargs)->isEmpty()) {
 			$init($JCTree$Tag);
@@ -1501,6 +1517,7 @@ void Pretty::visitApply($JCTree$JCMethodInvocation* tree) {
 }
 
 void Pretty::visitNewClass($JCTree$JCNewClass* tree) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		if ($nc(tree)->encl != nullptr) {
 			printExpr(tree->encl);
@@ -1535,6 +1552,7 @@ void Pretty::visitNewClass($JCTree$JCNewClass* tree) {
 }
 
 void Pretty::visitNewArray($JCTree$JCNewArray* tree) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		if ($nc(tree)->elemtype != nullptr) {
 			print("new "_s);
@@ -1577,6 +1595,7 @@ void Pretty::visitNewArray($JCTree$JCNewArray* tree) {
 }
 
 void Pretty::visitLambda($JCTree$JCLambda* tree) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		print("("_s);
 		$init($JCTree$JCLambda$ParameterKind);
@@ -1751,6 +1770,7 @@ $String* Pretty::operatorName($JCTree$Tag* tag) {
 }
 
 void Pretty::visitAssignop($JCTree$JCAssignOp* tree) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		open(this->prec, $TreeInfo::assignopPrec);
 		printExpr($nc(tree)->lhs, $TreeInfo::assignopPrec + 1);
@@ -1764,6 +1784,7 @@ void Pretty::visitAssignop($JCTree$JCAssignOp* tree) {
 }
 
 void Pretty::visitUnary($JCTree$JCUnary* tree) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		int32_t ownprec = $TreeInfo::opPrec($($nc(tree)->getTag()));
 		$var($String, opname, operatorName($($nc(tree)->getTag())));
@@ -1783,6 +1804,7 @@ void Pretty::visitUnary($JCTree$JCUnary* tree) {
 }
 
 void Pretty::visitBinary($JCTree$JCBinary* tree) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		int32_t ownprec = $TreeInfo::opPrec($($nc(tree)->getTag()));
 		$var($String, opname, operatorName($($nc(tree)->getTag())));
@@ -1812,6 +1834,7 @@ void Pretty::visitTypeCast($JCTree$JCTypeCast* tree) {
 }
 
 void Pretty::visitTypeTest($JCTree$JCInstanceOf* tree) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		open(this->prec, $TreeInfo::ordPrec);
 		printExpr($nc(tree)->expr, $TreeInfo::ordPrec);
@@ -1841,6 +1864,7 @@ void Pretty::visitIndexed($JCTree$JCArrayAccess* tree) {
 }
 
 void Pretty::visitSelect($JCTree$JCFieldAccess* tree) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		printExpr($nc(tree)->selected, $TreeInfo::postfixPrec);
 		print($$str({"."_s, $nc(tree)->name}));
@@ -1877,6 +1901,7 @@ void Pretty::visitIdent($JCTree$JCIdent* tree) {
 }
 
 void Pretty::visitLiteral($JCTree$JCLiteral* tree) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$init($Pretty$1);
 		switch ($nc($Pretty$1::$SwitchMap$com$sun$tools$javac$code$TypeTag)->get($nc(($nc(tree)->typetag))->ordinal())) {
@@ -2003,6 +2028,7 @@ void Pretty::printBaseElementType($JCTree* tree) {
 }
 
 void Pretty::printBrackets($JCTree* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree, elem, tree);
 	while (true) {
 		$init($JCTree$Tag);
@@ -2083,6 +2109,7 @@ void Pretty::visitWildcard($JCTree$JCWildcard* tree) {
 }
 
 void Pretty::visitTypeBoundKind($JCTree$TypeBoundKind* tree) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		print($($String::valueOf($of($nc(tree)->kind))));
 	} catch ($IOException&) {
@@ -2101,6 +2128,7 @@ void Pretty::visitErroneous($JCTree$JCErroneous* tree) {
 }
 
 void Pretty::visitLetExpr($JCTree$LetExpr* tree) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		print($$str({"(let "_s, $nc(tree)->defs, " in "_s, tree->expr, ")"_s}));
 	} catch ($IOException&) {
@@ -2135,6 +2163,7 @@ void Pretty::visitAnnotation($JCTree$JCAnnotation* tree) {
 }
 
 void Pretty::visitAnnotatedType($JCTree$JCAnnotatedType* tree) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$init($JCTree$Tag);
 		if ($nc($nc(tree)->underlyingType)->hasTag($JCTree$Tag::SELECT)) {
@@ -2159,6 +2188,7 @@ void Pretty::visitAnnotatedType($JCTree$JCAnnotatedType* tree) {
 }
 
 void Pretty::visitTree($JCTree* tree) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		print($$str({"(UNKNOWN: "_s, $($nc(tree)->getTag()), ")"_s}));
 		println();

@@ -79,6 +79,7 @@ $List* GraphUtils::tarjan($Iterable* nodes) {
 }
 
 $String* GraphUtils::toDot($Collection* nodes, $String* name, $String* header) {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, buf, $new($StringBuilder));
 	buf->append($($String::format("digraph %s {\n"_s, $$new($ObjectArray, {$of(name)}))));
 	buf->append($($String::format("label = %s;\n"_s, $$new($ObjectArray, {$($of($GraphUtils$DotVisitor::wrap(header)))}))));

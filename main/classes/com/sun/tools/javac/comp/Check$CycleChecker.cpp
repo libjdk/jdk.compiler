@@ -142,6 +142,7 @@ void Check$CycleChecker::init$($Check* this$0) {
 }
 
 void Check$CycleChecker::checkSymbol($JCDiagnostic$DiagnosticPosition* pos, $Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$Kind);
 	if (sym != nullptr && sym->kind == $Kinds$Kind::TYP) {
 		$var($Env, classEnv, $nc(this->this$0->enter)->getEnv($cast($Symbol$TypeSymbol, sym)));
@@ -191,6 +192,7 @@ void Check$CycleChecker::visitTypeArray($JCTree$JCArrayTypeTree* tree) {
 }
 
 void Check$CycleChecker::visitClassDef($JCTree$JCClassDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, supertypes, $List::nil());
 	if ($cast($JCTree$JCExpression, $nc(tree)->getExtendsClause()) != nullptr) {
 		$assign(supertypes, $nc(supertypes)->prepend($(tree->getExtendsClause())));
@@ -210,6 +212,7 @@ void Check$CycleChecker::visitClassDef($JCTree$JCClassDecl* tree) {
 }
 
 void Check$CycleChecker::checkClass($JCDiagnostic$DiagnosticPosition* pos, $Symbol* c, $List* supertypes) {
+	$useLocalCurrentObjectStackCache();
 	if (((int64_t)($nc(c)->flags_field & (uint64_t)(int64_t)0x40000000)) != 0) {
 		return;
 	}

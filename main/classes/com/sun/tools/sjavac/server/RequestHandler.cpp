@@ -105,6 +105,7 @@ void RequestHandler::init$($Socket* socket, $Sjavac* sjavac) {
 }
 
 void RequestHandler::run() {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Throwable, var$0, nullptr);
 		try {
@@ -183,6 +184,7 @@ void RequestHandler::run() {
 }
 
 void RequestHandler::checkInternalErrorLog() {
+	$useLocalCurrentObjectStackCache();
 	$var($Path, errorLog, $nc($($ServerMain::getErrorLog()))->getLogDestination());
 	if (errorLog != nullptr) {
 		$Log::error($$str({"Server has encountered an internal error. See "_s, $(errorLog->toAbsolutePath()), " for details."_s}));

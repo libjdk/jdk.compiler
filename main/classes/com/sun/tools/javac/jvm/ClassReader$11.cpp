@@ -163,6 +163,7 @@ void ClassReader$11::init$($ClassReader* this$0, $Name* name, $ClassFile$Version
 }
 
 void ClassReader$11::read($Symbol* sym, int32_t attrLen) {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$Kind);
 	if ($nc(sym)->kind == $Kinds$Kind::TYP) {
 		$var($Symbol$ClassSymbol, c, $cast($Symbol$ClassSymbol, sym));

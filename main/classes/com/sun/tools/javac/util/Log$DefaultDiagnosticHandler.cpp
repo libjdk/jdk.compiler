@@ -85,6 +85,7 @@ void Log$DefaultDiagnosticHandler::init$($Log* this$0) {
 }
 
 void Log$DefaultDiagnosticHandler::report($JCDiagnostic* diagnostic) {
+	$useLocalCurrentObjectStackCache();
 	if (this->this$0->expectDiagKeys != nullptr) {
 		$nc(this->this$0->expectDiagKeys)->remove($($nc(diagnostic)->getCode()));
 	}

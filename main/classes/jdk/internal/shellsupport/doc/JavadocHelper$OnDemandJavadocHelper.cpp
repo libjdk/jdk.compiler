@@ -580,6 +580,7 @@ $String* JavadocHelper$OnDemandJavadocHelper::getResolvedDocComment($Element* fo
 }
 
 $Element* JavadocHelper$OnDemandJavadocHelper::getSourceElement($Element* forElement) {
+	$useLocalCurrentObjectStackCache();
 	$var($Pair, sourceElement, getSourceElement(this->mainTask, forElement));
 	if (sourceElement == nullptr) {
 		return forElement;
@@ -592,6 +593,7 @@ $Element* JavadocHelper$OnDemandJavadocHelper::getSourceElement($Element* forEle
 }
 
 $String* JavadocHelper$OnDemandJavadocHelper::getResolvedDocComment($JavacTask* task, $TreePath* el) {
+	$useLocalCurrentObjectStackCache();
 	$var($DocTrees, trees, $DocTrees::instance(static_cast<$JavaCompiler$CompilationTask*>(task)));
 	$var($Element, element, $nc(trees)->getElement(el));
 	$var($String, docComment, trees->getDocComment(el));
@@ -657,11 +659,13 @@ $String* JavadocHelper$OnDemandJavadocHelper::getResolvedDocComment($JavacTask* 
 }
 
 $Stream* JavadocHelper$OnDemandJavadocHelper::superMethodsForInheritDoc($JavacTask* task, $ExecutableElement* method) {
+	$useLocalCurrentObjectStackCache();
 	$var($TypeElement, type, $cast($TypeElement, $nc(method)->getEnclosingElement()));
 	return $nc($($nc($(this->superTypeForInheritDoc(task, static_cast<$Element*>(static_cast<$Parameterizable*>(type)))))->flatMap(static_cast<$Function*>($$new(JavadocHelper$OnDemandJavadocHelper$$Lambda$lambda$superMethodsForInheritDoc$2$2)))))->filter(static_cast<$Predicate*>($$new(JavadocHelper$OnDemandJavadocHelper$$Lambda$lambda$superMethodsForInheritDoc$3$3, task, method, type)));
 }
 
 $Stream* JavadocHelper$OnDemandJavadocHelper::superTypeForInheritDoc($JavacTask* task, $Element* type) {
+	$useLocalCurrentObjectStackCache();
 	$var($TypeElement, clazz, $cast($TypeElement, type));
 	$var($Stream, result, interfaces(clazz));
 	$assign(result, $Stream::concat(result, $($nc($(interfaces(clazz)))->flatMap(static_cast<$Function*>($$new(JavadocHelper$OnDemandJavadocHelper$$Lambda$lambda$superTypeForInheritDoc$4$4, this, task))))));
@@ -675,15 +679,18 @@ $Stream* JavadocHelper$OnDemandJavadocHelper::superTypeForInheritDoc($JavacTask*
 }
 
 $Stream* JavadocHelper$OnDemandJavadocHelper::interfaces($TypeElement* clazz) {
+	$useLocalCurrentObjectStackCache();
 	return $nc($($nc($($nc($($nc(clazz)->getInterfaces()))->stream()))->filter(static_cast<$Predicate*>($$new(JavadocHelper$OnDemandJavadocHelper$$Lambda$lambda$interfaces$5$5)))))->map(static_cast<$Function*>($$new(JavadocHelper$OnDemandJavadocHelper$$Lambda$lambda$interfaces$6$6)));
 }
 
 $DocTree* JavadocHelper$OnDemandJavadocHelper::parseBlockTag($JavacTask* task, $String* blockTag) {
+	$useLocalCurrentObjectStackCache();
 	$var($DocCommentTree, dc, $cast($DocCommentTree, $nc($(parseDocComment(task, blockTag)))->fst));
 	return $cast($DocTree, $nc($($nc(dc)->getBlockTags()))->get(0));
 }
 
 $Pair* JavadocHelper$OnDemandJavadocHelper::parseDocComment($JavacTask* task, $String* javadoc) {
+	$useLocalCurrentObjectStackCache();
 	$var($DocTrees, trees, $DocTrees::instance(static_cast<$JavaCompiler$CompilationTask*>(task)));
 	try {
 		$init($JavaFileObject$Kind);
@@ -700,6 +707,7 @@ $Pair* JavadocHelper$OnDemandJavadocHelper::parseDocComment($JavacTask* task, $S
 }
 
 $String* JavadocHelper$OnDemandJavadocHelper::getThrownException($JavacTask* task, $TreePath* rootOn, $DocCommentTree* comment, $ThrowsTree* tt) {
+	$useLocalCurrentObjectStackCache();
 	$var($DocTrees, trees, $DocTrees::instance(static_cast<$JavaCompiler$CompilationTask*>(task)));
 	$var($DocTreePath, var$0, $new($DocTreePath, rootOn, comment));
 	$var($Element, exc, $nc(trees)->getElement($$new($DocTreePath, var$0, $(static_cast<$DocTree*>($nc(tt)->getExceptionName())))));
@@ -707,6 +715,7 @@ $String* JavadocHelper$OnDemandJavadocHelper::getThrownException($JavacTask* tas
 }
 
 $Pair* JavadocHelper$OnDemandJavadocHelper::getSourceElement($JavacTask* origin, $Element* el) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, handle, elementSignature(el));
 	$var($Pair, cached, $cast($Pair, $nc(this->signature2Source)->get(handle)));
 	if (cached != nullptr) {
@@ -735,6 +744,7 @@ $Pair* JavadocHelper$OnDemandJavadocHelper::getSourceElement($JavacTask* origin,
 }
 
 $String* JavadocHelper$OnDemandJavadocHelper::elementSignature($Element* el) {
+	$useLocalCurrentObjectStackCache();
 		$init($JavadocHelper$2);
 	{
 		$var($StringBuilder, header, nullptr)
@@ -809,6 +819,7 @@ $String* JavadocHelper$OnDemandJavadocHelper::elementSignature($Element* el) {
 }
 
 $TypeElement* JavadocHelper$OnDemandJavadocHelper::topLevelType($Element* el$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($Element, el, el$renamed);
 	$init($ElementKind);
 	if ($nc(el)->getKind() == $ElementKind::PACKAGE) {
@@ -826,11 +837,13 @@ $TypeElement* JavadocHelper$OnDemandJavadocHelper::topLevelType($Element* el$ren
 }
 
 void JavadocHelper$OnDemandJavadocHelper::fillElementCache($JavacTask* task, $CompilationUnitTree* cut) {
+	$useLocalCurrentObjectStackCache();
 	$var($Trees, trees, $Trees::instance(static_cast<$JavaCompiler$CompilationTask*>(task)));
 	$$new($JavadocHelper$OnDemandJavadocHelper$3, this, trees, task)->scan(static_cast<$Tree*>(cut), ($Object*)nullptr);
 }
 
 $Pair* JavadocHelper$OnDemandJavadocHelper::findSource($String* moduleName, $String* binaryName) {
+	$useLocalCurrentObjectStackCache();
 	$init($StandardLocation);
 	$init($JavaFileObject$Kind);
 	$var($JavaFileObject, jfo, $nc(this->fm)->getJavaFileForInput($StandardLocation::SOURCE_PATH, binaryName, $JavaFileObject$Kind::SOURCE));
@@ -876,6 +889,7 @@ bool JavadocHelper$OnDemandJavadocHelper::lambda$superMethodsForInheritDoc$3($Ja
 
 $Stream* JavadocHelper$OnDemandJavadocHelper::lambda$superMethodsForInheritDoc$2($Element* sup) {
 	$init(JavadocHelper$OnDemandJavadocHelper);
+	$useLocalCurrentObjectStackCache();
 	return $nc($($ElementFilter::methodsIn($(static_cast<$Iterable*>($nc(sup)->getEnclosedElements())))))->stream();
 }
 
@@ -885,6 +899,7 @@ int32_t JavadocHelper$OnDemandJavadocHelper::lambda$getResolvedDocComment$1($int
 }
 
 $Iterator* JavadocHelper$OnDemandJavadocHelper::lambda$getResolvedDocComment$0($JavacTask* task, $Element* element) {
+	$useLocalCurrentObjectStackCache();
 	return $nc($(superTypeForInheritDoc(task, $($nc(element)->getEnclosingElement()))))->iterator();
 }
 

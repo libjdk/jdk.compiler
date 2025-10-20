@@ -93,6 +93,7 @@ void DeferredAttr$DeferredType$SpeculativeCache::init$($DeferredAttr$DeferredTyp
 }
 
 $DeferredAttr$DeferredType$SpeculativeCache$Entry* DeferredAttr$DeferredType$SpeculativeCache::get($Symbol* msym, $Resolve$MethodResolutionPhase* phase) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, entries, $cast($List, $nc(this->cache)->get(msym)));
 	if (entries == nullptr) {
 		return nullptr;
@@ -112,6 +113,7 @@ $DeferredAttr$DeferredType$SpeculativeCache$Entry* DeferredAttr$DeferredType$Spe
 }
 
 void DeferredAttr$DeferredType$SpeculativeCache::put($JCTree* speculativeTree, $Attr$ResultInfo* resultInfo) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, msym, $nc($($nc($nc(resultInfo)->checkContext)->deferredAttrContext()))->msym);
 	$var($List, entries, $cast($List, $nc(this->cache)->get(msym)));
 	if (entries == nullptr) {

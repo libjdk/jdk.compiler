@@ -149,6 +149,7 @@ int64_t JavacTrees$1::getStartPosition($CompilationUnitTree* file, $DocCommentTr
 }
 
 int64_t JavacTrees$1::getEndPosition($CompilationUnitTree* file, $DocCommentTree* comment, $DocTree* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($DCTree$DCDocComment, dcComment, $cast($DCTree$DCDocComment, comment));
 	{
 		$var($DCTree$DCEndPosTree, dcEndPosTree, nullptr);

@@ -92,6 +92,7 @@ TreePath* TreePath::getPath($CompilationUnitTree* unit, $Tree* target) {
 
 TreePath* TreePath::getPath(TreePath* path, $Tree* target) {
 	$init(TreePath);
+	$useLocalCurrentObjectStackCache();
 	$Objects::requireNonNull(path);
 	$Objects::requireNonNull(target);
 	{

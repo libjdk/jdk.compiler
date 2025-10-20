@@ -153,6 +153,7 @@ $Type* TypeEnter$AbstractHeaderPhase$Synthesizer::visit($JCTree* tree) {
 }
 
 $List* TypeEnter$AbstractHeaderPhase$Synthesizer::visit($List* trees) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, lb, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc(trees)->iterator());
@@ -178,6 +179,7 @@ void TypeEnter$AbstractHeaderPhase$Synthesizer::visitIdent($JCTree$JCIdent* tree
 }
 
 void TypeEnter$AbstractHeaderPhase$Synthesizer::visitSelect($JCTree$JCFieldAccess* tree) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	if (!$nc($nc(tree)->type)->hasTag($TypeTag::ERROR)) {
 		$set(this, result, tree->type);
@@ -204,6 +206,7 @@ void TypeEnter$AbstractHeaderPhase$Synthesizer::visitSelect($JCTree$JCFieldAcces
 }
 
 void TypeEnter$AbstractHeaderPhase$Synthesizer::visitTypeApply($JCTree$JCTypeApply* tree) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	if (!$nc($nc(tree)->type)->hasTag($TypeTag::ERROR)) {
 		$set(this, result, tree->type);
@@ -227,6 +230,7 @@ $Symbol$ClassSymbol* TypeEnter$AbstractHeaderPhase$Synthesizer::synthesizeClass(
 }
 
 void TypeEnter$AbstractHeaderPhase$Synthesizer::synthesizeTyparams($Symbol$ClassSymbol* sym, int32_t n) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type$ClassType, ct, $cast($Type$ClassType, $nc(sym)->type));
 	$Assert::check($nc($nc(ct)->typarams_field)->isEmpty());
 	if (n == 1) {

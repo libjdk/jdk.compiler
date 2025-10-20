@@ -76,6 +76,7 @@ void Option$19::init$($String* $enum$name, int32_t $enum$ordinal, $String* arg, 
 }
 
 void Option$19::processMatching($ArgumentIterator* iter, $OptionHelper* helper) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, a, $nc($($nc(iter)->current()))->substring($nc(this->arg)->length()));
 	$nc(helper)->permitArtifact($($nc($($nc($($Paths::get(a, $$new($StringArray, 0))))->toFile()))->getAbsolutePath()));
 }

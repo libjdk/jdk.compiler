@@ -195,6 +195,7 @@ $String* JDKPlatformProvider::targetNumericVersion($Target* target) {
 
 $Path* JDKPlatformProvider::findCtSym() {
 	$init(JDKPlatformProvider);
+	$useLocalCurrentObjectStackCache();
 	$var($String, javaHome, $System::getProperty("java.home"_s));
 	$var($Path, file, $Paths::get(javaHome, $$new($StringArray, 0)));
 	{
@@ -211,6 +212,7 @@ $Path* JDKPlatformProvider::findCtSym() {
 
 int32_t JDKPlatformProvider::lambda$static$0($String* s1, $String* s2) {
 	$init(JDKPlatformProvider);
+	$useLocalCurrentObjectStackCache();
 	int32_t i1 = 0;
 	try {
 		i1 = $Integer::parseInt(s1);
@@ -229,6 +231,7 @@ int32_t JDKPlatformProvider::lambda$static$0($String* s1, $String* s2) {
 }
 
 void clinit$JDKPlatformProvider($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(JDKPlatformProvider::symbolFileLocation, $new($StringArray, {
 		"lib"_s,
 		"ct.sym"_s

@@ -95,6 +95,7 @@ void Resolve$ResolveDeferredRecoveryMap::init$($Resolve* this$0, $DeferredAttr$A
 }
 
 $Type* Resolve$ResolveDeferredRecoveryMap::typeOf($DeferredAttr$DeferredType* dt, $Type* pt) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, res, $DeferredAttr$RecoveryDeferredTypeMap::typeOf(dt, pt));
 	if (!$nc(res)->isErroneous()) {
 		$init($Resolve$18);

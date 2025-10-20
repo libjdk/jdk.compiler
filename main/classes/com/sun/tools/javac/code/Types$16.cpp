@@ -102,6 +102,7 @@ $List* Types$16::visitType($Type* t, $Void* ignored) {
 }
 
 $List* Types$16::visitClassType($Type$ClassType* t, $Void* ignored) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(t)->interfaces_field == nullptr) {
 		$var($List, interfaces, $nc(($cast($Symbol$ClassSymbol, t->tsym)))->getInterfaces());
 		if (t->interfaces_field == nullptr) {
@@ -121,6 +122,7 @@ $List* Types$16::visitClassType($Type$ClassType* t, $Void* ignored) {
 }
 
 $List* Types$16::visitTypeVar($Type$TypeVar* t, $Void* ignored) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc($($nc(t)->getUpperBound()))->isCompound()) {
 		return this->this$0->interfaces($(t->getUpperBound()));
 	}

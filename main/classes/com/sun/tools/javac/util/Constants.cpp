@@ -90,6 +90,7 @@ void Constants::init$() {
 }
 
 $Object* Constants::decode(Object$* value, $Type* type) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Integer, intVal, nullptr);
 		bool var$0 = $instanceOf($Integer, value);
@@ -124,6 +125,7 @@ $Object* Constants::decode(Object$* value, $Type* type) {
 }
 
 $String* Constants::format(Object$* value$renamed, $Type* type) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, value, value$renamed);
 	$assign(value, decode(value, type));
 	$init($Constants$1);
@@ -164,6 +166,7 @@ $String* Constants::format(Object$* value$renamed, $Type* type) {
 }
 
 $String* Constants::format(Object$* value) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Byte, byteVal, nullptr);
 		bool var$0 = $instanceOf($Byte, value);
@@ -249,10 +252,12 @@ $String* Constants::format(Object$* value) {
 }
 
 $String* Constants::formatByte(int8_t b) {
+	$useLocalCurrentObjectStackCache();
 	return $String::format("(byte)0x%02x"_s, $$new($ObjectArray, {$($of($Byte::valueOf(b)))}));
 }
 
 $String* Constants::formatShort(int16_t s) {
+	$useLocalCurrentObjectStackCache();
 	return $String::format("(short)%d"_s, $$new($ObjectArray, {$($of($Short::valueOf(s)))}));
 }
 
@@ -281,10 +286,12 @@ $String* Constants::formatDouble(double d) {
 }
 
 $String* Constants::formatChar(char16_t c) {
+	$useLocalCurrentObjectStackCache();
 	return $str({$$str(u'\''), $($Convert::quote(c)), $$str(u'\'')});
 }
 
 $String* Constants::formatString($String* s) {
+	$useLocalCurrentObjectStackCache();
 	return $str({$$str(u'\"'), $($Convert::quote(s)), $$str(u'\"')});
 }
 

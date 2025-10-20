@@ -162,6 +162,7 @@ void Annotate$AnnotationTypeMetadata::setTarget($Attribute$Compound* target) {
 }
 
 $Set* Annotate$AnnotationTypeMetadata::getAnnotationElements() {
+	$useLocalCurrentObjectStackCache();
 	init();
 	$var($Set, members, $new($LinkedHashSet));
 	$var($Scope$WriteableScope, s, $nc(this->metaDataFor)->members());
@@ -181,6 +182,7 @@ $Set* Annotate$AnnotationTypeMetadata::getAnnotationElements() {
 }
 
 $Set* Annotate$AnnotationTypeMetadata::getAnnotationElementsWithDefault() {
+	$useLocalCurrentObjectStackCache();
 	init();
 	$var($Set, members, getAnnotationElements());
 	$var($Set, res, $new($LinkedHashSet));

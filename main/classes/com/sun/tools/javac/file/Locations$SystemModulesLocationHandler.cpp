@@ -213,6 +213,7 @@ void Locations$SystemModulesLocationHandler::init$($Locations* this$0) {
 }
 
 bool Locations$SystemModulesLocationHandler::handleOption($Option* option, $String* value) {
+	$useLocalCurrentObjectStackCache();
 	if (!$nc(this->options)->contains(option)) {
 		return false;
 	}
@@ -244,6 +245,7 @@ void Locations$SystemModulesLocationHandler::setPaths($Iterable* files) {
 }
 
 void Locations$SystemModulesLocationHandler::setPathsForModule($String* name, $Iterable* paths) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, checkedPaths, checkPaths(paths));
 	initSystemModules();
 	$var($Locations$ModuleLocationHandler, l, $nc(this->moduleTable)->get(name));
@@ -258,6 +260,7 @@ void Locations$SystemModulesLocationHandler::setPathsForModule($String* name, $I
 }
 
 $List* Locations$SystemModulesLocationHandler::checkPaths($Iterable* paths) {
+	$useLocalCurrentObjectStackCache();
 	$Objects::requireNonNull(paths);
 	$var($List, validPaths, $new($ArrayList));
 	{
@@ -273,6 +276,7 @@ $List* Locations$SystemModulesLocationHandler::checkPaths($Iterable* paths) {
 }
 
 void Locations$SystemModulesLocationHandler::update($Path* p) {
+	$useLocalCurrentObjectStackCache();
 	bool var$1 = !isCurrentPlatform(p);
 	bool var$0 = var$1 && !$Files::exists($($nc($($nc(p)->resolve("lib"_s)))->resolve("jrt-fs.jar"_s)), $$new($LinkOptionArray, 0));
 	if (var$0 && !$Files::exists($($nc(this->systemJavaHome)->resolve("modules"_s)), $$new($LinkOptionArray, 0))) {
@@ -283,6 +287,7 @@ void Locations$SystemModulesLocationHandler::update($Path* p) {
 }
 
 bool Locations$SystemModulesLocationHandler::isCurrentPlatform($Path* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$init($Locations);
 		return $Files::isSameFile(p, $Locations::javaHome);
@@ -314,6 +319,7 @@ bool Locations$SystemModulesLocationHandler::contains($Path* file) {
 }
 
 void Locations$SystemModulesLocationHandler::initSystemModules() {
+	$useLocalCurrentObjectStackCache();
 	$beforeCallerSensitive();
 	if (this->moduleTable != nullptr) {
 		return;

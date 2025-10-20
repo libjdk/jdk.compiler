@@ -161,6 +161,7 @@ void TypeEnter$AnonClassConstructorHelper::init$($TypeEnter* this$0, $Symbol$Typ
 }
 
 $Type* TypeEnter$AnonClassConstructorHelper::constructorType() {
+	$useLocalCurrentObjectStackCache();
 	if (this->$TypeEnter$BasicConstructorHelper::constructorType$ == nullptr) {
 		$var($Type, ctype, $nc(this->this$0->types)->memberType($nc(this->owner$)->type, this->constr));
 		$init($TypeTag);
@@ -174,6 +175,7 @@ $Type* TypeEnter$AnonClassConstructorHelper::constructorType() {
 }
 
 $Symbol$MethodSymbol* TypeEnter$AnonClassConstructorHelper::constructorSymbol() {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$MethodSymbol, csym, $TypeEnter$BasicConstructorHelper::constructorSymbol());
 	$nc(csym)->flags_field |= 0x20000000 | ((int64_t)($nc(this->constr)->flags() & (uint64_t)(int64_t)0x0000000400000000));
 	csym->flags_field |= this->based ? (int64_t)0x0200000000000000 : (int64_t)0;
@@ -206,6 +208,7 @@ $Type* TypeEnter$AnonClassConstructorHelper::enclosingType() {
 }
 
 $List* TypeEnter$AnonClassConstructorHelper::superArgs() {
+	$useLocalCurrentObjectStackCache();
 	$var($List, var$0, $nc($(constructorType()))->getParameterTypes());
 	$var($List, params, $nc(this->this$0->make)->Params(var$0, $(constructorSymbol())));
 	$init($TypeTag);

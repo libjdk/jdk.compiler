@@ -80,6 +80,7 @@ $ints* JCTree$1::$SwitchMap$com$sun$tools$javac$code$BoundKind = nullptr;
 $ints* JCTree$1::$SwitchMap$com$sun$tools$javac$code$TypeTag = nullptr;
 
 void clinit$JCTree$1($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(JCTree$1::$SwitchMap$com$sun$tools$javac$code$BoundKind, $new($ints, $($BoundKind::values())->length));
 	{
 		try {

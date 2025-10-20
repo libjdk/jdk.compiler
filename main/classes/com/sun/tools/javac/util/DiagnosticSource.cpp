@@ -189,6 +189,7 @@ int32_t DiagnosticSource::getColumnNumber(int32_t pos, bool expandTabs) {
 }
 
 $String* DiagnosticSource::getLine(int32_t pos) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Throwable, var$0, nullptr);
 		$var($String, var$2, nullptr);
@@ -238,6 +239,7 @@ void DiagnosticSource::setEndPosTable($EndPosTable* t) {
 }
 
 bool DiagnosticSource::findLine(int32_t pos) {
+	$useLocalCurrentObjectStackCache();
 	if (pos == $Position::NOPOS) {
 		return false;
 	}
@@ -284,6 +286,7 @@ bool DiagnosticSource::findLine(int32_t pos) {
 }
 
 $chars* DiagnosticSource::initBuf($JavaFileObject* fileObject) {
+	$useLocalCurrentObjectStackCache();
 	$var($chars, buf, nullptr);
 	$var($CharSequence, cs, $nc(fileObject)->getCharContent(true));
 	{

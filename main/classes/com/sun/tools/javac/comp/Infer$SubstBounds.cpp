@@ -111,6 +111,7 @@ $Infer$IncorporationAction* Infer$SubstBounds::dup($Type$UndetVar* that) {
 }
 
 void Infer$SubstBounds::apply($InferenceContext* inferenceContext, $Warner* warn) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($nc(inferenceContext)->undetvars)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -127,6 +128,7 @@ void Infer$SubstBounds::apply($InferenceContext* inferenceContext, $Warner* warn
 }
 
 void Infer$SubstBounds::checkCompatibleUpperBounds($Type$UndetVar* uv, $InferenceContext* inferenceContext) {
+	$useLocalCurrentObjectStackCache();
 	$init($Type$UndetVar$InferenceBound);
 	$var($List, var$0, $nc(uv)->getBounds($$new($Type$UndetVar$InferenceBoundArray, {$Type$UndetVar$InferenceBound::UPPER})));
 	$var($List, hibounds, $Type::filter(var$0, $$new($Infer$BoundFilter, inferenceContext)));

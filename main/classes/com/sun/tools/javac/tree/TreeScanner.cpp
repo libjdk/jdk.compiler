@@ -477,6 +477,7 @@ void TreeScanner::visitNewClass($JCTree$JCNewClass* tree) {
 }
 
 void TreeScanner::visitNewArray($JCTree$JCNewArray* tree) {
+	$useLocalCurrentObjectStackCache();
 	scan($nc(tree)->annotations);
 	scan(static_cast<$JCTree*>($nc(tree)->elemtype));
 	scan($nc(tree)->dims);

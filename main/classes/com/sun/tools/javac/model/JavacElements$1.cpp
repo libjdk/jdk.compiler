@@ -84,6 +84,7 @@ $ints* JavacElements$1::$SwitchMap$com$sun$tools$javac$code$Kinds$Kind = nullptr
 $ints* JavacElements$1::$SwitchMap$javax$lang$model$element$ModuleElement$DirectiveKind = nullptr;
 
 void clinit$JavacElements$1($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(JavacElements$1::$SwitchMap$com$sun$tools$javac$code$Kinds$Kind, $new($ints, $($Kinds$Kind::values())->length));
 	{
 		try {

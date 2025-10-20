@@ -118,6 +118,7 @@ $Type* JNIWriter$TypeSignature$JvmTypeVisitor::visitType($Type* t, $StringBuilde
 }
 
 void JNIWriter$TypeSignature$JvmTypeVisitor::setDeclaredType($Type* t, $StringBuilder* s) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, classname, this->useFlatname ? $nc($($nc($nc(t)->tsym)->flatName()))->toString() : $nc($($nc(t->tsym)->getQualifiedName()))->toString());
 	$assign(classname, $nc(classname)->replace(u'.', u'/'));
 	$nc(s)->append("L"_s)->append(classname)->append(";"_s);

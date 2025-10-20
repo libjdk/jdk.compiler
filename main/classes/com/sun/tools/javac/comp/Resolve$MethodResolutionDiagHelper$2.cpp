@@ -189,6 +189,7 @@ void Resolve$MethodResolutionDiagHelper$2::init$($String* key, $Resolve$MethodRe
 }
 
 bool Resolve$MethodResolutionDiagHelper$2::matches(Object$* o) {
+	$useLocalCurrentObjectStackCache();
 	if (!$Resolve$MethodResolutionDiagHelper$Template::matches(o)) {
 		return false;
 	}
@@ -198,6 +199,7 @@ bool Resolve$MethodResolutionDiagHelper$2::matches(Object$* o) {
 }
 
 bool Resolve$MethodResolutionDiagHelper$2::containsAny($JCDiagnostic* d, $List* ts) {
+	$useLocalCurrentObjectStackCache();
 	return $nc($($Stream::of($($nc(d)->getArgs()))))->anyMatch(static_cast<$Predicate*>($$new(Resolve$MethodResolutionDiagHelper$2$$Lambda$lambda$containsAny$1$1, this, ts)));
 }
 
@@ -206,6 +208,7 @@ bool Resolve$MethodResolutionDiagHelper$2::lambda$containsAny$1($List* ts, Objec
 }
 
 bool Resolve$MethodResolutionDiagHelper$2::lambda$$0(Object$* o, $List* ts) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Type, type, nullptr);
 		$var($JCDiagnostic, diagnostic, nullptr);

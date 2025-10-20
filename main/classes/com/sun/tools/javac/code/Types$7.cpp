@@ -186,6 +186,7 @@ $Boolean* Types$7::visitWildcardType($Type$WildcardType* t, $Type* s) {
 }
 
 $Boolean* Types$7::visitClassType($Type$ClassType* t, $Type* s) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	bool var$0 = $nc(s)->hasTag($TypeTag::ERROR);
 	if (var$0 || $nc(s)->hasTag($TypeTag::BOT)) {
@@ -297,6 +298,7 @@ $Boolean* Types$7::visitClassType($Type$ClassType* t, $Type* s) {
 }
 
 bool Types$7::visitCompoundType($Type$ClassType* ct, $Type* s, bool reverse) {
+	$useLocalCurrentObjectStackCache();
 	$var($Warner, warn, this->this$0->noWarnings);
 	{
 		$var($Iterator, i$, $nc($(this->this$0->directSupertypes(ct)))->iterator());
@@ -318,6 +320,7 @@ bool Types$7::visitCompoundType($Type$ClassType* ct, $Type* s, bool reverse) {
 }
 
 $Boolean* Types$7::visitArrayType($Type$ArrayType* t, $Type* s) {
+	$useLocalCurrentObjectStackCache();
 	$init($Types$25);
 	switch ($nc($Types$25::$SwitchMap$com$sun$tools$javac$code$TypeTag)->get($nc(($($nc(s)->getTag())))->ordinal())) {
 	case 16:
@@ -358,6 +361,7 @@ $Boolean* Types$7::visitArrayType($Type$ArrayType* t, $Type* s) {
 }
 
 $Boolean* Types$7::visitTypeVar($Type$TypeVar* t, $Type* s) {
+	$useLocalCurrentObjectStackCache();
 	$init($Types$25);
 	switch ($nc($Types$25::$SwitchMap$com$sun$tools$javac$code$TypeTag)->get($nc(($($nc(s)->getTag())))->ordinal())) {
 	case 16:

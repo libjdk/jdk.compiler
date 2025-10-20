@@ -399,6 +399,7 @@ void Log::init$($Context* context) {
 
 $Map* Log::initWriters($Context* context) {
 	$init(Log);
+	$useLocalCurrentObjectStackCache();
 	$var($PrintWriter, out, $cast($PrintWriter, $nc(context)->get(Log::outKey)));
 	$var($PrintWriter, err, $cast($PrintWriter, context->get(Log::errKey)));
 	if (out == nullptr && err == nullptr) {
@@ -436,6 +437,7 @@ $Map* Log::initWriters($PrintWriter* out, $PrintWriter* err) {
 }
 
 void Log::init$($Context* context, $Map* writers) {
+	$useLocalCurrentObjectStackCache();
 	$AbstractLog::init$($($JCDiagnostic$Factory::instance(context)));
 	this->nerrors = 0;
 	this->nwarnings = 0;
@@ -458,6 +460,7 @@ void Log::init$($Context* context, $Map* writers) {
 }
 
 void Log::initOptions($Options* options) {
+	$useLocalCurrentObjectStackCache();
 	$init($Option);
 	this->dumpOnError = $nc(options)->isSet($Option::DOE);
 	this->promptOnError = options->isSet($Option::PROMPT);
@@ -543,6 +546,7 @@ void Log::popDiagnosticHandler($Log$DiagnosticHandler* h) {
 }
 
 void Log::flush() {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($($nc(this->writers)->values()))->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -559,6 +563,7 @@ void Log::flush($Log$WriterKind* kind) {
 }
 
 bool Log::shouldReport($JavaFileObject* file, int32_t pos) {
+	$useLocalCurrentObjectStackCache();
 	if (file == nullptr) {
 		return true;
 	}
@@ -571,6 +576,7 @@ bool Log::shouldReport($JavaFileObject* file, int32_t pos) {
 }
 
 bool Log::shouldReport($JCDiagnostic* d) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileObject, file, $cast($JavaFileObject, $nc(d)->getSource()));
 	if (file == nullptr) {
 		return true;
@@ -597,6 +603,7 @@ $List* Log::getCode($JCDiagnostic* d) {
 }
 
 void Log::getCodeRecursive($ListBuffer* buf, $JCDiagnostic* d) {
+	$useLocalCurrentObjectStackCache();
 	$nc(buf)->add($($nc(d)->getCode()));
 	{
 		$var($ObjectArray, arr$, $nc(d)->getArgs());
@@ -622,11 +629,13 @@ void Log::getCodeRecursive($ListBuffer* buf, $JCDiagnostic* d) {
 }
 
 bool Log::hasErrorOn($JCDiagnostic$DiagnosticPosition* pos) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileObject, file, this->source != nullptr ? $nc(this->source)->fileObject : ($JavaFileObject*)nullptr);
 	return file != nullptr && $nc(this->recorded)->contains($$new($Pair, file, $($Integer::valueOf($nc(pos)->getPreferredPosition()))));
 }
 
 void Log::prompt() {
+	$useLocalCurrentObjectStackCache();
 	if (this->promptOnError) {
 		$init($System);
 		$nc($System::err)->println($(localize("resume.abort"_s, $$new($ObjectArray, 0))));
@@ -687,29 +696,34 @@ void Log::printNewline($Log$WriterKind* wk) {
 }
 
 void Log::printLines($String* key, $ObjectArray* args) {
+	$useLocalCurrentObjectStackCache();
 	$init($Log$WriterKind);
 	$var($PrintWriter, noticeWriter, $cast($PrintWriter, $nc(this->writers)->get($Log$WriterKind::NOTICE)));
 	printRawLines(noticeWriter, $(localize(key, args)));
 }
 
 void Log::printLines($JCDiagnostic$DiagnosticInfo* diag) {
+	$useLocalCurrentObjectStackCache();
 	$init($Log$WriterKind);
 	$var($PrintWriter, noticeWriter, $cast($PrintWriter, $nc(this->writers)->get($Log$WriterKind::NOTICE)));
 	printRawLines(noticeWriter, $(localize(diag)));
 }
 
 void Log::printLines($Log$PrefixKind* pk, $String* key, $ObjectArray* args) {
+	$useLocalCurrentObjectStackCache();
 	$init($Log$WriterKind);
 	$var($PrintWriter, noticeWriter, $cast($PrintWriter, $nc(this->writers)->get($Log$WriterKind::NOTICE)));
 	printRawLines(noticeWriter, $(localize(pk, key, args)));
 }
 
 void Log::printLines($Log$WriterKind* wk, $String* key, $ObjectArray* args) {
+	$useLocalCurrentObjectStackCache();
 	$var($PrintWriter, var$0, getWriter(wk));
 	printRawLines(var$0, $(localize(key, args)));
 }
 
 void Log::printLines($Log$WriterKind* wk, $Log$PrefixKind* pk, $String* key, $ObjectArray* args) {
+	$useLocalCurrentObjectStackCache();
 	$var($PrintWriter, var$0, getWriter(wk));
 	printRawLines(var$0, $(localize(pk, key, args)));
 }
@@ -726,6 +740,7 @@ void Log::printRawLines($Log$WriterKind* kind, $String* msg) {
 
 void Log::printRawLines($PrintWriter* writer, $String* msg$renamed) {
 	$init(Log);
+	$useLocalCurrentObjectStackCache();
 	$var($String, msg, msg$renamed);
 	int32_t nl = 0;
 	while ((nl = $nc(msg)->indexOf((int32_t)u'\n')) != -1) {
@@ -738,12 +753,14 @@ void Log::printRawLines($PrintWriter* writer, $String* msg$renamed) {
 }
 
 void Log::printVerbose($String* key, $ObjectArray* args) {
+	$useLocalCurrentObjectStackCache();
 	$init($Log$WriterKind);
 	$var($PrintWriter, noticeWriter, $cast($PrintWriter, $nc(this->writers)->get($Log$WriterKind::NOTICE)));
 	printRawLines(noticeWriter, $(localize($$str({"verbose."_s, key}), args)));
 }
 
 void Log::directError($String* key, $ObjectArray* args) {
+	$useLocalCurrentObjectStackCache();
 	$init($Log$WriterKind);
 	$var($PrintWriter, errWriter, $cast($PrintWriter, $nc(this->writers)->get($Log$WriterKind::ERROR)));
 	printRawLines(errWriter, $(localize(key, args)));
@@ -760,6 +777,7 @@ void Log::report($JCDiagnostic* diagnostic) {
 }
 
 void Log::writeDiagnostic($JCDiagnostic* diag) {
+	$useLocalCurrentObjectStackCache();
 	if (this->diagListener != nullptr) {
 		$nc(this->diagListener)->report(diag);
 		return;
@@ -840,6 +858,7 @@ $String* Log::localize($Log$PrefixKind* pk, $String* key, $ObjectArray* args) {
 }
 
 void Log::printRawDiag($PrintWriter* pw, $String* prefix, int32_t pos, $String* msg) {
+	$useLocalCurrentObjectStackCache();
 	if (this->source == nullptr || pos == $Position::NOPOS) {
 		printRawLines(pw, $$str({prefix, msg}));
 	} else {
@@ -854,6 +873,7 @@ void Log::printRawDiag($PrintWriter* pw, $String* prefix, int32_t pos, $String* 
 }
 
 void Log::rawError(int32_t pos, $String* msg) {
+	$useLocalCurrentObjectStackCache();
 	$init($Log$WriterKind);
 	$var($PrintWriter, errWriter, $cast($PrintWriter, $nc(this->writers)->get($Log$WriterKind::ERROR)));
 	if (this->nerrors < this->MaxErrors && shouldReport($(currentSourceFile()), pos)) {

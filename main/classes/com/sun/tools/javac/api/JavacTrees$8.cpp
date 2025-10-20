@@ -115,6 +115,7 @@ $ints* JavacTrees$8::$SwitchMap$com$sun$source$tree$Tree$Kind = nullptr;
 $ints* JavacTrees$8::$SwitchMap$com$sun$source$doctree$DocTree$Kind = nullptr;
 
 void clinit$JavacTrees$8($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(JavacTrees$8::$SwitchMap$javax$tools$Diagnostic$Kind, $new($ints, $($Diagnostic$Kind::values())->length));
 	{
 		try {

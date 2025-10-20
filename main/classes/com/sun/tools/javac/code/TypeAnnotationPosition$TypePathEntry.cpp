@@ -98,6 +98,7 @@ void TypeAnnotationPosition$TypePathEntry::init$($TypeAnnotationPosition$TypePat
 
 TypeAnnotationPosition$TypePathEntry* TypeAnnotationPosition$TypePathEntry::fromBinary(int32_t tag, int32_t arg) {
 	$init(TypeAnnotationPosition$TypePathEntry);
+	$useLocalCurrentObjectStackCache();
 	$init($TypeAnnotationPosition$TypePathEntryKind);
 	$Assert::check(arg == 0 || tag == $TypeAnnotationPosition$TypePathEntryKind::TYPE_ARGUMENT->tag);
 	switch (tag) {
@@ -126,6 +127,7 @@ TypeAnnotationPosition$TypePathEntry* TypeAnnotationPosition$TypePathEntry::from
 }
 
 $String* TypeAnnotationPosition$TypePathEntry::toString() {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeAnnotationPosition$TypePathEntryKind);
 	return $str({$(this->tag->toString()), (this->tag == $TypeAnnotationPosition$TypePathEntryKind::TYPE_ARGUMENT ? ($$str({"("_s, $$str(this->arg), ")"_s})) : ""_s)});
 }

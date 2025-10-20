@@ -537,6 +537,7 @@ void TreeTranslator::visitLambda($JCTree$JCLambda* tree) {
 }
 
 void TreeTranslator::visitNewArray($JCTree$JCNewArray* tree) {
+	$useLocalCurrentObjectStackCache();
 	$set($nc(tree), annotations, translate(tree->annotations));
 	$var($List, dimAnnos, $List::nil());
 	{

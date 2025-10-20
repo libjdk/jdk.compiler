@@ -101,6 +101,7 @@ void PathAndPackageVerifier::init$() {
 }
 
 void PathAndPackageVerifier::finished($TaskEvent* e) {
+	$useLocalCurrentObjectStackCache();
 	$init($TaskEvent$Kind);
 	if ($nc(e)->getKind() == $TaskEvent$Kind::ANALYZE) {
 		$var($CompilationUnitTree, cu, e->getCompilationUnit());
@@ -140,6 +141,7 @@ bool PathAndPackageVerifier::errorsDiscovered() {
 }
 
 bool PathAndPackageVerifier::checkPathAndPackage($Path* dir, $JCTree* pkgName) {
+	$useLocalCurrentObjectStackCache();
 	$var($Iterator, pathIter, $new($PathAndPackageVerifier$ParentIterator, dir));
 	$var($Iterator, pkgIter, $new($PathAndPackageVerifier$EnclosingPkgIterator, pkgName));
 	while (true) {

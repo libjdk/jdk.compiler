@@ -309,6 +309,7 @@ $String* JavacFiler::NOT_FOR_READING = nullptr;
 $String* JavacFiler::NOT_FOR_WRITING = nullptr;
 
 void JavacFiler::init$($Context* context) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, context, context);
 	$load($JavaFileManager);
 	$set(this, fileManager, $cast($JavaFileManager, $nc(context)->get($JavaFileManager::class$)));
@@ -344,6 +345,7 @@ $JavaFileObject* JavacFiler::createClassFile($CharSequence* nameAndModule, $Elem
 }
 
 $Pair* JavacFiler::checkOrInferModule($CharSequence* moduleAndPkg) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, moduleAndPkgString, $nc(moduleAndPkg)->toString());
 	int32_t slash = $nc(moduleAndPkgString)->indexOf((int32_t)u'/');
 	$var($String, module, nullptr);
@@ -375,6 +377,7 @@ $Pair* JavacFiler::checkOrInferModule($CharSequence* moduleAndPkg) {
 }
 
 $JavaFileObject* JavacFiler::createSourceOrClassFile($Symbol$ModuleSymbol* mod, bool isSourceFile, $String* name) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::checkNonNull(mod);
 	if (this->lint) {
 		int32_t periodIndex = $nc(name)->lastIndexOf("."_s);
@@ -409,6 +412,7 @@ $JavaFileObject* JavacFiler::createSourceOrClassFile($Symbol$ModuleSymbol* mod, 
 }
 
 $FileObject* JavacFiler::createResource($JavaFileManager$Location* location$renamed, $CharSequence* moduleAndPkg, $CharSequence* relativeName, $ElementArray* originatingElements) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileManager$Location, location, location$renamed);
 	$var($JavacFiler$Tuple3, locationModuleAndPackage, checkOrInferModule(location, moduleAndPkg, true));
 	$assign(location, $cast($JavaFileManager$Location, $nc(locationModuleAndPackage)->a));
@@ -453,6 +457,7 @@ void JavacFiler::locationCheck($JavaFileManager$Location* location) {
 }
 
 $FileObject* JavacFiler::getResource($JavaFileManager$Location* location$renamed, $CharSequence* moduleAndPkg, $CharSequence* relativeName) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileManager$Location, location, location$renamed);
 	$var($JavacFiler$Tuple3, locationModuleAndPackage, checkOrInferModule(location, moduleAndPkg, false));
 	$assign(location, $cast($JavaFileManager$Location, $nc(locationModuleAndPackage)->a));
@@ -475,6 +480,7 @@ $FileObject* JavacFiler::getResource($JavaFileManager$Location* location$renamed
 }
 
 $JavacFiler$Tuple3* JavacFiler::checkOrInferModule($JavaFileManager$Location* location, $CharSequence* moduleAndPkg, bool write) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, moduleAndPkgString, $nc(moduleAndPkg)->toString());
 	int32_t slash = $nc(moduleAndPkgString)->indexOf((int32_t)u'/');
 	bool var$0 = $nc(location)->isModuleOrientedLocation();
@@ -517,6 +523,7 @@ $JavacFiler$Tuple3* JavacFiler::checkOrInferModule($JavaFileManager$Location* lo
 }
 
 $Symbol$ModuleSymbol* JavacFiler::inferModule($String* pkg) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(this->modules)->getDefaultModule() == $nc(this->syms)->noModule) {
 		return $nc(this->modules)->getDefaultModule();
 	}
@@ -536,6 +543,7 @@ void JavacFiler::checkName($String* name) {
 }
 
 void JavacFiler::checkName($String* name, bool allowUnnamedPackageInfo) {
+	$useLocalCurrentObjectStackCache();
 	bool var$0 = !$SourceVersion::isName(name);
 	if (var$0 && !isPackageInfo(name, allowUnnamedPackageInfo)) {
 		if (this->lint) {
@@ -546,6 +554,7 @@ void JavacFiler::checkName($String* name, bool allowUnnamedPackageInfo) {
 }
 
 bool JavacFiler::isPackageInfo($String* name, bool allowUnnamedPackageInfo) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, PKG_INFO, "package-info"_s);
 	int32_t periodIndex = $nc(name)->lastIndexOf("."_s);
 	if (periodIndex == -1) {
@@ -559,6 +568,7 @@ bool JavacFiler::isPackageInfo($String* name, bool allowUnnamedPackageInfo) {
 }
 
 void JavacFiler::checkNameAndExistence($Symbol$ModuleSymbol* mod, $String* typename$, bool allowUnnamedPackageInfo) {
+	$useLocalCurrentObjectStackCache();
 	checkName(typename$, allowUnnamedPackageInfo);
 	$var($Symbol$ClassSymbol, existing, $cast($Symbol$ClassSymbol, $nc(this->elementUtils)->getTypeElement(typename$)));
 	bool var$2 = $nc(this->aggregateGeneratedSourceNames)->contains($($Pair::of(mod, typename$)));
@@ -581,6 +591,7 @@ void JavacFiler::checkNameAndExistence($Symbol$ModuleSymbol* mod, $String* typen
 }
 
 bool JavacFiler::containedInInitialInputs($String* typename$) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileObject, sourceFile, nullptr);
 	$var($Symbol$ClassSymbol, existingClass, $cast($Symbol$ClassSymbol, $nc(this->elementUtils)->getTypeElement(typename$)));
 	if (existingClass != nullptr) {
@@ -597,6 +608,7 @@ bool JavacFiler::containedInInitialInputs($String* typename$) {
 }
 
 void JavacFiler::checkFileReopening($FileObject* fileObject, bool forWriting) {
+	$useLocalCurrentObjectStackCache();
 	if (isInFileObjectHistory(fileObject, forWriting)) {
 		if (this->lint) {
 			$nc(this->log)->warning($($CompilerProperties$Warnings::ProcFileReopening($($nc(fileObject)->getName()))));
@@ -609,6 +621,7 @@ void JavacFiler::checkFileReopening($FileObject* fileObject, bool forWriting) {
 }
 
 bool JavacFiler::isInFileObjectHistory($FileObject* fileObject, bool forWriting) {
+	$useLocalCurrentObjectStackCache();
 	if (forWriting) {
 		{
 			$var($Iterator, i$, $nc(this->initialInputs)->iterator());
@@ -714,6 +727,7 @@ void JavacFiler::clearRoundState() {
 }
 
 void JavacFiler::displayState() {
+	$useLocalCurrentObjectStackCache();
 	$init($Log);
 	$init($Log$WriterKind);
 	$var($PrintWriter, xout, $nc(($cast($Log, $($nc(this->context)->get($Log::logKey)))))->getWriter($Log$WriterKind::STDERR));
@@ -730,6 +744,7 @@ $String* JavacFiler::toString() {
 }
 
 void JavacFiler::closeFileObject($Symbol$ModuleSymbol* mod, $String* typeName, $FileObject* fileObject) {
+	$useLocalCurrentObjectStackCache();
 	if (typeName != nullptr) {
 		$var($JavaFileObject, javaFileObject, nullptr);
 		bool var$0 = $instanceOf($JavaFileObject, fileObject);

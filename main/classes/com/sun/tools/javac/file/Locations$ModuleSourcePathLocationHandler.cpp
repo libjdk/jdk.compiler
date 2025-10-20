@@ -366,6 +366,7 @@ bool Locations$ModuleSourcePathLocationHandler::handleOption($Option* option, $S
 }
 
 void Locations$ModuleSourcePathLocationHandler::init($String* value) {
+	$useLocalCurrentObjectStackCache();
 	$var($Pattern, moduleSpecificForm, $Pattern::compile("([\\p{Alnum}$_.]+)=(.*)"_s));
 	$var($List, pathsForModules, $new($ArrayList));
 	$var($String, modulePattern, nullptr);
@@ -391,6 +392,7 @@ void Locations$ModuleSourcePathLocationHandler::init($String* value) {
 }
 
 void Locations$ModuleSourcePathLocationHandler::initForModule($String* value) {
+	$useLocalCurrentObjectStackCache();
 	int32_t eq = $nc(value)->indexOf((int32_t)u'=');
 	$var($String, name, value->substring(0, eq));
 	$var($List, paths, $new($ArrayList));
@@ -421,6 +423,7 @@ void Locations$ModuleSourcePathLocationHandler::initForModule($String* value) {
 }
 
 void Locations$ModuleSourcePathLocationHandler::initFromPattern($String* value) {
+	$useLocalCurrentObjectStackCache();
 	$var($Collection, segments, static_cast<$Collection*>(static_cast<$AbstractCollection*>(static_cast<$AbstractList*>($new($ArrayList)))));
 	{
 		$init($File);
@@ -489,6 +492,7 @@ bool Locations$ModuleSourcePathLocationHandler::isSeparator(char16_t ch) {
 }
 
 void Locations$ModuleSourcePathLocationHandler::add($Map* map, $Path* prefix, $Path* suffix) {
+	$useLocalCurrentObjectStackCache();
 	if (!$Files::isDirectory(prefix, $$new($LinkOptionArray, 0))) {
 		if (this->this$0->warn) {
 			$var($JCDiagnostic$Warning, key, $Files::exists(prefix, $$new($LinkOptionArray, 0)) ? $CompilerProperties$Warnings::DirPathElementNotDirectory(prefix) : $CompilerProperties$Warnings::DirPathElementNotFound(prefix));
@@ -551,6 +555,7 @@ void Locations$ModuleSourcePathLocationHandler::add($Map* map, $Path* prefix, $P
 }
 
 void Locations$ModuleSourcePathLocationHandler::expandBraces($String* value, $Collection* results) {
+	$useLocalCurrentObjectStackCache();
 	int32_t depth = 0;
 	int32_t start = -1;
 	$var($String, prefix, nullptr);
@@ -640,6 +645,7 @@ $Collection* Locations$ModuleSourcePathLocationHandler::getPaths() {
 }
 
 void Locations$ModuleSourcePathLocationHandler::setPaths($Iterable* files) {
+	$useLocalCurrentObjectStackCache();
 	$var($Map, map, $new($LinkedHashMap));
 	$var($List, newPaths, $new($ArrayList));
 	{
@@ -658,6 +664,7 @@ void Locations$ModuleSourcePathLocationHandler::setPaths($Iterable* files) {
 }
 
 void Locations$ModuleSourcePathLocationHandler::setPathsForModule($String* name, $Iterable* paths) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, validPaths, checkPaths(paths));
 	if (this->moduleTable == nullptr) {
 		$set(this, moduleTable, $new($Locations$ModuleTable, this->this$0));
@@ -674,6 +681,7 @@ void Locations$ModuleSourcePathLocationHandler::setPathsForModule($String* name,
 }
 
 $List* Locations$ModuleSourcePathLocationHandler::checkPaths($Iterable* paths) {
+	$useLocalCurrentObjectStackCache();
 	$Objects::requireNonNull(paths);
 	$var($List, validPaths, $new($ArrayList));
 	{
@@ -714,10 +722,12 @@ bool Locations$ModuleSourcePathLocationHandler::lambda$add$2($Path* path) {
 
 bool Locations$ModuleSourcePathLocationHandler::lambda$new$1($Path* p) {
 	$init(Locations$ModuleSourcePathLocationHandler);
+	$useLocalCurrentObjectStackCache();
 	return $Files::exists($($nc(p)->resolve("module-info.java"_s)), $$new($LinkOptionArray, 0));
 }
 
 void Locations$ModuleSourcePathLocationHandler::lambda$initModuleTable$0($String* modName, $List* modPath) {
+	$useLocalCurrentObjectStackCache();
 	bool hasModuleInfo = $nc($($nc(modPath)->stream()))->anyMatch(this->checkModuleInfo);
 	if (hasModuleInfo) {
 		$var($String, locnName, $str({$($nc(this->location)->getName()), "["_s, modName, "]"_s}));

@@ -79,12 +79,14 @@ void Option$2::init$($String* $enum$name, int32_t $enum$ordinal, $String* text, 
 }
 
 bool Option$2::matches($String* option) {
+	$useLocalCurrentObjectStackCache();
 	$init($Option);
 	$init($DocLint);
 	return $nc($($DocLint::newDocLint()))->isValidOption($($nc(option)->replace(static_cast<$CharSequence*>($Option::XDOCLINT_CUSTOM->primaryName), static_cast<$CharSequence*>($DocLint::XMSGS_CUSTOM_PREFIX))));
 }
 
 void Option$2::process($OptionHelper* helper, $String* option, $String* arg) {
+	$useLocalCurrentObjectStackCache();
 	$init($Option);
 	$var($String, prev, $nc(helper)->get($Option::XDOCLINT_CUSTOM));
 	$var($String, next, (prev == nullptr) ? arg : ($str({prev, " "_s, arg})));

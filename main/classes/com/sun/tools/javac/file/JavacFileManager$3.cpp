@@ -96,6 +96,7 @@ bool JavacFileManager$3::hasNext() {
 }
 
 $Object* JavacFileManager$3::next() {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $of($nc(($cast($Path, $($nc(this->iter)->next()))))->toFile());
 	} catch ($UnsupportedOperationException&) {

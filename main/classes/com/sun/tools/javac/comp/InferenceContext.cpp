@@ -523,6 +523,7 @@ $List* InferenceContext::boundedVars() {
 }
 
 $List* InferenceContext::filterVars($Predicate* fu) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, res, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc(this->undetvars)->iterator());
@@ -544,6 +545,7 @@ bool InferenceContext::free($Type* t) {
 }
 
 bool InferenceContext::free($List* ts) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(ts)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -559,6 +561,7 @@ bool InferenceContext::free($List* ts) {
 }
 
 $List* InferenceContext::freeVarsIn($Type* t) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, buf, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc($(inferenceVars()))->iterator());
@@ -575,6 +578,7 @@ $List* InferenceContext::freeVarsIn($Type* t) {
 }
 
 $List* InferenceContext::freeVarsIn($List* ts) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, buf, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc(ts)->iterator());
@@ -605,6 +609,7 @@ $Type* InferenceContext::asUndetVar($Type* t) {
 }
 
 $List* InferenceContext::asUndetVars($List* ts) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, buf, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc(ts)->iterator());
@@ -619,6 +624,7 @@ $List* InferenceContext::asUndetVars($List* ts) {
 }
 
 $List* InferenceContext::instTypes() {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, buf, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc(this->undetvars)->iterator());
@@ -638,6 +644,7 @@ $Type* InferenceContext::asInstType($Type* t) {
 }
 
 $List* InferenceContext::asInstTypes($List* ts) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, buf, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc(ts)->iterator());
@@ -656,10 +663,12 @@ void InferenceContext::addFreeTypeListener($List* types, $Infer$FreeTypeListener
 }
 
 void InferenceContext::notifyChange() {
+	$useLocalCurrentObjectStackCache();
 	notifyChange($($nc(this->inferencevars)->diff($(restvars()))));
 }
 
 void InferenceContext::notifyChange($List* inferredVars) {
+	$useLocalCurrentObjectStackCache();
 	$var($Infer$InferenceException, thrownEx, nullptr);
 	{
 		$var($Iterator, i$, $nc($($$new($LinkedHashMap, this->freeTypeListeners)->entrySet()))->iterator());
@@ -687,6 +696,7 @@ void InferenceContext::notifyChange($List* inferredVars) {
 }
 
 $List* InferenceContext::save() {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, buf, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc(this->undetvars)->iterator());
@@ -701,6 +711,7 @@ $List* InferenceContext::save() {
 }
 
 void InferenceContext::rollback($List* saved_undet$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, saved_undet, saved_undet$renamed);
 	$Assert::check(saved_undet != nullptr);
 	$var($ListBuffer, newUndetVars, $new($ListBuffer));
@@ -733,6 +744,7 @@ void InferenceContext::dupTo(InferenceContext* that) {
 }
 
 void InferenceContext::dupTo(InferenceContext* that, bool clone) {
+	$useLocalCurrentObjectStackCache();
 	$set($nc(that), inferencevars, $nc(that->inferencevars)->appendList($($nc(this->inferencevars)->diff(that->inferencevars))));
 	$var($List, undetsToPropagate, clone ? save() : this->undetvars);
 	$set(that, undetvars, $nc(that->undetvars)->appendList($($nc(undetsToPropagate)->diff(that->undetvars))));
@@ -749,6 +761,7 @@ void InferenceContext::dupTo(InferenceContext* that, bool clone) {
 }
 
 InferenceContext* InferenceContext::min($List* roots, bool shouldSolve, $Warner* warn) {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = $nc(roots)->length();
 	if (var$0 == $nc(this->inferencevars)->length()) {
 		return this;
@@ -818,6 +831,7 @@ void InferenceContext::solve($List* vars, $Warner* warn) {
 }
 
 void InferenceContext::solveAny($List* varsToSolve, $Warner* warn) {
+	$useLocalCurrentObjectStackCache();
 	solve(static_cast<$Infer$GraphStrategy*>($$new($InferenceContext$3, this, static_cast<$Infer*>($nc(this->infer)), $($nc(varsToSolve)->intersect($(restvars()))))), warn);
 }
 
@@ -826,6 +840,7 @@ $List* InferenceContext::solveBasic($EnumSet* steps) {
 }
 
 $List* InferenceContext::solveBasic($List* varsToSolve, $EnumSet* steps) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, solvedVars, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc($($nc(varsToSolve)->intersect($(restvars()))))->iterator());
@@ -853,6 +868,7 @@ $List* InferenceContext::solveBasic($List* varsToSolve, $EnumSet* steps) {
 }
 
 void InferenceContext::solveLegacy(bool partial, $Warner* warn, $EnumSet* steps) {
+	$useLocalCurrentObjectStackCache();
 	while (true) {
 		$var($List, solvedVars, solveBasic(steps));
 		if ($nc($(restvars()))->isEmpty() || partial) {
@@ -881,6 +897,7 @@ $String* InferenceContext::toString() {
 }
 
 $Type* InferenceContext::cachedCapture($JCTree* tree, $Type* t, bool readOnly) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, captured, $cast($Type, $nc(this->captureTypeCache)->get(tree)));
 	if (captured != nullptr) {
 		return captured;
@@ -898,6 +915,7 @@ void InferenceContext::lambda$min$6($List* unreachableVars, $Warner* warn, Infer
 }
 
 void InferenceContext::lambda$min$5($Type* t, $InferenceContext$ReachabilityVisitor* rv, $Warner* warn, InferenceContext* inferenceContext) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, instType, $nc(inferenceContext)->asInstType(t));
 	{
 		$var($Iterator, i$, $nc(($cast($Set, $($nc($nc(rv)->minMap)->get(t)))))->iterator());
@@ -921,6 +939,7 @@ void InferenceContext::lambda$dupTo$3(InferenceContext* inferenceContext) {
 }
 
 bool InferenceContext::lambda$boundedVars$2($Type$UndetVar* uv) {
+	$useLocalCurrentObjectStackCache();
 	$init($Type$UndetVar$InferenceBound);
 	return $nc($($nc($($nc($($nc(uv)->getBounds($$new($Type$UndetVar$InferenceBoundArray, {$Type$UndetVar$InferenceBound::UPPER}))))->diff($(uv->getDeclaredBounds()))))->appendList($(uv->getBounds($$new($Type$UndetVar$InferenceBoundArray, {
 		$Type$UndetVar$InferenceBound::EQ,

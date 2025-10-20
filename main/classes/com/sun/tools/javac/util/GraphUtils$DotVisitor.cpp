@@ -81,6 +81,7 @@ void GraphUtils$DotVisitor::init$() {
 }
 
 void GraphUtils$DotVisitor::visitDependency($GraphUtils$DependencyKind* dk, $GraphUtils$DottableNode* from, $GraphUtils$DottableNode* to, $StringBuilder* buf) {
+	$useLocalCurrentObjectStackCache();
 	$nc(buf)->append($($String::format("%s -> %s"_s, $$new($ObjectArray, {
 		$($of($Integer::valueOf($nc($of(from))->hashCode()))),
 		$($of($Integer::valueOf($nc($of(to))->hashCode())))
@@ -90,12 +91,14 @@ void GraphUtils$DotVisitor::visitDependency($GraphUtils$DependencyKind* dk, $Gra
 }
 
 void GraphUtils$DotVisitor::visitNode($GraphUtils$DottableNode* node, $StringBuilder* buf) {
+	$useLocalCurrentObjectStackCache();
 	$nc(buf)->append($($String::format("%s "_s, $$new($ObjectArray, {$($of($Integer::valueOf($nc($of(node))->hashCode())))}))));
 	buf->append($(formatProperties($($nc(node)->nodeAttributes()))));
 	buf->append(u'\n');
 }
 
 $String* GraphUtils$DotVisitor::formatProperties($Properties* p) {
+	$useLocalCurrentObjectStackCache();
 	return $($($nc($($nc(p)->toString()))->replaceAll(","_s, " "_s))->replaceAll("\\{"_s, "["_s))->replaceAll("\\}"_s, "]"_s);
 }
 

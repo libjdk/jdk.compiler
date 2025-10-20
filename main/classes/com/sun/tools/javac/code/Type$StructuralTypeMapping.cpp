@@ -99,6 +99,7 @@ void Type$StructuralTypeMapping::init$() {
 }
 
 $Object* Type$StructuralTypeMapping::visitClassType($Type$ClassType* t, Object$* s) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, outer, $nc(t)->getEnclosingType());
 	$var($Type, outer1, $cast($Type, visit(outer, s)));
 	$var($List, typarams, t->getTypeArguments());
@@ -123,6 +124,7 @@ $Object* Type$StructuralTypeMapping::visitWildcardType($Type$WildcardType* wt, O
 }
 
 $Object* Type$StructuralTypeMapping::visitArrayType($Type$ArrayType* t, Object$* s) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, elemtype, $nc(t)->elemtype);
 	$var($Type, elemtype1, $cast($Type, visit(elemtype, s)));
 	if (elemtype1 == elemtype) {
@@ -133,6 +135,7 @@ $Object* Type$StructuralTypeMapping::visitArrayType($Type$ArrayType* t, Object$*
 }
 
 $Object* Type$StructuralTypeMapping::visitMethodType($Type$MethodType* t, Object$* s) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, argtypes, $nc(t)->argtypes$);
 	$var($Type, restype, t->restype);
 	$var($List, thrown, t->thrown);

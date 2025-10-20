@@ -113,6 +113,7 @@ void Types$TypeProjection$TypeArgumentProjection::init$($Types$TypeProjection* t
 }
 
 $Type* Types$TypeProjection$TypeArgumentProjection::visitType($Type* t, $Types$ProjectionKind* pkind) {
+	$useLocalCurrentObjectStackCache();
 	$init($Types$ProjectionKind);
 	if (pkind == $Types$ProjectionKind::DOWNWARDS) {
 		return $nc($nc(this->this$1->this$0)->syms)->botType;
@@ -147,6 +148,7 @@ $Type* Types$TypeProjection$TypeArgumentProjection::visitType($Type* t, $Types$P
 }
 
 $Type* Types$TypeProjection$TypeArgumentProjection::visitWildcardType($Type$WildcardType* wt, $Types$ProjectionKind* pkind) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, bound, $nc($nc(this->this$1->this$0)->syms)->botType);
 	$BoundKind* bk = $nc(wt)->kind;
 	$init($Types$25);

@@ -113,6 +113,7 @@ void ClassReader$3::init$($ClassReader* this$0, $Name* name, $ClassFile$Version*
 }
 
 void ClassReader$3::read($Symbol* sym, int32_t attrLen) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, v, $nc(this->this$0->poolReader)->getConstant(this->this$0->nextChar()));
 	if (((int64_t)($nc(sym)->flags() & (uint64_t)(int64_t)16)) == 0) {
 		return;
@@ -187,6 +188,7 @@ void ClassReader$3::read($Symbol* sym, int32_t attrLen) {
 }
 
 void ClassReader$3::checkType($Symbol* var, $Class* clazz, Object$* value) {
+	$useLocalCurrentObjectStackCache();
 	if (!$nc(clazz)->isInstance(value)) {
 		$throw($(this->this$0->badClassFile("bad.constant.value"_s, $$new($ObjectArray, {
 			value,

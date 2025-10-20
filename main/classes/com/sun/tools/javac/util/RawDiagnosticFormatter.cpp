@@ -136,11 +136,13 @@ $Object* allocate$RawDiagnosticFormatter($Class* clazz) {
 $Set* RawDiagnosticFormatter::CODES_NEEDING_SOURCE_NORMALIZATION = nullptr;
 
 void RawDiagnosticFormatter::init$($Options* options) {
+	$useLocalCurrentObjectStackCache();
 	$init($DiagnosticFormatter$Configuration$DiagnosticPart);
 	$AbstractDiagnosticFormatter::init$(nullptr, $$new($AbstractDiagnosticFormatter$SimpleConfiguration, options, $($EnumSet::of($DiagnosticFormatter$Configuration$DiagnosticPart::SUMMARY, $DiagnosticFormatter$Configuration$DiagnosticPart::DETAILS, $DiagnosticFormatter$Configuration$DiagnosticPart::SUBDIAGNOSTICS))));
 }
 
 $String* RawDiagnosticFormatter::formatDiagnostic($JCDiagnostic* d, $Locale* l) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Throwable, var$0, nullptr);
 		$var($String, var$2, nullptr);
@@ -198,6 +200,7 @@ $String* RawDiagnosticFormatter::formatDiagnostic($JCDiagnostic* d, $Locale* l) 
 }
 
 $String* RawDiagnosticFormatter::formatMessage($JCDiagnostic* d, $Locale* l) {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, buf, $new($StringBuilder));
 	$var($Collection, args, formatArguments(d, l));
 	$var($String, var$0, $nc(d)->getCode());
@@ -229,6 +232,7 @@ $String* RawDiagnosticFormatter::formatMessage($JCDiagnostic* d, $Locale* l) {
 }
 
 $String* RawDiagnosticFormatter::formatArgument($JCDiagnostic* diag, Object$* arg, $Locale* l) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, s, nullptr);
 	{
 		$var($JCTree$JCExpression, expression, nullptr);
@@ -277,6 +281,7 @@ $String* RawDiagnosticFormatter::formatArgument($JCDiagnostic* diag, Object$* ar
 }
 
 $String* RawDiagnosticFormatter::localize($Locale* l, $String* key, $ObjectArray* args) {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, buf, $new($StringBuilder));
 	buf->append(key);
 	$var($String, sep, ": "_s);

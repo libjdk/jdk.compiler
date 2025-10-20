@@ -84,6 +84,7 @@ void LazyInitFileLog::init$($String* baseFilename) {
 }
 
 void LazyInitFileLog::printLogMsg($Log$Level* msgLevel, $String* msg) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		if (this->out == nullptr && isLevelLogged(msgLevel)) {
 			$set(this, destination, getAvailableDestination());
@@ -99,6 +100,7 @@ void LazyInitFileLog::printLogMsg($Log$Level* msgLevel, $String* msg) {
 }
 
 $Path* LazyInitFileLog::getAvailableDestination() {
+	$useLocalCurrentObjectStackCache();
 	$var($Path, p, $Paths::get(this->baseFilename, $$new($StringArray, 0)));
 	int32_t i = 1;
 	while ($Files::exists(p, $$new($LinkOptionArray, 0))) {

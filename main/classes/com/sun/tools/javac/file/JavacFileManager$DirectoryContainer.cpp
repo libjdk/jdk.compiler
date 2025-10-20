@@ -128,6 +128,7 @@ void JavacFileManager$DirectoryContainer::init$($JavacFileManager* this$0, $Path
 }
 
 void JavacFileManager$DirectoryContainer::list($Path* userPath, $RelativePath$RelativeDirectory* subdirectory, $Set* fileKinds, bool recurse, $ListBuffer* resultList) {
+	$useLocalCurrentObjectStackCache();
 	$var($Path, d, nullptr);
 	try {
 		$assign(d, $nc(subdirectory)->resolveAgainst(userPath));
@@ -205,6 +206,7 @@ void JavacFileManager$DirectoryContainer::list($Path* userPath, $RelativePath$Re
 }
 
 $JavaFileObject* JavacFileManager$DirectoryContainer::getFileObject($Path* userPath, $RelativePath$RelativeFile* name) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var($Path, f, $nc(name)->resolveAgainst(userPath));
 		if ($Files::exists(f, $$new($LinkOptionArray, 0))) {

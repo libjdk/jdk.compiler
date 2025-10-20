@@ -315,6 +315,7 @@ void Modules$ModuleVisitor::visitModuleDef($JCTree$JCModuleDecl* tree) {
 }
 
 void Modules$ModuleVisitor::visitRequires($JCTree$JCRequires* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$ModuleSymbol, msym, lookupModule($nc(tree)->moduleName));
 	$init($Kinds$Kind);
 	if ($nc(msym)->kind != $Kinds$Kind::MDL) {
@@ -356,6 +357,7 @@ void Modules$ModuleVisitor::visitRequires($JCTree$JCRequires* tree) {
 }
 
 void Modules$ModuleVisitor::visitExports($JCTree$JCExports* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Name, name, $TreeInfo::fullName($nc(tree)->qualid));
 	$var($Symbol$PackageSymbol, packge, $nc(this->this$0->syms)->enterPackage(this->sym, name));
 	$nc(this->this$0->attr)->setPackageSymbols($nc(tree)->qualid, packge);
@@ -407,11 +409,13 @@ void Modules$ModuleVisitor::visitExports($JCTree$JCExports* tree) {
 }
 
 void Modules$ModuleVisitor::reportExportsConflict($JCTree$JCExports* tree, $Symbol$PackageSymbol* packge) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCDiagnostic$DiagnosticPosition, var$0, $nc($nc(tree)->qualid)->pos());
 	$nc(this->this$0->log)->error(var$0, $($CompilerProperties$Errors::ConflictingExports(packge)));
 }
 
 void Modules$ModuleVisitor::checkDuplicateExportsToModule($JCTree$JCExpression* name, $Symbol$ModuleSymbol* msym, $Directive$ExportsDirective* d) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(d)->modules != nullptr) {
 		{
 			$var($Iterator, i$, $nc(d->modules)->iterator());
@@ -428,11 +432,13 @@ void Modules$ModuleVisitor::checkDuplicateExportsToModule($JCTree$JCExpression* 
 }
 
 void Modules$ModuleVisitor::reportExportsConflictToModule($JCTree$JCExpression* name, $Symbol$ModuleSymbol* msym) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCDiagnostic$DiagnosticPosition, var$0, $nc(name)->pos());
 	$nc(this->this$0->log)->error(var$0, $($CompilerProperties$Errors::ConflictingExportsToModule(msym)));
 }
 
 void Modules$ModuleVisitor::visitOpens($JCTree$JCOpens* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Name, name, $TreeInfo::fullName($nc(tree)->qualid));
 	$var($Symbol$PackageSymbol, packge, $nc(this->this$0->syms)->enterPackage(this->sym, name));
 	$nc(this->this$0->attr)->setPackageSymbols($nc(tree)->qualid, packge);
@@ -489,11 +495,13 @@ void Modules$ModuleVisitor::visitOpens($JCTree$JCOpens* tree) {
 }
 
 void Modules$ModuleVisitor::reportOpensConflict($JCTree$JCOpens* tree, $Symbol$PackageSymbol* packge) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCDiagnostic$DiagnosticPosition, var$0, $nc($nc(tree)->qualid)->pos());
 	$nc(this->this$0->log)->error(var$0, $($CompilerProperties$Errors::ConflictingOpens(packge)));
 }
 
 void Modules$ModuleVisitor::checkDuplicateOpensToModule($JCTree$JCExpression* name, $Symbol$ModuleSymbol* msym, $Directive$OpensDirective* d) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(d)->modules != nullptr) {
 		{
 			$var($Iterator, i$, $nc(d->modules)->iterator());
@@ -510,6 +518,7 @@ void Modules$ModuleVisitor::checkDuplicateOpensToModule($JCTree$JCExpression* na
 }
 
 void Modules$ModuleVisitor::reportOpensConflictToModule($JCTree$JCExpression* name, $Symbol$ModuleSymbol* msym) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCDiagnostic$DiagnosticPosition, var$0, $nc(name)->pos());
 	$nc(this->this$0->log)->error(var$0, $($CompilerProperties$Errors::ConflictingOpensToModule(msym)));
 }
@@ -521,6 +530,7 @@ void Modules$ModuleVisitor::visitUses($JCTree$JCUses* tree) {
 }
 
 void Modules$ModuleVisitor::ensureJavaBase() {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(this->sym)->name == $nc(this->this$0->names)->java_base) {
 		return;
 	}
@@ -542,6 +552,7 @@ void Modules$ModuleVisitor::ensureJavaBase() {
 }
 
 $Symbol$ModuleSymbol* Modules$ModuleVisitor::lookupModule($JCTree$JCExpression* moduleName) {
+	$useLocalCurrentObjectStackCache();
 	$var($Name, name, $TreeInfo::fullName(moduleName));
 	$var($Symbol$ModuleSymbol, msym, $nc(this->this$0->moduleFinder)->findModule(name));
 	$TreeInfo::setSymbol(moduleName, msym);

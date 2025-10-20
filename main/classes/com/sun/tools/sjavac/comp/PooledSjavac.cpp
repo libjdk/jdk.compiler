@@ -142,6 +142,7 @@ void PooledSjavac::init$($Sjavac* delegate, int32_t poolsize) {
 }
 
 $Main$Result* PooledSjavac::compile($StringArray* args) {
+	$useLocalCurrentObjectStackCache();
 	$var($Log, log, $Log::get());
 	try {
 		return $cast($Main$Result, $nc($($nc(this->pool)->submit(static_cast<$Callable*>($$new(PooledSjavac$$Lambda$lambda$compile$0, this, log, args)))))->get());
@@ -154,6 +155,7 @@ $Main$Result* PooledSjavac::compile($StringArray* args) {
 }
 
 void PooledSjavac::shutdown() {
+	$useLocalCurrentObjectStackCache();
 	$Log::debug("Shutting down PooledSjavac"_s);
 	$nc(this->pool)->shutdown();
 	try {

@@ -81,6 +81,7 @@ void Option$31::process($OptionHelper* helper, $String* option) {
 }
 
 void Option$31::process($OptionHelper* helper, $String* option, $String* arg) {
+	$useLocalCurrentObjectStackCache();
 	int32_t eq = $nc(arg)->indexOf((int32_t)u'=');
 	$var($String, key, (eq < 0) ? arg : arg->substring(0, eq));
 	$var($String, value, (eq < 0) ? arg : arg->substring(eq + 1));

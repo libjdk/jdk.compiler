@@ -96,6 +96,7 @@ $ints* Flow$1::$SwitchMap$com$sun$tools$javac$code$TypeTag = nullptr;
 $ints* Flow$1::$SwitchMap$com$sun$tools$javac$code$Kinds$Kind = nullptr;
 
 void clinit$Flow$1($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(Flow$1::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag, $new($ints, $($JCTree$Tag::values())->length));
 	{
 		try {

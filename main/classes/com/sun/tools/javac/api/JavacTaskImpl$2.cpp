@@ -88,6 +88,7 @@ void JavacTaskImpl$2::init$($JavacTaskImpl* this$0, $ListBuffer* val$results) {
 }
 
 void JavacTaskImpl$2::process($Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->this$0->compiler)->generate($($nc(this->this$0->compiler)->desugar($($ListBuffer::of(env)))), this->val$results);
 }
 

@@ -71,6 +71,7 @@ void Resolve$MethodResolutionDiagHelper$Template::init$($String* key, $Resolve$M
 }
 
 bool Resolve$MethodResolutionDiagHelper$Template::matches(Object$* o) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCDiagnostic, d, $cast($JCDiagnostic, o));
 	$var($ObjectArray, args, $nc(d)->getArgs());
 	bool var$0 = !$nc($(d->getCode()))->matches(this->regex);

@@ -90,6 +90,7 @@ $Symbol$OperatorSymbol* Operators$BinaryBooleanOperator::resolve($Type* arg1, $T
 }
 
 bool Operators$BinaryBooleanOperator::test($Type* arg1, $Type* arg2) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	bool var$0 = $nc($($nc(this->this$0->types)->unboxedTypeOrType(arg1)))->hasTag($TypeTag::BOOLEAN);
 	return var$0 && $nc($($nc(this->this$0->types)->unboxedTypeOrType(arg2)))->hasTag($TypeTag::BOOLEAN);

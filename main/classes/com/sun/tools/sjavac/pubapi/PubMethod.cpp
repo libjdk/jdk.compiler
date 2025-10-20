@@ -161,6 +161,7 @@ void PubMethod::init$($Set* modifiers, $List* typeParams, $TypeDesc* returnType,
 }
 
 $String* PubMethod::asSignatureString() {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, sb, $new($StringBuilder));
 	if ($nc(this->typeParams)->size() > 0) {
 		sb->append($cast($String, $($nc($($nc($($nc(this->typeParams)->stream()))->map(static_cast<$Function*>($$new(PubMethod$$Lambda$asString)))))->collect($($Collectors::joining(","_s, "<"_s, "> "_s))))));
@@ -197,6 +198,7 @@ int32_t PubMethod::hashCode() {
 }
 
 $String* PubMethod::toString() {
+	$useLocalCurrentObjectStackCache();
 	return $String::format("%s[modifiers: %s, typeParams: %s, retType: %s, identifier: %s, params: %s, throws: %s]"_s, $$new($ObjectArray, {
 		$($of($of(this)->getClass()->getSimpleName())),
 		$of(this->modifiers),

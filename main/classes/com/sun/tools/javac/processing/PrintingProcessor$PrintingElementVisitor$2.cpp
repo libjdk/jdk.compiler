@@ -89,6 +89,7 @@ void PrintingProcessor$PrintingElementVisitor$2::init$($PrintingProcessor$Printi
 }
 
 $Boolean* PrintingProcessor$PrintingElementVisitor$2::visitArray($List* vals, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(vals)->size() < 2) {
 		return $Boolean::valueOf(false);
 	} else {

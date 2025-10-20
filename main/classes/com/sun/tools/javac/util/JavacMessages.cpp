@@ -238,6 +238,7 @@ void JavacMessages::setCurrentLocale($Locale* locale$renamed) {
 }
 
 void JavacMessages::init$($Context* context) {
+	$useLocalCurrentObjectStackCache();
 	$load($Locale);
 	JavacMessages::init$(JavacMessages::defaultBundleName, $cast($Locale, $($nc(context)->get($Locale::class$))));
 	$set(this, context, context);
@@ -275,6 +276,7 @@ void JavacMessages::add($JavacMessages$ResourceBundleHelper* ma) {
 }
 
 $List* JavacMessages::getBundles($Locale* locale) {
+	$useLocalCurrentObjectStackCache();
 	if (locale == this->currentLocale && this->currentBundles != nullptr) {
 		return this->currentBundles;
 	}
@@ -311,6 +313,7 @@ $String* JavacMessages::getLocalizedString($JCDiagnostic$DiagnosticInfo* diagInf
 }
 
 $String* JavacMessages::getLocalizedString($Locale* l$renamed, $String* key, $ObjectArray* args) {
+	$useLocalCurrentObjectStackCache();
 	$var($Locale, l, l$renamed);
 	if (l == nullptr) {
 		$assign(l, getCurrentLocale());
@@ -319,6 +322,7 @@ $String* JavacMessages::getLocalizedString($Locale* l$renamed, $String* key, $Ob
 }
 
 $String* JavacMessages::getLocalizedString($Locale* l$renamed, $JCDiagnostic$DiagnosticInfo* diagInfo) {
+	$useLocalCurrentObjectStackCache();
 	$var($Locale, l, l$renamed);
 	if (l == nullptr) {
 		$assign(l, getCurrentLocale());
@@ -328,6 +332,7 @@ $String* JavacMessages::getLocalizedString($Locale* l$renamed, $JCDiagnostic$Dia
 
 $String* JavacMessages::getDefaultLocalizedString($String* key, $ObjectArray* args) {
 	$init(JavacMessages);
+	$useLocalCurrentObjectStackCache();
 	return getLocalizedString($($List::of($(getDefaultBundle()))), key, args);
 }
 
@@ -356,6 +361,7 @@ $ResourceBundle* JavacMessages::getDefaultBundle() {
 
 $String* JavacMessages::getLocalizedString($List* bundles, $String* key, $ObjectArray* args) {
 	$init(JavacMessages);
+	$useLocalCurrentObjectStackCache();
 	$var($String, msg, nullptr);
 	{
 		$var($List, l, bundles);
@@ -375,6 +381,7 @@ $String* JavacMessages::getLocalizedString($List* bundles, $String* key, $Object
 }
 
 $String* JavacMessages::getLocalizedString($List* bundles, $JCDiagnostic$DiagnosticInfo* diagInfo) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, msg, nullptr);
 	{
 		$var($List, l, bundles);

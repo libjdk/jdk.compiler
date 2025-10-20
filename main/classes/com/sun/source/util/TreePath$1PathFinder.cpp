@@ -71,6 +71,7 @@ void TreePath$1PathFinder::init$() {
 }
 
 $TreePath* TreePath$1PathFinder::scan($Tree* tree, $Tree* target) {
+	$useLocalCurrentObjectStackCache();
 	if (tree == target) {
 		$throwNew($TreePath$1Result, $$new($TreePath, $(getCurrentPath()), target));
 	}

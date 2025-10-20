@@ -259,6 +259,7 @@ $JCTree$JCClassDecl* LambdaToMethod$LambdaAnalyzerPreprocessor::analyzeAndPrepro
 }
 
 void LambdaToMethod$LambdaAnalyzerPreprocessor::visitApply($JCTree$JCMethodInvocation* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, previousNascentTypes, this->typesUnderConstruction);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -280,6 +281,7 @@ void LambdaToMethod$LambdaAnalyzerPreprocessor::visitApply($JCTree$JCMethodInvoc
 }
 
 $Symbol$ClassSymbol* LambdaToMethod$LambdaAnalyzerPreprocessor::currentClass() {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(this->frameStack)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -297,6 +299,7 @@ $Symbol$ClassSymbol* LambdaToMethod$LambdaAnalyzerPreprocessor::currentClass() {
 }
 
 void LambdaToMethod$LambdaAnalyzerPreprocessor::visitBlock($JCTree$JCBlock* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, prevStack, this->frameStack);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -319,6 +322,7 @@ void LambdaToMethod$LambdaAnalyzerPreprocessor::visitBlock($JCTree$JCBlock* tree
 }
 
 void LambdaToMethod$LambdaAnalyzerPreprocessor::visitClassDef($JCTree$JCClassDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, prevStack, this->frameStack);
 	int32_t prevLambdaCount = this->lambdaCount;
 	$var($LambdaToMethod$LambdaAnalyzerPreprocessor$SyntheticMethodNameCounter, prevSyntheticMethodNameCounts, this->syntheticMethodNameCounts);
@@ -372,6 +376,7 @@ void LambdaToMethod$LambdaAnalyzerPreprocessor::visitClassDef($JCTree$JCClassDec
 }
 
 void LambdaToMethod$LambdaAnalyzerPreprocessor::visitIdent($JCTree$JCIdent* tree) {
+	$useLocalCurrentObjectStackCache();
 	bool var$0 = context() != nullptr;
 	if (var$0 && lambdaIdentSymbolFilter($nc(tree)->sym)) {
 		$init($Kinds$Kind);
@@ -430,6 +435,7 @@ void LambdaToMethod$LambdaAnalyzerPreprocessor::visitLambda($JCTree$JCLambda* tr
 }
 
 void LambdaToMethod$LambdaAnalyzerPreprocessor::analyzeLambda($JCTree$JCLambda* tree, $JCTree$JCExpression* methodReferenceReceiver) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCExpression, rcvr, $cast($JCTree$JCExpression, translate(static_cast<$JCTree*>(methodReferenceReceiver))));
 	$var($LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext, context, analyzeLambda(tree, "mref.stat.1"_s));
 	if (rcvr != nullptr) {
@@ -438,6 +444,7 @@ void LambdaToMethod$LambdaAnalyzerPreprocessor::analyzeLambda($JCTree$JCLambda* 
 }
 
 $LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext* LambdaToMethod$LambdaAnalyzerPreprocessor::analyzeLambda($JCTree$JCLambda* tree, $String* statKey) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, prevStack, this->frameStack);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -485,6 +492,7 @@ $LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext* LambdaToMet
 }
 
 void LambdaToMethod$LambdaAnalyzerPreprocessor::visitMethodDef($JCTree$JCMethodDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, prevStack, this->frameStack);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -503,6 +511,7 @@ void LambdaToMethod$LambdaAnalyzerPreprocessor::visitMethodDef($JCTree$JCMethodD
 }
 
 void LambdaToMethod$LambdaAnalyzerPreprocessor::visitNewClass($JCTree$JCNewClass* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$TypeSymbol, def, $nc($nc(tree)->type)->tsym);
 	bool inReferencedClass = currentlyInClass(def);
 	bool isLocal = $nc(def)->isDirectlyOrIndirectlyLocal();
@@ -532,6 +541,7 @@ void LambdaToMethod$LambdaAnalyzerPreprocessor::visitNewClass($JCTree$JCNewClass
 }
 
 void LambdaToMethod$LambdaAnalyzerPreprocessor::captureLocalClassDefs($Symbol* csym, $LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext* lambdaContext) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCClassDecl, localCDef, $cast($JCTree$JCClassDecl, $nc(this->localClassDefs)->get(csym)));
 	if (localCDef != nullptr && $nc($nc(lambdaContext)->freeVarProcessedLocalClasses)->add(csym)) {
 		$var($Lower$BasicFreeVarCollector, fvc, $new($LambdaToMethod$LambdaAnalyzerPreprocessor$1, this, static_cast<$Lower*>($nc(this->this$0->lower)), lambdaContext));
@@ -540,6 +550,7 @@ void LambdaToMethod$LambdaAnalyzerPreprocessor::captureLocalClassDefs($Symbol* c
 }
 
 bool LambdaToMethod$LambdaAnalyzerPreprocessor::currentlyInClass($Symbol* csym) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(this->frameStack)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -559,6 +570,7 @@ bool LambdaToMethod$LambdaAnalyzerPreprocessor::currentlyInClass($Symbol* csym) 
 }
 
 void LambdaToMethod$LambdaAnalyzerPreprocessor::visitReference($JCTree$JCMemberReference* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($LambdaToMethod$LambdaAnalyzerPreprocessor$ReferenceTranslationContext, rcontext, $new($LambdaToMethod$LambdaAnalyzerPreprocessor$ReferenceTranslationContext, this, tree));
 	$nc(this->this$0->contextMap)->put(tree, rcontext);
 	if (rcontext->needsConversionToLambda()) {
@@ -574,6 +586,7 @@ void LambdaToMethod$LambdaAnalyzerPreprocessor::visitReference($JCTree$JCMemberR
 }
 
 void LambdaToMethod$LambdaAnalyzerPreprocessor::visitSelect($JCTree$JCFieldAccess* tree) {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$Kind);
 	if (context() != nullptr && $nc($nc(tree)->sym)->kind == $Kinds$Kind::VAR && ($nc(tree->sym)->name == $nc(this->this$0->names)->_this || $nc($nc(tree)->sym)->name == $nc(this->this$0->names)->_super)) {
 		$var($LambdaToMethod$LambdaAnalyzerPreprocessor$TranslationContext, localContext, context());
@@ -594,6 +607,7 @@ void LambdaToMethod$LambdaAnalyzerPreprocessor::visitSelect($JCTree$JCFieldAcces
 }
 
 void LambdaToMethod$LambdaAnalyzerPreprocessor::visitVarDef($JCTree$JCVariableDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($LambdaToMethod$LambdaAnalyzerPreprocessor$TranslationContext, context, this->context());
 	{
 		$var($LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext, lambdaContext, nullptr);
@@ -641,6 +655,7 @@ $Symbol* LambdaToMethod$LambdaAnalyzerPreprocessor::owner() {
 }
 
 $Symbol* LambdaToMethod$LambdaAnalyzerPreprocessor::owner(bool skipLambda) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, frameStack2, this->frameStack);
 	while ($nc(frameStack2)->nonEmpty()) {
 			$init($LambdaToMethod$1);
@@ -688,6 +703,7 @@ $Symbol* LambdaToMethod$LambdaAnalyzerPreprocessor::owner(bool skipLambda) {
 }
 
 $Symbol* LambdaToMethod$LambdaAnalyzerPreprocessor::initSym($Symbol$ClassSymbol* csym, int64_t flags) {
+	$useLocalCurrentObjectStackCache();
 	bool isStatic = ((int64_t)(flags & (uint64_t)(int64_t)8)) != 0;
 	if (isStatic) {
 		$var($Symbol$MethodSymbol, clinit, $nc(this->this$0->attr)->removeClinit(csym));
@@ -719,6 +735,7 @@ $Symbol* LambdaToMethod$LambdaAnalyzerPreprocessor::initSym($Symbol$ClassSymbol*
 }
 
 $JCTree* LambdaToMethod$LambdaAnalyzerPreprocessor::directlyEnclosingLambda() {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(this->frameStack)->isEmpty()) {
 		return nullptr;
 	}
@@ -747,6 +764,7 @@ $JCTree* LambdaToMethod$LambdaAnalyzerPreprocessor::directlyEnclosingLambda() {
 }
 
 bool LambdaToMethod$LambdaAnalyzerPreprocessor::inClassWithinLambda() {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(this->frameStack)->isEmpty()) {
 		return false;
 	}
@@ -775,6 +793,7 @@ bool LambdaToMethod$LambdaAnalyzerPreprocessor::inClassWithinLambda() {
 }
 
 $JCTree* LambdaToMethod$LambdaAnalyzerPreprocessor::capturedDecl(int32_t depth, $Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	int32_t currentDepth = $nc(this->frameStack)->size() - 1;
 	{
 		$var($Iterator, i$, $nc(this->frameStack)->iterator());
@@ -827,6 +846,7 @@ $JCTree* LambdaToMethod$LambdaAnalyzerPreprocessor::capturedDecl(int32_t depth, 
 }
 
 $LambdaToMethod$LambdaAnalyzerPreprocessor$TranslationContext* LambdaToMethod$LambdaAnalyzerPreprocessor::context() {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(this->frameStack)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -848,6 +868,7 @@ bool LambdaToMethod$LambdaAnalyzerPreprocessor::lambdaIdentSymbolFilter($Symbol*
 }
 
 bool LambdaToMethod$LambdaAnalyzerPreprocessor::lambdaFieldAccessFilter($JCTree$JCFieldAccess* fAccess) {
+	$useLocalCurrentObjectStackCache();
 	$var($LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext, lambdaContext, nullptr);
 	$var($LambdaToMethod$LambdaAnalyzerPreprocessor$TranslationContext, patt75254$temp, this->this$0->context);
 	bool var$1 = $instanceOf($LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext, patt75254$temp);
@@ -862,6 +883,7 @@ bool LambdaToMethod$LambdaAnalyzerPreprocessor::lambdaFieldAccessFilter($JCTree$
 }
 
 bool LambdaToMethod$LambdaAnalyzerPreprocessor::lambdaNewClassFilter($LambdaToMethod$LambdaAnalyzerPreprocessor$TranslationContext* context, $JCTree$JCNewClass* tree) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	if (context != nullptr && $nc(tree)->encl == nullptr && tree->def == nullptr && !$nc($($nc(tree->type)->getEnclosingType()))->hasTag($TypeTag::NONE)) {
 		$var($Type, encl, $nc(tree->type)->getEnclosingType());

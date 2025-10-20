@@ -159,6 +159,7 @@ $Object* allocate$Items$ImmediateItem($Class* clazz) {
 }
 
 void Items$ImmediateItem::init$($Items* this$0, $Type* type, Object$* value) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, this$0, this$0);
 	$Items$Item::init$(this$0, $Code::typecode(type));
 	switch (this->typecode) {
@@ -213,6 +214,7 @@ $Number* Items$ImmediateItem::numericValue() {
 }
 
 $Items$Item* Items$ImmediateItem::load() {
+	$useLocalCurrentObjectStackCache();
 	{
 		int32_t ival = 0;
 		int64_t lval = 0;
@@ -297,6 +299,7 @@ $Items$CondItem* Items$ImmediateItem::mkCond() {
 }
 
 $Items$Item* Items$ImmediateItem::coerce(int32_t targetcode) {
+	$useLocalCurrentObjectStackCache();
 	if (this->typecode == targetcode) {
 		return this;
 	} else {

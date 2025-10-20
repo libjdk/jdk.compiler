@@ -275,6 +275,7 @@ void Main::init$($String* name, $PrintWriter* out, $PrintWriter* err) {
 }
 
 void Main::reportDiag($JCDiagnostic$DiagnosticInfo* diag) {
+	$useLocalCurrentObjectStackCache();
 	if (this->apiMode) {
 		$var($String, msg, $nc(this->log)->localize(diag));
 		$throwNew($PropagatedException, $$new($IllegalStateException, msg));
@@ -285,6 +286,7 @@ void Main::reportDiag($JCDiagnostic$DiagnosticInfo* diag) {
 }
 
 void Main::reportHelper($JCDiagnostic$DiagnosticInfo* diag) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, msg, $nc(this->log)->localize(diag));
 	$init($CompilerProperties$Errors);
 	$var($String, errorPrefix, $nc(this->log)->localize($CompilerProperties$Errors::Error));
@@ -293,6 +295,7 @@ void Main::reportHelper($JCDiagnostic$DiagnosticInfo* diag) {
 }
 
 $Main$Result* Main::compile($StringArray* args) {
+	$useLocalCurrentObjectStackCache();
 	$var($Context, context, $new($Context));
 	$JavacFileManager::preRegister(context);
 	$Main$Result* result = compile(args, context);
@@ -308,6 +311,7 @@ $Main$Result* Main::compile($StringArray* args) {
 }
 
 $Main$Result* Main::compile($StringArray* argv, $Context* context) {
+	$useLocalCurrentObjectStackCache();
 	if (this->stdOut != nullptr) {
 		$init($Log);
 		$nc(context)->put($Log::outKey, $of(this->stdOut));
@@ -541,6 +545,7 @@ $Main$Result* Main::compile($StringArray* argv, $Context* context) {
 }
 
 void Main::printArgumentsToFile($StringArray* params) {
+	$useLocalCurrentObjectStackCache();
 	$var($Path, out, $Paths::get($($String::format("javac.%s.args"_s, $$new($ObjectArray, {$($of($$new($SimpleDateFormat, "yyyyMMdd_HHmmss"_s)->format($($nc($($Calendar::getInstance()))->getTime()))))}))), $$new($StringArray, 0)));
 	$var($String, strOut, ""_s);
 	try {
@@ -603,6 +608,7 @@ void Main::printArgumentsToFile($StringArray* params) {
 }
 
 bool Main::twoClassLoadersInUse($IllegalAccessError* iae) {
+	$useLocalCurrentObjectStackCache();
 	$beforeCallerSensitive();
 	$var($String, msg, $nc(iae)->getMessage());
 	$var($Pattern, pattern, $Pattern::compile("(?i)(?<=tried to access class )([a-z_$][a-z\\d_$]*\\.)*[a-z_$][a-z\\d_$]*"_s));
@@ -634,6 +640,7 @@ bool Main::twoClassLoadersInUse($IllegalAccessError* iae) {
 }
 
 void Main::bugMessage($Throwable* ex) {
+	$useLocalCurrentObjectStackCache();
 	$init($Log$PrefixKind);
 	$nc(this->log)->printLines($Log$PrefixKind::JAVAC, "msg.bug"_s, $$new($ObjectArray, {$($of($JavaCompiler::version()))}));
 	$init($Log$WriterKind);
@@ -641,6 +648,7 @@ void Main::bugMessage($Throwable* ex) {
 }
 
 void Main::feMessage($Throwable* ex, $Options* options) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->log)->printRawLines($($nc(ex)->getMessage()));
 	bool var$0 = $nc(ex)->getCause() != nullptr;
 	if (var$0 && $nc(options)->isSet("dev"_s)) {
@@ -650,6 +658,7 @@ void Main::feMessage($Throwable* ex, $Options* options) {
 }
 
 void Main::ioMessage($Throwable* ex) {
+	$useLocalCurrentObjectStackCache();
 	$init($Log$PrefixKind);
 	$nc(this->log)->printLines($Log$PrefixKind::JAVAC, "msg.io"_s, $$new($ObjectArray, 0));
 	$init($Log$WriterKind);
@@ -657,6 +666,7 @@ void Main::ioMessage($Throwable* ex) {
 }
 
 void Main::resourceMessage($Throwable* ex) {
+	$useLocalCurrentObjectStackCache();
 	$init($Log$PrefixKind);
 	$nc(this->log)->printLines($Log$PrefixKind::JAVAC, "msg.resource"_s, $$new($ObjectArray, 0));
 	$init($Log$WriterKind);
@@ -664,6 +674,7 @@ void Main::resourceMessage($Throwable* ex) {
 }
 
 void Main::apMessage($AnnotationProcessingError* ex) {
+	$useLocalCurrentObjectStackCache();
 	$init($Log$PrefixKind);
 	$nc(this->log)->printLines($Log$PrefixKind::JAVAC, "msg.proc.annotation.uncaught.exception"_s, $$new($ObjectArray, 0));
 	$init($Log$WriterKind);
@@ -671,6 +682,7 @@ void Main::apMessage($AnnotationProcessingError* ex) {
 }
 
 void Main::pluginMessage($Throwable* ex) {
+	$useLocalCurrentObjectStackCache();
 	$init($Log$PrefixKind);
 	$nc(this->log)->printLines($Log$PrefixKind::JAVAC, "msg.plugin.uncaught.exception"_s, $$new($ObjectArray, 0));
 	$init($Log$WriterKind);
@@ -678,6 +690,7 @@ void Main::pluginMessage($Throwable* ex) {
 }
 
 void Main::showClass($String* className) {
+	$useLocalCurrentObjectStackCache();
 	$beforeCallerSensitive();
 	$init($Log$WriterKind);
 	$var($PrintWriter, pw, $nc(this->log)->getWriter($Log$WriterKind::NOTICE));

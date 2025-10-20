@@ -98,6 +98,7 @@ void Infer$3::init$($Infer* this$0) {
 }
 
 $List* Infer$3::getIncorporationActions($Type$UndetVar* uv, $Type$UndetVar$InferenceBound* ib, $Type* t, bool update) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, actions, $new($ListBuffer));
 	$var($Type, inst, $nc(uv)->getInst());
 	if (inst != nullptr) {

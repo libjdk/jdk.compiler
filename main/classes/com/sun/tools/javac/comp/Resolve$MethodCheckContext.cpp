@@ -93,6 +93,7 @@ void Resolve$MethodCheckContext::init$($Resolve* this$0, bool strict, $DeferredA
 }
 
 bool Resolve$MethodCheckContext::compatible($Type* found, $Type* req, $Warner* warn) {
+	$useLocalCurrentObjectStackCache();
 	$var($InferenceContext, inferenceContext, $nc(this->deferredAttrContext$)->inferenceContext);
 	bool var$0 = false;
 	if (this->strict) {

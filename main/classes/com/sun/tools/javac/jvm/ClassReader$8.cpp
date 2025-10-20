@@ -96,6 +96,7 @@ void ClassReader$8::init$($ClassReader* this$0, $Name* name, $ClassFile$Version*
 }
 
 void ClassReader$8::read($Symbol* sym, int32_t attrLen) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$ClassSymbol, c, $cast($Symbol$ClassSymbol, sym));
 	$var($Name, n, $nc(this->this$0->poolReader)->getName(this->this$0->nextChar()));
 	$set($nc(c), sourcefile, $new($ClassReader$SourceFileObject, n));

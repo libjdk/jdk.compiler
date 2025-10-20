@@ -107,6 +107,7 @@ $Boolean* Check$2::visitType($Type* t, $Void* s) {
 }
 
 $Boolean* Check$2::visitClassType($Type$ClassType* t, $Void* s) {
+	$useLocalCurrentObjectStackCache();
 	bool var$0 = $nc(t)->isUnion();
 	if (var$0 || $nc(t)->isIntersection()) {
 		return $Boolean::valueOf(false);

@@ -452,6 +452,7 @@ void JavadocHelper$OnDemandJavadocHelper$1::init$($JavadocHelper$OnDemandJavadoc
 }
 
 $Void* JavadocHelper$OnDemandJavadocHelper$1::visitDocComment($DocCommentTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, dcTree, node);
 	$nc(this->interestingParent)->push(node);
 	{
@@ -567,6 +568,7 @@ $Void* JavadocHelper$OnDemandJavadocHelper$1::visitDocComment($DocCommentTree* n
 }
 
 $Void* JavadocHelper$OnDemandJavadocHelper$1::visitParam($ParamTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->interestingParent)->push(node);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -592,6 +594,7 @@ $Void* JavadocHelper$OnDemandJavadocHelper$1::visitParam($ParamTree* node, $Void
 }
 
 $Void* JavadocHelper$OnDemandJavadocHelper$1::visitThrows($ThrowsTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->interestingParent)->push(node);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -617,6 +620,7 @@ $Void* JavadocHelper$OnDemandJavadocHelper$1::visitThrows($ThrowsTree* node, $Vo
 }
 
 $Void* JavadocHelper$OnDemandJavadocHelper$1::visitReturn($ReturnTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->interestingParent)->push(node);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -642,6 +646,7 @@ $Void* JavadocHelper$OnDemandJavadocHelper$1::visitReturn($ReturnTree* node, $Vo
 }
 
 $Void* JavadocHelper$OnDemandJavadocHelper$1::visitInheritDoc($InheritDocTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	if (this->inherited == nullptr) {
 		try {
 			$init($ElementKind);
@@ -744,6 +749,7 @@ $Void* JavadocHelper$OnDemandJavadocHelper$1::visitInheritDoc($InheritDocTree* n
 }
 
 $Void* JavadocHelper$OnDemandJavadocHelper$1::scan($DocTree* tree, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(this->val$exception)->get(0) != nullptr) {
 		return nullptr;
 	}
@@ -787,6 +793,7 @@ $Void* JavadocHelper$OnDemandJavadocHelper$1::scan($DocTree* tree, $Void* p) {
 }
 
 void JavadocHelper$OnDemandJavadocHelper$1::insertTag($List* tags, $DocTree* toInsert, $List* parameters, $List* throwsTypes) {
+	$useLocalCurrentObjectStackCache();
 	$var($Comparator, comp, static_cast<$Comparator*>($new(JavadocHelper$OnDemandJavadocHelper$1$$Lambda$lambda$insertTag$4$4, this, toInsert, parameters, throwsTypes, this->val$task, this->val$el, this->val$docCommentTree)));
 	for (int32_t i = 0; i < $nc(tags)->size(); ++i) {
 		if ($nc(comp)->compare($cast($DocTree, $(tags->get(i))), toInsert) >= 0) {
@@ -822,6 +829,7 @@ $Object* JavadocHelper$OnDemandJavadocHelper$1::scan($DocTree* tree, Object$* p)
 }
 
 int32_t JavadocHelper$OnDemandJavadocHelper$1::lambda$insertTag$4($DocTree* toInsert, $List* parameters, $List* throwsTypes, $JavacTask* task, $TreePath* el, $DocCommentTree* docCommentTree, $DocTree* tag1, $DocTree* tag2) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(tag1)->getKind() == $nc(tag2)->getKind()) {
 		$init($JavadocHelper$2);
 		switch ($nc($JavadocHelper$2::$SwitchMap$com$sun$source$doctree$DocTree$Kind)->get($nc(($($nc(toInsert)->getKind())))->ordinal())) {

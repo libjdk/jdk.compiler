@@ -82,6 +82,7 @@ int32_t PubType::hashCode() {
 }
 
 $String* PubType::toString() {
+	$useLocalCurrentObjectStackCache();
 	return $String::format("%s[modifiers: %s, fqName: %s, pubApi: %s]"_s, $$new($ObjectArray, {
 		$($of($of(this)->getClass()->getSimpleName())),
 		$of(this->modifiers),

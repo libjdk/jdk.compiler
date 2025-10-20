@@ -177,6 +177,7 @@ bool JDKPlatformProvider$PlatformDescriptionImpl$1::hasLocation($JavaFileManager
 }
 
 $JavaFileObject* JDKPlatformProvider$PlatformDescriptionImpl$1::getJavaFileForInput($JavaFileManager$Location* location, $String* className, $JavaFileObject$Kind* kind) {
+	$useLocalCurrentObjectStackCache();
 	$init($JavaFileObject$Kind);
 	if (kind == $JavaFileObject$Kind::CLASS) {
 		$var($String, fileName, $nc(className)->replace(u'.', u'/'));
@@ -194,6 +195,7 @@ $JavaFileObject* JDKPlatformProvider$PlatformDescriptionImpl$1::getJavaFileForIn
 }
 
 $Iterable* JDKPlatformProvider$PlatformDescriptionImpl$1::list($JavaFileManager$Location* location, $String* packageName, $Set* kinds, bool recurse) {
+	$useLocalCurrentObjectStackCache();
 	$var($Set, enhancedKinds, $EnumSet::copyOf(static_cast<$Collection*>(kinds)));
 	$init($JavaFileObject$Kind);
 	$nc(enhancedKinds)->add($JavaFileObject$Kind::OTHER);
@@ -202,6 +204,7 @@ $Iterable* JDKPlatformProvider$PlatformDescriptionImpl$1::list($JavaFileManager$
 }
 
 $String* JDKPlatformProvider$PlatformDescriptionImpl$1::inferBinaryName($JavaFileManager$Location* location, $JavaFileObject* file$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileObject, file, file$renamed);
 	{
 		$var($JDKPlatformProvider$PlatformDescriptionImpl$SigJavaFileObject, sigJavaFileObject, nullptr);

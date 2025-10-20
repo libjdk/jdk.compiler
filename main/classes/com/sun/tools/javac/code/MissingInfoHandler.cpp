@@ -82,6 +82,7 @@ void MissingInfoHandler::init$($Context* context) {
 }
 
 $Name* MissingInfoHandler::getParameterName($Symbol$ParamSymbol* parameter) {
+	$useLocalCurrentObjectStackCache();
 	if (this->parameterNameProvider != nullptr) {
 		$var($CharSequence, name, $nc(this->parameterNameProvider)->getParameterName(parameter));
 		if (name != nullptr) {

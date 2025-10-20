@@ -72,6 +72,7 @@ void Types$MostSpecificReturnCheck$1::init$($String* $enum$name, int32_t $enum$o
 }
 
 bool Types$MostSpecificReturnCheck$1::test($Type* mt1, $Type* mt2, $Types* types) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, tvars, $nc(mt1)->getTypeArguments());
 	$var($List, svars, $nc(mt2)->getTypeArguments());
 	$var($Type, t, mt1->getReturnType());

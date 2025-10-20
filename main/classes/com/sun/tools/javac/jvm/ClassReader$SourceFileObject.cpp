@@ -110,6 +110,7 @@ void ClassReader$SourceFileObject::init$($Name* name) {
 }
 
 $URI* ClassReader$SourceFileObject::toUri() {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $new($URI, nullptr, $($nc(this->name)->toString()), nullptr);
 	} catch ($URISyntaxException&) {

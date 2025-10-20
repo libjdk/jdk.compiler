@@ -462,6 +462,7 @@ Enter* Enter::instance($Context* context) {
 }
 
 void Enter::init$($Context* context) {
+	$useLocalCurrentObjectStackCache();
 	$JCTree$Visitor::init$();
 	$set(this, unfinishedModules, $new($ListBuffer));
 	$set(this, setPackageSymbols, $new($Enter$1, this));
@@ -500,6 +501,7 @@ $Iterable* Enter::getEnvs() {
 }
 
 $Env* Enter::getClassEnv($Symbol$TypeSymbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$var($Env, localEnv, getEnv(sym));
 	if (localEnv == nullptr) {
 		return nullptr;
@@ -513,6 +515,7 @@ $Env* Enter::getClassEnv($Symbol$TypeSymbol* sym) {
 }
 
 $Env* Enter::classEnv($JCTree$JCClassDecl* tree, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($Env, localEnv, $nc(env)->dup(tree, $($nc(($cast($AttrContext, env->info)))->dup($($Scope$WriteableScope::create($nc(tree)->sym))))));
 	$set($nc(localEnv), enclClass, tree);
 	$set(localEnv, outer, env);
@@ -523,6 +526,7 @@ $Env* Enter::classEnv($JCTree$JCClassDecl* tree, $Env* env) {
 }
 
 $Env* Enter::topLevelEnv($JCTree$JCCompilationUnit* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Env, localEnv, $new($Env, tree, $$new($AttrContext)));
 	$set(localEnv, toplevel, tree);
 	$set(localEnv, enclClass, this->predefClassDef);
@@ -535,6 +539,7 @@ $Env* Enter::topLevelEnv($JCTree$JCCompilationUnit* tree) {
 }
 
 $Env* Enter::getTopLevelEnv($JCTree$JCCompilationUnit* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Env, localEnv, $new($Env, tree, $$new($AttrContext)));
 	$set(localEnv, toplevel, tree);
 	$set(localEnv, enclClass, this->predefClassDef);
@@ -549,6 +554,7 @@ $Scope$WriteableScope* Enter::enterScope($Env* env) {
 }
 
 $Env* Enter::moduleEnv($JCTree$JCModuleDecl* tree, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::checkNonNull($nc(tree)->sym);
 	$var($Env, localEnv, $nc(env)->dup(tree, $($nc(($cast($AttrContext, env->info)))->dup($($Scope$WriteableScope::create($nc(tree)->sym))))));
 	$set($nc(localEnv), enclClass, this->predefClassDef);
@@ -559,6 +565,7 @@ $Env* Enter::moduleEnv($JCTree$JCModuleDecl* tree, $Env* env) {
 }
 
 $Type* Enter::classEnter($JCTree* tree, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($Env, prevEnv, this->env);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -595,6 +602,7 @@ $Type* Enter::classEnter($JCTree* tree, $Env* env) {
 }
 
 $List* Enter::classEnter($List* trees, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, ts, $new($ListBuffer));
 	{
 		$var($List, l, trees);
@@ -609,6 +617,7 @@ $List* Enter::classEnter($List* trees, $Env* env) {
 }
 
 void Enter::visitTopLevel($JCTree$JCCompilationUnit* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileObject, prev, $nc(this->log)->useSource($nc(tree)->sourcefile));
 	bool addEnv = false;
 	$init($JavaFileObject$Kind);
@@ -685,6 +694,7 @@ void Enter::visitTopLevel($JCTree$JCCompilationUnit* tree) {
 }
 
 void Enter::visitClassDef($JCTree$JCClassDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, owner, $nc($nc(($cast($AttrContext, $nc(this->env)->info)))->scope)->owner);
 	$var($Scope$WriteableScope, enclScope, enterScope(this->env));
 	$var($Symbol$ClassSymbol, c, nullptr);
@@ -796,6 +806,7 @@ void Enter::duplicateClass($JCDiagnostic$DiagnosticPosition* pos, $Symbol$ClassS
 }
 
 void Enter::visitTypeParameter($JCTree$JCTypeParameter* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type$TypeVar, a, ($nc(tree)->type != nullptr) ? $cast($Type$TypeVar, $nc(tree)->type) : $new($Type$TypeVar, tree->name, $nc($nc(($cast($AttrContext, $nc(this->env)->info)))->scope)->owner, $nc(this->syms)->botType));
 	$set(tree, type, a);
 	if ($nc(this->chk)->checkUnique($(tree->pos()), $nc(a)->tsym, $nc(($cast($AttrContext, $nc(this->env)->info)))->scope)) {
@@ -821,6 +832,7 @@ void Enter::main($List* trees) {
 }
 
 void Enter::complete($List* trees, $Symbol$ClassSymbol* c) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->annotate)->blockAnnotations();
 	$var($ListBuffer, prevUncompleted, this->uncompleted);
 	if ($nc(this->typeEnter)->completionEnabled) {

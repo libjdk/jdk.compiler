@@ -73,6 +73,7 @@ void OptionHelper::init$() {
 }
 
 $Option$InvalidValueException* OptionHelper::newInvalidValueException($JCDiagnostic$Error* error) {
+	$useLocalCurrentObjectStackCache();
 	return $new($Option$InvalidValueException, $($nc($(getLog()))->localize(error)));
 }
 

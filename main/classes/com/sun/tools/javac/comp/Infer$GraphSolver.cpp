@@ -99,6 +99,7 @@ void Infer$GraphSolver::init$($Infer* this$0, $InferenceContext* inferenceContex
 }
 
 void Infer$GraphSolver::solve($Infer$GraphStrategy* sstrategy) {
+	$useLocalCurrentObjectStackCache();
 	this->this$0->doIncorporation(this->inferenceContext, this->warn);
 	$var($Infer$GraphSolver$InferenceGraph, inferenceGraph, $new($Infer$GraphSolver$InferenceGraph, this));
 	while (!$nc(sstrategy)->done()) {

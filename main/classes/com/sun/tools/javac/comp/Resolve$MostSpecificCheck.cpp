@@ -104,6 +104,7 @@ void Resolve$MostSpecificCheck::init$($Resolve* this$0, $List* actuals) {
 }
 
 void Resolve$MostSpecificCheck::argumentsAcceptable($Env* env, $DeferredAttr$DeferredAttrContext* deferredAttrContext, $List* formals1$renamed, $List* formals2$renamed, $Warner* warn) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, formals1, formals1$renamed);
 	$var($List, formals2, formals2$renamed);
 	$var($List, var$0, formals2);

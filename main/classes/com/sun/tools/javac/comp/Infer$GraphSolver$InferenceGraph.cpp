@@ -112,6 +112,7 @@ void Infer$GraphSolver$InferenceGraph::init$($Infer$GraphSolver* this$1) {
 }
 
 $Infer$GraphSolver$InferenceGraph$Node* Infer$GraphSolver$InferenceGraph::findNode($Type* t) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(this->nodes)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -133,6 +134,7 @@ void Infer$GraphSolver$InferenceGraph::deleteNode($Infer$GraphSolver$InferenceGr
 }
 
 void Infer$GraphSolver$InferenceGraph::notifyUpdate($Infer$GraphSolver$InferenceGraph$Node* from, $Infer$GraphSolver$InferenceGraph$Node* to) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(this->nodes)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -145,6 +147,7 @@ void Infer$GraphSolver$InferenceGraph::notifyUpdate($Infer$GraphSolver$Inference
 }
 
 void Infer$GraphSolver$InferenceGraph::initNodes() {
+	$useLocalCurrentObjectStackCache();
 	$set(this, nodes, $new($ArrayList));
 	{
 		$var($Iterator, i$, $nc($($nc(this->this$1->inferenceContext)->restvars()))->iterator());
@@ -207,6 +210,7 @@ void Infer$GraphSolver$InferenceGraph::initNodes() {
 }
 
 $String* Infer$GraphSolver$InferenceGraph::toDot() {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, buf, $new($StringBuilder));
 	{
 		$var($Iterator, i$, $nc($nc(this->this$1->inferenceContext)->undetvars)->iterator());

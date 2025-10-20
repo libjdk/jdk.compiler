@@ -135,6 +135,7 @@ $Type* DeferredAttr$RecoveryDeferredTypeMap::typeOf($DeferredAttr$DeferredType* 
 }
 
 $Type* DeferredAttr$RecoveryDeferredTypeMap::visitMethodType($Type$MethodType* t, $Type* pt) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	$init($DeferredAttr$AttrMode);
 	if ($nc(t)->hasTag($TypeTag::METHOD) && $nc(this->deferredAttrContext)->mode == $DeferredAttr$AttrMode::CHECK) {
@@ -160,6 +161,7 @@ $Type* DeferredAttr$RecoveryDeferredTypeMap::visitMethodType($Type$MethodType* t
 }
 
 $Type* DeferredAttr$RecoveryDeferredTypeMap::recover($DeferredAttr$DeferredType* dt, $Type* pt) {
+	$useLocalCurrentObjectStackCache();
 	$init($JCTree$Tag);
 	bool var$0 = $nc($nc(dt)->tree)->hasTag($JCTree$Tag::REFERENCE);
 	bool isLambdaOrMemberRef = var$0 || $nc($nc(dt)->tree)->hasTag($JCTree$Tag::LAMBDA);
@@ -171,6 +173,7 @@ $Type* DeferredAttr$RecoveryDeferredTypeMap::recover($DeferredAttr$DeferredType*
 }
 
 $List* DeferredAttr$RecoveryDeferredTypeMap::map($List* ts, $List* pts) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(ts)->nonEmpty()) {
 		$var($List, tail1, map(ts->tail, pts != nullptr ? $nc(pts)->tail : ($List*)nullptr));
 		$var($Type, t, $cast($Type, visit($cast($Type, ts->head), pts != nullptr && pts->nonEmpty() ? $cast($Type, $nc(pts)->head) : ($Type*)nullptr)));

@@ -130,6 +130,7 @@ void JavaCompiler$1MethodBodyRemover::init$($JavaCompiler* this$0, bool val$isIn
 }
 
 void JavaCompiler$1MethodBodyRemover::visitMethodDef($JCTree$JCMethodDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	$nc($nc(tree)->mods)->flags &= (uint64_t)~$Flags::SYNCHRONIZED;
 	{
 		$var($Iterator, i$, $nc(tree->params)->iterator());
@@ -150,6 +151,7 @@ void JavaCompiler$1MethodBodyRemover::visitVarDef($JCTree$JCVariableDecl* tree) 
 }
 
 void JavaCompiler$1MethodBodyRemover::visitClassDef($JCTree$JCClassDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, newdefs, $new($ListBuffer));
 	{
 		$var($List, it, $nc(tree)->defs);

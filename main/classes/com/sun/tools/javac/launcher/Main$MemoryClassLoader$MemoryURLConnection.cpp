@@ -81,6 +81,7 @@ void Main$MemoryClassLoader$MemoryURLConnection::init$($URL* u, $bytes* bytes) {
 }
 
 void Main$MemoryClassLoader$MemoryURLConnection::connect() {
+	$useLocalCurrentObjectStackCache();
 	if (!this->connected) {
 		if (this->bytes == nullptr) {
 			$throwNew($FileNotFoundException, $($nc($(getURL()))->getPath()));

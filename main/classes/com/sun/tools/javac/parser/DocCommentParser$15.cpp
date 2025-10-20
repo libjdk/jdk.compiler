@@ -98,6 +98,7 @@ void DocCommentParser$15::init$($DocCommentParser* this$0, $DocCommentParser$Tag
 }
 
 $DCTree* DocCommentParser$15::parse(int32_t pos) {
+	$useLocalCurrentObjectStackCache();
 	this->this$0->skipWhitespace();
 	{
 		$var($DCTree$DCText, string, nullptr)

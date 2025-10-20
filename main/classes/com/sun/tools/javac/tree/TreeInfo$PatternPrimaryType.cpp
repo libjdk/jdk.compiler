@@ -99,14 +99,17 @@ bool TreeInfo$PatternPrimaryType::unconditional() {
 }
 
 $String* TreeInfo$PatternPrimaryType::toString() {
+	$useLocalCurrentObjectStackCache();
 	return $cast($String, $cast($MethodHandle, $($ObjectMethods::bootstrap($($MethodHandles::lookup()), "toString"_s, $($MethodType::methodType(nullptr)), TreeInfo$PatternPrimaryType::class$, "type;unconditional"_s, $$new($MethodHandleArray, {nullptr, nullptr}))))->invoke($$new($ObjectArray, {$of(this)})));
 }
 
 int32_t TreeInfo$PatternPrimaryType::hashCode() {
+	$useLocalCurrentObjectStackCache();
 	return $intValue($cast($MethodHandle, $($ObjectMethods::bootstrap($($MethodHandles::lookup()), "hashCode"_s, $($MethodType::methodType(nullptr)), TreeInfo$PatternPrimaryType::class$, "type;unconditional"_s, $$new($MethodHandleArray, {nullptr, nullptr}))))->invoke($$new($ObjectArray, {$of(this)})));
 }
 
 bool TreeInfo$PatternPrimaryType::equals(Object$* o) {
+	$useLocalCurrentObjectStackCache();
 	return $booleanValue($cast($MethodHandle, $($ObjectMethods::bootstrap($($MethodHandles::lookup()), "equals"_s, $($MethodType::methodType(nullptr)), TreeInfo$PatternPrimaryType::class$, "type;unconditional"_s, $$new($MethodHandleArray, {nullptr, nullptr}))))->invoke($$new($ObjectArray, {$of(this), o})));
 }
 

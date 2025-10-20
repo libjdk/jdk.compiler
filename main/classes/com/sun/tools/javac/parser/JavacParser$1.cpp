@@ -195,6 +195,7 @@ $ints* JavacParser$1::$SwitchMap$com$sun$tools$javac$parser$JavacParser$ParensRe
 $ints* JavacParser$1::$SwitchMap$com$sun$tools$javac$parser$Tokens$TokenKind = nullptr;
 
 void clinit$JavacParser$1($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(JavacParser$1::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag, $new($ints, $($JCTree$Tag::values())->length));
 	{
 		try {

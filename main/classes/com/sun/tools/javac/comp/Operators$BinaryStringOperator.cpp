@@ -87,6 +87,7 @@ void Operators$BinaryStringOperator::init$($Operators* this$0, $JCTree$Tag* tag)
 }
 
 $Symbol$OperatorSymbol* Operators$BinaryStringOperator::resolve($Type* arg1, $Type* arg2) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, var$0, stringPromotion(arg1));
 	return doLookup(var$0, $(stringPromotion(arg2)));
 }

@@ -81,6 +81,7 @@ void Main$MemoryClassLoader$MemoryURLStreamHandler::init$($Main$MemoryClassLoade
 }
 
 $URLConnection* Main$MemoryClassLoader$MemoryURLStreamHandler::openConnection($URL* u) {
+	$useLocalCurrentObjectStackCache();
 	if (!$nc($($nc(u)->getProtocol()))->equalsIgnoreCase(this->this$0->PROTOCOL)) {
 		$throwNew($IllegalArgumentException, $(u->toString()));
 	}

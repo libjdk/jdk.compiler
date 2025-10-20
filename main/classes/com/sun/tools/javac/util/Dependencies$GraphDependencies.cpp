@@ -225,6 +225,7 @@ void Dependencies$GraphDependencies::preRegister($Context* context) {
 }
 
 void Dependencies$GraphDependencies::init$($Context* context) {
+	$useLocalCurrentObjectStackCache();
 	$Dependencies::init$(context);
 	$set(this, nodeStack, $new($Stack));
 	$set(this, dependencyNodeMap, $new($LinkedHashMap));
@@ -256,6 +257,7 @@ void Dependencies$GraphDependencies::push($Symbol$ClassSymbol* s, $Dependencies$
 }
 
 $Dependencies$GraphDependencies$Node* Dependencies$GraphDependencies::push($Dependencies$GraphDependencies$Node* newNode$renamed, $Dependencies$CompletionCause* cc) {
+	$useLocalCurrentObjectStackCache();
 	$var($Dependencies$GraphDependencies$Node, newNode, newNode$renamed);
 	$var($Dependencies$GraphDependencies$Node, cachedNode, $cast($Dependencies$GraphDependencies$Node, $nc(this->dependencyNodeMap)->get($nc(newNode)->data)));
 	if (cachedNode == nullptr) {
@@ -276,6 +278,7 @@ void Dependencies$GraphDependencies::pop() {
 }
 
 void Dependencies$GraphDependencies::close() {
+	$useLocalCurrentObjectStackCache();
 	$init($Dependencies$GraphDependencies$DependenciesMode);
 	if (!$nc(this->dependenciesModes)->contains($Dependencies$GraphDependencies$DependenciesMode::REDUNDANT)) {
 		$$new($Dependencies$GraphDependencies$PruneVisitor)->visit($($nc(this->dependencyNodeMap)->values()), nullptr);

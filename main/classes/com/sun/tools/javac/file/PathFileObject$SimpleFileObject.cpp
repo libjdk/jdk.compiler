@@ -93,6 +93,7 @@ $String* PathFileObject$SimpleFileObject::getShortName() {
 }
 
 $String* PathFileObject$SimpleFileObject::inferBinaryName($Iterable* paths) {
+	$useLocalCurrentObjectStackCache();
 	$var($Path, absPath, $nc(this->path)->toAbsolutePath());
 	{
 		$var($Iterator, i$, $nc(paths)->iterator());
@@ -129,6 +130,7 @@ $URI* PathFileObject$SimpleFileObject::toUri() {
 }
 
 $PathFileObject* PathFileObject$SimpleFileObject::getSibling($String* baseName) {
+	$useLocalCurrentObjectStackCache();
 	$var($BaseFileManager, var$0, this->fileManager);
 	$var($Path, var$1, $nc(this->path)->resolveSibling(baseName));
 	return $new(PathFileObject$SimpleFileObject, var$0, var$1, $($nc(this->userPath)->resolveSibling(baseName)));

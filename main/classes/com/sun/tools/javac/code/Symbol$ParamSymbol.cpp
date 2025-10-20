@@ -70,6 +70,7 @@ void Symbol$ParamSymbol::init$(int64_t flags, $Name* name, $Type* type, $Symbol*
 }
 
 $1Name* Symbol$ParamSymbol::getSimpleName() {
+	$useLocalCurrentObjectStackCache();
 	if (((int64_t)(this->flags_field & (uint64_t)(int64_t)0x0010000000000000)) == 0) {
 		this->flags_field |= 0x0010000000000000;
 		$var($Symbol, rootPack, this);

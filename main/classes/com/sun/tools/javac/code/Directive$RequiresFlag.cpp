@@ -132,6 +132,7 @@ void Directive$RequiresFlag::init$($String* $enum$name, int32_t $enum$ordinal, i
 }
 
 $String* Directive$RequiresFlag::toString() {
+	$useLocalCurrentObjectStackCache();
 	return $String::format("ACC_%s (0x%04x"_s, $$new($ObjectArray, {
 		$($of(name())),
 		$($of($Integer::valueOf(this->value$)))

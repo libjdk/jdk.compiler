@@ -125,6 +125,7 @@ bool Resolve$AccessError::exists() {
 }
 
 $JCDiagnostic* Resolve$AccessError::getDiagnostic($JCDiagnostic$DiagnosticType* dkind, $JCDiagnostic$DiagnosticPosition* pos, $Symbol* location, $Type* site, $Name* name, $List* argtypes, $List* typeargtypes) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(this->sym)->name == $nc(this->this$0->names)->init && !$equals($nc(this->sym)->owner, $nc(site)->tsym)) {
 		$init($Kinds$Kind);
 		return $$new($Resolve$SymbolNotFoundError, this->this$0, $Kinds$Kind::ABSENT_MTH)->getDiagnostic(dkind, pos, location, site, name, argtypes, typeargtypes);
@@ -190,6 +191,7 @@ $JCDiagnostic* Resolve$AccessError::getDiagnostic($JCDiagnostic$DiagnosticType* 
 }
 
 $String* Resolve$AccessError::toString($Type* type) {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, sb, $new($StringBuilder));
 	sb->append($of(type));
 	if (type != nullptr) {

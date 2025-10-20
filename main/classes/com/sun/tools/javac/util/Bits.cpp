@@ -106,6 +106,7 @@ void Bits::init$() {
 }
 
 void Bits::init$(Bits* someBits) {
+	$useLocalCurrentObjectStackCache();
 	$var($ints, var$0, $nc($($nc(someBits)->dup()))->bits);
 	Bits::init$(var$0, $($Bits$BitsState::getState(someBits->bits, false)));
 }

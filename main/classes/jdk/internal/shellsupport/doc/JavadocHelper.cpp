@@ -99,6 +99,7 @@ void JavadocHelper::init$() {
 
 JavadocHelper* JavadocHelper::create($JavacTask* mainTask, $Collection* sourceLocations) {
 	$init(JavadocHelper);
+	$useLocalCurrentObjectStackCache();
 	$var($StandardJavaFileManager, fm, $nc(JavadocHelper::compiler)->getStandardFileManager(nullptr, nullptr, nullptr));
 	try {
 		$init($StandardLocation);

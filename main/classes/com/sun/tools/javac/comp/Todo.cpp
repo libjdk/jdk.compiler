@@ -145,6 +145,7 @@ bool Todo::offer($Env* e) {
 }
 
 void Todo::retainFiles($Collection* sourceFiles) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, it, $nc(this->contents)->iterator());
 		for (; $nc(it)->hasNext();) {
@@ -175,6 +176,7 @@ $Object* Todo::peek() {
 }
 
 $Queue* Todo::groupByFile() {
+	$useLocalCurrentObjectStackCache();
 	if (this->contentsByFile == nullptr) {
 		$set(this, contentsByFile, $new($LinkedList));
 		{
@@ -191,6 +193,7 @@ $Queue* Todo::groupByFile() {
 }
 
 void Todo::addByFile($Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileObject, file, $nc($nc(env)->toplevel)->sourcefile);
 	if (this->fileMap == nullptr) {
 		$set(this, fileMap, $new($HashMap));
@@ -205,6 +208,7 @@ void Todo::addByFile($Env* env) {
 }
 
 void Todo::removeByFile($Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileObject, file, $nc($nc(env)->toplevel)->sourcefile);
 	$var($Todo$FileQueue, fq, $cast($Todo$FileQueue, $nc(this->fileMap)->get(file)));
 	if (fq == nullptr) {

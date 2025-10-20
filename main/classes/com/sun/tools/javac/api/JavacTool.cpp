@@ -163,6 +163,7 @@ JavacTool* JavacTool::create() {
 }
 
 $StandardJavaFileManager* JavacTool::getStandardFileManager($DiagnosticListener* diagnosticListener, $Locale* locale, $Charset* charset) {
+	$useLocalCurrentObjectStackCache();
 	$var($Context, context, $new($Context));
 	$load($Locale);
 	context->put($Locale::class$, $of(locale));
@@ -184,6 +185,7 @@ $JavaCompiler$CompilationTask* JavacTool::getTask($Writer* out, $JavaFileManager
 }
 
 $JavacTask* JavacTool::getTask($Writer* out, $JavaFileManager* fileManager$renamed, $DiagnosticListener* diagnosticListener, $Iterable* options, $Iterable* classes, $Iterable* compilationUnits$renamed, $Context* context) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileManager, fileManager, fileManager$renamed);
 	$var($Iterable, compilationUnits, compilationUnits$renamed);
 	try {
@@ -294,6 +296,7 @@ $JavacTask* JavacTool::getTask($Writer* out, $JavaFileManager* fileManager$renam
 }
 
 int32_t JavacTool::run($InputStream* in, $OutputStream* out, $OutputStream* err$renamed, $StringArray* arguments) {
+	$useLocalCurrentObjectStackCache();
 	$var($OutputStream, err, err$renamed);
 	if (err == nullptr) {
 		$init($System);
@@ -312,11 +315,13 @@ int32_t JavacTool::run($InputStream* in, $OutputStream* out, $OutputStream* err$
 }
 
 $Set* JavacTool::getSourceVersions() {
+	$useLocalCurrentObjectStackCache();
 	$init($SourceVersion);
 	return $Collections::unmodifiableSet($($EnumSet::range($SourceVersion::RELEASE_3, $($SourceVersion::latest()))));
 }
 
 int32_t JavacTool::isSupportedOption($String* option) {
+	$useLocalCurrentObjectStackCache();
 	$var($Set, recognizedOptions, $Option::getJavacToolOptions());
 	{
 		$var($Iterator, i$, $nc(recognizedOptions)->iterator());

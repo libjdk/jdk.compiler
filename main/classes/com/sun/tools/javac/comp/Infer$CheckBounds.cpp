@@ -163,6 +163,7 @@ $Infer$IncorporationAction* Infer$CheckBounds::dup($Type$UndetVar* that) {
 }
 
 void Infer$CheckBounds::apply($InferenceContext* inferenceContext, $Warner* warn) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, t, $cast($Type, $nc(this->typeFunc)->apply(inferenceContext, this->t)));
 	if (this->optFilter != nullptr && $nc(this->optFilter)->test(inferenceContext, this->t)) {
 		return;
@@ -222,6 +223,7 @@ void Infer$CheckBounds::report($Type$UndetVar$InferenceBound* from, $Type$UndetV
 }
 
 $String* Infer$CheckBounds::toString() {
+	$useLocalCurrentObjectStackCache();
 	return $String::format("%s[undet=%s,t=%s,bound=%s]"_s, $$new($ObjectArray, {
 		$($of($of(this)->getClass()->getSimpleName())),
 		$of($nc(this->uv)->qtype),

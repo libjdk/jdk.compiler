@@ -100,6 +100,7 @@ $JavaFileObject* WrappingJavaFileManager::unwrap($JavaFileObject* fileObject) {
 }
 
 $Iterable* WrappingJavaFileManager::wrap($Iterable* fileObjects) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, mapped, $new($ArrayList));
 	{
 		$var($Iterator, i$, $nc(fileObjects)->iterator());
@@ -128,6 +129,7 @@ $JavaFileObject* WrappingJavaFileManager::getJavaFileForInput($JavaFileManager$L
 }
 
 $JavaFileObject* WrappingJavaFileManager::getJavaFileForOutput($JavaFileManager$Location* location, $String* className, $JavaFileObject$Kind* kind, $FileObject* sibling) {
+	$useLocalCurrentObjectStackCache();
 	return wrap($($ForwardingJavaFileManager::getJavaFileForOutput(location, className, kind, $(unwrap(sibling)))));
 }
 
@@ -136,6 +138,7 @@ $FileObject* WrappingJavaFileManager::getFileForInput($JavaFileManager$Location*
 }
 
 $FileObject* WrappingJavaFileManager::getFileForOutput($JavaFileManager$Location* location, $String* packageName, $String* relativeName, $FileObject* sibling) {
+	$useLocalCurrentObjectStackCache();
 	return wrap($($ForwardingJavaFileManager::getFileForOutput(location, packageName, relativeName, $(unwrap(sibling)))));
 }
 

@@ -81,6 +81,7 @@ void Convert::init$() {
 }
 
 int32_t Convert::string2int($String* s, int32_t radix) {
+	$useLocalCurrentObjectStackCache();
 	if (radix == 10) {
 		return $Integer::parseInt(s, radix);
 	} else {
@@ -107,6 +108,7 @@ int32_t Convert::string2int($String* s, int32_t radix) {
 }
 
 int64_t Convert::string2long($String* s, int32_t radix) {
+	$useLocalCurrentObjectStackCache();
 	if (radix == 10) {
 		return $Long::parseLong(s, radix);
 	} else {
@@ -152,6 +154,7 @@ int32_t Convert::utf2chars($bytes* src, int32_t sindex, $chars* dst, int32_t din
 }
 
 $chars* Convert::utf2chars($bytes* src, int32_t sindex, int32_t len) {
+	$useLocalCurrentObjectStackCache();
 	$var($chars, dst, $new($chars, len));
 	int32_t len1 = utf2chars(src, sindex, dst, 0, len);
 	$var($chars, result, $new($chars, len1));
@@ -193,6 +196,7 @@ int32_t Convert::chars2utf($chars* src, int32_t sindex, $bytes* dst, int32_t din
 }
 
 $bytes* Convert::chars2utf($chars* src, int32_t sindex, int32_t len) {
+	$useLocalCurrentObjectStackCache();
 	$var($bytes, dst, $new($bytes, len * 3));
 	int32_t len1 = chars2utf(src, sindex, dst, 0, len);
 	$var($bytes, result, $new($bytes, len1));
@@ -209,6 +213,7 @@ $bytes* Convert::string2utf($String* s) {
 }
 
 $String* Convert::quote($String* s) {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, buf, $new($StringBuilder));
 	for (int32_t i = 0; i < $nc(s)->length(); ++i) {
 		buf->append($(quote(s->charAt(i))));
@@ -217,6 +222,7 @@ $String* Convert::quote($String* s) {
 }
 
 $String* Convert::quote(char16_t ch) {
+	$useLocalCurrentObjectStackCache();
 	switch (ch) {
 	case u'\b':
 		{
@@ -262,6 +268,7 @@ bool Convert::isPrintableAscii(char16_t ch) {
 }
 
 $String* Convert::escapeUnicode($String* s$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, s, s$renamed);
 	int32_t len = $nc(s)->length();
 	int32_t i = 0;
@@ -315,6 +322,7 @@ $String* Convert::packagePart($String* classname) {
 }
 
 $List* Convert::enclosingCandidates($Name* name$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($Name, name, name$renamed);
 	$var($List, names, $List::nil());
 	int32_t index = 0;
@@ -326,6 +334,7 @@ $List* Convert::enclosingCandidates($Name* name$renamed) {
 }
 
 $List* Convert::classCandidates($Name* name) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, names, $List::nil());
 	$var($String, nameStr, $nc(name)->toString());
 	int32_t index = -1;

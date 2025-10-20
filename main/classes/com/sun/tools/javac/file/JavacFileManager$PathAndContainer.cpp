@@ -98,6 +98,7 @@ bool JavacFileManager$PathAndContainer::equals(Object$* o) {
 }
 
 int32_t JavacFileManager$PathAndContainer::hashCode() {
+	$useLocalCurrentObjectStackCache();
 	return $Objects::hash($$new($ObjectArray, {
 		$of(this->path),
 		$of(this->container),

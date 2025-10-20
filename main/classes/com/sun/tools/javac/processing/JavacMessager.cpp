@@ -145,6 +145,7 @@ void JavacMessager::printMessage($Diagnostic$Kind* kind, $CharSequence* msg, $El
 }
 
 void JavacMessager::printMessage($Diagnostic$Kind* kind, $CharSequence* msg, $Element* e, $AnnotationMirror* a, $AnnotationValue* v) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileObject, oldSource, nullptr);
 	$var($JavaFileObject, newSource, nullptr);
 	$var($JCDiagnostic$DiagnosticPosition, pos, nullptr);

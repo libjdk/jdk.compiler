@@ -575,6 +575,7 @@ void Code::init$($Symbol$MethodSymbol* meth, bool fatcode, $Position$LineMap* li
 
 int32_t Code::typecode($Type* type) {
 	$init(Code);
+	$useLocalCurrentObjectStackCache();
 	$init($Code$1);
 	switch ($nc($Code$1::$SwitchMap$com$sun$tools$javac$code$TypeTag)->get($nc(($($nc(type)->getTag())))->ordinal())) {
 	case 1:
@@ -693,6 +694,7 @@ int32_t Code::width($List* types) {
 
 int32_t Code::arraycode($Type* type) {
 	$init(Code);
+	$useLocalCurrentObjectStackCache();
 	$init($Code$1);
 	switch ($nc($Code$1::$SwitchMap$com$sun$tools$javac$code$TypeTag)->get($nc(($($nc(type)->getTag())))->ordinal())) {
 	case 1:
@@ -792,6 +794,7 @@ void Code::emit4(int32_t od) {
 }
 
 void Code::emitop(int32_t op) {
+	$useLocalCurrentObjectStackCache();
 	if (this->pendingJumps != nullptr) {
 		resolvePending();
 	}
@@ -856,6 +859,7 @@ void Code::emitAnewarray(int32_t od, $Type* arrayType) {
 }
 
 void Code::emitInvokeinterface($Symbol* member, $Type* mtype) {
+	$useLocalCurrentObjectStackCache();
 	int32_t argsize = width($($nc(mtype)->getParameterTypes()));
 	emitop(185);
 	if (!this->alive) {
@@ -869,6 +873,7 @@ void Code::emitInvokeinterface($Symbol* member, $Type* mtype) {
 }
 
 void Code::emitInvokespecial($Symbol* member, $Type* mtype) {
+	$useLocalCurrentObjectStackCache();
 	int32_t argsize = width($($nc(mtype)->getParameterTypes()));
 	emitop(183);
 	if (!this->alive) {
@@ -884,6 +889,7 @@ void Code::emitInvokespecial($Symbol* member, $Type* mtype) {
 }
 
 void Code::emitInvokestatic($Symbol* member, $Type* mtype) {
+	$useLocalCurrentObjectStackCache();
 	int32_t argsize = width($($nc(mtype)->getParameterTypes()));
 	emitop(184);
 	if (!this->alive) {
@@ -895,6 +901,7 @@ void Code::emitInvokestatic($Symbol* member, $Type* mtype) {
 }
 
 void Code::emitInvokevirtual($Symbol* member, $Type* mtype) {
+	$useLocalCurrentObjectStackCache();
 	int32_t argsize = width($($nc(mtype)->getParameterTypes()));
 	emitop(182);
 	if (!this->alive) {
@@ -906,6 +913,7 @@ void Code::emitInvokevirtual($Symbol* member, $Type* mtype) {
 }
 
 void Code::emitInvokedynamic($Symbol$DynamicMethodSymbol* dynMember, $Type* mtype) {
+	$useLocalCurrentObjectStackCache();
 	int32_t argsize = width($($nc(mtype)->getParameterTypes()));
 	emitop(186);
 	if (!this->alive) {
@@ -918,6 +926,7 @@ void Code::emitInvokedynamic($Symbol$DynamicMethodSymbol* dynMember, $Type* mtyp
 }
 
 void Code::emitop0(int32_t op) {
+	$useLocalCurrentObjectStackCache();
 	emitop(op);
 	if (!this->alive) {
 		return;
@@ -1531,6 +1540,7 @@ void Code::emitop1(int32_t op, int32_t od) {
 }
 
 void Code::emitop1(int32_t op, int32_t od, $PoolConstant* data) {
+	$useLocalCurrentObjectStackCache();
 	emitop(op);
 	if (!this->alive) {
 		return;
@@ -1658,6 +1668,7 @@ void Code::emitop2(int32_t op, int32_t od) {
 }
 
 void Code::emitop2(int32_t op, int32_t od, $PoolConstant* data) {
+	$useLocalCurrentObjectStackCache();
 	emitop(op);
 	if (!this->alive) {
 		return;
@@ -1857,6 +1868,7 @@ int32_t Code::entryPoint() {
 }
 
 int32_t Code::entryPoint($Code$State* state) {
+	$useLocalCurrentObjectStackCache();
 	int32_t pc = curCP();
 	this->alive = true;
 	$var($Code$State, newState, $nc(state)->dup());
@@ -1872,6 +1884,7 @@ int32_t Code::entryPoint($Code$State* state) {
 }
 
 int32_t Code::entryPoint($Code$State* state, $Type* pushed) {
+	$useLocalCurrentObjectStackCache();
 	int32_t pc = curCP();
 	this->alive = true;
 	$var($Code$State, newState, $nc(state)->dup());
@@ -1925,6 +1938,7 @@ void Code::emitStackMap() {
 }
 
 int32_t Code::getLocalsSize() {
+	$useLocalCurrentObjectStackCache();
 	int32_t nextLocal = 0;
 	for (int32_t i = this->max_locals - 1; i >= 0; --i) {
 		if ($nc($nc(this->state)->defined)->isMember(i) && $nc(this->lvar)->get(i) != nullptr) {
@@ -1936,6 +1950,7 @@ int32_t Code::getLocalsSize() {
 }
 
 void Code::emitCLDCStackMap(int32_t pc, int32_t localsSize) {
+	$useLocalCurrentObjectStackCache();
 	if (this->lastStackMapPC == pc) {
 		$nc(this->stackMapBuffer)->set(--this->stackMapBufferSize, nullptr);
 	}
@@ -1964,6 +1979,7 @@ void Code::emitCLDCStackMap(int32_t pc, int32_t localsSize) {
 }
 
 void Code::emitStackMapFrame(int32_t pc, int32_t localsSize) {
+	$useLocalCurrentObjectStackCache();
 	if (this->lastFrame == nullptr) {
 		$set(this, lastFrame, getInitialFrame());
 	} else if ($nc(this->lastFrame)->pc == pc) {
@@ -2023,6 +2039,7 @@ void Code::emitStackMapFrame(int32_t pc, int32_t localsSize) {
 }
 
 $Code$StackMapFrame* Code::getInitialFrame() {
+	$useLocalCurrentObjectStackCache();
 	$var($Code$StackMapFrame, frame, $new($Code$StackMapFrame));
 	$var($List, arg_types, $nc(($cast($Type$MethodType, $($nc(this->meth)->externalType(this->types)))))->argtypes$);
 	int32_t len = $nc(arg_types)->length();
@@ -2081,6 +2098,7 @@ int32_t Code::emitJump(int32_t opcode) {
 }
 
 $Code$Chain* Code::branch(int32_t opcode) {
+	$useLocalCurrentObjectStackCache();
 	$var($Code$Chain, result, nullptr);
 	if (opcode == 167) {
 		$assign(result, this->pendingJumps);
@@ -2099,6 +2117,7 @@ $Code$Chain* Code::branch(int32_t opcode) {
 }
 
 void Code::resolve($Code$Chain* chain$renamed, int32_t target) {
+	$useLocalCurrentObjectStackCache();
 	$var($Code$Chain, chain, chain$renamed);
 	bool changed = false;
 	$var($Code$State, newState, this->state);
@@ -2169,6 +2188,7 @@ void Code::resolvePending() {
 
 $Code$Chain* Code::mergeChains($Code$Chain* chain1, $Code$Chain* chain2) {
 	$init(Code);
+	$useLocalCurrentObjectStackCache();
 	if (chain2 == nullptr) {
 		return chain1;
 	}
@@ -2192,6 +2212,7 @@ void Code::addCatch(char16_t startPc, char16_t endPc, char16_t handlerPc, char16
 }
 
 void Code::compressCatchTable() {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, compressedCatchInfo, $new($ListBuffer));
 	$var($List, handlerPcs, $List::nil());
 	{
@@ -2265,6 +2286,7 @@ void Code::addLocalVar($Symbol$VarSymbol* v) {
 }
 
 void Code::adjustAliveRanges(int32_t oldCP, int32_t delta) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Code$LocalVarArray, arr$, this->lvar);
 		int32_t len$ = $nc(arr$)->length;
@@ -2291,6 +2313,7 @@ void Code::adjustAliveRanges(int32_t oldCP, int32_t delta) {
 }
 
 int32_t Code::getLVTSize() {
+	$useLocalCurrentObjectStackCache();
 	int32_t result = this->varBufferSize;
 	for (int32_t i = 0; i < this->varBufferSize; ++i) {
 		$var($Code$LocalVar, var, $nc(this->varBuffer)->get(i));
@@ -2300,6 +2323,7 @@ int32_t Code::getLVTSize() {
 }
 
 void Code::setDefined($Bits* newDefined) {
+	$useLocalCurrentObjectStackCache();
 	if (this->alive && newDefined != $nc(this->state)->defined) {
 		$var($Bits, diff, $$new($Bits, $nc(this->state)->defined)->xorSet(newDefined));
 		for (int32_t adr = $nc(diff)->nextBit(0); adr >= 0; adr = diff->nextBit(adr + 1)) {
@@ -2327,6 +2351,7 @@ void Code::setDefined(int32_t adr) {
 }
 
 void Code::setUndefined(int32_t adr) {
+	$useLocalCurrentObjectStackCache();
 	$nc($nc(this->state)->defined)->excl(adr);
 	if (adr < $nc(this->lvar)->length && $nc(this->lvar)->get(adr) != nullptr && $nc($nc(this->lvar)->get(adr))->isLastRangeInitialized()) {
 		$var($Code$LocalVar, v, $nc(this->lvar)->get(adr));
@@ -2344,6 +2369,7 @@ void Code::setUndefined(int32_t adr) {
 }
 
 void Code::endScope(int32_t adr) {
+	$useLocalCurrentObjectStackCache();
 	$var($Code$LocalVar, v, $nc(this->lvar)->get(adr));
 	if (v != nullptr) {
 		if (v->isLastRangeInitialized()) {
@@ -2361,6 +2387,7 @@ void Code::endScope(int32_t adr) {
 }
 
 void Code::fillLocalVarPosition($Code$LocalVar* lv) {
+	$useLocalCurrentObjectStackCache();
 	bool var$0 = lv == nullptr || $nc(lv)->sym == nullptr || $nc($nc(lv)->sym)->isExceptionParameter();
 	if (var$0 || !$nc($nc(lv)->sym)->hasTypeAnnotations()) {
 		return;
@@ -2398,6 +2425,7 @@ $ints* Code::appendArray($ints* source, $ints* append) {
 }
 
 void Code::fillExceptionParameterPositions() {
+	$useLocalCurrentObjectStackCache();
 	for (int32_t i = 0; i < this->varBufferSize; ++i) {
 		$var($Code$LocalVar, lv, $nc(this->varBuffer)->get(i));
 		bool var$0 = lv == nullptr || $nc(lv)->sym == nullptr || !$nc($nc(lv)->sym)->hasTypeAnnotations();
@@ -2424,6 +2452,7 @@ void Code::fillExceptionParameterPositions() {
 }
 
 int32_t Code::findExceptionIndex($TypeAnnotationPosition* p) {
+	$useLocalCurrentObjectStackCache();
 	int32_t catchType = $nc(p)->getCatchType();
 	int32_t startPos = p->getStartPos();
 	int32_t len = $nc(this->catchInfo)->length();

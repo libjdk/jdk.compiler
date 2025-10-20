@@ -78,6 +78,7 @@ $Object* allocate$JCDiagnostic$MultilineDiagnostic($Class* clazz) {
 }
 
 void JCDiagnostic$MultilineDiagnostic::init$($JCDiagnostic* other, $List* subdiagnostics) {
+	$useLocalCurrentObjectStackCache();
 	$var($DiagnosticFormatter, var$0, $nc(other)->defaultFormatter);
 	$var($JCDiagnostic$DiagnosticInfo, var$1, other->diagnosticInfo);
 	$var($Lint$LintCategory, var$2, other->getLintCategory());

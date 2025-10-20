@@ -303,6 +303,7 @@ void Scope$FilterImportScope::init$($Types* types, $Scope* origin, $Name* filter
 }
 
 $Iterable* Scope$FilterImportScope::getSymbols($Predicate* sf, $Scope$LookupKind* lookupKind) {
+	$useLocalCurrentObjectStackCache();
 	if (this->filterName != nullptr) {
 		return getSymbolsByName(this->filterName, sf, lookupKind);
 	}
@@ -319,6 +320,7 @@ $Iterable* Scope$FilterImportScope::getSymbols($Predicate* sf, $Scope$LookupKind
 }
 
 $Iterable* Scope$FilterImportScope::getSymbolsByName($Name* name, $Predicate* sf, $Scope$LookupKind* lookupKind) {
+	$useLocalCurrentObjectStackCache();
 	if (this->filterName != nullptr && this->filterName != name) {
 		return $Collections::emptyList();
 	}
@@ -347,11 +349,13 @@ bool Scope$FilterImportScope::isStaticallyImported() {
 }
 
 $Iterator* Scope$FilterImportScope::lambda$getSymbolsByName$3($List* results) {
+	$useLocalCurrentObjectStackCache();
 	$var($Iterator, var$0, $Iterators::createCompoundIterator(static_cast<$Iterable*>(static_cast<$Collection*>(static_cast<$AbstractCollection*>(results))), static_cast<$Function*>($$new(Scope$FilterImportScope$$Lambda$iterator$2))));
 	return $Iterators::createFilterIterator(var$0, static_cast<$Predicate*>($$new(Scope$FilterImportScope$$Lambda$lambda$getSymbols$0$3, this)));
 }
 
 $Iterator* Scope$FilterImportScope::lambda$getSymbols$1($List* results) {
+	$useLocalCurrentObjectStackCache();
 	$var($Iterator, var$0, $Iterators::createCompoundIterator(static_cast<$Iterable*>(static_cast<$Collection*>(static_cast<$AbstractCollection*>(results))), static_cast<$Function*>($$new(Scope$FilterImportScope$$Lambda$iterator$2))));
 	return $Iterators::createFilterIterator(var$0, static_cast<$Predicate*>($$new(Scope$FilterImportScope$$Lambda$lambda$getSymbols$0$3, this)));
 }

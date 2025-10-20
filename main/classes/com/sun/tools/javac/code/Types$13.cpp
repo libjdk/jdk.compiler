@@ -107,6 +107,7 @@ $Type* Types$13::visitWildcardType($Type$WildcardType* t, $Symbol* sym) {
 }
 
 $Type* Types$13::visitClassType($Type$ClassType* t, $Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, owner, $nc(sym)->owner);
 	int64_t flags = sym->flags();
 	if ((((int64_t)(flags & (uint64_t)(int64_t)8)) == 0) && $nc($nc(owner)->type)->isParameterized()) {

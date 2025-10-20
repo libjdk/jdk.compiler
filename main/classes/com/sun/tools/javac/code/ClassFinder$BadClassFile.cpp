@@ -146,6 +146,7 @@ void ClassFinder$BadClassFile::init$($Symbol$TypeSymbol* sym, $JavaFileObject* f
 
 $JCDiagnostic* ClassFinder$BadClassFile::createBadClassFileDiagnostic($JavaFileObject* file, $JCDiagnostic* diag, $JCDiagnostic$Factory* diagFactory) {
 	$init(ClassFinder$BadClassFile);
+	$useLocalCurrentObjectStackCache();
 	$init($JavaFileObject$Kind);
 	$var($String, key, $nc(file)->getKind() == $JavaFileObject$Kind::SOURCE ? "bad.source.file.header"_s : "bad.class.file.header"_s);
 	return $nc(diagFactory)->fragment(key, $$new($ObjectArray, {

@@ -690,6 +690,7 @@ bool JavacFileManager::fileSystemIsCaseSensitive = false;
 
 $chars* JavacFileManager::toArray($CharBuffer* buffer) {
 	$init(JavacFileManager);
+	$useLocalCurrentObjectStackCache();
 	if ($nc(buffer)->hasArray()) {
 		return $cast($chars, $nc($($nc($(buffer->compact()))->flip()))->array());
 	} else {
@@ -745,10 +746,12 @@ bool JavacFileManager::isSymbolFileEnabled() {
 }
 
 $JavaFileObject* JavacFileManager::getJavaFileObject($String* name) {
+	$useLocalCurrentObjectStackCache();
 	return $cast($JavaFileObject, $nc($($nc($(getJavaFileObjects($$new($StringArray, {name}))))->iterator()))->next());
 }
 
 $JavaFileObject* JavacFileManager::getJavaFileObject($Path* file) {
+	$useLocalCurrentObjectStackCache();
 	return $cast($JavaFileObject, $nc($($nc($(getJavaFileObjects($$new($PathArray, {file}))))->iterator()))->next());
 }
 
@@ -758,6 +761,7 @@ $JavaFileObject* JavacFileManager::getFileForOutput($String* classname, $JavaFil
 }
 
 $Iterable* JavacFileManager::getJavaFileObjectsFromStrings($Iterable* names) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, paths, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc(names)->iterator());
@@ -770,11 +774,13 @@ $Iterable* JavacFileManager::getJavaFileObjectsFromStrings($Iterable* names) {
 }
 
 $Iterable* JavacFileManager::getJavaFileObjects($StringArray* names) {
+	$useLocalCurrentObjectStackCache();
 	return getJavaFileObjectsFromStrings($($Arrays::asList($cast($StringArray, $(nullCheck($of(names)))))));
 }
 
 bool JavacFileManager::isValidName($String* name) {
 	$init(JavacFileManager);
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($StringArray, arr$, $nc(name)->split("\\."_s, -1));
 		int32_t len$ = arr$->length;
@@ -808,6 +814,7 @@ void JavacFileManager::validatePackageName($String* packageName) {
 
 void JavacFileManager::testName($String* name, bool isValidPackageName, bool isValidClassName) {
 	$init(JavacFileManager);
+	$useLocalCurrentObjectStackCache();
 	try {
 		validatePackageName(name);
 		if (!isValidPackageName) {
@@ -838,6 +845,7 @@ void JavacFileManager::testName($String* name, bool isValidPackageName, bool isV
 
 void JavacFileManager::printAscii($String* format, $ObjectArray* args) {
 	$init(JavacFileManager);
+	$useLocalCurrentObjectStackCache();
 	$var($String, message, nullptr);
 	try {
 		$var($String, ascii, "US-ASCII"_s);
@@ -852,6 +860,7 @@ void JavacFileManager::printAscii($String* format, $ObjectArray* args) {
 
 $JavacFileManager$Container* JavacFileManager::getContainer($Path* path) {
 	$synchronized(this) {
+		$useLocalCurrentObjectStackCache();
 		$var($JavacFileManager$Container, fs, $cast($JavacFileManager$Container, $nc(this->containers)->get(path)));
 		if (fs != nullptr) {
 			return fs;
@@ -912,6 +921,7 @@ bool JavacFileManager::isValidFile($String* s, $Set* fileKinds) {
 }
 
 bool JavacFileManager::caseMapCheck($Path* f, $RelativePath* name) {
+	$useLocalCurrentObjectStackCache();
 	if (JavacFileManager::fileSystemIsCaseSensitive) {
 		return true;
 	}
@@ -954,6 +964,7 @@ void JavacFileManager::flush() {
 }
 
 void JavacFileManager::close() {
+	$useLocalCurrentObjectStackCache();
 	if (this->deferredCloseTimeout > 0) {
 		deferredClose();
 		return;
@@ -975,6 +986,7 @@ void JavacFileManager::close() {
 }
 
 $ClassLoader* JavacFileManager::getClassLoader($JavaFileManager$Location* location) {
+	$useLocalCurrentObjectStackCache();
 	checkNotModuleOrientedLocation(location);
 	$var($Iterable, path, getLocation(location));
 	if (path == nullptr) {
@@ -999,6 +1011,7 @@ $ClassLoader* JavacFileManager::getClassLoader($JavaFileManager$Location* locati
 }
 
 $Iterable* JavacFileManager::list($JavaFileManager$Location* location, $String* packageName, $Set* kinds, bool recurse) {
+	$useLocalCurrentObjectStackCache();
 	checkNotModuleOrientedLocation(location);
 	nullCheck($of(packageName));
 	nullCheck(static_cast<$Collection*>(kinds));
@@ -1019,6 +1032,7 @@ $Iterable* JavacFileManager::list($JavaFileManager$Location* location, $String* 
 }
 
 $String* JavacFileManager::inferBinaryName($JavaFileManager$Location* location, $JavaFileObject* file) {
+	$useLocalCurrentObjectStackCache();
 	checkNotModuleOrientedLocation(location);
 	$Objects::requireNonNull(file);
 	$var($Iterable, path, getLocationAsPaths(location));
@@ -1041,6 +1055,7 @@ $String* JavacFileManager::inferBinaryName($JavaFileManager$Location* location, 
 }
 
 bool JavacFileManager::isSameFile($FileObject* a, $FileObject* b) {
+	$useLocalCurrentObjectStackCache();
 	nullCheck($of(a));
 	nullCheck($of(b));
 	{
@@ -1078,6 +1093,7 @@ bool JavacFileManager::hasExplicitLocation($JavaFileManager$Location* location) 
 }
 
 $JavaFileObject* JavacFileManager::getJavaFileForInput($JavaFileManager$Location* location, $String* className, $JavaFileObject$Kind* kind) {
+	$useLocalCurrentObjectStackCache();
 	checkNotModuleOrientedLocation(location);
 	nullCheck($of(className));
 	nullCheck($of(kind));
@@ -1088,6 +1104,7 @@ $JavaFileObject* JavacFileManager::getJavaFileForInput($JavaFileManager$Location
 }
 
 $FileObject* JavacFileManager::getFileForInput($JavaFileManager$Location* location, $String* packageName, $String* relativeName) {
+	$useLocalCurrentObjectStackCache();
 	checkNotModuleOrientedLocation(location);
 	nullCheck($of(packageName));
 	if (!isRelativeUri(relativeName)) {
@@ -1098,6 +1115,7 @@ $FileObject* JavacFileManager::getFileForInput($JavaFileManager$Location* locati
 }
 
 $JavaFileObject* JavacFileManager::getFileForInput($JavaFileManager$Location* location, $RelativePath$RelativeFile* name) {
+	$useLocalCurrentObjectStackCache();
 	$var($Iterable, path, getLocationAsPaths(location));
 	if (path == nullptr) {
 		return nullptr;
@@ -1118,6 +1136,7 @@ $JavaFileObject* JavacFileManager::getFileForInput($JavaFileManager$Location* lo
 }
 
 $JavaFileObject* JavacFileManager::getJavaFileForOutput($JavaFileManager$Location* location, $String* className, $JavaFileObject$Kind* kind, $FileObject* sibling) {
+	$useLocalCurrentObjectStackCache();
 	checkOutputLocation(location);
 	nullCheck($of(className));
 	nullCheck($of(kind));
@@ -1128,6 +1147,7 @@ $JavaFileObject* JavacFileManager::getJavaFileForOutput($JavaFileManager$Locatio
 }
 
 $FileObject* JavacFileManager::getFileForOutput($JavaFileManager$Location* location, $String* packageName, $String* relativeName, $FileObject* sibling) {
+	$useLocalCurrentObjectStackCache();
 	checkOutputLocation(location);
 	nullCheck($of(packageName));
 	if (!isRelativeUri(relativeName)) {
@@ -1138,6 +1158,7 @@ $FileObject* JavacFileManager::getFileForOutput($JavaFileManager$Location* locat
 }
 
 $JavaFileObject* JavacFileManager::getFileForOutput($JavaFileManager$Location* location, $RelativePath$RelativeFile* fileName, $FileObject* sibling) {
+	$useLocalCurrentObjectStackCache();
 	$var($Path, dir, nullptr);
 	$init($StandardLocation);
 	if ($equals(location, $StandardLocation::CLASS_OUTPUT)) {
@@ -1197,6 +1218,7 @@ $JavaFileObject* JavacFileManager::getFileForOutput($JavaFileManager$Location* l
 }
 
 $Iterable* JavacFileManager::getJavaFileObjectsFromFiles($Iterable* files) {
+	$useLocalCurrentObjectStackCache();
 	$var($ArrayList, result, nullptr);
 	{
 		$var($Collection, collection, nullptr);
@@ -1226,6 +1248,7 @@ $Iterable* JavacFileManager::getJavaFileObjectsFromFiles($Iterable* files) {
 }
 
 $Iterable* JavacFileManager::getJavaFileObjectsFromPaths($Collection* paths) {
+	$useLocalCurrentObjectStackCache();
 	$var($ArrayList, result, nullptr);
 	if (paths != nullptr) {
 		$assign(result, $new($ArrayList, paths->size()));
@@ -1243,10 +1266,12 @@ $Iterable* JavacFileManager::getJavaFileObjectsFromPaths($Collection* paths) {
 }
 
 $Iterable* JavacFileManager::getJavaFileObjects($FileArray* files) {
+	$useLocalCurrentObjectStackCache();
 	return getJavaFileObjectsFromFiles($($Arrays::asList($cast($FileArray, $(nullCheck($of(files)))))));
 }
 
 $Iterable* JavacFileManager::getJavaFileObjects($PathArray* paths) {
+	$useLocalCurrentObjectStackCache();
 	return getJavaFileObjectsFromPaths($(static_cast<$Collection*>($Arrays::asList($cast($PathArray, $(nullCheck($of(paths))))))));
 }
 
@@ -1273,6 +1298,7 @@ $Iterable* JavacFileManager::getLocationAsPaths($JavaFileManager$Location* locat
 }
 
 $1List* JavacFileManager::pathsAndContainers($JavaFileManager$Location* location, $RelativePath$RelativeDirectory* relativeDirectory) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $cast($1List, $nc(($cast($Map, $($nc(this->pathsAndContainersByLocationAndRelativeDirectory)->computeIfAbsent(location, static_cast<$Function*>($$new(JavacFileManager$$Lambda$indexPathsAndContainersByRelativeDirectory$2, this)))))))->computeIfAbsent(relativeDirectory, static_cast<$Function*>($$new(JavacFileManager$$Lambda$lambda$pathsAndContainers$1$3, this, location))));
 	} catch ($UncheckedIOException&) {
@@ -1283,6 +1309,7 @@ $1List* JavacFileManager::pathsAndContainers($JavaFileManager$Location* location
 }
 
 $Map* JavacFileManager::indexPathsAndContainersByRelativeDirectory($JavaFileManager$Location* location) {
+	$useLocalCurrentObjectStackCache();
 	$var($Map, result, $new($HashMap));
 	$var($1List, allPathsAndContainers, pathsAndContainers(location));
 	$var($1List, nonIndexingContainers, $new($ArrayList));
@@ -1323,6 +1350,7 @@ $Map* JavacFileManager::indexPathsAndContainersByRelativeDirectory($JavaFileMana
 }
 
 $1List* JavacFileManager::pathsAndContainers($JavaFileManager$Location* location) {
+	$useLocalCurrentObjectStackCache();
 	$var($Collection, paths, $cast($Collection, getLocationAsPaths(location)));
 	if (paths == nullptr) {
 		return $List::nil();
@@ -1376,6 +1404,7 @@ $JavaFileManager$Location* JavacFileManager::getLocationForModule($JavaFileManag
 }
 
 $ServiceLoader* JavacFileManager::getServiceLoader($JavaFileManager$Location* location, $Class* service) {
+	$useLocalCurrentObjectStackCache();
 	$beforeCallerSensitive();
 	nullCheck($of(location));
 	nullCheck($of(service));
@@ -1395,6 +1424,7 @@ $ServiceLoader* JavacFileManager::getServiceLoader($JavaFileManager$Location* lo
 }
 
 $JavaFileManager$Location* JavacFileManager::getLocationForModule($JavaFileManager$Location* location, $JavaFileObject* fo) {
+	$useLocalCurrentObjectStackCache();
 	checkModuleOrientedOrOutputLocation(location);
 	$var($PathFileObject, pathFileObject, nullptr);
 	bool var$0 = $instanceOf($PathFileObject, fo);
@@ -1410,6 +1440,7 @@ $JavaFileManager$Location* JavacFileManager::getLocationForModule($JavaFileManag
 }
 
 void JavacFileManager::setLocationForModule($JavaFileManager$Location* location, $String* moduleName, $Collection* paths) {
+	$useLocalCurrentObjectStackCache();
 	nullCheck($of(location));
 	checkModuleOrientedOrOutputLocation(location);
 	$var($JavaFileManager$Location, var$0, location);
@@ -1429,6 +1460,7 @@ $Iterable* JavacFileManager::listLocationsForModules($JavaFileManager$Location* 
 }
 
 $Path* JavacFileManager::asPath($FileObject* file) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($PathFileObject, pathFileObject, nullptr);
 		bool var$0 = $instanceOf($PathFileObject, file);
@@ -1446,6 +1478,7 @@ $Path* JavacFileManager::asPath($FileObject* file) {
 
 bool JavacFileManager::isRelativeUri($URI* uri) {
 	$init(JavacFileManager);
+	$useLocalCurrentObjectStackCache();
 	if ($nc(uri)->isAbsolute()) {
 		return false;
 	}
@@ -1466,6 +1499,7 @@ bool JavacFileManager::isRelativeUri($URI* uri) {
 
 bool JavacFileManager::isRelativeUri($String* u) {
 	$init(JavacFileManager);
+	$useLocalCurrentObjectStackCache();
 	try {
 		return isRelativeUri($$new($URI, u));
 	} catch ($URISyntaxException&) {
@@ -1477,6 +1511,7 @@ bool JavacFileManager::isRelativeUri($String* u) {
 
 $String* JavacFileManager::getRelativeName($File* file) {
 	$init(JavacFileManager);
+	$useLocalCurrentObjectStackCache();
 	if (!$nc(file)->isAbsolute()) {
 		$init($File);
 		$var($String, result, $nc($(file->getPath()))->replace($File::separatorChar, u'/'));
@@ -1501,6 +1536,7 @@ $String* JavacFileManager::getMessage($IOException* e) {
 }
 
 void JavacFileManager::checkOutputLocation($JavaFileManager$Location* location) {
+	$useLocalCurrentObjectStackCache();
 	$Objects::requireNonNull(location);
 	if (!location->isOutputLocation()) {
 		$throwNew($IllegalArgumentException, $$str({"location is not an output location: "_s, $(location->getName())}));
@@ -1508,6 +1544,7 @@ void JavacFileManager::checkOutputLocation($JavaFileManager$Location* location) 
 }
 
 void JavacFileManager::checkModuleOrientedOrOutputLocation($JavaFileManager$Location* location) {
+	$useLocalCurrentObjectStackCache();
 	$Objects::requireNonNull(location);
 	bool var$0 = !location->isModuleOrientedLocation();
 	if (var$0 && !location->isOutputLocation()) {
@@ -1516,6 +1553,7 @@ void JavacFileManager::checkModuleOrientedOrOutputLocation($JavaFileManager$Loca
 }
 
 void JavacFileManager::checkNotModuleOrientedLocation($JavaFileManager$Location* location) {
+	$useLocalCurrentObjectStackCache();
 	$Objects::requireNonNull(location);
 	if (location->isModuleOrientedLocation()) {
 		$throwNew($IllegalArgumentException, $$str({"location is module-oriented: "_s, $(location->getName())}));

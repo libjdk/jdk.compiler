@@ -111,6 +111,7 @@ void Infer$BestLeafSolver::init$($Infer* this$0, $List* varsToSolve) {
 }
 
 $Pair* Infer$BestLeafSolver::computeTreeToLeafs($Infer$GraphSolver$InferenceGraph$Node* n) {
+	$useLocalCurrentObjectStackCache();
 	$var($Pair, cachedPath, $cast($Pair, $nc(this->treeCache)->get(n)));
 	if (cachedPath == nullptr) {
 		if ($nc(n)->isLeaf()) {
@@ -142,6 +143,7 @@ $Pair* Infer$BestLeafSolver::computeTreeToLeafs($Infer$GraphSolver$InferenceGrap
 }
 
 $Infer$GraphSolver$InferenceGraph$Node* Infer$BestLeafSolver::pickNode($Infer$GraphSolver$InferenceGraph* g) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->treeCache)->clear();
 	$var($Pair, bestPath, this->noPath);
 	{

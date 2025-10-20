@@ -232,6 +232,7 @@ bool PathFileObject::isNameCompatible($String* simpleName, $JavaFileObject$Kind*
 }
 
 bool PathFileObject::isPathNameCompatible($Path* p, $String* simpleName, $JavaFileObject$Kind* kind) {
+	$useLocalCurrentObjectStackCache();
 	$Objects::requireNonNull(simpleName);
 	$Objects::requireNonNull(kind);
 	$init($JavaFileObject$Kind);
@@ -291,11 +292,13 @@ $OutputStream* PathFileObject::openOutputStream() {
 }
 
 $Reader* PathFileObject::openReader(bool ignoreEncodingErrors) {
+	$useLocalCurrentObjectStackCache();
 	$var($CharsetDecoder, decoder, $nc(this->fileManager)->getDecoder($($nc(this->fileManager)->getEncodingName()), ignoreEncodingErrors));
 	return $new($InputStreamReader, $(openInputStream()), decoder);
 }
 
 $CharSequence* PathFileObject::getCharContent(bool ignoreEncodingErrors) {
+	$useLocalCurrentObjectStackCache();
 	$var($CharBuffer, cb, $nc(this->fileManager)->getCachedContent(this));
 	if (cb == nullptr) {
 		{
@@ -352,6 +355,7 @@ $CharSequence* PathFileObject::getCharContent(bool ignoreEncodingErrors) {
 }
 
 $Writer* PathFileObject::openWriter() {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->fileManager)->updateLastUsedTime();
 	$nc(this->fileManager)->flushCache(this);
 	ensureParentDirectoriesExist();
@@ -360,6 +364,7 @@ $Writer* PathFileObject::openWriter() {
 }
 
 int64_t PathFileObject::getLastModified() {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc($($Files::getLastModifiedTime(this->path, $$new($LinkOptionArray, 0))))->toMillis();
 	} catch ($IOException&) {
@@ -404,6 +409,7 @@ $String* PathFileObject::toString() {
 }
 
 void PathFileObject::ensureParentDirectoriesExist() {
+	$useLocalCurrentObjectStackCache();
 	if (!this->hasParents) {
 		$var($Path, parent, $nc(this->path)->getParent());
 		if (parent != nullptr && !$Files::isDirectory(parent, $$new($LinkOptionArray, 0))) {
@@ -425,6 +431,7 @@ $String* PathFileObject::toBinaryName($RelativePath* relativePath) {
 
 $String* PathFileObject::toBinaryName($Path* relativePath) {
 	$init(PathFileObject);
+	$useLocalCurrentObjectStackCache();
 	$var($String, var$0, $nc(relativePath)->toString());
 	return toBinaryName(var$0, $($nc($(relativePath->getFileSystem()))->getSeparator()));
 }
@@ -442,6 +449,7 @@ $String* PathFileObject::removeExtension($String* fileName) {
 
 $String* PathFileObject::getSimpleName($FileObject* fo) {
 	$init(PathFileObject);
+	$useLocalCurrentObjectStackCache();
 	$var($URI, uri, $nc(fo)->toUri());
 	$var($String, s, $nc(uri)->getSchemeSpecificPart());
 	return $nc(s)->substring(s->lastIndexOf("/"_s) + 1);

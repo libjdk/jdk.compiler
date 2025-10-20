@@ -173,6 +173,7 @@ void ClassReader$AnnotationDeproxy::init$($ClassReader* this$0, $Symbol$ClassSym
 }
 
 $List* ClassReader$AnnotationDeproxy::deproxyCompoundList($List* pl) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, buf, $new($ListBuffer));
 	{
 		$var($List, l, pl);
@@ -184,6 +185,7 @@ $List* ClassReader$AnnotationDeproxy::deproxyCompoundList($List* pl) {
 }
 
 $Attribute$Compound* ClassReader$AnnotationDeproxy::deproxyCompound($ClassReader$CompoundAnnotationProxy* a) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, annotationType, resolvePossibleProxyType($nc(a)->type));
 	$var($ListBuffer, buf, $new($ListBuffer));
 	{
@@ -197,6 +199,7 @@ $Attribute$Compound* ClassReader$AnnotationDeproxy::deproxyCompound($ClassReader
 }
 
 $Symbol$MethodSymbol* ClassReader$AnnotationDeproxy::findAccessMethod($Type* container, $Name* name) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$CompletionFailure, failure, nullptr);
 	try {
 		{
@@ -242,6 +245,7 @@ $Symbol$MethodSymbol* ClassReader$AnnotationDeproxy::findAccessMethod($Type* con
 }
 
 $Attribute* ClassReader$AnnotationDeproxy::deproxy($Type* t, $Attribute* a) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, oldType, this->type);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -293,6 +297,7 @@ void ClassReader$AnnotationDeproxy::visitError($Attribute$Error* e) {
 }
 
 void ClassReader$AnnotationDeproxy::visitEnumAttributeProxy($ClassReader$EnumAttributeProxy* proxy) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, enumType, resolvePossibleProxyType($nc(proxy)->enumType));
 	$var($Symbol$TypeSymbol, enumTypeSym, $nc(enumType)->tsym);
 	$var($Symbol$VarSymbol, enumerator, nullptr);
@@ -333,6 +338,7 @@ void ClassReader$AnnotationDeproxy::visitClassAttributeProxy($ClassReader$ClassA
 }
 
 void ClassReader$AnnotationDeproxy::visitArrayAttributeProxy($ClassReader$ArrayAttributeProxy* proxy) {
+	$useLocalCurrentObjectStackCache();
 	int32_t length = $nc($nc(proxy)->values)->length();
 	$var($AttributeArray, ats, $new($AttributeArray, length));
 	$var($Type, elemtype, $nc(this->this$0->types)->elemtype(this->type));
@@ -351,6 +357,7 @@ void ClassReader$AnnotationDeproxy::visitCompoundAnnotationProxy($ClassReader$Co
 }
 
 $Type* ClassReader$AnnotationDeproxy::resolvePossibleProxyType($Type* t) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($ClassReader$ProxyType, proxyType, nullptr);
 		bool var$0 = $instanceOf($ClassReader$ProxyType, t);

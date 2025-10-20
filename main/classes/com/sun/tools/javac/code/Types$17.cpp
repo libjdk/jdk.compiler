@@ -87,6 +87,7 @@ void Types$17::init$($Types* this$0) {
 }
 
 $List* Types$17::visitType($Type* type, $Void* ignored) {
+	$useLocalCurrentObjectStackCache();
 	if (!$nc(type)->isIntersection()) {
 		$var($Type, sup, this->this$0->supertype(type));
 		$init($Type);

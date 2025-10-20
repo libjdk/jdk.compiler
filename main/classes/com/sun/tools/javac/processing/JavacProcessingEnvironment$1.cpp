@@ -311,6 +311,7 @@ void JavacProcessingEnvironment$1::visitTopLevel($JCTree$JCCompilationUnit* node
 }
 
 void JavacProcessingEnvironment$1::visitClassDef($JCTree$JCClassDecl* node) {
+	$useLocalCurrentObjectStackCache();
 	$TreeScanner::visitClassDef(node);
 	$var($List, beforeConstructor, $List::nil());
 	$var($List, defs, $nc(node)->defs);

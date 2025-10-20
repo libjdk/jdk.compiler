@@ -73,6 +73,7 @@ void Option$12::init$($String* $enum$name, int32_t $enum$ordinal, $String* arg, 
 }
 
 void Option$12::processMatching($ArgumentIterator* iter, $OptionHelper* helper) {
+	$useLocalCurrentObjectStackCache();
 	if (!$nc(iter)->hasNext()) {
 		$nc(helper)->reportError($$str({this->arg, " must be followed by a resource type"_s}));
 		return;

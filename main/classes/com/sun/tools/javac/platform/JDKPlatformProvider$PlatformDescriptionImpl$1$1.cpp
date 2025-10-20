@@ -102,6 +102,7 @@ void JDKPlatformProvider$PlatformDescriptionImpl$1$1::init$($JDKPlatformProvider
 }
 
 bool JDKPlatformProvider$PlatformDescriptionImpl$1$1::hasNext() {
+	$useLocalCurrentObjectStackCache();
 	if (this->next$ == nullptr) {
 		while ($nc(this->original)->hasNext()) {
 			$var($JavaFileObject, fo, $cast($JavaFileObject, $nc(this->original)->next()));

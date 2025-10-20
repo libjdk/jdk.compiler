@@ -122,6 +122,7 @@ void JNIWriter$TypeSignature::init$($Types* types) {
 }
 
 $StringBuilder* JNIWriter$TypeSignature::getParameterSignature($Type* mType, bool useFlatname) {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, result, $new($StringBuilder));
 	{
 		$var($Iterator, i$, $nc($($nc(mType)->getParameterTypes()))->iterator());
@@ -140,6 +141,7 @@ $StringBuilder* JNIWriter$TypeSignature::getReturnSignature($Type* mType) {
 }
 
 $StringBuilder* JNIWriter$TypeSignature::getSignature($Type* mType) {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, sb, $new($StringBuilder));
 	sb->append("("_s)->append($(static_cast<$CharSequence*>(getParameterSignature(mType, false))))->append(")"_s);
 	sb->append($(static_cast<$CharSequence*>(getReturnSignature(mType))));
@@ -147,6 +149,7 @@ $StringBuilder* JNIWriter$TypeSignature::getSignature($Type* mType) {
 }
 
 $StringBuilder* JNIWriter$TypeSignature::getJvmSignature($Type* type, bool useFlatname) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, t, $nc(this->types)->erasure(type));
 	$var($StringBuilder, sig, $new($StringBuilder));
 	$var($JNIWriter$TypeSignature$JvmTypeVisitor, jv, $new($JNIWriter$TypeSignature$JvmTypeVisitor, useFlatname));

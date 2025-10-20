@@ -117,6 +117,7 @@ void Name::init$($Name$Table* table) {
 }
 
 bool Name::contentEquals($CharSequence* cs) {
+	$useLocalCurrentObjectStackCache();
 	return $nc($(toString()))->equals($($nc(cs)->toString()));
 }
 
@@ -173,6 +174,7 @@ int32_t Name::lastIndexOf(int8_t b) {
 }
 
 bool Name::startsWith(Name* prefix) {
+	$useLocalCurrentObjectStackCache();
 	$var($bytes, thisBytes, this->getByteArray());
 	int32_t thisOffset = this->getByteOffset();
 	int32_t thisLength = this->getByteLength();
@@ -210,6 +212,7 @@ $bytes* Name::toUtf() {
 }
 
 void Name::getBytes($bytes* cs, int32_t start) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, var$0, $of(getByteArray()));
 	int32_t var$1 = getByteOffset();
 	$var($Object, var$2, $of(cs));

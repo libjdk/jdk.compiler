@@ -196,6 +196,7 @@ void ArgumentAttr$SwitchExpressionType::init$($ArgumentAttr* this$0, $JCTree$JCE
 }
 
 $Type* ArgumentAttr$SwitchExpressionType::overloadCheck($Attr$ResultInfo* resultInfo, $DeferredAttr$DeferredAttrContext* deferredAttrContext) {
+	$useLocalCurrentObjectStackCache();
 	$var($Attr$ResultInfo, localInfo, $nc(resultInfo)->dup($($nc(this->this$0->attr)->conditionalContext(resultInfo->checkContext))));
 	$init($TypeTag);
 	if ($nc(resultInfo->pt)->hasTag($TypeTag::VOID)) {
@@ -229,6 +230,7 @@ $ArgumentAttr$ArgumentType* ArgumentAttr$SwitchExpressionType::dup($JCTree$JCExp
 }
 
 $List* ArgumentAttr$SwitchExpressionType::lambda$yieldExpressions$0() {
+	$useLocalCurrentObjectStackCache();
 	$var($List, res, nullptr);
 	$var($ListBuffer, buf, $new($ListBuffer));
 	$$new($ArgumentAttr$SwitchExpressionType$1, this, buf)->scan($nc(($cast($JCTree$JCSwitchExpression, this->speculativeTree$)))->cases);

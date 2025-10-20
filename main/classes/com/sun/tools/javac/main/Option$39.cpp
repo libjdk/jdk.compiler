@@ -197,6 +197,7 @@ void Option$39::init$($String* $enum$name, int32_t $enum$ordinal, $String* text,
 }
 
 void Option$39::process($OptionHelper* helper, $String* option) {
+	$useLocalCurrentObjectStackCache();
 	$var($StringArray, runtimeArgs, $VM::getRuntimeArguments());
 	{
 		$var($StringArray, arr$, runtimeArgs);

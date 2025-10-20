@@ -101,6 +101,7 @@ void Type$CapturedType::init$($Symbol$TypeSymbol* tsym, $Type* bound, $Type* upp
 }
 
 Type$CapturedType* Type$CapturedType::cloneWithMetadata($TypeMetadata* md) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$TypeSymbol, var$0, this->tsym);
 	$var($Type, var$1, getUpperBound());
 	return $new($Type$CapturedType$1, this, var$0, var$1, $(getUpperBound()), this->lower, this->wildcard, md);

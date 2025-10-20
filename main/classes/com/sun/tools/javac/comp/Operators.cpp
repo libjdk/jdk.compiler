@@ -783,6 +783,7 @@ void Operators::init$($Context* context) {
 }
 
 $Type* Operators::unaryPromotion($Type* t) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, unboxed, $nc(this->types)->unboxedTypeOrType(t));
 	$init($Operators$1);
 	switch ($nc($Operators$1::$SwitchMap$com$sun$tools$javac$code$TypeTag)->get($nc(($($nc(unboxed)->getTag())))->ordinal())) {
@@ -802,6 +803,7 @@ $Type* Operators::unaryPromotion($Type* t) {
 }
 
 $Type* Operators::binaryPromotion($Type* t1, $Type* t2) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, unboxedT1, $nc(this->types)->unboxedTypeOrType(t1));
 	$var($Type, unboxedT2, $nc(this->types)->unboxedTypeOrType(t2));
 	bool var$0 = $nc(unboxedT1)->isNumeric();
@@ -831,6 +833,7 @@ $Type* Operators::binaryPromotion($Type* t1, $Type* t2) {
 }
 
 $Symbol$OperatorSymbol* Operators::resolveUnary($JCDiagnostic$DiagnosticPosition* pos, $JCTree$Tag* tag, $Type* op) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$Tag, var$0, tag);
 	$var($Map, var$1, this->unaryOperators);
 	$var($Predicate, var$2, static_cast<$Predicate*>($new(Operators$$Lambda$lambda$resolveUnary$0, op)));
@@ -839,6 +842,7 @@ $Symbol$OperatorSymbol* Operators::resolveUnary($JCDiagnostic$DiagnosticPosition
 }
 
 $Symbol$OperatorSymbol* Operators::resolveBinary($JCDiagnostic$DiagnosticPosition* pos, $JCTree$Tag* tag, $Type* op1, $Type* op2) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$Tag, var$0, tag);
 	$var($Map, var$1, this->binaryOperators);
 	$var($Predicate, var$2, static_cast<$Predicate*>($new(Operators$$Lambda$lambda$resolveBinary$3$3, op1, op2)));
@@ -847,10 +851,12 @@ $Symbol$OperatorSymbol* Operators::resolveBinary($JCDiagnostic$DiagnosticPositio
 }
 
 $Symbol$OperatorSymbol* Operators::resolve($JCTree$Tag* tag, $Map* opMap, $Predicate* opTestFunc, $Function* resolveFunc, $Supplier* noResultFunc) {
+	$useLocalCurrentObjectStackCache();
 	return $cast($Symbol$OperatorSymbol, $nc($($nc($($nc($($nc($($nc(($cast($List, $($nc(opMap)->get($(operatorName(tag)))))))->stream()))->filter(opTestFunc)))->map(resolveFunc)))->findFirst()))->orElseGet(noResultFunc));
 }
 
 $Symbol$OperatorSymbol* Operators::makeOperator($Name* name, $List* formals, $Operators$OperatorType* res, $ints* opcodes) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, var$0, $cast($List, $nc($($nc($($nc(formals)->stream()))->map(static_cast<$Function*>($$new(Operators$$Lambda$lambda$makeOperator$6$6, this)))))->collect($($List::collector()))));
 	$var($Type, var$1, $nc(res)->asType(this->syms));
 	$var($Type$MethodType, opType, $new($Type$MethodType, var$0, var$1, $($List::nil()), $nc(this->syms)->methodClass));
@@ -864,6 +870,7 @@ int32_t Operators::mergeOpcodes($ints* opcodes) {
 }
 
 $Symbol$OperatorSymbol* Operators::reportErrorIfNeeded($JCDiagnostic$DiagnosticPosition* pos, $JCTree$Tag* tag, $TypeArray* args) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc($($Stream::of(args)))->noneMatch(static_cast<$Predicate*>($$new(Operators$$Lambda$lambda$reportErrorIfNeeded$7$7)))) {
 		$var($Name, opName, operatorName(tag));
 		$var($JCDiagnostic$Error, opError, ($nc(args)->length) == 1 ? $CompilerProperties$Errors::OperatorCantBeApplied(opName, $nc(args)->get(0)) : $CompilerProperties$Errors::OperatorCantBeApplied1(opName, $nc(args)->get(0), args->get(1)));
@@ -877,6 +884,7 @@ $Name* Operators::operatorName($JCTree$Tag* tag) {
 }
 
 void Operators::initUnaryOperators() {
+	$useLocalCurrentObjectStackCache();
 		$init($JCTree$Tag);
 		$init($Operators$OperatorType);
 	initOperators(this->unaryOperators, $fcast($Operators$OperatorHelperArray, $$new($Operators$UnaryOperatorHelperArray, {
@@ -891,6 +899,7 @@ void Operators::initUnaryOperators() {
 }
 
 void Operators::initBinaryOperators() {
+	$useLocalCurrentObjectStackCache();
 		$init($JCTree$Tag);
 		$init($Operators$OperatorType);
 	initOperators(this->binaryOperators, $fcast($Operators$OperatorHelperArray, $$new($Operators$BinaryOperatorHelperArray, {
@@ -975,10 +984,12 @@ void Operators::initBinaryOperators() {
 }
 
 $Symbol$OperatorSymbol* Operators::lookupBinaryOp($Predicate* applicabilityTest) {
+	$useLocalCurrentObjectStackCache();
 	return $cast($Symbol$OperatorSymbol, $nc($($nc($($nc($($nc($($nc($($nc($($nc($($nc(this->binaryOperators)->values()))->stream()))->flatMap(static_cast<$Function*>($$new(Operators$$Lambda$stream$9)))))->map(static_cast<$Function*>($$new(Operators$$Lambda$lambda$lookupBinaryOp$8$10, applicabilityTest)))))->distinct()))->filter(static_cast<$Predicate*>($$new(Operators$$Lambda$lambda$lookupBinaryOp$9$11, this)))))->findFirst()))->get());
 }
 
 void Operators::initOperators($Map* opsMap, $Operators$OperatorHelperArray* ops) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Operators$OperatorHelperArray, arr$, ops);
 		int32_t len$ = $nc(arr$)->length;

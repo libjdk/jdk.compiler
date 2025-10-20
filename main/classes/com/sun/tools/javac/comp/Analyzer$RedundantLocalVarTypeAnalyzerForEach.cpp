@@ -103,6 +103,7 @@ bool Analyzer$RedundantLocalVarTypeAnalyzerForEach::match($JCTree$JCEnhancedForL
 }
 
 $List* Analyzer$RedundantLocalVarTypeAnalyzerForEach::rewrite($JCTree$JCEnhancedForLoop* oldTree) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCEnhancedForLoop, newTree, $cast($JCTree$JCEnhancedForLoop, $nc(this->this$0->copier)->copy(static_cast<$JCTree*>(oldTree))));
 	$set($nc(newTree), var, rewriteVarType($nc(oldTree)->var));
 	$set(newTree, body, $nc($($nc(this->this$0->make)->at(static_cast<$JCDiagnostic$DiagnosticPosition*>($nc(oldTree)->body))))->Block(0, $($List::nil())));

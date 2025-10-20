@@ -141,6 +141,7 @@ $JCTree* JCTree$JCInstanceOf::getType() {
 }
 
 $PatternTree* JCTree$JCInstanceOf::getPattern() {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCPattern, jcPattern, nullptr);
 	$var($JCTree, patt72114$temp, this->pattern);
 	bool var$0 = $instanceOf($JCTree$JCPattern, patt72114$temp);

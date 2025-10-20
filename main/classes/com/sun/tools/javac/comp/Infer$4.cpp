@@ -82,6 +82,7 @@ $ints* Infer$4::$SwitchMap$com$sun$tools$javac$code$Type$UndetVar$InferenceBound
 $ints* Infer$4::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag = nullptr;
 
 void clinit$Infer$4($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(Infer$4::$SwitchMap$com$sun$tools$javac$code$Type$UndetVar$InferenceBound, $new($ints, $($Type$UndetVar$InferenceBound::values())->length));
 	{
 		try {

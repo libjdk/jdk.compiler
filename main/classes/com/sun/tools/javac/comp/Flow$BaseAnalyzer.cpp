@@ -121,6 +121,7 @@ void Flow$BaseAnalyzer::recordExit($Flow$BaseAnalyzer$PendingExit* pe) {
 }
 
 $Flow$Liveness* Flow$BaseAnalyzer::resolveJump($JCTree* tree, $ListBuffer* oldPendingExits, $Flow$BaseAnalyzer$JumpKind* jk) {
+	$useLocalCurrentObjectStackCache();
 	bool resolved = false;
 	$var($List, exits, $nc(this->pendingExits)->toList());
 	$set(this, pendingExits, oldPendingExits);
@@ -163,6 +164,7 @@ void Flow$BaseAnalyzer::visitPackageDef($JCTree$JCPackageDecl* tree) {
 }
 
 void Flow$BaseAnalyzer::scanSyntheticBreak($TreeMaker* make, $JCTree* swtch) {
+	$useLocalCurrentObjectStackCache();
 	$init($JCTree$Tag);
 	if ($nc(swtch)->hasTag($JCTree$Tag::SWITCH_EXPRESSION)) {
 		$var($JCTree$JCYield, brk, $nc($($nc(make)->at($Position::NOPOS)))->Yield(nullptr));

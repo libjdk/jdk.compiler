@@ -99,6 +99,7 @@ void Infer$InferenceStep$4::init$($String* $enum$name, int32_t $enum$ordinal, $T
 }
 
 $Type* Infer$InferenceStep$4::solve($Type$UndetVar* uv, $InferenceContext* inferenceContext) {
+	$useLocalCurrentObjectStackCache();
 	$var($Infer, infer, $nc(inferenceContext)->infer);
 	$var($List, hibounds, filterBounds(uv, inferenceContext));
 	$var($Type, owntype, $nc($nc(hibounds)->tail)->tail == nullptr ? $cast($Type, $nc(hibounds)->head) : $nc($nc(infer)->types)->glb(hibounds));

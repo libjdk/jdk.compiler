@@ -138,6 +138,7 @@ $Object* allocate$JavacFileManager$ArchiveContainer($Class* clazz) {
 }
 
 void JavacFileManager$ArchiveContainer::init$($JavacFileManager* this$0, $Path* archivePath) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, this$0, this$0);
 	$set(this, archivePath, archivePath);
 	if (this$0->multiReleaseValue != nullptr && $nc($($nc(archivePath)->toString()))->endsWith(".jar"_s)) {
@@ -162,6 +163,7 @@ void JavacFileManager$ArchiveContainer::init$($JavacFileManager* this$0, $Path* 
 }
 
 void JavacFileManager$ArchiveContainer::list($Path* userPath, $RelativePath$RelativeDirectory* subdirectory, $Set* fileKinds, bool recurse, $ListBuffer* resultList) {
+	$useLocalCurrentObjectStackCache();
 	$var($Path, resolvedSubdirectory, $cast($Path, $nc(this->packages)->get(subdirectory)));
 	if (resolvedSubdirectory == nullptr) {
 		return;
@@ -184,6 +186,7 @@ bool JavacFileManager$ArchiveContainer::isValid($Path* fileName) {
 }
 
 $JavaFileObject* JavacFileManager$ArchiveContainer::getFileObject($Path* userPath, $RelativePath$RelativeFile* name) {
+	$useLocalCurrentObjectStackCache();
 	$var($RelativePath$RelativeDirectory, root, $nc(name)->dirname());
 	$var($Path, packagepath, $cast($Path, $nc(this->packages)->get(root)));
 	if (packagepath != nullptr) {

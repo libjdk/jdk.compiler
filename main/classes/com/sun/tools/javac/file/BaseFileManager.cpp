@@ -281,6 +281,7 @@ void BaseFileManager::init$($Charset* charset) {
 }
 
 void BaseFileManager::setContext($Context* context) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, log, $Log::instance(context));
 	$set(this, options, $Options::instance(context));
 	$set(this, classLoaderClass, $nc(this->options)->get("procloader"_s));
@@ -302,6 +303,7 @@ $Locations* BaseFileManager::createLocations() {
 }
 
 void BaseFileManager::deferredClose() {
+	$useLocalCurrentObjectStackCache();
 	$var($Thread, t, $new($BaseFileManager$1, this, $$str({$($of(this)->getClass()->getName()), " DeferredClose"_s})));
 	t->setDaemon(true);
 	t->start();
@@ -316,10 +318,12 @@ void BaseFileManager::updateLastUsedTime() {
 }
 
 void BaseFileManager::clear() {
+	$useLocalCurrentObjectStackCache();
 	$$new($HashSet, $(static_cast<$Collection*>($nc(this->options)->keySet())))->forEach(static_cast<$Consumer*>($$new(BaseFileManager$$Lambda$lambda$clear$0, this)));
 }
 
 $ClassLoader* BaseFileManager::getClassLoader($URLArray* urls) {
+	$useLocalCurrentObjectStackCache();
 	$beforeCallerSensitive();
 	$var($ClassLoader, thisClassLoader, $of(this)->getClass()->getClassLoader());
 	if (this->classLoaderClass != nullptr) {
@@ -352,6 +356,7 @@ bool BaseFileManager::isDefaultSystemModulesPath() {
 }
 
 bool BaseFileManager::handleOption($String* current, $Iterator* remaining) {
+	$useLocalCurrentObjectStackCache();
 	$var($OptionHelper, helper, $new($BaseFileManager$2, this, this->log));
 	$Option* o = $Option::lookup(current, BaseFileManager::javacFileManagerOptions);
 	if (o == nullptr) {
@@ -393,6 +398,7 @@ bool BaseFileManager::handleOption($Option* option, $String* value) {
 }
 
 bool BaseFileManager::handleOptions($Map* map) {
+	$useLocalCurrentObjectStackCache();
 	bool ok = true;
 	{
 		$var($Iterator, i$, $nc($($nc(map)->entrySet()))->iterator());
@@ -428,6 +434,7 @@ $String* BaseFileManager::getEncodingName() {
 }
 
 $CharBuffer* BaseFileManager::decode($ByteBuffer* inbuf, bool ignoreEncodingErrors) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, encName, getEncodingName());
 	$var($CharsetDecoder, decoder, nullptr);
 	try {
@@ -482,6 +489,7 @@ $CharBuffer* BaseFileManager::decode($ByteBuffer* inbuf, bool ignoreEncodingErro
 }
 
 $CharsetDecoder* BaseFileManager::getDecoder($String* encodingName, bool ignoreEncodingErrors) {
+	$useLocalCurrentObjectStackCache();
 	$var($Charset, cs, (this->charset == nullptr) ? $Charset::forName(encodingName) : this->charset);
 	$var($CharsetDecoder, decoder, $nc(cs)->newDecoder());
 	$var($CodingErrorAction, action, nullptr);
@@ -496,6 +504,7 @@ $CharsetDecoder* BaseFileManager::getDecoder($String* encodingName, bool ignoreE
 }
 
 $ByteBuffer* BaseFileManager::makeByteBuffer($InputStream* in) {
+	$useLocalCurrentObjectStackCache();
 	int32_t limit = $nc(in)->available();
 	if (limit < 1024) {
 		limit = 1024;
@@ -541,6 +550,7 @@ void BaseFileManager::flushCache($JavaFileObject* file) {
 
 $JavaFileObject$Kind* BaseFileManager::getKind($Path* path) {
 	$init(BaseFileManager);
+	$useLocalCurrentObjectStackCache();
 	return getKind($($nc($($nc(path)->getFileName()))->toString()));
 }
 
@@ -569,6 +579,7 @@ $Object* BaseFileManager::nullCheck(Object$* o) {
 
 $Collection* BaseFileManager::nullCheck($Collection* it) {
 	$init(BaseFileManager);
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(it)->iterator());
 		for (; $nc(i$)->hasNext();) {

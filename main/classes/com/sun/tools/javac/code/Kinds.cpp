@@ -113,6 +113,7 @@ $Kinds$KindName* Kinds::kindName($MemberReferenceTree$ReferenceMode* mode) {
 }
 
 $Kinds$KindName* Kinds::kindName($Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$1);
 	switch ($nc($Kinds$1::$SwitchMap$javax$lang$model$element$ElementKind)->get($nc(($($nc(sym)->getKind())))->ordinal())) {
 	case 1:

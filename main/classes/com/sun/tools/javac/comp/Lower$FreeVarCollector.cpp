@@ -133,6 +133,7 @@ void Lower$FreeVarCollector::addFreeVar($Symbol$VarSymbol* v) {
 }
 
 void Lower$FreeVarCollector::addFreeVars($Symbol$ClassSymbol* c) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, fvs, $cast($List, $nc(this->this$0->freevarCache)->get(c)));
 	if (fvs != nullptr) {
 		{
@@ -145,6 +146,7 @@ void Lower$FreeVarCollector::addFreeVars($Symbol$ClassSymbol* c) {
 }
 
 void Lower$FreeVarCollector::visitSymbol($Symbol* _sym) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, sym, _sym);
 	$init($Kinds$Kind);
 	if ($nc(sym)->kind == $Kinds$Kind::VAR || $nc(sym)->kind == $Kinds$Kind::MTH) {
@@ -178,6 +180,7 @@ void Lower$FreeVarCollector::visitSelect($JCTree$JCFieldAccess* tree) {
 }
 
 void Lower$FreeVarCollector::visitApply($JCTree$JCMethodInvocation* tree) {
+	$useLocalCurrentObjectStackCache();
 	if ($TreeInfo::name($nc(tree)->meth) == $nc(this->this$0->names)->_super) {
 		$var($Symbol, constructor, $TreeInfo::symbol($nc(tree)->meth));
 		$var($Symbol$ClassSymbol, c, $cast($Symbol$ClassSymbol, $nc(constructor)->owner));

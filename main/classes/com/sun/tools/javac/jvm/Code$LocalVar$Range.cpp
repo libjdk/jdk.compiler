@@ -95,6 +95,7 @@ bool Code$LocalVar$Range::closed() {
 }
 
 $String* Code$LocalVar$Range::toString() {
+	$useLocalCurrentObjectStackCache();
 	int32_t currentStartPC = this->start_pc;
 	int32_t currentLength = this->length;
 	return $str({"startpc = "_s, $$str(currentStartPC), " length "_s, $$str(currentLength)});

@@ -81,6 +81,7 @@ $ints* ModuleFinder$2::$SwitchMap$javax$tools$StandardLocation = nullptr;
 $ints* ModuleFinder$2::$SwitchMap$javax$tools$JavaFileObject$Kind = nullptr;
 
 void clinit$ModuleFinder$2($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(ModuleFinder$2::$SwitchMap$javax$tools$StandardLocation, $new($ints, $($StandardLocation::values())->length));
 	{
 		try {

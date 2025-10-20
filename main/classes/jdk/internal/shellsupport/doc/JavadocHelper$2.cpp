@@ -92,6 +92,7 @@ $ints* JavadocHelper$2::$SwitchMap$javax$lang$model$element$ElementKind = nullpt
 $ints* JavadocHelper$2::$SwitchMap$com$sun$source$doctree$DocTree$Kind = nullptr;
 
 void clinit$JavadocHelper$2($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(JavadocHelper$2::$SwitchMap$javax$lang$model$element$ElementKind, $new($ints, $($ElementKind::values())->length));
 	{
 		try {

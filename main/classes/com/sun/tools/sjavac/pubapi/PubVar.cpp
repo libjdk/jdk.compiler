@@ -71,6 +71,7 @@ $String* PubVar::getIdentifier() {
 }
 
 bool PubVar::equals(Object$* obj) {
+	$useLocalCurrentObjectStackCache();
 	if ($of(this)->getClass() != $nc($of(obj))->getClass()) {
 		return false;
 	}
@@ -89,6 +90,7 @@ int32_t PubVar::hashCode() {
 }
 
 $String* PubVar::toString() {
+	$useLocalCurrentObjectStackCache();
 	return $String::format("%s[modifiers: %s, type: %s, identifier: %s, constValue: %s]"_s, $$new($ObjectArray, {
 		$($of($of(this)->getClass()->getSimpleName())),
 		$of(this->modifiers),

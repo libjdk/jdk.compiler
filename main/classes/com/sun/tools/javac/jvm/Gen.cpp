@@ -579,6 +579,7 @@ Gen* Gen::instance($Context* context) {
 }
 
 void Gen::init$($Context* context) {
+	$useLocalCurrentObjectStackCache();
 	$JCTree$Visitor::init$();
 	this->nerrs = 0;
 	$set(this, classReferenceVisitor, $new($Gen$ClassReferenceVisitor, this));
@@ -611,6 +612,7 @@ void Gen::init$($Context* context) {
 }
 
 void Gen::loadIntConst(int32_t n) {
+	$useLocalCurrentObjectStackCache();
 	$nc($($nc(this->items)->makeImmediateItem($nc(this->syms)->intType, $($Integer::valueOf(n)))))->load();
 }
 
@@ -652,6 +654,7 @@ int32_t Gen::one(int32_t tc) {
 }
 
 void Gen::emitMinusOne(int32_t tc) {
+	$useLocalCurrentObjectStackCache();
 	if (tc == 1) {
 		$nc($($nc(this->items)->makeImmediateItem($nc(this->syms)->longType, $($Long::valueOf((int64_t)-1)))))->load();
 	} else {
@@ -691,6 +694,7 @@ $Type* Gen::checkDimension($JCDiagnostic$DiagnosticPosition* pos, $Type* t) {
 }
 
 void Gen::checkDimensionInternal($JCDiagnostic$DiagnosticPosition* pos, $Type* t) {
+	$useLocalCurrentObjectStackCache();
 	$init($Gen$4);
 	switch ($nc($Gen$4::$SwitchMap$com$sun$tools$javac$code$TypeTag)->get($nc(($($nc(t)->getTag())))->ordinal())) {
 	case 1:
@@ -727,6 +731,7 @@ $Items$LocalItem* Gen::makeTemp($Type* type) {
 }
 
 void Gen::callMethod($JCDiagnostic$DiagnosticPosition* pos, $Type* site, $Name* name, $List* argtypes, bool isStatic) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, msym, $nc(this->rs)->resolveInternalMethod(pos, this->attrEnv, site, name, argtypes, nullptr));
 	if (isStatic) {
 		$nc($($nc(this->items)->makeStaticItem(msym)))->invoke();
@@ -769,6 +774,7 @@ void Gen::endFinalizerGap($Env* env) {
 }
 
 void Gen::endFinalizerGaps($Env* from$renamed, $Env* to) {
+	$useLocalCurrentObjectStackCache();
 	$var($Env, from, from$renamed);
 	$var($Env, last, nullptr);
 	while (last != to) {
@@ -792,6 +798,7 @@ bool Gen::hasFinally($JCTree* target, $Env* env$renamed) {
 }
 
 $List* Gen::normalizeDefs($List* defs, $Symbol$ClassSymbol* c) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, initCode, $new($ListBuffer));
 	$var($ListBuffer, initTAs, $new($ListBuffer));
 	$var($ListBuffer, clinitCode, $new($ListBuffer));
@@ -890,6 +897,7 @@ $List* Gen::normalizeDefs($List* defs, $Symbol$ClassSymbol* c) {
 }
 
 $List* Gen::getAndRemoveNonFieldTAs($Symbol$VarSymbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, tas, $nc(sym)->getRawTypeAttributes());
 	$var($ListBuffer, fieldTAs, $new($ListBuffer));
 	$var($ListBuffer, nonfieldTAs, $new($ListBuffer));
@@ -933,6 +941,7 @@ void Gen::checkStringConstant($JCDiagnostic$DiagnosticPosition* pos, Object$* co
 }
 
 void Gen::normalizeMethod($JCTree$JCMethodDecl* md, $List* initCode, $List* initTAs) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(md)->name == $nc(this->names)->init && $TreeInfo::isInitialConstructor(md)) {
 		$var($List, stats, $nc(md->body)->stats);
 		$var($ListBuffer, newstats, $new($ListBuffer));
@@ -968,6 +977,7 @@ void Gen::normalizeMethod($JCTree$JCMethodDecl* md, $List* initCode, $List* init
 }
 
 void Gen::genDef($JCTree* tree, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($Env, prevEnv, this->env);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -1050,6 +1060,7 @@ $Items$CondItem* Gen::genCond($JCTree* tree, int32_t crtFlags) {
 }
 
 $Items$CondItem* Gen::genCond($JCTree* _tree, bool markBranches) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree, inner_tree, $TreeInfo::skipParens(_tree));
 	$init($JCTree$Tag);
 	if ($nc(inner_tree)->hasTag($JCTree$Tag::CONDEXPR)) {
@@ -1177,6 +1188,7 @@ $Env* Gen::getAttrEnv() {
 }
 
 $Items$Item* Gen::genExpr($JCTree* tree, $Type* pt) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, prevPt, this->pt);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -1241,6 +1253,7 @@ bool Gen::isConstantDynamic($Symbol* sym) {
 }
 
 void Gen::genArgs($List* trees, $List* pts$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, pts, pts$renamed);
 	{
 		$var($List, l, trees);
@@ -1253,6 +1266,7 @@ void Gen::genArgs($List* trees, $List* pts$renamed) {
 }
 
 void Gen::visitMethodDef($JCTree$JCMethodDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Env, localEnv, $nc(this->env)->dup(tree));
 	$set($nc(localEnv), enclMethod, tree);
 	$set(this, pt, $nc($($nc($nc(tree)->sym)->erasure(this->types)))->getReturnType());
@@ -1262,6 +1276,7 @@ void Gen::visitMethodDef($JCTree$JCMethodDecl* tree) {
 }
 
 void Gen::genMethod($JCTree$JCMethodDecl* tree, $Env* env, bool fatcode) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$MethodSymbol, meth, $nc(tree)->sym);
 	int32_t extras = 0;
 	if ($nc(meth)->isConstructor()) {
@@ -1324,6 +1339,7 @@ void Gen::genMethod($JCTree$JCMethodDecl* tree, $Env* env, bool fatcode) {
 }
 
 int32_t Gen::initCode($JCTree$JCMethodDecl* tree, $Env* env, bool fatcode) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$MethodSymbol, meth, $nc(tree)->sym);
 	$set($nc(meth), code, ($assignField(this, code, $new($Code, meth, fatcode, this->lineDebugInfo ? $nc(this->toplevel)->lineMap : ($Position$LineMap*)nullptr, this->varDebugInfo, this->stackMap, this->debugCode, this->genCrt ? $$new($CRTable, tree, $nc($nc(env)->toplevel)->endPositions) : ($CRTable*)nullptr, this->syms, this->types, this->poolWriter))));
 	$set(this, items, $new($Items, this->poolWriter, this->code, this->syms, this->types));
@@ -1352,6 +1368,7 @@ int32_t Gen::initCode($JCTree$JCMethodDecl* tree, $Env* env, bool fatcode) {
 }
 
 void Gen::visitVarDef($JCTree$JCVariableDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$VarSymbol, v, $nc(tree)->sym);
 	if (tree->init != nullptr) {
 		$var($JCDiagnostic$DiagnosticPosition, var$0, $nc(tree->init)->pos());
@@ -1373,6 +1390,7 @@ void Gen::visitSkip($JCTree$JCSkip* tree) {
 }
 
 void Gen::visitBlock($JCTree$JCBlock* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t limit = $nc(this->code)->nextreg;
 	$var($Env, localEnv, $nc(this->env)->dup(tree, $$new($Gen$GenContext)));
 	genStats($nc(tree)->stats, localEnv);
@@ -1400,6 +1418,7 @@ void Gen::visitForLoop($JCTree$JCForLoop* tree) {
 }
 
 void Gen::genLoop($JCTree$JCStatement* loop, $JCTree$JCStatement* body, $JCTree$JCExpression* cond, $List* step, bool testFirst) {
+	$useLocalCurrentObjectStackCache();
 	$var($Env, loopEnv, $nc(this->env)->dup(loop, $$new($Gen$GenContext)));
 	int32_t startpc = $nc(this->code)->entryPoint();
 	if (testFirst) {
@@ -1449,6 +1468,7 @@ void Gen::visitForeachLoop($JCTree$JCEnhancedForLoop* tree) {
 }
 
 void Gen::visitLabelled($JCTree$JCLabeledStatement* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Env, localEnv, $nc(this->env)->dup(tree, $$new($Gen$GenContext)));
 	genStat($nc(tree)->body, localEnv, 1);
 	$var($Code$Chain, exit, $nc(($cast($Gen$GenContext, $nc(localEnv)->info)))->exit);
@@ -1483,6 +1503,7 @@ void Gen::visitSwitchExpression($JCTree$JCSwitchExpression* tree) {
 }
 
 void Gen::doHandleSwitchExpression($JCTree$JCSwitchExpression* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, prevStackBeforeSwitchExpression, this->stackBeforeSwitchExpression);
 	$var($Items$LocalItem, prevSwitchResult, this->switchResult);
 	int32_t limit = $nc(this->code)->nextreg;
@@ -1534,12 +1555,14 @@ void Gen::doHandleSwitchExpression($JCTree$JCSwitchExpression* tree) {
 }
 
 bool Gen::hasTry($JCTree$JCSwitchExpression* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($booleans, hasTry, $new($booleans, 1));
 	$$new($Gen$1, this, hasTry)->scan(static_cast<$JCTree*>(tree));
 	return hasTry->get(0);
 }
 
 void Gen::handleSwitch($JCTree* swtch, $JCTree$JCExpression* selector, $List* cases, bool patternSwitch) {
+	$useLocalCurrentObjectStackCache();
 	int32_t limit = $nc(this->code)->nextreg;
 	$init($TypeTag);
 	$Assert::check(!$nc($nc(selector)->type)->hasTag($TypeTag::CLASS));
@@ -1702,6 +1725,7 @@ void Gen::qsort2($ints* keys, $ints* values, int32_t lo, int32_t hi) {
 }
 
 void Gen::visitSynchronized($JCTree$JCSynchronized* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t limit = $nc(this->code)->nextreg;
 	$var($Items$LocalItem, lockVar, makeTemp($nc(this->syms)->objectType));
 	$Assert::check($nc(this->code)->isStatementStart());
@@ -1717,6 +1741,7 @@ void Gen::visitSynchronized($JCTree$JCSynchronized* tree) {
 }
 
 void Gen::visitTry($JCTree$JCTry* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Env, tryEnv, $nc(this->env)->dup(tree, $$new($Gen$GenContext)));
 	$var($Env, oldEnv, this->env);
 	$set($nc($cast($Gen$GenContext, $nc(tryEnv)->info)), finalize$, $new($Gen$3, this, tryEnv, tree, oldEnv));
@@ -1725,6 +1750,7 @@ void Gen::visitTry($JCTree$JCTry* tree) {
 }
 
 void Gen::genTry($JCTree* body, $List* catchers, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	int32_t limit = $nc(this->code)->nextreg;
 	int32_t startpc = $nc(this->code)->curCP();
 	$var($Code$State, stateTry, $nc($nc(this->code)->state)->dup());
@@ -1793,6 +1819,7 @@ void Gen::genTry($JCTree* body, $List* catchers, $Env* env) {
 }
 
 void Gen::genCatch($JCTree$JCCatch* tree, $Env* env, int32_t startpc, int32_t endpc, $List* gaps$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, gaps, gaps$renamed);
 	if (startpc != endpc) {
 		$var($List, catchTypeExprs, catchTypesWithAnnotations(tree));
@@ -1864,10 +1891,12 @@ void Gen::genCatch($JCTree$JCCatch* tree, $Env* env, int32_t startpc, int32_t en
 }
 
 $List* Gen::catchTypesWithAnnotations($JCTree$JCCatch* tree) {
+	$useLocalCurrentObjectStackCache();
 	return $TreeInfo::isMultiCatch(tree) ? catchTypesWithAnnotationsFromMulticatch($cast($JCTree$JCTypeUnion, $nc($nc(tree)->param)->vartype), $($nc($nc(tree->param)->sym)->getRawTypeAttributes())) : $List::of($$new($Pair, $($nc($nc($nc(tree)->param)->sym)->getRawTypeAttributes()), $nc(tree->param)->vartype));
 }
 
 $List* Gen::catchTypesWithAnnotationsFromMulticatch($JCTree$JCTypeUnion* tree, $List* first) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, alts, $nc(tree)->alternatives);
 	$var($List, res, $List::of($$new($Pair, first, $cast($JCTree$JCExpression, $nc(alts)->head))));
 	$assign(alts, $nc(alts)->tail);
@@ -1905,6 +1934,7 @@ void Gen::registerCatch($JCDiagnostic$DiagnosticPosition* pos, int32_t startpc, 
 }
 
 void Gen::visitIf($JCTree$JCIf* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t limit = $nc(this->code)->nextreg;
 	$var($Code$Chain, thenExit, nullptr);
 	$Assert::check($nc(this->code)->isStatementStart());
@@ -1928,6 +1958,7 @@ void Gen::visitIf($JCTree$JCIf* tree) {
 }
 
 void Gen::visitExec($JCTree$JCExpressionStatement* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCExpression, e, $nc(tree)->expr);
 	$init($Gen$4);
 	switch ($nc($Gen$4::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($($nc(e)->getTag())))->ordinal())) {
@@ -1950,6 +1981,7 @@ void Gen::visitExec($JCTree$JCExpressionStatement* tree) {
 }
 
 void Gen::visitBreak($JCTree$JCBreak* tree) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::check($nc(this->code)->isStatementStart());
 	$var($Env, targetEnv, unwindBreak($nc(tree)->target));
 	$nc(($cast($Gen$GenContext, $nc(targetEnv)->info)))->addExit($($nc(this->code)->branch(167)));
@@ -1957,6 +1989,7 @@ void Gen::visitBreak($JCTree$JCBreak* tree) {
 }
 
 void Gen::visitYield($JCTree$JCYield* tree) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::check($nc(this->code)->isStatementStart());
 	$var($Env, targetEnv, nullptr);
 	if (this->inCondSwitchExpression) {
@@ -2008,6 +2041,7 @@ $Env* Gen::unwindBreak($JCTree* target) {
 }
 
 void Gen::reloadStackBeforeSwitchExpr() {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(this->stackBeforeSwitchExpression)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -2018,6 +2052,7 @@ void Gen::reloadStackBeforeSwitchExpr() {
 }
 
 void Gen::visitContinue($JCTree$JCContinue* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t tmpPos = $nc(this->code)->pendingStatPos;
 	$var($Env, targetEnv, unwind($nc(tree)->target, this->env));
 	$nc(this->code)->pendingStatPos = tmpPos;
@@ -2027,6 +2062,7 @@ void Gen::visitContinue($JCTree$JCContinue* tree) {
 }
 
 void Gen::visitReturn($JCTree$JCReturn* tree) {
+	$useLocalCurrentObjectStackCache();
 	int32_t limit = $nc(this->code)->nextreg;
 	$var($Env, targetEnv, nullptr);
 	int32_t tmpPos = $nc(this->code)->pendingStatPos;
@@ -2058,6 +2094,7 @@ void Gen::visitThrow($JCTree$JCThrow* tree) {
 }
 
 void Gen::visitApply($JCTree$JCMethodInvocation* tree) {
+	$useLocalCurrentObjectStackCache();
 	setTypeAnnotationPositions($nc(tree)->pos$);
 	$var($Items$Item, m, genExpr($nc(tree)->meth, this->methodType));
 	$var($Symbol$MethodSymbol, msym, $cast($Symbol$MethodSymbol, $TreeInfo::symbol($nc(tree)->meth)));
@@ -2069,6 +2106,7 @@ void Gen::visitApply($JCTree$JCMethodInvocation* tree) {
 }
 
 void Gen::visitConditional($JCTree$JCConditional* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Code$Chain, thenExit, nullptr);
 	$nc(this->code)->statBegin($nc($nc(tree)->cond)->pos$);
 	$var($Items$CondItem, c, genCond(static_cast<$JCTree*>($nc(tree)->cond), 8));
@@ -2099,6 +2137,7 @@ void Gen::visitConditional($JCTree$JCConditional* tree) {
 }
 
 void Gen::setTypeAnnotationPositions(int32_t treePos) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$MethodSymbol, meth, $nc(this->code)->meth);
 	$init($ElementKind);
 	bool var$0 = $nc($nc(this->code)->meth)->getKind() == $ElementKind::CONSTRUCTOR;
@@ -2163,6 +2202,7 @@ void Gen::setTypeAnnotationPositions(int32_t treePos) {
 }
 
 void Gen::visitNewClass($JCTree$JCNewClass* tree) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::check($nc(tree)->encl == nullptr && tree->def == nullptr);
 	setTypeAnnotationPositions($nc(tree)->pos$);
 	$var($PoolConstant, var$0, static_cast<$PoolConstant*>(checkDimension($($nc(tree)->pos()), tree->type)));
@@ -2174,6 +2214,7 @@ void Gen::visitNewClass($JCTree$JCNewClass* tree) {
 }
 
 void Gen::visitNewArray($JCTree$JCNewArray* tree) {
+	$useLocalCurrentObjectStackCache();
 	setTypeAnnotationPositions($nc(tree)->pos$);
 	if ($nc(tree)->elems != nullptr) {
 		$var($Type, elemtype, $nc(this->types)->elemtype(tree->type));
@@ -2227,6 +2268,7 @@ void Gen::visitParens($JCTree$JCParens* tree) {
 }
 
 void Gen::visitAssign($JCTree$JCAssign* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Items$Item, l, genExpr($nc(tree)->lhs, $nc(tree->lhs)->type));
 	$nc($(genExpr($nc(tree)->rhs, $nc(tree->lhs)->type)))->load();
 	$init($TypeTag);
@@ -2237,6 +2279,7 @@ void Gen::visitAssign($JCTree$JCAssign* tree) {
 }
 
 void Gen::visitAssignop($JCTree$JCAssignOp* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$OperatorSymbol, operator$, $nc(tree)->operator$);
 	$var($Items$Item, l, nullptr);
 	if ($nc(operator$)->opcode == 256) {
@@ -2278,6 +2321,7 @@ void Gen::visitAssignop($JCTree$JCAssignOp* tree) {
 }
 
 void Gen::visitUnary($JCTree$JCUnary* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$OperatorSymbol, operator$, $nc(tree)->operator$);
 	$init($JCTree$Tag);
 	if (tree->hasTag($JCTree$Tag::NOT)) {
@@ -2378,6 +2422,7 @@ void Gen::visitUnary($JCTree$JCUnary* tree) {
 }
 
 void Gen::genNullCheck($JCTree* tree) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->code)->statBegin($nc(tree)->pos$);
 	$var($JCDiagnostic$DiagnosticPosition, var$0, $nc(tree)->pos());
 	$var($Type, var$1, $nc(this->syms)->objectsType);
@@ -2387,6 +2432,7 @@ void Gen::genNullCheck($JCTree* tree) {
 }
 
 void Gen::visitBinary($JCTree$JCBinary* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$OperatorSymbol, operator$, $nc(tree)->operator$);
 	if ($nc(operator$)->opcode == 256) {
 		$set(this, result, $nc(this->concat)->makeConcat(tree));
@@ -2423,6 +2469,7 @@ void Gen::visitBinary($JCTree$JCBinary* tree) {
 }
 
 $Items$Item* Gen::completeBinop($JCTree* lhs, $JCTree* rhs, $Symbol$OperatorSymbol* operator$) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type$MethodType, optype, $cast($Type$MethodType, $nc(operator$)->type));
 	int32_t opcode = operator$->opcode;
 	{
@@ -2464,6 +2511,7 @@ $Items$Item* Gen::completeBinop($JCTree* lhs, $JCTree* rhs, $Symbol$OperatorSymb
 }
 
 void Gen::visitTypeCast($JCTree$JCTypeCast* tree) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, result, $nc($(genExpr($nc(tree)->expr, $nc(tree->clazz)->type)))->load());
 	setTypeAnnotationPositions($nc(tree)->pos$);
 	bool var$1 = !$nc($nc($nc(tree)->clazz)->type)->isPrimitive();
@@ -2479,6 +2527,7 @@ void Gen::visitWildcard($JCTree$JCWildcard* tree) {
 }
 
 void Gen::visitTypeTest($JCTree$JCInstanceOf* tree) {
+	$useLocalCurrentObjectStackCache();
 	$nc($(genExpr($nc(tree)->expr, $nc(tree->expr)->type)))->load();
 	setTypeAnnotationPositions($nc(tree)->pos$);
 	$nc(this->code)->emitop2(193, makeRef($($nc(tree)->pos()), $nc(tree->pattern)->type));
@@ -2486,12 +2535,14 @@ void Gen::visitTypeTest($JCTree$JCInstanceOf* tree) {
 }
 
 void Gen::visitIndexed($JCTree$JCArrayAccess* tree) {
+	$useLocalCurrentObjectStackCache();
 	$nc($(genExpr($nc(tree)->indexed, $nc(tree->indexed)->type)))->load();
 	$nc($(genExpr($nc(tree)->index, $nc(this->syms)->intType)))->load();
 	$set(this, result, $nc(this->items)->makeIndexedItem($nc(tree)->type));
 }
 
 void Gen::visitIdent($JCTree$JCIdent* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, sym, $nc(tree)->sym);
 	if (tree->name == $nc(this->names)->_this || tree->name == $nc(this->names)->_super) {
 		$var($Items$Item, res, tree->name == $nc(this->names)->_this ? $nc(this->items)->makeThisItem() : $nc(this->items)->makeSuperItem());
@@ -2532,6 +2583,7 @@ bool Gen::nonVirtualForPrivateAccess($Symbol* sym) {
 }
 
 void Gen::visitSelect($JCTree$JCFieldAccess* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, sym, $nc(tree)->sym);
 	if (tree->name == $nc(this->names)->_class) {
 		$nc(this->code)->emitLdc($cast($PoolConstant$LoadableConstant, $(checkDimension($(tree->pos()), $nc(tree->selected)->type))));
@@ -2595,6 +2647,7 @@ void Gen::visitLiteral($JCTree$JCLiteral* tree) {
 }
 
 void Gen::visitLetExpr($JCTree$LetExpr* tree) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->code)->resolvePending();
 	int32_t limit = $nc(this->code)->nextreg;
 	int32_t prevLetExprStart = $nc(this->code)->setLetExprStackPos($nc($nc(this->code)->state)->stacksize);
@@ -2616,6 +2669,7 @@ void Gen::visitLetExpr($JCTree$LetExpr* tree) {
 }
 
 void Gen::generateReferencesToPrunedTree($Symbol$ClassSymbol* classSymbol) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, prunedInfo, $cast($List, $nc($nc(this->lower)->prunedTree)->get(classSymbol)));
 	if (prunedInfo != nullptr) {
 		{
@@ -2631,6 +2685,7 @@ void Gen::generateReferencesToPrunedTree($Symbol$ClassSymbol* classSymbol) {
 }
 
 bool Gen::genClass($Env* env, $JCTree$JCClassDecl* cdef) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Throwable, var$0, nullptr);
 		bool var$2 = false;

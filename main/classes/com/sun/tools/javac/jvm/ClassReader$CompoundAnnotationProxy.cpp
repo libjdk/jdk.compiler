@@ -93,6 +93,7 @@ void ClassReader$CompoundAnnotationProxy::accept($Attribute$Visitor* v) {
 }
 
 $String* ClassReader$CompoundAnnotationProxy::toString() {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, buf, $new($StringBuilder));
 	buf->append("@"_s);
 	buf->append($(static_cast<$CharSequence*>($nc($nc(this->type)->tsym)->getQualifiedName())));

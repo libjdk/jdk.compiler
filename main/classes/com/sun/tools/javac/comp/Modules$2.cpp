@@ -103,6 +103,7 @@ void Modules$2::init$($Modules* this$0, $JCTree$JCCompilationUnit* val$tree) {
 }
 
 void Modules$2::complete($Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$ModuleSymbol, msym, $cast($Symbol$ModuleSymbol, sym));
 	$nc(msym)->flags_field |= 0x10000000;
 	$var($Modules$ModuleVisitor, v, $new($Modules$ModuleVisitor, this->this$0));

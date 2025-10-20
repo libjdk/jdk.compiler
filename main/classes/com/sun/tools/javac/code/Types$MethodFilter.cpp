@@ -82,6 +82,7 @@ void Types$MethodFilter::init$($Types* this$0, $Symbol* msym, $Type* site) {
 }
 
 bool Types$MethodFilter::test($Symbol* s) {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$Kind);
 	bool var$1 = $nc(s)->kind == $Kinds$Kind::MTH && s->name == $nc(this->msym)->name && ((int64_t)(s->flags() & (uint64_t)(int64_t)4096)) == 0;
 	bool var$0 = var$1 && s->isInheritedIn($nc(this->site)->tsym, this->this$0);

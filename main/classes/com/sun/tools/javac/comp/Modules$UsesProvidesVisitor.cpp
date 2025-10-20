@@ -345,6 +345,7 @@ void Modules$UsesProvidesVisitor::init$($Modules* this$0, $Symbol$ModuleSymbol* 
 }
 
 void Modules$UsesProvidesVisitor::visitModuleDef($JCTree$JCModuleDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	$set($nc(this->msym), directives, $List::nil());
 	$set($nc(this->msym), provides, $List::nil());
 	$set($nc(this->msym), uses, $List::nil());
@@ -362,6 +363,7 @@ void Modules$UsesProvidesVisitor::visitModuleDef($JCTree$JCModuleDecl* tree) {
 }
 
 void Modules$UsesProvidesVisitor::visitExports($JCTree$JCExports* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Iterable, packageContent, $nc($($nc($nc($nc(tree)->directive)->packge)->members()))->getSymbols());
 	$var($List, filesToCheck, $List::nil());
 	bool packageNotEmpty = false;
@@ -413,6 +415,7 @@ void Modules$UsesProvidesVisitor::visitOpens($JCTree$JCOpens* tree) {
 }
 
 $Symbol$MethodSymbol* Modules$UsesProvidesVisitor::noArgsConstructor($Symbol$ClassSymbol* tsym) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($($nc($($nc(tsym)->members()))->getSymbolsByName($nc(this->this$0->names)->init)))->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -429,6 +432,7 @@ $Symbol$MethodSymbol* Modules$UsesProvidesVisitor::noArgsConstructor($Symbol$Cla
 }
 
 $Symbol$MethodSymbol* Modules$UsesProvidesVisitor::factoryMethod($Symbol$ClassSymbol* tsym) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($($nc($($nc(tsym)->members()))->getSymbolsByName($nc(this->this$0->names)->provider, static_cast<$Predicate*>($$new(Modules$UsesProvidesVisitor$$Lambda$lambda$factoryMethod$1$1)))))->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -447,6 +451,7 @@ $Symbol$MethodSymbol* Modules$UsesProvidesVisitor::factoryMethod($Symbol$ClassSy
 }
 
 void Modules$UsesProvidesVisitor::visitProvides($JCTree$JCProvides* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, st, $nc(this->this$0->attr)->attribType($nc(tree)->serviceName, this->env, $nc(this->this$0->syms)->objectType));
 	$var($Symbol$ClassSymbol, service, $cast($Symbol$ClassSymbol, $nc(st)->tsym));
 	if ($nc(this->allProvides)->containsKey(service)) {
@@ -529,6 +534,7 @@ void Modules$UsesProvidesVisitor::visitProvides($JCTree$JCProvides* tree) {
 }
 
 void Modules$UsesProvidesVisitor::visitRequires($JCTree$JCRequires* tree) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(tree)->directive != nullptr && $nc($(this->this$0->allModules()))->contains($nc(tree->directive)->module)) {
 		$nc(this->this$0->chk)->checkDeprecated($($nc(tree->moduleName)->pos()), static_cast<$Symbol*>(this->msym), static_cast<$Symbol*>($nc(tree->directive)->module));
 		$nc(this->this$0->chk)->checkPreview($($nc(tree->moduleName)->pos()), this->msym, $nc(tree->directive)->module);
@@ -538,6 +544,7 @@ void Modules$UsesProvidesVisitor::visitRequires($JCTree$JCRequires* tree) {
 }
 
 void Modules$UsesProvidesVisitor::visitUses($JCTree$JCUses* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, st, $nc(this->this$0->attr)->attribType($nc(tree)->qualid, this->env, $nc(this->this$0->syms)->objectType));
 	$var($Symbol, sym, $TreeInfo::symbol($nc(tree)->qualid));
 	if (((int64_t)($nc(sym)->flags() & (uint64_t)(int64_t)16384)) != 0) {
@@ -560,6 +567,7 @@ void Modules$UsesProvidesVisitor::visitUses($JCTree$JCUses* tree) {
 }
 
 void Modules$UsesProvidesVisitor::checkForCorrectness() {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($nc(this->msym)->provides)->iterator());
 		for (; $nc(i$)->hasNext();) {

@@ -110,6 +110,7 @@ $Boolean* Types$HasSameArgs::visitMethodType($Type$MethodType* t, $Type* s) {
 }
 
 $Boolean* Types$HasSameArgs::visitForAll($Type$ForAll* t, $Type* s) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	if (!$nc(s)->hasTag($TypeTag::FORALL)) {
 		return $Boolean::valueOf(this->strict ? false : $nc($(visitMethodType($($nc(t)->asMethodType()), s)))->booleanValue());

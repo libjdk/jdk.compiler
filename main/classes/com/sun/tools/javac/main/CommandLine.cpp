@@ -99,6 +99,7 @@ $List* CommandLine::parse($List* args) {
 }
 
 void CommandLine::appendParsedCommandArgs($List* newArgs, $List* args) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(args)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -121,6 +122,7 @@ void CommandLine::appendParsedCommandArgs($List* newArgs, $List* args) {
 }
 
 $List* CommandLine::parse($String* envVariable, $List* args) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, inArgs, $new($ArrayList));
 	appendParsedEnvVariables(inArgs, envVariable);
 	inArgs->addAll(args);
@@ -130,6 +132,7 @@ $List* CommandLine::parse($String* envVariable, $List* args) {
 }
 
 void CommandLine::loadCmdFile($String* name, $List* args) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Path, var$0, $Paths::get(name, $$new($StringArray, 0)));
 		$var($Reader, r, $Files::newBufferedReader(var$0, $($Charset::defaultCharset())));
@@ -169,6 +172,7 @@ void CommandLine::loadCmdFile($String* name, $List* args) {
 }
 
 void CommandLine::appendParsedEnvVariables($List* newArgs, $String* envVariable) {
+	$useLocalCurrentObjectStackCache();
 	if (envVariable == nullptr) {
 		return;
 	}

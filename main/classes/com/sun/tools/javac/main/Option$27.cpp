@@ -73,6 +73,7 @@ void Option$27::init$($String* $enum$name, int32_t $enum$ordinal, $String* text,
 }
 
 void Option$27::process($OptionHelper* helper, $String* option, $String* p) {
+	$useLocalCurrentObjectStackCache();
 	$init($Option);
 	$var($String, prev, $nc(helper)->get($Option::PLUGIN));
 	helper->put($Option::PLUGIN->primaryName, (prev == nullptr) ? p : $$str({prev, $$str(u'\0'), p}));

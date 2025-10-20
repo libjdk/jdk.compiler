@@ -136,6 +136,7 @@ $JCDiagnostic$Error* LauncherProperties$Errors::NoValueForOption($String* arg0) 
 }
 
 void clinit$LauncherProperties$Errors($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(LauncherProperties$Errors::CompilationFailed, $new($JCDiagnostic$Error, "launcher"_s, "compilation.failed"_s, $$new($ObjectArray, 0)));
 	$assignStatic(LauncherProperties$Errors::EnablePreviewRequiresSource, $new($JCDiagnostic$Error, "launcher"_s, "enable.preview.requires.source"_s, $$new($ObjectArray, 0)));
 	$assignStatic(LauncherProperties$Errors::MainNotPublicStatic, $new($JCDiagnostic$Error, "launcher"_s, "main.not.public.static"_s, $$new($ObjectArray, 0)));

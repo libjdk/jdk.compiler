@@ -116,6 +116,7 @@ void JavaCompiler$1ScanNested::init$($JavaCompiler* this$0, $Env* val$env) {
 }
 
 void JavaCompiler$1ScanNested::visitClassDef($JCTree$JCClassDecl* node) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, st, $nc(this->this$0->types)->supertype($nc($nc(node)->sym)->type));
 	bool envForSuperTypeFound = false;
 	$init($TypeTag);

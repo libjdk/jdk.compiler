@@ -708,6 +708,7 @@ LambdaToMethod* LambdaToMethod::instance($Context* context) {
 }
 
 void LambdaToMethod::init$($Context* context) {
+	$useLocalCurrentObjectStackCache();
 	$TreeTranslator::init$();
 	$nc(context)->put(LambdaToMethod::unlambdaKey, $of(this));
 	$set(this, diags, $JCDiagnostic$Factory::instance(context));
@@ -740,6 +741,7 @@ $JCTree* LambdaToMethod::translate($JCTree* tree) {
 }
 
 $JCTree* LambdaToMethod::translate($JCTree* tree, $LambdaToMethod$LambdaAnalyzerPreprocessor$TranslationContext* newContext) {
+	$useLocalCurrentObjectStackCache();
 	$var($LambdaToMethod$LambdaAnalyzerPreprocessor$TranslationContext, prevContext, this->context);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -766,6 +768,7 @@ $JCTree* LambdaToMethod::translate($JCTree* tree, $LambdaToMethod$LambdaAnalyzer
 }
 
 $List* LambdaToMethod::translate($List* trees, $LambdaToMethod$LambdaAnalyzerPreprocessor$TranslationContext* newContext) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, buf, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc(trees)->iterator());
@@ -788,6 +791,7 @@ $JCTree* LambdaToMethod::translateTopLevelClass($Env* env, $JCTree* cdef, $TreeM
 }
 
 void LambdaToMethod::visitClassDef($JCTree$JCClassDecl* tree$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCClassDecl, tree, tree$renamed);
 	$init($Kinds$Kind);
 	if ($nc($nc($nc(tree)->sym)->owner)->kind == $Kinds$Kind::PCK) {
@@ -840,6 +844,7 @@ void LambdaToMethod::visitClassDef($JCTree$JCClassDecl* tree$renamed) {
 }
 
 void LambdaToMethod::visitLambda($JCTree$JCLambda* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext, localContext, $cast($LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext, this->context));
 	$var($Symbol$MethodSymbol, sym, $nc(localContext)->translatedSym);
 	$var($Type$MethodType, lambdaType, $cast($Type$MethodType, $nc(sym)->type));
@@ -926,6 +931,7 @@ void LambdaToMethod::visitLambda($JCTree$JCLambda* tree) {
 }
 
 void LambdaToMethod::apportionTypeAnnotations($JCTree$JCLambda* tree, $Supplier* source, $Consumer* owner, $Consumer* lambda) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, ownerTypeAnnos, $new($ListBuffer));
 	$var($ListBuffer, lambdaTypeAnnos, $new($ListBuffer));
 	{
@@ -953,6 +959,7 @@ $JCTree$JCIdent* LambdaToMethod::makeThis($Type* type, $Symbol* owner) {
 }
 
 void LambdaToMethod::visitReference($JCTree$JCMemberReference* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($LambdaToMethod$LambdaAnalyzerPreprocessor$ReferenceTranslationContext, localContext, $cast($LambdaToMethod$LambdaAnalyzerPreprocessor$ReferenceTranslationContext, this->context));
 	$var($Symbol$MethodSymbol, refSym, $cast($Symbol$MethodSymbol, $nc(tree)->sym));
 	$var($JCTree$JCExpression, init, nullptr);
@@ -995,6 +1002,7 @@ void LambdaToMethod::visitReference($JCTree$JCMemberReference* tree) {
 }
 
 void LambdaToMethod::visitIdent($JCTree$JCIdent* tree) {
+	$useLocalCurrentObjectStackCache();
 	if (this->context == nullptr || !$nc(this->analyzer)->lambdaIdentSymbolFilter($nc(tree)->sym)) {
 		$TreeTranslator::visitIdent(tree);
 	} else {
@@ -1023,6 +1031,7 @@ void LambdaToMethod::visitIdent($JCTree$JCIdent* tree) {
 }
 
 void LambdaToMethod::visitSelect($JCTree$JCFieldAccess* tree) {
+	$useLocalCurrentObjectStackCache();
 	if (this->context == nullptr || !$nc(this->analyzer)->lambdaFieldAccessFilter(tree)) {
 		$TreeTranslator::visitSelect(tree);
 	} else {
@@ -1051,6 +1060,7 @@ void LambdaToMethod::visitSelect($JCTree$JCFieldAccess* tree) {
 }
 
 void LambdaToMethod::visitNewClass($JCTree$JCNewClass* tree$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCNewClass, tree, tree$renamed);
 	if (this->context == nullptr || !$nc(this->analyzer)->lambdaNewClassFilter(this->context, tree)) {
 		$TreeTranslator::visitNewClass(tree);
@@ -1076,6 +1086,7 @@ void LambdaToMethod::visitNewClass($JCTree$JCNewClass* tree$renamed) {
 }
 
 void LambdaToMethod::visitVarDef($JCTree$JCVariableDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext, lambdaContext, $cast($LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext, this->context));
 	$init($LambdaToMethod$LambdaSymbolKind);
 	if (this->context != nullptr && $nc($($nc(lambdaContext)->getSymbolMap($LambdaToMethod$LambdaSymbolKind::LOCAL_VAR)))->containsKey($nc(tree)->sym)) {
@@ -1093,6 +1104,7 @@ $JCTree$JCBlock* LambdaToMethod::makeLambdaBody($JCTree$JCLambda* tree, $JCTree$
 }
 
 $JCTree$JCBlock* LambdaToMethod::makeLambdaExpressionBody($JCTree$JCExpression* expr, $JCTree$JCMethodDecl* lambdaMethodDecl) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, restype, $nc($nc(lambdaMethodDecl)->type)->getReturnType());
 	$init($TypeTag);
 	bool isLambda_void = $nc($nc(expr)->type)->hasTag($TypeTag::VOID);
@@ -1137,6 +1149,7 @@ $JCTree$JCBlock* LambdaToMethod::makeLambdaExpressionBody($JCTree$JCExpression* 
 }
 
 $JCTree$JCBlock* LambdaToMethod::makeLambdaStatementBody($JCTree$JCBlock* block, $JCTree$JCMethodDecl* lambdaMethodDecl, bool completeNormally) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, restype, $nc($nc(lambdaMethodDecl)->type)->getReturnType());
 	$init($TypeTag);
 	bool isTarget_void = $nc(restype)->hasTag($TypeTag::VOID);
@@ -1151,6 +1164,7 @@ $JCTree$JCBlock* LambdaToMethod::makeLambdaStatementBody($JCTree$JCBlock* block,
 }
 
 $JCTree$JCMethodDecl* LambdaToMethod::makeDeserializeMethod($Symbol* kSym) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, cases, $new($ListBuffer));
 	$var($ListBuffer, breaks, $new($ListBuffer));
 	{
@@ -1190,6 +1204,7 @@ $JCTree$JCMethodDecl* LambdaToMethod::makeDeserializeMethod($Symbol* kSym) {
 }
 
 $JCTree$JCNewClass* LambdaToMethod::makeNewClass($Type* ctype, $List* args, $Symbol* cons) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCNewClass, tree, $nc(this->make)->NewClass(nullptr, nullptr, $($nc(this->make)->QualIdent($nc(ctype)->tsym)), args, nullptr));
 	$set($nc(tree), constructor, cons);
 	$set(tree, type, ctype);
@@ -1197,6 +1212,7 @@ $JCTree$JCNewClass* LambdaToMethod::makeNewClass($Type* ctype, $List* args, $Sym
 }
 
 $JCTree$JCNewClass* LambdaToMethod::makeNewClass($Type* ctype, $List* args) {
+	$useLocalCurrentObjectStackCache();
 	$var($Env, var$0, this->attrEnv);
 	$var($Type, var$1, ctype);
 	$var($List, var$2, $TreeInfo::types(args));
@@ -1204,6 +1220,7 @@ $JCTree$JCNewClass* LambdaToMethod::makeNewClass($Type* ctype, $List* args) {
 }
 
 void LambdaToMethod::addDeserializationCase($Symbol$MethodHandleSymbol* refSym, $Type* targetType, $Symbol$MethodSymbol* samSym, $JCDiagnostic$DiagnosticPosition* pos, $List* staticArgs, $Type$MethodType* indyType) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, functionalInterfaceClass, classSig(targetType));
 	$var($String, functionalInterfaceMethodName, $nc($($cast($Name, $nc(samSym)->getSimpleName())))->toString());
 	$var($String, functionalInterfaceMethodSignature, typeSig($($nc(this->types)->erasure(samSym->type))));
@@ -1247,6 +1264,7 @@ $JCTree$JCExpression* LambdaToMethod::eqTest($Type* argType, $JCTree$JCExpressio
 }
 
 $JCTree$JCExpression* LambdaToMethod::deserTest($JCTree$JCExpression* prev, $String* func, $String* lit) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, var$0, $List::of($nc(this->syms)->objectType));
 	$var($Type, var$1, static_cast<$Type*>($nc(this->syms)->booleanType));
 	$var($Type$MethodType, eqmt, $new($Type$MethodType, var$0, var$1, $($List::nil()), $nc(this->syms)->methodClass));
@@ -1267,6 +1285,7 @@ $JCTree$JCExpression* LambdaToMethod::deserTest($JCTree$JCExpression* prev, $Str
 }
 
 $JCTree$JCExpression* LambdaToMethod::deserGetter($String* func, $Type* type) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, var$0, func);
 	$var($Type, var$1, type);
 	$var($List, var$2, $List::nil());
@@ -1274,6 +1293,7 @@ $JCTree$JCExpression* LambdaToMethod::deserGetter($String* func, $Type* type) {
 }
 
 $JCTree$JCExpression* LambdaToMethod::deserGetter($String* func, $Type* type, $List* argTypes, $List* args) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type$MethodType, getmt, $new($Type$MethodType, argTypes, type, $($List::nil()), $nc(this->syms)->methodClass));
 	$var($Env, var$0, this->attrEnv);
 	$var($Type, var$1, $nc(this->syms)->serializedLambdaType);
@@ -1320,6 +1340,7 @@ void LambdaToMethod::setVarargsIfNeeded($JCTree* tree, $Type* varargsElement) {
 }
 
 $List* LambdaToMethod::convertArgs($Symbol* meth, $List* args, $Type* varargsElement) {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$Kind);
 	$Assert::check($nc(meth)->kind == $Kinds$Kind::MTH);
 	$var($List, formals, $nc($($nc(this->types)->erasure($nc(meth)->type)))->getParameterTypes());
@@ -1330,6 +1351,7 @@ $List* LambdaToMethod::convertArgs($Symbol* meth, $List* args, $Type* varargsEle
 }
 
 $Type$MethodType* LambdaToMethod::typeToMethodType($Type* mt) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, type, $nc(this->types)->erasure(mt));
 	$var($List, var$0, $nc(type)->getParameterTypes());
 	$var($Type, var$1, type->getReturnType());
@@ -1337,6 +1359,7 @@ $Type$MethodType* LambdaToMethod::typeToMethodType($Type* mt) {
 }
 
 $JCTree$JCExpression* LambdaToMethod::makeMetafactoryIndyCall($LambdaToMethod$LambdaAnalyzerPreprocessor$TranslationContext* context, $Symbol$MethodHandleSymbol* refSym, $List* indy_args) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCFunctionalExpression, tree, $nc(context)->tree);
 	$var($Symbol$MethodSymbol, samSym, $cast($Symbol$MethodSymbol, $nc(this->types)->findDescriptorSymbol($nc($nc(tree)->target)->tsym)));
 	$var($Object, var$0, $of(typeToMethodType($nc(samSym)->type)));
@@ -1422,6 +1445,7 @@ $JCTree$JCExpression* LambdaToMethod::makeMetafactoryIndyCall($LambdaToMethod$La
 }
 
 $JCTree$JCExpression* LambdaToMethod::makeIndyCall($JCDiagnostic$DiagnosticPosition* pos, $Type* site, $Name* bsmName, $List* staticArgs, $Type$MethodType* indyType, $List* indyArgs, $Name* methName) {
+	$useLocalCurrentObjectStackCache();
 	int32_t prevPos = $nc(this->make)->pos;
 	{
 		$var($Throwable, var$0, nullptr);
@@ -1465,6 +1489,7 @@ $String* LambdaToMethod::typeSig($Type* type) {
 }
 
 $String* LambdaToMethod::typeSig($Type* type, bool allowIllegalSignature) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var($LambdaToMethod$L2MSignatureGenerator, sg, $new($LambdaToMethod$L2MSignatureGenerator, this, allowIllegalSignature));
 		sg->assembleSig(type);
@@ -1479,6 +1504,7 @@ $String* LambdaToMethod::typeSig($Type* type, bool allowIllegalSignature) {
 }
 
 $String* LambdaToMethod::classSig($Type* type) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var($LambdaToMethod$L2MSignatureGenerator, sg, $new($LambdaToMethod$L2MSignatureGenerator, this, false));
 		sg->assembleClassSig(type);

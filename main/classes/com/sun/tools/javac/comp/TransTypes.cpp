@@ -364,6 +364,7 @@ void TransTypes::init$($Context* context) {
 }
 
 $JCTree$JCExpression* TransTypes::cast($JCTree$JCExpression* tree$renamed, $Type* target) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCExpression, tree, tree$renamed);
 	int32_t oldpos = $nc(this->make)->pos;
 	$nc(this->make)->at($nc(tree)->pos$);
@@ -378,6 +379,7 @@ $JCTree$JCExpression* TransTypes::cast($JCTree$JCExpression* tree$renamed, $Type
 }
 
 $JCTree$JCExpression* TransTypes::coerce($Env* env, $JCTree$JCExpression* tree, $Type* target) {
+	$useLocalCurrentObjectStackCache();
 	$var($Env, prevEnv, this->env);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -427,6 +429,7 @@ $JCTree$JCExpression* TransTypes::retype($JCTree$JCExpression* tree, $Type* eras
 }
 
 $List* TransTypes::translateArgs($List* _args, $List* parameters$renamed, $Type* varargsElement) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, parameters, parameters$renamed);
 	if ($nc(parameters)->isEmpty()) {
 		return _args;
@@ -451,6 +454,7 @@ $List* TransTypes::translateArgs($List* _args, $List* parameters$renamed, $Type*
 }
 
 $List* TransTypes::translateArgs($List* _args, $List* parameters, $Type* varargsElement, $Env* localEnv) {
+	$useLocalCurrentObjectStackCache();
 	$var($Env, prevEnv, this->env);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -477,6 +481,7 @@ $List* TransTypes::translateArgs($List* _args, $List* parameters, $Type* varargs
 }
 
 void TransTypes::addBridge($JCDiagnostic$DiagnosticPosition* pos, $Symbol$MethodSymbol* meth, $Symbol$MethodSymbol* impl, $Symbol$ClassSymbol* origin, $ListBuffer* bridges) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->make)->at(pos);
 	$var($Type, implTypeErasure, erasure($nc(impl)->type));
 	$var($Type, bridgeType, $nc(meth)->erasure(this->types));
@@ -499,6 +504,7 @@ void TransTypes::addBridge($JCDiagnostic$DiagnosticPosition* pos, $Symbol$Method
 }
 
 $List* TransTypes::createBridgeParams($Symbol$MethodSymbol* impl, $Symbol$MethodSymbol* bridge, $Type* bridgeType) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, bridgeParams, nullptr);
 	if ($nc(impl)->params$ != nullptr) {
 		$assign(bridgeParams, $List::nil());
@@ -523,6 +529,7 @@ $List* TransTypes::createBridgeParams($Symbol$MethodSymbol* impl, $Symbol$Method
 }
 
 void TransTypes::addBridgeIfNeeded($JCDiagnostic$DiagnosticPosition* pos, $Symbol* sym, $Symbol$ClassSymbol* origin, $ListBuffer* bridges) {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$Kind);
 	bool var$1 = $nc(sym)->kind == $Kinds$Kind::MTH && sym->name != $nc(this->names)->init && ((int64_t)(sym->flags() & (uint64_t)(int64_t)(2 | 8))) == 0;
 	bool var$0 = var$1 && ((int64_t)(sym->flags() & (uint64_t)(int64_t)4096)) != 4096;
@@ -549,6 +556,7 @@ void TransTypes::addBridgeIfNeeded($JCDiagnostic$DiagnosticPosition* pos, $Symbo
 }
 
 bool TransTypes::isBridgeNeeded($Symbol$MethodSymbol* method, $Symbol$MethodSymbol* impl, $Type* dest) {
+	$useLocalCurrentObjectStackCache();
 	if (impl != method) {
 		$var($Type, method_erasure, $nc(method)->erasure(this->types));
 		if (!isSameMemberWhenErased(dest, method, method_erasure)) {
@@ -568,10 +576,12 @@ bool TransTypes::isBridgeNeeded($Symbol$MethodSymbol* method, $Symbol$MethodSymb
 }
 
 bool TransTypes::isSameMemberWhenErased($Type* type, $Symbol$MethodSymbol* method, $Type* erasure) {
+	$useLocalCurrentObjectStackCache();
 	return $nc(this->types)->isSameType($(this->erasure($($nc(this->types)->memberType(type, method)))), erasure);
 }
 
 void TransTypes::addBridges($JCDiagnostic$DiagnosticPosition* pos, $Symbol$TypeSymbol* i, $Symbol$ClassSymbol* origin, $ListBuffer* bridges) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$init($Scope$LookupKind);
 		$var($Iterator, i$, $nc($($nc($($nc(i)->members()))->getSymbols($Scope$LookupKind::NON_RECURSIVE)))->iterator());
@@ -589,6 +599,7 @@ void TransTypes::addBridges($JCDiagnostic$DiagnosticPosition* pos, $Symbol$TypeS
 }
 
 void TransTypes::addBridges($JCDiagnostic$DiagnosticPosition* pos, $Symbol$ClassSymbol* origin, $ListBuffer* bridges) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, st, $nc(this->types)->supertype($nc(origin)->type));
 	$init($TypeTag);
 	while ($nc(st)->hasTag($TypeTag::CLASS)) {
@@ -604,6 +615,7 @@ void TransTypes::addBridges($JCDiagnostic$DiagnosticPosition* pos, $Symbol$Class
 }
 
 $JCTree* TransTypes::translate($JCTree* tree, $Type* pt) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, prevPt, this->pt);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -630,6 +642,7 @@ $JCTree* TransTypes::translate($JCTree* tree, $Type* pt) {
 }
 
 $List* TransTypes::translate($List* trees, $Type* pt) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, prevPt, this->pt);
 	$var($List, res, nullptr);
 	{
@@ -655,6 +668,7 @@ void TransTypes::visitClassDef($JCTree$JCClassDecl* tree) {
 }
 
 void TransTypes::visitMethodDef($JCTree$JCMethodDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, prevRetType, this->returnType);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -709,6 +723,7 @@ void TransTypes::visitForLoop($JCTree$JCForLoop* tree) {
 }
 
 void TransTypes::visitForeachLoop($JCTree$JCEnhancedForLoop* tree) {
+	$useLocalCurrentObjectStackCache();
 	$set($nc(tree), var, $cast($JCTree$JCVariableDecl, translate(static_cast<$JCTree*>(tree->var), ($Type*)nullptr)));
 	$var($Type, iterableType, $nc(tree->expr)->type);
 	$set(tree, expr, $cast($JCTree$JCExpression, translate(static_cast<$JCTree*>(tree->expr), $(erasure($nc(tree->expr)->type)))));
@@ -720,6 +735,7 @@ void TransTypes::visitForeachLoop($JCTree$JCEnhancedForLoop* tree) {
 }
 
 void TransTypes::visitLambda($JCTree$JCLambda* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, prevRetType, this->returnType);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -746,6 +762,7 @@ void TransTypes::visitLambda($JCTree$JCLambda* tree) {
 }
 
 void TransTypes::visitSwitch($JCTree$JCSwitch* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, selsuper, $nc(this->types)->supertype($nc($nc(tree)->selector)->type));
 	bool enumSwitch = selsuper != nullptr && selsuper->tsym == $nc(this->syms)->enumSym;
 	$var($Type, target, enumSwitch ? erasure($nc($nc(tree)->selector)->type) : static_cast<$Type*>($nc(this->syms)->intType));
@@ -766,6 +783,7 @@ void TransTypes::visitBindingPattern($JCTree$JCBindingPattern* tree) {
 }
 
 void TransTypes::visitSwitchExpression($JCTree$JCSwitchExpression* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, selsuper, $nc(this->types)->supertype($nc($nc(tree)->selector)->type));
 	bool enumSwitch = selsuper != nullptr && selsuper->tsym == $nc(this->syms)->enumSym;
 	$var($Type, target, enumSwitch ? erasure($nc($nc(tree)->selector)->type) : static_cast<$Type*>($nc(this->syms)->intType));
@@ -801,6 +819,7 @@ void TransTypes::visitTry($JCTree$JCTry* tree) {
 }
 
 void TransTypes::visitConditional($JCTree$JCConditional* tree) {
+	$useLocalCurrentObjectStackCache();
 	$set($nc(tree), cond, $cast($JCTree$JCExpression, translate(static_cast<$JCTree*>(tree->cond), static_cast<$Type*>($nc(this->syms)->booleanType))));
 	$set(tree, truepart, $cast($JCTree$JCExpression, translate(static_cast<$JCTree*>(tree->truepart), $(erasure(tree->type)))));
 	$set(tree, falsepart, $cast($JCTree$JCExpression, translate(static_cast<$JCTree*>(tree->falsepart), $(erasure(tree->type)))));
@@ -853,6 +872,7 @@ void TransTypes::visitAssert($JCTree$JCAssert* tree) {
 }
 
 void TransTypes::visitApply($JCTree$JCMethodInvocation* tree) {
+	$useLocalCurrentObjectStackCache();
 	$set($nc(tree), meth, $cast($JCTree$JCExpression, translate(static_cast<$JCTree*>(tree->meth), ($Type*)nullptr)));
 	$var($Symbol, meth, $TreeInfo::symbol(tree->meth));
 	$var($Type, mt, $nc(meth)->erasure(this->types));
@@ -878,6 +898,7 @@ void TransTypes::visitApply($JCTree$JCMethodInvocation* tree) {
 }
 
 void TransTypes::visitNewClass($JCTree$JCNewClass* tree) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(tree)->encl != nullptr) {
 		if (tree->def == nullptr) {
 			$set(tree, encl, $cast($JCTree$JCExpression, translate(static_cast<$JCTree*>(tree->encl), $(erasure($nc(tree->encl)->type)))));
@@ -902,6 +923,7 @@ void TransTypes::visitNewClass($JCTree$JCNewClass* tree) {
 }
 
 void TransTypes::visitNewArray($JCTree$JCNewArray* tree) {
+	$useLocalCurrentObjectStackCache();
 	$set($nc(tree), elemtype, $cast($JCTree$JCExpression, translate(static_cast<$JCTree*>(tree->elemtype), ($Type*)nullptr)));
 	translate(tree->dims, static_cast<$Type*>($nc(this->syms)->intType));
 	if (tree->type != nullptr) {
@@ -940,6 +962,7 @@ void TransTypes::visitUnary($JCTree$JCUnary* tree) {
 }
 
 void TransTypes::visitBinary($JCTree$JCBinary* tree) {
+	$useLocalCurrentObjectStackCache();
 	$set($nc(tree), lhs, $cast($JCTree$JCExpression, translate(static_cast<$JCTree*>(tree->lhs), $cast($Type, $nc($($nc($nc(tree->operator$)->type)->getParameterTypes()))->head))));
 	$set(tree, rhs, $cast($JCTree$JCExpression, translate(static_cast<$JCTree*>(tree->rhs), $cast($Type, $nc($nc($($nc($nc(tree->operator$)->type)->getParameterTypes()))->tail)->head))));
 	$set(this, result, tree);
@@ -953,6 +976,7 @@ void TransTypes::visitAnnotatedType($JCTree$JCAnnotatedType* tree) {
 }
 
 void TransTypes::visitTypeCast($JCTree$JCTypeCast* tree) {
+	$useLocalCurrentObjectStackCache();
 	$set($nc(tree), clazz, translate(tree->clazz, ($Type*)nullptr));
 	$var($Type, originalTarget, tree->type);
 	$set(tree, type, erasure(tree->type));
@@ -987,6 +1011,7 @@ void TransTypes::visitTypeTest($JCTree$JCInstanceOf* tree) {
 }
 
 void TransTypes::visitIndexed($JCTree$JCArrayAccess* tree) {
+	$useLocalCurrentObjectStackCache();
 	$set($nc(tree), indexed, $cast($JCTree$JCExpression, translate(static_cast<$JCTree*>(tree->indexed), $(erasure($nc(tree->indexed)->type)))));
 	$set(tree, index, $cast($JCTree$JCExpression, translate(static_cast<$JCTree*>(tree->index), static_cast<$Type*>($nc(this->syms)->intType))));
 	$set(this, result, retype(tree, $($nc(this->types)->elemtype($nc(tree->indexed)->type)), this->pt));
@@ -997,6 +1022,7 @@ void TransTypes::visitAnnotation($JCTree$JCAnnotation* tree) {
 }
 
 void TransTypes::visitIdent($JCTree$JCIdent* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, et, $nc($nc(tree)->sym)->erasure(this->types));
 	$init($Kinds$Kind);
 	$init($TypeTag);
@@ -1015,6 +1041,7 @@ void TransTypes::visitIdent($JCTree$JCIdent* tree) {
 }
 
 void TransTypes::visitSelect($JCTree$JCFieldAccess* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, t, $nc(this->types)->skipTypeVars($nc($nc(tree)->selected)->type, false));
 	if ($nc(t)->isCompound()) {
 		$var($JCTree$JCExpression, var$0, $cast($JCTree$JCExpression, translate(static_cast<$JCTree*>(tree->selected), $(erasure($nc(tree->selected)->type)))));
@@ -1036,6 +1063,7 @@ void TransTypes::visitSelect($JCTree$JCFieldAccess* tree) {
 }
 
 void TransTypes::visitReference($JCTree$JCMemberReference* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, t, $nc(this->types)->skipTypeVars($nc($nc(tree)->expr)->type, false));
 	$var($Type, receiverTarget, $nc(t)->isCompound() ? erasure($nc($nc($nc(tree)->sym)->owner)->type) : erasure(t));
 	$init($JCTree$JCMemberReference$ReferenceKind);
@@ -1077,6 +1105,7 @@ $Type* TransTypes::erasure($Type* t) {
 }
 
 void TransTypes::translateClass($Symbol$ClassSymbol* c) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, st, $nc(this->types)->supertype($nc(c)->type));
 	$init($TypeTag);
 	if ($nc(st)->hasTag($TypeTag::CLASS)) {

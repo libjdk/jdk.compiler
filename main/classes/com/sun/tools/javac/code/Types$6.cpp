@@ -107,6 +107,7 @@ $Boolean* Types$6::visitType($Type* t, $Type* s) {
 }
 
 $Boolean* Types$6::visitWildcardType($Type$WildcardType* t, $Type* s) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(s)->isPartial()) {
 		return $Boolean::valueOf(this->this$0->containedBy(s, t));
 	} else {

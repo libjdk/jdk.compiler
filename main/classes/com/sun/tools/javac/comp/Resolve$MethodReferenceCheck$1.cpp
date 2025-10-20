@@ -115,6 +115,7 @@ void Resolve$MethodReferenceCheck$1::init$($Resolve$MethodReferenceCheck* this$1
 }
 
 bool Resolve$MethodReferenceCheck$1::compatible($Type* found$renamed, $Type* req$renamed, $Warner* warn) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, found, found$renamed);
 	$var($Type, req, req$renamed);
 	$assign(found, $nc(this->this$1->pendingInferenceContext)->asUndetVar(found));

@@ -215,6 +215,7 @@ int32_t JavacScope::hashCode() {
 }
 
 $String* JavacScope::toString() {
+	$useLocalCurrentObjectStackCache();
 	$var($String, var$1, $$str({"JavacScope[env="_s, this->env, ",starImport="_s}));
 	$var($String, var$0, $$concat(var$1, $$str(isStarImportScope())));
 	return $concat(var$0, "]");

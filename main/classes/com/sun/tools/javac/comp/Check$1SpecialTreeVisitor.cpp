@@ -94,6 +94,7 @@ void Check$1SpecialTreeVisitor::visitTree($JCTree* tree) {
 }
 
 void Check$1SpecialTreeVisitor::visitVarDef($JCTree$JCVariableDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	if (((int64_t)($nc($nc(tree)->mods)->flags & (uint64_t)(int64_t)16384)) != 0) {
 		{
 			$var($JCTree$JCNewClass, newClass, nullptr);

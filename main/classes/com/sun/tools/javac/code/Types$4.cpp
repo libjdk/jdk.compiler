@@ -157,6 +157,7 @@ void Types$4::init$($Types* this$0) {
 }
 
 $Boolean* Types$4::visitType($Type* t, $Type* s) {
+	$useLocalCurrentObjectStackCache();
 	$init($Types$25);
 	switch ($nc($Types$25::$SwitchMap$com$sun$tools$javac$code$TypeTag)->get($nc(($($nc(t)->getTag())))->ordinal())) {
 	case 3:
@@ -215,6 +216,7 @@ $Boolean* Types$4::visitType($Type* t, $Type* s) {
 }
 
 bool Types$4::containsTypeRecursive($Type* t, $Type* s) {
+	$useLocalCurrentObjectStackCache();
 	$var($Types$TypePair, pair, $new($Types$TypePair, this->this$0, t, s));
 	if ($nc(this->cache)->add(pair)) {
 		{
@@ -245,6 +247,7 @@ bool Types$4::containsTypeRecursive($Type* t, $Type* s) {
 }
 
 $Type* Types$4::rewriteSupers($Type* t) {
+	$useLocalCurrentObjectStackCache();
 	if (!$nc(t)->isParameterized()) {
 		return t;
 	}
@@ -289,6 +292,7 @@ $Type* Types$4::rewriteSupers($Type* t) {
 }
 
 $Boolean* Types$4::visitClassType($Type$ClassType* t, $Type* s) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, sup, this->this$0->asSuper(t, $nc(s)->tsym));
 	if (sup == nullptr) {
 		return $Boolean::valueOf(false);
@@ -311,6 +315,7 @@ $Boolean* Types$4::visitClassType($Type$ClassType* t, $Type* s) {
 }
 
 $Boolean* Types$4::visitArrayType($Type$ArrayType* t, $Type* s) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	if ($nc(s)->hasTag($TypeTag::ARRAY)) {
 		if ($nc($nc(t)->elemtype)->isPrimitive()) {

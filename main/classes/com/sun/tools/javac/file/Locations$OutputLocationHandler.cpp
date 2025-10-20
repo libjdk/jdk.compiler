@@ -136,6 +136,7 @@ void Locations$OutputLocationHandler::setPaths($Iterable* paths) {
 }
 
 $JavaFileManager$Location* Locations$OutputLocationHandler::getLocationForModule($String* name) {
+	$useLocalCurrentObjectStackCache();
 	if (this->moduleTable == nullptr) {
 		$set(this, moduleTable, $new($Locations$ModuleTable, this->this$0));
 	}
@@ -152,6 +153,7 @@ $JavaFileManager$Location* Locations$OutputLocationHandler::getLocationForModule
 }
 
 void Locations$OutputLocationHandler::setPathsForModule($String* name, $Iterable* paths) {
+	$useLocalCurrentObjectStackCache();
 	$var($Path, out, checkSingletonDirectory(paths));
 	if (this->moduleTable == nullptr) {
 		$set(this, moduleTable, $new($Locations$ModuleTable, this->this$0));
@@ -175,6 +177,7 @@ $JavaFileManager$Location* Locations$OutputLocationHandler::getLocationForModule
 }
 
 $Iterable* Locations$OutputLocationHandler::listLocationsForModules() {
+	$useLocalCurrentObjectStackCache();
 	if (!this->listed && this->outputDir != nullptr) {
 		{
 			$var($DirectoryStream, stream, $Files::newDirectoryStream(this->outputDir));
@@ -224,6 +227,7 @@ $Iterable* Locations$OutputLocationHandler::listLocationsForModules() {
 }
 
 bool Locations$OutputLocationHandler::contains($Path* file) {
+	$useLocalCurrentObjectStackCache();
 	if (this->moduleTable != nullptr) {
 		return $nc(this->moduleTable)->contains(file);
 	} else {

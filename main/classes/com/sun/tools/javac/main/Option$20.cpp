@@ -88,6 +88,7 @@ void Option$20::init$($String* $enum$name, int32_t $enum$ordinal, $String* text,
 }
 
 void Option$20::process($OptionHelper* helper, $String* option, $String* arg) {
+	$useLocalCurrentObjectStackCache();
 	$init($Option);
 	$var($String, prev, $nc(helper)->get($Option::DEFAULT_MODULE_FOR_CREATED_FILES));
 	if (prev != nullptr) {

@@ -99,6 +99,7 @@ void Resolve$MethodResultInfo::init$($Resolve* this$0, $Type* pt, $Check$CheckCo
 }
 
 $Type* Resolve$MethodResultInfo::check($JCDiagnostic$DiagnosticPosition* pos, $Type* found) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	if ($nc(found)->hasTag($TypeTag::DEFERRED)) {
 		$var($DeferredAttr$DeferredType, dt, $cast($DeferredAttr$DeferredType, found));

@@ -103,6 +103,7 @@ void Iterators$CompoundIterator::remove() {
 }
 
 void Iterators$CompoundIterator::update() {
+	$useLocalCurrentObjectStackCache();
 	while ($nc(this->inputs)->hasNext()) {
 		$set(this, currentIterator, $cast($Iterator, $nc(this->convertor)->apply($($nc(this->inputs)->next()))));
 		if ($nc(this->currentIterator)->hasNext()) {

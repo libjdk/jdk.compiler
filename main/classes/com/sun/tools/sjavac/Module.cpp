@@ -154,6 +154,7 @@ Module* Module::load($String* l) {
 
 void Module::saveModules($Map* ms, $StringBuilder* b) {
 	$init(Module);
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($($nc(ms)->values()))->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -179,6 +180,7 @@ $Package* Module::lookupPackage($String* pkg) {
 }
 
 void Module::addSource($String* pkg, $Source* src) {
+	$useLocalCurrentObjectStackCache();
 	$var($Package, p, lookupPackage(pkg));
 	$nc(src)->setPackage(p);
 	$nc(p)->addSource(src);
@@ -190,6 +192,7 @@ $Source* Module::lookupSource($String* path) {
 }
 
 void Module::addArtifacts($String* pkg, $Set* as) {
+	$useLocalCurrentObjectStackCache();
 	$var($Package, p, lookupPackage(pkg));
 	{
 		$var($Iterator, i$, $nc(as)->iterator());

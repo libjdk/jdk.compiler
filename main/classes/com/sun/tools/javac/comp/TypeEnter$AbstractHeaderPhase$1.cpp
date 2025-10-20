@@ -103,6 +103,7 @@ void TypeEnter$AbstractHeaderPhase$1::init$($TypeEnter$AbstractHeaderPhase* this
 }
 
 $Type* TypeEnter$AbstractHeaderPhase$1::getModelType() {
+	$useLocalCurrentObjectStackCache();
 	if (this->modelType == nullptr) {
 		$set(this, modelType, $$new($TypeEnter$AbstractHeaderPhase$Synthesizer, this->this$1, $nc($nc(this->val$env)->toplevel)->modle, $(getOriginalType()), this->val$interfaceExpected)->visit(static_cast<$JCTree*>(this->val$tree)));
 	}

@@ -106,6 +106,7 @@ void TypeMetadata::init$(TypeMetadata* other) {
 }
 
 TypeMetadata* TypeMetadata::combine($TypeMetadata$Entry* elem) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::checkNonNull(elem);
 	$var(TypeMetadata, out, $new(TypeMetadata, this));
 	$TypeMetadata$Entry$Kind* key = $nc(elem)->kind();
@@ -118,6 +119,7 @@ TypeMetadata* TypeMetadata::combine($TypeMetadata$Entry* elem) {
 }
 
 TypeMetadata* TypeMetadata::combineAll(TypeMetadata* other) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::checkNonNull(other);
 	$var(TypeMetadata, out, $new(TypeMetadata));
 	$var($Set, keys, $new($HashSet, $(static_cast<$Collection*>($nc(this->contents)->keySet()))));

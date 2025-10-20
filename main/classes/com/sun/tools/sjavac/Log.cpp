@@ -119,6 +119,7 @@ void Log::setLogForCurrentThread(Log* log) {
 
 void Log::setLogLevel($String* l) {
 	$init(Log);
+	$useLocalCurrentObjectStackCache();
 	$init($Locale);
 	setLogLevel($($Log$Level::valueOf($($nc(l)->toUpperCase($Locale::US)))));
 }
@@ -177,6 +178,7 @@ void Log::debug($Throwable* t) {
 
 void Log::log($Log$Level* l, $Throwable* t) {
 	$init(Log);
+	$useLocalCurrentObjectStackCache();
 	$var($StringWriter, sw, $new($StringWriter));
 	$nc(t)->printStackTrace($$new($PrintWriter, static_cast<$Writer*>(sw), true));
 	log(l, $(sw->toString()));
@@ -208,6 +210,7 @@ void Log::printLogMsg($Log$Level* msgLevel, $String* msg) {
 }
 
 void clinit$Log($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$init($System);
 	$var($Writer, var$0, static_cast<$Writer*>($new($PrintWriter, static_cast<$OutputStream*>($System::out))));
 	$assignStatic(Log::stdOutErr, $new(Log, var$0, $$new($PrintWriter, static_cast<$OutputStream*>($System::err))));

@@ -98,6 +98,7 @@ int32_t LambdaToMethod$DedupedLambda::hashCode() {
 }
 
 bool LambdaToMethod$DedupedLambda::equals(Object$* o) {
+	$useLocalCurrentObjectStackCache();
 	$var(LambdaToMethod$DedupedLambda, dedupedLambda, nullptr);
 	bool var$2 = $instanceOf(LambdaToMethod$DedupedLambda, o);
 	if (var$2) {

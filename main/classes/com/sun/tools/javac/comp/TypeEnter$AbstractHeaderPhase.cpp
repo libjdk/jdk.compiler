@@ -154,6 +154,7 @@ void TypeEnter$AbstractHeaderPhase::init$($TypeEnter* this$0, $Dependencies$Comp
 }
 
 $Env* TypeEnter$AbstractHeaderPhase::baseEnv($JCTree$JCClassDecl* tree, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($Scope$WriteableScope, baseScope, $Scope$WriteableScope::create($nc(tree)->sym));
 	{
 		$init($Scope$LookupKind);
@@ -184,6 +185,7 @@ $Env* TypeEnter$AbstractHeaderPhase::baseEnv($JCTree$JCClassDecl* tree, $Env* en
 }
 
 $JCTree$JCExpression* TypeEnter$AbstractHeaderPhase::enumBase(int32_t pos, $Symbol$ClassSymbol* c) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCExpression, var$0, $nc(this->this$0->make)->QualIdent($nc(this->this$0->syms)->enumSym));
 	$var($JCTree$JCExpression, result, $nc($($nc(this->this$0->make)->at(pos)))->TypeApply(var$0, $($List::of($($nc(this->this$0->make)->Type($nc(c)->type))))));
 	return result;
@@ -198,6 +200,7 @@ $Type* TypeEnter$AbstractHeaderPhase::modelMissingTypes($Env* env, $Type* t, $JC
 }
 
 void TypeEnter$AbstractHeaderPhase::attribSuperTypes($Env* env, $Env* baseEnv) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCClassDecl, tree, $nc(env)->enclClass);
 	$var($Symbol$ClassSymbol, sym, $nc(tree)->sym);
 	$var($Type$ClassType, ct, $cast($Type$ClassType, $nc(sym)->type));

@@ -91,6 +91,7 @@ void PortFileMonitor$1::init$($PortFileMonitor* this$0, $Log* val$log) {
 }
 
 void PortFileMonitor$1::run() {
+	$useLocalCurrentObjectStackCache();
 	$Log::setLogForCurrentThread(this->val$log);
 	$Log::debug("Checking port file status..."_s);
 	try {

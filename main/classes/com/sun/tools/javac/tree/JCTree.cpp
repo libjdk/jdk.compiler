@@ -202,6 +202,7 @@ bool JCTree::hasTag($JCTree$Tag* tag) {
 }
 
 $String* JCTree::toString() {
+	$useLocalCurrentObjectStackCache();
 	$var($StringWriter, s, $new($StringWriter));
 	try {
 		$$new($Pretty, s, false)->printExpr(this);

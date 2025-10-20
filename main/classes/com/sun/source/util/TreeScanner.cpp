@@ -286,6 +286,7 @@ $Object* TreeScanner::scanAndReduce($Tree* node, Object$* p, Object$* r) {
 }
 
 $Object* TreeScanner::scan($Iterable* nodes, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, nullptr);
 	if (nodes != nullptr) {
 		bool first = true;
@@ -312,6 +313,7 @@ $Object* TreeScanner::reduce(Object$* r1, Object$* r2) {
 }
 
 $Object* TreeScanner::visitCompilationUnit($CompilationUnitTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Tree*>($nc(node)->getPackage())), p));
 	$assign(r, scanAndReduce($(static_cast<$Iterable*>($nc(node)->getImports())), p, r));
 	$assign(r, scanAndReduce($(static_cast<$Iterable*>($nc(node)->getTypeDecls())), p, r));
@@ -320,6 +322,7 @@ $Object* TreeScanner::visitCompilationUnit($CompilationUnitTree* node, Object$* 
 }
 
 $Object* TreeScanner::visitPackage($PackageTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Iterable*>($nc(node)->getAnnotations())), p));
 	$assign(r, scanAndReduce($(static_cast<$Tree*>($nc(node)->getPackageName())), p, r));
 	return $of(r);
@@ -330,6 +333,7 @@ $Object* TreeScanner::visitImport($ImportTree* node, Object$* p) {
 }
 
 $Object* TreeScanner::visitClass($ClassTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Tree*>($nc(node)->getModifiers())), p));
 	$assign(r, scanAndReduce($(static_cast<$Iterable*>($nc(node)->getTypeParameters())), p, r));
 	$assign(r, scanAndReduce($($nc(node)->getExtendsClause()), p, r));
@@ -340,6 +344,7 @@ $Object* TreeScanner::visitClass($ClassTree* node, Object$* p) {
 }
 
 $Object* TreeScanner::visitMethod($MethodTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Tree*>($nc(node)->getModifiers())), p));
 	$assign(r, scanAndReduce($($nc(node)->getReturnType()), p, r));
 	$assign(r, scanAndReduce($(static_cast<$Iterable*>($nc(node)->getTypeParameters())), p, r));
@@ -352,6 +357,7 @@ $Object* TreeScanner::visitMethod($MethodTree* node, Object$* p) {
 }
 
 $Object* TreeScanner::visitVariable($VariableTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Tree*>($nc(node)->getModifiers())), p));
 	$assign(r, scanAndReduce($($nc(node)->getType()), p, r));
 	$assign(r, scanAndReduce($(static_cast<$Tree*>($nc(node)->getNameExpression())), p, r));
@@ -368,18 +374,21 @@ $Object* TreeScanner::visitBlock($BlockTree* node, Object$* p) {
 }
 
 $Object* TreeScanner::visitDoWhileLoop($DoWhileLoopTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Tree*>($nc(node)->getStatement())), p));
 	$assign(r, scanAndReduce($(static_cast<$Tree*>($nc(node)->getCondition())), p, r));
 	return $of(r);
 }
 
 $Object* TreeScanner::visitWhileLoop($WhileLoopTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Tree*>($nc(node)->getCondition())), p));
 	$assign(r, scanAndReduce($(static_cast<$Tree*>($nc(node)->getStatement())), p, r));
 	return $of(r);
 }
 
 $Object* TreeScanner::visitForLoop($ForLoopTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Iterable*>($nc(node)->getInitializer())), p));
 	$assign(r, scanAndReduce($(static_cast<$Tree*>($nc(node)->getCondition())), p, r));
 	$assign(r, scanAndReduce($(static_cast<$Iterable*>($nc(node)->getUpdate())), p, r));
@@ -388,6 +397,7 @@ $Object* TreeScanner::visitForLoop($ForLoopTree* node, Object$* p) {
 }
 
 $Object* TreeScanner::visitEnhancedForLoop($EnhancedForLoopTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Tree*>($nc(node)->getVariable())), p));
 	$assign(r, scanAndReduce($(static_cast<$Tree*>($nc(node)->getExpression())), p, r));
 	$assign(r, scanAndReduce($(static_cast<$Tree*>($nc(node)->getStatement())), p, r));
@@ -399,18 +409,21 @@ $Object* TreeScanner::visitLabeledStatement($LabeledStatementTree* node, Object$
 }
 
 $Object* TreeScanner::visitSwitch($SwitchTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Tree*>($nc(node)->getExpression())), p));
 	$assign(r, scanAndReduce($(static_cast<$Iterable*>($nc(node)->getCases())), p, r));
 	return $of(r);
 }
 
 $Object* TreeScanner::visitSwitchExpression($SwitchExpressionTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Tree*>($nc(node)->getExpression())), p));
 	$assign(r, scanAndReduce($(static_cast<$Iterable*>($nc(node)->getCases())), p, r));
 	return $of(r);
 }
 
 $Object* TreeScanner::visitCase($CaseTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Iterable*>($nc(node)->getExpressions())), p));
 	$init($CaseTree$CaseKind);
 	if ($nc(node)->getCaseKind() == $CaseTree$CaseKind::RULE) {
@@ -422,12 +435,14 @@ $Object* TreeScanner::visitCase($CaseTree* node, Object$* p) {
 }
 
 $Object* TreeScanner::visitSynchronized($SynchronizedTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Tree*>($nc(node)->getExpression())), p));
 	$assign(r, scanAndReduce($(static_cast<$Tree*>($nc(node)->getBlock())), p, r));
 	return $of(r);
 }
 
 $Object* TreeScanner::visitTry($TryTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Iterable*>($nc(node)->getResources())), p));
 	$assign(r, scanAndReduce($(static_cast<$Tree*>($nc(node)->getBlock())), p, r));
 	$assign(r, scanAndReduce($(static_cast<$Iterable*>($nc(node)->getCatches())), p, r));
@@ -436,12 +451,14 @@ $Object* TreeScanner::visitTry($TryTree* node, Object$* p) {
 }
 
 $Object* TreeScanner::visitCatch($CatchTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Tree*>($nc(node)->getParameter())), p));
 	$assign(r, scanAndReduce($(static_cast<$Tree*>($nc(node)->getBlock())), p, r));
 	return $of(r);
 }
 
 $Object* TreeScanner::visitConditionalExpression($ConditionalExpressionTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Tree*>($nc(node)->getCondition())), p));
 	$assign(r, scanAndReduce($(static_cast<$Tree*>($nc(node)->getTrueExpression())), p, r));
 	$assign(r, scanAndReduce($(static_cast<$Tree*>($nc(node)->getFalseExpression())), p, r));
@@ -449,6 +466,7 @@ $Object* TreeScanner::visitConditionalExpression($ConditionalExpressionTree* nod
 }
 
 $Object* TreeScanner::visitIf($IfTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Tree*>($nc(node)->getCondition())), p));
 	$assign(r, scanAndReduce($(static_cast<$Tree*>($nc(node)->getThenStatement())), p, r));
 	$assign(r, scanAndReduce($(static_cast<$Tree*>($nc(node)->getElseStatement())), p, r));
@@ -476,12 +494,14 @@ $Object* TreeScanner::visitThrow($ThrowTree* node, Object$* p) {
 }
 
 $Object* TreeScanner::visitAssert($AssertTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Tree*>($nc(node)->getCondition())), p));
 	$assign(r, scanAndReduce($(static_cast<$Tree*>($nc(node)->getDetail())), p, r));
 	return $of(r);
 }
 
 $Object* TreeScanner::visitMethodInvocation($MethodInvocationTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Iterable*>($nc(node)->getTypeArguments())), p));
 	$assign(r, scanAndReduce($(static_cast<$Tree*>($nc(node)->getMethodSelect())), p, r));
 	$assign(r, scanAndReduce($(static_cast<$Iterable*>($nc(node)->getArguments())), p, r));
@@ -489,6 +509,7 @@ $Object* TreeScanner::visitMethodInvocation($MethodInvocationTree* node, Object$
 }
 
 $Object* TreeScanner::visitNewClass($NewClassTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Tree*>($nc(node)->getEnclosingExpression())), p));
 	$assign(r, scanAndReduce($(static_cast<$Tree*>($nc(node)->getIdentifier())), p, r));
 	$assign(r, scanAndReduce($(static_cast<$Iterable*>($nc(node)->getTypeArguments())), p, r));
@@ -498,6 +519,7 @@ $Object* TreeScanner::visitNewClass($NewClassTree* node, Object$* p) {
 }
 
 $Object* TreeScanner::visitNewArray($NewArrayTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($($nc(node)->getType()), p));
 	$assign(r, scanAndReduce($(static_cast<$Iterable*>($nc(node)->getDimensions())), p, r));
 	$assign(r, scanAndReduce($(static_cast<$Iterable*>($nc(node)->getInitializers())), p, r));
@@ -515,6 +537,7 @@ $Object* TreeScanner::visitNewArray($NewArrayTree* node, Object$* p) {
 }
 
 $Object* TreeScanner::visitLambdaExpression($LambdaExpressionTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Iterable*>($nc(node)->getParameters())), p));
 	$assign(r, scanAndReduce($($nc(node)->getBody()), p, r));
 	return $of(r);
@@ -525,12 +548,14 @@ $Object* TreeScanner::visitParenthesized($ParenthesizedTree* node, Object$* p) {
 }
 
 $Object* TreeScanner::visitAssignment($AssignmentTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Tree*>($nc(node)->getVariable())), p));
 	$assign(r, scanAndReduce($(static_cast<$Tree*>($nc(node)->getExpression())), p, r));
 	return $of(r);
 }
 
 $Object* TreeScanner::visitCompoundAssignment($CompoundAssignmentTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Tree*>($nc(node)->getVariable())), p));
 	$assign(r, scanAndReduce($(static_cast<$Tree*>($nc(node)->getExpression())), p, r));
 	return $of(r);
@@ -541,18 +566,21 @@ $Object* TreeScanner::visitUnary($UnaryTree* node, Object$* p) {
 }
 
 $Object* TreeScanner::visitBinary($BinaryTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Tree*>($nc(node)->getLeftOperand())), p));
 	$assign(r, scanAndReduce($(static_cast<$Tree*>($nc(node)->getRightOperand())), p, r));
 	return $of(r);
 }
 
 $Object* TreeScanner::visitTypeCast($TypeCastTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($($nc(node)->getType()), p));
 	$assign(r, scanAndReduce($(static_cast<$Tree*>($nc(node)->getExpression())), p, r));
 	return $of(r);
 }
 
 $Object* TreeScanner::visitInstanceOf($InstanceOfTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Tree*>($nc(node)->getExpression())), p));
 	if ($nc(node)->getPattern() != nullptr) {
 		$assign(r, scanAndReduce($(static_cast<$Tree*>(node->getPattern())), p, r));
@@ -571,6 +599,7 @@ $Object* TreeScanner::visitDefaultCaseLabel($DefaultCaseLabelTree* node, Object$
 }
 
 $Object* TreeScanner::visitArrayAccess($ArrayAccessTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Tree*>($nc(node)->getExpression())), p));
 	$assign(r, scanAndReduce($(static_cast<$Tree*>($nc(node)->getIndex())), p, r));
 	return $of(r);
@@ -585,11 +614,13 @@ $Object* TreeScanner::visitParenthesizedPattern($ParenthesizedPatternTree* node,
 }
 
 $Object* TreeScanner::visitGuardedPattern($GuardedPatternTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Tree*>($nc(node)->getPattern())), p));
 	return $of(scanAndReduce($(static_cast<$Tree*>($nc(node)->getExpression())), p, r));
 }
 
 $Object* TreeScanner::visitMemberReference($MemberReferenceTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Tree*>($nc(node)->getQualifierExpression())), p));
 	$assign(r, scanAndReduce($(static_cast<$Iterable*>($nc(node)->getTypeArguments())), p, r));
 	return $of(r);
@@ -612,6 +643,7 @@ $Object* TreeScanner::visitArrayType($ArrayTypeTree* node, Object$* p) {
 }
 
 $Object* TreeScanner::visitParameterizedType($ParameterizedTypeTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($($nc(node)->getType()), p));
 	$assign(r, scanAndReduce($(static_cast<$Iterable*>($nc(node)->getTypeArguments())), p, r));
 	return $of(r);
@@ -626,6 +658,7 @@ $Object* TreeScanner::visitIntersectionType($IntersectionTypeTree* node, Object$
 }
 
 $Object* TreeScanner::visitTypeParameter($TypeParameterTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Iterable*>($nc(node)->getAnnotations())), p));
 	$assign(r, scanAndReduce($(static_cast<$Iterable*>($nc(node)->getBounds())), p, r));
 	return $of(r);
@@ -640,18 +673,21 @@ $Object* TreeScanner::visitModifiers($ModifiersTree* node, Object$* p) {
 }
 
 $Object* TreeScanner::visitAnnotation($AnnotationTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($($nc(node)->getAnnotationType()), p));
 	$assign(r, scanAndReduce($(static_cast<$Iterable*>($nc(node)->getArguments())), p, r));
 	return $of(r);
 }
 
 $Object* TreeScanner::visitAnnotatedType($AnnotatedTypeTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Iterable*>($nc(node)->getAnnotations())), p));
 	$assign(r, scanAndReduce($(static_cast<$Tree*>($nc(node)->getUnderlyingType())), p, r));
 	return $of(r);
 }
 
 $Object* TreeScanner::visitModule($ModuleTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Iterable*>($nc(node)->getAnnotations())), p));
 	$assign(r, scanAndReduce($(static_cast<$Tree*>($nc(node)->getName())), p, r));
 	$assign(r, scanAndReduce($(static_cast<$Iterable*>($nc(node)->getDirectives())), p, r));
@@ -659,18 +695,21 @@ $Object* TreeScanner::visitModule($ModuleTree* node, Object$* p) {
 }
 
 $Object* TreeScanner::visitExports($ExportsTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Tree*>($nc(node)->getPackageName())), p));
 	$assign(r, scanAndReduce($(static_cast<$Iterable*>($nc(node)->getModuleNames())), p, r));
 	return $of(r);
 }
 
 $Object* TreeScanner::visitOpens($OpensTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Tree*>($nc(node)->getPackageName())), p));
 	$assign(r, scanAndReduce($(static_cast<$Iterable*>($nc(node)->getModuleNames())), p, r));
 	return $of(r);
 }
 
 $Object* TreeScanner::visitProvides($ProvidesTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Tree*>($nc(node)->getServiceName())), p));
 	$assign(r, scanAndReduce($(static_cast<$Iterable*>($nc(node)->getImplementationNames())), p, r));
 	return $of(r);

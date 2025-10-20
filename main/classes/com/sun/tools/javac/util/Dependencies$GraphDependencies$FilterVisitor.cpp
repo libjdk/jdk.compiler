@@ -111,6 +111,7 @@ void Dependencies$GraphDependencies$FilterVisitor::visitNode($Dependencies$Graph
 }
 
 void Dependencies$GraphDependencies$FilterVisitor::visitDependency($GraphUtils$DependencyKind* dk, $Dependencies$GraphDependencies$Node* from, $Dependencies$GraphDependencies$Node* to, $Void* arg) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Dependencies$GraphDependencies$CompletionNode, completionNode, nullptr);
 		bool var$0 = $instanceOf($Dependencies$GraphDependencies$CompletionNode, to);

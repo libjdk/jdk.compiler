@@ -161,6 +161,7 @@ void PrintingProcessor$PrintingElementVisitor$PrintDirective::init$($PrintWriter
 }
 
 $Void* PrintingProcessor$PrintingElementVisitor$PrintDirective::visitExports($ModuleElement$ExportsDirective* d, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->writer)->print("exports "_s);
 	$nc(this->writer)->print($($of($nc($($nc(d)->getPackage()))->getQualifiedName())));
 	printModuleList($($nc(d)->getTargetModules()));
@@ -168,6 +169,7 @@ $Void* PrintingProcessor$PrintingElementVisitor$PrintDirective::visitExports($Mo
 }
 
 $Void* PrintingProcessor$PrintingElementVisitor$PrintDirective::visitOpens($ModuleElement$OpensDirective* d, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->writer)->print("opens "_s);
 	$nc(this->writer)->print($($of($nc($($nc(d)->getPackage()))->getQualifiedName())));
 	printModuleList($($nc(d)->getTargetModules()));
@@ -175,6 +177,7 @@ $Void* PrintingProcessor$PrintingElementVisitor$PrintDirective::visitOpens($Modu
 }
 
 $Void* PrintingProcessor$PrintingElementVisitor$PrintDirective::visitProvides($ModuleElement$ProvidesDirective* d, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->writer)->print("provides "_s);
 	$nc(this->writer)->print($($of($nc($($nc(d)->getService()))->getQualifiedName())));
 	$nc(this->writer)->print(" with "_s);
@@ -183,6 +186,7 @@ $Void* PrintingProcessor$PrintingElementVisitor$PrintDirective::visitProvides($M
 }
 
 $Void* PrintingProcessor$PrintingElementVisitor$PrintDirective::visitRequires($ModuleElement$RequiresDirective* d, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->writer)->print("requires "_s);
 	if ($nc(d)->isStatic()) {
 		$nc(this->writer)->print("static "_s);
@@ -195,6 +199,7 @@ $Void* PrintingProcessor$PrintingElementVisitor$PrintDirective::visitRequires($M
 }
 
 $Void* PrintingProcessor$PrintingElementVisitor$PrintDirective::visitUses($ModuleElement$UsesDirective* d, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->writer)->print("uses "_s);
 	$nc(this->writer)->print($($of($nc($($nc(d)->getService()))->getQualifiedName())));
 	return nullptr;
@@ -208,6 +213,7 @@ void PrintingProcessor$PrintingElementVisitor$PrintDirective::printModuleList($L
 }
 
 void PrintingProcessor$PrintingElementVisitor$PrintDirective::printNameableList($List* nameables) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->writer)->print($cast($String, $($nc($($nc($($nc(nameables)->stream()))->map(static_cast<$Function*>($$new(PrintingProcessor$PrintingElementVisitor$PrintDirective$$Lambda$getQualifiedName)))))->collect($($Collectors::joining(", "_s))))));
 }
 

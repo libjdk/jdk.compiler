@@ -76,6 +76,7 @@ void LambdaToMethod$LambdaAnalyzerPreprocessor$SyntheticMethodNameCounter::init$
 }
 
 int32_t LambdaToMethod$LambdaAnalyzerPreprocessor$SyntheticMethodNameCounter::getIndex($StringBuilder* buf) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, temp, $nc(buf)->toString());
 	$var($Integer, count, $cast($Integer, $nc(this->map)->get(temp)));
 	if (count == nullptr) {

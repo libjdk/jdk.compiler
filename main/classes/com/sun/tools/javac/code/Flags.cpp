@@ -270,6 +270,7 @@ void Flags::init$() {
 
 $String* Flags::toString(int64_t flags) {
 	$init(Flags);
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, buf, $new($StringBuilder));
 	$var($String, sep, ""_s);
 	{
@@ -288,6 +289,7 @@ $String* Flags::toString(int64_t flags) {
 
 $EnumSet* Flags::asFlagSet(int64_t flags) {
 	$init(Flags);
+	$useLocalCurrentObjectStackCache();
 	$load($Flags$Flag);
 	$var($EnumSet, flagSet, $EnumSet::noneOf($Flags$Flag::class$));
 	{
@@ -310,6 +312,7 @@ $EnumSet* Flags::asFlagSet(int64_t flags) {
 
 $Set* Flags::asModifierSet(int64_t flags) {
 	$init(Flags);
+	$useLocalCurrentObjectStackCache();
 	$var($Set, modifiers, $cast($Set, $nc(Flags::modifierSets)->get($($Long::valueOf(flags)))));
 	if (modifiers == nullptr) {
 		$load($Modifier);

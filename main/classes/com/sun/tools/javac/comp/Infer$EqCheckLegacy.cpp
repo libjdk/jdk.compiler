@@ -165,6 +165,7 @@ $Object* allocate$Infer$EqCheckLegacy($Class* clazz) {
 }
 
 void Infer$EqCheckLegacy::init$($Infer* this$0, $Type$UndetVar* uv, $Type* t, $Type$UndetVar$InferenceBound* from) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, this$0, this$0);
 	$var($Infer, var$0, this$0);
 	$var($Type$UndetVar, var$1, uv);

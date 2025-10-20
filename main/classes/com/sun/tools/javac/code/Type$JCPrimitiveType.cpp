@@ -212,6 +212,7 @@ $Type* Type$JCPrimitiveType::constType(Object$* constValue) {
 }
 
 $String* Type$JCPrimitiveType::stringValue() {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, cv, $Assert::checkNonNull($(constValue())));
 	$init($TypeTag);
 	if (this->tag == $TypeTag::BOOLEAN) {

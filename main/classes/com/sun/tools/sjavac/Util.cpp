@@ -155,6 +155,7 @@ void Util::init$() {
 }
 
 $String* Util::toFileSystemPath($String* pkgId) {
+	$useLocalCurrentObjectStackCache();
 	if (pkgId == nullptr || $nc(pkgId)->length() == 0) {
 		return nullptr;
 	}
@@ -214,6 +215,7 @@ int32_t Util::extractIntOption($String* opName, $String* s) {
 }
 
 int32_t Util::extractIntOption($String* opName, $String* s, int32_t deflt) {
+	$useLocalCurrentObjectStackCache();
 	int32_t p = $nc(s)->indexOf($$str({opName, "="_s}));
 	if (p == -1) {
 		return deflt;
@@ -239,6 +241,7 @@ $String* Util::pkgNameOfClassName($String* fqClassName) {
 }
 
 $String* Util::cleanSubOptions($Set* allowedSubOptions, $String* s) {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, sb, $new($StringBuilder));
 	$var($StringTokenizer, st, $new($StringTokenizer, s, ","_s));
 	while (st->hasMoreTokens()) {
@@ -259,12 +262,14 @@ $String* Util::cleanSubOptions($Set* allowedSubOptions, $String* s) {
 }
 
 $Set* Util::set($StringArray* ss) {
+	$useLocalCurrentObjectStackCache();
 	$var($Set, set, $new($HashSet));
 	set->addAll($($Arrays::asList(ss)));
 	return set;
 }
 
 $String* Util::normalizeDriveLetter($String* file) {
+	$useLocalCurrentObjectStackCache();
 	bool var$0 = $nc(file)->length() > 2;
 	if (var$0 && file->charAt(1) == u':') {
 		$var($String, var$1, $str($Character::toUpperCase(file->charAt(0))));
@@ -282,6 +287,7 @@ $String* Util::normalizeDriveLetter($String* file) {
 }
 
 $String* Util::findServerSettings($StringArray* args) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($StringArray, arr$, args);
 		int32_t len$ = $nc(arr$)->length;
@@ -312,6 +318,7 @@ $Set* Util::subtract($Set* orig, $Set* toSubtract) {
 }
 
 $String* Util::getStackTrace($Throwable* t) {
+	$useLocalCurrentObjectStackCache();
 	$var($StringWriter, sw, $new($StringWriter));
 	$nc(t)->printStackTrace($$new($PrintWriter, static_cast<$Writer*>(sw)));
 	return sw->toString();
@@ -328,16 +335,19 @@ $Set* Util::intersection($Collection* c1, $Collection* c2) {
 }
 
 $Map* Util::indexBy($Collection* c, $Function* indexFunction) {
+	$useLocalCurrentObjectStackCache();
 	return $cast($Map, $nc($($nc(c)->stream()))->collect($($Collectors::toMap(indexFunction, static_cast<$Function*>($$new(Util$$Lambda$lambda$indexBy$0))))));
 }
 
 $String* Util::fileSuffix($Path* file) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, fileNameStr, $nc($($nc(file)->getFileName()))->toString());
 	int32_t dotIndex = $nc(fileNameStr)->indexOf((int32_t)u'.');
 	return dotIndex == -1 ? ""_s : fileNameStr->substring(dotIndex);
 }
 
 $Stream* Util::getLines($String* str) {
+	$useLocalCurrentObjectStackCache();
 	return $nc(str)->isEmpty() ? $Stream::empty() : $Stream::of($($nc(str)->split($($Pattern::quote($($System::lineSeparator()))))));
 }
 

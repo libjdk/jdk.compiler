@@ -83,6 +83,7 @@ void ClientCodeWrapper$WrappedTaskListener::init$($ClientCodeWrapper* this$0, $T
 }
 
 void ClientCodeWrapper$WrappedTaskListener::started($TaskEvent* ev) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$nc(this->clientTaskListener)->started(ev);
 	} catch ($ClientCodeException&) {
@@ -98,6 +99,7 @@ void ClientCodeWrapper$WrappedTaskListener::started($TaskEvent* ev) {
 }
 
 void ClientCodeWrapper$WrappedTaskListener::finished($TaskEvent* ev) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$nc(this->clientTaskListener)->finished(ev);
 	} catch ($ClientCodeException&) {

@@ -223,6 +223,7 @@ $Type* Type$WildcardType::withTypeVar($Type* t) {
 }
 
 $String* Type$WildcardType::toString() {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, s, $new($StringBuilder));
 	appendAnnotationsString(s);
 	s->append($($nc(this->kind)->toString()));

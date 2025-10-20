@@ -256,6 +256,7 @@ $ExpressionTree* JCTree$JCCase::getExpression() {
 }
 
 $1List* JCTree$JCCase::getExpressions() {
+	$useLocalCurrentObjectStackCache();
 	return $cast($List, $nc($($nc($($nc($($nc(this->labels)->stream()))->filter(static_cast<$Predicate*>($$new(JCTree$JCCase$$Lambda$lambda$getExpressions$0)))))->map(static_cast<$Function*>($$new(JCTree$JCCase$$Lambda$lambda$getExpressions$1$1)))))->collect($($List::collector())));
 }
 

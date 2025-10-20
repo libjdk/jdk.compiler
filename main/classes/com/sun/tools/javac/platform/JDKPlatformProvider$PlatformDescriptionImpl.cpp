@@ -360,6 +360,7 @@ void JDKPlatformProvider$PlatformDescriptionImpl::init$($String* sourceVersion) 
 }
 
 $JavaFileManager* JDKPlatformProvider$PlatformDescriptionImpl::getFileManager() {
+	$useLocalCurrentObjectStackCache();
 	$var($Context, context, $new($Context));
 	$init($System);
 	$var($PrintWriter, pw, $new($PrintWriter, static_cast<$OutputStream*>($System::err), true));
@@ -609,6 +610,7 @@ $JavaFileManager* JDKPlatformProvider$PlatformDescriptionImpl::getFileManager() 
 
 void JDKPlatformProvider$PlatformDescriptionImpl::setModule($StandardJavaFileManager* fm, $Path* mod) {
 	$init(JDKPlatformProvider$PlatformDescriptionImpl);
+	$useLocalCurrentObjectStackCache();
 	try {
 		$init($StandardLocation);
 		$var($JavaFileManager$Location, var$0, static_cast<$JavaFileManager$Location*>($StandardLocation::SYSTEM_MODULES));
@@ -641,6 +643,7 @@ $List* JDKPlatformProvider$PlatformDescriptionImpl::getAdditionalOptions() {
 }
 
 void JDKPlatformProvider$PlatformDescriptionImpl::close() {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($($nc(this->ctSym2FileSystem)->values()))->iterator());
 		for (; $nc(i$)->hasNext();) {

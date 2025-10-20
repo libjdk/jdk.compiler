@@ -139,6 +139,7 @@ $List* Analyzer$DiamondInitializer::rewrite($JCTree$JCNewClass* oldTree) {
 }
 
 void Analyzer$DiamondInitializer::process($JCTree$JCNewClass* oldTree, $JCTree$JCNewClass* newTree, bool hasErrors) {
+	$useLocalCurrentObjectStackCache();
 	if (!hasErrors) {
 		$var($List, inferredArgs, nullptr);
 		$var($List, explicitArgs, nullptr);

@@ -45,6 +45,7 @@ void javac::init$() {
 }
 
 $ObjectArray2* javac::getContents() {
+	$useLocalCurrentObjectStackCache();
 	return $new($ObjectArray2, {
 		$$new($ObjectArray, {
 			$of("javac.fullVersion"_s),

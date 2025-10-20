@@ -152,10 +152,12 @@ void AbstractLog::error(int32_t pos, $String* key, $ObjectArray* args) {
 }
 
 void AbstractLog::error(int32_t pos, $JCDiagnostic$Error* errorKey) {
+	$useLocalCurrentObjectStackCache();
 	report($($nc(this->diags)->error(nullptr, this->source, $(wrap(pos)), errorKey)));
 }
 
 void AbstractLog::error($JCDiagnostic$DiagnosticFlag* flag, int32_t pos, $JCDiagnostic$Error* errorKey) {
+	$useLocalCurrentObjectStackCache();
 	report($($nc(this->diags)->error(flag, this->source, $(wrap(pos)), errorKey)));
 }
 
@@ -176,6 +178,7 @@ void AbstractLog::warning($Lint$LintCategory* lc, $JCDiagnostic$DiagnosticPositi
 }
 
 void AbstractLog::warning(int32_t pos, $JCDiagnostic$Warning* warningKey) {
+	$useLocalCurrentObjectStackCache();
 	report($($nc(this->diags)->warning(nullptr, this->source, $(wrap(pos)), warningKey)));
 }
 
@@ -196,14 +199,17 @@ void AbstractLog::note($JCDiagnostic$DiagnosticPosition* pos, $JCDiagnostic$Note
 }
 
 void AbstractLog::note(int32_t pos, $JCDiagnostic$Note* noteKey) {
+	$useLocalCurrentObjectStackCache();
 	report($($nc(this->diags)->note(this->source, $(wrap(pos)), noteKey)));
 }
 
 void AbstractLog::note($JavaFileObject* file, $JCDiagnostic$Note* noteKey) {
+	$useLocalCurrentObjectStackCache();
 	report($($nc(this->diags)->note($(getSource(file)), nullptr, noteKey)));
 }
 
 void AbstractLog::mandatoryNote($JavaFileObject* file, $JCDiagnostic$Note* noteKey) {
+	$useLocalCurrentObjectStackCache();
 	report($($nc(this->diags)->mandatoryNote($(getSource(file)), noteKey)));
 }
 

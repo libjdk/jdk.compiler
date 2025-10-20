@@ -80,6 +80,7 @@ void InferenceContext$3::init$($InferenceContext* this$0, $Infer* x0, $List* var
 }
 
 bool InferenceContext$3::done() {
+	$useLocalCurrentObjectStackCache();
 	return $nc($($nc($(this->this$0->instvars()))->intersect(this->varsToSolve)))->nonEmpty();
 }
 

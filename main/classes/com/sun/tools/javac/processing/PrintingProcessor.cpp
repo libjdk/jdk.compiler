@@ -126,6 +126,7 @@ void PrintingProcessor::setWriter($Writer* w) {
 }
 
 bool PrintingProcessor::process($Set* tes, $RoundEnvironment* renv) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($($nc(renv)->getRootElements()))->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -139,6 +140,7 @@ bool PrintingProcessor::process($Set* tes, $RoundEnvironment* renv) {
 }
 
 void PrintingProcessor::print($Element* element) {
+	$useLocalCurrentObjectStackCache();
 	$nc(($cast($PrintingProcessor$PrintingElementVisitor, $($$new($PrintingProcessor$PrintingElementVisitor, this->writer, $($nc(this->processingEnv)->getElementUtils()))->visit(element)))))->flush();
 }
 

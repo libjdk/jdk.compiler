@@ -118,6 +118,7 @@ void DeferredAttr$DeferredAttrNode::init$($DeferredAttr* this$0, $DeferredAttr$D
 }
 
 bool DeferredAttr$DeferredAttrNode::process($DeferredAttr$DeferredAttrContext* deferredAttrContext) {
+	$useLocalCurrentObjectStackCache();
 	$init($DeferredAttr$5);
 	switch ($nc($DeferredAttr$5::$SwitchMap$com$sun$tools$javac$comp$DeferredAttr$AttrMode)->get(($nc(deferredAttrContext)->mode)->ordinal())) {
 	case 1:

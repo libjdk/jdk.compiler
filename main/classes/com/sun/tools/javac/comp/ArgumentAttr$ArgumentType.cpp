@@ -119,6 +119,7 @@ void ArgumentAttr$ArgumentType::init$($ArgumentAttr* this$0, $JCTree$JCExpressio
 }
 
 $Type* ArgumentAttr$ArgumentType::complete($Attr$ResultInfo* resultInfo, $DeferredAttr$DeferredAttrContext* deferredAttrContext) {
+	$useLocalCurrentObjectStackCache();
 	$init($DeferredAttr$AttrMode);
 	if ($nc(deferredAttrContext)->mode == $DeferredAttr$AttrMode::SPECULATIVE) {
 		$init($Type);
@@ -134,6 +135,7 @@ $Type* ArgumentAttr$ArgumentType::complete($Attr$ResultInfo* resultInfo, $Deferr
 }
 
 $Type* ArgumentAttr$ArgumentType::speculativeType($Symbol* msym, $Resolve$MethodResolutionPhase* phase) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(this->notPertinentToApplicability)->contains(msym)) {
 		return $DeferredAttr$DeferredType::speculativeType(msym, phase);
 	} else {

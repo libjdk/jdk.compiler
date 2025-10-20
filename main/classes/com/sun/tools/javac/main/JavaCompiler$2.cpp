@@ -83,6 +83,7 @@ $ints* JavaCompiler$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag = nullptr;
 $ints* JavaCompiler$2::$SwitchMap$com$sun$tools$javac$main$JavaCompiler$CompilePolicy = nullptr;
 
 void clinit$JavaCompiler$2($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(JavaCompiler$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag, $new($ints, $($JCTree$Tag::values())->length));
 	{
 		try {

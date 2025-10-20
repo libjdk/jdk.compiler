@@ -108,6 +108,7 @@ $Boolean* Types$1::visitType($Type* t, $Void* ignored) {
 }
 
 $Boolean* Types$1::visitClassType($Type$ClassType* t, $Void* ignored) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, parms, $nc($nc($nc(t)->tsym)->type)->allparams());
 	$var($List, args, t->allparams());
 	while ($nc(parms)->nonEmpty()) {

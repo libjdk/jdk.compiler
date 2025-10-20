@@ -215,6 +215,7 @@ void PortFile::unlock() {
 }
 
 void PortFile::waitForValidValues() {
+	$useLocalCurrentObjectStackCache();
 	int32_t MS_BETWEEN_ATTEMPTS = 500;
 	int64_t startTime = $System::currentTimeMillis();
 	int64_t timeout = startTime + getServerStartupTimeoutSeconds() * 1000;
@@ -238,6 +239,7 @@ void PortFile::waitForValidValues() {
 }
 
 bool PortFile::stillMyValues() {
+	$useLocalCurrentObjectStackCache();
 	for (;;) {
 		try {
 			lock();

@@ -104,6 +104,7 @@ void Resolve$BadClassFileError::init$($Resolve* this$0, $Symbol$CompletionFailur
 }
 
 $JCDiagnostic* Resolve$BadClassFileError::getDiagnostic($JCDiagnostic$DiagnosticType* dkind, $JCDiagnostic$DiagnosticPosition* pos, $Symbol* location, $Type* site, $Name* name, $List* argtypes, $List* typeargtypes) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCDiagnostic$DiagnosticType, var$0, dkind);
 	$var($DiagnosticSource, var$1, $nc(this->this$0->log)->currentSource());
 	$var($JCDiagnostic$DiagnosticPosition, var$2, pos);

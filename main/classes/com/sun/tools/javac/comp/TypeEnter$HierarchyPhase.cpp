@@ -156,6 +156,7 @@ void TypeEnter$HierarchyPhase::init$($TypeEnter* this$0) {
 }
 
 void TypeEnter$HierarchyPhase::doCompleteEnvs($List* envs) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(envs)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -177,6 +178,7 @@ void TypeEnter$HierarchyPhase::doCompleteEnvs($List* envs) {
 }
 
 void TypeEnter$HierarchyPhase::runPhase($Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCClassDecl, tree, $nc(env)->enclClass);
 	$var($Symbol$ClassSymbol, sym, $nc(tree)->sym);
 	$var($Type$ClassType, ct, $cast($Type$ClassType, $nc(sym)->type));
@@ -208,6 +210,7 @@ $JCTree$JCExpression* TypeEnter$HierarchyPhase::clearTypeParams($JCTree$JCExpres
 }
 
 void TypeEnter$HierarchyPhase::complete($Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::check(($instanceOf($TypeEnter$ImportsPhase, this->this$0->topLevelPhase)) || ($equals(this->this$0->topLevelPhase, this)));
 	if (!$equals(this->this$0->topLevelPhase, this)) {
 		$set($nc(sym), completer, this);

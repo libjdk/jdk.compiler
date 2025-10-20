@@ -109,6 +109,7 @@ $Infer$IncorporationAction* Infer$PropagateBounds::dup($Type$UndetVar* that) {
 }
 
 void Infer$PropagateBounds::apply($InferenceContext* inferenceContext, $Warner* warner) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, undetT, $nc(inferenceContext)->asUndetVar(this->t));
 	$init($TypeTag);
 	bool var$0 = $nc(undetT)->hasTag($TypeTag::UNDETVAR);
@@ -168,6 +169,7 @@ $EnumSet* Infer$PropagateBounds::backwards() {
 }
 
 $String* Infer$PropagateBounds::toString() {
+	$useLocalCurrentObjectStackCache();
 	return $String::format("%s[undet=%s,t=%s,bound=%s]"_s, $$new($ObjectArray, {
 		$($of($of(this)->getClass()->getSimpleName())),
 		$of($nc(this->uv)->qtype),

@@ -115,6 +115,7 @@ $Set* JavacProcessingEnvironment$ComputeAnnotationSet::visitExecutable($Executab
 }
 
 void JavacProcessingEnvironment$ComputeAnnotationSet::addAnnotations($Element* e, $Set* p) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($($nc(this->elements)->getAllAnnotationMirrors(e)))->iterator());
 		for (; $nc(i$)->hasNext();) {

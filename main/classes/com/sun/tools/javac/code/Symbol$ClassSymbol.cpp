@@ -444,6 +444,7 @@ $List* Symbol$ClassSymbol::getRawTypeAttributes() {
 }
 
 $Type* Symbol$ClassSymbol::erasure($Types* types) {
+	$useLocalCurrentObjectStackCache();
 	if (this->erasure_field == nullptr) {
 		$var($Type, var$0, $nc(types)->erasure($($nc(this->type)->getEnclosingType())));
 		$var($List, var$1, $List::nil());
@@ -465,6 +466,7 @@ $Name* Symbol$ClassSymbol::getQualifiedName() {
 }
 
 $1List* Symbol$ClassSymbol::getEnclosedElements() {
+	$useLocalCurrentObjectStackCache();
 	$var($List, result, $cast($List, $Symbol$TypeSymbol::getEnclosedElements()));
 	if (!$nc(this->recordComponents)->isEmpty()) {
 		$var($List, reversed, $nc(this->recordComponents)->reverse());
@@ -486,6 +488,7 @@ $Name* Symbol$ClassSymbol::flatName() {
 }
 
 bool Symbol$ClassSymbol::isSubClass($Symbol* base, $Types* types) {
+	$useLocalCurrentObjectStackCache();
 	if ($equals(this, base)) {
 		return true;
 	} else if (((int64_t)(base->flags() & (uint64_t)(int64_t)512)) != 0) {
@@ -518,6 +521,7 @@ bool Symbol$ClassSymbol::isSubClass($Symbol* base, $Types* types) {
 }
 
 void Symbol$ClassSymbol::complete() {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$Completer, origCompleter, this->completer);
 	try {
 		$Symbol$TypeSymbol::complete();
@@ -532,6 +536,7 @@ void Symbol$ClassSymbol::complete() {
 }
 
 $List* Symbol$ClassSymbol::getInterfaces() {
+	$useLocalCurrentObjectStackCache();
 	apiComplete();
 	{
 		$var($Type$ClassType, classType, nullptr);
@@ -556,6 +561,7 @@ $List* Symbol$ClassSymbol::getInterfaces() {
 }
 
 $Type* Symbol$ClassSymbol::getSuperclass() {
+	$useLocalCurrentObjectStackCache();
 	apiComplete();
 	{
 		$var($Type$ClassType, classType, nullptr);
@@ -622,6 +628,7 @@ $Set* Symbol$ClassSymbol::getModifiers() {
 }
 
 $Symbol$RecordComponent* Symbol$ClassSymbol::getRecordComponent($Symbol$VarSymbol* field) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(this->recordComponents)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -637,6 +644,7 @@ $Symbol$RecordComponent* Symbol$ClassSymbol::getRecordComponent($Symbol$VarSymbo
 }
 
 $Symbol$RecordComponent* Symbol$ClassSymbol::getRecordComponent($JCTree$JCVariableDecl* var, bool addIfMissing, $List* annotations) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(this->recordComponents)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -684,6 +692,7 @@ $NestingKind* Symbol$ClassSymbol::getNestingKind() {
 }
 
 $Attribute$Compound* Symbol$ClassSymbol::getAttribute($Class* annoType) {
+	$useLocalCurrentObjectStackCache();
 	$var($Attribute$Compound, attrib, $Symbol$TypeSymbol::getAttribute(annoType));
 	$load($Inherited);
 	bool inherited = $nc(annoType)->isAnnotationPresent($Inherited::class$);
@@ -714,6 +723,7 @@ void Symbol$ClassSymbol::markAbstractIfNeeded($Types* types) {
 }
 
 void Symbol$ClassSymbol::reset() {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$Kind);
 	$set(this, kind, $Kinds$Kind::TYP);
 	$set(this, erasure_field, nullptr);

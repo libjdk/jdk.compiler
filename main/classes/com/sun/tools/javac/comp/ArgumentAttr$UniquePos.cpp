@@ -97,6 +97,7 @@ bool ArgumentAttr$UniquePos::equals(Object$* obj) {
 }
 
 $String* ArgumentAttr$UniquePos::toString() {
+	$useLocalCurrentObjectStackCache();
 	$var($String, var$0, $$str({$($nc($($nc(this->source)->getFile()))->getName()), " @ "_s}));
 	return $concat(var$0, $$str($nc(this->source)->getLineNumber(this->pos)));
 }

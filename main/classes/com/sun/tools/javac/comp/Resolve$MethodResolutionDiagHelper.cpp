@@ -124,6 +124,7 @@ void Resolve$MethodResolutionDiagHelper::init$() {
 
 $JCDiagnostic* Resolve$MethodResolutionDiagHelper::rewrite($JCDiagnostic$Factory* diags, $JCDiagnostic$DiagnosticPosition* pos, $DiagnosticSource* source, $JCDiagnostic$DiagnosticType* dkind, $JCDiagnostic* d) {
 	$init(Resolve$MethodResolutionDiagHelper);
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($($nc(Resolve$MethodResolutionDiagHelper::rewriters)->entrySet()))->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -142,6 +143,7 @@ $JCDiagnostic* Resolve$MethodResolutionDiagHelper::rewrite($JCDiagnostic$Factory
 }
 
 void clinit$Resolve$MethodResolutionDiagHelper($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(Resolve$MethodResolutionDiagHelper::skip, $new($Resolve$MethodResolutionDiagHelper$1, ""_s, $$new($Resolve$MethodResolutionDiagHelper$TemplateArray, 0)));
 	$init($Resolve$MethodCheckDiag);
 	$assignStatic(Resolve$MethodResolutionDiagHelper::argMismatchTemplate, $new($Resolve$MethodResolutionDiagHelper$Template, $($Resolve$MethodCheckDiag::ARG_MISMATCH->regex()), $$new($Resolve$MethodResolutionDiagHelper$TemplateArray, {Resolve$MethodResolutionDiagHelper::skip})));

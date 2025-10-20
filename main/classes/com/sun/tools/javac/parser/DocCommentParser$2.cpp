@@ -95,6 +95,7 @@ void DocCommentParser$2::init$($DocCommentParser* this$0, $DocCommentParser$TagP
 }
 
 $DCTree* DocCommentParser$2::parse(int32_t pos) {
+	$useLocalCurrentObjectStackCache();
 	$init($DocCommentParser$WhitespaceRetentionPolicy);
 	$var($DCTree$DCText, text, this->this$0->inlineText($DocCommentParser$WhitespaceRetentionPolicy::REMOVE_FIRST_SPACE));
 	this->this$0->nextChar();

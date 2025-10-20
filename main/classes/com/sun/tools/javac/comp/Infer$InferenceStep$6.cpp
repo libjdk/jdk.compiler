@@ -99,6 +99,7 @@ void Infer$InferenceStep$6::init$($String* $enum$name, int32_t $enum$ordinal, $T
 }
 
 bool Infer$InferenceStep$6::accepts($Type$UndetVar* t, $InferenceContext* inferenceContext) {
+	$useLocalCurrentObjectStackCache();
 	bool var$0 = $nc(t)->isCaptured();
 		$init($Type$UndetVar$InferenceBound);
 	return var$0 && !$nc(inferenceContext)->free($(t->getBounds($$new($Type$UndetVar$InferenceBoundArray, {
@@ -108,6 +109,7 @@ bool Infer$InferenceStep$6::accepts($Type$UndetVar* t, $InferenceContext* infere
 }
 
 $Type* Infer$InferenceStep$6::solve($Type$UndetVar* uv, $InferenceContext* inferenceContext) {
+	$useLocalCurrentObjectStackCache();
 	$var($Infer, infer, $nc(inferenceContext)->infer);
 	$init($Infer$InferenceStep);
 	$var($Type, upper, $nc($($Infer$InferenceStep::UPPER->filterBounds(uv, inferenceContext)))->nonEmpty() ? $Infer$InferenceStep::UPPER->solve(uv, inferenceContext) : $nc($nc(infer)->syms)->objectType);

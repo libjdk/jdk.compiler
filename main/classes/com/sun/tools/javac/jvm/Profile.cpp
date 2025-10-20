@@ -134,6 +134,7 @@ Profile* Profile::valueOf($String* name) {
 
 Profile* Profile::instance($Context* context) {
 	$init(Profile);
+	$useLocalCurrentObjectStackCache();
 	Profile* instance = $cast(Profile, $nc(context)->get(Profile::profileKey));
 	if (instance == nullptr) {
 		$var($Options, options, $Options::instance(context));
@@ -205,6 +206,7 @@ bool Profile::isValid($Target* t) {
 }
 
 void clinit$Profile($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$init($Target);
 	$assignStatic(Profile::COMPACT1, $new(Profile, "COMPACT1"_s, 0, "compact1"_s, 1, $Target::JDK1_8, $$new($TargetArray, 0)));
 	$assignStatic(Profile::COMPACT2, $new(Profile, "COMPACT2"_s, 1, "compact2"_s, 2, $Target::JDK1_8, $$new($TargetArray, 0)));

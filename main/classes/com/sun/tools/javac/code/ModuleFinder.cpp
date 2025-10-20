@@ -231,6 +231,7 @@ $Symbol$ModuleSymbol* ModuleFinder::findModule($Symbol$ModuleSymbol* msym) {
 }
 
 $List* ModuleFinder::findAllModules() {
+	$useLocalCurrentObjectStackCache();
 	$var($List, list, scanModulePath(nullptr));
 	{
 		$var($Iterator, i$, $nc(list)->iterator());
@@ -248,6 +249,7 @@ $List* ModuleFinder::findAllModules() {
 }
 
 $Symbol$ModuleSymbol* ModuleFinder::findSingleModule() {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$init($StandardLocation);
 		$init($JavaFileObject$Kind);
@@ -274,6 +276,7 @@ $Symbol$ModuleSymbol* ModuleFinder::findSingleModule() {
 }
 
 $Symbol$ModuleSymbol* ModuleFinder::readModule($JavaFileObject* fo) {
+	$useLocalCurrentObjectStackCache();
 	$var($Name, name, nullptr);
 	$init($ModuleFinder$2);
 	switch ($nc($ModuleFinder$2::$SwitchMap$javax$tools$JavaFileObject$Kind)->get($nc(($($nc(fo)->getKind())))->ordinal())) {
@@ -345,6 +348,7 @@ $JavaFileObject* ModuleFinder::getModuleInfoFromLocation($JavaFileManager$Locati
 }
 
 $List* ModuleFinder::scanModulePath($Symbol$ModuleSymbol* toFind) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, results, $new($ListBuffer));
 	$var($Map, namesInSet, $new($HashMap));
 	$init($StandardLocation);
@@ -401,6 +405,7 @@ $List* ModuleFinder::scanModulePath($Symbol$ModuleSymbol* toFind) {
 }
 
 void ModuleFinder::findModuleInfo($Symbol$ModuleSymbol* msym) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var($JavaFileObject, fo, nullptr);
 		$init($JavaFileObject$Kind);

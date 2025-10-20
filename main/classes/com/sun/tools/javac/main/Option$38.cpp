@@ -96,6 +96,7 @@ void Option$38::init$($String* $enum$name, int32_t $enum$ordinal, $String* text,
 }
 
 bool Option$38::matches($String* s) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(s)->endsWith(".java"_s)) {
 		return true;
 	}
@@ -109,6 +110,7 @@ bool Option$38::matches($String* s) {
 }
 
 void Option$38::process($OptionHelper* helper, $String* option) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(option)->endsWith(".java"_s)) {
 		try {
 			$var($Path, p, $Paths::get(option, $$new($StringArray, 0)));

@@ -110,11 +110,13 @@ void Resolve$DiamondError::init$($Resolve* this$0, $Symbol* sym, $Resolve$Method
 }
 
 $JCDiagnostic* Resolve$DiamondError::getDetails() {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$Kind);
 	return ($nc(this->sym)->kind == $Kinds$Kind::WRONG_MTH) ? $cast($JCDiagnostic, $nc($($nc(($cast($Resolve$InapplicableSymbolError, $($nc(this->sym)->baseSymbol()))))->errCandidate()))->snd) : ($JCDiagnostic*)nullptr;
 }
 
 $JCDiagnostic* Resolve$DiamondError::getDiagnostic($JCDiagnostic$DiagnosticType* dkind, $JCDiagnostic$DiagnosticPosition* pos, $Symbol* location, $Type* site, $Name* name, $List* argtypes, $List* typeargtypes) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCDiagnostic, details, getDetails());
 	if (details != nullptr && this->this$0->compactMethodDiags) {
 		$var($JCDiagnostic, simpleDiag, $Resolve$MethodResolutionDiagHelper::rewrite(this->this$0->diags, pos, $($nc(this->this$0->log)->currentSource()), dkind, details));

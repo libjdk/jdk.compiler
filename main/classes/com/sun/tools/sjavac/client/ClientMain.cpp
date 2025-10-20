@@ -74,6 +74,7 @@ void ClientMain::init$() {
 }
 
 int32_t ClientMain::run($StringArray* args) {
+	$useLocalCurrentObjectStackCache();
 	$var($StringArray, var$0, args);
 	$init($System);
 	$var($Writer, var$1, static_cast<$Writer*>($new($AutoFlushWriter, $$new($OutputStreamWriter, $System::out))));
@@ -81,6 +82,7 @@ int32_t ClientMain::run($StringArray* args) {
 }
 
 int32_t ClientMain::run($StringArray* args, $Writer* out, $Writer* err) {
+	$useLocalCurrentObjectStackCache();
 	$Log::setLogForCurrentThread($$new($Log, out, err));
 	$var($Options, options, nullptr);
 	try {

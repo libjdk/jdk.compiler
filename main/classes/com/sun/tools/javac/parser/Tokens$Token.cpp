@@ -104,6 +104,7 @@ void Tokens$Token::init$($Tokens$TokenKind* kind, int32_t pos, int32_t endPos, $
 }
 
 $Tokens$TokenArray* Tokens$Token::split($Tokens* tokens) {
+	$useLocalCurrentObjectStackCache();
 	$init($Tokens$Token$Tag);
 	if ($nc(this->kind->name$)->length() < 2 || this->kind->tag != $Tokens$Token$Tag::DEFAULT) {
 		$throwNew($AssertionError, $of($$str({"Cant split"_s, this->kind})));
@@ -148,6 +149,7 @@ $Tokens$Comment* Tokens$Token::comment($Tokens$Comment$CommentStyle* style) {
 }
 
 bool Tokens$Token::deprecatedFlag() {
+	$useLocalCurrentObjectStackCache();
 	{
 		$init($Tokens$Comment$CommentStyle);
 		$var($Iterator, i$, $nc($(getComments($Tokens$Comment$CommentStyle::JAVADOC)))->iterator());
@@ -164,6 +166,7 @@ bool Tokens$Token::deprecatedFlag() {
 }
 
 $List* Tokens$Token::getComments($Tokens$Comment$CommentStyle* style) {
+	$useLocalCurrentObjectStackCache();
 	if (this->comments == nullptr) {
 		return $List::nil();
 	} else {

@@ -166,6 +166,7 @@ void Attribute$Compound::init$($Type* type, $List* values) {
 }
 
 $TypeAnnotationPosition* Attribute$Compound::getPosition() {
+	$useLocalCurrentObjectStackCache();
 	if (hasUnknownPosition()) {
 		if ($nc(this->values)->size() != 0) {
 			$var($Name, valueName, $nc($nc($nc($nc(($cast($Symbol$MethodSymbol, $nc(($cast($Pair, $nc(this->values)->head)))->fst)))->name)->table)->names)->value);
@@ -185,6 +186,7 @@ bool Attribute$Compound::isContainerTypeCompound() {
 }
 
 Attribute$Compound* Attribute$Compound::getFirstEmbeddedTC() {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(this->values)->size() == 1) {
 		$var($Pair, val, $cast($Pair, $nc(this->values)->get(0)));
 		{
@@ -241,6 +243,7 @@ void Attribute$Compound::accept($Attribute$Visitor* v) {
 }
 
 $String* Attribute$Compound::toString() {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, buf, $new($StringBuilder));
 	buf->append("@"_s);
 	buf->append($of(this->type));
@@ -277,6 +280,7 @@ $Attribute* Attribute$Compound::member($Name* member) {
 }
 
 $Pair* Attribute$Compound::getElemPair($Name* member) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(this->values)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -302,6 +306,7 @@ $DeclaredType* Attribute$Compound::getAnnotationType() {
 }
 
 $Map* Attribute$Compound::getElementValues() {
+	$useLocalCurrentObjectStackCache();
 	$var($Map, valmap, $new($LinkedHashMap));
 	{
 		$var($Iterator, i$, $nc(this->values)->iterator());

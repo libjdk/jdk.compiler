@@ -512,6 +512,7 @@ void Flow$AliveAnalyzer::scanStats($List* trees) {
 }
 
 void Flow$AliveAnalyzer::visitClassDef($JCTree$JCClassDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(tree)->sym == nullptr) {
 		return;
 	}
@@ -568,6 +569,7 @@ void Flow$AliveAnalyzer::visitClassDef($JCTree$JCClassDecl* tree) {
 }
 
 void Flow$AliveAnalyzer::visitMethodDef($JCTree$JCMethodDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(tree)->body == nullptr) {
 		return;
 	}
@@ -599,6 +601,7 @@ void Flow$AliveAnalyzer::visitMethodDef($JCTree$JCMethodDecl* tree) {
 }
 
 void Flow$AliveAnalyzer::clearPendingExits(bool inMethod) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, exits, $nc(this->pendingExits)->toList());
 	$set(this, pendingExits, $new($ListBuffer));
 	while ($nc(exits)->nonEmpty()) {
@@ -611,6 +614,7 @@ void Flow$AliveAnalyzer::clearPendingExits(bool inMethod) {
 }
 
 void Flow$AliveAnalyzer::visitVarDef($JCTree$JCVariableDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(tree)->init != nullptr) {
 		$var($Lint, lintPrev, this->this$0->lint);
 		$set(this->this$0, lint, $nc(this->this$0->lint)->augment(static_cast<$Symbol*>(tree->sym)));
@@ -635,6 +639,7 @@ void Flow$AliveAnalyzer::visitBlock($JCTree$JCBlock* tree) {
 }
 
 void Flow$AliveAnalyzer::visitDoLoop($JCTree$JCDoWhileLoop* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, prevPendingExits, this->pendingExits);
 	$set(this, pendingExits, $new($ListBuffer));
 	scanStat($nc(tree)->body);
@@ -645,6 +650,7 @@ void Flow$AliveAnalyzer::visitDoLoop($JCTree$JCDoWhileLoop* tree) {
 }
 
 void Flow$AliveAnalyzer::visitWhileLoop($JCTree$JCWhileLoop* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, prevPendingExits, this->pendingExits);
 	$set(this, pendingExits, $new($ListBuffer));
 	scan(static_cast<$JCTree*>($nc(tree)->cond));
@@ -655,6 +661,7 @@ void Flow$AliveAnalyzer::visitWhileLoop($JCTree$JCWhileLoop* tree) {
 }
 
 void Flow$AliveAnalyzer::visitForLoop($JCTree$JCForLoop* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, prevPendingExits, this->pendingExits);
 	scanStats($nc(tree)->init);
 	$set(this, pendingExits, $new($ListBuffer));
@@ -672,6 +679,7 @@ void Flow$AliveAnalyzer::visitForLoop($JCTree$JCForLoop* tree) {
 }
 
 void Flow$AliveAnalyzer::visitForeachLoop($JCTree$JCEnhancedForLoop* tree) {
+	$useLocalCurrentObjectStackCache();
 	visitVarDef($nc(tree)->var);
 	$var($ListBuffer, prevPendingExits, this->pendingExits);
 	scan(static_cast<$JCTree*>($nc(tree)->expr));
@@ -683,6 +691,7 @@ void Flow$AliveAnalyzer::visitForeachLoop($JCTree$JCEnhancedForLoop* tree) {
 }
 
 void Flow$AliveAnalyzer::visitLabelled($JCTree$JCLabeledStatement* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, prevPendingExits, this->pendingExits);
 	$set(this, pendingExits, $new($ListBuffer));
 	scanStat($nc(tree)->body);
@@ -690,6 +699,7 @@ void Flow$AliveAnalyzer::visitLabelled($JCTree$JCLabeledStatement* tree) {
 }
 
 void Flow$AliveAnalyzer::visitSwitch($JCTree$JCSwitch* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, prevPendingExits, this->pendingExits);
 	$set(this, pendingExits, $new($ListBuffer));
 	scan(static_cast<$JCTree*>($nc(tree)->selector));
@@ -739,6 +749,7 @@ void Flow$AliveAnalyzer::visitSwitch($JCTree$JCSwitch* tree) {
 }
 
 void Flow$AliveAnalyzer::visitSwitchExpression($JCTree$JCSwitchExpression* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, prevPendingExits, this->pendingExits);
 	$set(this, pendingExits, $new($ListBuffer));
 	scan(static_cast<$JCTree*>($nc(tree)->selector));
@@ -783,6 +794,7 @@ void Flow$AliveAnalyzer::visitSwitchExpression($JCTree$JCSwitchExpression* tree)
 }
 
 void Flow$AliveAnalyzer::handleConstantCaseLabel($Set* constants, $JCTree$JCCaseLabel* pat) {
+	$useLocalCurrentObjectStackCache();
 	if (constants != nullptr) {
 		if ($nc(pat)->isExpression()) {
 			$var($JCTree$JCExpression, expr, $cast($JCTree$JCExpression, pat));
@@ -801,6 +813,7 @@ void Flow$AliveAnalyzer::handleConstantCaseLabel($Set* constants, $JCTree$JCCase
 }
 
 void Flow$AliveAnalyzer::transitiveCovers($Set* covered) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, todo, $List::from(static_cast<$Iterable*>(covered)));
 	while ($nc(todo)->nonEmpty()) {
 		$var($Symbol, sym, $cast($Symbol, todo->head));
@@ -845,6 +858,7 @@ void Flow$AliveAnalyzer::transitiveCovers($Set* covered) {
 }
 
 bool Flow$AliveAnalyzer::isExhaustive($Type* seltype, $Set* covered) {
+	$useLocalCurrentObjectStackCache();
 	transitiveCovers(covered);
 	$init($Flow$1);
 
@@ -880,6 +894,7 @@ bool Flow$AliveAnalyzer::isExhaustive($Type* seltype, $Set* covered) {
 }
 
 void Flow$AliveAnalyzer::visitTry($JCTree$JCTry* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, prevPendingExits, this->pendingExits);
 	$set(this, pendingExits, $new($ListBuffer));
 	{
@@ -1007,6 +1022,7 @@ void Flow$AliveAnalyzer::visitNewClass($JCTree$JCNewClass* tree) {
 }
 
 void Flow$AliveAnalyzer::visitLambda($JCTree$JCLambda* tree) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(tree)->type != nullptr && $nc(tree->type)->isErroneous()) {
 		return;
 	}

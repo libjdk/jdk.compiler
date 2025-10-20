@@ -113,6 +113,7 @@ bool Resolve$AmbiguityError::exists() {
 }
 
 void Resolve$AmbiguityError::init$($Resolve* this$0, $Symbol* sym1, $Symbol* sym2) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, this$0, this$0);
 	$init($Kinds$Kind);
 	$Resolve$ResolveError::init$(this$0, $Kinds$Kind::AMBIGUOUS, "ambiguity error"_s);
@@ -135,6 +136,7 @@ Resolve$AmbiguityError* Resolve$AmbiguityError::addAmbiguousSymbol($Symbol* s) {
 }
 
 $JCDiagnostic* Resolve$AmbiguityError::getDiagnostic($JCDiagnostic$DiagnosticType* dkind, $JCDiagnostic$DiagnosticPosition* pos, $Symbol* location, $Type* site, $Name* name, $List* argtypes, $List* typeargtypes) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, diagSyms, $nc(this->ambiguousSyms)->reverse());
 	$var($Symbol, s1, $cast($Symbol, $nc(diagSyms)->head));
 	$var($Symbol, s2, $cast($Symbol, $nc(diagSyms->tail)->head));
@@ -158,11 +160,13 @@ $JCDiagnostic* Resolve$AmbiguityError::getDiagnostic($JCDiagnostic$DiagnosticTyp
 }
 
 $Symbol* Resolve$AmbiguityError::mergeAbstracts($Type* site) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, ambiguousInOrder, $nc(this->ambiguousSyms)->reverse());
 	return $cast($Symbol, $nc($($nc(this->this$0->types)->mergeAbstracts(ambiguousInOrder, site, true)))->orElse(this));
 }
 
 $Symbol* Resolve$AmbiguityError::access($Name* name, $Symbol$TypeSymbol* location) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, firstAmbiguity, $cast($Symbol, $nc(this->ambiguousSyms)->last()));
 	$init($Kinds$Kind);
 	return $nc(firstAmbiguity)->kind == $Kinds$Kind::TYP ? static_cast<$Symbol*>($nc($($nc(this->this$0->types)->createErrorType(name, location, $nc(firstAmbiguity)->type)))->tsym) : firstAmbiguity;

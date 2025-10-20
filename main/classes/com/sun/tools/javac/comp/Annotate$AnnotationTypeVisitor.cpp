@@ -123,6 +123,7 @@ void Annotate$AnnotationTypeVisitor::scanAnnotationType($JCTree$JCClassDecl* dec
 }
 
 void Annotate$AnnotationTypeVisitor::visitClassDef($JCTree$JCClassDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Env, prevEnv, this->env);
 	$set(this, env, $nc(this->typeEnvs)->get($nc(tree)->sym));
 	{
@@ -141,6 +142,7 @@ void Annotate$AnnotationTypeVisitor::visitClassDef($JCTree$JCClassDecl* tree) {
 }
 
 void Annotate$AnnotationTypeVisitor::visitAnnotation($JCTree$JCAnnotation* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, t, $nc($nc(tree)->annotationType)->type);
 	if (t == nullptr) {
 		$assign(t, $nc(this->attr)->attribType(tree->annotationType, this->env));

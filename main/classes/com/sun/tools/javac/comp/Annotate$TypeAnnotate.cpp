@@ -131,6 +131,7 @@ void Annotate$TypeAnnotate::visitTypeParameter($JCTree$JCTypeParameter* tree) {
 }
 
 void Annotate$TypeAnnotate::visitNewArray($JCTree$JCNewArray* tree) {
+	$useLocalCurrentObjectStackCache();
 	this->this$0->enterTypeAnnotations($nc(tree)->annotations, this->env, this->sym, this->deferPos, false);
 	{
 		$var($Iterator, i$, $nc($nc(tree)->dimAnnotations)->iterator());
@@ -154,6 +155,7 @@ void Annotate$TypeAnnotate::visitMethodDef($JCTree$JCMethodDecl* tree) {
 }
 
 void Annotate$TypeAnnotate::visitVarDef($JCTree$JCVariableDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCDiagnostic$DiagnosticPosition, prevPos, this->deferPos);
 	$set(this, deferPos, $nc(tree)->pos());
 	{

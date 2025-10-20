@@ -72,6 +72,7 @@ bool PathAndPackageVerifier$ParentIterator::hasNext() {
 }
 
 $Object* PathAndPackageVerifier$ParentIterator::next() {
+	$useLocalCurrentObjectStackCache();
 	$var($String, tmp, $nc($($nc(this->next$)->getFileName()))->toString());
 	$set(this, next$, $nc(this->next$)->getParent());
 	return $of(tmp);

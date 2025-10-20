@@ -270,6 +270,7 @@ void Option$6::init$($String* $enum$name, int32_t $enum$ordinal, $String* text, 
 }
 
 void Option$6::process($OptionHelper* helper, $String* option, $String* arg) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(arg)->isEmpty()) {
 		$throw($($nc(helper)->newInvalidValueException($($CompilerProperties$Errors::NoValueForOption(option)))));
 	}

@@ -134,6 +134,7 @@ void MatchBindingsComputer::init$($Context* context) {
 }
 
 $MatchBindingsComputer$MatchBindings* MatchBindingsComputer::conditional($JCTree* tree, $MatchBindingsComputer$MatchBindings* condBindings, $MatchBindingsComputer$MatchBindings* trueBindings, $MatchBindingsComputer$MatchBindings* falseBindings) {
+	$useLocalCurrentObjectStackCache();
 	if (condBindings == MatchBindingsComputer::EMPTY && trueBindings == MatchBindingsComputer::EMPTY && falseBindings == MatchBindingsComputer::EMPTY) {
 		return MatchBindingsComputer::EMPTY;
 	}
@@ -164,6 +165,7 @@ $MatchBindingsComputer$MatchBindings* MatchBindingsComputer::unary($JCTree* tree
 }
 
 $MatchBindingsComputer$MatchBindings* MatchBindingsComputer::binary($JCTree* tree, $MatchBindingsComputer$MatchBindings* lhsBindings, $MatchBindingsComputer$MatchBindings* rhsBindings) {
+	$useLocalCurrentObjectStackCache();
 	$init($MatchBindingsComputer$1);
 	switch ($nc($MatchBindingsComputer$1::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($($nc(tree)->getTag())))->ordinal())) {
 	case 1:
@@ -189,12 +191,14 @@ $MatchBindingsComputer$MatchBindings* MatchBindingsComputer::guardedPattern($JCT
 }
 
 $MatchBindingsComputer$MatchBindings* MatchBindingsComputer::andOperation($JCDiagnostic$DiagnosticPosition* pos, $MatchBindingsComputer$MatchBindings* lhsBindings, $MatchBindingsComputer$MatchBindings* rhsBindings) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, bindingsWhenTrue, union$(pos, $nc(lhsBindings)->bindingsWhenTrue, $$new($ListArray, {$nc(rhsBindings)->bindingsWhenTrue})));
 	$var($List, bindingsWhenFalse, intersection(pos, $nc(lhsBindings)->bindingsWhenFalse, $nc(rhsBindings)->bindingsWhenFalse));
 	return $new($MatchBindingsComputer$MatchBindings, bindingsWhenTrue, bindingsWhenFalse);
 }
 
 $MatchBindingsComputer$MatchBindings* MatchBindingsComputer::switchCase($JCTree* tree, $MatchBindingsComputer$MatchBindings* prevBindings, $MatchBindingsComputer$MatchBindings* currentBindings) {
+	$useLocalCurrentObjectStackCache();
 	if (prevBindings == nullptr) {
 		return currentBindings;
 	}
@@ -239,6 +243,7 @@ $MatchBindingsComputer$MatchBindings* MatchBindingsComputer::finishBindings($JCT
 }
 
 $List* MatchBindingsComputer::intersection($JCDiagnostic$DiagnosticPosition* pos, $List* lhsBindings, $List* rhsBindings) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, list, $List::nil());
 	{
 		$var($Iterator, i$, $nc(lhsBindings)->iterator());
@@ -267,6 +272,7 @@ $List* MatchBindingsComputer::intersection($JCDiagnostic$DiagnosticPosition* pos
 }
 
 $List* MatchBindingsComputer::union$($JCDiagnostic$DiagnosticPosition* pos, $List* lhsBindings, $ListArray* rhsBindings_s) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, list, lhsBindings);
 	{
 		$var($ListArray, arr$, rhsBindings_s);
@@ -305,6 +311,7 @@ $List* MatchBindingsComputer::union$($JCDiagnostic$DiagnosticPosition* pos, $Lis
 }
 
 void clinit$MatchBindingsComputer($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, var$0, $List::nil());
 	$assignStatic(MatchBindingsComputer::EMPTY, $new($MatchBindingsComputer$MatchBindings, var$0, $($List::nil())));
 	$assignStatic(MatchBindingsComputer::matchBindingsComputerKey, $new($Context$Key));

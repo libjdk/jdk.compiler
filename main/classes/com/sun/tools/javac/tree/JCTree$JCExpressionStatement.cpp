@@ -142,6 +142,7 @@ $JCTree$Tag* JCTree$JCExpressionStatement::getTag() {
 }
 
 $String* JCTree$JCExpressionStatement::toString() {
+	$useLocalCurrentObjectStackCache();
 	$var($StringWriter, s, $new($StringWriter));
 	try {
 		$$new($Pretty, s, false)->printStat(this);

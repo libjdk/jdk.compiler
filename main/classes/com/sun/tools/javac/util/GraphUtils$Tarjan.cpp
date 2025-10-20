@@ -85,6 +85,7 @@ void GraphUtils$Tarjan::init$() {
 }
 
 $List* GraphUtils$Tarjan::findSCC($Iterable* nodes) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(nodes)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -100,6 +101,7 @@ $List* GraphUtils$Tarjan::findSCC($Iterable* nodes) {
 }
 
 void GraphUtils$Tarjan::findSCC($GraphUtils$TarjanNode* v) {
+	$useLocalCurrentObjectStackCache();
 	visitNode(v);
 	{
 		$var($Iterator, i$, $nc($($nc(v)->getAllDependencies()))->iterator());
@@ -129,6 +131,7 @@ void GraphUtils$Tarjan::visitNode($GraphUtils$TarjanNode* n) {
 }
 
 void GraphUtils$Tarjan::addSCC($GraphUtils$TarjanNode* v) {
+	$useLocalCurrentObjectStackCache();
 	$var($GraphUtils$TarjanNode, n, nullptr);
 	$var($ListBuffer, cycle, $new($ListBuffer));
 	do {

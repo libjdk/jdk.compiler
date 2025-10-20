@@ -127,6 +127,7 @@ void Resolve$AbstractMethodCheck::init$($Resolve* this$0) {
 }
 
 void Resolve$AbstractMethodCheck::argumentsAcceptable($Env* env, $DeferredAttr$DeferredAttrContext* deferredAttrContext, $List* argtypes$renamed, $List* formals$renamed, $Warner* warn) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, argtypes, argtypes$renamed);
 	$var($List, formals, formals$renamed);
 	bool useVarargs = $nc(deferredAttrContext)->phase->isVarargsRequired();
@@ -170,6 +171,7 @@ $JCTree* Resolve$AbstractMethodCheck::treeForDiagnostics($Env* env) {
 }
 
 void Resolve$AbstractMethodCheck::reportMC($JCDiagnostic$DiagnosticPosition* pos, $Resolve$MethodCheckDiag* diag, $InferenceContext* inferenceContext, $ObjectArray* args$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($ObjectArray, args, args$renamed);
 	bool inferDiag = inferenceContext != $nc(this->this$0->infer)->emptyContext;
 	if (inferDiag && (!$nc($nc(diag)->inferKey)->equals(diag->basicKey))) {

@@ -223,6 +223,7 @@ Printer* Printer::createStandardPrinter($Messages* messages) {
 }
 
 $String* Printer::visitTypes($List* ts, $Locale* locale) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, sbuf, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc(ts)->iterator());
@@ -237,6 +238,7 @@ $String* Printer::visitTypes($List* ts, $Locale* locale) {
 }
 
 $String* Printer::visitSymbols($List* ts, $Locale* locale) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, sbuf, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc(ts)->iterator());
@@ -259,6 +261,7 @@ $String* Printer::visit($Symbol* s, $Locale* locale) {
 }
 
 $String* Printer::visitCapturedType($Type$CapturedType* t, $Locale* locale) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(this->seenCaptured)->contains(t)) {
 		$var($String, var$0, $(printAnnotations(t)));
 		return $concat(var$0, $(localize(locale, "compiler.misc.type.captureof.1"_s, $$new($ObjectArray, {$($of(capturedVarId(t, locale)))}))));
@@ -293,6 +296,7 @@ $String* Printer::visitCapturedType($Type$CapturedType* t, $Locale* locale) {
 }
 
 $String* Printer::visitForAll($Type$ForAll* t, $Locale* locale) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, var$2, $$str({$(printAnnotations(t)), "<"_s}));
 	$var($String, var$1, $$concat(var$2, $(visitTypes($nc(t)->tvars, locale))));
 	$var($String, var$0, $$concat(var$1, ">"));
@@ -300,6 +304,7 @@ $String* Printer::visitForAll($Type$ForAll* t, $Locale* locale) {
 }
 
 $String* Printer::visitUndetVar($Type$UndetVar* t, $Locale* locale) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(t)->getInst() != nullptr) {
 		$var($String, var$0, $(printAnnotations(t)));
 		return $concat(var$0, $(visit($(t->getInst()), locale)));
@@ -322,6 +327,7 @@ $String* Printer::printAnnotations($Type* t) {
 }
 
 $String* Printer::printAnnotations($Type* t, bool prefix) {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, sb, $new($StringBuilder));
 	$var($List, annos, $cast($List, $nc(t)->getAnnotationMirrors()));
 	if (!$nc(annos)->isEmpty()) {
@@ -335,6 +341,7 @@ $String* Printer::printAnnotations($Type* t, bool prefix) {
 }
 
 void Printer::printBaseElementType($Type* t, $StringBuilder* sb, $Locale* locale) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, arrel, t);
 	$init($TypeTag);
 	while ($nc(arrel)->hasTag($TypeTag::ARRAY)) {
@@ -344,6 +351,7 @@ void Printer::printBaseElementType($Type* t, $StringBuilder* sb, $Locale* locale
 }
 
 void Printer::printBrackets($Type* t, $StringBuilder* sb, $Locale* locale) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, arrel, t);
 	$init($TypeTag);
 	while ($nc(arrel)->hasTag($TypeTag::ARRAY)) {
@@ -354,6 +362,7 @@ void Printer::printBrackets($Type* t, $StringBuilder* sb, $Locale* locale) {
 }
 
 $String* Printer::visitClassType($Type$ClassType* t, $Locale* locale) {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, buf, $new($StringBuilder));
 	$init($TypeTag);
 	$init($Kinds$Kind);
@@ -375,6 +384,7 @@ $String* Printer::visitClassType($Type$ClassType* t, $Locale* locale) {
 }
 
 $String* Printer::visitMethodType($Type$MethodType* t, $Locale* locale) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, var$0, $$str({"("_s, $(printMethodArgs($nc(t)->argtypes$, false, locale)), ")"_s}));
 	return $concat(var$0, $(visit($nc(t)->restype, locale)));
 }
@@ -384,6 +394,7 @@ $String* Printer::visitPackageType($Type$PackageType* t, $Locale* locale) {
 }
 
 $String* Printer::visitWildcardType($Type$WildcardType* t, $Locale* locale) {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, s, $new($StringBuilder));
 	s->append($of($nc(t)->kind));
 	$init($BoundKind);
@@ -407,11 +418,13 @@ $String* Printer::visitModuleType($Type$ModuleType* t, $Locale* locale) {
 }
 
 $String* Printer::visitType($Type* t, $Locale* locale) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, s, ($nc(t)->tsym == nullptr || $nc($nc(t)->tsym)->name == nullptr) ? localize(locale, "compiler.misc.type.none"_s, $$new($ObjectArray, 0)) : $nc($nc($nc(t)->tsym)->name)->toString());
 	return s;
 }
 
 $String* Printer::className($Type$ClassType* t, bool longform, $Locale* locale) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, sym, $nc(t)->tsym);
 	bool var$0 = $nc($nc(sym)->name)->length() == 0;
 	if (var$0 && ((int64_t)(sym->flags() & (uint64_t)(int64_t)0x01000000)) != 0) {
@@ -443,6 +456,7 @@ $String* Printer::className($Type$ClassType* t, bool longform, $Locale* locale) 
 }
 
 $String* Printer::printMethodArgs($List* args$renamed, bool varArgs, $Locale* locale) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, args, args$renamed);
 	if (!varArgs) {
 		return visitTypes(args, locale);
@@ -474,6 +488,7 @@ $String* Printer::visitClassSymbol($Symbol$ClassSymbol* sym, $Locale* locale) {
 }
 
 $String* Printer::visitMethodSymbol($Symbol$MethodSymbol* s, $Locale* locale) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(s)->isStaticOrInstanceInit()) {
 		return $nc($nc(s->owner)->name)->toString();
 	} else {

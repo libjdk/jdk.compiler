@@ -140,6 +140,7 @@ void Analyzer$LambdaAnalyzer::init$($Analyzer* this$0) {
 }
 
 bool Analyzer$LambdaAnalyzer::match($JCTree$JCNewClass* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, clazztype, $nc($nc(tree)->clazz)->type);
 	$init($TypeTag);
 	bool var$1 = tree->def != nullptr && $nc(clazztype)->hasTag($TypeTag::CLASS);
@@ -148,6 +149,7 @@ bool Analyzer$LambdaAnalyzer::match($JCTree$JCNewClass* tree) {
 }
 
 $List* Analyzer$LambdaAnalyzer::decls($JCTree$JCClassDecl* decl) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, decls, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc($nc(decl)->defs)->iterator());
@@ -170,6 +172,7 @@ $List* Analyzer$LambdaAnalyzer::decls($JCTree$JCClassDecl* decl) {
 }
 
 $List* Analyzer$LambdaAnalyzer::rewrite($JCTree$JCNewClass* oldTree) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCMethodDecl, md, $cast($JCTree$JCMethodDecl, $nc(this->this$0->copier)->copy($cast($JCTree, $nc($(decls($nc(oldTree)->def)))->head))));
 	$var($List, params, $nc(md)->params);
 	$var($JCTree$JCBlock, body, md->body);

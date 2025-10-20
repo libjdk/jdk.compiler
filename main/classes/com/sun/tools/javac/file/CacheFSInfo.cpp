@@ -302,10 +302,12 @@ bool CacheFSInfo::exists($Path* file) {
 }
 
 bool CacheFSInfo::isDirectory($Path* file) {
+	$useLocalCurrentObjectStackCache();
 	return $nc(($cast($Boolean, $($nc($($nc($(getAttributes(file)))->map(static_cast<$Function*>($$new(CacheFSInfo$$Lambda$isDirectory$2)))))->orElse($($Boolean::valueOf(false)))))))->booleanValue();
 }
 
 bool CacheFSInfo::isFile($Path* file) {
+	$useLocalCurrentObjectStackCache();
 	return $nc(($cast($Boolean, $($nc($($nc($(getAttributes(file)))->map(static_cast<$Function*>($$new(CacheFSInfo$$Lambda$isRegularFile$3)))))->orElse($($Boolean::valueOf(false)))))))->booleanValue();
 }
 
@@ -325,6 +327,7 @@ $Optional* CacheFSInfo::getAttributes($Path* file) {
 }
 
 $Optional* CacheFSInfo::maybeReadAttributes($Path* file) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$load($BasicFileAttributes);
 		return $Optional::of($($Files::readAttributes(file, $BasicFileAttributes::class$, $$new($LinkOptionArray, 0))));

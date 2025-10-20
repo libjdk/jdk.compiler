@@ -168,6 +168,7 @@ void RichDiagnosticFormatter$1::init$($RichDiagnosticFormatter* this$0) {
 }
 
 $Void* RichDiagnosticFormatter$1::visit($List* ts) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(ts)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -213,6 +214,7 @@ $Void* RichDiagnosticFormatter$1::visitType($Type* t, $Void* ignored) {
 }
 
 $Void* RichDiagnosticFormatter$1::visitCapturedType($Type$CapturedType* t, $Void* ignored) {
+	$useLocalCurrentObjectStackCache();
 	$init($RichDiagnosticFormatter$WhereClauseKind);
 	if (this->this$0->indexOf(t, $RichDiagnosticFormatter$WhereClauseKind::CAPTURED) == -1) {
 		$var($String, suffix, $nc(t)->lower == $nc(this->this$0->syms)->botType ? ".1"_s : ""_s);
@@ -231,6 +233,7 @@ $Void* RichDiagnosticFormatter$1::visitCapturedType($Type$CapturedType* t, $Void
 }
 
 $Void* RichDiagnosticFormatter$1::visitClassType($Type$ClassType* t, $Void* ignored) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(t)->isCompound()) {
 		$init($RichDiagnosticFormatter$WhereClauseKind);
 		if (this->this$0->indexOf(t, $RichDiagnosticFormatter$WhereClauseKind::INTERSECTION) == -1) {
@@ -268,6 +271,7 @@ $Void* RichDiagnosticFormatter$1::visitClassType($Type$ClassType* t, $Void* igno
 }
 
 $Void* RichDiagnosticFormatter$1::visitTypeVar($Type$TypeVar* t$renamed, $Void* ignored) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type$TypeVar, t, t$renamed);
 	$assign(t, $cast($Type$TypeVar, $nc(t)->stripMetadataIfNeeded()));
 	$init($RichDiagnosticFormatter$WhereClauseKind);

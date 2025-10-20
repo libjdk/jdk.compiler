@@ -202,6 +202,7 @@ void AbstractDiagnosticFormatter::init$($JavacMessages* messages, $AbstractDiagn
 }
 
 $String* AbstractDiagnosticFormatter::formatKind($JCDiagnostic* d, $Locale* l) {
+	$useLocalCurrentObjectStackCache();
 	$init($AbstractDiagnosticFormatter$2);
 	switch ($nc($AbstractDiagnosticFormatter$2::$SwitchMap$com$sun$tools$javac$util$JCDiagnostic$DiagnosticType)->get($nc(($($nc(d)->getType())))->ordinal())) {
 	case 1:
@@ -268,6 +269,7 @@ int64_t AbstractDiagnosticFormatter::getPosition($JCDiagnostic* d, $DiagnosticFo
 }
 
 $String* AbstractDiagnosticFormatter::formatSource($JCDiagnostic* d, bool fullname, $Locale* l) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileObject, fo, $cast($JavaFileObject, $nc(d)->getSource()));
 	if (fo == nullptr) {
 		$throwNew($IllegalArgumentException);
@@ -292,6 +294,7 @@ $String* AbstractDiagnosticFormatter::formatSource($JCDiagnostic* d, bool fullna
 }
 
 $Collection* AbstractDiagnosticFormatter::formatArguments($JCDiagnostic* d, $Locale* l) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, buf, $new($ListBuffer));
 	{
 		$var($ObjectArray, arr$, $nc(d)->getArgs());
@@ -308,6 +311,7 @@ $Collection* AbstractDiagnosticFormatter::formatArguments($JCDiagnostic* d, $Loc
 }
 
 $String* AbstractDiagnosticFormatter::formatArgument($JCDiagnostic* d, Object$* arg, $Locale* l) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($JCDiagnostic, diagnostic, nullptr);
 		$var($JCTree$JCExpression, expression, nullptr);
@@ -449,6 +453,7 @@ $String* AbstractDiagnosticFormatter::formatArgument($JCDiagnostic* d, Object$* 
 }
 
 $String* AbstractDiagnosticFormatter::expr2String($JCTree$JCExpression* tree) {
+	$useLocalCurrentObjectStackCache();
 	$init($AbstractDiagnosticFormatter$2);
 	switch ($nc($AbstractDiagnosticFormatter$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($($nc(tree)->getTag())))->ordinal())) {
 	case 1:
@@ -472,6 +477,7 @@ $String* AbstractDiagnosticFormatter::expr2String($JCTree$JCExpression* tree) {
 }
 
 $String* AbstractDiagnosticFormatter::formatIterable($JCDiagnostic* d, $Iterable* it, $Locale* l) {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, sbuf, $new($StringBuilder));
 	$var($String, sep, ""_s);
 	{
@@ -489,6 +495,7 @@ $String* AbstractDiagnosticFormatter::formatIterable($JCDiagnostic* d, $Iterable
 }
 
 $List* AbstractDiagnosticFormatter::formatSubdiagnostics($JCDiagnostic* d, $Locale* l) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, subdiagnostics, $List::nil());
 	$init($DiagnosticFormatter$Configuration$MultilineLimit);
 	int32_t maxDepth = $nc(this->config)->getMultilineLimit($DiagnosticFormatter$Configuration$MultilineLimit::DEPTH);
@@ -531,6 +538,7 @@ $String* AbstractDiagnosticFormatter::formatSubdiagnostic($JCDiagnostic* parent,
 }
 
 $String* AbstractDiagnosticFormatter::formatSourceLine($JCDiagnostic* d, int32_t nSpaces) {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, buf, $new($StringBuilder));
 	$var($DiagnosticSource, source, $nc(d)->getDiagnosticSource());
 	int32_t pos = d->getIntPosition();
@@ -578,6 +586,7 @@ bool AbstractDiagnosticFormatter::isRaw() {
 }
 
 $String* AbstractDiagnosticFormatter::indentString(int32_t nSpaces) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, spaces, "                        "_s);
 	if (nSpaces <= spaces->length()) {
 		return spaces->substring(0, nSpaces);
@@ -591,6 +600,7 @@ $String* AbstractDiagnosticFormatter::indentString(int32_t nSpaces) {
 }
 
 $String* AbstractDiagnosticFormatter::indent($String* s, int32_t nSpaces) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, indent, indentString(nSpaces));
 	$var($StringBuilder, buf, $new($StringBuilder));
 	$var($String, nl, ""_s);

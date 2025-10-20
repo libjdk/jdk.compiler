@@ -84,6 +84,7 @@ $String* Res::getText($String* key, $String* a1, $String* a2) {
 }
 
 $String* Res::getText($String* key, $String* a1, $String* a2, $String* a3) {
+	$useLocalCurrentObjectStackCache();
 	$init(Res);
 	if (Res::messageRB == nullptr) {
 		initResource();

@@ -101,6 +101,7 @@ $Object* allocate$LambdaToMethod$KlassInfo($Class* clazz) {
 }
 
 void LambdaToMethod$KlassInfo::init$($LambdaToMethod* this$0, $JCTree$JCClassDecl* clazz) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, this$0, this$0);
 	$set(this, dynMethSyms, $new($HashMap));
 	$set(this, clazz, clazz);

@@ -110,6 +110,7 @@ void Options$1StateArgs::addArg($Option* opt, Object$* val) {
 }
 
 void Options$1StateArgs::addSourceLocations($Option* opt, $List* locs) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(locs)->iterator());
 		for (; $nc(i$)->hasNext();) {

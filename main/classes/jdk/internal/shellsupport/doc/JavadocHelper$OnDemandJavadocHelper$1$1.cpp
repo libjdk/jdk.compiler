@@ -93,6 +93,7 @@ void JavadocHelper$OnDemandJavadocHelper$1$1::init$($JavadocHelper$OnDemandJavad
 }
 
 $Void* JavadocHelper$OnDemandJavadocHelper$1$1::visitParam($ParamTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc($($nc($($nc(node)->getName()))->getName()))->contentEquals(this->val$paramName)) {
 		$nc(this->val$inheritedText)->add($(node->getDescription()));
 	}

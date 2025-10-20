@@ -1871,6 +1871,7 @@ $Symbol$MethodSymbol* Check::setMethod($Symbol$MethodSymbol* newMethod) {
 }
 
 void Check::warnDeprecated($JCDiagnostic$DiagnosticPosition* pos, $Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(sym)->isDeprecatedForRemoval()) {
 		$init($Lint$LintCategory);
 		if (!$nc(this->lint)->isSuppressed($Lint$LintCategory::REMOVAL)) {
@@ -1902,6 +1903,7 @@ void Check::warnPreviewAPI($JCDiagnostic$DiagnosticPosition* pos, $JCDiagnostic$
 }
 
 void Check::warnDeclaredUsingPreview($JCDiagnostic$DiagnosticPosition* pos, $Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$init($Lint$LintCategory);
 	if (!$nc(this->lint)->isSuppressed($Lint$LintCategory::PREVIEW)) {
 		$nc(this->preview)->reportPreviewWarning(pos, $($CompilerProperties$Warnings::DeclaredUsingPreview($($Kinds::kindName(sym)), sym)));
@@ -1945,12 +1947,14 @@ void Check::reportDeferredDiagnostics() {
 }
 
 $Type* Check::completionError($JCDiagnostic$DiagnosticPosition* pos, $Symbol$CompletionFailure* ex) {
+	$useLocalCurrentObjectStackCache();
 	$init($JCDiagnostic$DiagnosticFlag);
 	$nc(this->log)->error($JCDiagnostic$DiagnosticFlag::NON_DEFERRABLE, pos, $($CompilerProperties$Errors::CantAccess($nc(ex)->sym, $(ex->getDetailValue()))));
 	return $nc(this->syms)->errType;
 }
 
 $Type* Check::typeTagError($JCDiagnostic$DiagnosticPosition* pos, $JCDiagnostic* required, Object$* found) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Type, type, nullptr);
 		bool var$1 = $instanceOf($Type, found);
@@ -1981,6 +1985,7 @@ void Check::earlyRefError($JCDiagnostic$DiagnosticPosition* pos, $Symbol* sym) {
 }
 
 void Check::duplicateError($JCDiagnostic$DiagnosticPosition* pos, $Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	if (!$nc($nc(sym)->type)->isErroneous()) {
 		$var($Symbol, location, sym->location());
 		$init($Kinds$Kind);
@@ -2002,6 +2007,7 @@ void Check::duplicateError($JCDiagnostic$DiagnosticPosition* pos, $Symbol* sym) 
 }
 
 void Check::varargsDuplicateError($JCDiagnostic$DiagnosticPosition* pos, $Symbol* sym1, $Symbol* sym2) {
+	$useLocalCurrentObjectStackCache();
 	bool var$0 = !$nc($nc(sym1)->type)->isErroneous();
 	if (var$0 && !$nc($nc(sym2)->type)->isErroneous()) {
 		$nc(this->log)->error(pos, $($CompilerProperties$Errors::ArrayAndVarargs(sym1, sym2, $(sym2->location()))));
@@ -2009,6 +2015,7 @@ void Check::varargsDuplicateError($JCDiagnostic$DiagnosticPosition* pos, $Symbol
 }
 
 void Check::checkTransparentVar($JCDiagnostic$DiagnosticPosition* pos, $Symbol$VarSymbol* v, $Scope* s) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($($nc(s)->getSymbolsByName($nc(v)->name)))->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -2029,6 +2036,7 @@ void Check::checkTransparentVar($JCDiagnostic$DiagnosticPosition* pos, $Symbol$V
 }
 
 void Check::checkTransparentClass($JCDiagnostic$DiagnosticPosition* pos, $Symbol$ClassSymbol* c, $Scope* s) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($($nc(s)->getSymbolsByName($nc(c)->name)))->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -2051,6 +2059,7 @@ void Check::checkTransparentClass($JCDiagnostic$DiagnosticPosition* pos, $Symbol
 }
 
 bool Check::checkUniqueClassName($JCDiagnostic$DiagnosticPosition* pos, $Name* name, $Scope* s) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$init($Scope$LookupKind);
 		$var($Iterator, i$, $nc($($nc(s)->getSymbolsByName(name, $Scope$LookupKind::NON_RECURSIVE)))->iterator());
@@ -2079,6 +2088,7 @@ bool Check::checkUniqueClassName($JCDiagnostic$DiagnosticPosition* pos, $Name* n
 }
 
 $Name* Check::localClassName($Symbol$ClassSymbol* c) {
+	$useLocalCurrentObjectStackCache();
 	$var($Name, enclFlatname, $nc($($nc($nc(c)->owner)->enclClass()))->flatname);
 	$var($String, enclFlatnameStr, $nc(enclFlatname)->toString());
 	$var($Pair, key, $new($Pair, enclFlatname, c->name));
@@ -2093,6 +2103,7 @@ $Name* Check::localClassName($Symbol$ClassSymbol* c) {
 }
 
 void Check::clearLocalClassNameIndexes($Symbol$ClassSymbol* c) {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$Kind);
 	if ($nc(c)->owner != nullptr && $nc(c->owner)->kind != $Kinds$Kind::NIL) {
 		$nc(this->localClassNameIndexes)->remove($$new($Pair, $nc($($nc(c->owner)->enclClass()))->flatname, c->name));
@@ -2112,10 +2123,12 @@ void Check::clear() {
 }
 
 void Check::putCompiled($Symbol$ClassSymbol* csym) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->compiled)->put($($Pair::of($nc($($nc(csym)->packge()))->modle, csym->flatname)), csym);
 }
 
 $Symbol$ClassSymbol* Check::getCompiled($Symbol$ClassSymbol* csym) {
+	$useLocalCurrentObjectStackCache();
 	return $cast($Symbol$ClassSymbol, $nc(this->compiled)->get($($Pair::of($nc($($nc(csym)->packge()))->modle, csym->flatname))));
 }
 
@@ -2124,6 +2137,7 @@ $Symbol$ClassSymbol* Check::getCompiled($Symbol$ModuleSymbol* msym, $Name* flatn
 }
 
 void Check::removeCompiled($Symbol$ClassSymbol* csym) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->compiled)->remove($($Pair::of($nc($($nc(csym)->packge()))->modle, csym->flatname)));
 }
 
@@ -2132,6 +2146,7 @@ $Type* Check::checkType($JCDiagnostic$DiagnosticPosition* pos, $Type* found, $Ty
 }
 
 $Type* Check::checkType($JCDiagnostic$DiagnosticPosition* pos, $Type* found, $Type* req, $Check$CheckContext* checkContext) {
+	$useLocalCurrentObjectStackCache();
 	$var($InferenceContext, inferenceContext, $nc(checkContext)->inferenceContext());
 	bool var$0 = $nc(inferenceContext)->free(req);
 	if (var$0 || $nc(inferenceContext)->free(found)) {
@@ -2163,6 +2178,7 @@ $Type* Check::checkCastable($JCDiagnostic$DiagnosticPosition* pos, $Type* found,
 }
 
 $Type* Check::checkCastable($JCDiagnostic$DiagnosticPosition* pos, $Type* found, $Type* req, $Check$CheckContext* checkContext) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(this->types)->isCastable(found, req, $(castWarner(pos, found, req)))) {
 		return req;
 	} else {
@@ -2181,6 +2197,7 @@ void Check::checkRedundantCast($Env* env, $JCTree$JCTypeCast* tree) {
 }
 
 bool Check::is292targetTypeCast($JCTree$JCTypeCast* tree) {
+	$useLocalCurrentObjectStackCache();
 	bool is292targetTypeCast = false;
 	$var($JCTree$JCExpression, expr, $TreeInfo::skipParens($nc(tree)->expr));
 	$init($JCTree$Tag);
@@ -2194,6 +2211,7 @@ bool Check::is292targetTypeCast($JCTree$JCTypeCast* tree) {
 }
 
 bool Check::checkExtends($Type* a$renamed, $Type* bound) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, a, a$renamed);
 	if ($nc(a)->isUnbound()) {
 		return true;
@@ -2223,6 +2241,7 @@ $Type* Check::checkNonVoid($JCDiagnostic$DiagnosticPosition* pos, $Type* t) {
 }
 
 $Type* Check::checkClassOrArrayType($JCDiagnostic$DiagnosticPosition* pos, $Type* t) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	bool var$1 = !$nc(t)->hasTag($TypeTag::CLASS);
 	bool var$0 = var$1 && !t->hasTag($TypeTag::ARRAY);
@@ -2237,6 +2256,7 @@ $Type* Check::checkClassOrArrayType($JCDiagnostic$DiagnosticPosition* pos, $Type
 }
 
 $Type* Check::checkClassType($JCDiagnostic$DiagnosticPosition* pos, $Type* t) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	bool var$0 = !$nc(t)->hasTag($TypeTag::CLASS);
 	if (var$0 && !t->hasTag($TypeTag::ERROR)) {
@@ -2255,6 +2275,7 @@ $Object* Check::asTypeParam($Type* t) {
 }
 
 $Type* Check::checkConstructorRefType($JCDiagnostic$DiagnosticPosition* pos, $Type* t$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, t, t$renamed);
 	$assign(t, checkClassOrArrayType(pos, t));
 	$init($TypeTag);
@@ -2282,6 +2303,7 @@ $Type* Check::checkConstructorRefType($JCDiagnostic$DiagnosticPosition* pos, $Ty
 }
 
 $Type* Check::checkClassType($JCDiagnostic$DiagnosticPosition* pos, $Type* t$renamed, bool noBounds) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, t, t$renamed);
 	$assign(t, checkClassType(pos, t));
 	if (noBounds && $nc(t)->isParameterized()) {
@@ -2308,6 +2330,7 @@ $Type* Check::checkRefType($JCDiagnostic$DiagnosticPosition* pos, $Type* t) {
 }
 
 $List* Check::checkRefTypes($List* trees, $List* types) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, tl, trees);
 	{
 		$var($List, l, types);
@@ -2331,6 +2354,7 @@ $Type* Check::checkNullOrRefType($JCDiagnostic$DiagnosticPosition* pos, $Type* t
 }
 
 bool Check::checkDisjoint($JCDiagnostic$DiagnosticPosition* pos, int64_t flags, int64_t set1, int64_t set2) {
+	$useLocalCurrentObjectStackCache();
 	if (((int64_t)(flags & (uint64_t)set1)) != 0 && ((int64_t)(flags & (uint64_t)set2)) != 0) {
 		$var($Set, var$0, static_cast<$Set*>($Flags::asFlagSet($TreeInfo::firstFlag((int64_t)(flags & (uint64_t)set1)))));
 		$nc(this->log)->error(pos, $($CompilerProperties$Errors::IllegalCombinationOfModifiers(var$0, $($Flags::asFlagSet($TreeInfo::firstFlag((int64_t)(flags & (uint64_t)set2)))))));
@@ -2341,6 +2365,7 @@ bool Check::checkDisjoint($JCDiagnostic$DiagnosticPosition* pos, int64_t flags, 
 }
 
 $Type* Check::checkDiamond($JCTree$JCNewClass* tree, $Type* t) {
+	$useLocalCurrentObjectStackCache();
 	bool var$0 = !$TreeInfo::isDiamond(tree);
 	if (var$0 || $nc(t)->isErroneous()) {
 		return checkClassType($($nc($nc(tree)->clazz)->pos()), t, true);
@@ -2367,6 +2392,7 @@ $Type* Check::checkDiamond($JCTree$JCNewClass* tree, $Type* t) {
 }
 
 $List* Check::checkDiamondDenotable($Type$ClassType* t) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, buf, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc($($nc(t)->allparams()))->iterator());
@@ -2387,6 +2413,7 @@ bool Check::checkDenotable($Type* t) {
 }
 
 void Check::checkVarargsMethodDecl($Env* env, $JCTree$JCMethodDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$MethodSymbol, m, $nc(tree)->sym);
 	bool hasTrustMeAnno = $nc(m)->attribute($nc($nc(this->syms)->trustMeType)->tsym) != nullptr;
 	$var($Type, varargElemType, nullptr);
@@ -2424,6 +2451,7 @@ bool Check::isTrustMeAllowedOnMethod($Symbol* s) {
 }
 
 $Type* Check::checkLocalVarType($JCDiagnostic$DiagnosticPosition* pos, $Type* t, $Name* name) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	if ($nc(t)->hasTag($TypeTag::BOT)) {
 		$init($CompilerProperties$Fragments);
@@ -2440,6 +2468,7 @@ $Type* Check::checkLocalVarType($JCDiagnostic$DiagnosticPosition* pos, $Type* t,
 }
 
 $Type* Check::checkMethod($Type* mtype, $Symbol* sym, $Env* env, $List* argtrees, $List* argtypes, bool useVarargs, $InferenceContext* inferenceContext) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(inferenceContext)->free(mtype)) {
 		$var($List, var$0, $List::of(mtype));
 		inferenceContext->addFreeTypeListener(var$0, static_cast<$Infer$FreeTypeListener*>($$new(Check$$Lambda$lambda$checkMethod$2$3, this, mtype, sym, env, argtrees, argtypes, useVarargs)));
@@ -2510,6 +2539,7 @@ $Type* Check::checkMethod($Type* mtype, $Symbol* sym, $Env* env, $List* argtrees
 }
 
 void Check::assertConvertible($JCTree* tree, $Type* actual, $Type* formal, $Warner* warn) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(this->types)->isConvertible(actual, formal, warn)) {
 		return;
 	}
@@ -2525,6 +2555,7 @@ bool Check::checkValidGenericType($Type* t) {
 }
 
 $Type* Check::firstIncompatibleTypeArg($Type* type) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, formals, $nc($nc($nc(type)->tsym)->type)->allparams());
 	$var($List, actuals, type->allparams());
 	$var($List, args, type->getTypeArguments());
@@ -2599,6 +2630,7 @@ bool Check::isTypeArgErroneous($Type* t) {
 }
 
 int64_t Check::checkFlags($JCDiagnostic$DiagnosticPosition* pos, int64_t flags, $Symbol* sym, $JCTree* tree) {
+	$useLocalCurrentObjectStackCache();
 	int64_t mask = 0;
 	int64_t implicit = 0;
 	$init($Check$5);
@@ -2727,6 +2759,7 @@ int64_t Check::checkFlags($JCDiagnostic$DiagnosticPosition* pos, int64_t flags, 
 }
 
 void Check::warnOnExplicitStrictfp($JCDiagnostic$DiagnosticPosition* pos) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCDiagnostic$DiagnosticPosition, prevLintPos, $nc(this->deferredLintHandler)->setPos(pos));
 	{
 		$var($Throwable, var$0, nullptr);
@@ -2744,6 +2777,7 @@ void Check::warnOnExplicitStrictfp($JCDiagnostic$DiagnosticPosition* pos) {
 }
 
 int64_t Check::implicitEnumFinalFlag($JCTree* tree) {
+	$useLocalCurrentObjectStackCache();
 	$init($JCTree$Tag);
 	if (!$nc(tree)->hasTag($JCTree$Tag::CLASSDEF)) {
 		return 0;
@@ -2785,6 +2819,7 @@ void Check::validate($List* trees, $Env* env) {
 }
 
 void Check::checkRaw($JCTree* tree, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$init($Lint$LintCategory);
 	bool var$3 = $nc(this->lint)->isEnabled($Lint$LintCategory::RAW);
 	$init($TypeTag);
@@ -2847,6 +2882,7 @@ $List* Check::excl($Type* t, $List* ts) {
 }
 
 $List* Check::union$($List* ts1, $List* ts2) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, ts, ts1);
 	{
 		$var($List, l, ts2);
@@ -2858,6 +2894,7 @@ $List* Check::union$($List* ts1, $List* ts2) {
 }
 
 $List* Check::diff($List* ts1, $List* ts2) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, ts, ts1);
 	{
 		$var($List, l, ts2);
@@ -2869,6 +2906,7 @@ $List* Check::diff($List* ts1, $List* ts2) {
 }
 
 $List* Check::intersect($List* ts1, $List* ts2) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, ts, $List::nil());
 	{
 		$var($List, l, ts1);
@@ -2921,6 +2959,7 @@ bool Check::isHandled($Type* exc, $List* handled) {
 }
 
 $List* Check::unhandled($List* thrown, $List* handled) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, unhandled, $List::nil());
 	{
 		$var($List, l, thrown);
@@ -2958,6 +2997,7 @@ int32_t Check::protection(int64_t flags) {
 }
 
 $JCDiagnostic$Fragment* Check::cannotOverride($Symbol$MethodSymbol* m, $Symbol$MethodSymbol* other) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, mloc, $nc(m)->location());
 	$var($Symbol, oloc, $nc(other)->location());
 	if (((int64_t)($nc(other->owner)->flags() & (uint64_t)(int64_t)512)) == 0) {
@@ -2970,6 +3010,7 @@ $JCDiagnostic$Fragment* Check::cannotOverride($Symbol$MethodSymbol* m, $Symbol$M
 }
 
 $JCDiagnostic$Fragment* Check::uncheckedOverrides($Symbol$MethodSymbol* m, $Symbol$MethodSymbol* other) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, mloc, $nc(m)->location());
 	$var($Symbol, oloc, $nc(other)->location());
 	if (((int64_t)($nc(other->owner)->flags() & (uint64_t)(int64_t)512)) == 0) {
@@ -2982,6 +3023,7 @@ $JCDiagnostic$Fragment* Check::uncheckedOverrides($Symbol$MethodSymbol* m, $Symb
 }
 
 $JCDiagnostic$Fragment* Check::varargsOverrides($Symbol$MethodSymbol* m, $Symbol$MethodSymbol* other) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, mloc, $nc(m)->location());
 	$var($Symbol, oloc, $nc(other)->location());
 	if (((int64_t)($nc(other->owner)->flags() & (uint64_t)(int64_t)512)) == 0) {
@@ -2994,6 +3036,7 @@ $JCDiagnostic$Fragment* Check::varargsOverrides($Symbol$MethodSymbol* m, $Symbol
 }
 
 void Check::checkOverride($JCTree* tree, $Symbol$MethodSymbol* m, $Symbol$MethodSymbol* other, $Symbol$ClassSymbol* origin) {
+	$useLocalCurrentObjectStackCache();
 	bool var$0 = ((int64_t)($nc(m)->flags() & (uint64_t)(4096 | (int64_t)0x0000000080000000))) != 0;
 	if (var$0 || ((int64_t)($nc(other)->flags() & (uint64_t)(int64_t)4096)) != 0) {
 		return;
@@ -3108,6 +3151,7 @@ void Check::checkOverride($JCTree* tree, $Symbol$MethodSymbol* m, $Symbol$Method
 }
 
 bool Check::isDeprecatedOverrideIgnorable($Symbol$MethodSymbol* m, $Symbol$ClassSymbol* origin) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$ClassSymbol, mc, $nc(m)->enclClass());
 	$var($Type, st, $nc(this->types)->supertype($nc(origin)->type));
 	$init($TypeTag);
@@ -3124,6 +3168,7 @@ bool Check::isDeprecatedOverrideIgnorable($Symbol$MethodSymbol* m, $Symbol$Class
 }
 
 void Check::checkCompatibleConcretes($JCDiagnostic$DiagnosticPosition* pos, $Type* site) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, sup, $nc(this->types)->supertype(site));
 	$init($TypeTag);
 	if (!$nc(sup)->hasTag($TypeTag::CLASS)) {
@@ -3186,6 +3231,7 @@ void Check::checkCompatibleConcretes($JCDiagnostic$DiagnosticPosition* pos, $Typ
 }
 
 bool Check::checkCompatibleAbstracts($JCDiagnostic$DiagnosticPosition* pos, $Type* t1$renamed, $Type* t2$renamed, $Type* site) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, t1, t1$renamed);
 	$var($Type, t2, t2$renamed);
 	if (((int64_t)($nc($nc(site)->tsym)->flags() & (uint64_t)(int64_t)0x01000000)) != 0) {
@@ -3196,6 +3242,7 @@ bool Check::checkCompatibleAbstracts($JCDiagnostic$DiagnosticPosition* pos, $Typ
 }
 
 $Symbol* Check::firstIncompatibility($JCDiagnostic$DiagnosticPosition* pos, $Type* t1, $Type* t2, $Type* site) {
+	$useLocalCurrentObjectStackCache();
 	$var($Map, interfaces1, $new($HashMap));
 	closure(t1, interfaces1);
 	$var($Map, interfaces2, nullptr);
@@ -3228,6 +3275,7 @@ $Symbol* Check::firstIncompatibility($JCDiagnostic$DiagnosticPosition* pos, $Typ
 }
 
 void Check::closure($Type* t, $Map* typeMap) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	if (!$nc(t)->hasTag($TypeTag::CLASS)) {
 		return;
@@ -3245,6 +3293,7 @@ void Check::closure($Type* t, $Map* typeMap) {
 }
 
 void Check::closure($Type* t, $Map* typesSkip, $Map* typeMap) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	if (!$nc(t)->hasTag($TypeTag::CLASS)) {
 		return;
@@ -3265,6 +3314,7 @@ void Check::closure($Type* t, $Map* typesSkip, $Map* typeMap) {
 }
 
 $Symbol* Check::firstDirectIncompatibility($JCDiagnostic$DiagnosticPosition* pos, $Type* t1, $Type* t2, $Type* site) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$init($Scope$LookupKind);
 		$var($Iterator, i$, $nc($($nc($($nc($nc(t1)->tsym)->members()))->getSymbols($Scope$LookupKind::NON_RECURSIVE)))->iterator());
@@ -3340,6 +3390,7 @@ $Symbol* Check::firstDirectIncompatibility($JCDiagnostic$DiagnosticPosition* pos
 }
 
 bool Check::checkCommonOverriderIn($Symbol* s1, $Symbol* s2, $Type* site) {
+	$useLocalCurrentObjectStackCache();
 	$var($Map, supertypes, $new($HashMap));
 	$var($Type, st1, $nc(this->types)->memberType(site, s1));
 	$var($Type, st2, $nc(this->types)->memberType(site, s2));
@@ -3375,6 +3426,7 @@ bool Check::checkCommonOverriderIn($Symbol* s1, $Symbol* s2, $Type* site) {
 }
 
 void Check::checkOverride($Env* env, $JCTree$JCMethodDecl* tree, $Symbol$MethodSymbol* m) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$ClassSymbol, origin, $cast($Symbol$ClassSymbol, $nc(m)->owner));
 	bool var$0 = ((int64_t)($nc(origin)->flags() & (uint64_t)(int64_t)16384)) != 0;
 	if (var$0 && $nc($of($nc(this->names)->finalize$))->equals(m->name)) {
@@ -3436,6 +3488,7 @@ void Check::checkOverride($Env* env, $JCTree$JCMethodDecl* tree, $Symbol$MethodS
 }
 
 void Check::checkOverride($JCTree* tree, $Type* site, $Symbol$ClassSymbol* origin, $Symbol$MethodSymbol* m) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$TypeSymbol, c, $nc(site)->tsym);
 	{
 		$var($Iterator, i$, $nc($($nc($($nc(c)->members()))->getSymbolsByName($nc(m)->name)))->iterator());
@@ -3469,6 +3522,7 @@ void Check::checkClassOverrideEqualsAndHashIfNeeded($JCDiagnostic$DiagnosticPosi
 }
 
 void Check::checkClassOverrideEqualsAndHash($JCDiagnostic$DiagnosticPosition* pos, $Symbol$ClassSymbol* someClass) {
+	$useLocalCurrentObjectStackCache();
 	$init($Lint$LintCategory);
 	if ($nc(this->lint)->isEnabled($Lint$LintCategory::OVERRIDES)) {
 		$var($Symbol$MethodSymbol, equalsAtObject, $cast($Symbol$MethodSymbol, $nc($($nc($nc($nc(this->syms)->objectType)->tsym)->members()))->findFirst($nc(this->names)->equals$)));
@@ -3483,6 +3537,7 @@ void Check::checkClassOverrideEqualsAndHash($JCDiagnostic$DiagnosticPosition* po
 }
 
 void Check::checkModuleName($JCTree$JCModuleDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Name, moduleName, $nc($nc(tree)->sym)->name);
 	$Assert::checkNonNull(moduleName);
 	$init($Lint$LintCategory);
@@ -3528,6 +3583,7 @@ void Check::checkModuleName($JCTree$JCModuleDecl* tree) {
 }
 
 bool Check::checkNameClash($Symbol$ClassSymbol* origin, $Symbol* s1, $Symbol* s2) {
+	$useLocalCurrentObjectStackCache();
 	$var($Check$ClashFilter, cf, $new($Check$ClashFilter, this, $nc(origin)->type));
 	bool var$1 = cf->test(s1);
 	bool var$0 = var$1 && cf->test(s2);
@@ -3539,6 +3595,7 @@ bool Check::checkNameClash($Symbol$ClassSymbol* origin, $Symbol* s1, $Symbol* s2
 }
 
 void Check::checkAllDefined($JCDiagnostic$DiagnosticPosition* pos, $Symbol$ClassSymbol* c) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$MethodSymbol, undef, $nc(this->types)->firstUnimplementedAbstract(c));
 	if (undef != nullptr) {
 		int64_t var$0 = undef->flags();
@@ -3565,6 +3622,7 @@ void Check::checkNonCyclic($JCDiagnostic$DiagnosticPosition* pos, $Type$TypeVar*
 }
 
 void Check::checkNonCyclic1($JCDiagnostic$DiagnosticPosition* pos, $Type* t, $List* seen$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, seen, seen$renamed);
 	$var($Type$TypeVar, tv, nullptr);
 	$init($TypeTag);
@@ -3592,6 +3650,7 @@ void Check::checkNonCyclic1($JCDiagnostic$DiagnosticPosition* pos, $Type* t, $Li
 }
 
 bool Check::checkNonCyclicInternal($JCDiagnostic$DiagnosticPosition* pos, $Type* t) {
+	$useLocalCurrentObjectStackCache();
 	bool complete = true;
 	$var($Symbol, c, $nc(t)->tsym);
 	if (((int64_t)($nc(c)->flags_field & (uint64_t)(int64_t)0x40000000)) != 0) {
@@ -3646,6 +3705,7 @@ bool Check::checkNonCyclicInternal($JCDiagnostic$DiagnosticPosition* pos, $Type*
 }
 
 void Check::noteCyclic($JCDiagnostic$DiagnosticPosition* pos, $Symbol$ClassSymbol* c) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->log)->error(pos, $($CompilerProperties$Errors::CyclicInheritance(static_cast<$Symbol*>(c))));
 	{
 		$var($List, l, $nc(this->types)->interfaces($nc(c)->type));
@@ -3669,6 +3729,7 @@ void Check::checkImplementations($JCTree$JCClassDecl* tree) {
 }
 
 void Check::checkImplementations($JCTree* tree, $Symbol$ClassSymbol* origin, $Symbol$ClassSymbol* ic) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($List, l, $nc(this->types)->closure($nc(ic)->type));
 		for (; $nc(l)->nonEmpty(); $assign(l, $nc(l)->tail)) {
@@ -3702,6 +3763,7 @@ void Check::checkImplementations($JCTree* tree, $Symbol$ClassSymbol* origin, $Sy
 }
 
 void Check::checkCompatibleSupertypes($JCDiagnostic$DiagnosticPosition* pos, $Type* c) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, supertypes, $nc(this->types)->interfaces(c));
 	$var($Type, supertype, $nc(this->types)->supertype(c));
 	$init($TypeTag);
@@ -3730,6 +3792,7 @@ void Check::checkCompatibleSupertypes($JCDiagnostic$DiagnosticPosition* pos, $Ty
 }
 
 void Check::checkOverrideClashes($JCDiagnostic$DiagnosticPosition* pos, $Type* site, $Symbol$MethodSymbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$var($Check$ClashFilter, cf, $new($Check$ClashFilter, this, site));
 	$var($List, potentiallyAmbiguousList, $List::nil());
 	bool overridesAny = false;
@@ -3812,6 +3875,7 @@ void Check::checkOverrideClashes($JCDiagnostic$DiagnosticPosition* pos, $Type* s
 }
 
 void Check::checkHideClashes($JCDiagnostic$DiagnosticPosition* pos, $Type* site, $Symbol$MethodSymbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$var($Check$ClashFilter, cf, $new($Check$ClashFilter, this, site));
 	{
 		$var($Iterator, i$, $nc($($nc($($nc(this->types)->membersClosure(site, true)))->getSymbolsByName($nc(sym)->name, static_cast<$Predicate*>(cf))))->iterator());
@@ -3839,6 +3903,7 @@ void Check::checkHideClashes($JCDiagnostic$DiagnosticPosition* pos, $Type* site,
 }
 
 void Check::checkDefaultMethodClashes($JCDiagnostic$DiagnosticPosition* pos, $Type* site) {
+	$useLocalCurrentObjectStackCache();
 	$var($Check$DefaultMethodClashFilter, dcf, $new($Check$DefaultMethodClashFilter, this, site));
 	{
 		$var($Iterator, i$, $nc($($nc($($nc(this->types)->membersClosure(site, false)))->getSymbols(static_cast<$Predicate*>(dcf))))->iterator());
@@ -3901,6 +3966,7 @@ void Check::checkDefaultMethodClashes($JCDiagnostic$DiagnosticPosition* pos, $Ty
 }
 
 void Check::checkPotentiallyAmbiguousOverloads($JCDiagnostic$DiagnosticPosition* pos, $Type* site, $Symbol$MethodSymbol* msym1, $Symbol$MethodSymbol* msym2) {
+	$useLocalCurrentObjectStackCache();
 	$init($Source$Feature);
 	bool var$2 = msym1 != msym2 && $Source$Feature::DEFAULT_METHODS->allowedInSource(this->source);
 	$init($Lint$LintCategory);
@@ -3964,6 +4030,7 @@ void Check::checkPotentiallyAmbiguousOverloads($JCDiagnostic$DiagnosticPosition*
 }
 
 void Check::checkAccessFromSerializableElement($JCTree* tree, bool isLambda) {
+	$useLocalCurrentObjectStackCache();
 	bool var$0 = this->warnOnAnyAccessToMembers;
 	if (!var$0) {
 		$init($Lint$LintCategory);
@@ -4015,6 +4082,7 @@ bool Check::isEffectivelyNonPublic($Symbol* sym$renamed) {
 }
 
 bool Check::belongsToRestrictedPackage($Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, fullName, $nc($nc($($nc(sym)->packge()))->fullname)->toString());
 	bool var$2 = $nc(fullName)->startsWith("java."_s);
 	bool var$1 = var$2 || $nc(fullName)->startsWith("javax."_s);
@@ -4027,6 +4095,7 @@ void Check::checkClassBounds($JCDiagnostic$DiagnosticPosition* pos, $Type* type)
 }
 
 void Check::checkClassBounds($JCDiagnostic$DiagnosticPosition* pos, $Map* seensofar, $Type* type) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(type)->isErroneous()) {
 		return;
 	}
@@ -4085,6 +4154,7 @@ void Check::validateAnnotationType($JCTree* restype) {
 }
 
 void Check::validateAnnotationType($JCDiagnostic$DiagnosticPosition* pos, $Type* type) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(type)->isPrimitive()) {
 		return;
 	}
@@ -4110,6 +4180,7 @@ void Check::validateAnnotationType($JCDiagnostic$DiagnosticPosition* pos, $Type*
 }
 
 void Check::validateAnnotationMethod($JCDiagnostic$DiagnosticPosition* pos, $Symbol$MethodSymbol* m) {
+	$useLocalCurrentObjectStackCache();
 		$init($TypeTag);
 	{
 		$var($Type, sup, $nc(this->syms)->annotationType);
@@ -4133,6 +4204,7 @@ void Check::validateAnnotationMethod($JCDiagnostic$DiagnosticPosition* pos, $Sym
 }
 
 void Check::validateAnnotations($List* annotations, $JCTree* declarationTree, $Symbol* s) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(annotations)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -4143,6 +4215,7 @@ void Check::validateAnnotations($List* annotations, $JCTree* declarationTree, $S
 }
 
 void Check::validateTypeAnnotations($List* annotations, bool isTypeParameter) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(annotations)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -4153,6 +4226,7 @@ void Check::validateTypeAnnotations($List* annotations, bool isTypeParameter) {
 }
 
 void Check::validateAnnotation($JCTree$JCAnnotation* a, $JCTree* declarationTree, $Symbol* s) {
+	$useLocalCurrentObjectStackCache();
 	validateAnnotationTree(a);
 	bool var$0 = ((int64_t)($nc(s)->flags_field & (uint64_t)(int64_t)0x2000000000000000)) != 0;
 	if (!var$0) {
@@ -4251,6 +4325,7 @@ void Check::validateAnnotation($JCTree$JCAnnotation* a, $JCTree* declarationTree
 }
 
 void Check::validateTypeAnnotation($JCTree$JCAnnotation* a, bool isTypeParameter) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::checkNonNull($nc(a)->type);
 	validateAnnotationTree(a);
 	$init($JCTree$Tag);
@@ -4263,6 +4338,7 @@ void Check::validateTypeAnnotation($JCTree$JCAnnotation* a, bool isTypeParameter
 }
 
 void Check::validateRepeatable($Symbol$TypeSymbol* s, $Attribute$Compound* repeatable, $JCDiagnostic$DiagnosticPosition* pos) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::check($nc(this->types)->isSameType($nc(repeatable)->type, $nc(this->syms)->repeatableType));
 	$var($Type, t, nullptr);
 	$var($List, l, $nc(repeatable)->values);
@@ -4282,6 +4358,7 @@ void Check::validateRepeatable($Symbol$TypeSymbol* s, $Attribute$Compound* repea
 }
 
 void Check::validateValue($Symbol$TypeSymbol* container, $Symbol$TypeSymbol* contained, $JCDiagnostic$DiagnosticPosition* pos) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, sym, $nc($($nc(container)->members()))->findFirst($nc(this->names)->value));
 	$init($Kinds$Kind);
 	if (sym != nullptr && sym->kind == $Kinds$Kind::MTH) {
@@ -4298,6 +4375,7 @@ void Check::validateValue($Symbol$TypeSymbol* container, $Symbol$TypeSymbol* con
 }
 
 void Check::validateRetention($Symbol$TypeSymbol* container, $Symbol$TypeSymbol* contained, $JCDiagnostic$DiagnosticPosition* pos) {
+	$useLocalCurrentObjectStackCache();
 	$Attribute$RetentionPolicy* containerRetention = $nc(this->types)->getRetention(container);
 	$Attribute$RetentionPolicy* containedRetention = $nc(this->types)->getRetention(contained);
 	bool error = false;
@@ -4344,6 +4422,7 @@ void Check::validateInherited($Symbol* container, $Symbol* contained, $JCDiagnos
 }
 
 void Check::validateTarget($Symbol$TypeSymbol* container, $Symbol$TypeSymbol* contained, $JCDiagnostic$DiagnosticPosition* pos) {
+	$useLocalCurrentObjectStackCache();
 	$var($Set, containerTargets, nullptr);
 	$var($Attribute$Array, containerTarget, getAttributeTargetAttribute(container));
 	if (containerTarget == nullptr) {
@@ -4423,6 +4502,7 @@ $Set* Check::getDefaultTargetSet() {
 }
 
 bool Check::isTargetSubsetOf($Set* s, $Set* t) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(s)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -4457,6 +4537,7 @@ bool Check::isTargetSubsetOf($Set* s, $Set* t) {
 }
 
 void Check::validateDefault($Symbol* container, $JCDiagnostic$DiagnosticPosition* pos) {
+	$useLocalCurrentObjectStackCache();
 	$var($Scope, scope, $nc(container)->members());
 	{
 		$var($Iterator, i$, $nc($($nc(scope)->getSymbols()))->iterator());
@@ -4473,6 +4554,7 @@ void Check::validateDefault($Symbol* container, $JCDiagnostic$DiagnosticPosition
 }
 
 bool Check::isOverrider($Symbol* s) {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$Kind);
 	if ($nc(s)->kind != $Kinds$Kind::MTH || $nc(s)->isStatic()) {
 		return false;
@@ -4507,6 +4589,7 @@ bool Check::isOverrider($Symbol* s) {
 }
 
 bool Check::isTypeAnnotation($JCTree$JCAnnotation* a, bool isTypeParameter) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, targets, $nc(this->typeAnnotations)->annotationTargets($nc($nc($nc(a)->annotationType)->type)->tsym));
 	return (targets == nullptr) ? false : $nc($($nc(targets)->stream()))->anyMatch(static_cast<$Predicate*>($$new(Check$$Lambda$lambda$isTypeAnnotation$9$9, this, isTypeParameter)));
 }
@@ -4521,6 +4604,7 @@ $NameArray* Check::getTargetNames($JCTree$JCAnnotation* a) {
 }
 
 $NameArray* Check::getTargetNames($Symbol$TypeSymbol* annoSym) {
+	$useLocalCurrentObjectStackCache();
 	$var($Attribute$Array, arr, getAttributeTargetAttribute(annoSym));
 	$var($NameArray, targets, nullptr);
 	if (arr == nullptr) {
@@ -4545,6 +4629,7 @@ $NameArray* Check::getTargetNames($Symbol$TypeSymbol* annoSym) {
 }
 
 bool Check::annotationApplicable($JCTree$JCAnnotation* a, $Symbol* s) {
+	$useLocalCurrentObjectStackCache();
 	$var($Optional, targets, getApplicableTargets(a, s));
 	bool var$0 = $nc(targets)->isEmpty();
 	if (!var$0) {
@@ -4555,6 +4640,7 @@ bool Check::annotationApplicable($JCTree$JCAnnotation* a, $Symbol* s) {
 }
 
 $Optional* Check::getApplicableTargets($JCTree$JCAnnotation* a, $Symbol* s) {
+	$useLocalCurrentObjectStackCache();
 	$var($Attribute$Array, arr, getAttributeTargetAttribute($nc($nc($nc(a)->annotationType)->type)->tsym));
 	$var($NameArray, targets, nullptr);
 	$var($Set, applicableTargets, $new($HashSet));
@@ -4665,6 +4751,7 @@ $Optional* Check::getApplicableTargets($JCTree$JCAnnotation* a, $Symbol* s) {
 }
 
 $Attribute$Array* Check::getAttributeTargetAttribute($Symbol$TypeSymbol* s) {
+	$useLocalCurrentObjectStackCache();
 	$var($Attribute$Compound, atTarget, $nc($($nc(s)->getAnnotationTypeMetadata()))->getTarget());
 	if (atTarget == nullptr) {
 		return nullptr;
@@ -4684,6 +4771,7 @@ $NameArray* Check::defaultTargetMetaInfo() {
 }
 
 bool Check::validateAnnotationDeferErrors($JCTree$JCAnnotation* a) {
+	$useLocalCurrentObjectStackCache();
 	bool res = false;
 	$var($Log$DiagnosticHandler, diagHandler, $new($Log$DiscardDiagnosticHandler, this->log));
 	{
@@ -4703,6 +4791,7 @@ bool Check::validateAnnotationDeferErrors($JCTree$JCAnnotation* a) {
 }
 
 bool Check::validateAnnotation($JCTree$JCAnnotation* a) {
+	$useLocalCurrentObjectStackCache();
 	bool isValid = true;
 	$var($Annotate$AnnotationTypeMetadata, metadata, $nc($nc($nc($nc(a)->annotationType)->type)->tsym)->getAnnotationTypeMetadata());
 	$var($Set, elements, $nc(metadata)->getAnnotationElements());
@@ -4754,6 +4843,7 @@ bool Check::validateAnnotation($JCTree$JCAnnotation* a) {
 }
 
 bool Check::validateTargetAnnotationValue($JCTree$JCAnnotation* a) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc($nc($nc(a)->annotationType)->type)->tsym != $nc($nc(this->syms)->annotationTargetType)->tsym || $nc($nc(a)->args)->tail == nullptr) {
 		return true;
 	}
@@ -4790,6 +4880,7 @@ bool Check::validateTargetAnnotationValue($JCTree$JCAnnotation* a) {
 }
 
 void Check::checkDeprecatedAnnotation($JCDiagnostic$DiagnosticPosition* pos, $Symbol* s) {
+	$useLocalCurrentObjectStackCache();
 	$init($Lint$LintCategory);
 	bool var$3 = $nc(this->lint)->isEnabled($Lint$LintCategory::DEP_ANN);
 	bool var$2 = var$3 && $nc(s)->isDeprecatableViaAnnotation();
@@ -4843,6 +4934,7 @@ void Check::checkProfile($JCDiagnostic$DiagnosticPosition* pos, $Symbol* s) {
 }
 
 void Check::checkPreview($JCDiagnostic$DiagnosticPosition* pos, $Symbol* other, $Symbol* s) {
+	$useLocalCurrentObjectStackCache();
 	bool var$0 = ((int64_t)($nc(s)->flags() & (uint64_t)(int64_t)0x0100000000000000)) != 0;
 	if (var$0) {
 		var$0 = $nc($(s->packge()))->modle != $nc($($nc(other)->packge()))->modle;
@@ -4868,6 +4960,7 @@ void Check::checkPreview($JCDiagnostic$DiagnosticPosition* pos, $Symbol* other, 
 }
 
 void Check::checkNonCyclicElements($JCTree$JCClassDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	if (((int64_t)($nc($nc(tree)->sym)->flags_field & (uint64_t)(int64_t)8192)) == 0) {
 		return;
 	}
@@ -4903,6 +4996,7 @@ void Check::checkNonCyclicElements($JCTree$JCClassDecl* tree) {
 }
 
 void Check::checkNonCyclicElementsInternal($JCDiagnostic$DiagnosticPosition* pos, $Symbol$TypeSymbol* tsym) {
+	$useLocalCurrentObjectStackCache();
 	if (((int64_t)($nc(tsym)->flags_field & (uint64_t)(int64_t)0x0000000800000000)) != 0) {
 		return;
 	}
@@ -4941,6 +5035,7 @@ void Check::checkNonCyclicElementsInternal($JCDiagnostic$DiagnosticPosition* pos
 }
 
 void Check::checkAnnotationResType($JCDiagnostic$DiagnosticPosition* pos, $Type* type) {
+	$useLocalCurrentObjectStackCache();
 	$init($Check$5);
 	switch ($nc($Check$5::$SwitchMap$com$sun$tools$javac$code$TypeTag)->get($nc(($($nc(type)->getTag())))->ordinal())) {
 	case 1:
@@ -4963,6 +5058,7 @@ void Check::checkAnnotationResType($JCDiagnostic$DiagnosticPosition* pos, $Type*
 }
 
 void Check::checkCyclicConstructors($JCTree$JCClassDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Map, callMap, $new($HashMap));
 	{
 		$var($List, l, $nc(tree)->defs);
@@ -4995,6 +5091,7 @@ void Check::checkCyclicConstructors($JCTree$JCClassDecl* tree) {
 }
 
 void Check::checkCyclicConstructor($JCTree$JCClassDecl* tree, $Symbol* ctor, $Map* callMap) {
+	$useLocalCurrentObjectStackCache();
 	if (ctor != nullptr && ((int64_t)(ctor->flags_field & (uint64_t)(int64_t)0x40000000)) == 0) {
 		if (((int64_t)(ctor->flags_field & (uint64_t)(int64_t)0x08000000)) != 0) {
 			$init($CompilerProperties$Errors);
@@ -5009,6 +5106,7 @@ void Check::checkCyclicConstructor($JCTree$JCClassDecl* tree, $Symbol* ctor, $Ma
 }
 
 void Check::checkDivZero($JCDiagnostic$DiagnosticPosition* pos, $Symbol* operator$, $Type* operand) {
+	$useLocalCurrentObjectStackCache();
 	bool var$1 = $nc(operand)->constValue() != nullptr;
 	$init($TypeTag);
 	bool var$0 = var$1 && $nc($(operand->getTag()))->isSubRangeOf($TypeTag::LONG);
@@ -5031,6 +5129,7 @@ void Check::checkEmptyIf($JCTree$JCIf* tree) {
 }
 
 bool Check::checkUnique($JCDiagnostic$DiagnosticPosition* pos, $Symbol* sym, $Scope* s) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc($nc(sym)->type)->isErroneous()) {
 		return true;
 	}
@@ -5096,6 +5195,7 @@ void Check::duplicateErasureError($JCDiagnostic$DiagnosticPosition* pos, $Symbol
 }
 
 void Check::checkImportsUnique($JCTree$JCCompilationUnit* toplevel) {
+	$useLocalCurrentObjectStackCache();
 	$var($Scope$WriteableScope, ordinallyImportedSoFar, $Scope$WriteableScope::create($nc(toplevel)->packge));
 	$var($Scope$WriteableScope, staticallyImportedSoFar, $Scope$WriteableScope::create($nc(toplevel)->packge));
 	$var($Scope$WriteableScope, topLevelScope, $nc(toplevel)->toplevelScope);
@@ -5134,6 +5234,7 @@ void Check::checkImportsUnique($JCTree$JCCompilationUnit* toplevel) {
 }
 
 bool Check::checkUniqueImport($JCDiagnostic$DiagnosticPosition* pos, $Scope* ordinallyImportedSoFar, $Scope* staticallyImportedSoFar, $Scope* topLevelScope, $Symbol* sym, bool staticImport) {
+	$useLocalCurrentObjectStackCache();
 	$var($Predicate, duplicates, static_cast<$Predicate*>($new(Check$$Lambda$lambda$checkUniqueImport$18$18, sym)));
 	$var($Symbol, ordinaryClashing, $nc(ordinallyImportedSoFar)->findFirst($nc(sym)->name, duplicates));
 	$var($Symbol, staticClashing, nullptr);
@@ -5157,6 +5258,7 @@ bool Check::checkUniqueImport($JCDiagnostic$DiagnosticPosition* pos, $Scope* ord
 }
 
 void Check::checkCanonical($JCTree* tree) {
+	$useLocalCurrentObjectStackCache();
 	if (!isCanonical(tree)) {
 		$var($JCDiagnostic$DiagnosticPosition, var$0, $nc(tree)->pos());
 		$nc(this->log)->error(var$0, $($CompilerProperties$Errors::ImportRequiresCanonical($($TreeInfo::symbol(tree)))));
@@ -5164,6 +5266,7 @@ void Check::checkCanonical($JCTree* tree) {
 }
 
 bool Check::isCanonical($JCTree* tree$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree, tree, tree$renamed);
 	$init($JCTree$Tag);
 	while ($nc(tree)->hasTag($JCTree$Tag::SELECT)) {
@@ -5187,6 +5290,7 @@ void Check::checkForBadAuxiliaryClassAccess($JCDiagnostic$DiagnosticPosition* po
 }
 
 void Check::checkDefaultConstructor($Symbol$ClassSymbol* c, $JCDiagnostic$DiagnosticPosition* pos) {
+	$useLocalCurrentObjectStackCache();
 	$init($Lint$LintCategory);
 	bool var$3 = $nc(this->lint)->isEnabled($Lint$LintCategory::MISSING_EXPLICIT_CTOR);
 	bool var$2 = var$3 && (((int64_t)($nc(c)->flags() & (uint64_t)(16384 | (int64_t)0x2000000000000000))) == 0);
@@ -5258,6 +5362,7 @@ $Warner* Check::convertWarner($JCDiagnostic$DiagnosticPosition* pos, $Type* foun
 }
 
 void Check::checkFunctionalInterface($JCTree$JCClassDecl* tree, $Symbol$ClassSymbol* cs) {
+	$useLocalCurrentObjectStackCache();
 	$var($Attribute$Compound, functionalType, $nc(cs)->attribute($nc($nc(this->syms)->functionalInterfaceType)->tsym));
 	if (functionalType != nullptr) {
 		try {
@@ -5283,6 +5388,7 @@ void Check::checkFunctionalInterface($JCTree$JCClassDecl* tree, $Symbol$ClassSym
 }
 
 void Check::checkImportsResolvable($JCTree$JCCompilationUnit* toplevel) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($($cast($List, $nc(toplevel)->getImports())))->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -5311,6 +5417,7 @@ void Check::checkImportsResolvable($JCTree$JCCompilationUnit* toplevel) {
 }
 
 void Check::checkImportedPackagesObservable($JCTree$JCCompilationUnit* toplevel) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($($cast($List, $nc(toplevel)->getImports())))->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -5336,6 +5443,7 @@ void Check::checkImportedPackagesObservable($JCTree$JCCompilationUnit* toplevel)
 }
 
 bool Check::checkTypeContainsImportableElement($Symbol$TypeSymbol* tsym, $Symbol$TypeSymbol* origin, $Symbol$PackageSymbol* packge, $Name* name, $Set* processed) {
+	$useLocalCurrentObjectStackCache();
 	if (tsym == nullptr || !$nc(processed)->add(tsym)) {
 		return false;
 	}
@@ -5368,6 +5476,7 @@ bool Check::checkTypeContainsImportableElement($Symbol$TypeSymbol* tsym, $Symbol
 }
 
 bool Check::importAccessible($Symbol* sym, $Symbol$PackageSymbol* packge) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		int32_t flags = (int32_t)((int64_t)($nc(sym)->flags() & (uint64_t)(int64_t)7));
 		switch (flags) {
@@ -5399,6 +5508,7 @@ bool Check::importAccessible($Symbol* sym, $Symbol$PackageSymbol* packge) {
 }
 
 void Check::checkLeaksNotAccessible($Env* env, $JCTree$JCClassDecl* check) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCCompilationUnit, toplevel, $nc(env)->toplevel);
 	if ($nc(toplevel)->modle == $nc(this->syms)->unnamedModule || $nc(toplevel)->modle == $nc(this->syms)->noModule || ((int64_t)($nc($nc(check)->sym)->flags() & (uint64_t)(int64_t)0x01000000)) != 0) {
 		return;
@@ -5411,6 +5521,7 @@ void Check::checkLeaksNotAccessible($Env* env, $JCTree$JCClassDecl* check) {
 }
 
 $Directive$ExportsDirective* Check::findExport($Symbol$PackageSymbol* pack) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($nc($nc(pack)->modle)->exports)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -5439,6 +5550,7 @@ bool Check::isAPISymbol($Symbol* sym$renamed) {
 }
 
 void Check::checkVisible($JCDiagnostic$DiagnosticPosition* pos, $Symbol* what, $Symbol$PackageSymbol* inPackage, bool inSuperType) {
+	$useLocalCurrentObjectStackCache();
 	if (!isAPISymbol(what) && !inSuperType) {
 		$init($Lint$LintCategory);
 		$var($Kinds$KindName, var$0, $Kinds::kindName(what));
@@ -5502,6 +5614,7 @@ void Check::checkModuleExists($JCDiagnostic$DiagnosticPosition* pos, $Symbol$Mod
 }
 
 void Check::checkPackageExistsForOpens($JCDiagnostic$DiagnosticPosition* pos, $Symbol$PackageSymbol* packge) {
+	$useLocalCurrentObjectStackCache();
 	bool var$0 = $nc($($nc(packge)->members()))->isEmpty();
 	if (var$0 && (((int64_t)(packge->flags() & (uint64_t)$Flags::HAS_RESOURCE)) == 0)) {
 		$nc(this->deferredLintHandler)->report(static_cast<$DeferredLintHandler$LintLogger*>($$new(Check$$Lambda$lambda$checkPackageExistsForOpens$21$21, this, pos, packge)));
@@ -5515,6 +5628,7 @@ void Check::checkModuleRequires($JCDiagnostic$DiagnosticPosition* pos, $Directiv
 }
 
 void Check::checkSwitchCaseStructure($List* cases) {
+	$useLocalCurrentObjectStackCache();
 	bool wasConstant = false;
 	bool wasDefault = false;
 	bool wasNullPattern = false;
@@ -5660,6 +5774,7 @@ bool Check::lambda$isTypeAnnotation$9(bool isTypeParameter, $Attribute* attr) {
 }
 
 bool Check::lambda$validateAnnotation$8($Attribute$Compound* anno) {
+	$useLocalCurrentObjectStackCache();
 	return $nc($($Arrays::stream($(getTargetNames($nc($nc(anno)->type)->tsym)))))->anyMatch(static_cast<$Predicate*>($$new(Check$$Lambda$lambda$validateAnnotation$7$23, this)));
 }
 
@@ -5697,6 +5812,7 @@ void Check::lambda$checkMethod$2($Type* mtype, $Symbol* sym, $Env* env, $List* a
 }
 
 void Check::lambda$checkRedundantCast$1($JCTree$JCTypeCast* tree) {
+	$useLocalCurrentObjectStackCache();
 	$init($Lint$LintCategory);
 	if ($nc(this->lint)->isEnabled($Lint$LintCategory::CAST)) {
 		$var($Lint$LintCategory, var$0, $Lint$LintCategory::CAST);
@@ -5706,6 +5822,7 @@ void Check::lambda$checkRedundantCast$1($JCTree$JCTypeCast* tree) {
 }
 
 void Check::lambda$checkType$0($JCDiagnostic$DiagnosticPosition* pos, $Type* found, $Type* req, $Check$CheckContext* checkContext, $InferenceContext* solvedContext) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCDiagnostic$DiagnosticPosition, var$0, pos);
 	$var($Type, var$1, $nc(solvedContext)->asInstType(found));
 	checkType(var$0, var$1, $(solvedContext->asInstType(req)), checkContext);

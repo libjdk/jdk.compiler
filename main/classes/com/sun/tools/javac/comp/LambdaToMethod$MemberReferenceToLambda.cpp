@@ -166,6 +166,7 @@ void LambdaToMethod$MemberReferenceToLambda::init$($LambdaToMethod* this$0, $JCT
 }
 
 $JCTree$JCLambda* LambdaToMethod$MemberReferenceToLambda::lambda() {
+	$useLocalCurrentObjectStackCache();
 	int32_t prevPos = $nc(this->this$0->make)->pos;
 	{
 		$var($Throwable, var$0, nullptr);
@@ -199,6 +200,7 @@ $JCTree$JCLambda* LambdaToMethod$MemberReferenceToLambda::lambda() {
 }
 
 $Symbol$VarSymbol* LambdaToMethod$MemberReferenceToLambda::addParametersReturnReceiver() {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, samDesc, $nc(this->localContext)->bridgedRefSig());
 	$var($List, samPTypes, $nc(samDesc)->getParameterTypes());
 	$var($List, descPTypes, $nc($($nc(this->tree)->getDescriptorType(this->this$0->types)))->getParameterTypes());
@@ -259,6 +261,7 @@ $JCTree$JCExpression* LambdaToMethod$MemberReferenceToLambda::getReceiverExpress
 }
 
 $JCTree$JCExpression* LambdaToMethod$MemberReferenceToLambda::makeReceiver($Symbol$VarSymbol* rcvr) {
+	$useLocalCurrentObjectStackCache();
 	if (rcvr == nullptr) {
 		return nullptr;
 	}
@@ -275,6 +278,7 @@ $JCTree$JCExpression* LambdaToMethod$MemberReferenceToLambda::makeReceiver($Symb
 }
 
 $JCTree$JCExpression* LambdaToMethod$MemberReferenceToLambda::expressionInvoke($Symbol$VarSymbol* rcvr) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCExpression, qualifier, (rcvr != nullptr) ? makeReceiver(rcvr) : $cast($JCTree$JCExpression, $nc(this->tree)->getQualifierExpression()));
 	$var($JCTree$JCFieldAccess, select, $nc(this->this$0->make)->Select(qualifier, $nc($nc(this->tree)->sym)->name));
 	$set($nc(select), sym, $nc(this->tree)->sym);
@@ -288,6 +292,7 @@ $JCTree$JCExpression* LambdaToMethod$MemberReferenceToLambda::expressionInvoke($
 }
 
 $JCTree$JCExpression* LambdaToMethod$MemberReferenceToLambda::expressionNew() {
+	$useLocalCurrentObjectStackCache();
 	$init($JCTree$JCMemberReference$ReferenceKind);
 	if ($nc(this->tree)->kind == $JCTree$JCMemberReference$ReferenceKind::ARRAY_CTOR) {
 		$var($JCTree$JCExpression, var$0, $nc(this->this$0->make)->Type($($nc(this->this$0->types)->elemtype($nc($($cast($JCTree$JCExpression, $nc(this->tree)->getQualifierExpression())))->type))));
@@ -307,6 +312,7 @@ $JCTree$JCExpression* LambdaToMethod$MemberReferenceToLambda::expressionNew() {
 }
 
 $Symbol$VarSymbol* LambdaToMethod$MemberReferenceToLambda::addParameter($String* name, $Type* p, bool genArg) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$VarSymbol, vsym, $new($Symbol$VarSymbol, (int64_t)0x0000000200000000 | 4096, $($nc(this->this$0->names)->fromString(name)), p, this->owner));
 	vsym->pos = $nc(this->tree)->pos$;
 	$nc(this->params)->append($($nc(this->this$0->make)->VarDef(vsym, nullptr)));

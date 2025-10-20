@@ -204,6 +204,7 @@ void TargetType::init$($String* $enum$name, int32_t $enum$ordinal, int32_t targe
 }
 
 void TargetType::init$($String* $enum$name, int32_t $enum$ordinal, int32_t targetTypeValue, bool isLocal) {
+	$useLocalCurrentObjectStackCache();
 	$Enum::init$($enum$name, $enum$ordinal);
 	if (targetTypeValue < 0 || targetTypeValue > 255) {
 		$Assert::error($$str({"Attribute type value needs to be an unsigned byte: "_s, $($String::format("0x%02X"_s, $$new($ObjectArray, {$($of($Integer::valueOf(targetTypeValue)))})))}));
@@ -230,6 +231,7 @@ bool TargetType::isValidTargetTypeValue(int32_t tag) {
 
 TargetType* TargetType::fromTargetTypeValue(int32_t tag) {
 	$init(TargetType);
+	$useLocalCurrentObjectStackCache();
 	if (tag == TargetType::UNKNOWN->targetTypeValue$) {
 		return TargetType::UNKNOWN;
 	}
@@ -240,6 +242,7 @@ TargetType* TargetType::fromTargetTypeValue(int32_t tag) {
 }
 
 void clinit$TargetType($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(TargetType::CLASS_TYPE_PARAMETER, $new(TargetType, "CLASS_TYPE_PARAMETER"_s, 0, 0));
 	$assignStatic(TargetType::METHOD_TYPE_PARAMETER, $new(TargetType, "METHOD_TYPE_PARAMETER"_s, 1, 1));
 	$assignStatic(TargetType::CLASS_EXTENDS, $new(TargetType, "CLASS_EXTENDS"_s, 2, 16));

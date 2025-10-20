@@ -365,6 +365,7 @@ void JavacProcessingEnvironment$Round::init$($JavacProcessingEnvironment* this$0
 }
 
 void JavacProcessingEnvironment$Round::init$($JavacProcessingEnvironment* this$0, $List* roots, $List* classSymbols, $Set* treesToClean, $Log$DeferredDiagnosticHandler* deferredDiagnosticHandler) {
+	$useLocalCurrentObjectStackCache();
 	JavacProcessingEnvironment$Round::init$(this$0, 1, treesToClean, deferredDiagnosticHandler);
 	$set(this, roots, roots);
 	$set(this, genClassFiles, $new($HashMap));
@@ -375,6 +376,7 @@ void JavacProcessingEnvironment$Round::init$($JavacProcessingEnvironment* this$0
 }
 
 void JavacProcessingEnvironment$Round::init$($JavacProcessingEnvironment* this$0, JavacProcessingEnvironment$Round* prev, $Set* newSourceFiles, $Map* newClassFiles) {
+	$useLocalCurrentObjectStackCache();
 	JavacProcessingEnvironment$Round::init$(this$0, $nc(prev)->number + 1, prev->treesToClean, ($Log$DeferredDiagnosticHandler*)nullptr);
 	$nc(prev)->newRound();
 	$set(this, genClassFiles, prev->genClassFiles);
@@ -426,6 +428,7 @@ int32_t JavacProcessingEnvironment$Round::warningCount() {
 }
 
 bool JavacProcessingEnvironment$Round::unrecoverableError() {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(this->this$0->messager)->errorRaised()) {
 		return true;
 	}
@@ -459,6 +462,7 @@ bool JavacProcessingEnvironment$Round::unrecoverableError() {
 }
 
 void JavacProcessingEnvironment$Round::findAnnotationsPresent() {
+	$useLocalCurrentObjectStackCache();
 	$var($JavacProcessingEnvironment$ComputeAnnotationSet, annotationComputer, $new($JavacProcessingEnvironment$ComputeAnnotationSet, this->this$0->elementUtils));
 	$set(this, annotationsPresent, $new($LinkedHashSet));
 	{
@@ -485,6 +489,7 @@ void JavacProcessingEnvironment$Round::findAnnotationsPresent() {
 }
 
 $List* JavacProcessingEnvironment$Round::enterClassFiles($Map* modulesAndClassFiles) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, list, $List::nil());
 	{
 		$var($Iterator, i$, $nc($($nc(modulesAndClassFiles)->entrySet()))->iterator());
@@ -541,6 +546,7 @@ void JavacProcessingEnvironment$Round::enterTrees($List* roots) {
 }
 
 void JavacProcessingEnvironment$Round::run(bool lastRound, bool errorStatus) {
+	$useLocalCurrentObjectStackCache();
 	printRoundInfo(lastRound);
 	if (!$nc(this->this$0->taskListener)->isEmpty()) {
 		$init($TaskEvent$Kind);
@@ -586,6 +592,7 @@ void JavacProcessingEnvironment$Round::showDiagnostics(bool showAll) {
 }
 
 void JavacProcessingEnvironment$Round::printRoundInfo(bool lastRound) {
+	$useLocalCurrentObjectStackCache();
 	if (this->this$0->printRounds || this->this$0->verbose) {
 		$var($List, tlc, lastRound ? $List::nil() : this->topLevelClasses);
 		$var($Set, ap, lastRound ? $Collections::emptySet() : this->annotationsPresent);
@@ -599,6 +606,7 @@ void JavacProcessingEnvironment$Round::printRoundInfo(bool lastRound) {
 }
 
 void JavacProcessingEnvironment$Round::newRound() {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($($nc(this->this$0->enter)->getEnvs()))->iterator());
 		for (; $nc(i$)->hasNext();) {

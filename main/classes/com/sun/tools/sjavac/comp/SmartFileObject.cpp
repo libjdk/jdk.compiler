@@ -138,6 +138,7 @@ $CharSequence* SmartFileObject::getCharContent(bool ignoreEncodingErrors) {
 }
 
 $Writer* SmartFileObject::openWriter() {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, s, $new($StringBuilder));
 	try {
 		$var($BufferedReader, r, $new($BufferedReader, $($nc(this->file)->openReader(true))));

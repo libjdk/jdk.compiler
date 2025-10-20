@@ -174,6 +174,7 @@ void Source$1::init$($File* val$root, $List* val$includeMatchers, $List* val$exc
 }
 
 $FileVisitResult* Source$1::visitFile($Path* file, $BasicFileAttributes* attrs) {
+	$useLocalCurrentObjectStackCache();
 	$var($Path, relToRoot, $nc($($nc(this->val$root)->toPath()))->relativize(file));
 	bool var$1 = $nc($($nc(this->val$includeMatchers)->stream()))->anyMatch(static_cast<$Predicate*>($$new(Source$1$$Lambda$lambda$visitFile$0, relToRoot)));
 	bool var$0 = var$1 && $nc($($nc(this->val$excludeMatchers)->stream()))->noneMatch(static_cast<$Predicate*>($$new(Source$1$$Lambda$lambda$visitFile$0, relToRoot)));

@@ -113,6 +113,7 @@ void StringConcat$Inline::init$($Context* context) {
 }
 
 $Items$Item* StringConcat$Inline::makeConcat($JCTree$JCAssignOp* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCDiagnostic$DiagnosticPosition, pos, $nc(tree)->pos());
 	newStringBuilder(tree);
 	$var($Items$Item, l, $nc(this->gen)->genExpr(tree->lhs, $nc(tree->lhs)->type));
@@ -137,6 +138,7 @@ $Items$Item* StringConcat$Inline::makeConcat($JCTree$JCAssignOp* tree) {
 }
 
 $Items$Item* StringConcat$Inline::makeConcat($JCTree$JCBinary* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCDiagnostic$DiagnosticPosition, pos, $nc(tree)->pos());
 	newStringBuilder(tree);
 	$var($List, args, collectAll(tree));
@@ -155,6 +157,7 @@ $Items$Item* StringConcat$Inline::makeConcat($JCTree$JCBinary* tree) {
 }
 
 $JCDiagnostic$DiagnosticPosition* StringConcat$Inline::newStringBuilder($JCTree* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCDiagnostic$DiagnosticPosition, pos, $nc(tree)->pos());
 	$nc($($nc(this->gen)->getCode()))->emitop2(187, $nc(this->gen)->makeRef(pos, $nc(this->syms)->stringBuilderType), static_cast<$PoolConstant*>($nc(this->syms)->stringBuilderType));
 	$nc($($nc(this->gen)->getCode()))->emitop0(89);
@@ -163,6 +166,7 @@ $JCDiagnostic$DiagnosticPosition* StringConcat$Inline::newStringBuilder($JCTree*
 }
 
 void StringConcat$Inline::appendString($JCTree* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, t, $nc($nc(tree)->type)->baseType());
 	if (!$nc(t)->isPrimitive() && t->tsym != $nc($nc(this->syms)->stringType)->tsym) {
 		$assign(t, $nc(this->syms)->objectType);

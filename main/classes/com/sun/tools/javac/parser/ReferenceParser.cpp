@@ -108,6 +108,7 @@ void ReferenceParser::init$($ParserFactory* fac) {
 }
 
 $ReferenceParser$Reference* ReferenceParser::parse($String* sig) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCExpression, moduleName, nullptr);
 	$var($JCTree, qualExpr, nullptr);
 	$var($Name, member, nullptr);
@@ -168,6 +169,7 @@ $ReferenceParser$Reference* ReferenceParser::parse($String* sig) {
 }
 
 $JCTree$JCExpression* ReferenceParser::parseModule($String* s) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavacParser, p, $nc(this->fac)->newParser(s, false, false, false));
 	$var($JCTree$JCExpression, expr, $nc(p)->qualident(false));
 	$init($Tokens$TokenKind);
@@ -178,6 +180,7 @@ $JCTree$JCExpression* ReferenceParser::parseModule($String* s) {
 }
 
 $JCTree* ReferenceParser::parseType($String* s) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavacParser, p, $nc(this->fac)->newParser(s, false, false, false));
 	$var($JCTree, tree, $nc(p)->parseType());
 	$init($Tokens$TokenKind);
@@ -188,6 +191,7 @@ $JCTree* ReferenceParser::parseType($String* s) {
 }
 
 $Name* ReferenceParser::parseMember($String* s) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavacParser, p, $nc(this->fac)->newParser(s, false, false, false));
 	$var($Name, name, $nc(p)->ident());
 	$init($Tokens$TokenKind);
@@ -198,6 +202,7 @@ $Name* ReferenceParser::parseMember($String* s) {
 }
 
 $List* ReferenceParser::parseParams($String* s) {
+	$useLocalCurrentObjectStackCache();
 	if ($($nc(s)->trim())->isEmpty()) {
 		return $List::nil();
 	}

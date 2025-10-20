@@ -89,6 +89,7 @@ $Object* allocate$RichDiagnosticFormatter$RichConfiguration($Class* clazz) {
 }
 
 void RichDiagnosticFormatter$RichConfiguration::init$($Options* options, $AbstractDiagnosticFormatter* formatter) {
+	$useLocalCurrentObjectStackCache();
 	$ForwardingDiagnosticFormatter$ForwardingConfiguration::init$($($nc(formatter)->getConfiguration()));
 	$load($RichDiagnosticFormatter$RichConfiguration$RichFormatterFeature);
 	$init($RichDiagnosticFormatter$RichConfiguration$RichFormatterFeature);

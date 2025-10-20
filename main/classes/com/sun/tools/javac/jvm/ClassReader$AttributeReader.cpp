@@ -98,6 +98,7 @@ void ClassReader$AttributeReader::init$($ClassReader* this$0, $Name* name, $Clas
 }
 
 bool ClassReader$AttributeReader::accepts($ClassReader$AttributeKind* kind) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(this->kinds)->contains(kind)) {
 		if (this->this$0->majorVersion > this->version->major || (this->this$0->majorVersion == this->version->major && this->this$0->minorVersion >= this->version->minor)) {
 			return true;

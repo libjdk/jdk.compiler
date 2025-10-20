@@ -128,6 +128,7 @@ void CRTable::put(Object$* tree, int32_t flags, int32_t startPc, int32_t endPc) 
 }
 
 int32_t CRTable::writeCRT($ByteBuffer* databuf, $Position$LineMap* lineMap, $Log* log) {
+	$useLocalCurrentObjectStackCache();
 	int32_t crtEntries = 0;
 	$$new($CRTable$SourceComputer, this)->csp(static_cast<$JCTree*>(this->methodTree));
 	{

@@ -45,6 +45,7 @@ void legacy::init$() {
 }
 
 $ObjectArray2* legacy::getContents() {
+	$useLocalCurrentObjectStackCache();
 	return $new($ObjectArray2, {
 		$$new($ObjectArray, {
 			$of("com.sun.accessibility.internal.resources"_s),

@@ -117,6 +117,7 @@ $FileVisitResult* JavacFileManager$ArchiveContainer$2::preVisitDirectory($Path* 
 }
 
 $FileVisitResult* JavacFileManager$ArchiveContainer$2::visitFile($Path* file, $BasicFileAttributes* attrs) {
+	$useLocalCurrentObjectStackCache();
 	bool var$0 = $nc(attrs)->isRegularFile();
 	if (var$0 && $nc(this->val$fileKinds)->contains($($BaseFileManager::getKind($($nc($($nc(file)->getFileName()))->toString()))))) {
 		$var($JavaFileObject, fe, $PathFileObject::forJarPath(this->this$1->this$0, file, this->this$1->archivePath));

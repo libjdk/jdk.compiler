@@ -119,6 +119,7 @@ void Dependencies$GraphDependencies$Node::finalize() {
 }
 
 void Dependencies$GraphDependencies$Node::init$($Symbol$ClassSymbol* value) {
+	$useLocalCurrentObjectStackCache();
 	$GraphUtils$AbstractNode::init$(value);
 	$load($Dependencies$CompletionCause);
 	$set(this, depsByKind, $new($EnumMap, $Dependencies$CompletionCause::class$));
@@ -166,6 +167,7 @@ $Collection* Dependencies$GraphDependencies$Node::getDependenciesByKind($GraphUt
 }
 
 $Properties* Dependencies$GraphDependencies$Node::nodeAttributes() {
+	$useLocalCurrentObjectStackCache();
 	$var($Properties, p, $new($Properties));
 	p->put("label"_s, $($GraphUtils$DotVisitor::wrap($(toString()))));
 	return p;

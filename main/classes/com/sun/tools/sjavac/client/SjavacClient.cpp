@@ -203,6 +203,7 @@ $Object* allocate$SjavacClient($Class* clazz) {
 int32_t SjavacClient::POOLSIZE = 0;
 
 void SjavacClient::init$($Options* options) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, serverConf, $nc(options)->getServerConf());
 	$var($String, configFile, $Util::extractStringOption("conf"_s, serverConf, ""_s));
 	try {
@@ -233,6 +234,7 @@ void SjavacClient::init$($Options* options) {
 }
 
 $Main$Result* SjavacClient::compile($StringArray* args) {
+	$useLocalCurrentObjectStackCache();
 	if (this->portFile == nullptr || this->serverCommand == nullptr) {
 		$Log::error("Incorrect configuration, portfile and/or servercmd missing"_s);
 		$init($Main$Result);
@@ -330,6 +332,7 @@ $Main$Result* SjavacClient::compile($StringArray* args) {
 }
 
 $Socket* SjavacClient::tryConnect() {
+	$useLocalCurrentObjectStackCache();
 	makeSureServerIsRunning();
 	int32_t attempt = 0;
 	while (true) {
@@ -350,6 +353,7 @@ $Socket* SjavacClient::tryConnect() {
 }
 
 $Socket* SjavacClient::makeConnectionAttempt() {
+	$useLocalCurrentObjectStackCache();
 	$var($Socket, socket, $new($Socket));
 	$var($InetAddress, localhost, $InetAddress::getByName(nullptr));
 	$var($InetSocketAddress, address, $new($InetSocketAddress, localhost, $nc(this->portFile)->getPort()));
@@ -374,6 +378,7 @@ void SjavacClient::shutdown() {
 }
 
 void SjavacClient::startNewServer() {
+	$useLocalCurrentObjectStackCache();
 	$var($List, cmd, $new($ArrayList));
 	cmd->addAll($($Arrays::asList($($nc(this->serverCommand)->split(" "_s)))));
 	cmd->add($$str({"--startserver:portfile="_s, $($nc(this->portFile)->getFilename()), ",poolsize="_s, $$str(SjavacClient::POOLSIZE), ",keepalive="_s, $$str(SjavacClient::KEEPALIVE)}));

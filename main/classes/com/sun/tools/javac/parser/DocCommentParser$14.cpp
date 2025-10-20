@@ -99,6 +99,7 @@ void DocCommentParser$14::init$($DocCommentParser* this$0, $DocCommentParser$Tag
 }
 
 $DCTree* DocCommentParser$14::parse(int32_t pos, $DocCommentParser$TagParser$Kind* kind) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, description, nullptr);
 	$init($DocCommentParser$26);
 	switch ($nc($DocCommentParser$26::$SwitchMap$com$sun$tools$javac$parser$DocCommentParser$TagParser$Kind)->get($nc((kind))->ordinal())) {

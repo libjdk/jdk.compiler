@@ -226,6 +226,7 @@ bool Source::isLinkedOnly() {
 }
 
 void Source::save($StringBuilder* b) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, CL, this->linkedOnly ? "L"_s : "C"_s);
 	$var($String, GS, this->isGenerated$ ? "G"_s : "S"_s);
 	$nc(b)->append($$str({GS, " "_s, CL, " "_s, this->name$, " "_s, $$str($nc(this->file$)->lastModified()), "\n"_s}));
@@ -233,6 +234,7 @@ void Source::save($StringBuilder* b) {
 
 Source* Source::load($Package* lastPackage, $String* l, bool isGenerated) {
 	$init(Source);
+	$useLocalCurrentObjectStackCache();
 	int32_t sp = $nc(l)->indexOf((int32_t)u' ', 4);
 	if (sp == -1) {
 		return nullptr;
@@ -260,6 +262,7 @@ Source* Source::load($Package* lastPackage, $String* l, bool isGenerated) {
 
 void Source::saveSources($Map* sources, $StringBuilder* b) {
 	$init(Source);
+	$useLocalCurrentObjectStackCache();
 	$var($List, sorted_sources, $new($ArrayList));
 	{
 		$var($Iterator, i$, $nc($($nc(sources)->keySet()))->iterator());
@@ -285,6 +288,7 @@ void Source::saveSources($Map* sources, $StringBuilder* b) {
 
 void Source::scanRoot($File* root, $Set* suffixes, $List* excludes, $List* includes$renamed, $Map* foundFiles, $Map* foundModules, $Module* currentModule, bool permitSourcesWithoutPackage, bool inGensrc, bool inLinksrc) {
 	$init(Source);
+	$useLocalCurrentObjectStackCache();
 	$var($List, includes, includes$renamed);
 	if (root == nullptr) {
 		return;
@@ -301,6 +305,7 @@ void Source::scanRoot($File* root, $Set* suffixes, $List* excludes, $List* inclu
 
 $List* Source::createPathMatchers($FileSystem* fs, $List* patterns) {
 	$init(Source);
+	$useLocalCurrentObjectStackCache();
 	$var($List, matchers, $new($ArrayList));
 	{
 		$var($Iterator, i$, $nc(patterns)->iterator());
@@ -322,6 +327,7 @@ $List* Source::createPathMatchers($FileSystem* fs, $List* patterns) {
 
 $String* Source::packageOfJavaFile($Path* sourceRoot, $Path* javaFile) {
 	$init(Source);
+	$useLocalCurrentObjectStackCache();
 	$var($Path, javaFileDir, $nc(javaFile)->getParent());
 	$var($Path, packageDir, $nc(sourceRoot)->relativize(javaFileDir));
 	$var($List, separateDirs, $new($ArrayList));
@@ -338,6 +344,7 @@ $String* Source::packageOfJavaFile($Path* sourceRoot, $Path* javaFile) {
 }
 
 $String* Source::toString() {
+	$useLocalCurrentObjectStackCache();
 	return $String::format("%s[pkg: %s, name: %s, suffix: %s, file: %s, isGenerated: %b, linkedOnly: %b]"_s, $$new($ObjectArray, {
 		$($of($of(this)->getClass()->getSimpleName())),
 		$of(this->pkg$),

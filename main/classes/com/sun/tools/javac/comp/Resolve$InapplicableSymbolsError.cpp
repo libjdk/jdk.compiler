@@ -165,6 +165,7 @@ void Resolve$InapplicableSymbolsError::init$($Resolve* this$0, $Resolve$MethodRe
 }
 
 $JCDiagnostic* Resolve$InapplicableSymbolsError::getDiagnostic($JCDiagnostic$DiagnosticType* dkind, $JCDiagnostic$DiagnosticPosition* pos, $Symbol* location, $Type* site, $Name* name, $List* argtypes, $List* typeargtypes) {
+	$useLocalCurrentObjectStackCache();
 	$var($Map, candidatesMap, mapCandidates());
 	$var($Map, filteredCandidates, this->this$0->compactMethodDiags ? filterCandidates(candidatesMap) : mapCandidates());
 	if ($nc(filteredCandidates)->isEmpty()) {
@@ -203,6 +204,7 @@ $JCDiagnostic* Resolve$InapplicableSymbolsError::getDiagnostic($JCDiagnostic$Dia
 }
 
 $Map* Resolve$InapplicableSymbolsError::mapCandidates() {
+	$useLocalCurrentObjectStackCache();
 	$var($Resolve$InapplicableSymbolsError$MostSpecificMap, candidates, $new($Resolve$InapplicableSymbolsError$MostSpecificMap, this));
 	{
 		$var($Iterator, i$, $nc($nc(this->resolveContext)->candidates)->iterator());
@@ -220,6 +222,7 @@ $Map* Resolve$InapplicableSymbolsError::mapCandidates() {
 }
 
 $Map* Resolve$InapplicableSymbolsError::filterCandidates($Map* candidatesMap) {
+	$useLocalCurrentObjectStackCache();
 	$var($Map, candidates, $new($LinkedHashMap));
 	{
 		$var($Iterator, i$, $nc($($nc(candidatesMap)->entrySet()))->iterator());
@@ -238,6 +241,7 @@ $Map* Resolve$InapplicableSymbolsError::filterCandidates($Map* candidatesMap) {
 }
 
 $List* Resolve$InapplicableSymbolsError::candidateDetails($Map* candidatesMap, $Type* site) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, details, $List::nil());
 	{
 		$var($Iterator, i$, $nc($($nc(candidatesMap)->entrySet()))->iterator());
@@ -257,6 +261,7 @@ $List* Resolve$InapplicableSymbolsError::candidateDetails($Map* candidatesMap, $
 }
 
 $Pair* Resolve$InapplicableSymbolsError::errCandidate() {
+	$useLocalCurrentObjectStackCache();
 	$var($Map, candidatesMap, mapCandidates());
 	$var($Map, filteredCandidates, filterCandidates(candidatesMap));
 	if ($nc(filteredCandidates)->size() == 1) {

@@ -168,6 +168,7 @@ void ClientCodeWrapper$WrappedJavaFileObject::init$($ClientCodeWrapper* this$0, 
 }
 
 $JavaFileObject$Kind* ClientCodeWrapper$WrappedJavaFileObject::getKind() {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(($cast($JavaFileObject, this->clientFileObject)))->getKind();
 	} catch ($ClientCodeException&) {
@@ -184,6 +185,7 @@ $JavaFileObject$Kind* ClientCodeWrapper$WrappedJavaFileObject::getKind() {
 }
 
 bool ClientCodeWrapper$WrappedJavaFileObject::isNameCompatible($String* simpleName, $JavaFileObject$Kind* kind) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(($cast($JavaFileObject, this->clientFileObject)))->isNameCompatible(simpleName, kind);
 	} catch ($ClientCodeException&) {
@@ -200,6 +202,7 @@ bool ClientCodeWrapper$WrappedJavaFileObject::isNameCompatible($String* simpleNa
 }
 
 $NestingKind* ClientCodeWrapper$WrappedJavaFileObject::getNestingKind() {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(($cast($JavaFileObject, this->clientFileObject)))->getNestingKind();
 	} catch ($ClientCodeException&) {
@@ -216,6 +219,7 @@ $NestingKind* ClientCodeWrapper$WrappedJavaFileObject::getNestingKind() {
 }
 
 $Modifier* ClientCodeWrapper$WrappedJavaFileObject::getAccessLevel() {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(($cast($JavaFileObject, this->clientFileObject)))->getAccessLevel();
 	} catch ($ClientCodeException&) {

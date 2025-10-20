@@ -399,6 +399,7 @@ $JCDiagnostic$Warning* CompilerProperties$Warnings::BadNameForOption($Option* ar
 
 $JCDiagnostic$Warning* CompilerProperties$Warnings::BigMajorVersion($File* arg0, int32_t arg1, int32_t arg2) {
 	$init(CompilerProperties$Warnings);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Warning, "compiler"_s, "big.major.version"_s, $$new($ObjectArray, {
 		$of(arg0),
 		$($of($Integer::valueOf(arg1))),
@@ -408,6 +409,7 @@ $JCDiagnostic$Warning* CompilerProperties$Warnings::BigMajorVersion($File* arg0,
 
 $JCDiagnostic$Warning* CompilerProperties$Warnings::BigMajorVersion($JavaFileObject* arg0, int32_t arg1, int32_t arg2) {
 	$init(CompilerProperties$Warnings);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Warning, "compiler"_s, "big.major.version"_s, $$new($ObjectArray, {
 		$of(arg0),
 		$($of($Integer::valueOf(arg1))),
@@ -417,6 +419,7 @@ $JCDiagnostic$Warning* CompilerProperties$Warnings::BigMajorVersion($JavaFileObj
 
 $JCDiagnostic$Warning* CompilerProperties$Warnings::BigMajorVersion($Path* arg0, int32_t arg1, int32_t arg2) {
 	$init(CompilerProperties$Warnings);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Warning, "compiler"_s, "big.major.version"_s, $$new($ObjectArray, {
 		$of(arg0),
 		$($of($Integer::valueOf(arg1))),
@@ -484,6 +487,7 @@ $JCDiagnostic$Warning* CompilerProperties$Warnings::ForwardRef($Symbol* arg0) {
 
 $JCDiagnostic$Warning* CompilerProperties$Warnings::FutureAttr($Name* arg0, int32_t arg1, int32_t arg2, int32_t arg3, int32_t arg4) {
 	$init(CompilerProperties$Warnings);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Warning, "compiler"_s, "future.attr"_s, $$new($ObjectArray, {
 		$of(arg0),
 		$($of($Integer::valueOf(arg1))),
@@ -754,6 +758,7 @@ $JCDiagnostic$Warning* CompilerProperties$Warnings::PoorChoiceForModuleName($Nam
 
 $JCDiagnostic$Warning* CompilerProperties$Warnings::PositionOverflow(int32_t arg0) {
 	$init(CompilerProperties$Warnings);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Warning, "compiler"_s, "position.overflow"_s, $$new($ObjectArray, {$($of($Integer::valueOf(arg0)))}));
 }
 
@@ -1109,6 +1114,7 @@ $JCDiagnostic$Warning* CompilerProperties$Warnings::VarargsUnsafeUseVarargsParam
 }
 
 void clinit$CompilerProperties$Warnings($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(CompilerProperties$Warnings::AddopensIgnored, $new($JCDiagnostic$Warning, "compiler"_s, "addopens.ignored"_s, $$new($ObjectArray, 0)));
 	$assignStatic(CompilerProperties$Warnings::AttemptToSynchronizeOnInstanceOfValueBasedClass, $new($JCDiagnostic$Warning, "compiler"_s, "attempt.to.synchronize.on.instance.of.value.based.class"_s, $$new($ObjectArray, 0)));
 	$assignStatic(CompilerProperties$Warnings::DiamondRedundantArgs, $new($JCDiagnostic$Warning, "compiler"_s, "diamond.redundant.args"_s, $$new($ObjectArray, 0)));

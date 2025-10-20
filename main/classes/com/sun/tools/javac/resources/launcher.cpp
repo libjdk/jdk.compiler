@@ -45,6 +45,7 @@ void launcher::init$() {
 }
 
 $ObjectArray2* launcher::getContents() {
+	$useLocalCurrentObjectStackCache();
 	return $new($ObjectArray2, {
 		$$new($ObjectArray, {
 			$of("launcher.err.cant.access.main.method"_s),

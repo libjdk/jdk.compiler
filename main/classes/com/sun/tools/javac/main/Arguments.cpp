@@ -575,6 +575,7 @@ void Arguments::init$($Context* context) {
 }
 
 void Arguments::init($String* ownName, $Iterable* args) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, ownName, ownName);
 	$init($Arguments$ErrorMode);
 	$set(this, errorMode, $Arguments$ErrorMode::LOG);
@@ -590,6 +591,7 @@ void Arguments::init($String* ownName, $Iterable* args) {
 }
 
 void Arguments::init($String* ownName, $Iterable* options, $Iterable* classNames, $Iterable* files) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, ownName, ownName);
 	$set(this, classNames, toSet(classNames));
 	$set(this, fileObjects, toSet(files));
@@ -610,6 +612,7 @@ void Arguments::init($String* ownName) {
 }
 
 $Set* Arguments::getFileObjects() {
+	$useLocalCurrentObjectStackCache();
 	if (this->fileObjects == nullptr) {
 		$set(this, fileObjects, $new($LinkedHashSet));
 	}
@@ -631,6 +634,7 @@ $Set* Arguments::getClassNames() {
 }
 
 bool Arguments::handleReleaseOptions($Predicate* additionalOptions) {
+	$useLocalCurrentObjectStackCache();
 	$init($Option);
 	$var($String, platformString, $nc(this->options)->get($Option::RELEASE));
 	checkOptionAllowed(platformString == nullptr, static_cast<$Arguments$ErrorReporter*>($$new(Arguments$$Lambda$lambda$handleReleaseOptions$0, this)), $$new($OptionArray, {
@@ -677,6 +681,7 @@ bool Arguments::processArgs($Iterable* args, $Set* allowableOpts, $OptionHelper*
 }
 
 bool Arguments::doProcessArgs($Iterable* args, $Set* allowableOpts, $OptionHelper* helper, bool allowOperands, bool checkFileManager) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileManager, fm, checkFileManager ? getFileManager() : ($JavaFileManager*)nullptr);
 	$var($Iterator, argIter, $nc(args)->iterator());
 	while ($nc(argIter)->hasNext()) {
@@ -714,6 +719,7 @@ bool Arguments::doProcessArgs($Iterable* args, $Set* allowableOpts, $OptionHelpe
 }
 
 bool Arguments::validate() {
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileManager, fm, getFileManager());
 	$init($Option);
 	if ($nc(this->options)->isSet($Option::MODULE)) {
@@ -984,6 +990,7 @@ bool Arguments::validate() {
 }
 
 void Arguments::validateAddExports($SourceVersion* sv) {
+	$useLocalCurrentObjectStackCache();
 	$init($Option);
 	$var($String, addExports, $nc(this->options)->get($Option::ADD_EXPORTS));
 	if (addExports != nullptr) {
@@ -1059,6 +1066,7 @@ void Arguments::validateAddExports($SourceVersion* sv) {
 }
 
 void Arguments::validateAddReads($SourceVersion* sv) {
+	$useLocalCurrentObjectStackCache();
 	$init($Option);
 	$var($String, addReads, $nc(this->options)->get($Option::ADD_READS));
 	if (addReads != nullptr) {
@@ -1130,6 +1138,7 @@ void Arguments::validateAddReads($SourceVersion* sv) {
 }
 
 void Arguments::validateAddModules($SourceVersion* sv) {
+	$useLocalCurrentObjectStackCache();
 	$init($Option);
 	$var($String, addModules, $nc(this->options)->get($Option::ADD_MODULES));
 	if (addModules != nullptr) {
@@ -1191,6 +1200,7 @@ void Arguments::validateAddModules($SourceVersion* sv) {
 }
 
 void Arguments::validateLimitModules($SourceVersion* sv) {
+	$useLocalCurrentObjectStackCache();
 	$init($Option);
 	$var($String, limitModules, $nc(this->options)->get($Option::LIMIT_MODULES));
 	if (limitModules != nullptr) {
@@ -1234,6 +1244,7 @@ void Arguments::validateLimitModules($SourceVersion* sv) {
 }
 
 void Arguments::validateDefaultModuleForCreatedFiles($SourceVersion* sv) {
+	$useLocalCurrentObjectStackCache();
 	$init($Option);
 	$var($String, moduleName, $nc(this->options)->get($Option::DEFAULT_MODULE_FOR_CREATED_FILES));
 	if (moduleName != nullptr) {
@@ -1258,6 +1269,7 @@ $Map* Arguments::getDeferredFileManagerOptions() {
 }
 
 $Set* Arguments::getPluginOpts() {
+	$useLocalCurrentObjectStackCache();
 	$init($Option);
 	$var($String, plugins, $nc(this->options)->get($Option::PLUGIN));
 	if (plugins == nullptr) {
@@ -1279,6 +1291,7 @@ $Set* Arguments::getPluginOpts() {
 }
 
 $List* Arguments::getDocLintOpts() {
+	$useLocalCurrentObjectStackCache();
 	$init($Option);
 	$var($String, xdoclint, $nc(this->options)->get($Option::XDOCLINT));
 	$var($String, xdoclintCustom, $nc(this->options)->get($Option::XDOCLINT_CUSTOM));
@@ -1319,6 +1332,7 @@ $List* Arguments::getDocLintOpts() {
 }
 
 bool Arguments::checkDirectory($Option* option) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, value, $nc(this->options)->get(option));
 	if (value == nullptr) {
 		return true;
@@ -1333,12 +1347,14 @@ bool Arguments::checkDirectory($Option* option) {
 }
 
 void Arguments::checkOptionAllowed(bool allowed, $Arguments$ErrorReporter* r, $OptionArray* opts) {
+	$useLocalCurrentObjectStackCache();
 	if (!allowed) {
 		$nc($($nc($($Stream::of(opts)))->filter(static_cast<$Predicate*>($$new(Arguments$$Lambda$isSet$3, static_cast<$Options*>($nc(this->options)))))))->forEach(static_cast<$Consumer*>($$new(Arguments$$Lambda$report$4, static_cast<$Arguments$ErrorReporter*>($nc(r)))));
 	}
 }
 
 void Arguments::reportDiag($JCDiagnostic$DiagnosticInfo* diag) {
+	$useLocalCurrentObjectStackCache();
 	this->errors = true;
 	$init($Arguments$3);
 	switch ($nc($Arguments$3::$SwitchMap$com$sun$tools$javac$main$Arguments$ErrorMode)->get($nc((this->errorMode))->ordinal())) {
@@ -1364,6 +1380,7 @@ void Arguments::reportDiag($JCDiagnostic$DiagnosticInfo* diag) {
 }
 
 void Arguments::error($Option$InvalidValueException* f) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, msg, $nc(f)->getMessage());
 	this->errors = true;
 	$init($Arguments$3);
@@ -1388,6 +1405,7 @@ void Arguments::error($Option$InvalidValueException* f) {
 }
 
 void Arguments::report($JCDiagnostic$DiagnosticInfo* diag) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($JCDiagnostic$Error, errorDiag, nullptr);
 		$var($JCDiagnostic$Warning, warningDiag, nullptr);
@@ -1420,6 +1438,7 @@ $JavaFileManager* Arguments::getFileManager() {
 }
 
 $ListBuffer* Arguments::toList($Iterable* items) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, list, $new($ListBuffer));
 	if (items != nullptr) {
 		{
@@ -1436,6 +1455,7 @@ $ListBuffer* Arguments::toList($Iterable* items) {
 }
 
 $Set* Arguments::toSet($Iterable* items) {
+	$useLocalCurrentObjectStackCache();
 	$var($Set, set, $new($LinkedHashSet));
 	if (items != nullptr) {
 		{

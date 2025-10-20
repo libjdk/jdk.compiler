@@ -209,6 +209,7 @@ void PlatformUtils::init$() {
 
 $PlatformDescription* PlatformUtils::lookupPlatformDescription($String* platformString) {
 	$load(PlatformUtils);
+	$useLocalCurrentObjectStackCache();
 	$beforeCallerSensitive();
 	int32_t separator = $nc(platformString)->indexOf(":"_s);
 	$var($String, platformProviderName, separator != (-1) ? platformString->substring(0, separator) : platformString);
@@ -220,6 +221,7 @@ $PlatformDescription* PlatformUtils::lookupPlatformDescription($String* platform
 }
 
 $Optional* PlatformUtils::lambda$lookupPlatformDescription$1($String* platformProviderName, $String* platformOptions, $PlatformProvider* provider) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $Optional::of($($nc(provider)->getPlatform(platformProviderName, platformOptions)));
 	} catch ($PlatformProvider$PlatformNotSupported&) {
@@ -230,6 +232,7 @@ $Optional* PlatformUtils::lambda$lookupPlatformDescription$1($String* platformPr
 }
 
 bool PlatformUtils::lambda$lookupPlatformDescription$0($String* platformProviderName, $PlatformProvider* provider) {
+	$useLocalCurrentObjectStackCache();
 	return $nc($($StreamSupport::stream($($nc($($nc(provider)->getSupportedPlatformNames()))->spliterator()), false)))->anyMatch(static_cast<$Predicate*>($$new(PlatformUtils$$Lambda$equals$2, static_cast<$String*>($nc(platformProviderName)))));
 }
 

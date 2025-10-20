@@ -477,6 +477,7 @@ JavacElements* JavacElements::instance($Context* context) {
 }
 
 void JavacElements::init$($Context* context) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, alreadyWarnedDuplicates, $new($HashSet));
 	$set(this, resultCache, $new($HashMap));
 	$nc(context)->put(JavacElements::class$, $of(this));
@@ -511,6 +512,7 @@ $Set* JavacElements::getAllModuleElements() {
 }
 
 $ModuleElement* JavacElements::getModuleElement($CharSequence* name) {
+	$useLocalCurrentObjectStackCache();
 	ensureEntered("getModuleElement"_s);
 	if ($nc(this->modules)->getDefaultModule() == $nc(this->syms)->noModule) {
 		return nullptr;
@@ -567,6 +569,7 @@ $Symbol* JavacElements::doGetElement($ModuleElement* module, $String* methodName
 }
 
 $Symbol* JavacElements::unboundNameToSymbol($String* methodName, $String* nameStr, $Class* clazz) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(this->modules)->getDefaultModule() == $nc(this->syms)->noModule) {
 		return nameToSymbol($nc(this->syms)->noModule, nameStr, clazz);
 	}
@@ -575,6 +578,7 @@ $Symbol* JavacElements::unboundNameToSymbol($String* methodName, $String* nameSt
 }
 
 $Symbol* JavacElements::nameToSymbol($Symbol$ModuleSymbol* module, $String* nameStr, $Class* clazz) {
+	$useLocalCurrentObjectStackCache();
 	$var($Name, name, $nc(this->names)->fromString(nameStr));
 	$load($Symbol$ClassSymbol);
 	$var($Symbol, sym, (clazz == $Symbol$ClassSymbol::class$) ? static_cast<$Symbol*>($nc(this->syms)->getClass(module, name)) : static_cast<$Symbol*>($nc(this->syms)->lookupPackage(module, name)));
@@ -600,6 +604,7 @@ $Symbol* JavacElements::nameToSymbol($Symbol$ModuleSymbol* module, $String* name
 }
 
 $JCTree* JavacElements::matchAnnoToTree($AnnotationMirror* findme, $Element* e, $JCTree* tree) {
+	$useLocalCurrentObjectStackCache();
 	$load($Symbol);
 	$var($Symbol, sym, $cast($Symbol, cast($Symbol::class$, e)));
 	{
@@ -615,6 +620,7 @@ $JCTree* JavacElements::matchAnnoToTree($AnnotationMirror* findme, $Element* e, 
 }
 
 $JCTree* JavacElements::matchAnnoToTree($Attribute$Compound* findme, $List* annos, $List* trees) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(annos)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -666,6 +672,7 @@ $JCTree* JavacElements::getTree($Element* e) {
 }
 
 $String* JavacElements::getDocComment($Element* e) {
+	$useLocalCurrentObjectStackCache();
 	$var($Pair, treeTop, getTreeAndTopLevel(e));
 	if (treeTop == nullptr) {
 		return nullptr;
@@ -689,6 +696,7 @@ $PackageElement* JavacElements::getPackageOf($Element* e) {
 }
 
 $ModuleElement* JavacElements::getModuleOf($Element* e) {
+	$useLocalCurrentObjectStackCache();
 	$load($Symbol);
 	$var($Symbol, sym, $cast($Symbol, cast($Symbol::class$, e)));
 	if ($nc(this->modules)->getDefaultModule() == $nc(this->syms)->noModule) {
@@ -732,6 +740,7 @@ $Elements$Origin* JavacElements::getOrigin($AnnotatedConstruct* c, $AnnotationMi
 }
 
 $Elements$Origin* JavacElements::getOrigin($ModuleElement* m, $ModuleElement$Directive* directive) {
+	$useLocalCurrentObjectStackCache();
 		$init($JavacElements$1);
 	{
 		$var($Directive$RequiresDirective, rd, nullptr)
@@ -801,6 +810,7 @@ $1Name* JavacElements::getBinaryName($TypeElement* type) {
 }
 
 $Map* JavacElements::getElementValuesWithDefaults($AnnotationMirror* a) {
+	$useLocalCurrentObjectStackCache();
 	$load($Attribute$Compound);
 	$var($Attribute$Compound, anno, $cast($Attribute$Compound, cast($Attribute$Compound::class$, a)));
 	$var($DeclaredType, annotype, $nc(a)->getAnnotationType());
@@ -822,6 +832,7 @@ $Map* JavacElements::getElementValuesWithDefaults($AnnotationMirror* a) {
 }
 
 $1List* JavacElements::getAllMembers($TypeElement* element) {
+	$useLocalCurrentObjectStackCache();
 	$load($Symbol);
 	$var($Symbol, sym, $cast($Symbol, cast($Symbol::class$, element)));
 	$var($Scope$WriteableScope, scope, $nc($($nc(sym)->members()))->dupUnshared());
@@ -837,6 +848,7 @@ $1List* JavacElements::getAllMembers($TypeElement* element) {
 }
 
 void JavacElements::addMembers($Scope$WriteableScope* scope, $Type* type) {
+	$useLocalCurrentObjectStackCache();
 	bool members$continue = false;
 	{
 		$init($Scope$LookupKind);
@@ -877,6 +889,7 @@ void JavacElements::addMembers($Scope$WriteableScope* scope, $Type* type) {
 }
 
 $1List* JavacElements::getAllAnnotationMirrors($Element* e) {
+	$useLocalCurrentObjectStackCache();
 	$load($Symbol);
 	$var($Symbol, sym, $cast($Symbol, cast($Symbol::class$, e)));
 	$var($List, annos, $cast($List, $nc(sym)->getAnnotationMirrors()));
@@ -913,6 +926,7 @@ bool JavacElements::isInherited($Type* annotype) {
 
 bool JavacElements::containsAnnoOfType($List* annos, $Type* type) {
 	$init(JavacElements);
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(annos)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -928,6 +942,7 @@ bool JavacElements::containsAnnoOfType($List* annos, $Type* type) {
 }
 
 bool JavacElements::hides($Element* hiderEl, $Element* hideeEl) {
+	$useLocalCurrentObjectStackCache();
 	$load($Symbol);
 	$var($Symbol, hider, $cast($Symbol, cast($Symbol::class$, hiderEl)));
 	$var($Symbol, hidee, $cast($Symbol, cast($Symbol::class$, hideeEl)));
@@ -950,6 +965,7 @@ bool JavacElements::hides($Element* hiderEl, $Element* hideeEl) {
 }
 
 bool JavacElements::overrides($ExecutableElement* riderEl, $ExecutableElement* rideeEl, $TypeElement* typeEl) {
+	$useLocalCurrentObjectStackCache();
 	$load($Symbol$MethodSymbol);
 	$var($Symbol$MethodSymbol, rider, $cast($Symbol$MethodSymbol, cast($Symbol$MethodSymbol::class$, riderEl)));
 	$var($Symbol$MethodSymbol, ridee, $cast($Symbol$MethodSymbol, cast($Symbol$MethodSymbol::class$, rideeEl)));
@@ -965,6 +981,7 @@ $String* JavacElements::getConstantExpression(Object$* value) {
 }
 
 void JavacElements::printElements($Writer* w, $ElementArray* elements) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($ElementArray, arr$, elements);
 		int32_t len$ = $nc(arr$)->length;
@@ -997,6 +1014,7 @@ bool JavacElements::isAutomaticModule($ModuleElement* module) {
 }
 
 $Pair* JavacElements::getTreeAndTopLevel($Element* e) {
+	$useLocalCurrentObjectStackCache();
 	$load($Symbol);
 	$var($Symbol, sym, $cast($Symbol, cast($Symbol::class$, e)));
 	$var($Env, enterEnv, getEnterEnv(sym));
@@ -1011,6 +1029,7 @@ $Pair* JavacElements::getTreeAndTopLevel($Element* e) {
 }
 
 $Pair* JavacElements::getTreeAndTopLevel($Element* e, $AnnotationMirror* a, $AnnotationValue* v) {
+	$useLocalCurrentObjectStackCache();
 	if (e == nullptr) {
 		return nullptr;
 	}
@@ -1081,6 +1100,7 @@ void JavacElements::newRound() {
 }
 
 $Optional* JavacElements::lambda$unboundNameToSymbol$2($String* nameStr, $Class* clazz, $String* methodName, $Pair* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Set, found, $new($LinkedHashSet));
 	$var($Set, allModules, $new($HashSet, $(static_cast<$Collection*>($nc(this->modules)->allModules()))));
 	allModules->removeAll($($nc(this->modules)->getRootModules()));

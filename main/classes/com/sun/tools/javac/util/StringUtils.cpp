@@ -68,6 +68,7 @@ int32_t StringUtils::indexOfIgnoreCase($String* text, $String* str) {
 }
 
 int32_t StringUtils::indexOfIgnoreCase($String* text, $String* str, int32_t startIndex) {
+	$useLocalCurrentObjectStackCache();
 	$var($Matcher, m, $nc($($Pattern::compile($($Pattern::quote(str)), $Pattern::CASE_INSENSITIVE)))->matcher(text));
 	return $nc(m)->find(startIndex) ? $nc(m)->start() : -1;
 }

@@ -127,6 +127,7 @@ void Locations$PatchModulesLocationHandler::init$($Locations* this$0) {
 }
 
 bool Locations$PatchModulesLocationHandler::handleOption($Option* option, $String* value) {
+	$useLocalCurrentObjectStackCache();
 	if (!$nc(this->options)->contains(option)) {
 		return false;
 	}

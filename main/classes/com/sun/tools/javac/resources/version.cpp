@@ -45,6 +45,7 @@ void version::init$() {
 }
 
 $ObjectArray2* version::getContents() {
+	$useLocalCurrentObjectStackCache();
 	return $new($ObjectArray2, {
 		$$new($ObjectArray, {
 			$of("full"_s),

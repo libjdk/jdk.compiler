@@ -109,6 +109,7 @@ $ints* LambdaToMethod$1::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag = nullpt
 $ints* LambdaToMethod$1::$SwitchMap$com$sun$tools$javac$tree$JCTree$JCMemberReference$ReferenceKind = nullptr;
 
 void clinit$LambdaToMethod$1($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(LambdaToMethod$1::$SwitchMap$javax$lang$model$type$TypeKind, $new($ints, $($TypeKind::values())->length));
 	{
 		try {

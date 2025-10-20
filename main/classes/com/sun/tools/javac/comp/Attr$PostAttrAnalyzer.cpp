@@ -166,6 +166,7 @@ void Attr$PostAttrAnalyzer::initTypeIfNeeded($JCTree* that) {
 }
 
 $Type* Attr$PostAttrAnalyzer::dummyMethodType($JCTree$JCMethodDecl* md) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, restype, $nc(this->this$0->syms)->unknownType);
 	$init($JCTree$Tag);
 	if (md != nullptr && md->restype != nullptr && $nc(md->restype)->hasTag($JCTree$Tag::TYPEIDENT)) {

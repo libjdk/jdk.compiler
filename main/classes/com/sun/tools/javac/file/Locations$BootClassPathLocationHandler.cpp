@@ -208,6 +208,7 @@ $Collection* Locations$BootClassPathLocationHandler::getPaths() {
 }
 
 void Locations$BootClassPathLocationHandler::setPaths($Iterable* files) {
+	$useLocalCurrentObjectStackCache();
 	if (files == nullptr) {
 		$set(this, searchPath, nullptr);
 	} else {
@@ -220,6 +221,7 @@ void Locations$BootClassPathLocationHandler::setPaths($Iterable* files) {
 }
 
 $Locations$SearchPath* Locations$BootClassPathLocationHandler::computePath() {
+	$useLocalCurrentObjectStackCache();
 	$var($Locations$SearchPath, path, $new($Locations$SearchPath, this->this$0));
 	$init($Option);
 	$var($String, bootclasspathOpt, $cast($String, $nc(this->optionValues)->get($Option::BOOT_CLASS_PATH)));
@@ -260,6 +262,7 @@ $Locations$SearchPath* Locations$BootClassPathLocationHandler::computePath() {
 }
 
 $Collection* Locations$BootClassPathLocationHandler::systemClasses() {
+	$useLocalCurrentObjectStackCache();
 	$init($Locations);
 	if ($Files::isRegularFile($Locations::thisSystemModules, $$new($LinkOptionArray, 0))) {
 		return $Collections::singleton($Locations::thisSystemModules);
@@ -309,6 +312,7 @@ $Collection* Locations$BootClassPathLocationHandler::systemClasses() {
 }
 
 void Locations$BootClassPathLocationHandler::lazy() {
+	$useLocalCurrentObjectStackCache();
 	if (this->searchPath == nullptr) {
 		try {
 			$set(this, searchPath, $Collections::unmodifiableCollection($(static_cast<$Collection*>(static_cast<$AbstractCollection*>(static_cast<$AbstractSet*>(static_cast<$HashSet*>(static_cast<$LinkedHashSet*>(computePath()))))))));

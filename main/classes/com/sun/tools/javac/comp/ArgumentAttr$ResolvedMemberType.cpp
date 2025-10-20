@@ -95,6 +95,7 @@ void ArgumentAttr$ResolvedMemberType::init$($ArgumentAttr* this$0, $JCTree$JCExp
 }
 
 $Type* ArgumentAttr$ResolvedMemberType::overloadCheck($Attr$ResultInfo* resultInfo, $DeferredAttr$DeferredAttrContext* deferredAttrContext) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, mtype, methodType());
 	$var($Attr$ResultInfo, localInfo, this->resultInfo(resultInfo));
 	$var($Type, t, nullptr);

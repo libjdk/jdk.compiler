@@ -429,6 +429,7 @@ void TypeAnnotations::organizeTypeAnnotationsBodies($JCTree$JCClassDecl* tree) {
 }
 
 $List* TypeAnnotations::annotationTargets($Symbol$TypeSymbol* tsym) {
+	$useLocalCurrentObjectStackCache();
 	$var($Attribute$Compound, atTarget, $nc($($nc(tsym)->getAnnotationTypeMetadata()))->getTarget());
 	if (atTarget == nullptr) {
 		return nullptr;
@@ -451,6 +452,7 @@ $List* TypeAnnotations::annotationTargets($Symbol$TypeSymbol* tsym) {
 }
 
 $TypeAnnotations$AnnotationType* TypeAnnotations::annotationTargetType($Attribute$Compound* a, $Symbol* s) {
+	$useLocalCurrentObjectStackCache();
 	if (!$nc($nc($nc(a)->type)->tsym)->isAnnotationType()) {
 		$init($TypeAnnotations$AnnotationType);
 		return $TypeAnnotations$AnnotationType::NONE;
@@ -476,6 +478,7 @@ $TypeAnnotations$AnnotationType* TypeAnnotations::combineAnnotationType($TypeAnn
 }
 
 $TypeAnnotations$AnnotationType* TypeAnnotations::targetToAnnotationType($Attribute* a, $Symbol* s) {
+	$useLocalCurrentObjectStackCache();
 	$var($Attribute$Enum, e, $cast($Attribute$Enum, a));
 	if ($nc($nc(e)->value)->name == $nc(this->names)->TYPE) {
 		$init($Kinds$Kind);
@@ -566,6 +569,7 @@ bool TypeAnnotations::lambda$annotationTargets$2($Attribute* a) {
 }
 
 void TypeAnnotations::lambda$validateTypeAnnotationsSignatures$1($Env* env, $JCTree$JCClassDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileObject, oldSource, $nc(this->log)->useSource($nc($nc(env)->toplevel)->sourcefile));
 	{
 		$var($Throwable, var$0, nullptr);
@@ -583,6 +587,7 @@ void TypeAnnotations::lambda$validateTypeAnnotationsSignatures$1($Env* env, $JCT
 }
 
 void TypeAnnotations::lambda$organizeTypeAnnotationsSignatures$0($Env* env, $JCTree$JCClassDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileObject, oldSource, $nc(this->log)->useSource($nc($nc(env)->toplevel)->sourcefile));
 	{
 		$var($Throwable, var$0, nullptr);

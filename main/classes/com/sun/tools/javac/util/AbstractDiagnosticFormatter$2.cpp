@@ -95,6 +95,7 @@ $ints* AbstractDiagnosticFormatter$2::$SwitchMap$com$sun$tools$javac$api$Diagnos
 $ints* AbstractDiagnosticFormatter$2::$SwitchMap$com$sun$tools$javac$util$JCDiagnostic$DiagnosticType = nullptr;
 
 void clinit$AbstractDiagnosticFormatter$2($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(AbstractDiagnosticFormatter$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag, $new($ints, $($JCTree$Tag::values())->length));
 	{
 		try {

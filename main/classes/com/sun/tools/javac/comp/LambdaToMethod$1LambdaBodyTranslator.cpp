@@ -131,6 +131,7 @@ void LambdaToMethod$1LambdaBodyTranslator::visitLambda($JCTree$JCLambda* tree) {
 }
 
 void LambdaToMethod$1LambdaBodyTranslator::visitReturn($JCTree$JCReturn* tree) {
+	$useLocalCurrentObjectStackCache();
 	bool isLambda_void = $nc(tree)->expr == nullptr;
 	if (this->val$isTarget_void && !isLambda_void) {
 		$var($Symbol$VarSymbol, loc, this->this$0->makeSyntheticVar(0, $($nc(this->this$0->names)->fromString("$loc"_s)), $nc(tree->expr)->type, $nc(this->val$lambdaMethodDecl)->sym));

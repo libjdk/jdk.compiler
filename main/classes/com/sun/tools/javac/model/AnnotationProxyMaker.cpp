@@ -121,6 +121,7 @@ void AnnotationProxyMaker::init$($Attribute$Compound* anno, $Class* annoType) {
 }
 
 $Annotation* AnnotationProxyMaker::generateAnnotation($Attribute$Compound* anno, $Class* annoType) {
+	$useLocalCurrentObjectStackCache();
 	$var(AnnotationProxyMaker, apm, $new(AnnotationProxyMaker, anno, annoType));
 	return $cast($Annotation, $nc(annoType)->cast($(apm->generateAnnotation())));
 }
@@ -130,6 +131,7 @@ $Annotation* AnnotationProxyMaker::generateAnnotation() {
 }
 
 $Map* AnnotationProxyMaker::getAllReflectedValues() {
+	$useLocalCurrentObjectStackCache();
 	$var($Map, res, $new($LinkedHashMap));
 	{
 		$var($Iterator, i$, $nc($($nc($(getAllValues()))->entrySet()))->iterator());
@@ -149,6 +151,7 @@ $Map* AnnotationProxyMaker::getAllReflectedValues() {
 }
 
 $Map* AnnotationProxyMaker::getAllValues() {
+	$useLocalCurrentObjectStackCache();
 	$var($Map, res, $new($LinkedHashMap));
 	$var($Symbol$ClassSymbol, sym, $cast($Symbol$ClassSymbol, $nc($nc(this->anno)->type)->tsym));
 	{

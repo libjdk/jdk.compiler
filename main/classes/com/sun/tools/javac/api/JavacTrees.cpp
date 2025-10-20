@@ -565,6 +565,7 @@ $Object* allocate$JavacTrees($Class* clazz) {
 
 JavacTrees* JavacTrees::instance($JavaCompiler$CompilationTask* task) {
 	$init(JavacTrees);
+	$useLocalCurrentObjectStackCache();
 	$var($BasicJavacTask, basicJavacTask, nullptr);
 	bool var$0 = $instanceOf($BasicJavacTask, task);
 	if (var$0) {
@@ -579,6 +580,7 @@ JavacTrees* JavacTrees::instance($JavaCompiler$CompilationTask* task) {
 
 JavacTrees* JavacTrees::instance($ProcessingEnvironment* env) {
 	$init(JavacTrees);
+	$useLocalCurrentObjectStackCache();
 	$var($JavacProcessingEnvironment, javacProcessingEnvironment, nullptr);
 	bool var$0 = $instanceOf($JavacProcessingEnvironment, env);
 	if (var$0) {
@@ -613,6 +615,7 @@ void JavacTrees::updateContext($Context* context) {
 }
 
 void JavacTrees::init($Context* context) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, modules, $Modules::instance(context));
 	$set(this, attr, $Attr::instance(context));
 	$set(this, chk, $Check::instance(context));
@@ -657,6 +660,7 @@ $DocTreeFactory* JavacTrees::getDocTreeFactory() {
 }
 
 $DocTree* JavacTrees::getLastChild($DocTree* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($DocTreeArray, last, $new($DocTreeArray, {($DocTree*)nullptr}));
 	$nc(tree)->accept($$new($JavacTrees$2, this, last), nullptr);
 	return last->get(0);
@@ -707,6 +711,7 @@ $TreePath* JavacTrees::getPath($Element* e, $AnnotationMirror* a, $AnnotationVal
 }
 
 $Element* JavacTrees::getElement($TreePath* path) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree, tree, $cast($JCTree, $nc(path)->getLeaf()));
 	$var($Symbol, sym, $TreeInfo::symbolFor(tree));
 	if (sym == nullptr) {
@@ -732,6 +737,7 @@ $Element* JavacTrees::getElement($TreePath* path) {
 }
 
 $Element* JavacTrees::getElement($DocTreePath* path) {
+	$useLocalCurrentObjectStackCache();
 	$var($DocTree, tree, $nc(path)->getLeaf());
 	{
 		$var($DCTree$DCReference, dcReference, nullptr);
@@ -762,6 +768,7 @@ $Element* JavacTrees::getElement($DocTreePath* path) {
 }
 
 $TypeMirror* JavacTrees::getType($DocTreePath* path) {
+	$useLocalCurrentObjectStackCache();
 	$var($DocTree, tree, $nc(path)->getLeaf());
 	{
 		$var($DCTree$DCReference, dcReference, nullptr);
@@ -817,6 +824,7 @@ $1List* JavacTrees::getFirstSentence($1List* list) {
 }
 
 $Symbol* JavacTrees::attributeDocReference($TreePath* path, $DCTree$DCReference* ref) {
+	$useLocalCurrentObjectStackCache();
 	$var($Env, env, getAttrContext(path));
 	if (env == nullptr) {
 		return nullptr;
@@ -982,6 +990,7 @@ $Symbol* JavacTrees::attributeDocReference($TreePath* path, $DCTree$DCReference*
 }
 
 $Symbol* JavacTrees::attributeParamIdentifier($TreePath* path, $DCTree$DCParam* paramTag) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, javadocSymbol, $cast($Symbol, getElement(path)));
 	if (javadocSymbol == nullptr) {
 		return nullptr;
@@ -1018,6 +1027,7 @@ $Symbol$VarSymbol* JavacTrees::findField($Symbol$ClassSymbol* tsym, $Name* field
 }
 
 $Symbol$VarSymbol* JavacTrees::searchField($Symbol$ClassSymbol* tsym, $Name* fieldName, $Set* searched) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(searched)->contains(tsym)) {
 		return nullptr;
 	}
@@ -1066,6 +1076,7 @@ $Symbol$VarSymbol* JavacTrees::searchField($Symbol$ClassSymbol* tsym, $Name* fie
 }
 
 $Symbol$MethodSymbol* JavacTrees::findConstructor($Symbol$ClassSymbol* tsym, $List* paramTypes) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($($nc($($nc(tsym)->members()))->getSymbolsByName($nc(this->names)->init)))->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -1088,6 +1099,7 @@ $Symbol$MethodSymbol* JavacTrees::findMethod($Symbol$ClassSymbol* tsym, $Name* m
 }
 
 $Symbol$MethodSymbol* JavacTrees::searchMethod($Symbol$ClassSymbol* tsym, $Name* methodName, $List* paramTypes, $Set* searched) {
+	$useLocalCurrentObjectStackCache();
 	if (methodName == $nc(this->names)->init) {
 		return nullptr;
 	}
@@ -1162,6 +1174,7 @@ $Symbol$MethodSymbol* JavacTrees::searchMethod($Symbol$ClassSymbol* tsym, $Name*
 }
 
 bool JavacTrees::hasParameterTypes($Symbol$MethodSymbol* method, $List* paramTypes) {
+	$useLocalCurrentObjectStackCache();
 	if (paramTypes == nullptr) {
 		return true;
 	}
@@ -1179,6 +1192,7 @@ bool JavacTrees::hasParameterTypes($Symbol$MethodSymbol* method, $List* paramTyp
 }
 
 $TypeMirror* JavacTrees::getTypeMirror($TreePath* path) {
+	$useLocalCurrentObjectStackCache();
 	$var($Tree, t, $nc(path)->getLeaf());
 	$var($Type, ty, $nc(($cast($JCTree, t)))->type);
 	return ty == nullptr ? ($TypeMirror*)nullptr : static_cast<$TypeMirror*>($nc(ty)->stripMetadataIfNeeded());
@@ -1189,6 +1203,7 @@ $1Scope* JavacTrees::getScope($TreePath* path) {
 }
 
 $String* JavacTrees::getDocComment($TreePath* path) {
+	$useLocalCurrentObjectStackCache();
 	$var($CompilationUnitTree, t, $nc(path)->getCompilationUnit());
 	$var($Tree, leaf, path->getLeaf());
 	{
@@ -1218,6 +1233,7 @@ $String* JavacTrees::getDocComment($TreePath* path) {
 }
 
 $DocCommentTree* JavacTrees::getDocCommentTree($TreePath* path) {
+	$useLocalCurrentObjectStackCache();
 	$var($CompilationUnitTree, t, $nc(path)->getCompilationUnit());
 	$var($Tree, leaf, path->getLeaf());
 	{
@@ -1255,6 +1271,7 @@ $DocCommentTree* JavacTrees::getDocCommentTree($Element* e) {
 }
 
 $DocCommentTree* JavacTrees::getDocCommentTree($Element* e, $String* relativeFileName) {
+	$useLocalCurrentObjectStackCache();
 	$var($PackageElement, pkg, $nc(this->elements)->getPackageOf(e));
 	$init($StandardLocation);
 	$var($FileObject, fileForInput, $nc(this->fileManager)->getFileForInput($StandardLocation::SOURCE_PATH, $($nc($of($($nc(pkg)->getQualifiedName())))->toString()), relativeFileName));
@@ -1265,6 +1282,7 @@ $DocCommentTree* JavacTrees::getDocCommentTree($Element* e, $String* relativeFil
 }
 
 bool JavacTrees::isAccessible($1Scope* scope, $TypeElement* type) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$ClassSymbol, classSymbol, nullptr);
 	$var($JavacScope, javacScope, nullptr);
 	bool var$2 = $instanceOf($JavacScope, scope);
@@ -1286,6 +1304,7 @@ bool JavacTrees::isAccessible($1Scope* scope, $TypeElement* type) {
 }
 
 bool JavacTrees::isAccessible($1Scope* scope, $Element* member, $DeclaredType* type) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, codeType, nullptr);
 	$var($Symbol, symbol, nullptr);
 	$var($JavacScope, javacScope, nullptr);
@@ -1317,6 +1336,7 @@ bool JavacTrees::isAccessible($1Scope* scope, $Element* member, $DeclaredType* t
 }
 
 $Env* JavacTrees::getAttrContext($TreePath* path) {
+	$useLocalCurrentObjectStackCache();
 	if (!($instanceOf($JCTree, $($nc(path)->getLeaf())))) {
 		$throwNew($IllegalArgumentException);
 	}
@@ -1423,6 +1443,7 @@ $Env* JavacTrees::attribExprToTree($JCTree$JCExpression* expr, $Env* env, $JCTre
 }
 
 void JavacTrees::fixLocalClassNames($Map* copiedClasses, $Env* lastEnv) {
+	$useLocalCurrentObjectStackCache();
 	$var($Map, flatnameForClass, nullptr);
 	{
 		$var($Iterator, i$, $nc($($nc(copiedClasses)->entrySet()))->iterator());
@@ -1449,6 +1470,7 @@ void JavacTrees::fixLocalClassNames($Map* copiedClasses, $Env* lastEnv) {
 }
 
 $Map* JavacTrees::prepareFlatnameForClass($Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($Map, flatNameForClass, $new($HashMap));
 	$var($Symbol, enclClass, $nc($nc(env)->enclClass)->sym);
 	if (enclClass != nullptr && ((int64_t)(enclClass->flags_field & (uint64_t)(int64_t)$Flags::UNATTRIBUTED)) != 0) {
@@ -1461,6 +1483,7 @@ $Map* JavacTrees::prepareFlatnameForClass($Env* env) {
 
 $JavaFileObject* JavacTrees::asJavaFileObject($FileObject* fileObject) {
 	$init(JavacTrees);
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileObject, jfo, nullptr);
 	{
 		$var($JavaFileObject, javaFileObject, nullptr);
@@ -1482,11 +1505,13 @@ $JavaFileObject* JavacTrees::asJavaFileObject($FileObject* fileObject) {
 
 void JavacTrees::checkHtmlKind($FileObject* fileObject) {
 	$init(JavacTrees);
+	$useLocalCurrentObjectStackCache();
 	checkHtmlKind(fileObject, $($BaseFileManager::getKind($($nc(fileObject)->getName()))));
 }
 
 void JavacTrees::checkHtmlKind($FileObject* fileObject, $JavaFileObject$Kind* kind) {
 	$init(JavacTrees);
+	$useLocalCurrentObjectStackCache();
 	$init($JavaFileObject$Kind);
 	if (kind != $JavaFileObject$Kind::HTML) {
 		$throwNew($IllegalArgumentException, $$str({"HTML file expected:"_s, $($nc(fileObject)->getName())}));
@@ -1494,6 +1519,7 @@ void JavacTrees::checkHtmlKind($FileObject* fileObject, $JavaFileObject$Kind* ki
 }
 
 $DocCommentTree* JavacTrees::getDocCommentTree($FileObject* fileObject) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileObject, jfo, asJavaFileObject(fileObject));
 	$var($DiagnosticSource, diagSource, $new($DiagnosticSource, jfo, this->log));
 	$var($Tokens$Comment, comment, $new($JavacTrees$4, this, fileObject));
@@ -1501,6 +1527,7 @@ $DocCommentTree* JavacTrees::getDocCommentTree($FileObject* fileObject) {
 }
 
 $DocTreePath* JavacTrees::getDocTreePath($FileObject* fileObject, $PackageElement* packageElement) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileObject, jfo, asJavaFileObject(fileObject));
 	$var($DocCommentTree, docCommentTree, getDocCommentTree(static_cast<$FileObject*>(jfo)));
 	if (docCommentTree == nullptr) {
@@ -1523,6 +1550,7 @@ $JavacTrees$Copier* JavacTrees::createCopier($TreeMaker* maker) {
 }
 
 $TypeMirror* JavacTrees::getOriginalType($ErrorType* errorType) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Type$ErrorType, targetErrorType, nullptr);
 		bool var$0 = $instanceOf($Type$ErrorType, errorType);
@@ -1559,6 +1587,7 @@ void JavacTrees::printMessage($Diagnostic$Kind* kind, $CharSequence* msg, $DocTr
 }
 
 void JavacTrees::printMessage($Diagnostic$Kind* kind, $CharSequence* msg, $JCDiagnostic$DiagnosticPosition* pos$renamed, $CompilationUnitTree* root) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCDiagnostic$DiagnosticPosition, pos, pos$renamed);
 	$var($JavaFileObject, oldSource, nullptr);
 	$var($JavaFileObject, newSource, nullptr);
@@ -1608,6 +1637,7 @@ void JavacTrees::printMessage($Diagnostic$Kind* kind, $CharSequence* msg, $JCDia
 }
 
 $TypeMirror* JavacTrees::getLub($CatchTree* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCCatch, ct, $cast($JCTree$JCCatch, tree));
 	$var($JCTree$JCVariableDecl, v, $nc(ct)->param);
 	$init($TypeKind);
@@ -1620,6 +1650,7 @@ $TypeMirror* JavacTrees::getLub($CatchTree* tree) {
 }
 
 $TreePath* JavacTrees::makeTreePath($Symbol$PackageSymbol* psym, $JavaFileObject* jfo, $DocCommentTree* dcTree) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCCompilationUnit, jcCompilationUnit, $new($JavacTrees$6, this, $($List::nil()), jfo));
 	$set(jcCompilationUnit, docComments, $new($JavacTrees$7, this, dcTree));
 	$set(jcCompilationUnit, lineMap, $cast($Position$LineMap, jcCompilationUnit->getLineMap()));
@@ -1633,6 +1664,7 @@ $TreePath* JavacTrees::makeTreePath($Symbol$PackageSymbol* psym, $JavaFileObject
 }
 
 $Type* JavacTrees::lambda$getOriginalType$1($Type$ClassType* classType, $Type* tt) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, var$0, $nc(classType)->getEnclosingType());
 	$var($List, var$1, classType->typarams_field);
 	$var($Symbol$TypeSymbol, var$2, classType->tsym);

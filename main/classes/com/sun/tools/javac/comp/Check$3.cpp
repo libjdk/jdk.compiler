@@ -103,6 +103,7 @@ $Boolean* Check$3::visitTypeVar($Type$TypeVar* t, $Void* s) {
 }
 
 $Boolean* Check$3::visitCapturedType($Type$CapturedType* t, $Void* s) {
+	$useLocalCurrentObjectStackCache();
 	bool var$0 = $nc(($cast($Boolean, $(visit($($nc(t)->getUpperBound()))))))->booleanValue();
 	return $Boolean::valueOf(var$0 || $nc(($cast($Boolean, $(visit($($nc(t)->getLowerBound()))))))->booleanValue());
 }

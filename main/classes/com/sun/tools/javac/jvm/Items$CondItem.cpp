@@ -103,6 +103,7 @@ void Items$CondItem::init$($Items* this$0, int32_t opcode, $Code$Chain* truejump
 }
 
 $Items$Item* Items$CondItem::load() {
+	$useLocalCurrentObjectStackCache();
 	$var($Code$Chain, trueChain, nullptr);
 	$var($Code$Chain, falseChain, jumpFalse());
 	if (!isFalse()) {
@@ -135,6 +136,7 @@ Items$CondItem* Items$CondItem::mkCond() {
 }
 
 $Code$Chain* Items$CondItem::jumpTrue() {
+	$useLocalCurrentObjectStackCache();
 	if (this->tree == nullptr) {
 		return $Code::mergeChains(this->trueJumps, $($nc(this->this$0->code)->branch(this->opcode)));
 	}
@@ -145,6 +147,7 @@ $Code$Chain* Items$CondItem::jumpTrue() {
 }
 
 $Code$Chain* Items$CondItem::jumpFalse() {
+	$useLocalCurrentObjectStackCache();
 	if (this->tree == nullptr) {
 		return $Code::mergeChains(this->falseJumps, $($nc(this->this$0->code)->branch($Code::negate(this->opcode))));
 	}

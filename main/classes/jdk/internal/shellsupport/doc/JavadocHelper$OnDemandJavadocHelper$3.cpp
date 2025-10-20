@@ -122,6 +122,7 @@ $Void* JavadocHelper$OnDemandJavadocHelper$3::visitVariable($VariableTree* node,
 }
 
 void JavadocHelper$OnDemandJavadocHelper$3::handleDeclaration() {
+	$useLocalCurrentObjectStackCache();
 	$var($Element, currentElement, $nc(this->val$trees)->getElement($(getCurrentPath())));
 	if (currentElement != nullptr) {
 		$var($Object, var$0, $of(this->this$0->elementSignature(currentElement)));

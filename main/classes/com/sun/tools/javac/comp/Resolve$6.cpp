@@ -340,6 +340,7 @@ void Resolve$6::init$($Resolve* this$0) {
 }
 
 $Symbol* Resolve$6::loadClass($Env* env, $Name* name) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, candidates, $Convert::classCandidates(name));
 	$var($Env, var$0, env);
 	$var($Name, var$1, name);
@@ -355,6 +356,7 @@ bool Resolve$6::lambda$loadClass$4($Symbol$ClassSymbol* sym) {
 }
 
 $Symbol$ClassSymbol* Resolve$6::lambda$loadClass$3($List* candidates, $Symbol$ModuleSymbol* ms, $Name* n) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(candidates)->iterator());
 		for (; $nc(i$)->hasNext();) {

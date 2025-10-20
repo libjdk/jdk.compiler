@@ -113,6 +113,7 @@ bool MultiTaskListener::isEmpty() {
 }
 
 void MultiTaskListener::add($TaskListener* listener) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($TaskListenerArray, arr$, this->listeners);
 		int32_t len$ = $nc(arr$)->length;
@@ -131,6 +132,7 @@ void MultiTaskListener::add($TaskListener* listener) {
 }
 
 void MultiTaskListener::remove($TaskListener* listener) {
+	$useLocalCurrentObjectStackCache();
 	for (int32_t i = 0; i < $nc(this->listeners)->length; ++i) {
 		if ($nc(this->ccw)->unwrap($nc(this->listeners)->get(i)) == listener) {
 			if ($nc(this->listeners)->length == 1) {
@@ -147,6 +149,7 @@ void MultiTaskListener::remove($TaskListener* listener) {
 }
 
 void MultiTaskListener::started($TaskEvent* e) {
+	$useLocalCurrentObjectStackCache();
 	$var($DeferredCompletionFailureHandler$Handler, prevDeferredHandler, $nc(this->dcfh)->setHandler($nc(this->dcfh)->userCodeHandler));
 	{
 		$var($Throwable, var$0, nullptr);
@@ -173,6 +176,7 @@ void MultiTaskListener::started($TaskEvent* e) {
 }
 
 void MultiTaskListener::finished($TaskEvent* e) {
+	$useLocalCurrentObjectStackCache();
 	$var($DeferredCompletionFailureHandler$Handler, prevDeferredHandler, $nc(this->dcfh)->setHandler($nc(this->dcfh)->userCodeHandler));
 	{
 		$var($Throwable, var$0, nullptr);

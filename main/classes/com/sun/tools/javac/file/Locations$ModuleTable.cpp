@@ -191,6 +191,7 @@ void Locations$ModuleTable::init$($Locations* this$0) {
 }
 
 void Locations$ModuleTable::add($Locations$ModuleLocationHandler* h) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->nameMap)->put($nc(h)->moduleName, h);
 	{
 		$var($Iterator, i$, $nc($nc(h)->searchPath)->iterator());
@@ -204,6 +205,7 @@ void Locations$ModuleTable::add($Locations$ModuleLocationHandler* h) {
 }
 
 void Locations$ModuleTable::updatePaths($Locations$ModuleLocationHandler* h) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, iter, $nc($($nc(this->pathMap)->entrySet()))->iterator());
 		for (; $nc(iter)->hasNext();) {
@@ -229,6 +231,7 @@ $Locations$ModuleLocationHandler* Locations$ModuleTable::get($String* name) {
 }
 
 $Locations$ModuleLocationHandler* Locations$ModuleTable::get($Path* path$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($Path, path, path$renamed);
 	while (path != nullptr) {
 		$var($Locations$ModuleLocationHandler, l, $cast($Locations$ModuleLocationHandler, $nc(this->pathMap)->get(path)));
@@ -254,10 +257,12 @@ bool Locations$ModuleTable::contains($Path* file) {
 }
 
 $Set* Locations$ModuleTable::locations() {
+	$useLocalCurrentObjectStackCache();
 	return $Collections::unmodifiableSet($cast($Set, $($nc($($nc($($nc(this->nameMap)->values()))->stream()))->collect($($Collectors::toSet())))));
 }
 
 $Set* Locations$ModuleTable::explicitLocations() {
+	$useLocalCurrentObjectStackCache();
 	return $Collections::unmodifiableSet($cast($Set, $($nc($($nc($($nc($($nc($($nc(this->nameMap)->entrySet()))->stream()))->filter(static_cast<$Predicate*>($$new(Locations$ModuleTable$$Lambda$lambda$explicitLocations$0)))))->map(static_cast<$Function*>($$new(Locations$ModuleTable$$Lambda$lambda$explicitLocations$1$1)))))->collect($($Collectors::toSet())))));
 }
 

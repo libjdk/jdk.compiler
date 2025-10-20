@@ -284,6 +284,7 @@ $JavaFileManager$Location* Locations$ModulePathLocationHandler::getLocationForMo
 }
 
 $Iterable* Locations$ModulePathLocationHandler::listLocationsForModules() {
+	$useLocalCurrentObjectStackCache();
 	$var($Set, explicitLocations, this->moduleTable != nullptr ? $nc(this->moduleTable)->explicitLocations() : $Collections::emptySet());
 	$var($Iterable, explicitLocationsList, !$nc(explicitLocations)->isEmpty() ? static_cast<$Iterable*>($Collections::singletonList(explicitLocations)) : static_cast<$Iterable*>($Collections::emptyList()));
 	if (this->searchPath == nullptr) {
@@ -301,6 +302,7 @@ bool Locations$ModulePathLocationHandler::contains($Path* file) {
 }
 
 void Locations$ModulePathLocationHandler::setPaths($Iterable* paths) {
+	$useLocalCurrentObjectStackCache();
 	if (paths != nullptr) {
 		{
 			$var($Iterator, i$, paths->iterator());
@@ -317,6 +319,7 @@ void Locations$ModulePathLocationHandler::setPaths($Iterable* paths) {
 }
 
 void Locations$ModulePathLocationHandler::setPathsForModule($String* name, $Iterable* paths) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, checkedPaths, checkPaths(paths));
 	initModuleLocations();
 	$var($Locations$ModuleLocationHandler, l, $nc(this->moduleTable)->get(name));
@@ -332,6 +335,7 @@ void Locations$ModulePathLocationHandler::setPathsForModule($String* name, $Iter
 }
 
 $List* Locations$ModulePathLocationHandler::checkPaths($Iterable* paths) {
+	$useLocalCurrentObjectStackCache();
 	$Objects::requireNonNull(paths);
 	$var($List, validPaths, $new($ArrayList));
 	{
@@ -347,6 +351,7 @@ $List* Locations$ModulePathLocationHandler::checkPaths($Iterable* paths) {
 }
 
 void Locations$ModulePathLocationHandler::initModuleLocations() {
+	$useLocalCurrentObjectStackCache();
 	if (this->moduleTable != nullptr) {
 		return;
 	}
@@ -383,6 +388,7 @@ void Locations$ModulePathLocationHandler::initModuleLocations() {
 }
 
 void Locations$ModulePathLocationHandler::checkValidModulePathEntry($Path* p) {
+	$useLocalCurrentObjectStackCache();
 	if (!$Files::exists(p, $$new($LinkOptionArray, 0))) {
 		return;
 	}
@@ -425,6 +431,7 @@ void Locations$ModulePathLocationHandler::checkValidModulePathEntry($Path* p) {
 }
 
 bool Locations$ModulePathLocationHandler::isModuleName($String* name) {
+	$useLocalCurrentObjectStackCache();
 	int32_t next = 0;
 	int32_t off = 0;
 	while ((next = $nc(name)->indexOf((int32_t)u'.', off)) != -1) {
@@ -440,6 +447,7 @@ bool Locations$ModulePathLocationHandler::isModuleName($String* name) {
 
 $Iterator* Locations$ModulePathLocationHandler::lambda$listLocationsForModules$1($Iterable* explicitLocationsList, $Iterable* searchPathLocations) {
 	$init(Locations$ModulePathLocationHandler);
+	$useLocalCurrentObjectStackCache();
 	$var($Iterable, var$0, static_cast<$Iterable*>($Arrays::asList($$new($IterableArray, {
 		explicitLocationsList,
 		searchPathLocations

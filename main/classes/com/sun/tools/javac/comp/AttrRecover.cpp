@@ -341,6 +341,7 @@ void AttrRecover::init$($Context* context) {
 }
 
 void AttrRecover::doRecovery() {
+	$useLocalCurrentObjectStackCache();
 	while ($nc(this->recoveryTodo)->nonEmpty()) {
 		$var($AttrRecover$RecoverTodo, todo, $cast($AttrRecover$RecoverTodo, $nc(this->recoveryTodo)->remove()));
 		$var($ListBuffer, rollback, $new($ListBuffer));
@@ -442,6 +443,7 @@ void AttrRecover::doRecovery() {
 }
 
 $Type* AttrRecover::recoverMethodInvocation($JCTree* tree, $Type* site, $Symbol* sym, $Env* env, $Attr$ResultInfo* resultInfo) {
+	$useLocalCurrentObjectStackCache();
 	if (((int64_t)($nc(sym)->flags_field & (uint64_t)$Flags::RECOVERABLE)) != 0 && $nc($nc(($cast($AttrContext, $nc(env)->info)))->attributionMode)->recover()) {
 		$nc(this->recoveryTodo)->append($$new($AttrRecover$RecoverTodo, tree, site, sym, $nc(($cast($AttrRecover$RecoveryErrorType, sym->type)))->candidateSymbol, $($nc(this->attr)->copyEnv(env)), resultInfo));
 		return $nc(this->syms)->errType;
@@ -451,6 +453,7 @@ $Type* AttrRecover::recoverMethodInvocation($JCTree* tree, $Type* site, $Symbol*
 }
 
 $Type* AttrRecover::basicMethodInvocationRecovery($JCTree* tree, $Type* site, $Symbol* sym, $Env* env, $Attr$ResultInfo* resultInfo) {
+	$useLocalCurrentObjectStackCache();
 	$init($DeferredAttr$AttrMode);
 	$var($Type, pt, $nc($nc(resultInfo)->pt)->map($$new($DeferredAttr$RecoveryDeferredTypeMap, static_cast<$DeferredAttr*>($nc(this->deferredAttr)), $DeferredAttr$AttrMode::SPECULATIVE, sym, $nc(($cast($AttrContext, $nc(env)->info)))->pendingResolutionPhase)));
 	$var($Type, owntype, $nc(this->attr)->checkIdInternal(tree, site, sym, pt, env, resultInfo));
@@ -459,6 +462,7 @@ $Type* AttrRecover::basicMethodInvocationRecovery($JCTree* tree, $Type* site, $S
 }
 
 void AttrRecover::wrongMethodSymbolCandidate($Symbol$TypeSymbol* errSymbol, $Symbol* candSym, $JCDiagnostic* diag) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, diags, $List::of(diag));
 	bool recoverable = false;
 	while (!recoverable && $nc(diags)->nonEmpty()) {

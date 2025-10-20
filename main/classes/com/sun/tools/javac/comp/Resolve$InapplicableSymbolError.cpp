@@ -143,6 +143,7 @@ bool Resolve$InapplicableSymbolError::exists() {
 }
 
 $JCDiagnostic* Resolve$InapplicableSymbolError::getDiagnostic($JCDiagnostic$DiagnosticType* dkind, $JCDiagnostic$DiagnosticPosition* pos, $Symbol* location, $Type* site, $Name* name, $List* argtypes, $List* typeargtypes) {
+	$useLocalCurrentObjectStackCache();
 	if (name == $nc(this->this$0->names)->error) {
 		return nullptr;
 	}
@@ -170,6 +171,7 @@ $JCDiagnostic* Resolve$InapplicableSymbolError::getDiagnostic($JCDiagnostic$Diag
 }
 
 $Symbol* Resolve$InapplicableSymbolError::access($Name* name, $Symbol$TypeSymbol* location) {
+	$useLocalCurrentObjectStackCache();
 	$var($Pair, cand, errCandidate());
 	$var($Symbol$TypeSymbol, errSymbol, $nc($($nc(this->this$0->types)->createErrorType(name, location, cand != nullptr ? $nc(($cast($Symbol, $nc(cand)->fst)))->type : $nc($nc(this->this$0->syms)->errSymbol)->type)))->tsym);
 	if (cand != nullptr) {
@@ -179,6 +181,7 @@ $Symbol* Resolve$InapplicableSymbolError::access($Name* name, $Symbol$TypeSymbol
 }
 
 $Pair* Resolve$InapplicableSymbolError::errCandidate() {
+	$useLocalCurrentObjectStackCache();
 	$var($Resolve$MethodResolutionContext$Candidate, bestSoFar, nullptr);
 	{
 		$var($Iterator, i$, $nc($nc(this->resolveContext)->candidates)->iterator());

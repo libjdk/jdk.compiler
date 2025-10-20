@@ -204,6 +204,7 @@ void Flow$CaptureAnalyzer::checkEffectivelyFinal($JCDiagnostic$DiagnosticPositio
 }
 
 void Flow$CaptureAnalyzer::letInit($JCTree* tree$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree, tree, tree$renamed);
 	$assign(tree, $TreeInfo::skipParens(tree));
 	$init($JCTree$Tag);
@@ -233,6 +234,7 @@ void Flow$CaptureAnalyzer::letInit($JCTree* tree$renamed) {
 }
 
 void Flow$CaptureAnalyzer::reportEffectivelyFinalError($JCDiagnostic$DiagnosticPosition* pos, $Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$init($Flow$1);
 
 	$var($JCDiagnostic$Fragment, var$0, nullptr)
@@ -269,6 +271,7 @@ void Flow$CaptureAnalyzer::reportInnerClsNeedsFinalError($JCDiagnostic$Diagnosti
 }
 
 void Flow$CaptureAnalyzer::visitClassDef($JCTree$JCClassDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree, prevTree, this->currentTree);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -287,6 +290,7 @@ void Flow$CaptureAnalyzer::visitClassDef($JCTree$JCClassDecl* tree) {
 }
 
 void Flow$CaptureAnalyzer::visitLambda($JCTree$JCLambda* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree, prevTree, this->currentTree);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -305,6 +309,7 @@ void Flow$CaptureAnalyzer::visitLambda($JCTree$JCLambda* tree) {
 }
 
 void Flow$CaptureAnalyzer::visitGuardPattern($JCTree$JCGuardPattern* tree) {
+	$useLocalCurrentObjectStackCache();
 	scan(static_cast<$JCTree*>($nc(tree)->patt));
 	$var($JCTree, prevTree, this->currentTree);
 	{
@@ -368,6 +373,7 @@ void Flow$CaptureAnalyzer::visitUnary($JCTree$JCUnary* tree) {
 }
 
 void Flow$CaptureAnalyzer::visitTry($JCTree$JCTry* tree) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($nc(tree)->resources)->iterator());
 		for (; $nc(i$)->hasNext();) {

@@ -93,6 +93,7 @@ void DeferredAttr$CheckStuckPolicy$1::init$($DeferredAttr$CheckStuckPolicy* this
 }
 
 void DeferredAttr$CheckStuckPolicy$1::visitReturn($JCTree$JCReturn* tree) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(tree)->expr != nullptr) {
 		$var($Type, prevPt, this->this$1->pt);
 		{

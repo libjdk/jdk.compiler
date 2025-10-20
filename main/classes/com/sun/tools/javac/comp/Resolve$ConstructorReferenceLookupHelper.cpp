@@ -103,6 +103,7 @@ $Object* allocate$Resolve$ConstructorReferenceLookupHelper($Class* clazz) {
 }
 
 void Resolve$ConstructorReferenceLookupHelper::init$($Resolve* this$0, $JCTree$JCMemberReference* referenceTree, $Type* site, $List* argtypes, $List* typeargtypes, $Resolve$MethodResolutionPhase* maxPhase) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, this$0, this$0);
 	$Resolve$ReferenceLookupHelper::init$(this$0, referenceTree, $nc(this$0->names)->init, site, argtypes, typeargtypes, maxPhase);
 	if ($nc(site)->isRaw()) {
@@ -115,6 +116,7 @@ void Resolve$ConstructorReferenceLookupHelper::init$($Resolve* this$0, $JCTree$J
 }
 
 $Symbol* Resolve$ConstructorReferenceLookupHelper::lookup($Env* env, $Resolve$MethodResolutionPhase* phase) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, var$0, nullptr);
 	if (this->needsInference) {
 		$var($Env, var$1, env);

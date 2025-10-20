@@ -122,6 +122,7 @@ void Analyzer$AnalyzerMode::init$($String* $enum$name, int32_t $enum$ordinal, $S
 
 $EnumSet* Analyzer$AnalyzerMode::getAnalyzerModes($String* opt, $Source* source) {
 	$init(Analyzer$AnalyzerMode);
+	$useLocalCurrentObjectStackCache();
 	if (opt == nullptr) {
 		return $EnumSet::noneOf(Analyzer$AnalyzerMode::class$);
 	}

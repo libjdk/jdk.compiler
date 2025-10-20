@@ -96,6 +96,7 @@ $Object* allocate$ModuleFinder$ModuleLocationIterator($Class* clazz) {
 }
 
 void ModuleFinder$ModuleLocationIterator::init$($ModuleFinder* this$0) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, this$0, this$0);
 	$set(this, next$, nullptr);
 		$init($StandardLocation);
@@ -109,6 +110,7 @@ void ModuleFinder$ModuleLocationIterator::init$($ModuleFinder* this$0) {
 }
 
 bool ModuleFinder$ModuleLocationIterator::hasNext() {
+	$useLocalCurrentObjectStackCache();
 	while (this->next$ == nullptr) {
 		while (this->innerIter == nullptr || !$nc(this->innerIter)->hasNext()) {
 			if ($nc(this->outerIter)->hasNext()) {

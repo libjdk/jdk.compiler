@@ -92,6 +92,7 @@ void Modules$3::init$($Modules* this$0) {
 }
 
 void Modules$3::complete($Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	if (this->this$0->inInitModules) {
 		$set($nc(sym), completer, this);
 		return;

@@ -118,6 +118,7 @@ void FSInfo::init$($Context* context) {
 }
 
 $Path* FSInfo::getCanonicalFile($Path* file) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(file)->toRealPath($$new($LinkOptionArray, 0));
 	} catch ($IOException&) {
@@ -140,6 +141,7 @@ bool FSInfo::isFile($Path* file) {
 }
 
 $List* FSInfo::getJarClassPath($Path* file) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($JarFile, jarFile, $new($JarFile, $($nc(file)->toFile())));
 		{
@@ -214,6 +216,7 @@ $List* FSInfo::getJarClassPath($Path* file) {
 }
 
 $URL* FSInfo::tryResolveFile($URL* base, $String* input) {
+	$useLocalCurrentObjectStackCache();
 	$var($URL, retVal, $new($URL, base, input));
 	bool var$0 = $nc(input)->indexOf((int32_t)u':') >= 0;
 	if (var$0 && !"file"_s->equalsIgnoreCase($(retVal->getProtocol()))) {
@@ -224,6 +227,7 @@ $URL* FSInfo::tryResolveFile($URL* base, $String* input) {
 
 $FileSystemProvider* FSInfo::getJarFSProvider() {
 	$synchronized(this) {
+		$useLocalCurrentObjectStackCache();
 		if (this->jarFSProvider != nullptr) {
 			return this->jarFSProvider;
 		}

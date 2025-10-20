@@ -194,6 +194,7 @@ void Infer$InferenceStep$3::init$($String* $enum$name, int32_t $enum$ordinal, $T
 }
 
 bool Infer$InferenceStep$3::accepts($Type$UndetVar* t, $InferenceContext* inferenceContext) {
+	$useLocalCurrentObjectStackCache();
 	if (!$nc(t)->isThrows()) {
 		return false;
 	}

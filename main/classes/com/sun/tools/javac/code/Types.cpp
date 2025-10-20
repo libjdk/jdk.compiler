@@ -1032,6 +1032,7 @@ $Type* Types::wildUpperBound($Type* t) {
 }
 
 $Type* Types::cvarUpperBound($Type* t) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	if ($nc(t)->hasTag($TypeTag::TYPEVAR)) {
 		$var($Type$TypeVar, v, $cast($Type$TypeVar, t));
@@ -1076,6 +1077,7 @@ $Type* Types::upward($Type* t, $List* vars) {
 }
 
 $List* Types::captures($Type* t) {
+	$useLocalCurrentObjectStackCache();
 	$var($Types$CaptureScanner, cs, $new($Types$CaptureScanner, this));
 	$var($Set, captures, $new($HashSet));
 	cs->visit(t, captures);
@@ -1091,6 +1093,7 @@ $Type* Types::asSub($Type* t, $Symbol* sym) {
 }
 
 bool Types::isConvertible($Type* t, $Type* s, $Warner* warn) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	if ($nc(t)->hasTag($TypeTag::ERROR)) {
 		return true;
@@ -1143,6 +1146,7 @@ bool Types::isFunctionalInterface($Type* site) {
 }
 
 $Type* Types::removeWildcards($Type* site) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc($($nc($($nc(site)->getTypeArguments()))->stream()))->anyMatch(static_cast<$Predicate*>($$new(Types$$Lambda$lambda$removeWildcards$0$1)))) {
 		$var($List, actuals, site->getTypeArguments());
 		$var($List, formals, $nc($nc(site->tsym)->type)->getTypeArguments());
@@ -1197,6 +1201,7 @@ $Type* Types::removeWildcards($Type* site) {
 }
 
 $Symbol$ClassSymbol* Types::makeFunctionalInterfaceClass($Env* env, $Name* name, $Type* target, int64_t cflags) {
+	$useLocalCurrentObjectStackCache();
 	if (target == nullptr || target == $nc(this->syms)->unknownType) {
 		return nullptr;
 	}
@@ -1218,6 +1223,7 @@ $Symbol$ClassSymbol* Types::makeFunctionalInterfaceClass($Env* env, $Name* name,
 }
 
 $List* Types::functionalInterfaceBridges($Symbol$TypeSymbol* origin) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::check(isFunctionalInterface(origin));
 	$var($Symbol, descSym, findDescriptorSymbol(origin));
 	$var($Scope$CompoundScope, members, membersClosure($nc(origin)->type, false));
@@ -1266,6 +1272,7 @@ $List* Types::functionalInterfaceBridges($Symbol$TypeSymbol* origin) {
 }
 
 bool Types::pendingBridges($Symbol$ClassSymbol* origin, $Symbol$TypeSymbol* s) {
+	$useLocalCurrentObjectStackCache();
 	$init($JavaFileObject$Kind);
 	bool var$0 = $nc(origin)->classfile != nullptr && $nc(origin->classfile)->getKind() == $JavaFileObject$Kind::CLASS;
 	if (var$0 && $nc(this->enter)->getEnv(origin) == nullptr) {
@@ -1301,6 +1308,7 @@ bool Types::isSubtypeUnchecked($Type* t, $Type* s, $Warner* warn) {
 }
 
 bool Types::isSubtypeUncheckedInternal($Type* t, $Type* s, bool capture, $Warner* warn) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	bool var$0 = $nc(t)->hasTag($TypeTag::ARRAY);
 	if (var$0 && $nc(s)->hasTag($TypeTag::ARRAY)) {
@@ -1334,6 +1342,7 @@ bool Types::isSubtypeUncheckedInternal($Type* t, $Type* s, bool capture, $Warner
 }
 
 void Types::checkUnsafeVarargsConversion($Type* t, $Type* s, $Warner* warn) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	bool var$0 = !$nc(t)->hasTag($TypeTag::ARRAY);
 	if (var$0 || isReifiable(t)) {
@@ -1375,6 +1384,7 @@ bool Types::isSubtypeNoCapture($Type* t, $Type* s) {
 }
 
 bool Types::isSubtype($Type* t, $Type* s, bool capture) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(t)->equalsIgnoreMetadata(s)) {
 		return true;
 	}
@@ -1419,6 +1429,7 @@ bool Types::isSubtypeUnchecked($Type* t, $List* ts, $Warner* warn) {
 }
 
 bool Types::isSubtypes($List* ts$renamed, $List* ss$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, ss, ss$renamed);
 	$var($List, ts, ts$renamed);
 	while ($nc(ts)->tail != nullptr && $nc(ss)->tail != nullptr && isSubtype($cast($Type, ts->head), $cast($Type, ss->head))) {
@@ -1429,6 +1440,7 @@ bool Types::isSubtypes($List* ts$renamed, $List* ss$renamed) {
 }
 
 bool Types::isSubtypesUnchecked($List* ts$renamed, $List* ss$renamed, $Warner* warn) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, ss, ss$renamed);
 	$var($List, ts, ts$renamed);
 	while ($nc(ts)->tail != nullptr && $nc(ss)->tail != nullptr && isSubtypeUnchecked($cast($Type, ts->head), $cast($Type, ss->head), warn)) {
@@ -1439,6 +1451,7 @@ bool Types::isSubtypesUnchecked($List* ts$renamed, $List* ss$renamed, $Warner* w
 }
 
 bool Types::isSuperType($Type* t, $Type* s) {
+	$useLocalCurrentObjectStackCache();
 	$init($Types$25);
 	switch ($nc($Types$25::$SwitchMap$com$sun$tools$javac$code$TypeTag)->get($nc(($($nc(t)->getTag())))->ordinal())) {
 	case 16:
@@ -1467,6 +1480,7 @@ bool Types::isSuperType($Type* t, $Type* s) {
 }
 
 bool Types::isSameTypes($List* ts$renamed, $List* ss$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, ss, ss$renamed);
 	$var($List, ts, ts$renamed);
 	while ($nc(ts)->tail != nullptr && $nc(ss)->tail != nullptr && isSameType($cast($Type, ts->head), $cast($Type, ss->head))) {
@@ -1488,6 +1502,7 @@ bool Types::isSameType($Type* t, $Type* s) {
 }
 
 bool Types::containedBy($Type* t, $Type* s) {
+	$useLocalCurrentObjectStackCache();
 	$init($Types$25);
 	switch ($nc($Types$25::$SwitchMap$com$sun$tools$javac$code$TypeTag)->get($nc(($($nc(t)->getTag())))->ordinal())) {
 	case 17:
@@ -1537,6 +1552,7 @@ bool Types::containedBy($Type* t, $Type* s) {
 }
 
 bool Types::containsType($List* ts$renamed, $List* ss$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, ss, ss$renamed);
 	$var($List, ts, ts$renamed);
 	while (true) {
@@ -1577,6 +1593,7 @@ bool Types::isSameWildcard($Type$WildcardType* t, $Type* s) {
 }
 
 bool Types::containsTypeEquivalent($List* ts$renamed, $List* ss$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, ss, ss$renamed);
 	$var($List, ts, ts$renamed);
 	while (true) {
@@ -1599,6 +1616,7 @@ bool Types::isCastable($Type* t, $Type* s) {
 }
 
 bool Types::isCastable($Type* t$renamed, $Type* s, $Warner* warn) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, t, t$renamed);
 	if (t == s) {
 		return true;
@@ -1651,6 +1669,7 @@ bool Types::isCastable($Type* t$renamed, $Type* s, $Warner* warn) {
 }
 
 bool Types::areDisjoint($Symbol$ClassSymbol* ts, $Symbol$ClassSymbol* ss) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, var$0, erasure($nc(ts)->type));
 	if (isSubtype(var$0, $(erasure($nc(ss)->type)))) {
 		return false;
@@ -1682,6 +1701,7 @@ bool Types::areDisjoint($Symbol$ClassSymbol* ts, $Symbol$ClassSymbol* ss) {
 }
 
 bool Types::disjointTypes($List* ts$renamed, $List* ss$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, ss, ss$renamed);
 	$var($List, ts, ts$renamed);
 	while ($nc(ts)->tail != nullptr && $nc(ss)->tail != nullptr) {
@@ -1703,6 +1723,7 @@ $List* Types::cvarLowerBounds($List* ts) {
 }
 
 bool Types::notSoftSubtype($Type* t, $Type* s$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, s, s$renamed);
 	if (t == s) {
 		return false;
@@ -1738,6 +1759,7 @@ bool Types::isArray($Type* t$renamed) {
 }
 
 $Type* Types::elemtype($Type* t) {
+	$useLocalCurrentObjectStackCache();
 	$init($Types$25);
 	switch ($nc($Types$25::$SwitchMap$com$sun$tools$javac$code$TypeTag)->get($nc(($($nc(t)->getTag())))->ordinal())) {
 	case 14:
@@ -1780,6 +1802,7 @@ int32_t Types::dimensions($Type* t$renamed) {
 }
 
 $Type$ArrayType* Types::makeArrayType($Type* t) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	bool var$0 = $nc(t)->hasTag($TypeTag::VOID);
 	if (var$0 || $nc(t)->hasTag($TypeTag::PACKAGE)) {
@@ -1796,6 +1819,7 @@ $Type* Types::asSuper($Type* t, $Symbol* sym) {
 }
 
 $Type* Types::asOuterSuper($Type* t$renamed, $Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, t, t$renamed);
 	$init($Types$25);
 	switch ($nc($Types$25::$SwitchMap$com$sun$tools$javac$code$TypeTag)->get($nc(($($nc(t)->getTag())))->ordinal())) {
@@ -1831,6 +1855,7 @@ $Type* Types::asOuterSuper($Type* t$renamed, $Symbol* sym) {
 }
 
 $Type* Types::asEnclosingSuper($Type* t$renamed, $Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, t, t$renamed);
 	$init($Types$25);
 	switch ($nc($Types$25::$SwitchMap$com$sun$tools$javac$code$TypeTag)->get($nc(($($nc(t)->getTag())))->ordinal())) {
@@ -1876,6 +1901,7 @@ bool Types::isAssignable($Type* t, $Type* s) {
 }
 
 bool Types::isAssignable($Type* t, $Type* s, $Warner* warn) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	if ($nc(t)->hasTag($TypeTag::ERROR)) {
 		return true;
@@ -1926,6 +1952,7 @@ bool Types::eraseNotNeeded($Type* t) {
 }
 
 $Type* Types::erasure($Type* t, bool recurse) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(t)->isPrimitive()) {
 		return t;
 	} else {
@@ -1951,6 +1978,7 @@ $Type$IntersectionClassType* Types::makeIntersectionType($List* bounds) {
 }
 
 $Type$IntersectionClassType* Types::makeIntersectionType($List* bounds$renamed, bool allInterfaces) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, bounds, bounds$renamed);
 	$Assert::check($nc(bounds)->nonEmpty());
 	$var($Type, firstExplicitBound, $cast($Type, $nc(bounds)->head));
@@ -1980,6 +2008,7 @@ $List* Types::directSupertypes($Type* t) {
 }
 
 bool Types::isDirectSuperInterface($Symbol$TypeSymbol* isym, $Symbol$TypeSymbol* origin) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($(interfaces($nc(origin)->type)))->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -2004,6 +2033,7 @@ bool Types::isDerivedRaw($Type* t) {
 }
 
 bool Types::isDerivedRawInternal($Type* t) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(t)->isErroneous()) {
 		return false;
 	}
@@ -2040,6 +2070,7 @@ void Types::setBounds($Type$TypeVar* t, $List* bounds, bool allInterfaces) {
 }
 
 $List* Types::getBounds($Type$TypeVar* t) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	if ($nc($($nc(t)->getUpperBound()))->hasTag($TypeTag::NONE)) {
 		return $List::nil();
@@ -2069,12 +2100,14 @@ bool Types::isSubSignature($Type* t, $Type* s, bool strict) {
 }
 
 bool Types::overrideEquivalent($Type* t, $Type* s) {
+	$useLocalCurrentObjectStackCache();
 	bool var$1 = hasSameArgs(t, s);
 	bool var$0 = var$1 || hasSameArgs(t, $(erasure(s)));
 	return var$0 || hasSameArgs($(erasure(t)), s);
 }
 
 bool Types::overridesObjectMethod($Symbol$TypeSymbol* origin, $Symbol* msym) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($($nc($($nc($nc($nc(this->syms)->objectType)->tsym)->members()))->getSymbolsByName($nc(msym)->name)))->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -2090,6 +2123,7 @@ bool Types::overridesObjectMethod($Symbol$TypeSymbol* origin, $Symbol* msym) {
 }
 
 $Optional* Types::mergeAbstracts($List* ambiguousInOrder, $Type* site, bool sigCheck) {
+	$useLocalCurrentObjectStackCache();
 	bool shouldErase = false;
 	$var($List, erasedParams, $nc($($nc(($cast($Symbol, $nc(ambiguousInOrder)->head)))->erasure(this)))->getParameterTypes());
 	{
@@ -2181,12 +2215,14 @@ $Symbol$MethodSymbol* Types::implementation($Symbol$MethodSymbol* ms, $Symbol$Ty
 }
 
 $Scope$CompoundScope* Types::membersClosure($Type* site, bool skipInterface) {
+	$useLocalCurrentObjectStackCache();
 	$var($Scope$CompoundScope, cs, $cast($Scope$CompoundScope, $nc(this->membersCache)->visit(site, nullptr)));
 	$Assert::checkNonNull($of(cs), static_cast<$Supplier*>($$new(Types$$Lambda$lambda$membersClosure$2$3, site)));
 	return skipInterface ? static_cast<$Scope$CompoundScope*>($new($Types$MembersClosureCache$MembersScope, static_cast<$Types$MembersClosureCache*>($nc(this->membersCache)), cs)) : cs;
 }
 
 $Symbol$MethodSymbol* Types::firstUnimplementedAbstract($Symbol$ClassSymbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return firstUnimplementedAbstractImpl(sym, sym);
 	} catch ($Symbol$CompletionFailure&) {
@@ -2198,6 +2234,7 @@ $Symbol$MethodSymbol* Types::firstUnimplementedAbstract($Symbol$ClassSymbol* sym
 }
 
 $Symbol$MethodSymbol* Types::firstUnimplementedAbstractImpl($Symbol$ClassSymbol* impl, $Symbol$ClassSymbol* c) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$MethodSymbol, undef, nullptr);
 	if (c == impl || ((int64_t)($nc(c)->flags() & (uint64_t)(int64_t)(1024 | 512))) != 0) {
 		$var($Scope, s, c->members());
@@ -2245,6 +2282,7 @@ $Symbol$MethodSymbol* Types::firstUnimplementedAbstractImpl($Symbol$ClassSymbol*
 }
 
 $List* Types::interfaceCandidates($Type* site, $Symbol$MethodSymbol* ms) {
+	$useLocalCurrentObjectStackCache();
 	$var($Types$CandidatesCache$Entry, e, $new($Types$CandidatesCache$Entry, static_cast<$Types$CandidatesCache*>($nc(this->candidatesCache)), site, ms));
 	$var($List, candidates, $nc(this->candidatesCache)->get(e));
 	if (candidates == nullptr) {
@@ -2271,6 +2309,7 @@ $List* Types::interfaceCandidates($Type* site, $Symbol$MethodSymbol* ms) {
 }
 
 $List* Types::prune($List* methods) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, methodsMin, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc(methods)->iterator());
@@ -2323,6 +2362,7 @@ $Type* Types::subst($Type* t, $List* from, $List* to) {
 }
 
 $List* Types::substBounds($List* tvars, $List* from$renamed, $List* to$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, from, from$renamed);
 	$var($List, to, to$renamed);
 	if ($nc(tvars)->isEmpty()) {
@@ -2379,6 +2419,7 @@ $List* Types::substBounds($List* tvars, $List* from$renamed, $List* to$renamed) 
 }
 
 $Type$TypeVar* Types::substBound($Type$TypeVar* t, $List* from, $List* to) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, bound1, subst($($nc(t)->getUpperBound()), from, to));
 	if (bound1 == $nc(t)->getUpperBound()) {
 		return t;
@@ -2392,6 +2433,7 @@ $Type$TypeVar* Types::substBound($Type$TypeVar* t, $List* from, $List* to) {
 }
 
 bool Types::hasSameBounds($Type$ForAll* t, $Type$ForAll* s) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, l1, $nc(t)->tvars);
 	$var($List, l2, $nc(s)->tvars);
 	while (true) {
@@ -2414,6 +2456,7 @@ bool Types::hasSameBounds($Type$ForAll* t, $Type$ForAll* s) {
 }
 
 $List* Types::newInstances($List* tvars) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, tvars1, $nc(tvars)->map(Types::newInstanceFun));
 	{
 		$var($List, l, tvars1);
@@ -2450,6 +2493,7 @@ $Type* Types::createErrorType($Name* name, $Symbol$TypeSymbol* container, $Type*
 }
 
 int32_t Types::rank($Type* t) {
+	$useLocalCurrentObjectStackCache();
 	$init($Types$25);
 	switch ($nc($Types$25::$SwitchMap$com$sun$tools$javac$code$TypeTag)->get($nc(($($nc(t)->getTag())))->ordinal())) {
 	case 2:
@@ -2517,6 +2561,7 @@ $String* Types::toString($Symbol* t, $Locale* locale) {
 }
 
 $String* Types::toString($Type* t) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	if ($nc(t)->hasTag($TypeTag::FORALL)) {
 		$var($Type$ForAll, forAll, $cast($Type$ForAll, t));
@@ -2526,6 +2571,7 @@ $String* Types::toString($Type* t) {
 }
 
 $String* Types::typaramsString($List* tvars) {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, s, $new($StringBuilder));
 	s->append(u'<');
 	bool first = true;
@@ -2547,6 +2593,7 @@ $String* Types::typaramsString($List* tvars) {
 }
 
 void Types::appendTyparamString($Type$TypeVar* t, $StringBuilder* buf) {
+	$useLocalCurrentObjectStackCache();
 	$nc(buf)->append($of(t));
 	bool var$0 = $nc(t)->getUpperBound() == nullptr;
 	if (var$0 || $nc($nc($($nc(t)->getUpperBound()))->tsym)->getQualifiedName() == $nc(this->names)->java_lang_Object) {
@@ -2587,6 +2634,7 @@ void Types::appendTyparamString($Type$TypeVar* t, $StringBuilder* buf) {
 }
 
 $List* Types::closure($Type* t) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, cl, $cast($List, $nc(this->closureCache)->get(t)));
 	if (cl == nullptr) {
 		$var($Type, st, supertype(t));
@@ -2616,6 +2664,7 @@ $List* Types::closure($Type* t) {
 }
 
 $Collector* Types::closureCollector(bool minClosure, $BiPredicate* shouldSkip) {
+	$useLocalCurrentObjectStackCache();
 	$var($Supplier, var$0, static_cast<$Supplier*>($new(Types$$Lambda$lambda$closureCollector$3$4, this, minClosure, shouldSkip)));
 	$var($BiConsumer, var$1, static_cast<$BiConsumer*>($new(Types$$Lambda$add$5)));
 	$var($BinaryOperator, var$2, static_cast<$BinaryOperator*>($new(Types$$Lambda$merge$6)));
@@ -2639,6 +2688,7 @@ $List* Types::insert($List* cl, $Type* t) {
 }
 
 $List* Types::union$($List* cl1, $List* cl2, $BiPredicate* shouldSkip) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(cl1)->isEmpty()) {
 		return cl2;
 	} else if ($nc(cl2)->isEmpty()) {
@@ -2657,6 +2707,7 @@ $List* Types::union$($List* cl1, $List* cl2) {
 }
 
 $List* Types::intersect($List* cl1, $List* cl2) {
+	$useLocalCurrentObjectStackCache();
 	if (cl1 == cl2) {
 		return cl1;
 	}
@@ -2690,6 +2741,7 @@ $List* Types::intersect($List* cl1, $List* cl2) {
 }
 
 $Type* Types::merge($Type* c1, $Type* c2) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type$ClassType, class1, $cast($Type$ClassType, c1));
 	$var($List, act1, $nc(class1)->getTypeArguments());
 	$var($Type$ClassType, class2, $cast($Type$ClassType, c2));
@@ -2750,6 +2802,7 @@ $Type* Types::compoundMin($List* cl) {
 }
 
 $List* Types::closureMin($List* cl$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, cl, cl$renamed);
 	$var($ListBuffer, classes, $new($ListBuffer));
 	$var($ListBuffer, interfaces, $new($ListBuffer));
@@ -2796,10 +2849,12 @@ $List* Types::closureMin($List* cl$renamed) {
 }
 
 $Type* Types::lub($List* ts) {
+	$useLocalCurrentObjectStackCache();
 	return lub($fcast($TypeArray, $($nc(ts)->toArray($$new($TypeArray, ts->length())))));
 }
 
 $Type* Types::lub($TypeArray* ts) {
+	$useLocalCurrentObjectStackCache();
 	int32_t UNKNOWN_BOUND = 0;
 	int32_t ARRAY_BOUND = 1;
 	int32_t CLASS_BOUND = 2;
@@ -2941,6 +2996,7 @@ case$3:
 }
 
 $List* Types::erasedSupertypes($Type* t) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, buf, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc($(closure(t)))->iterator());
@@ -2967,6 +3023,7 @@ $Type* Types::arraySuperType() {
 }
 
 $Type* Types::glb($List* ts) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, t1, $cast($Type, $nc(ts)->head));
 	{
 		$var($Iterator, i$, $nc(ts->tail)->iterator());
@@ -2984,6 +3041,7 @@ $Type* Types::glb($List* ts) {
 }
 
 $Type* Types::glb($Type* t, $Type* s) {
+	$useLocalCurrentObjectStackCache();
 	if (s == nullptr) {
 		return t;
 	} else {
@@ -3002,6 +3060,7 @@ $Type* Types::glb($Type* t, $Type* s) {
 }
 
 $Type* Types::glbFlattened($List* flatBounds, $Type* errT) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, bounds, closureMin(flatBounds));
 	if ($nc(bounds)->isEmpty()) {
 		return $nc(this->syms)->objectType;
@@ -3045,10 +3104,12 @@ int32_t Types::hashCode($Type* t) {
 }
 
 int32_t Types::hashCode($Type* t, bool strict) {
+	$useLocalCurrentObjectStackCache();
 	return $nc((strict ? $cast($Integer, $($nc(Types::hashCodeStrictVisitor)->visit(t))) : $cast($Integer, $($nc(Types::hashCodeVisitor)->visit(t)))))->intValue();
 }
 
 bool Types::resultSubtype($Type* t, $Type* s, $Warner* warner) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, tvars, $nc(t)->getTypeArguments());
 	$var($List, svars, $nc(s)->getTypeArguments());
 	$var($Type, tres, t->getReturnType());
@@ -3057,6 +3118,7 @@ bool Types::resultSubtype($Type* t, $Type* s, $Warner* warner) {
 }
 
 bool Types::returnTypeSubstitutable($Type* r1, $Type* r2) {
+	$useLocalCurrentObjectStackCache();
 	if (hasSameArgs(r1, r2)) {
 		return resultSubtype(r1, r2, this->noWarnings);
 	} else {
@@ -3066,6 +3128,7 @@ bool Types::returnTypeSubstitutable($Type* r1, $Type* r2) {
 }
 
 bool Types::returnTypeSubstitutable($Type* r1, $Type* r2, $Type* r2res, $Warner* warner) {
+	$useLocalCurrentObjectStackCache();
 	if (isSameType($($nc(r1)->getReturnType()), r2res)) {
 		return true;
 	}
@@ -3107,6 +3170,7 @@ $Type* Types::boxedTypeOrType($Type* t) {
 }
 
 $Type* Types::unboxedType($Type* t) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	if ($nc(t)->hasTag($TypeTag::ERROR)) {
 		$init($Type);
@@ -3128,6 +3192,7 @@ $Type* Types::unboxedTypeOrType($Type* t) {
 }
 
 $List* Types::capture($List* ts) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, buf, $List::nil());
 	{
 		$var($Iterator, i$, $nc(ts)->iterator());
@@ -3142,6 +3207,7 @@ $List* Types::capture($List* ts) {
 }
 
 $Type* Types::capture($Type* t$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, t, t$renamed);
 	$init($TypeTag);
 	if (!$nc(t)->hasTag($TypeTag::CLASS)) {
@@ -3235,6 +3301,7 @@ $Type* Types::capture($Type* t$renamed) {
 }
 
 $List* Types::freshTypeVariables($List* types) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, result, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc(types)->iterator());
@@ -3258,6 +3325,7 @@ $List* Types::freshTypeVariables($List* types) {
 }
 
 bool Types::sideCast($Type* from$renamed, $Type* to$renamed, $Warner* warn) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, from, from$renamed);
 	$var($Type, to, to$renamed);
 	bool reverse = false;
@@ -3288,6 +3356,7 @@ bool Types::sideCast($Type* from$renamed, $Type* to$renamed, $Warner* warn) {
 }
 
 bool Types::sideCastFinal($Type* from$renamed, $Type* to$renamed, $Warner* warn) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, from, from$renamed);
 	$var($Type, to, to$renamed);
 	bool reverse = false;
@@ -3317,6 +3386,7 @@ bool Types::sideCastFinal($Type* from$renamed, $Type* to$renamed, $Warner* warn)
 }
 
 bool Types::giveWarning($Type* from, $Type* to) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, bounds, $nc(to)->isCompound() ? directSupertypes(to) : $List::of(to));
 	{
 		$var($Iterator, i$, $nc(bounds)->iterator());
@@ -3348,6 +3418,7 @@ bool Types::giveWarning($Type* from, $Type* to) {
 }
 
 $List* Types::superClosure($Type* t, $Type* s) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, cl, $List::nil());
 	{
 		$var($List, l, interfaces(t));
@@ -3414,6 +3485,7 @@ $Attribute$RetentionPolicy* Types::getRetention($Attribute$Compound* a) {
 }
 
 $Attribute$RetentionPolicy* Types::getRetention($Symbol$TypeSymbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$init($Attribute$RetentionPolicy);
 	$Attribute$RetentionPolicy* vis = $Attribute$RetentionPolicy::CLASS;
 	$var($Attribute$Compound, c, $nc(sym)->attribute($nc($nc(this->syms)->retentionType)->tsym));
@@ -3447,6 +3519,7 @@ $Attribute$RetentionPolicy* Types::getRetention($Symbol$TypeSymbol* sym) {
 }
 
 $Type* Types::constantType($PoolConstant$LoadableConstant* c) {
+	$useLocalCurrentObjectStackCache();
 	switch ($nc(c)->poolTag()) {
 	case $ClassFile::CONSTANT_Class:
 		{

@@ -79,6 +79,7 @@ void SmartWriter::write($chars* chars, int32_t i, int32_t i1) {
 }
 
 void SmartWriter::close() {
+	$useLocalCurrentObjectStackCache();
 	if (this->closed) {
 		return;
 	}

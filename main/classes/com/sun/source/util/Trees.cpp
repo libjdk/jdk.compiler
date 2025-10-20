@@ -124,6 +124,7 @@ Trees* Trees::instance($ProcessingEnvironment* env) {
 
 Trees* Trees::getJavacTrees($Class* argType, Object$* arg) {
 	$load(Trees);
+	$useLocalCurrentObjectStackCache();
 	$beforeCallerSensitive();
 	try {
 		$var($ClassLoader, cl, $nc($of(arg))->getClass()->getClassLoader());

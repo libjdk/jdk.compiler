@@ -267,11 +267,13 @@ $Object* Type$ClassType::accept($Type$Visitor* v, Object$* s) {
 }
 
 $Type* Type$ClassType::constType(Object$* constValue) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, value, constValue);
 	return $new($Type$ClassType$2, this, $(getEnclosingType()), this->typarams_field, this->tsym, this->metadata, value);
 }
 
 $String* Type$ClassType::toString() {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, buf, $new($StringBuilder));
 	$init($TypeTag);
 	$init($Kinds$Kind);
@@ -293,6 +295,7 @@ $String* Type$ClassType::toString() {
 }
 
 $String* Type$ClassType::className($Symbol* sym, bool longform) {
+	$useLocalCurrentObjectStackCache();
 	bool var$0 = $nc($nc(sym)->name)->isEmpty();
 	if (var$0 && ((int64_t)(sym->flags() & (uint64_t)(int64_t)0x01000000)) != 0) {
 		$var($StringBuilder, s, $new($StringBuilder, $($nc(this->supertype_field)->toString())));
@@ -349,6 +352,7 @@ void Type$ClassType::setEnclosingType($Type* outer) {
 }
 
 $List* Type$ClassType::allparams() {
+	$useLocalCurrentObjectStackCache();
 	if (this->allparams_field == nullptr) {
 		$set(this, allparams_field, $nc($(getTypeArguments()))->prependList($($nc($(getEnclosingType()))->allparams())));
 	}
@@ -356,6 +360,7 @@ $List* Type$ClassType::allparams() {
 }
 
 bool Type$ClassType::isErroneous() {
+	$useLocalCurrentObjectStackCache();
 	bool var$1 = $nc($(getEnclosingType()))->isErroneous();
 	bool var$0 = var$1 || $Type::isErroneous($(getTypeArguments()));
 	return var$0 || !$equals(this, $nc(this->tsym)->type) && $nc($nc(this->tsym)->type)->isErroneous();
@@ -374,11 +379,13 @@ bool Type$ClassType::isNullOrReference() {
 }
 
 bool Type$ClassType::isRaw() {
+	$useLocalCurrentObjectStackCache();
 	bool var$0 = !$equals(this, $nc(this->tsym)->type) && $nc($($nc($nc(this->tsym)->type)->allparams()))->nonEmpty();
 	return var$0 && $nc($(allparams()))->isEmpty();
 }
 
 bool Type$ClassType::contains($Type* elem) {
+	$useLocalCurrentObjectStackCache();
 	bool var$1 = $nc(elem)->equalsIgnoreMetadata(this);
 	if (!var$1) {
 		bool var$2 = isParameterized();

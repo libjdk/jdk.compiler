@@ -226,6 +226,7 @@ $String* Main::bundleName = nullptr;
 
 void Main::main($StringArray* args) {
 	$init(Main);
+	$useLocalCurrentObjectStackCache();
 	try {
 		$init($System);
 		$$new(Main, $System::err)->run($($VM::getRuntimeArguments()), args);
@@ -241,6 +242,7 @@ void Main::main($StringArray* args) {
 }
 
 void Main::init$($PrintStream* out) {
+	$useLocalCurrentObjectStackCache();
 	Main::init$($$new($PrintWriter, static_cast<$Writer*>($$new($OutputStreamWriter, out)), true));
 }
 
@@ -250,6 +252,7 @@ void Main::init$($PrintWriter* out) {
 }
 
 void Main::run($StringArray* runtimeArgs, $StringArray* args) {
+	$useLocalCurrentObjectStackCache();
 	$var($Path, file, getFile(args));
 	$var($Main$Context, context, $new($Main$Context, $($nc(file)->toAbsolutePath())));
 	$var($String, mainClassName, compile(file, $(getJavacOpts(runtimeArgs)), context));
@@ -258,6 +261,7 @@ void Main::run($StringArray* runtimeArgs, $StringArray* args) {
 }
 
 $Path* Main::getFile($StringArray* args) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(args)->length == 0) {
 		$init($LauncherProperties$Errors);
 		$throwNew($Main$Fault, this, $LauncherProperties$Errors::NoArgs);
@@ -276,6 +280,7 @@ $Path* Main::getFile($StringArray* args) {
 }
 
 $JavaFileObject* Main::readFile($Path* file) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var($BufferedInputStream, in, $new($BufferedInputStream, $($Files::newInputStream(file, $$new($OpenOptionArray, 0)))));
 		{
@@ -372,6 +377,7 @@ $JavaFileObject* Main::readFile($Path* file) {
 }
 
 $List* Main::getJavacOpts($StringArray* runtimeArgs) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, javacOpts, $new($ArrayList));
 	$var($String, sourceOpt, $System::getProperty("jdk.internal.javac.source"_s));
 	if (sourceOpt != nullptr) {
@@ -534,6 +540,7 @@ $List* Main::getJavacOpts($StringArray* runtimeArgs) {
 }
 
 $String* Main::compile($Path* file, $List* javacOpts, $Main$Context* context) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileObject, fo, readFile(file));
 	$var($JavacTool, javaCompiler, $JavacTool::create());
 	$var($StandardJavaFileManager, stdFileMgr, $nc(javaCompiler)->getStandardFileManager(nullptr, nullptr, nullptr));
@@ -561,6 +568,7 @@ $String* Main::compile($Path* file, $List* javacOpts, $Main$Context* context) {
 }
 
 void Main::execute($String* mainClassName, $StringArray* appArgs, $Main$Context* context) {
+	$useLocalCurrentObjectStackCache();
 	$beforeCallerSensitive();
 	$System::setProperty("jdk.launcher.sourcefile"_s, $($nc($nc(context)->file)->toString()));
 	$var($ClassLoader, cl, $nc(context)->getClassLoader($($ClassLoader::getSystemClassLoader())));
@@ -600,6 +608,7 @@ void Main::execute($String* mainClassName, $StringArray* appArgs, $Main$Context*
 }
 
 $String* Main::getMessage($JCDiagnostic$Error* error) {
+	$useLocalCurrentObjectStackCache();
 	$beforeCallerSensitive();
 	$var($String, key, $nc(error)->key());
 	$var($ObjectArray, args, error->getArgs());

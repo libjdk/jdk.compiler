@@ -192,6 +192,7 @@ void InferenceContext$ReachabilityVisitor::init$($InferenceContext* this$0) {
 }
 
 void InferenceContext$ReachabilityVisitor::scan($List* roots) {
+	$useLocalCurrentObjectStackCache();
 	$nc($($nc(roots)->stream()))->forEach(static_cast<$Consumer*>($$new(InferenceContext$ReachabilityVisitor$$Lambda$visit, this)));
 }
 
@@ -200,6 +201,7 @@ $Void* InferenceContext$ReachabilityVisitor::visitType($Type* t, $Void* _unused)
 }
 
 $Void* InferenceContext$ReachabilityVisitor::visitUndetVar($Type$UndetVar* t, $Void* _unused) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(this->min)->add($nc(t)->qtype)) {
 		$var($Set, deps, $cast($Set, $nc(this->minMap)->getOrDefault($nc(t)->qtype, $$new($LinkedHashSet, $(static_cast<$Collection*>($Collections::singleton(t->qtype)))))));
 		{
@@ -253,6 +255,7 @@ $Void* InferenceContext$ReachabilityVisitor::visitArrayType($Type$ArrayType* t, 
 }
 
 $Void* InferenceContext$ReachabilityVisitor::visitClassType($Type$ClassType* t, $Void* _unused) {
+	$useLocalCurrentObjectStackCache();
 	visit($($nc(t)->getEnclosingType()));
 	{
 		$var($Iterator, i$, $nc($($nc(t)->getTypeArguments()))->iterator());
@@ -267,6 +270,7 @@ $Void* InferenceContext$ReachabilityVisitor::visitClassType($Type$ClassType* t, 
 }
 
 bool InferenceContext$ReachabilityVisitor::isEquiv($Type$UndetVar* from, $Type* t, $Type$UndetVar$InferenceBound* boundKind) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type$UndetVar, uv, $cast($Type$UndetVar, this->this$0->asUndetVar(t)));
 	{
 		$var($Type$UndetVar$InferenceBoundArray, arr$, $Type$UndetVar$InferenceBound::values());

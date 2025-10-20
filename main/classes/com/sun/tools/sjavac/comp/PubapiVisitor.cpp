@@ -287,6 +287,7 @@ bool PubapiVisitor::isNonPrivate($Element* e) {
 }
 
 $Void* PubapiVisitor::visitType($TypeElement* e, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	if (isNonPrivate(static_cast<$Element*>(static_cast<$Parameterizable*>(e)))) {
 		$var($PubApi, prevApi, this->collectedApi);
 		$set(this, collectedApi, $new($PubApi));
@@ -307,10 +308,12 @@ bool PubapiVisitor::isAnonymous($TypeElement* e) {
 
 $String* PubapiVisitor::encodeChar(int32_t c) {
 	$init(PubapiVisitor);
+	$useLocalCurrentObjectStackCache();
 	return $String::format("\\u%04x"_s, $$new($ObjectArray, {$($of($Integer::valueOf(c)))}));
 }
 
 $Void* PubapiVisitor::visitVariable($VariableElement* e, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	if (isNonPrivate(e)) {
 		$var($Object, constVal, $nc(e)->getConstantValue());
 		$var($String, constValStr, nullptr);
@@ -331,6 +334,7 @@ $Void* PubapiVisitor::visitVariable($VariableElement* e, $Void* p) {
 }
 
 $Void* PubapiVisitor::visitRecordComponent($RecordComponentElement* e, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Set, var$0, $nc(e)->getModifiers());
 	$var($TypeDesc, var$1, $TypeDesc::fromType($(e->asType())));
 	$var($PubVar, v, $new($PubVar, var$0, var$1, $($of(e)->toString()), nullptr));
@@ -339,6 +343,7 @@ $Void* PubapiVisitor::visitRecordComponent($RecordComponentElement* e, $Void* p)
 }
 
 $Void* PubapiVisitor::visitExecutable($ExecutableElement* e, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	if (isNonPrivate(e)) {
 		$var($Set, var$0, $nc(e)->getModifiers());
 		$var($List, var$1, getTypeParameters($(e->getTypeParameters())));
@@ -352,14 +357,17 @@ $Void* PubapiVisitor::visitExecutable($ExecutableElement* e, $Void* p) {
 }
 
 $List* PubapiVisitor::getTypeParameters($List* elements) {
+	$useLocalCurrentObjectStackCache();
 	return $nc($($nc($($nc(elements)->stream()))->map(static_cast<$Function*>($$new(PubapiVisitor$$Lambda$lambda$getTypeParameters$0$1, this)))))->toList();
 }
 
 $List* PubapiVisitor::getParamTypes($ExecutableElement* e) {
+	$useLocalCurrentObjectStackCache();
 	return $nc($($nc($($nc($($nc(e)->getParameters()))->stream()))->map(static_cast<$Function*>($$new(PubapiVisitor$$Lambda$asType$2)))))->toList();
 }
 
 $List* PubapiVisitor::getTypeDescs($List* list) {
+	$useLocalCurrentObjectStackCache();
 	return $nc($($nc($($nc(list)->stream()))->map(static_cast<$Function*>($$new(PubapiVisitor$$Lambda$fromType$3)))))->toList();
 }
 
@@ -384,6 +392,7 @@ $Object* PubapiVisitor::visitVariable($VariableElement* e, Object$* p) {
 }
 
 $PubApiTypeParam* PubapiVisitor::lambda$getTypeParameters$0($TypeParameterElement* e) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, var$0, $nc($of($($nc(e)->getSimpleName())))->toString());
 	return $new($PubApiTypeParam, var$0, $(getTypeDescs($(e->getBounds()))));
 }

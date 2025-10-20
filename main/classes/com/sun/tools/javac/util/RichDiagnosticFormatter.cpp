@@ -181,6 +181,7 @@ RichDiagnosticFormatter* RichDiagnosticFormatter::instance($Context* context) {
 }
 
 void RichDiagnosticFormatter::init$($Context* context) {
+	$useLocalCurrentObjectStackCache();
 	$ForwardingDiagnosticFormatter::init$($cast($AbstractDiagnosticFormatter, $($nc($($Log::instance(context)))->getDiagnosticFormatter())));
 	$set(this, typePreprocessor, $new($RichDiagnosticFormatter$1, this));
 	$set(this, symbolPreprocessor, $new($RichDiagnosticFormatter$2, this));
@@ -204,6 +205,7 @@ void RichDiagnosticFormatter::init$($Context* context) {
 }
 
 $String* RichDiagnosticFormatter::format($JCDiagnostic* diag, $Locale* l) {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, sb, $new($StringBuilder));
 	$set(this, nameSimplifier, $new($RichDiagnosticFormatter$ClassNameSimplifier, this));
 	{
@@ -253,6 +255,7 @@ $RichDiagnosticFormatter$RichPrinter* RichDiagnosticFormatter::getRichPrinter() 
 }
 
 void RichDiagnosticFormatter::preprocessDiagnostic($JCDiagnostic* diag) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($ObjectArray, arr$, $nc(diag)->getArgs());
 		int32_t len$ = $nc(arr$)->length;
@@ -278,6 +281,7 @@ void RichDiagnosticFormatter::preprocessDiagnostic($JCDiagnostic* diag) {
 }
 
 void RichDiagnosticFormatter::preprocessArgument(Object$* arg) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Type, type, nullptr);
 		$var($Symbol, symbol, nullptr);
@@ -330,6 +334,7 @@ void RichDiagnosticFormatter::preprocessArgument(Object$* arg) {
 }
 
 $List* RichDiagnosticFormatter::getWhereClauses() {
+	$useLocalCurrentObjectStackCache();
 	$var($List, clauses, $List::nil());
 	{
 		$var($RichDiagnosticFormatter$WhereClauseKindArray, arr$, $RichDiagnosticFormatter$WhereClauseKind::values());
@@ -364,6 +369,7 @@ $List* RichDiagnosticFormatter::getWhereClauses() {
 }
 
 int32_t RichDiagnosticFormatter::indexOf($Type* type, $RichDiagnosticFormatter$WhereClauseKind* kind) {
+	$useLocalCurrentObjectStackCache();
 	int32_t index = 1;
 	{
 		$var($Iterator, i$, $nc($($nc(($cast($Map, $($nc(this->whereClauses)->get(kind)))))->keySet()))->iterator());
@@ -384,6 +390,7 @@ int32_t RichDiagnosticFormatter::indexOf($Type* type, $RichDiagnosticFormatter$W
 }
 
 bool RichDiagnosticFormatter::unique($Type$TypeVar* typevar$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type$TypeVar, typevar, typevar$renamed);
 	$assign(typevar, $cast($Type$TypeVar, $nc(typevar)->stripMetadata()));
 	int32_t found = 0;

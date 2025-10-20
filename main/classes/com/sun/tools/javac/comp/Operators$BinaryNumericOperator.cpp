@@ -138,6 +138,7 @@ $Symbol$OperatorSymbol* Operators$BinaryNumericOperator::resolve($Type* arg1, $T
 }
 
 bool Operators$BinaryNumericOperator::test($Type* arg1, $Type* arg2) {
+	$useLocalCurrentObjectStackCache();
 	bool var$0 = $nc(this->numericTest)->test($(this->this$0->unaryPromotion(arg1)));
 	return var$0 && $nc(this->numericTest)->test($(this->this$0->unaryPromotion(arg2)));
 }

@@ -83,6 +83,7 @@ void Scope$StarImportScope::init$($Symbol* owner) {
 }
 
 void Scope$StarImportScope::importAll($Types* types, $Scope* origin, $Scope$ImportFilter* filter, $JCTree$JCImport* imp, $BiConsumer* cfHandler) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(this->subScopes)->iterator());
 		for (; $nc(i$)->hasNext();) {

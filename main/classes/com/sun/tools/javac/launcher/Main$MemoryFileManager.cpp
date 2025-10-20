@@ -102,6 +102,7 @@ $JavaFileObject* Main$MemoryFileManager::getJavaFileForOutput($JavaFileManager$L
 }
 
 $JavaFileObject* Main$MemoryFileManager::createInMemoryClassFile($String* className) {
+	$useLocalCurrentObjectStackCache();
 	$var($URI, uri, $URI::create($$str({"memory:///"_s, $($nc(className)->replace(u'.', u'/')), ".class"_s})));
 	$init($JavaFileObject$Kind);
 	return $new($Main$MemoryFileManager$1, this, uri, $JavaFileObject$Kind::CLASS, className);

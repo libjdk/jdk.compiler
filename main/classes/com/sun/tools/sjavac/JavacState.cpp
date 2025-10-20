@@ -292,6 +292,7 @@ $Object* allocate$JavacState($Class* clazz) {
 }
 
 void JavacState::init$($Options* op, bool removeJavacState) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, removedSources, nullptr);
 	$set(this, addedSources, nullptr);
 	$set(this, modifiedSources, nullptr);
@@ -333,6 +334,7 @@ $BuildState* JavacState::now() {
 }
 
 $StringArray* JavacState::removeArgsNotAffectingState($StringArray* args) {
+	$useLocalCurrentObjectStackCache();
 	$var($StringArray, out, $new($StringArray, $nc(args)->length));
 	int32_t j = 0;
 	for (int32_t i = 0; i < args->length; ++i) {
@@ -353,6 +355,7 @@ $StringArray* JavacState::removeArgsNotAffectingState($StringArray* args) {
 }
 
 void JavacState::setVisibleSources($Map* vs) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, visibleSrcs, $new($HashSet));
 	{
 		$var($Iterator, i$, $nc($($nc(vs)->keySet()))->iterator());
@@ -377,6 +380,7 @@ void JavacState::findAllArtifacts() {
 }
 
 $Map* JavacState::fetchPrevArtifacts($String* pkg) {
+	$useLocalCurrentObjectStackCache();
 	$var($Package, p, $cast($Package, $nc($($nc(this->prev$)->packages()))->get(pkg)));
 	if (p != nullptr) {
 		return p->artifacts();
@@ -385,6 +389,7 @@ $Map* JavacState::fetchPrevArtifacts($String* pkg) {
 }
 
 void JavacState::deleteClassArtifactsInTaintedPackages() {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(this->taintedPackages$)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -413,6 +418,7 @@ void JavacState::needsSaving() {
 }
 
 void JavacState::save() {
+	$useLocalCurrentObjectStackCache();
 	if (!this->needsSaving$) {
 		return;
 	}
@@ -466,6 +472,7 @@ void JavacState::save() {
 }
 
 JavacState* JavacState::load($Options* options) {
+	$useLocalCurrentObjectStackCache();
 	$var(JavacState, db, $new(JavacState, options, false));
 	$var($Module, lastModule, nullptr);
 	$var($Package, lastPackage, nullptr);
@@ -598,6 +605,7 @@ JavacState* JavacState::load($Options* options) {
 }
 
 void JavacState::taintPackage($String* name, $String* because) {
+	$useLocalCurrentObjectStackCache();
 	if (!$nc(this->taintedPackages$)->contains(name)) {
 		if (because != nullptr) {
 			$Log::debug($$str({"Tainting "_s, $($Util::justPackageName(name)), " because "_s, because}));
@@ -628,6 +636,7 @@ void JavacState::clearTaintedPackages() {
 }
 
 void JavacState::checkSourceStatus(bool check_gensrc) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, removedSources, calculateRemovedSources());
 	{
 		$var($Iterator, i$, $nc(this->removedSources)->iterator());
@@ -679,6 +688,7 @@ $Map* JavacState::getJavaSuffixRule() {
 }
 
 void JavacState::taintPackagesThatMissArtifacts() {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($($nc($($nc(this->prev$)->packages()))->values()))->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -702,6 +712,7 @@ void JavacState::taintPackagesThatMissArtifacts() {
 }
 
 void JavacState::taintPackagesDependingOnChangedPackages($Set* pkgsWithChangedPubApi, $Set* recentlyCompiled) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $$new($HashSet, $($nc($($nc(this->prev$)->packages()))->values()))->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -730,6 +741,7 @@ void JavacState::taintPackagesDependingOnChangedPackages($Set* pkgsWithChangedPu
 }
 
 void JavacState::taintPackagesDependingOnChangedClasspathPackages() {
+	$useLocalCurrentObjectStackCache();
 	$var($Set, fqDependencies, $new($HashSet));
 	{
 		$var($Iterator, i$, $nc($($nc($($nc(this->prev$)->packages()))->values()))->iterator());
@@ -801,6 +813,7 @@ void JavacState::taintPackagesDependingOnChangedClasspathPackages() {
 }
 
 void JavacState::removeUnidentifiedArtifacts() {
+	$useLocalCurrentObjectStackCache();
 	$var($Set, allKnownArtifacts, $new($HashSet));
 	{
 		$var($Iterator, i$, $nc($($nc($($nc(this->prev$)->packages()))->values()))->iterator());
@@ -860,6 +873,7 @@ void JavacState::removeUnidentifiedArtifacts() {
 }
 
 void JavacState::removeSuperfluousArtifacts($Set* recentlyCompiled) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(recentlyCompiled)->size() == 0) {
 		return;
 	}
@@ -892,6 +906,7 @@ void JavacState::removeSuperfluousArtifacts($Set* recentlyCompiled) {
 }
 
 $Set* JavacState::calculateRemovedSources() {
+	$useLocalCurrentObjectStackCache();
 	$var($Set, removed, $new($HashSet));
 	{
 		$var($Iterator, i$, $nc($($nc($($nc(this->prev$)->sources()))->keySet()))->iterator());
@@ -908,6 +923,7 @@ $Set* JavacState::calculateRemovedSources() {
 }
 
 $Set* JavacState::calculateAddedSources() {
+	$useLocalCurrentObjectStackCache();
 	$var($Set, added, $new($HashSet));
 	{
 		$var($Iterator, i$, $nc($($nc($($nc(this->now$)->sources()))->keySet()))->iterator());
@@ -924,6 +940,7 @@ $Set* JavacState::calculateAddedSources() {
 }
 
 $Set* JavacState::calculateModifiedSources() {
+	$useLocalCurrentObjectStackCache();
 	$var($Set, modified, $new($HashSet));
 	{
 		$var($Iterator, i$, $nc($($nc($($nc(this->now$)->sources()))->keySet()))->iterator());
@@ -953,6 +970,7 @@ $Set* JavacState::calculateModifiedSources() {
 }
 
 void JavacState::deleteContents($File* dir) {
+	$useLocalCurrentObjectStackCache();
 	if (dir != nullptr && dir->exists()) {
 		{
 			$var($FileArray, arr$, dir->listFiles());
@@ -975,6 +993,7 @@ void JavacState::deleteContents($File* dir) {
 }
 
 void JavacState::performCopying($File* binDir, $Map* suffixRules) {
+	$useLocalCurrentObjectStackCache();
 	$var($Map, sr, $new($HashMap));
 	{
 		$var($Iterator, i$, $nc($($nc(suffixRules)->entrySet()))->iterator());
@@ -993,6 +1012,7 @@ void JavacState::performCopying($File* binDir, $Map* suffixRules) {
 }
 
 void JavacState::performTranslation($File* gensrcDir, $Map* suffixRules) {
+	$useLocalCurrentObjectStackCache();
 	$var($Map, sr, $new($HashMap));
 	{
 		$var($Iterator, i$, $nc($($nc(suffixRules)->entrySet()))->iterator());
@@ -1014,6 +1034,7 @@ void JavacState::performTranslation($File* gensrcDir, $Map* suffixRules) {
 }
 
 bool JavacState::performJavaCompilations($CompilationService* sjavac, $Options* args, $Set* recentlyCompiled, $booleans* rcValue) {
+	$useLocalCurrentObjectStackCache();
 	$var($Map, suffixRules, $new($HashMap));
 	suffixRules->put(".java"_s, this->compileJavaPackages);
 	$nc(this->compileJavaPackages)->setExtra(args);
@@ -1027,6 +1048,7 @@ bool JavacState::performJavaCompilations($CompilationService* sjavac, $Options* 
 }
 
 void JavacState::addFileToTransform($Map* gs, $Transformer* t, $Source* s) {
+	$useLocalCurrentObjectStackCache();
 	$var($Map, fs, $cast($Map, $nc(gs)->get(t)));
 	if (fs == nullptr) {
 		$assign(fs, $new($HashMap));
@@ -1041,6 +1063,7 @@ void JavacState::addFileToTransform($Map* gs, $Transformer* t, $Source* s) {
 }
 
 bool JavacState::perform($CompilationService* sjavac, $File* outputDir, $Map* suffixRules) {
+	$useLocalCurrentObjectStackCache();
 	bool rc = true;
 	$var($Map, groupedSources, $new($HashMap));
 	{
@@ -1180,6 +1203,7 @@ $Set* JavacState::findAllFiles($File* dir) {
 }
 
 void JavacState::recurse($File* dir, $Set* foundFiles) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($FileArray, arr$, $nc(dir)->listFiles());
 		int32_t len$ = $nc(arr$)->length;
@@ -1198,6 +1222,7 @@ void JavacState::recurse($File* dir, $Set* foundFiles) {
 }
 
 void JavacState::compareWithMakefileList($File* makefileSourceList) {
+	$useLocalCurrentObjectStackCache();
 	$init($File);
 	bool mightNeedRewriting = $File::pathSeparatorChar == u';';
 	if (makefileSourceList == nullptr) {

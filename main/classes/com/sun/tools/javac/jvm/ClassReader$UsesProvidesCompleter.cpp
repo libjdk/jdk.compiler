@@ -100,6 +100,7 @@ void ClassReader$UsesProvidesCompleter::init$($ClassReader* this$0, $Symbol$Modu
 }
 
 void ClassReader$UsesProvidesCompleter::complete($Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, directives, $new($ListBuffer));
 	directives->addAll(static_cast<$Collection*>(static_cast<$AbstractCollection*>($nc(this->currentModule)->directives)));
 	$var($ListBuffer, uses, $new($ListBuffer));

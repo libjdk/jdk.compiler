@@ -312,6 +312,7 @@ $Scope$WriteableScope* Scope$ScopeImpl::dup($Symbol* newOwner) {
 }
 
 $Scope$WriteableScope* Scope$ScopeImpl::dupUnshared($Symbol* newOwner) {
+	$useLocalCurrentObjectStackCache();
 	if (this->shared > 0) {
 		$var($Set, acceptScopes, $Collections::newSetFromMap($$new($IdentityHashMap)));
 		$var(Scope$ScopeImpl, c, this);
@@ -339,6 +340,7 @@ $Scope$WriteableScope* Scope$ScopeImpl::dupUnshared($Symbol* newOwner) {
 }
 
 $Scope$WriteableScope* Scope$ScopeImpl::leave() {
+	$useLocalCurrentObjectStackCache();
 	$Assert::check(this->shared == 0);
 	if (this->table != $nc(this->next)->table) {
 		return this->next;
@@ -357,6 +359,7 @@ $Scope$WriteableScope* Scope$ScopeImpl::leave() {
 }
 
 void Scope$ScopeImpl::dble() {
+	$useLocalCurrentObjectStackCache();
 	$Assert::check(this->shared == 0);
 	$var($Scope$EntryArray, oldtable, this->table);
 	$var($Scope$EntryArray, newtable, $new($Scope$EntryArray, $nc(oldtable)->length * 2));
@@ -382,6 +385,7 @@ void Scope$ScopeImpl::dble() {
 }
 
 void Scope$ScopeImpl::enter($Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::check(this->shared == 0);
 	if (this->nelems * 3 >= this->hashMask * 2) {
 		dble();
@@ -399,6 +403,7 @@ void Scope$ScopeImpl::enter($Symbol* sym) {
 }
 
 void Scope$ScopeImpl::remove($Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::check(this->shared == 0);
 	$var($Scope$Entry, e, lookup($nc(sym)->name, static_cast<$Predicate*>($$new(Scope$ScopeImpl$$Lambda$lambda$remove$0, sym))));
 	if ($nc(e)->scope == nullptr) {
@@ -477,6 +482,7 @@ $Symbol* Scope$ScopeImpl::findFirst($Name* name, $Predicate* sf) {
 }
 
 int32_t Scope$ScopeImpl::getIndex($Name* name) {
+	$useLocalCurrentObjectStackCache();
 	int32_t h = $nc($of(name))->hashCode();
 	int32_t i = (int32_t)(h & (uint32_t)this->hashMask);
 	int32_t x = this->hashMask - ((h + (h >> 16)) << 1);
@@ -498,6 +504,7 @@ int32_t Scope$ScopeImpl::getIndex($Name* name) {
 }
 
 bool Scope$ScopeImpl::anyMatch($Predicate* sf) {
+	$useLocalCurrentObjectStackCache();
 	$init($Scope$LookupKind);
 	return $nc($($nc($(getSymbols(sf, $Scope$LookupKind::NON_RECURSIVE)))->iterator()))->hasNext();
 }
@@ -527,6 +534,7 @@ bool Scope$ScopeImpl::isStaticallyImported($Symbol* s) {
 }
 
 $String* Scope$ScopeImpl::toString() {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, result, $new($StringBuilder));
 	result->append("Scope["_s);
 	{

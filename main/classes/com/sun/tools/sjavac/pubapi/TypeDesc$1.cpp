@@ -127,10 +127,12 @@ void TypeDesc$1::init$() {
 }
 
 $TypeDesc* TypeDesc$1::visitArray($ArrayType* t, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	return $new($ArrayTypeDesc, $cast($TypeDesc, $($nc($($nc(t)->getComponentType()))->accept(this, p))));
 }
 
 $TypeDesc* TypeDesc$1::visitDeclared($DeclaredType* t, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	return $new($ReferenceTypeDesc, $($nc($($nc($nc(($cast($Type$ClassType, t)))->tsym)->flatName()))->toString()));
 }
 

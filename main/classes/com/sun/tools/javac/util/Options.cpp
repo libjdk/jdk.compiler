@@ -192,6 +192,7 @@ void Options::addListener($Runnable* listener) {
 }
 
 void Options::notifyListeners() {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(this->listeners)->iterator());
 		for (; $nc(i$)->hasNext();) {

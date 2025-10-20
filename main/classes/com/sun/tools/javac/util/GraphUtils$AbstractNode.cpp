@@ -86,6 +86,7 @@ $String* GraphUtils$AbstractNode::toString() {
 }
 
 void GraphUtils$AbstractNode::accept($GraphUtils$NodeVisitor* visitor, Object$* arg) {
+	$useLocalCurrentObjectStackCache();
 	$nc(visitor)->visitNode(this, arg);
 	{
 		$var($GraphUtils$DependencyKindArray, arr$, getSupportedDependencyKinds());

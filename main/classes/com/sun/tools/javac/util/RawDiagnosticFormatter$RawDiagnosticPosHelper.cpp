@@ -72,6 +72,7 @@ void RawDiagnosticFormatter$RawDiagnosticPosHelper::init$($JCDiagnostic* diag) {
 }
 
 $String* RawDiagnosticFormatter$RawDiagnosticPosHelper::getPosition($JCTree$JCExpression* exp) {
+	$useLocalCurrentObjectStackCache();
 	$var($DiagnosticSource, diagSource, $nc(this->diag)->getDiagnosticSource());
 	int64_t diagLine = $nc(this->diag)->getLineNumber();
 	int64_t expLine = $nc(diagSource)->getLineNumber($nc(exp)->pos$);

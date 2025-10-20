@@ -169,6 +169,7 @@ void JavadocFormatter::init$(int32_t lineLimit, bool escapeSequencesSupported) {
 }
 
 $String* JavadocFormatter::formatJavadoc($String* header, $String* javadoc) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var($StringBuilder, result, $new($StringBuilder));
 		result->append($(escape(JavadocFormatter::CODE_HIGHLIGHT)))->append(header)->append($(escape(JavadocFormatter::CODE_RESET)))->append("\n"_s);
@@ -202,6 +203,7 @@ $String* JavadocFormatter::indentString(int32_t indent) {
 
 void JavadocFormatter::reflow($StringBuilder* text, int32_t from, int32_t indent, int32_t limit) {
 	$init(JavadocFormatter);
+	$useLocalCurrentObjectStackCache();
 	int32_t lineStart = from;
 	while (lineStart > 0 && $nc(text)->charAt(lineStart - 1) != u'\n') {
 		--lineStart;
@@ -254,12 +256,14 @@ $JavadocFormatter$HtmlTag* JavadocFormatter::getHtmlTag($Name* name) {
 
 $Map* JavadocFormatter::countTableColumns($DocCommentTree* dct) {
 	$init(JavadocFormatter);
+	$useLocalCurrentObjectStackCache();
 	$var($Map, result, $new($IdentityHashMap));
 	$$new($JavadocFormatter$2, result)->scan(static_cast<$DocTree*>(dct), ($Object*)nullptr);
 	return result;
 }
 
 void clinit$JavadocFormatter($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(JavadocFormatter::CODE_RESET, "\u001b[0m"_s);
 	$assignStatic(JavadocFormatter::CODE_HIGHLIGHT, "\u001b[1m"_s);
 	$assignStatic(JavadocFormatter::CODE_UNDERLINE, "\u001b[4m"_s);

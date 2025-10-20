@@ -81,6 +81,7 @@ void PortFileMonitor::init$($PortFile* portFile, $SjavacServer* server) {
 }
 
 void PortFileMonitor::start() {
+	$useLocalCurrentObjectStackCache();
 	$var($Log, log, $Log::get());
 	$var($TimerTask, shutdownCheck, $new($PortFileMonitor$1, this, log));
 	$nc(this->timer)->schedule(shutdownCheck, (int64_t)0, (int64_t)PortFileMonitor::CHECK_PORTFILE_INTERVAL);

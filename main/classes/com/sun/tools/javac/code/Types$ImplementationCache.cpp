@@ -106,6 +106,7 @@ void Types$ImplementationCache::init$($Types* this$0) {
 }
 
 $Symbol$MethodSymbol* Types$ImplementationCache::get($Symbol$MethodSymbol* ms, $Symbol$TypeSymbol* origin, bool checkResult, $Predicate* implFilter) {
+	$useLocalCurrentObjectStackCache();
 	$var($SoftReference, ref_cache, $cast($SoftReference, $nc(this->_map)->get(ms)));
 	$var($Map, cache, ref_cache != nullptr ? $cast($Map, $nc(ref_cache)->get()) : ($Map*)nullptr);
 	if (cache == nullptr) {
@@ -124,6 +125,7 @@ $Symbol$MethodSymbol* Types$ImplementationCache::get($Symbol$MethodSymbol* ms, $
 }
 
 $Symbol$MethodSymbol* Types$ImplementationCache::implementationInternal($Symbol$MethodSymbol* ms, $Symbol$TypeSymbol* origin, bool checkResult, $Predicate* implFilter) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Type, t, $nc(origin)->type);
 		for (;; $assign(t, this->this$0->supertype(t))) {

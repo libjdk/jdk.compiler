@@ -53,6 +53,7 @@ $String* JavacToolProvider::name() {
 }
 
 int32_t JavacToolProvider::run($PrintWriter* out, $PrintWriter* err, $StringArray* args) {
+	$useLocalCurrentObjectStackCache();
 	$var($Main, compiler, $new($Main, "javac"_s, out, err));
 	return $nc($(compiler->compile(args)))->exitCode;
 }

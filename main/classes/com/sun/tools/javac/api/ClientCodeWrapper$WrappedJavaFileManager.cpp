@@ -118,6 +118,7 @@ void ClientCodeWrapper$WrappedJavaFileManager::init$($ClientCodeWrapper* this$0,
 }
 
 $ClassLoader* ClientCodeWrapper$WrappedJavaFileManager::getClassLoader($JavaFileManager$Location* location) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientJavaFileManager)->getClassLoader(location);
 	} catch ($ClientCodeException&) {
@@ -134,6 +135,7 @@ $ClassLoader* ClientCodeWrapper$WrappedJavaFileManager::getClassLoader($JavaFile
 }
 
 $Iterable* ClientCodeWrapper$WrappedJavaFileManager::list($JavaFileManager$Location* location, $String* packageName, $Set* kinds, bool recurse) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return this->this$0->wrapJavaFileObjects($($nc(this->clientJavaFileManager)->list(location, packageName, kinds, recurse)));
 	} catch ($ClientCodeException&) {
@@ -150,6 +152,7 @@ $Iterable* ClientCodeWrapper$WrappedJavaFileManager::list($JavaFileManager$Locat
 }
 
 $String* ClientCodeWrapper$WrappedJavaFileManager::inferBinaryName($JavaFileManager$Location* location, $JavaFileObject* file) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientJavaFileManager)->inferBinaryName(location, $(this->this$0->unwrap(file)));
 	} catch ($ClientCodeException&) {
@@ -166,6 +169,7 @@ $String* ClientCodeWrapper$WrappedJavaFileManager::inferBinaryName($JavaFileMana
 }
 
 bool ClientCodeWrapper$WrappedJavaFileManager::isSameFile($FileObject* a, $FileObject* b) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var($FileObject, var$0, this->this$0->unwrap(a));
 		return $nc(this->clientJavaFileManager)->isSameFile(var$0, $(this->this$0->unwrap(b)));
@@ -183,6 +187,7 @@ bool ClientCodeWrapper$WrappedJavaFileManager::isSameFile($FileObject* a, $FileO
 }
 
 bool ClientCodeWrapper$WrappedJavaFileManager::handleOption($String* current, $Iterator* remaining) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientJavaFileManager)->handleOption(current, remaining);
 	} catch ($ClientCodeException&) {
@@ -199,6 +204,7 @@ bool ClientCodeWrapper$WrappedJavaFileManager::handleOption($String* current, $I
 }
 
 bool ClientCodeWrapper$WrappedJavaFileManager::hasLocation($JavaFileManager$Location* location) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientJavaFileManager)->hasLocation(location);
 	} catch ($ClientCodeException&) {
@@ -215,6 +221,7 @@ bool ClientCodeWrapper$WrappedJavaFileManager::hasLocation($JavaFileManager$Loca
 }
 
 $JavaFileObject* ClientCodeWrapper$WrappedJavaFileManager::getJavaFileForInput($JavaFileManager$Location* location, $String* className, $JavaFileObject$Kind* kind) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return this->this$0->wrap($($nc(this->clientJavaFileManager)->getJavaFileForInput(location, className, kind)));
 	} catch ($ClientCodeException&) {
@@ -231,6 +238,7 @@ $JavaFileObject* ClientCodeWrapper$WrappedJavaFileManager::getJavaFileForInput($
 }
 
 $JavaFileObject* ClientCodeWrapper$WrappedJavaFileManager::getJavaFileForOutput($JavaFileManager$Location* location, $String* className, $JavaFileObject$Kind* kind, $FileObject* sibling) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return this->this$0->wrap($($nc(this->clientJavaFileManager)->getJavaFileForOutput(location, className, kind, $(this->this$0->unwrap(sibling)))));
 	} catch ($ClientCodeException&) {
@@ -247,6 +255,7 @@ $JavaFileObject* ClientCodeWrapper$WrappedJavaFileManager::getJavaFileForOutput(
 }
 
 $FileObject* ClientCodeWrapper$WrappedJavaFileManager::getFileForInput($JavaFileManager$Location* location, $String* packageName, $String* relativeName) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return this->this$0->wrap($($nc(this->clientJavaFileManager)->getFileForInput(location, packageName, relativeName)));
 	} catch ($ClientCodeException&) {
@@ -263,6 +272,7 @@ $FileObject* ClientCodeWrapper$WrappedJavaFileManager::getFileForInput($JavaFile
 }
 
 $FileObject* ClientCodeWrapper$WrappedJavaFileManager::getFileForOutput($JavaFileManager$Location* location, $String* packageName, $String* relativeName, $FileObject* sibling) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return this->this$0->wrap($($nc(this->clientJavaFileManager)->getFileForOutput(location, packageName, relativeName, $(this->this$0->unwrap(sibling)))));
 	} catch ($ClientCodeException&) {
@@ -279,6 +289,7 @@ $FileObject* ClientCodeWrapper$WrappedJavaFileManager::getFileForOutput($JavaFil
 }
 
 bool ClientCodeWrapper$WrappedJavaFileManager::contains($JavaFileManager$Location* location, $FileObject* file) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientJavaFileManager)->contains(location, $(this->this$0->unwrap(file)));
 	} catch ($ClientCodeException&) {
@@ -295,6 +306,7 @@ bool ClientCodeWrapper$WrappedJavaFileManager::contains($JavaFileManager$Locatio
 }
 
 void ClientCodeWrapper$WrappedJavaFileManager::flush() {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$nc(this->clientJavaFileManager)->flush();
 	} catch ($ClientCodeException&) {
@@ -310,6 +322,7 @@ void ClientCodeWrapper$WrappedJavaFileManager::flush() {
 }
 
 void ClientCodeWrapper$WrappedJavaFileManager::close() {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$nc(this->clientJavaFileManager)->close();
 	} catch ($ClientCodeException&) {
@@ -325,6 +338,7 @@ void ClientCodeWrapper$WrappedJavaFileManager::close() {
 }
 
 $JavaFileManager$Location* ClientCodeWrapper$WrappedJavaFileManager::getLocationForModule($JavaFileManager$Location* location, $String* moduleName) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientJavaFileManager)->getLocationForModule(location, moduleName);
 	} catch ($ClientCodeException&) {
@@ -341,6 +355,7 @@ $JavaFileManager$Location* ClientCodeWrapper$WrappedJavaFileManager::getLocation
 }
 
 $JavaFileManager$Location* ClientCodeWrapper$WrappedJavaFileManager::getLocationForModule($JavaFileManager$Location* location, $JavaFileObject* fo) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientJavaFileManager)->getLocationForModule(location, $(this->this$0->unwrap(fo)));
 	} catch ($ClientCodeException&) {
@@ -357,6 +372,7 @@ $JavaFileManager$Location* ClientCodeWrapper$WrappedJavaFileManager::getLocation
 }
 
 $String* ClientCodeWrapper$WrappedJavaFileManager::inferModuleName($JavaFileManager$Location* location) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientJavaFileManager)->inferModuleName(location);
 	} catch ($ClientCodeException&) {
@@ -373,6 +389,7 @@ $String* ClientCodeWrapper$WrappedJavaFileManager::inferModuleName($JavaFileMana
 }
 
 $Iterable* ClientCodeWrapper$WrappedJavaFileManager::listLocationsForModules($JavaFileManager$Location* location) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientJavaFileManager)->listLocationsForModules(location);
 	} catch ($ClientCodeException&) {
@@ -389,6 +406,7 @@ $Iterable* ClientCodeWrapper$WrappedJavaFileManager::listLocationsForModules($Ja
 }
 
 int32_t ClientCodeWrapper$WrappedJavaFileManager::isSupportedOption($String* option) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientJavaFileManager)->isSupportedOption(option);
 	} catch ($ClientCodeException&) {
@@ -409,6 +427,7 @@ $String* ClientCodeWrapper$WrappedJavaFileManager::toString() {
 }
 
 $ServiceLoader* ClientCodeWrapper$WrappedJavaFileManager::getServiceLoader($JavaFileManager$Location* location, $Class* service) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientJavaFileManager)->getServiceLoader(location, service);
 	} catch ($ClientCodeException&) {

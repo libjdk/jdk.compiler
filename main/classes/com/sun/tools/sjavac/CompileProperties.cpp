@@ -122,6 +122,7 @@ void CompileProperties::setExtra($Options* a) {
 }
 
 bool CompileProperties::transform($CompilationService* compilationService, $Map* pkgSrcs, $Set* visibleSrcs, $Map* oldPackageDependents, $URI* destRoot, $Map* packageArtifacts, $Map* packageDependencies, $Map* packageCpDependencies, $Map* packagePublicApis, $Map* dependencyPublicApis, int32_t debugLevel, bool incremental, int32_t numCores) {
+	$useLocalCurrentObjectStackCache();
 	bool rc = true;
 	{
 		$var($Iterator, i$, $nc($($nc(pkgSrcs)->keySet()))->iterator());
@@ -149,6 +150,7 @@ bool CompileProperties::transform($CompilationService* compilationService, $Map*
 }
 
 bool CompileProperties::compile($String* pkgName, $String* pkgNameF, $File* src, $File* destRoot, int32_t debugLevel, $Map* packageArtifacts) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, superClass, "java.util.ListResourceBundle"_s);
 	if (this->extra != nullptr) {
 		$assign(superClass, this->extra);

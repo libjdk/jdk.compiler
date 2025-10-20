@@ -130,6 +130,7 @@ void Types$Adapter::init$($Types* this$0, $ListBuffer* from, $ListBuffer* to) {
 }
 
 void Types$Adapter::adapt($Type* source, $Type* target) {
+	$useLocalCurrentObjectStackCache();
 	visit(source, target);
 	$var($List, fromList, $nc(this->from)->toList());
 	$var($List, toList, $nc(this->to)->toList());
@@ -144,6 +145,7 @@ void Types$Adapter::adapt($Type* source, $Type* target) {
 }
 
 $Void* Types$Adapter::visitClassType($Type$ClassType* source, $Type* target) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	if ($nc(target)->hasTag($TypeTag::CLASS)) {
 		$var($List, var$0, $nc(source)->allparams());
@@ -153,6 +155,7 @@ $Void* Types$Adapter::visitClassType($Type$ClassType* source, $Type* target) {
 }
 
 $Void* Types$Adapter::visitArrayType($Type$ArrayType* source, $Type* target) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	if ($nc(target)->hasTag($TypeTag::ARRAY)) {
 		$var($Type, var$0, this->this$0->elemtype(source));
@@ -162,6 +165,7 @@ $Void* Types$Adapter::visitArrayType($Type$ArrayType* source, $Type* target) {
 }
 
 $Void* Types$Adapter::visitWildcardType($Type$WildcardType* source, $Type* target) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(source)->isExtendsBound()) {
 		$var($Type, var$0, this->this$0->wildUpperBound(source));
 		adaptRecursive(var$0, $(this->this$0->wildUpperBound(target)));
@@ -173,6 +177,7 @@ $Void* Types$Adapter::visitWildcardType($Type$WildcardType* source, $Type* targe
 }
 
 $Void* Types$Adapter::visitTypeVar($Type$TypeVar* source, $Type* target) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, val, $cast($Type, $nc(this->mapping)->get($nc(source)->tsym)));
 	if (val != nullptr) {
 		bool var$0 = val->isSuperBound();
@@ -202,6 +207,7 @@ $Void* Types$Adapter::visitType($Type* source, $Type* target) {
 }
 
 void Types$Adapter::adaptRecursive($Type* source, $Type* target) {
+	$useLocalCurrentObjectStackCache();
 	$var($Types$TypePair, pair, $new($Types$TypePair, this->this$0, source, target));
 	if ($nc(this->cache)->add(pair)) {
 		{
@@ -221,6 +227,7 @@ void Types$Adapter::adaptRecursive($Type* source, $Type* target) {
 }
 
 void Types$Adapter::adaptRecursive($List* source$renamed, $List* target$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, source, source$renamed);
 	$var($List, target, target$renamed);
 	int32_t var$0 = $nc(source)->length();

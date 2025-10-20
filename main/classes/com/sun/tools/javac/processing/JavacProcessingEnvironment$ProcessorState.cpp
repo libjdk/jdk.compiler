@@ -119,6 +119,7 @@ $Object* allocate$JavacProcessingEnvironment$ProcessorState($Class* clazz) {
 }
 
 void JavacProcessingEnvironment$ProcessorState::init$($Processor* p, $Log* log, $Source* source, $DeferredCompletionFailureHandler* dcfh, bool allowModules, $ProcessingEnvironment* env, bool lint) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, processor, p);
 	this->contributed = false;
 	$var($DeferredCompletionFailureHandler$Handler, prevDeferredHandler, $nc(dcfh)->setHandler(dcfh->userCodeHandler));
@@ -181,6 +182,7 @@ void JavacProcessingEnvironment$ProcessorState::init$($Processor* p, $Log* log, 
 }
 
 void JavacProcessingEnvironment$ProcessorState::checkSourceVersionCompatibility($Source* source, $Log* log) {
+	$useLocalCurrentObjectStackCache();
 	$SourceVersion* procSourceVersion = $nc(this->processor)->getSupportedSourceVersion();
 	if ($nc(procSourceVersion)->compareTo($(static_cast<$Enum*>($Source::toSourceVersion(source)))) < 0) {
 		$nc(log)->warning($($CompilerProperties$Warnings::ProcProcessorIncompatibleSourceVersion(procSourceVersion, $($nc($of(this->processor))->getClass()->getName()), $nc(source)->name$)));
@@ -188,6 +190,7 @@ void JavacProcessingEnvironment$ProcessorState::checkSourceVersionCompatibility(
 }
 
 bool JavacProcessingEnvironment$ProcessorState::checkOptionName($String* optionName, $Log* log) {
+	$useLocalCurrentObjectStackCache();
 	bool valid = $JavacProcessingEnvironment::isValidOptionName(optionName);
 	if (!valid) {
 		$nc(log)->error($($CompilerProperties$Errors::ProcProcessorBadOptionName(optionName, $($nc($of(this->processor))->getClass()->getName()))));
@@ -196,6 +199,7 @@ bool JavacProcessingEnvironment$ProcessorState::checkOptionName($String* optionN
 }
 
 bool JavacProcessingEnvironment$ProcessorState::annotationSupported($String* annotationName) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(this->supportedAnnotationPatterns)->iterator());
 		for (; $nc(i$)->hasNext();) {

@@ -73,6 +73,7 @@ $Object* allocate$RelativePath$RelativeFile($Class* clazz) {
 
 RelativePath$RelativeFile* RelativePath$RelativeFile::forClass($CharSequence* className, $JavaFileObject$Kind* kind) {
 	$init(RelativePath$RelativeFile);
+	$useLocalCurrentObjectStackCache();
 	return $new(RelativePath$RelativeFile, $$str({$($nc($($nc(className)->toString()))->replace(u'.', u'/')), $nc(kind)->extension}));
 }
 

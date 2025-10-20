@@ -320,11 +320,13 @@ $Map* NewDependencyCollector::getDependencies(bool cp) {
 }
 
 $Set* NewDependencyCollector::getDependencyNodes($Context* context, $Collection* explicitJFOs, bool explicits) {
+	$useLocalCurrentObjectStackCache();
 	$var($Dependencies$GraphDependencies, deps, $cast($Dependencies$GraphDependencies, $Dependencies$GraphDependencies::instance(context)));
 	return $cast($Set, $nc($($nc($($nc($($nc($($nc($($nc(deps)->getNodes()))->stream()))->map(static_cast<$Function*>($$new(NewDependencyCollector$$Lambda$lambda$getDependencyNodes$0)))))->filter(static_cast<$Predicate*>($$new(NewDependencyCollector$$Lambda$lambda$getDependencyNodes$1$1)))))->filter(static_cast<$Predicate*>($$new(NewDependencyCollector$$Lambda$lambda$getDependencyNodes$2$2, explicits, explicitJFOs)))))->collect($($Collectors::toSet())));
 }
 
 void NewDependencyCollector::collectPubApisOfDependencies($Context* context, $Collection* explicitJFOs) {
+	$useLocalCurrentObjectStackCache();
 	$var($PubAPIs, pubApis, $PubAPIs::instance(context));
 	{
 		$var($Iterator, i$, $nc($(getDependencyNodes(context, explicitJFOs, false)))->iterator());
@@ -343,6 +345,7 @@ void NewDependencyCollector::collectPubApisOfDependencies($Context* context, $Co
 }
 
 $JavaFileManager$Location* NewDependencyCollector::getLocationOf($Symbol$ClassSymbol* cs) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileObject, jfo, $nc($($nc(cs)->outermostClass()))->classfile);
 	{
 		$var($JavaFileObjectWithLocation, javaFileObjectWithLocation, nullptr);
@@ -359,6 +362,7 @@ $JavaFileManager$Location* NewDependencyCollector::getLocationOf($Symbol$ClassSy
 }
 
 $Map* NewDependencyCollector::getDependencies($Context* context, $Collection* explicitJFOs, bool cp) {
+	$useLocalCurrentObjectStackCache();
 	$var($Map, result, $new($HashMap));
 	{
 		$var($Iterator, i$, $nc($(getDependencyNodes(context, explicitJFOs, true)))->iterator());
@@ -411,6 +415,7 @@ $Map* NewDependencyCollector::getDependencies($Context* context, $Collection* ex
 }
 
 bool NewDependencyCollector::isSymbolRelevant(bool cp, $Symbol$ClassSymbol* cs) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileManager$Location, csLoc, getLocationOf(cs));
 	$init($StandardLocation);
 	$var($JavaFileManager$Location, relevantLocation, cp ? static_cast<$JavaFileManager$Location*>($StandardLocation::CLASS_PATH) : static_cast<$JavaFileManager$Location*>($StandardLocation::SOURCE_PATH));
@@ -418,6 +423,7 @@ bool NewDependencyCollector::isSymbolRelevant(bool cp, $Symbol$ClassSymbol* cs) 
 }
 
 $Set* NewDependencyCollector::allSupertypes($Symbol$TypeSymbol* t) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$ClassSymbol, classSymbol, nullptr);
 	bool var$0 = t == nullptr;
 	if (!var$0) {
@@ -447,6 +453,7 @@ $Set* NewDependencyCollector::allSupertypes($Symbol$TypeSymbol* t) {
 }
 
 $Collection* NewDependencyCollector::getAllDependencies($Dependencies$GraphDependencies$CompletionNode* cnode) {
+	$useLocalCurrentObjectStackCache();
 	return $cast($Collection, $nc($($nc($($Stream::of($($nc(cnode)->getSupportedDependencyKinds()))))->flatMap(static_cast<$Function*>($$new(NewDependencyCollector$$Lambda$lambda$getAllDependencies$3$3, cnode)))))->collect($($Collectors::toSet())));
 }
 

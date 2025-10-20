@@ -91,6 +91,7 @@ $ints* Resolve$18::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag = nullptr;
 $ints* Resolve$18::$SwitchMap$com$sun$tools$javac$code$Kinds$Kind = nullptr;
 
 void clinit$Resolve$18($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(Resolve$18::$SwitchMap$com$sun$tools$javac$code$Kinds$KindName, $new($ints, $($Kinds$KindName::values())->length));
 	{
 		try {

@@ -100,6 +100,7 @@ void TypeEnter$BasicConstructorHelper::init$($TypeEnter* this$0, $Symbol$TypeSym
 }
 
 $Type* TypeEnter$BasicConstructorHelper::constructorType() {
+	$useLocalCurrentObjectStackCache();
 	if (this->constructorType$ == nullptr) {
 		$var($List, var$0, $List::nil());
 		$var($Type, var$1, static_cast<$Type*>($nc(this->this$0->syms)->voidType));
@@ -109,6 +110,7 @@ $Type* TypeEnter$BasicConstructorHelper::constructorType() {
 }
 
 $Symbol$MethodSymbol* TypeEnter$BasicConstructorHelper::constructorSymbol() {
+	$useLocalCurrentObjectStackCache();
 	if (this->constructorSymbol$ == nullptr) {
 		int64_t flags = 0;
 		bool var$0 = ((int64_t)($nc($(owner()))->flags() & (uint64_t)(int64_t)16384)) != 0;

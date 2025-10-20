@@ -97,6 +97,7 @@ $ints* Kinds$1::$SwitchMap$javax$lang$model$element$ElementKind = nullptr;
 $ints* Kinds$1::$SwitchMap$com$sun$source$tree$MemberReferenceTree$ReferenceMode = nullptr;
 
 void clinit$Kinds$1($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(Kinds$1::$SwitchMap$javax$lang$model$element$ElementKind, $new($ints, $($ElementKind::values())->length));
 	{
 		try {

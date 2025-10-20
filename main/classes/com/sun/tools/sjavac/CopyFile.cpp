@@ -84,6 +84,7 @@ void CopyFile::setExtra($Options* a) {
 }
 
 bool CopyFile::transform($CompilationService* compilationService, $Map* pkgSrcs, $Set* visibleSrcs, $Map* oldPackageDependents, $URI* destRoot, $Map* packageArtifacts, $Map* packageDependencies, $Map* packageCpDependencies, $Map* packagePubapis, $Map* dependencyPubapis, int32_t debugLevel, bool incremental, int32_t numCores) {
+	$useLocalCurrentObjectStackCache();
 	bool rc = true;
 	$var($String, dest_filename, nullptr);
 	$var($File, dest, nullptr);

@@ -72,6 +72,7 @@ int32_t ReferenceTypeDesc::hashCode() {
 }
 
 $String* ReferenceTypeDesc::toString() {
+	$useLocalCurrentObjectStackCache();
 	return $String::format("%s[type: %s]"_s, $$new($ObjectArray, {
 		$($of($of(this)->getClass()->getSimpleName())),
 		$of(this->javaType)

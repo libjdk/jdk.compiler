@@ -162,6 +162,7 @@ $Infer$IncorporationAction* Infer$CheckUpperBounds::dup($Type$UndetVar* that) {
 }
 
 void Infer$CheckUpperBounds::apply($InferenceContext* inferenceContext, $Warner* warn) {
+	$useLocalCurrentObjectStackCache();
 	$init($Type$UndetVar$InferenceBound);
 	$var($List, boundList, $cast($List, $nc($($nc($($nc(this->uv)->getBounds($$new($Type$UndetVar$InferenceBoundArray, {$Type$UndetVar$InferenceBound::UPPER}))))->stream()))->collect($($nc(this->this$0->types)->closureCollector(true, static_cast<$BiPredicate*>($$new(Infer$CheckUpperBounds$$Lambda$isSameType, static_cast<$Types*>($nc(this->this$0->types)))))))));
 	{

@@ -93,6 +93,7 @@ bool Option$19::hasArg() {
 }
 
 void Option$19::process($OptionHelper* helper, $String* option) {
+	$useLocalCurrentObjectStackCache();
 	int32_t argLength = $nc(option)->length();
 	if (argLength == 2) {
 		$init($CompilerProperties$Errors);

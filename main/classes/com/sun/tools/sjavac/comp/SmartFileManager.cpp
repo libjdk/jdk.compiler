@@ -150,6 +150,7 @@ void SmartFileManager::cleanArtifacts() {
 }
 
 void SmartFileManager::setSymbolFileEnabled(bool b) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavacFileManager, javacFileManager, nullptr);
 	$var($JavaFileManager, patt3109$temp, this->fileManager);
 	bool var$0 = $instanceOf($JavacFileManager, patt3109$temp);
@@ -172,6 +173,7 @@ $Map* SmartFileManager::getPackageArtifacts() {
 }
 
 $Iterable* SmartFileManager::list($JavaFileManager$Location* location, $String* packageName, $Set* kinds, bool recurse) {
+	$useLocalCurrentObjectStackCache();
 	$var($Iterable, files, $ForwardingJavaFileManager::list(location, packageName, kinds, recurse));
 	if ($nc(this->visibleSources)->isEmpty()) {
 		return static_cast<$Iterable*>(static_cast<$Collection*>(static_cast<$AbstractCollection*>(static_cast<$AbstractQueue*>(locWrapMany(files, location)))));
@@ -196,6 +198,7 @@ $Iterable* SmartFileManager::list($JavaFileManager$Location* location, $String* 
 }
 
 $JavaFileObject* SmartFileManager::getJavaFileForInput($JavaFileManager$Location* location, $String* className, $JavaFileObject$Kind* kind) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileObject, file, $ForwardingJavaFileManager::getJavaFileForInput(location, className, kind));
 	$assign(file, locWrap(file, location));
 	if (file == nullptr || $nc(this->visibleSources)->isEmpty()) {
@@ -209,6 +212,7 @@ $JavaFileObject* SmartFileManager::getJavaFileForInput($JavaFileManager$Location
 }
 
 $JavaFileObject* SmartFileManager::getJavaFileForOutput($JavaFileManager$Location* location, $String* className, $JavaFileObject$Kind* kind, $FileObject* sibling) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileObject, file, $ForwardingJavaFileManager::getJavaFileForOutput(location, className, kind, sibling));
 	$assign(file, locWrap(file, location));
 	if (file == nullptr) {
@@ -225,6 +229,7 @@ $JavaFileObject* SmartFileManager::getJavaFileForOutput($JavaFileManager$Locatio
 }
 
 $FileObject* SmartFileManager::getFileForInput($JavaFileManager$Location* location, $String* packageName, $String* relativeName) {
+	$useLocalCurrentObjectStackCache();
 	$var($FileObject, file, $ForwardingJavaFileManager::getFileForInput(location, packageName, relativeName));
 	$assign(file, locWrap(file, location));
 	if (file == nullptr || $nc(this->visibleSources)->isEmpty()) {
@@ -254,6 +259,7 @@ bool SmartFileManager::isModuleInfo($FileObject* fo) {
 }
 
 $FileObject* SmartFileManager::getFileForOutput($JavaFileManager$Location* location, $String* packageName$renamed, $String* relativeName, $FileObject* sibling) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, packageName, packageName$renamed);
 	$var($FileObject, superFile, $ForwardingJavaFileManager::getFileForOutput(location, packageName, relativeName, sibling));
 	$var($FileObject, file, locWrap(superFile, location));
@@ -278,6 +284,7 @@ $JavaFileManager$Location* SmartFileManager::getLocationForModule($JavaFileManag
 
 $String* SmartFileManager::packageNameFromFileName($String* fn) {
 	$init(SmartFileManager);
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, sb, $new($StringBuilder));
 	int32_t p = $nc(fn)->indexOf((int32_t)u'_');
 	int32_t pp = 0;
@@ -330,12 +337,14 @@ $FileObject* SmartFileManager::locWrap($FileObject* fo, $JavaFileManager$Locatio
 }
 
 bool SmartFileManager::isSameFile($FileObject* a, $FileObject* b) {
+	$useLocalCurrentObjectStackCache();
 	$var($FileObject, var$0, locUnwrap(a));
 	return $ForwardingJavaFileManager::isSameFile(var$0, $(locUnwrap(b)));
 }
 
 $ListBuffer* SmartFileManager::locWrapMany($Iterable* jfos, $JavaFileManager$Location* loc) {
 	$init(SmartFileManager);
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, locWrapped, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc(jfos)->iterator());
@@ -349,6 +358,7 @@ $ListBuffer* SmartFileManager::locWrapMany($Iterable* jfos, $JavaFileManager$Loc
 
 $FileObject* SmartFileManager::locUnwrap($FileObject* fo) {
 	$init(SmartFileManager);
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($FileObjectWithLocation, fileObjectWithLocation, nullptr);
 		bool var$0 = $instanceOf($FileObjectWithLocation, fo);

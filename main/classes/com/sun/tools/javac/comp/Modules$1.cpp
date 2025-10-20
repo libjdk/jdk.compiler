@@ -102,6 +102,7 @@ void Modules$1::init$($Modules* this$0) {
 }
 
 void Modules$1::complete($Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$ModuleSymbol, msym, $nc(this->this$0->moduleFinder)->findModule($cast($Symbol$ModuleSymbol, sym)));
 	$init($Kinds$Kind);
 	if ($nc(msym)->kind == $Kinds$Kind::ERR) {

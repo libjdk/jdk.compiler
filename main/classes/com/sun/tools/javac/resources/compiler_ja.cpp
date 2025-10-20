@@ -45,6 +45,7 @@ void compiler_ja::init$() {
 }
 
 $ObjectArray2* compiler_ja::getContents() {
+	$useLocalCurrentObjectStackCache();
 	return $new($ObjectArray2, {
 		$$new($ObjectArray, {
 			$of("compiler.err.abstract.cant.be.accessed.directly"_s),

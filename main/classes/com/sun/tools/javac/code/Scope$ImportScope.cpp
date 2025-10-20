@@ -95,6 +95,7 @@ void Scope$ImportScope::finalizeScope() {
 }
 
 $Scope* Scope$ImportScope::finalizeSingleScope($Scope* impScope) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Scope$FilterImportScope, filterImportScope, nullptr);
 		bool var$1 = $instanceOf($Scope$FilterImportScope, impScope);

@@ -96,6 +96,7 @@ $String* PathFileObject$DirectoryFileObject::toString() {
 }
 
 $PathFileObject* PathFileObject$DirectoryFileObject::getSibling($String* baseName) {
+	$useLocalCurrentObjectStackCache();
 	$var($BaseFileManager, var$0, this->fileManager);
 	$var($Path, var$1, $nc(this->path)->resolveSibling(baseName));
 	$var($Path, var$2, this->userPackageRootDir);

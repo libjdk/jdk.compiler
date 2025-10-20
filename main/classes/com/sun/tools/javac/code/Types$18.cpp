@@ -103,6 +103,7 @@ $Type* Types$18::visitType($Type* t, $Void* ignored) {
 }
 
 $Type* Types$18::visitClassType($Type$ClassType* t, $Void* ignored) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, outer1, this->this$0->classBound($($nc(t)->getEnclosingType())));
 	if (outer1 != $nc(t)->getEnclosingType()) {
 		$var($Type, var$0, outer1);

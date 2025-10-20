@@ -129,6 +129,7 @@ void Types$SignatureGenerator::reportIllegalSignature($Type* t) {
 }
 
 void Types$SignatureGenerator::assembleSig($Type* type) {
+	$useLocalCurrentObjectStackCache();
 		$init($Types$25);
 	{
 		$var($Type$ArrayType, at, nullptr)
@@ -283,6 +284,7 @@ bool Types$SignatureGenerator::hasTypeVar($List* l$renamed) {
 }
 
 void Types$SignatureGenerator::assembleClassSig($Type* type) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type$ClassType, ct, $cast($Type$ClassType, type));
 	$var($Symbol$ClassSymbol, c, $cast($Symbol$ClassSymbol, $nc(ct)->tsym));
 	classReference(c);
@@ -312,6 +314,7 @@ void Types$SignatureGenerator::assembleClassSig($Type* type) {
 }
 
 void Types$SignatureGenerator::assembleParamsSig($List* typarams) {
+	$useLocalCurrentObjectStackCache();
 	append(u'<');
 	{
 		$var($List, ts, typarams);

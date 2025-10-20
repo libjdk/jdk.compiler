@@ -294,6 +294,7 @@ void DeferredAttr$DeferredAttrContext::addDeferredAttrNode($DeferredAttr$Deferre
 }
 
 void DeferredAttr$DeferredAttrContext::complete() {
+	$useLocalCurrentObjectStackCache();
 	while (!$nc(this->deferredAttrNodes)->isEmpty()) {
 		bool progress = false;
 		{
@@ -347,12 +348,14 @@ bool DeferredAttr$DeferredAttrContext::insideOverloadPhase() {
 }
 
 $DeferredAttr$DeferredAttrNode* DeferredAttr$DeferredAttrContext::pickDeferredNode() {
+	$useLocalCurrentObjectStackCache();
 	$var($List, stuckGraph, buildStuckGraph());
 	$var($List, csn, $cast($List, $nc($($GraphUtils::tarjan(static_cast<$Iterable*>(static_cast<$Collection*>(static_cast<$AbstractCollection*>(stuckGraph))))))->get(0)));
 	return $nc(csn)->length() == 1 ? $cast($DeferredAttr$DeferredAttrNode, $nc(($cast($DeferredAttr$DeferredAttrContext$StuckNode, $($nc(csn)->get(0)))))->data) : $cast($DeferredAttr$DeferredAttrNode, $nc(this->deferredAttrNodes)->get(0));
 }
 
 $List* DeferredAttr$DeferredAttrContext::buildStuckGraph() {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->this$0->infer)->doIncorporation(this->inferenceContext, this->warn);
 	$var($Infer$GraphSolver$InferenceGraph, graph, $new($Infer$GraphSolver$InferenceGraph, $$new($Infer$GraphSolver, static_cast<$Infer*>($nc(this->this$0->infer)), this->inferenceContext, $nc(this->this$0->types)->noWarnings)));
 	$var($List, nodes, $cast($List, $nc($($nc($($nc(this->deferredAttrNodes)->stream()))->map(static_cast<$Function*>($$new(DeferredAttr$DeferredAttrContext$$Lambda$lambda$buildStuckGraph$0, this)))))->collect($($List::collector()))));
@@ -379,6 +382,7 @@ $List* DeferredAttr$DeferredAttrContext::buildStuckGraph() {
 }
 
 bool DeferredAttr$DeferredAttrContext::canInfluence($Infer$GraphSolver$InferenceGraph* graph, $DeferredAttr$DeferredAttrContext$StuckNode* sn1, $DeferredAttr$DeferredAttrContext$StuckNode* sn2) {
+	$useLocalCurrentObjectStackCache();
 	$var($Set, outputVars, $nc($nc(($cast($DeferredAttr$DeferredAttrNode, $nc(sn1)->data)))->deferredStuckPolicy)->depVars());
 	{
 		$var($Iterator, i$, $nc($($nc($nc(($cast($DeferredAttr$DeferredAttrNode, $nc(sn2)->data)))->deferredStuckPolicy)->stuckVars()))->iterator());

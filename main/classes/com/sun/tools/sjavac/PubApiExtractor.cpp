@@ -119,6 +119,7 @@ $Object* allocate$PubApiExtractor($Class* clazz) {
 }
 
 void PubApiExtractor::init$($Options* options) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavacTool, compiler, $JavacTool::create());
 	$set(this, fileManager, $new($SmartFileManager, $($nc(compiler)->getStandardFileManager(nullptr, nullptr, nullptr))));
 	$set(this, context, $new($Context));
@@ -131,6 +132,7 @@ void PubApiExtractor::init$($Options* options) {
 }
 
 $PubApi* PubApiExtractor::getPubApi($String* fullyQualifiedClassName) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symtab, syms, $Symtab::instance(this->context));
 	$var($ClassFinder, cr, $ClassFinder::instance(this->context));
 	$var($Names, ns, $Names::instance(this->context));

@@ -108,6 +108,7 @@ $Object* allocate$JavacProcessingEnvironment$NameProcessIterator($Class* clazz) 
 }
 
 void JavacProcessingEnvironment$NameProcessIterator::init$($String* names, $ClassLoader* processorCL, $Log* log) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, nextProc, nullptr);
 	$set(this, names, $nc($($Arrays::asList($($nc(names)->split(","_s)))))->iterator());
 	$set(this, processorCL, processorCL);
@@ -115,6 +116,7 @@ void JavacProcessingEnvironment$NameProcessIterator::init$($String* names, $Clas
 }
 
 bool JavacProcessingEnvironment$NameProcessIterator::hasNext() {
+	$useLocalCurrentObjectStackCache();
 	if (this->nextProc != nullptr) {
 		return true;
 	} else if (!$nc(this->names)->hasNext()) {
@@ -131,6 +133,7 @@ bool JavacProcessingEnvironment$NameProcessIterator::hasNext() {
 }
 
 $Processor* JavacProcessingEnvironment$NameProcessIterator::getNextProcessor($String* processorName) {
+	$useLocalCurrentObjectStackCache();
 	$beforeCallerSensitive();
 	try {
 		try {
@@ -175,6 +178,7 @@ void JavacProcessingEnvironment$NameProcessIterator::remove() {
 }
 
 void JavacProcessingEnvironment$NameProcessIterator::ensureReadable($Class* targetClass) {
+	$useLocalCurrentObjectStackCache();
 	$beforeCallerSensitive();
 	try {
 		$load($Class);

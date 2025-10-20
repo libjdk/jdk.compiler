@@ -197,11 +197,13 @@ $Symbol* Scope::findFirst($Name* name) {
 }
 
 $Symbol* Scope::findFirst($Name* name, $Predicate* sf) {
+	$useLocalCurrentObjectStackCache();
 	$var($Iterator, it, $nc($(getSymbolsByName(name, sf)))->iterator());
 	return $nc(it)->hasNext() ? $cast($Symbol, $nc(it)->next()) : ($Symbol*)nullptr;
 }
 
 bool Scope::anyMatch($Predicate* filter) {
+	$useLocalCurrentObjectStackCache();
 	$init($Scope$LookupKind);
 	return $nc($($nc($(getSymbols(filter, $Scope$LookupKind::NON_RECURSIVE)))->iterator()))->hasNext();
 }
@@ -212,10 +214,12 @@ bool Scope::includes($Symbol* sym) {
 }
 
 bool Scope::includes($Symbol* sym, $Scope$LookupKind* lookupKind) {
+	$useLocalCurrentObjectStackCache();
 	return $nc($($nc($(getSymbolsByName($nc(sym)->name, static_cast<$Predicate*>($$new(Scope$$Lambda$lambda$includes$0, sym)), lookupKind)))->iterator()))->hasNext();
 }
 
 bool Scope::isEmpty() {
+	$useLocalCurrentObjectStackCache();
 	$init($Scope$LookupKind);
 	return !$nc($($nc($(getSymbols($Scope$LookupKind::NON_RECURSIVE)))->iterator()))->hasNext();
 }

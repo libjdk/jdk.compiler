@@ -542,6 +542,7 @@ JavacProcessingEnvironment* JavacProcessingEnvironment::instance($Context* conte
 }
 
 void JavacProcessingEnvironment::init$($Context* context) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, specifiedPackages, $Collections::emptySet());
 	$set(this, treeCleaner, $new($JavacProcessingEnvironment$1, this));
 	$set(this, context, context);
@@ -595,6 +596,7 @@ void JavacProcessingEnvironment::setProcessors($Iterable* processors) {
 }
 
 $Set* JavacProcessingEnvironment::initPlatformAnnotations() {
+	$useLocalCurrentObjectStackCache();
 	$init($Source$Feature);
 	$var($String, module_prefix, $Source$Feature::MODULES->allowedInSource(this->source) ? "java.base/"_s : ""_s);
 	return $Set::of($$new($StringArray, {
@@ -614,6 +616,7 @@ $Set* JavacProcessingEnvironment::initPlatformAnnotations() {
 }
 
 void JavacProcessingEnvironment::initProcessorLoader() {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$init($StandardLocation);
 		if ($nc(this->fileManager)->hasLocation($StandardLocation::ANNOTATION_PROCESSOR_MODULE_PATH)) {
@@ -654,6 +657,7 @@ void JavacProcessingEnvironment::initProcessorLoader() {
 }
 
 void JavacProcessingEnvironment::initProcessorIterator($Iterable* processors) {
+	$useLocalCurrentObjectStackCache();
 	$var($Iterator, processorIterator, nullptr);
 	$init($Option);
 	if ($nc(this->options)->isSet($Option::XPRINT)) {
@@ -692,6 +696,7 @@ void JavacProcessingEnvironment::initProcessorIterator($Iterable* processors) {
 }
 
 $ServiceLoader* JavacProcessingEnvironment::getServiceLoader($Class* service) {
+	$useLocalCurrentObjectStackCache();
 	$beforeCallerSensitive();
 	$init($StandardLocation);
 	if ($nc(this->fileManager)->hasLocation($StandardLocation::ANNOTATION_PROCESSOR_MODULE_PATH)) {
@@ -707,6 +712,7 @@ $ServiceLoader* JavacProcessingEnvironment::getServiceLoader($Class* service) {
 }
 
 $Iterator* JavacProcessingEnvironment::handleServiceLoaderUnavailability($String* key, $Exception* e) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($JavacFileManager, standardFileManager, nullptr);
 		$var($JavaFileManager, patt15804$temp, this->fileManager);
@@ -731,6 +737,7 @@ $Iterator* JavacProcessingEnvironment::handleServiceLoaderUnavailability($String
 }
 
 void JavacProcessingEnvironment::handleException($String* key, $Exception* e) {
+	$useLocalCurrentObjectStackCache();
 	if (e != nullptr) {
 		$nc(this->log)->error(key, $$new($ObjectArray, {$($of(e->getLocalizedMessage()))}));
 		$throwNew($Abort, e);
@@ -745,6 +752,7 @@ bool JavacProcessingEnvironment::atLeastOneProcessor() {
 }
 
 $Map* JavacProcessingEnvironment::initProcessorOptions() {
+	$useLocalCurrentObjectStackCache();
 	$var($Set, keySet, $nc(this->options)->keySet());
 	$var($Map, tempOptions, $new($LinkedHashMap));
 	{
@@ -785,12 +793,14 @@ $Map* JavacProcessingEnvironment::initProcessorOptions() {
 }
 
 $Set* JavacProcessingEnvironment::initUnmatchedProcessorOptions() {
+	$useLocalCurrentObjectStackCache();
 	$var($Set, unmatchedProcessorOptions, $new($HashSet));
 	unmatchedProcessorOptions->addAll($($nc(this->processorOptions)->keySet()));
 	return unmatchedProcessorOptions;
 }
 
 void JavacProcessingEnvironment::discoverAndRunProcs($Set* annotationsPresent, $List* topLevelClasses, $List* packageInfoFiles, $List* moduleInfoFiles) {
+	$useLocalCurrentObjectStackCache();
 	$var($Map, unmatchedAnnotations, $new($HashMap, $nc(annotationsPresent)->size()));
 	{
 		$var($Iterator, i$, $nc(annotationsPresent)->iterator());
@@ -867,6 +877,7 @@ void JavacProcessingEnvironment::discoverAndRunProcs($Set* annotationsPresent, $
 }
 
 bool JavacProcessingEnvironment::callProcessor($Processor* proc, $Set* tes, $RoundEnvironment* renv) {
+	$useLocalCurrentObjectStackCache();
 	$var($DeferredCompletionFailureHandler$Handler, prevDeferredHandler, $nc(this->dcfh)->setHandler($nc(this->dcfh)->userCodeHandler));
 	{
 		$var($Throwable, var$0, nullptr);
@@ -916,6 +927,7 @@ bool JavacProcessingEnvironment::callProcessor($Processor* proc, $Set* tes, $Rou
 }
 
 bool JavacProcessingEnvironment::doProcessing($List* roots$renamed, $List* classSymbols, $Iterable* pckSymbols, $Log$DeferredDiagnosticHandler* deferredDiagnosticHandler) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, roots, roots$renamed);
 	$var($Set, treesToClean, $Collections::newSetFromMap($$new($IdentityHashMap)));
 	{
@@ -987,6 +999,7 @@ bool JavacProcessingEnvironment::doProcessing($List* roots$renamed, $List* class
 }
 
 void JavacProcessingEnvironment::warnIfUnmatchedOptions() {
+	$useLocalCurrentObjectStackCache();
 	if (!$nc(this->unmatchedProcessorOptions)->isEmpty()) {
 		$nc(this->log)->warning($($CompilerProperties$Warnings::ProcUnmatchedProcessorOptions($($nc($of(this->unmatchedProcessorOptions))->toString()))));
 	}
@@ -1001,6 +1014,7 @@ void JavacProcessingEnvironment::close() {
 }
 
 $List* JavacProcessingEnvironment::getTopLevelClasses($List* units) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, classes, $List::nil());
 	{
 		$var($Iterator, i$, $nc(units)->iterator());
@@ -1028,6 +1042,7 @@ $List* JavacProcessingEnvironment::getTopLevelClasses($List* units) {
 }
 
 $List* JavacProcessingEnvironment::getTopLevelClassesFromClasses($List* syms) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, classes, $List::nil());
 	{
 		$var($Iterator, i$, $nc(syms)->iterator());
@@ -1044,6 +1059,7 @@ $List* JavacProcessingEnvironment::getTopLevelClassesFromClasses($List* syms) {
 }
 
 $List* JavacProcessingEnvironment::getPackageInfoFiles($List* units) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, packages, $List::nil());
 	{
 		$var($Iterator, i$, $nc(units)->iterator());
@@ -1061,6 +1077,7 @@ $List* JavacProcessingEnvironment::getPackageInfoFiles($List* units) {
 }
 
 $List* JavacProcessingEnvironment::getPackageInfoFilesFromClasses($List* syms) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, packages, $List::nil());
 	{
 		$var($Iterator, i$, $nc(syms)->iterator());
@@ -1077,6 +1094,7 @@ $List* JavacProcessingEnvironment::getPackageInfoFilesFromClasses($List* syms) {
 }
 
 $List* JavacProcessingEnvironment::getModuleInfoFiles($List* units) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, modules, $List::nil());
 	{
 		$var($Iterator, i$, $nc(units)->iterator());
@@ -1132,6 +1150,7 @@ bool JavacProcessingEnvironment::isModuleInfo($JavaFileObject* fo, $JavaFileObje
 }
 
 bool JavacProcessingEnvironment::needClassLoader($String* procNames, $Iterable* workingpath) {
+	$useLocalCurrentObjectStackCache();
 	if (procNames != nullptr) {
 		return true;
 	}
@@ -1203,6 +1222,7 @@ $Set* JavacProcessingEnvironment::getSpecifiedPackages() {
 
 $Pattern* JavacProcessingEnvironment::importStringToPattern(bool allowModules, $String* s, $Processor* p, $Log* log, bool lint) {
 	$init(JavacProcessingEnvironment);
+	$useLocalCurrentObjectStackCache();
 	$var($String, module, nullptr);
 	$var($String, pkg, nullptr);
 	int32_t slash = $nc(s)->indexOf((int32_t)u'/');
@@ -1229,6 +1249,7 @@ $Pattern* JavacProcessingEnvironment::importStringToPattern(bool allowModules, $
 
 $Pattern* JavacProcessingEnvironment::warnAndNoMatches($String* s, $Processor* p, $Log* log, bool lint) {
 	$init(JavacProcessingEnvironment);
+	$useLocalCurrentObjectStackCache();
 	if (lint) {
 		$nc(log)->warning($($CompilerProperties$Warnings::ProcMalformedSupportedString(s, $($nc($of(p))->getClass()->getName()))));
 	}
@@ -1249,6 +1270,7 @@ $String* JavacProcessingEnvironment::toString() {
 
 bool JavacProcessingEnvironment::isValidOptionName($String* optionName) {
 	$init(JavacProcessingEnvironment);
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($StringArray, arr$, $nc(optionName)->split("\\."_s, -1));
 		int32_t len$ = arr$->length;

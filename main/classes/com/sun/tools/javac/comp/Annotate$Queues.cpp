@@ -65,6 +65,7 @@ $Object* allocate$Annotate$Queues($Class* clazz) {
 }
 
 void Annotate$Queues::init$() {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, var$0, $new($ListBuffer));
 	$var($ListBuffer, var$1, $new($ListBuffer));
 	$var($ListBuffer, var$2, $new($ListBuffer));

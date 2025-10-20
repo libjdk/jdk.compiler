@@ -204,6 +204,7 @@ void Resolve$4::checkArg($JCDiagnostic$DiagnosticPosition* pos, bool varargs, $T
 }
 
 void Resolve$4::argumentsAcceptable($Env* env, $DeferredAttr$DeferredAttrContext* deferredAttrContext, $List* argtypes, $List* formals, $Warner* warn) {
+	$useLocalCurrentObjectStackCache();
 	$Resolve$AbstractMethodCheck::argumentsAcceptable(env, deferredAttrContext, argtypes, formals, warn);
 	if ($nc(deferredAttrContext)->phase->isVarargsRequired()) {
 		$init($DeferredAttr$AttrMode);
@@ -214,6 +215,7 @@ void Resolve$4::argumentsAcceptable($Env* env, $DeferredAttr$DeferredAttrContext
 }
 
 void Resolve$4::varargsAccessible($Env* env, $Type* t, $InferenceContext* inferenceContext) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(inferenceContext)->free(t)) {
 		$var($List, var$0, $List::of(t));
 		inferenceContext->addFreeTypeListener(var$0, static_cast<$Infer$FreeTypeListener*>($$new(Resolve$4$$Lambda$lambda$varargsAccessible$0, this, env, t)));

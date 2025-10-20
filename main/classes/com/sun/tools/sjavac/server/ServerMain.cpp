@@ -132,6 +132,7 @@ void ServerMain::init$() {
 }
 
 int32_t ServerMain::run($StringArray* args) {
+	$useLocalCurrentObjectStackCache();
 	$init(ServerMain);
 	$Log::setLogForCurrentThread(($assignStatic(ServerMain::errorLog, $new($LazyInitFileLog, "server.log"_s))));
 	$init($Log$Level);

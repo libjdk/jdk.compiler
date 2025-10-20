@@ -114,6 +114,7 @@ void ClassReader$AnnotationDefaultCompleter::init$($ClassReader* this$0, $Symbol
 }
 
 void ClassReader$AnnotationDefaultCompleter::run() {
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileObject, previousClassFile, this->this$0->currentClassFile);
 	{
 		$var($Throwable, var$0, nullptr);

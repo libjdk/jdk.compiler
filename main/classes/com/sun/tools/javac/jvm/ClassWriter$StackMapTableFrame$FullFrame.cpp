@@ -86,6 +86,7 @@ int32_t ClassWriter$StackMapTableFrame$FullFrame::getFrameType() {
 }
 
 void ClassWriter$StackMapTableFrame$FullFrame::write($ClassWriter* writer) {
+	$useLocalCurrentObjectStackCache();
 	$ClassWriter$StackMapTableFrame::write(writer);
 	$nc($nc(writer)->databuf)->appendChar(this->offsetDelta);
 	$nc(writer->databuf)->appendChar($nc(this->locals)->length);

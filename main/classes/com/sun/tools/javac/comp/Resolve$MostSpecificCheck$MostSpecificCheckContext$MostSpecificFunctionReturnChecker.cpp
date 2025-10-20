@@ -138,6 +138,7 @@ void Resolve$MostSpecificCheck$MostSpecificCheckContext$MostSpecificFunctionRetu
 }
 
 void Resolve$MostSpecificCheck$MostSpecificCheckContext$MostSpecificFunctionReturnChecker::visitConditional($JCTree$JCConditional* tree) {
+	$useLocalCurrentObjectStackCache();
 	scan($(static_cast<$JCTree*>(asExpr($nc(tree)->truepart))));
 	scan($(static_cast<$JCTree*>(asExpr($nc(tree)->falsepart))));
 }
@@ -168,6 +169,7 @@ void Resolve$MostSpecificCheck$MostSpecificCheckContext$MostSpecificFunctionRetu
 }
 
 void Resolve$MostSpecificCheck$MostSpecificCheckContext$MostSpecificFunctionReturnChecker::visitLambda($JCTree$JCLambda* tree) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	if ($nc(this->sRet)->hasTag($TypeTag::VOID)) {
 		this->result &= true;
@@ -215,6 +217,7 @@ void Resolve$MostSpecificCheck$MostSpecificCheckContext$MostSpecificFunctionRetu
 }
 
 $List* Resolve$MostSpecificCheck$MostSpecificCheckContext$MostSpecificFunctionReturnChecker::lambdaResults($JCTree$JCLambda* lambda) {
+	$useLocalCurrentObjectStackCache();
 	$init($LambdaExpressionTree$BodyKind);
 	if ($nc(lambda)->getBodyKind() == $LambdaExpressionTree$BodyKind::EXPRESSION) {
 		return $List::of($(asExpr($cast($JCTree$JCExpression, lambda->body))));
@@ -227,6 +230,7 @@ $List* Resolve$MostSpecificCheck$MostSpecificCheckContext$MostSpecificFunctionRe
 }
 
 $JCTree$JCExpression* Resolve$MostSpecificCheck$MostSpecificCheckContext$MostSpecificFunctionReturnChecker::asExpr($JCTree$JCExpression* expr$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCExpression, expr, expr$renamed);
 	$init($TypeTag);
 	if ($nc($nc(expr)->type)->hasTag($TypeTag::DEFERRED)) {

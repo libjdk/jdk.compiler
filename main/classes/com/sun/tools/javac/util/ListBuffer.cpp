@@ -187,6 +187,7 @@ ListBuffer* ListBuffer::appendList(ListBuffer* xs) {
 }
 
 ListBuffer* ListBuffer::appendArray($ObjectArray* xs) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($ObjectArray, arr$, xs);
 		int32_t len$ = $nc(arr$)->length;
@@ -249,6 +250,7 @@ bool ListBuffer::remove(Object$* o) {
 }
 
 bool ListBuffer::containsAll($Collection* c) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(c)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -264,6 +266,7 @@ bool ListBuffer::containsAll($Collection* c) {
 }
 
 bool ListBuffer::addAll($Collection* c) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(c)->iterator());
 		for (; $nc(i$)->hasNext();) {

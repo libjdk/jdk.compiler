@@ -118,6 +118,7 @@ void JavacTrees$3::init$($JavacTrees* this$0, $ListBuffer* val$toClear, $Map* va
 }
 
 void JavacTrees$3::visitClassDef($JCTree$JCClassDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, prevOwner, this->owner);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -149,6 +150,7 @@ void JavacTrees$3::visitClassDef($JCTree$JCClassDecl* tree) {
 }
 
 void JavacTrees$3::visitBlock($JCTree$JCBlock* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, prevOwner, this->owner);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -168,6 +170,7 @@ void JavacTrees$3::visitBlock($JCTree$JCBlock* tree) {
 }
 
 void JavacTrees$3::visitVarDef($JCTree$JCVariableDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, prevOwner, this->owner);
 	{
 		$var($Throwable, var$0, nullptr);

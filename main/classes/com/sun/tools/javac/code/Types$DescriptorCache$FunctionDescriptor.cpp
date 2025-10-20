@@ -98,6 +98,7 @@ $Symbol* Types$DescriptorCache$FunctionDescriptor::getSymbol() {
 }
 
 $Type* Types$DescriptorCache$FunctionDescriptor::getType($Type* site$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, site, site$renamed);
 	$assign(site, $nc(this->this$1->this$0)->removeWildcards(site));
 	if ($nc(site)->isIntersection()) {

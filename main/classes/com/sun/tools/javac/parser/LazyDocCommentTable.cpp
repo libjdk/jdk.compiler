@@ -108,6 +108,7 @@ $String* LazyDocCommentTable::getCommentText($JCTree* tree) {
 }
 
 $DCTree$DCDocComment* LazyDocCommentTable::getCommentTree($JCTree* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($LazyDocCommentTable$Entry, e, $cast($LazyDocCommentTable$Entry, $nc(this->table)->get(tree)));
 	if (e == nullptr) {
 		return nullptr;

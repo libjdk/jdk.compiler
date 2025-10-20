@@ -116,6 +116,7 @@ void Code$LocalVar::removeLastRange() {
 }
 
 $String* Code$LocalVar::toString() {
+	$useLocalCurrentObjectStackCache();
 	if (this->aliveRanges == nullptr) {
 		return "empty local var"_s;
 	}
@@ -166,6 +167,7 @@ bool Code$LocalVar::isLastRangeInitialized() {
 }
 
 $Code$LocalVar$Range* Code$LocalVar::getWidestRange() {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(this->aliveRanges)->isEmpty()) {
 		return $new($Code$LocalVar$Range, this);
 	} else {

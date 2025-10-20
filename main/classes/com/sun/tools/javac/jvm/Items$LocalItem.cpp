@@ -108,6 +108,7 @@ void Items$LocalItem::store() {
 }
 
 void Items$LocalItem::incr(int32_t x) {
+	$useLocalCurrentObjectStackCache();
 	if (this->typecode == 0 && x >= -32768 && x <= 32767) {
 		$nc(this->this$0->code)->emitop1w(132, this->reg, x);
 	} else {

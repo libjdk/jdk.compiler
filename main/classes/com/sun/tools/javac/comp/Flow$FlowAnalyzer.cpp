@@ -246,6 +246,7 @@ void Flow$FlowAnalyzer::markDead() {
 }
 
 void Flow$FlowAnalyzer::errorUncaught() {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Flow$BaseAnalyzer$PendingExit, exit, $cast($Flow$BaseAnalyzer$PendingExit, $nc(this->pendingExits)->next()));
 		for (; exit != nullptr; $assign(exit, $cast($Flow$BaseAnalyzer$PendingExit, $nc(this->pendingExits)->next()))) {
@@ -280,6 +281,7 @@ void Flow$FlowAnalyzer::errorUncaught() {
 }
 
 void Flow$FlowAnalyzer::markThrown($JCTree* tree, $Type* exc) {
+	$useLocalCurrentObjectStackCache();
 	if (!$nc(this->this$0->chk)->isUnchecked($($nc(tree)->pos()), exc)) {
 		if (!$nc(this->this$0->chk)->isHandled(exc, this->caught)) {
 			$nc(this->pendingExits)->append($$new($Flow$FlowAnalyzer$ThrownPendingExit, this, tree, exc));
@@ -289,6 +291,7 @@ void Flow$FlowAnalyzer::markThrown($JCTree* tree, $Type* exc) {
 }
 
 void Flow$FlowAnalyzer::visitClassDef($JCTree$JCClassDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(tree)->sym == nullptr) {
 		return;
 	}
@@ -390,6 +393,7 @@ void Flow$FlowAnalyzer::visitClassDef($JCTree$JCClassDecl* tree) {
 }
 
 void Flow$FlowAnalyzer::visitMethodDef($JCTree$JCMethodDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(tree)->body == nullptr) {
 		return;
 	}
@@ -440,6 +444,7 @@ void Flow$FlowAnalyzer::visitMethodDef($JCTree$JCMethodDecl* tree) {
 }
 
 void Flow$FlowAnalyzer::visitVarDef($JCTree$JCVariableDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(tree)->init != nullptr) {
 		$var($Lint, lintPrev, this->this$0->lint);
 		$set(this->this$0, lint, $nc(this->this$0->lint)->augment(static_cast<$Symbol*>(tree->sym)));
@@ -520,6 +525,7 @@ void Flow$FlowAnalyzer::visitSwitchExpression($JCTree$JCSwitchExpression* tree) 
 }
 
 void Flow$FlowAnalyzer::handleSwitch($JCTree* tree, $JCTree$JCExpression* selector, $List* cases) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, prevPendingExits, this->pendingExits);
 	$set(this, pendingExits, $new($ListBuffer));
 	scan(static_cast<$JCTree*>(selector));
@@ -540,6 +546,7 @@ void Flow$FlowAnalyzer::handleSwitch($JCTree* tree, $JCTree$JCExpression* select
 }
 
 void Flow$FlowAnalyzer::visitTry($JCTree$JCTry* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, caughtPrev, this->caught);
 	$var($List, thrownPrev, this->thrown);
 	$set(this, thrown, $List::nil());
@@ -699,6 +706,7 @@ void Flow$FlowAnalyzer::visitIf($JCTree$JCIf* tree) {
 }
 
 void Flow$FlowAnalyzer::checkCaughtType($JCDiagnostic$DiagnosticPosition* pos, $Type* exc, $List* thrownInTry, $List* caughtInTry) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(this->this$0->chk)->subset(exc, caughtInTry)) {
 		$nc(this->this$0->log)->error(pos, $($CompilerProperties$Errors::ExceptAlreadyCaught(exc)));
 	} else {
@@ -740,6 +748,7 @@ void Flow$FlowAnalyzer::visitReturn($JCTree$JCReturn* tree) {
 }
 
 void Flow$FlowAnalyzer::visitThrow($JCTree$JCThrow* tree) {
+	$useLocalCurrentObjectStackCache();
 	scan(static_cast<$JCTree*>($nc(tree)->expr));
 	$var($Symbol, sym, $TreeInfo::symbol($nc(tree)->expr));
 	$init($Kinds$Kind);
@@ -772,6 +781,7 @@ void Flow$FlowAnalyzer::visitApply($JCTree$JCMethodInvocation* tree) {
 }
 
 void Flow$FlowAnalyzer::visitNewClass($JCTree$JCNewClass* tree) {
+	$useLocalCurrentObjectStackCache();
 	scan(static_cast<$JCTree*>($nc(tree)->encl));
 	scan($nc(tree)->args);
 	{
@@ -805,6 +815,7 @@ void Flow$FlowAnalyzer::visitNewClass($JCTree$JCNewClass* tree) {
 }
 
 void Flow$FlowAnalyzer::visitLambda($JCTree$JCLambda* tree) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(tree)->type != nullptr && $nc(tree->type)->isErroneous()) {
 		return;
 	}

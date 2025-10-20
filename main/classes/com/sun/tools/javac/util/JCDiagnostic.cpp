@@ -181,6 +181,7 @@ $DiagnosticFormatter* JCDiagnostic::fragmentFormatter = nullptr;
 
 JCDiagnostic* JCDiagnostic::fragment($String* key, $ObjectArray* args) {
 	$init(JCDiagnostic);
+	$useLocalCurrentObjectStackCache();
 	$var($DiagnosticFormatter, var$0, getFragmentFormatter());
 	$init($JCDiagnostic$DiagnosticType);
 	$var($JCDiagnostic$DiagnosticInfo, var$1, $JCDiagnostic$DiagnosticInfo::of($JCDiagnostic$DiagnosticType::FRAGMENT, "compiler"_s, key, args));

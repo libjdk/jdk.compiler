@@ -106,6 +106,7 @@ void ClassFinder$1::init$($ClassFinder* this$0, $Iterable* val$listed, $Symbol$P
 }
 
 bool ClassFinder$1::hasNext() {
+	$useLocalCurrentObjectStackCache();
 	if (this->next$ == nullptr) {
 		while ($nc(this->original)->hasNext()) {
 			$var($JavaFileObject, fo, $cast($JavaFileObject, $nc(this->original)->next()));

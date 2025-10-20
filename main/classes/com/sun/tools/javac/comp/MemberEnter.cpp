@@ -231,6 +231,7 @@ void MemberEnter::init$($Context* context) {
 }
 
 $Type* MemberEnter::signature($Symbol$MethodSymbol* msym, $List* typarams, $List* params, $JCTree* res, $JCTree$JCVariableDecl* recvparam, $List* thrown, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, tvars, $nc(this->enter)->classEnter(typarams, env));
 	$nc(this->attr)->attribTypeVariables(typarams, env, true);
 	$var($ListBuffer, argbuf, $new($ListBuffer));
@@ -271,6 +272,7 @@ $Type* MemberEnter::signature($Symbol$MethodSymbol* msym, $List* typarams, $List
 }
 
 void MemberEnter::memberEnter($JCTree* tree, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($Env, prevEnv, this->env);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -303,6 +305,7 @@ void MemberEnter::memberEnter($List* trees, $Env* env) {
 }
 
 void MemberEnter::visitMethodDef($JCTree$JCMethodDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Scope$WriteableScope, enclScope, $nc(this->enter)->enterScope(this->env));
 	$var($Symbol$MethodSymbol, m, $new($Symbol$MethodSymbol, 0, $nc(tree)->name, nullptr, $nc(enclScope)->owner));
 	m->flags_field = $nc(this->chk)->checkFlags($($nc(tree)->pos()), $nc(tree->mods)->flags, m, tree);
@@ -354,6 +357,7 @@ void MemberEnter::visitMethodDef($JCTree$JCMethodDecl* tree) {
 }
 
 $Env* MemberEnter::methodEnv($JCTree$JCMethodDecl* tree, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($Env, localEnv, $nc(env)->dup(tree, $($nc(($cast($AttrContext, env->info)))->dup($($nc($nc(($cast($AttrContext, env->info)))->scope)->dupUnshared($nc(tree)->sym))))));
 	$set($nc(localEnv), enclMethod, tree);
 	if ($nc($nc(tree)->sym)->type != nullptr) {
@@ -368,6 +372,7 @@ $Env* MemberEnter::methodEnv($JCTree$JCMethodDecl* tree, $Env* env) {
 }
 
 void MemberEnter::visitVarDef($JCTree$JCVariableDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Env, localEnv, this->env);
 	if (((int64_t)($nc($nc(tree)->mods)->flags & (uint64_t)(int64_t)8)) != 0 || ((int64_t)($nc($nc($nc(($cast($AttrContext, $nc(this->env)->info)))->scope)->owner)->flags() & (uint64_t)(int64_t)512)) != 0) {
 		$assign(localEnv, $nc(this->env)->dup(tree, $($nc(($cast($AttrContext, $nc(this->env)->info)))->dup())));
@@ -436,6 +441,7 @@ void MemberEnter::checkType($JCTree* tree, $Type* type, $JCDiagnostic$Error* err
 }
 
 void MemberEnter::checkReceiver($JCTree$JCVariableDecl* tree, $Env* localEnv) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->attr)->attribExpr($nc(tree)->nameexpr, localEnv);
 	$var($Symbol$MethodSymbol, m, $nc($nc(localEnv)->enclMethod)->sym);
 	if ($nc(m)->isConstructor()) {
@@ -464,6 +470,7 @@ bool MemberEnter::needsLazyConstValue($JCTree* tree) {
 }
 
 $Env* MemberEnter::initEnv($JCTree$JCVariableDecl* tree, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($Env, localEnv, $nc(env)->dupto($$new($AttrContextEnv, tree, $($nc(($cast($AttrContext, env->info)))->dup()))));
 	$init($Kinds$Kind);
 	if ($nc($nc($nc(tree)->sym)->owner)->kind == $Kinds$Kind::TYP) {
@@ -485,6 +492,7 @@ void MemberEnter::visitErroneous($JCTree$JCErroneous* tree) {
 }
 
 $Env* MemberEnter::getMethodEnv($JCTree$JCMethodDecl* tree, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($Env, mEnv, methodEnv(tree, env));
 	$set($nc($cast($AttrContext, $nc(mEnv)->info)), lint, $nc($nc(($cast($AttrContext, mEnv->info)))->lint)->augment(static_cast<$Symbol*>($nc(tree)->sym)));
 	{

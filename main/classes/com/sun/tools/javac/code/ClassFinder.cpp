@@ -701,6 +701,7 @@ ClassFinder* ClassFinder::instance($Context* context) {
 }
 
 void ClassFinder::init$($Context* context) {
+	$useLocalCurrentObjectStackCache();
 	$init($Symbol$Completer);
 	$set(this, sourceCompleter, $Symbol$Completer::NULL_COMPLETER);
 	$set(this, currentClassFile, nullptr);
@@ -764,6 +765,7 @@ void ClassFinder::init$($Context* context) {
 }
 
 int64_t ClassFinder::getSupplementaryFlags($Symbol$ClassSymbol* c) {
+	$useLocalCurrentObjectStackCache();
 	if (this->jrtIndex == nullptr || !$nc(this->jrtIndex)->isInJRT($nc(c)->classfile) || $nc(c)->name == $nc(this->names)->module_info) {
 		return 0;
 	}
@@ -796,6 +798,7 @@ int64_t ClassFinder::getSupplementaryFlags($Symbol$ClassSymbol* c) {
 }
 
 void ClassFinder::complete($Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$Kind);
 	if ($nc(sym)->kind == $Kinds$Kind::TYP) {
 		{
@@ -844,6 +847,7 @@ void ClassFinder::completeOwners($Symbol* o) {
 }
 
 void ClassFinder::completeEnclosing($Symbol$ClassSymbol* c) {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$Kind);
 	if ($nc($nc(c)->owner)->kind == $Kinds$Kind::PCK) {
 		$var($Symbol, owner, c->owner);
@@ -867,6 +871,7 @@ void ClassFinder::completeEnclosing($Symbol$ClassSymbol* c) {
 }
 
 void ClassFinder::fillIn($Symbol$ClassSymbol* c) {
+	$useLocalCurrentObjectStackCache();
 	if (this->completionFailureName == $nc(c)->fullname) {
 		$throwNew($Symbol$CompletionFailure, c, static_cast<$Supplier*>($$new(ClassFinder$$Lambda$lambda$fillIn$2$3, this)), this->dcfh);
 	}
@@ -935,6 +940,7 @@ $Symbol$CompletionFailure* ClassFinder::newCompletionFailure($Symbol$TypeSymbol*
 }
 
 $Symbol$ClassSymbol* ClassFinder::loadClass($Symbol$ModuleSymbol* msym, $Name* flatname) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::checkNonNull(msym);
 	$var($Name, packageName, $Convert::packagePart(flatname));
 	$var($Symbol$PackageSymbol, ps, $nc(this->syms)->lookupPackage(msym, packageName));
@@ -957,6 +963,7 @@ $Symbol$ClassSymbol* ClassFinder::loadClass($Symbol$ModuleSymbol* msym, $Name* f
 }
 
 void ClassFinder::includeClassFile($Symbol$PackageSymbol* p, $JavaFileObject* file) {
+	$useLocalCurrentObjectStackCache();
 	if (((int64_t)($nc(p)->flags_field & (uint64_t)(int64_t)0x00800000)) == 0) {
 			$init($Kinds$Kind);
 		{
@@ -1017,6 +1024,7 @@ void ClassFinder::extraFileActions($Symbol$PackageSymbol* pack, $JavaFileObject*
 }
 
 void ClassFinder::fillIn($Symbol$PackageSymbol* p) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(p)->members_field == nullptr) {
 		$set(p, members_field, $Scope$WriteableScope::create(p));
 	}
@@ -1044,6 +1052,7 @@ void ClassFinder::fillIn($Symbol$PackageSymbol* p) {
 }
 
 void ClassFinder::scanModulePaths($Symbol$PackageSymbol* p, $Symbol$ModuleSymbol* msym) {
+	$useLocalCurrentObjectStackCache();
 	$var($Set, kinds, getPackageFileKinds());
 	$var($Set, classKinds, $EnumSet::copyOf(static_cast<$Collection*>(kinds)));
 	$init($JavaFileObject$Kind);
@@ -1090,6 +1099,7 @@ void ClassFinder::scanModulePaths($Symbol$PackageSymbol* p, $Symbol$ModuleSymbol
 }
 
 void ClassFinder::scanUserPaths($Symbol$PackageSymbol* p, bool includeSourcePath) {
+	$useLocalCurrentObjectStackCache();
 	$var($Set, kinds, getPackageFileKinds());
 	$var($Set, classKinds, $EnumSet::copyOf(static_cast<$Collection*>(kinds)));
 	$init($JavaFileObject$Kind);
@@ -1175,6 +1185,7 @@ void ClassFinder::scanUserPaths($Symbol$PackageSymbol* p, bool includeSourcePath
 }
 
 void ClassFinder::scanPlatformPath($Symbol$PackageSymbol* p) {
+	$useLocalCurrentObjectStackCache();
 	$init($StandardLocation);
 	$var($JavaFileManager$Location, var$0, static_cast<$JavaFileManager$Location*>($StandardLocation::PLATFORM_CLASS_PATH));
 	$var($Symbol$PackageSymbol, var$1, p);
@@ -1184,6 +1195,7 @@ void ClassFinder::scanPlatformPath($Symbol$PackageSymbol* p) {
 }
 
 void ClassFinder::fillIn($Symbol$PackageSymbol* p, $JavaFileManager$Location* location, $Iterable* files) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, currentLoc, location);
 	{
 		$var($Iterator, i$, $nc(files)->iterator());
@@ -1223,6 +1235,7 @@ void ClassFinder::fillIn($Symbol$PackageSymbol* p, $JavaFileManager$Location* lo
 }
 
 $Iterable* ClassFinder::list($JavaFileManager$Location* location, $Symbol$PackageSymbol* p, $String* packageName, $Set* kinds) {
+	$useLocalCurrentObjectStackCache();
 	$load($JavaFileObject$Kind);
 	$var($Iterable, listed, $nc(this->fileManager)->list(location, packageName, $($EnumSet::allOf($JavaFileObject$Kind::class$)), false));
 	return static_cast<$Iterable*>($new(ClassFinder$$Lambda$lambda$list$7$9, this, listed, p, kinds));
@@ -1243,6 +1256,7 @@ $JCDiagnostic* ClassFinder::lambda$classFileNotFound$5($Symbol$ClassSymbol* c) {
 
 void ClassFinder::lambda$fillIn$4($Symbol* sym) {
 	$init(ClassFinder);
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$ClassSymbol, csym, $cast($Symbol$ClassSymbol, sym));
 	$set($nc(csym), owner, $nc(sym)->packge());
 	$nc($($nc(csym->owner)->members()))->enter(sym);
@@ -1263,6 +1277,7 @@ $JCDiagnostic* ClassFinder::lambda$fillIn$2() {
 }
 
 $JCDiagnostic* ClassFinder::lambda$complete$1($IOException* ex) {
+	$useLocalCurrentObjectStackCache();
 	return $nc(this->diagFactory)->fragment($($CompilerProperties$Fragments::ExceptionMessage($($nc(ex)->getLocalizedMessage()))));
 }
 

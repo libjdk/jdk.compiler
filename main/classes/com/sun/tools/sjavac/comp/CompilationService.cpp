@@ -147,11 +147,13 @@ void CompilationService::init$() {
 }
 
 $SysInfo* CompilationService::getSysInfo() {
+	$useLocalCurrentObjectStackCache();
 	int32_t var$0 = $nc($($Runtime::getRuntime()))->availableProcessors();
 	return $new($SysInfo, var$0, $nc($($Runtime::getRuntime()))->maxMemory());
 }
 
 $CompilationSubResult* CompilationService::compile($String* protocolId, $String* invocationId, $StringArray* args, $List* explicitSources, $Set* sourcesToCompile, $Set* visibleSources) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavacTool, compiler, $cast($JavacTool, $ToolProvider::getSystemJavaCompiler()));
 	try {
 		$var($StandardJavaFileManager, fm, $nc(compiler)->getStandardFileManager(nullptr, nullptr, nullptr));
@@ -269,6 +271,7 @@ $CompilationSubResult* CompilationService::compile($String* protocolId, $String*
 }
 
 void CompilationService::logJavacInvocation($StringArray* args) {
+	$useLocalCurrentObjectStackCache();
 	$Log::debug("Invoking javac with args"_s);
 	$var($Iterator, argIter, $nc($($Arrays::asList(args)))->iterator());
 	while ($nc(argIter)->hasNext()) {

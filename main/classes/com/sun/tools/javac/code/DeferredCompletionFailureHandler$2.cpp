@@ -159,6 +159,7 @@ void DeferredCompletionFailureHandler$2::handleAPICompletionFailure($Symbol$Comp
 }
 
 void DeferredCompletionFailureHandler$2::classSymbolCompleteFailed($Symbol$ClassSymbol* sym, $Symbol$Completer* origCompleter) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->class2Flip)->put(sym, $$new($DeferredCompletionFailureHandler$FlipSymbolDescription, sym, $$new($DeferredCompletionFailureHandler$DeferredCompleter, this->this$0, origCompleter)));
 }
 
@@ -167,6 +168,7 @@ void DeferredCompletionFailureHandler$2::classSymbolRemoved($Symbol$ClassSymbol*
 }
 
 void DeferredCompletionFailureHandler$2::uninstall() {
+	$useLocalCurrentObjectStackCache();
 	$nc($($nc(this->class2Flip)->values()))->forEach(static_cast<$Consumer*>($$new(DeferredCompletionFailureHandler$2$$Lambda$lambda$uninstall$0)));
 	$nc(this->class2Flip)->clear();
 }

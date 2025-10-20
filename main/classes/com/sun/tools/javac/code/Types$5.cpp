@@ -148,6 +148,7 @@ void Types$5::init$($Types* this$0) {
 }
 
 $Boolean* Types$5::visitType($Type* t, $Type* s) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(t)->equalsIgnoreMetadata(s)) {
 		return $Boolean::valueOf(true);
 	}
@@ -217,6 +218,7 @@ $Boolean* Types$5::visitWildcardType($Type$WildcardType* t, $Type* s) {
 }
 
 $Boolean* Types$5::visitClassType($Type$ClassType* t, $Type* s) {
+	$useLocalCurrentObjectStackCache();
 	if ($equals(t, s)) {
 		return $Boolean::valueOf(true);
 	}
@@ -290,6 +292,7 @@ $Boolean* Types$5::visitArrayType($Type$ArrayType* t, $Type* s) {
 }
 
 $Boolean* Types$5::visitMethodType($Type$MethodType* t, $Type* s) {
+	$useLocalCurrentObjectStackCache();
 	bool var$0 = this->this$0->hasSameArgs(t, s);
 	if (var$0) {
 		$var($Type, var$1, $nc(t)->getReturnType());
@@ -303,6 +306,7 @@ $Boolean* Types$5::visitPackageType($Type$PackageType* t, $Type* s) {
 }
 
 $Boolean* Types$5::visitForAll($Type$ForAll* t, $Type* s) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	if (!$nc(s)->hasTag($TypeTag::FORALL)) {
 		return $Boolean::valueOf(false);

@@ -97,6 +97,7 @@ bool Infer$IncorporationAction::isSameType($Type* s, $Type* t) {
 }
 
 $String* Infer$IncorporationAction::toString() {
+	$useLocalCurrentObjectStackCache();
 	return $String::format("%s[undet=%s,t=%s]"_s, $$new($ObjectArray, {
 		$($of($of(this)->getClass()->getSimpleName())),
 		$of($nc(this->uv)->qtype),

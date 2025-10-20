@@ -772,6 +772,7 @@ void Annotate::enterDone() {
 }
 
 $List* Annotate::fromAnnotations($List* annotations) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(annotations)->isEmpty()) {
 		return $List::nil();
 	}
@@ -798,6 +799,7 @@ void Annotate::validate($Runnable* a) {
 }
 
 void Annotate::flush() {
+	$useLocalCurrentObjectStackCache();
 	if (annotationsBlocked()) {
 		return;
 	}
@@ -852,6 +854,7 @@ void Annotate::afterTypes($Runnable* a) {
 }
 
 void Annotate::annotateLater($List* annotations, $Env* localEnv, $Symbol* s, $JCDiagnostic$DiagnosticPosition* deferPos) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(annotations)->isEmpty()) {
 		return;
 	}
@@ -861,6 +864,7 @@ void Annotate::annotateLater($List* annotations, $Env* localEnv, $Symbol* s, $JC
 }
 
 void Annotate::annotateDefaultValueLater($JCTree$JCExpression* defaultValue, $Env* localEnv, $Symbol$MethodSymbol* m, $JCDiagnostic$DiagnosticPosition* deferPos) {
+	$useLocalCurrentObjectStackCache();
 	normal(static_cast<$Runnable*>($$new(Annotate$$Lambda$lambda$annotateDefaultValueLater$2$2, this, localEnv, deferPos, defaultValue, m)));
 	validate(static_cast<$Runnable*>($$new(Annotate$$Lambda$lambda$annotateDefaultValueLater$3$3, this, localEnv, defaultValue)));
 }
@@ -870,6 +874,7 @@ void Annotate::enterDefaultValue($JCTree$JCExpression* defaultValue, $Env* local
 }
 
 void Annotate::annotateNow($Symbol* toAnnotate, $List* withAnnotations, $Env* env, bool typeAnnotations, bool isTypeParam) {
+	$useLocalCurrentObjectStackCache();
 	$var($Map, annotated, $new($LinkedHashMap));
 	$var($Map, pos, $new($HashMap));
 	{
@@ -965,6 +970,7 @@ bool Annotate::isAttributeTrue($Attribute* attr) {
 }
 
 $Attribute$Compound* Annotate::attributeAnnotation($JCTree$JCAnnotation* tree, $Type* expectedAnnotationType, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(tree)->attribute != nullptr && tree->type != nullptr) {
 		return tree->attribute;
 	}
@@ -974,6 +980,7 @@ $Attribute$Compound* Annotate::attributeAnnotation($JCTree$JCAnnotation* tree, $
 }
 
 $Attribute$TypeCompound* Annotate::attributeTypeAnnotation($JCTree$JCAnnotation* a, $Type* expectedAnnotationType, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Attribute$TypeCompound, typeCompound, nullptr);
 		bool var$0 = $nc(a)->attribute == nullptr || $nc(a)->type == nullptr;
@@ -999,6 +1006,7 @@ $Attribute$TypeCompound* Annotate::attributeTypeAnnotation($JCTree$JCAnnotation*
 }
 
 $List* Annotate::attributeAnnotationValues($JCTree$JCAnnotation* a, $Type* expected, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, at, $nc($nc(a)->annotationType)->type != nullptr ? $nc($nc(a)->annotationType)->type : $nc(this->attr)->attribType(a->annotationType, env));
 	$set(a, type, $nc(this->chk)->checkType($($nc(a->annotationType)->pos()), at, expected));
 	bool isError = $nc(a->type)->isErroneous();
@@ -1029,6 +1037,7 @@ $List* Annotate::attributeAnnotationValues($JCTree$JCAnnotation* a, $Type* expec
 }
 
 $Pair* Annotate::attributeAnnotationNameValuePair($JCTree$JCExpression* nameValuePair, $Type* thisAnnotationType, bool badAnnotation, $Env* env, bool elidedValue) {
+	$useLocalCurrentObjectStackCache();
 	$init($JCTree$Tag);
 	if (!$nc(nameValuePair)->hasTag($JCTree$Tag::ASSIGN)) {
 		$init($CompilerProperties$Errors);
@@ -1064,6 +1073,7 @@ $Pair* Annotate::attributeAnnotationNameValuePair($JCTree$JCExpression* nameValu
 }
 
 $Attribute* Annotate::attributeAnnotationValue($Type* expectedElementType$renamed, $JCTree$JCExpression* tree, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, expectedElementType, expectedElementType$renamed);
 	try {
 		$nc($nc(expectedElementType)->tsym)->complete();
@@ -1144,6 +1154,7 @@ $Attribute* Annotate::attributeAnnotationValue($Type* expectedElementType$rename
 }
 
 $Attribute* Annotate::getAnnotationEnumValue($Type* expectedElementType, $JCTree$JCExpression* tree, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, result, $nc(this->attr)->attribTree(tree, env, $(annotationValueInfo(expectedElementType))));
 	$var($Symbol, sym, $TreeInfo::symbol(tree));
 	$init($Kinds$Kind);
@@ -1158,6 +1169,7 @@ $Attribute* Annotate::getAnnotationEnumValue($Type* expectedElementType, $JCTree
 }
 
 $Attribute* Annotate::getAnnotationClassValue($Type* expectedElementType, $JCTree$JCExpression* tree, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, result, $nc(this->attr)->attribTree(tree, env, $(annotationValueInfo(expectedElementType))));
 	if ($nc(result)->isErroneous()) {
 		bool var$0 = $TreeInfo::name(tree) == $nc(this->names)->_class;
@@ -1177,6 +1189,7 @@ $Attribute* Annotate::getAnnotationClassValue($Type* expectedElementType, $JCTre
 }
 
 $Attribute* Annotate::getAnnotationPrimitiveValue($Type* expectedElementType, $JCTree$JCExpression* tree, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, result, $nc(this->attr)->attribTree(tree, env, $(annotationValueInfo(expectedElementType))));
 	if ($nc(result)->isErroneous()) {
 		return $new($Attribute$Error, $(result->getOriginalType()));
@@ -1195,6 +1208,7 @@ $Attr$ResultInfo* Annotate::annotationValueInfo($Type* pt) {
 }
 
 $Attribute* Annotate::getAnnotationArrayValue($Type* expectedElementType, $JCTree$JCExpression* tree$renamed, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCExpression, tree, tree$renamed);
 	$init($JCTree$Tag);
 	if (!$nc(tree)->hasTag($JCTree$Tag::NEWARRAY)) {
@@ -1218,6 +1232,7 @@ $Attribute* Annotate::getAnnotationArrayValue($Type* expectedElementType, $JCTre
 }
 
 $Attribute$Compound* Annotate::processRepeatedAnnotations($List* annotations, $Annotate$AnnotationContext* ctx, $Symbol* on, bool isTypeParam) {
+	$useLocalCurrentObjectStackCache();
 	$var($Attribute$Compound, firstOccurrence, $cast($Attribute$Compound, $nc(annotations)->head));
 	$var($List, repeated, $List::nil());
 	$var($Type, origAnnoType, nullptr);
@@ -1302,6 +1317,7 @@ $Attribute$Compound* Annotate::processRepeatedAnnotations($List* annotations, $A
 }
 
 $Type* Annotate::getContainingType($Attribute$Compound* currentAnno, $JCDiagnostic$DiagnosticPosition* pos, bool reportError) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, origAnnoType, $nc(currentAnno)->type);
 	$var($Symbol$TypeSymbol, origAnnoDecl, $nc(origAnnoType)->tsym);
 	$var($Attribute$Compound, ca, $nc($($nc(origAnnoDecl)->getAnnotationTypeMetadata()))->getRepeatable());
@@ -1322,6 +1338,7 @@ $Type* Annotate::filterSame($Type* t, $Type* s) {
 }
 
 $Type* Annotate::extractContainingType($Attribute$Compound* ca, $JCDiagnostic$DiagnosticPosition* pos, $Symbol$TypeSymbol* annoDecl) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc($nc(ca)->values)->isEmpty()) {
 		$nc(this->log)->error(pos, $($CompilerProperties$Errors::InvalidRepeatableAnnotation(annoDecl)));
 		return nullptr;
@@ -1347,6 +1364,7 @@ $Type* Annotate::extractContainingType($Attribute$Compound* ca, $JCDiagnostic$Di
 }
 
 $Symbol$MethodSymbol* Annotate::validateContainer($Type* targetContainerType, $Type* originalAnnoType, $JCDiagnostic$DiagnosticPosition* pos) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$MethodSymbol, containerValueSymbol, nullptr);
 	bool fatalError = false;
 	$var($Scope, scope, $nc($nc(targetContainerType)->tsym)->members());
@@ -1390,6 +1408,7 @@ $Symbol$MethodSymbol* Annotate::validateContainer($Type* targetContainerType, $T
 }
 
 $Attribute$Compound* Annotate::makeContainerAnnotation($List* toBeReplaced, $Annotate$AnnotationContext* ctx, $Symbol* sym, bool isTypeParam) {
+	$useLocalCurrentObjectStackCache();
 	$var($Attribute$Compound, validRepeated, processRepeatedAnnotations(toBeReplaced, ctx, sym, isTypeParam));
 	if (validRepeated != nullptr) {
 		$var($ListBuffer, manualContainer, $cast($ListBuffer, $nc($nc(ctx)->annotated)->get($nc(validRepeated->type)->tsym)));
@@ -1402,6 +1421,7 @@ $Attribute$Compound* Annotate::makeContainerAnnotation($List* toBeReplaced, $Ann
 }
 
 void Annotate::enterTypeAnnotations($List* annotations, $Env* env, $Symbol* s, $JCDiagnostic$DiagnosticPosition* deferPos, bool isTypeParam) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::checkNonNull($of(s), "Symbol argument to actualEnterTypeAnnotations is nul/"_s);
 	$var($JavaFileObject, prev, $nc(this->log)->useSource($nc($nc(env)->toplevel)->sourcefile));
 	$var($JCDiagnostic$DiagnosticPosition, prevLintPos, nullptr);
@@ -1444,6 +1464,7 @@ $Annotate$AnnotationTypeCompleter* Annotate::annotationTypeSourceCompleter() {
 }
 
 void Annotate::attributeAnnotationType($Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::check($nc($nc(($cast($JCTree$JCClassDecl, $nc(env)->tree)))->sym)->isAnnotationType(), "Trying to annotation type complete a non-annotation type"_s);
 	$var($JavaFileObject, prev, $nc(this->log)->useSource($nc($nc(env)->toplevel)->sourcefile));
 	{
@@ -1489,6 +1510,7 @@ void Annotate::lambda$annotateTypeParameterSecondStage$6($List* annotations) {
 }
 
 void Annotate::lambda$annotateTypeSecondStage$5($List* annotations, $Type* storeAt) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, compounds, fromAnnotations(annotations));
 	int32_t var$0 = $nc(annotations)->size();
 	$Assert::check(var$0 == $nc(compounds)->size());
@@ -1501,6 +1523,7 @@ void Annotate::lambda$queueScanTreeAndTypeAnnotate$4($JCTree* tree, $Env* env, $
 }
 
 void Annotate::lambda$annotateDefaultValueLater$3($Env* localEnv, $JCTree$JCExpression* defaultValue) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileObject, prev, $nc(this->log)->useSource($nc($nc(localEnv)->toplevel)->sourcefile));
 	{
 		$var($Throwable, var$0, nullptr);
@@ -1518,6 +1541,7 @@ void Annotate::lambda$annotateDefaultValueLater$3($Env* localEnv, $JCTree$JCExpr
 }
 
 void Annotate::lambda$annotateDefaultValueLater$2($Env* localEnv, $JCDiagnostic$DiagnosticPosition* deferPos, $JCTree$JCExpression* defaultValue, $Symbol$MethodSymbol* m) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileObject, prev, $nc(this->log)->useSource($nc($nc(localEnv)->toplevel)->sourcefile));
 	$var($JCDiagnostic$DiagnosticPosition, prevLintPos, $nc(this->deferredLintHandler)->setPos(deferPos));
 	{
@@ -1537,6 +1561,7 @@ void Annotate::lambda$annotateDefaultValueLater$2($Env* localEnv, $JCDiagnostic$
 }
 
 void Annotate::lambda$annotateLater$1($Env* localEnv, $List* annotations, $Symbol* s) {
+	$useLocalCurrentObjectStackCache();
 	$var($JavaFileObject, prev, $nc(this->log)->useSource($nc($nc(localEnv)->toplevel)->sourcefile));
 	{
 		$var($Throwable, var$0, nullptr);
@@ -1554,6 +1579,7 @@ void Annotate::lambda$annotateLater$1($Env* localEnv, $List* annotations, $Symbo
 }
 
 void Annotate::lambda$annotateLater$0($Symbol* s, $Env* localEnv, $JCDiagnostic$DiagnosticPosition* deferPos, $List* annotations) {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$Kind);
 	$Assert::check($nc(s)->kind == $Kinds$Kind::PCK || $nc(s)->annotationsPendingCompletion());
 	$var($JavaFileObject, prev, $nc(this->log)->useSource($nc($nc(localEnv)->toplevel)->sourcefile));

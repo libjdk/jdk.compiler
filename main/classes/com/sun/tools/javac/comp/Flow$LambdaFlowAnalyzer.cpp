@@ -88,6 +88,7 @@ void Flow$LambdaFlowAnalyzer::init$($Flow* this$0) {
 }
 
 void Flow$LambdaFlowAnalyzer::visitLambda($JCTree$JCLambda* tree) {
+	$useLocalCurrentObjectStackCache();
 	if (($nc(tree)->type != nullptr && $nc(tree->type)->isErroneous()) || this->inLambda) {
 		return;
 	}

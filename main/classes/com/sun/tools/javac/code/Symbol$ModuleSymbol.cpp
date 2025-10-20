@@ -346,6 +346,7 @@ void Symbol$ModuleSymbol::MemberClass0$::finalize() {
 
 Symbol$ModuleSymbol* Symbol$ModuleSymbol::create($1Name* name, $1Name* module_info) {
 	$init(Symbol$ModuleSymbol);
+	$useLocalCurrentObjectStackCache();
 	$var(Symbol$ModuleSymbol, msym, $new(Symbol$ModuleSymbol, name, nullptr));
 	$var($Symbol$ClassSymbol, info, $new($Symbol$ClassSymbol, $Flags::MODULE, module_info, msym));
 	$set(info, fullname, formFullName(module_info, msym));
@@ -428,6 +429,7 @@ $Object* Symbol$ModuleSymbol::accept($ElementVisitor* v, Object$* p) {
 }
 
 $1List* Symbol$ModuleSymbol::getEnclosedElements() {
+	$useLocalCurrentObjectStackCache();
 	$var($List, list, $List::nil());
 	{
 		$var($Iterator, i$, $nc(this->enclosedPackages)->iterator());

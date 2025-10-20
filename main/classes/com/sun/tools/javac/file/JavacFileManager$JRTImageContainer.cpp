@@ -120,6 +120,7 @@ void JavacFileManager$JRTImageContainer::init$($JavacFileManager* this$0) {
 }
 
 void JavacFileManager$JRTImageContainer::list($Path* userPath, $RelativePath$RelativeDirectory* subdirectory, $Set* fileKinds, bool recurse, $ListBuffer* resultList) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var($JRTIndex$Entry, e, $nc($(this->this$0->getJRTIndex()))->getEntry(subdirectory));
 		if (this->this$0->symbolFileEnabled && $nc($nc(e)->ctSym)->hidden) {
@@ -157,6 +158,7 @@ void JavacFileManager$JRTImageContainer::list($Path* userPath, $RelativePath$Rel
 }
 
 $JavaFileObject* JavacFileManager$JRTImageContainer::getFileObject($Path* userPath, $RelativePath$RelativeFile* name) {
+	$useLocalCurrentObjectStackCache();
 	$var($JRTIndex$Entry, e, $nc($(this->this$0->getJRTIndex()))->getEntry($($nc(name)->dirname())));
 	if (this->this$0->symbolFileEnabled && $nc($nc(e)->ctSym)->hidden) {
 		return nullptr;

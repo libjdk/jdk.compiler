@@ -127,6 +127,7 @@ $Lint* Lint$AugmentVisitor::augment($Lint* parent, $Attribute$Compound* attr) {
 }
 
 $Lint* Lint$AugmentVisitor::augment($Lint* parent, $List* attrs) {
+	$useLocalCurrentObjectStackCache();
 	initSyms();
 	$set(this, parent, parent);
 	$set(this, lint, nullptr);
@@ -169,6 +170,7 @@ void Lint$AugmentVisitor::visitClass($Attribute$Class* clazz) {
 }
 
 void Lint$AugmentVisitor::visitCompound($Attribute$Compound* compound) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc($nc(compound)->type)->tsym == $nc($nc(this->syms)->suppressWarningsType)->tsym) {
 		{
 			$var($List, v, compound->values);
@@ -183,6 +185,7 @@ void Lint$AugmentVisitor::visitCompound($Attribute$Compound* compound) {
 }
 
 void Lint$AugmentVisitor::visitArray($Attribute$Array* array) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($AttributeArray, arr$, $nc(array)->values);
 		int32_t len$ = $nc(arr$)->length;

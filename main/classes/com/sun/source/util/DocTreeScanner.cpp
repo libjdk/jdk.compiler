@@ -170,6 +170,7 @@ $Object* DocTreeScanner::scanAndReduce($DocTree* node, Object$* p, Object$* r) {
 }
 
 $Object* DocTreeScanner::scan($Iterable* nodes, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, nullptr);
 	if (nodes != nullptr) {
 		bool first = true;
@@ -212,6 +213,7 @@ $Object* DocTreeScanner::visitDeprecated($DeprecatedTree* node, Object$* p) {
 }
 
 $Object* DocTreeScanner::visitDocComment($DocCommentTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$Iterable*>($nc(node)->getFirstSentence())), p));
 	$assign(r, scanAndReduce($(static_cast<$Iterable*>($nc(node)->getBody())), p, r));
 	$assign(r, scanAndReduce($(static_cast<$Iterable*>($nc(node)->getBlockTags())), p, r));
@@ -247,6 +249,7 @@ $Object* DocTreeScanner::visitIdentifier($IdentifierTree* node, Object$* p) {
 }
 
 $Object* DocTreeScanner::visitIndex($IndexTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($($nc(node)->getSearchTerm()), p));
 	$assign(r, scanAndReduce($(static_cast<$Iterable*>($nc(node)->getDescription())), p, r));
 	return $of(r);
@@ -257,6 +260,7 @@ $Object* DocTreeScanner::visitInheritDoc($InheritDocTree* node, Object$* p) {
 }
 
 $Object* DocTreeScanner::visitLink($LinkTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$DocTree*>($nc(node)->getReference())), p));
 	$assign(r, scanAndReduce($(static_cast<$Iterable*>($nc(node)->getLabel())), p, r));
 	return $of(r);
@@ -267,12 +271,14 @@ $Object* DocTreeScanner::visitLiteral($LiteralTree* node, Object$* p) {
 }
 
 $Object* DocTreeScanner::visitParam($ParamTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$DocTree*>($nc(node)->getName())), p));
 	$assign(r, scanAndReduce($(static_cast<$Iterable*>($nc(node)->getDescription())), p, r));
 	return $of(r);
 }
 
 $Object* DocTreeScanner::visitProvides($ProvidesTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$DocTree*>($nc(node)->getServiceType())), p));
 	$assign(r, scanAndReduce($(static_cast<$Iterable*>($nc(node)->getDescription())), p, r));
 	return $of(r);
@@ -299,6 +305,7 @@ $Object* DocTreeScanner::visitSerialData($SerialDataTree* node, Object$* p) {
 }
 
 $Object* DocTreeScanner::visitSerialField($SerialFieldTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$DocTree*>($nc(node)->getName())), p));
 	$assign(r, scanAndReduce($(static_cast<$DocTree*>($nc(node)->getType())), p, r));
 	$assign(r, scanAndReduce($(static_cast<$Iterable*>($nc(node)->getDescription())), p, r));
@@ -326,6 +333,7 @@ $Object* DocTreeScanner::visitText($TextTree* node, Object$* p) {
 }
 
 $Object* DocTreeScanner::visitThrows($ThrowsTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$DocTree*>($nc(node)->getExceptionName())), p));
 	$assign(r, scanAndReduce($(static_cast<$Iterable*>($nc(node)->getDescription())), p, r));
 	return $of(r);
@@ -340,6 +348,7 @@ $Object* DocTreeScanner::visitUnknownInlineTag($UnknownInlineTagTree* node, Obje
 }
 
 $Object* DocTreeScanner::visitUses($UsesTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, r, scan($(static_cast<$DocTree*>($nc(node)->getServiceType())), p));
 	$assign(r, scanAndReduce($(static_cast<$Iterable*>($nc(node)->getDescription())), p, r));
 	return $of(r);

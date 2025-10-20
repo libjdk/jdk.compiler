@@ -117,6 +117,7 @@ $Type* Types$15::visitType($Type* t, $Void* ignored) {
 }
 
 $Type* Types$15::visitClassType($Type$ClassType* t, $Void* ignored) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(t)->supertype_field == nullptr) {
 		$var($Type, supertype, $nc(($cast($Symbol$ClassSymbol, t->tsym)))->getSuperclass());
 		if (t->isInterface()) {
@@ -138,6 +139,7 @@ $Type* Types$15::visitClassType($Type$ClassType* t, $Void* ignored) {
 }
 
 $Type* Types$15::visitTypeVar($Type$TypeVar* t, $Void* ignored) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	bool var$0 = $nc($($nc(t)->getUpperBound()))->hasTag($TypeTag::TYPEVAR);
 	if (!var$0) {

@@ -117,6 +117,7 @@ void DeferredLintHandler::report($DeferredLintHandler$LintLogger* logger) {
 }
 
 void DeferredLintHandler::flush($JCDiagnostic$DiagnosticPosition* pos) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, loggers, $cast($ListBuffer, $nc(this->loggersQueue)->get(pos)));
 	if (loggers != nullptr) {
 		{

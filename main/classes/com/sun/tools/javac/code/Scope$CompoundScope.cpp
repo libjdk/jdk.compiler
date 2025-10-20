@@ -359,6 +359,7 @@ int32_t Scope$CompoundScope::getMark() {
 }
 
 $String* Scope$CompoundScope::toString() {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, buf, $new($StringBuilder));
 	buf->append("CompoundScope{"_s);
 	$var($String, sep, ""_s);
@@ -386,6 +387,7 @@ $Iterable* Scope$CompoundScope::getSymbolsByName($Name* name, $Predicate* sf, $S
 }
 
 $Scope* Scope$CompoundScope::getOrigin($Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(this->subScopes)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -401,6 +403,7 @@ $Scope* Scope$CompoundScope::getOrigin($Symbol* sym) {
 }
 
 bool Scope$CompoundScope::isStaticallyImported($Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(this->subScopes)->iterator());
 		for (; $nc(i$)->hasNext();) {

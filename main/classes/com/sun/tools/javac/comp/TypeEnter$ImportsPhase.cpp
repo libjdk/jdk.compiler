@@ -356,6 +356,7 @@ void TypeEnter$ImportsPhase::init$($TypeEnter* this$0) {
 }
 
 void TypeEnter$ImportsPhase::runPhase($Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCClassDecl, tree, $nc(env)->enclClass);
 	$var($Symbol$ClassSymbol, sym, $nc(tree)->sym);
 	$init($Kinds$Kind);
@@ -370,6 +371,7 @@ void TypeEnter$ImportsPhase::runPhase($Env* env) {
 }
 
 void TypeEnter$ImportsPhase::resolveImports($JCTree$JCCompilationUnit* tree, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc($nc(tree)->starImportScope)->isFilled()) {
 		return;
 	}
@@ -425,6 +427,7 @@ void TypeEnter$ImportsPhase::resolveImports($JCTree$JCCompilationUnit* tree, $En
 }
 
 void TypeEnter$ImportsPhase::checkClassPackageClash($JCTree$JCPackageDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(tree)->pid != nullptr) {
 		$var($Symbol, p, $nc($nc(this->env)->toplevel)->packge);
 		while (!$equals($nc(p)->owner, $nc(this->this$0->syms)->rootPackage)) {
@@ -440,6 +443,7 @@ void TypeEnter$ImportsPhase::checkClassPackageClash($JCTree$JCPackageDecl* tree)
 }
 
 void TypeEnter$ImportsPhase::doImport($JCTree$JCImport* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCFieldAccess, imp, $cast($JCTree$JCFieldAccess, $nc(tree)->qualid));
 	$var($Name, name, $TreeInfo::name(imp));
 	$var($Env, localEnv, $nc(this->env)->dup(tree));
@@ -465,6 +469,7 @@ void TypeEnter$ImportsPhase::doImport($JCTree$JCImport* tree) {
 }
 
 $Type* TypeEnter$ImportsPhase::attribImportType($JCTree* tree, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::check(this->this$0->completionEnabled);
 		$init($Lint$LintCategory);
 	$var($Lint, prevLint, $nc(this->this$0->chk)->setLint(this->this$0->allowDeprecationOnImport ? this->this$0->lint : $($nc(this->this$0->lint)->suppress($$new($Lint$LintCategoryArray, {
@@ -502,12 +507,14 @@ void TypeEnter$ImportsPhase::importAll($JCTree$JCImport* imp, $Symbol$TypeSymbol
 }
 
 void TypeEnter$ImportsPhase::importStaticAll($JCTree$JCImport* imp, $Symbol$TypeSymbol* tsym, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($Scope$StarImportScope, toScope, $nc($nc(env)->toplevel)->starImportScope);
 	$var($Symbol$TypeSymbol, origin, tsym);
 	$nc(toScope)->importAll(this->this$0->types, $($nc(origin)->members()), this->staticImportFilter, imp, this->cfHandler);
 }
 
 void TypeEnter$ImportsPhase::importNamedStatic($JCTree$JCImport* imp, $Symbol$TypeSymbol* tsym, $Name* name, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$Kind);
 	if ($nc(tsym)->kind != $Kinds$Kind::TYP) {
 		$init($JCDiagnostic$DiagnosticFlag);
@@ -521,6 +528,7 @@ void TypeEnter$ImportsPhase::importNamedStatic($JCTree$JCImport* imp, $Symbol$Ty
 }
 
 void TypeEnter$ImportsPhase::importNamed($JCDiagnostic$DiagnosticPosition* pos, $Symbol* tsym, $Env* env, $JCTree$JCImport* imp) {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$Kind);
 	if ($nc(tsym)->kind == $Kinds$Kind::TYP) {
 		$var($Scope, var$0, static_cast<$Scope*>($nc(tsym->owner)->members()));

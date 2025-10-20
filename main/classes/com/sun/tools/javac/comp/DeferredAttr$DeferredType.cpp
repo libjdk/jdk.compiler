@@ -194,6 +194,7 @@ $Type* DeferredAttr$DeferredType::complete($Attr$ResultInfo* resultInfo, $Deferr
 }
 
 $Type* DeferredAttr$DeferredType::check($Attr$ResultInfo* resultInfo) {
+	$useLocalCurrentObjectStackCache();
 	$var($DeferredAttr$DeferredStuckPolicy, deferredStuckPolicy, nullptr);
 	$init($TypeTag);
 	bool var$0 = $nc($nc(resultInfo)->pt)->hasTag($TypeTag::NONE);
@@ -212,6 +213,7 @@ $Type* DeferredAttr$DeferredType::check($Attr$ResultInfo* resultInfo) {
 }
 
 $Type* DeferredAttr$DeferredType::check($Attr$ResultInfo* resultInfo, $DeferredAttr$DeferredStuckPolicy* deferredStuckPolicy) {
+	$useLocalCurrentObjectStackCache();
 	$var($DeferredAttr$DeferredAttrContext, deferredAttrContext, $nc($nc(resultInfo)->checkContext)->deferredAttrContext());
 	$Assert::check(deferredAttrContext != this->this$0->emptyDeferredAttrContext);
 	if ($nc(deferredStuckPolicy)->isStuck()) {

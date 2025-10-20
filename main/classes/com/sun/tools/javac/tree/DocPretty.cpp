@@ -253,6 +253,7 @@ void DocPretty::init$($Writer* out) {
 }
 
 void DocPretty::print($DocTree* tree) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		if (tree == nullptr) {
 			print($of("/*missing*/"_s));
@@ -266,10 +267,12 @@ void DocPretty::print($DocTree* tree) {
 }
 
 void DocPretty::print(Object$* s) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->out)->write($($Convert::escapeUnicode($($nc($of(s))->toString()))));
 }
 
 void DocPretty::print($List* list) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(list)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -282,6 +285,7 @@ void DocPretty::print($List* list) {
 }
 
 void DocPretty::print($List* list, $String* sep) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(list)->isEmpty()) {
 		return;
 	}
@@ -311,6 +315,7 @@ void DocPretty::printTagName($DocTree* node) {
 }
 
 $Void* DocPretty::visitAttribute($AttributeTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		print($($of($nc(node)->getName())));
 		$var($String, quote, nullptr);
@@ -354,6 +359,7 @@ $Void* DocPretty::visitAttribute($AttributeTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitAuthor($AuthorTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		printTagName(node);
 		print($of(" "_s));
@@ -366,6 +372,7 @@ $Void* DocPretty::visitAuthor($AuthorTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitComment($CommentTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		print($($of($nc(node)->getBody())));
 	} catch ($IOException&) {
@@ -376,6 +383,7 @@ $Void* DocPretty::visitComment($CommentTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitDeprecated($DeprecatedTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		printTagName(node);
 		if (!$nc($($nc(node)->getBody()))->isEmpty()) {
@@ -390,6 +398,7 @@ $Void* DocPretty::visitDeprecated($DeprecatedTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitDocComment($DocCommentTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var($List, b, $nc(node)->getFullBody());
 		$var($List, t, node->getBlockTags());
@@ -419,6 +428,7 @@ $Void* DocPretty::visitDocRoot($DocRootTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitDocType($DocTypeTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		print($($of($nc(node)->getText())));
 	} catch ($IOException&) {
@@ -429,6 +439,7 @@ $Void* DocPretty::visitDocType($DocTypeTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitEndElement($EndElementTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		print($of("</"_s));
 		print($($of($nc(node)->getName())));
@@ -441,6 +452,7 @@ $Void* DocPretty::visitEndElement($EndElementTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitEntity($EntityTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		print($of("&"_s));
 		print($($of($nc(node)->getName())));
@@ -453,6 +465,7 @@ $Void* DocPretty::visitEntity($EntityTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitErroneous($ErroneousTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		print($($of($nc(node)->getBody())));
 	} catch ($IOException&) {
@@ -463,6 +476,7 @@ $Void* DocPretty::visitErroneous($ErroneousTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitHidden($HiddenTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		printTagName(node);
 		if (!$nc($($nc(node)->getBody()))->isEmpty()) {
@@ -477,6 +491,7 @@ $Void* DocPretty::visitHidden($HiddenTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitIdentifier($IdentifierTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		print($($of($nc(node)->getName())));
 	} catch ($IOException&) {
@@ -487,6 +502,7 @@ $Void* DocPretty::visitIdentifier($IdentifierTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitIndex($IndexTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		print($of("{"_s));
 		printTagName(node);
@@ -517,6 +533,7 @@ $Void* DocPretty::visitInheritDoc($InheritDocTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitLink($LinkTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		print($of("{"_s));
 		printTagName(node);
@@ -535,6 +552,7 @@ $Void* DocPretty::visitLink($LinkTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitLiteral($LiteralTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		print($of("{"_s));
 		printTagName(node);
@@ -553,6 +571,7 @@ $Void* DocPretty::visitLiteral($LiteralTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitParam($ParamTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		printTagName(node);
 		print($of(" "_s));
@@ -575,6 +594,7 @@ $Void* DocPretty::visitParam($ParamTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitProvides($ProvidesTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		printTagName(node);
 		print($of(" "_s));
@@ -591,6 +611,7 @@ $Void* DocPretty::visitProvides($ProvidesTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitReference($ReferenceTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		print($($of($nc(node)->getSignature())));
 	} catch ($IOException&) {
@@ -601,6 +622,7 @@ $Void* DocPretty::visitReference($ReferenceTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitReturn($ReturnTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		if ($nc(node)->isInline()) {
 			print($of("{"_s));
@@ -619,6 +641,7 @@ $Void* DocPretty::visitReturn($ReturnTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitSee($SeeTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		printTagName(node);
 		bool first = true;
@@ -645,6 +668,7 @@ $Void* DocPretty::visitSee($SeeTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitSerial($SerialTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		printTagName(node);
 		if (!$nc($($nc(node)->getDescription()))->isEmpty()) {
@@ -659,6 +683,7 @@ $Void* DocPretty::visitSerial($SerialTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitSerialData($SerialDataTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		printTagName(node);
 		if (!$nc($($nc(node)->getDescription()))->isEmpty()) {
@@ -673,6 +698,7 @@ $Void* DocPretty::visitSerialData($SerialDataTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitSerialField($SerialFieldTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		printTagName(node);
 		print($of(" "_s));
@@ -691,6 +717,7 @@ $Void* DocPretty::visitSerialField($SerialFieldTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitSince($SinceTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		printTagName(node);
 		print($of(" "_s));
@@ -703,6 +730,7 @@ $Void* DocPretty::visitSince($SinceTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitStartElement($StartElementTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		print($of("<"_s));
 		print($($of($nc(node)->getName())));
@@ -741,6 +769,7 @@ $Void* DocPretty::visitStartElement($StartElementTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitSummary($SummaryTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		print($of("{"_s));
 		printTagName(node);
@@ -757,6 +786,7 @@ $Void* DocPretty::visitSummary($SummaryTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitSystemProperty($SystemPropertyTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		print($of("{"_s));
 		printTagName(node);
@@ -771,6 +801,7 @@ $Void* DocPretty::visitSystemProperty($SystemPropertyTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitText($TextTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		print($($of($nc(node)->getBody())));
 	} catch ($IOException&) {
@@ -781,6 +812,7 @@ $Void* DocPretty::visitText($TextTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitThrows($ThrowsTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		printTagName(node);
 		print($of(" "_s));
@@ -797,6 +829,7 @@ $Void* DocPretty::visitThrows($ThrowsTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitUnknownBlockTag($UnknownBlockTagTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		print($of("@"_s));
 		print($($of($nc(node)->getTagName())));
@@ -810,6 +843,7 @@ $Void* DocPretty::visitUnknownBlockTag($UnknownBlockTagTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitUnknownInlineTag($UnknownInlineTagTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		print($of("{"_s));
 		print($of("@"_s));
@@ -825,6 +859,7 @@ $Void* DocPretty::visitUnknownInlineTag($UnknownInlineTagTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitUses($UsesTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		printTagName(node);
 		print($of(" "_s));
@@ -841,6 +876,7 @@ $Void* DocPretty::visitUses($UsesTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitValue($ValueTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		print($of("{"_s));
 		printTagName(node);
@@ -857,6 +893,7 @@ $Void* DocPretty::visitValue($ValueTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitVersion($VersionTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		printTagName(node);
 		print($of(" "_s));
@@ -869,6 +906,7 @@ $Void* DocPretty::visitVersion($VersionTree* node, $Void* p) {
 }
 
 $Void* DocPretty::visitOther($DocTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		print($of($$str({"(UNKNOWN: "_s, node, ")"_s})));
 		println();

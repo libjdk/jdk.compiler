@@ -79,6 +79,7 @@ void Symbol$BindingSymbol::init$(int64_t flags, $Name* name, $Type* type, $Symbo
 }
 
 bool Symbol$BindingSymbol::isAliasFor(Symbol$BindingSymbol* b) {
+	$useLocalCurrentObjectStackCache();
 	return $nc($(aliases()))->containsAll($(static_cast<$Collection*>(static_cast<$AbstractCollection*>($nc(b)->aliases()))));
 }
 

@@ -156,6 +156,7 @@ void Analyzer$AnalyzerCopier::init$($Analyzer* this$0) {
 }
 
 $JCTree* Analyzer$AnalyzerCopier::visitLambdaExpression($LambdaExpressionTree* node, $Void* _unused) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCLambda, oldLambda, $cast($JCTree$JCLambda, node));
 	$var($JCTree$JCLambda, newLambda, $cast($JCTree$JCLambda, $cast($JCTree, $TreeCopier::visitLambdaExpression(node, _unused))));
 	$init($JCTree$JCLambda$ParameterKind);
@@ -167,6 +168,7 @@ $JCTree* Analyzer$AnalyzerCopier::visitLambdaExpression($LambdaExpressionTree* n
 }
 
 $JCTree* Analyzer$AnalyzerCopier::visitNewClass($NewClassTree* node, $Void* aVoid) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCNewClass, oldNewClazz, $cast($JCTree$JCNewClass, node));
 	$var($JCTree$JCNewClass, newNewClazz, $cast($JCTree$JCNewClass, $cast($JCTree, $TreeCopier::visitNewClass(node, aVoid))));
 	bool var$0 = !$nc($nc(oldNewClazz)->args)->isEmpty();

@@ -180,10 +180,12 @@ void JavadocFormatter$HtmlTag::init$($String* $enum$name, int32_t $enum$ordinal)
 
 JavadocFormatter$HtmlTag* JavadocFormatter$HtmlTag::get($Name* tagName) {
 	$init(JavadocFormatter$HtmlTag);
+	$useLocalCurrentObjectStackCache();
 	return $cast(JavadocFormatter$HtmlTag, $nc(JavadocFormatter$HtmlTag::index)->get($($StringUtils::toLowerCase($($nc($of(tagName))->toString())))));
 }
 
 void clinit$JavadocFormatter$HtmlTag($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(JavadocFormatter$HtmlTag::HTML, $new(JavadocFormatter$HtmlTag, "HTML"_s, 0));
 	$assignStatic(JavadocFormatter$HtmlTag::H1, $new(JavadocFormatter$HtmlTag, "H1"_s, 1));
 	$assignStatic(JavadocFormatter$HtmlTag::H2, $new(JavadocFormatter$HtmlTag, "H2"_s, 2));

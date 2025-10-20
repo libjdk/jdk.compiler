@@ -108,6 +108,7 @@ void Resolve$StaticError::init$($Resolve* this$0, $Symbol* sym) {
 }
 
 $JCDiagnostic* Resolve$StaticError::getDiagnostic($JCDiagnostic$DiagnosticType* dkind, $JCDiagnostic$DiagnosticPosition* pos, $Symbol* location, $Type* site, $Name* name, $List* argtypes, $List* typeargtypes) {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$Kind);
 	$init($TypeTag);
 	$var($Symbol, errSym, ($nc(this->sym)->kind == $Kinds$Kind::TYP && $nc($nc(this->sym)->type)->hasTag($TypeTag::CLASS)) ? static_cast<$Symbol*>($nc($($nc(this->this$0->types)->erasure($nc(this->sym)->type)))->tsym) : this->sym);

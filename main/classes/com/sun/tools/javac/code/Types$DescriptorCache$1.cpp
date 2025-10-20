@@ -88,6 +88,7 @@ void Types$DescriptorCache$1::init$($Types$DescriptorCache* this$1, $Symbol* des
 }
 
 $Type* Types$DescriptorCache$1::getType($Type* origin) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, mt, $nc(this->this$1->this$0)->memberType(origin, $(getSymbol())));
 	return $nc(this->this$1->this$0)->createMethodTypeWithThrown(mt, $($nc($nc(this->val$bestSoFar)->type)->getThrownTypes()));
 }

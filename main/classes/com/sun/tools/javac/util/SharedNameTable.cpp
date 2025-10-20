@@ -91,6 +91,7 @@ SharedNameTable* SharedNameTable::create($Names* names) {
 	$load(SharedNameTable);
 	$synchronized(class$) {
 		$init(SharedNameTable);
+		$useLocalCurrentObjectStackCache();
 		while ($nc(SharedNameTable::freelist)->nonEmpty()) {
 			$var(SharedNameTable, t, $cast(SharedNameTable, $nc(($cast($SoftReference, $nc(SharedNameTable::freelist)->head)))->get()));
 			$assignStatic(SharedNameTable::freelist, $nc(SharedNameTable::freelist)->tail);
@@ -123,6 +124,7 @@ void SharedNameTable::init$($Names* names) {
 }
 
 $Name* SharedNameTable::fromChars($chars* cs, int32_t start, int32_t len) {
+	$useLocalCurrentObjectStackCache();
 	int32_t nc = this->nc;
 	$var($bytes, bytes, $assignField(this, bytes, $ArrayUtils::ensureCapacity(this->bytes, nc + len * 3)));
 	int32_t nbytes = $Convert::chars2utf(cs, start, bytes, nc, len) - nc;
@@ -156,6 +158,7 @@ $Name* SharedNameTable::fromChars($chars* cs, int32_t start, int32_t len) {
 }
 
 $Name* SharedNameTable::fromUtf($bytes* cs, int32_t start, int32_t len) {
+	$useLocalCurrentObjectStackCache();
 	int32_t h = (int32_t)(hashValue(cs, start, len) & (uint32_t)this->hashMask);
 	$var($SharedNameTable$NameImpl, n, $nc(this->hashes)->get(h));
 	$var($bytes, names, this->bytes);

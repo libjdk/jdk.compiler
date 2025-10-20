@@ -101,6 +101,7 @@ void ScannerFactory::init$($Context* context) {
 }
 
 $Scanner* ScannerFactory::newScanner($CharSequence* input, bool keepDocComments) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($CharBuffer, charBuffer, nullptr);
 		bool var$0 = $instanceOf($CharBuffer, input);

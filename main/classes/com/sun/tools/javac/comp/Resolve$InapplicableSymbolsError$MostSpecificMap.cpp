@@ -88,6 +88,7 @@ void Resolve$InapplicableSymbolsError$MostSpecificMap::init$($Resolve$Inapplicab
 }
 
 void Resolve$InapplicableSymbolsError$MostSpecificMap::put($Resolve$MethodResolutionContext$Candidate* c) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, overridden, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc($(keySet()))->iterator());

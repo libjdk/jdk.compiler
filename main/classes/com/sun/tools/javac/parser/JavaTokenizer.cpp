@@ -226,6 +226,7 @@ $Object* allocate$JavaTokenizer($Class* clazz) {
 }
 
 void JavaTokenizer::init$($ScannerFactory* fac, $CharBuffer* cb) {
+	$useLocalCurrentObjectStackCache();
 	$var($ScannerFactory, var$0, fac);
 	$var($chars, var$1, $JavacFileManager::toArray(cb));
 	JavaTokenizer::init$(var$0, var$1, $nc(cb)->limit());
@@ -246,6 +247,7 @@ void JavaTokenizer::init$($ScannerFactory* fac, $chars* array, int32_t length) {
 }
 
 void JavaTokenizer::checkSourceLevel(int32_t pos, $Source$Feature* feature) {
+	$useLocalCurrentObjectStackCache();
 	bool var$0 = $nc(this->preview)->isPreview(feature);
 	if (var$0 && !$nc(this->preview)->isEnabled()) {
 		$init($JCDiagnostic$DiagnosticFlag);
@@ -889,6 +891,7 @@ bool JavaTokenizer::isSpecial(char16_t ch) {
 }
 
 void JavaTokenizer::scanOperator() {
+	$useLocalCurrentObjectStackCache();
 	while (true) {
 		put();
 		$Tokens$TokenKind* newtk = $nc(this->tokens)->lookupKind($($nc(this->sb)->toString()));
@@ -906,6 +909,7 @@ void JavaTokenizer::scanOperator() {
 }
 
 $Tokens$Token* JavaTokenizer::readToken() {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->sb)->setLength(0);
 	$set(this, name, nullptr);
 	this->radix = 0;

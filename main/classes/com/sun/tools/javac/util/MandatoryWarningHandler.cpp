@@ -150,6 +150,7 @@ void MandatoryWarningHandler::report($JCDiagnostic$DiagnosticPosition* pos, $JCD
 }
 
 void MandatoryWarningHandler::reportDeferredDiagnostic() {
+	$useLocalCurrentObjectStackCache();
 	if (this->deferredDiagnosticKind != nullptr) {
 		if (this->deferredDiagnosticArg == nullptr) {
 			if (this->source != nullptr) {
@@ -180,6 +181,7 @@ void MandatoryWarningHandler::logMandatoryWarning($JCDiagnostic$DiagnosticPositi
 }
 
 void MandatoryWarningHandler::logMandatoryNote($JavaFileObject* file, $String* msg, $ObjectArray* args) {
+	$useLocalCurrentObjectStackCache();
 	if (this->enforceMandatory) {
 		$nc(this->log)->mandatoryNote(file, $$new($JCDiagnostic$Note, "compiler"_s, msg, args));
 	} else {

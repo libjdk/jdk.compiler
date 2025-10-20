@@ -84,6 +84,7 @@ void JavacProcessingEnvironment$DiscoveredProcessors::init$($JavacProcessingEnvi
 }
 
 void JavacProcessingEnvironment$DiscoveredProcessors::close() {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($JavacProcessingEnvironment$ServiceIterator, serviceIterator, nullptr);
 		bool var$0 = this->processorIterator != nullptr;

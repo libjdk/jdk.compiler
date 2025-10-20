@@ -168,6 +168,7 @@ StringConcat* StringConcat::instance($Context* context) {
 
 StringConcat* StringConcat::makeConcat($Context* context) {
 	$init(StringConcat);
+	$useLocalCurrentObjectStackCache();
 	$Target* target = $Target::instance(context);
 	$var($String, opt, $nc($($Options::instance(context)))->get("stringConcat"_s));
 	if ($nc(target)->hasStringConcatFactory()) {
@@ -244,10 +245,12 @@ $List* StringConcat::collectAll($JCTree* tree) {
 }
 
 $List* StringConcat::collectAll($JCTree$JCExpression* lhs, $JCTree$JCExpression* rhs) {
+	$useLocalCurrentObjectStackCache();
 	return $nc($($nc($($List::nil()))->appendList($(collectAll(lhs)))))->appendList($(collectAll(rhs)));
 }
 
 $List* StringConcat::collect($JCTree* tree$renamed, $List* res) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree, tree, tree$renamed);
 	$assign(tree, $TreeInfo::skipParens(tree));
 	$init($JCTree$Tag);
@@ -263,6 +266,7 @@ $List* StringConcat::collect($JCTree* tree$renamed, $List* res) {
 }
 
 $Type* StringConcat::sharpestAccessible($Type* originalType) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	if ($nc(originalType)->hasTag($TypeTag::ARRAY)) {
 		return $nc(this->types)->makeArrayType($(sharpestAccessible($($nc(this->types)->elemtype(originalType)))));

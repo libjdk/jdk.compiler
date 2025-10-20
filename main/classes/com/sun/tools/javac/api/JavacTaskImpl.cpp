@@ -446,6 +446,7 @@ $Object* JavacTaskImpl::call() {
 }
 
 $Main$Result* JavacTaskImpl::doCall() {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Throwable, var$0, nullptr);
 		$var($Main$Result, var$2, nullptr);
@@ -483,6 +484,7 @@ $Main$Result* JavacTaskImpl::doCall() {
 }
 
 void JavacTaskImpl::addModules($Iterable* moduleNames) {
+	$useLocalCurrentObjectStackCache();
 	$Objects::requireNonNull(moduleNames);
 	if ($nc(this->used)->get()) {
 		$throwNew($IllegalStateException);
@@ -515,6 +517,7 @@ void JavacTaskImpl::setLocale($Locale* locale) {
 }
 
 $Pair* JavacTaskImpl::invocationHelper($Callable* c) {
+	$useLocalCurrentObjectStackCache();
 	$var($DeferredCompletionFailureHandler$Handler, prevDeferredHandler, $nc(this->dcfh)->setHandler($nc(this->dcfh)->javacCodeHandler));
 	{
 		$var($Throwable, var$0, nullptr);
@@ -593,6 +596,7 @@ $Pair* JavacTaskImpl::invocationHelper($Callable* c) {
 }
 
 void JavacTaskImpl::prepareCompiler(bool forParse) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(this->used)->getAndSet(true)) {
 		if (this->compiler == nullptr) {
 			$throwNew($PropagatedException, $$new($IllegalStateException));
@@ -629,6 +633,7 @@ void JavacTaskImpl::prepareCompiler(bool forParse) {
 }
 
 $String* JavacTaskImpl::toString($Iterable* items, $String* sep) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, currSep, ""_s);
 	$var($StringBuilder, sb, $new($StringBuilder));
 	{
@@ -646,6 +651,7 @@ $String* JavacTaskImpl::toString($Iterable* items, $String* sep) {
 }
 
 void JavacTaskImpl::cleanup() {
+	$useLocalCurrentObjectStackCache();
 	if (this->compiler != nullptr) {
 		$nc(this->compiler)->close();
 	}
@@ -672,6 +678,7 @@ void JavacTaskImpl::cleanup() {
 }
 
 $Iterable* JavacTaskImpl::parse() {
+	$useLocalCurrentObjectStackCache();
 	$var($Pair, result, invocationHelper(static_cast<$Callable*>($$new(JavacTaskImpl$$Lambda$parseInternal$1, this))));
 	if ($nc(result)->snd == nullptr) {
 		return $cast($Iterable, result->fst);
@@ -680,6 +687,7 @@ $Iterable* JavacTaskImpl::parse() {
 }
 
 $Iterable* JavacTaskImpl::parseInternal() {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Throwable, var$0, nullptr);
 		$var($Iterable, var$2, nullptr);
@@ -725,6 +733,7 @@ $Iterable* JavacTaskImpl::enter() {
 }
 
 $Iterable* JavacTaskImpl::enter($Iterable* trees) {
+	$useLocalCurrentObjectStackCache();
 	if (trees == nullptr && this->notYetEntered != nullptr && $nc(this->notYetEntered)->isEmpty()) {
 		return static_cast<$Iterable*>(static_cast<$Collection*>(static_cast<$AbstractCollection*>($List::nil())));
 	}
@@ -850,6 +859,7 @@ $Iterable* JavacTaskImpl::enter($Iterable* trees) {
 }
 
 $Iterable* JavacTaskImpl::analyze() {
+	$useLocalCurrentObjectStackCache();
 	$var($Pair, result, invocationHelper(static_cast<$Callable*>($$new(JavacTaskImpl$$Lambda$lambda$analyze$1$2, this))));
 	if ($nc(result)->snd == nullptr) {
 		return $cast($Iterable, result->fst);
@@ -858,6 +868,7 @@ $Iterable* JavacTaskImpl::analyze() {
 }
 
 $Iterable* JavacTaskImpl::analyze($Iterable* classes) {
+	$useLocalCurrentObjectStackCache();
 	enter(nullptr);
 	$var($ListBuffer, results, $new($ListBuffer));
 	{
@@ -882,6 +893,7 @@ $Iterable* JavacTaskImpl::analyze($Iterable* classes) {
 }
 
 void JavacTaskImpl::handleFlowResults($Queue* queue, $ListBuffer* elems) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(queue)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -926,6 +938,7 @@ void JavacTaskImpl::handleFlowResults($Queue* queue, $ListBuffer* elems) {
 }
 
 $Iterable* JavacTaskImpl::generate() {
+	$useLocalCurrentObjectStackCache();
 	$var($Pair, result, invocationHelper(static_cast<$Callable*>($$new(JavacTaskImpl$$Lambda$lambda$generate$2$3, this))));
 	if ($nc(result)->snd == nullptr) {
 		return $cast($Iterable, result->fst);
@@ -934,6 +947,7 @@ $Iterable* JavacTaskImpl::generate() {
 }
 
 $Iterable* JavacTaskImpl::generate($Iterable* classes) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, results, $new($ListBuffer));
 	{
 		$var($Throwable, var$0, nullptr);
@@ -974,6 +988,7 @@ void JavacTaskImpl::ensureEntered() {
 }
 
 $Type* JavacTaskImpl::parseType($String* expr, $TypeElement* scope) {
+	$useLocalCurrentObjectStackCache();
 	if (expr == nullptr || $nc(expr)->equals(""_s)) {
 		$throwNew($IllegalArgumentException);
 	}
@@ -1017,6 +1032,7 @@ $Iterable* JavacTaskImpl::lambda$analyze$1() {
 }
 
 $Main$Result* JavacTaskImpl::lambda$doCall$0() {
+	$useLocalCurrentObjectStackCache();
 	prepareCompiler(false);
 	if ($nc(this->compiler)->errorCount() > 0) {
 		$init($Main$Result);

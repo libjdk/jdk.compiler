@@ -225,6 +225,7 @@ int32_t TreeInfo$PosKind::toPos($JCTree* tree) {
 }
 
 void clinit$TreeInfo$PosKind($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(TreeInfo$PosKind::START_POS, $new(TreeInfo$PosKind, "START_POS"_s, 0, static_cast<$ToIntFunction*>($$new(TreeInfo$PosKind$$Lambda$getStartPos))));
 	$assignStatic(TreeInfo$PosKind::FIRST_STAT_POS, $new(TreeInfo$PosKind, "FIRST_STAT_POS"_s, 1, static_cast<$ToIntFunction*>($$new(TreeInfo$PosKind$$Lambda$firstStatPos$1))));
 	$assignStatic(TreeInfo$PosKind::END_POS, $new(TreeInfo$PosKind, "END_POS"_s, 2, static_cast<$ToIntFunction*>($$new(TreeInfo$PosKind$$Lambda$endPos$2))));

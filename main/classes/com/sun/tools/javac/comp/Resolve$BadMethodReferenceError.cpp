@@ -103,6 +103,7 @@ void Resolve$BadMethodReferenceError::init$($Resolve* this$0, $Symbol* sym, bool
 }
 
 $JCDiagnostic* Resolve$BadMethodReferenceError::getDiagnostic($JCDiagnostic$DiagnosticType* dkind, $JCDiagnostic$DiagnosticPosition* pos, $Symbol* location, $Type* site, $Name* name, $List* argtypes, $List* typeargtypes) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, key, nullptr);
 	if (!this->unboundLookup) {
 		$assign(key, "bad.static.method.in.bound.lookup"_s);

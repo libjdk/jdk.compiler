@@ -84,11 +84,13 @@ void RelativePath::init$($String* p) {
 }
 
 $Path* RelativePath::resolveAgainst($Path* directory) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, sep, $nc($($nc(directory)->getFileSystem()))->getSeparator());
 	return directory->resolve($($nc(this->path)->replace(static_cast<$CharSequence*>("/"_s), static_cast<$CharSequence*>(sep))));
 }
 
 $Path* RelativePath::resolveAgainst($FileSystem* fs) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, sep, $nc(fs)->getSeparator());
 	$var($Path, root, $cast($Path, $nc($($nc($(fs->getRootDirectories()))->iterator()))->next()));
 	return $nc(root)->resolve($($nc(this->path)->replace(static_cast<$CharSequence*>("/"_s), static_cast<$CharSequence*>(sep))));

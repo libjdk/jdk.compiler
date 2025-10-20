@@ -45,6 +45,7 @@ void ct::init$() {
 }
 
 $ObjectArray2* ct::getContents() {
+	$useLocalCurrentObjectStackCache();
 	return $new($ObjectArray2, {
 		$$new($ObjectArray, {
 			$of("apple.laf.*"_s),

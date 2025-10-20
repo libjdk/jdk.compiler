@@ -97,6 +97,7 @@ void DeferredAttr$3::init$($DeferredAttr* this$0) {
 }
 
 $Type* DeferredAttr$3::visitType($Type* t, $Void* v) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	if ($nc(t)->hasTag($TypeTag::DEFERRED)) {
 		$var($DeferredAttr$DeferredType, dt, $cast($DeferredAttr$DeferredType, t));

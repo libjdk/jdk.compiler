@@ -127,6 +127,7 @@ void JavacElements$2Vis::visitClass($Attribute$Class* clazz) {
 }
 
 void JavacElements$2Vis::visitCompound($Attribute$Compound* anno) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($nc(anno)->values)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -146,6 +147,7 @@ void JavacElements$2Vis::visitCompound($Attribute$Compound* anno) {
 }
 
 void JavacElements$2Vis::visitArray($Attribute$Array* array) {
+	$useLocalCurrentObjectStackCache();
 	$init($JCTree$Tag);
 	if ($nc(this->val$tree)->hasTag($JCTree$Tag::NEWARRAY)) {
 		$var($List, elems, $nc(($cast($JCTree$JCNewArray, this->val$tree)))->elems);

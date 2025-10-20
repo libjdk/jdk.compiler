@@ -196,6 +196,7 @@ void TreeHasher::init$($Map* symbolHashes) {
 
 int32_t TreeHasher::hash($JCTree* tree, $Collection* symbols) {
 	$init(TreeHasher);
+	$useLocalCurrentObjectStackCache();
 	if (tree == nullptr) {
 		return 0;
 	}
@@ -211,6 +212,7 @@ void TreeHasher::hash(Object$* object) {
 }
 
 void TreeHasher::scan($JCTree* tree$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree, tree, tree$renamed);
 	if (tree == nullptr) {
 		return;
@@ -233,6 +235,7 @@ void TreeHasher::visitLiteral($JCTree$JCLiteral* tree) {
 }
 
 void TreeHasher::visitIdent($JCTree$JCIdent* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, sym, $nc(tree)->sym);
 	if (sym != nullptr) {
 		$var($Integer, hash, $cast($Integer, $nc(this->symbolHashes)->get(sym)));

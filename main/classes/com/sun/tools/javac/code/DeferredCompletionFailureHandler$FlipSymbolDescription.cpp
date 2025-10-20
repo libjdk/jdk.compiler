@@ -84,6 +84,7 @@ void DeferredCompletionFailureHandler$FlipSymbolDescription::init$($Symbol$Class
 }
 
 void DeferredCompletionFailureHandler$FlipSymbolDescription::flip() {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, prevType, $nc(this->sym)->type);
 	$set($nc(this->sym), type, this->type);
 	$set(this, type, prevType);

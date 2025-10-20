@@ -45,6 +45,7 @@ void compiler_zh_CN::init$() {
 }
 
 $ObjectArray2* compiler_zh_CN::getContents() {
+	$useLocalCurrentObjectStackCache();
 	return $new($ObjectArray2, {
 		$$new($ObjectArray, {
 			$of("compiler.err.abstract.cant.be.accessed.directly"_s),

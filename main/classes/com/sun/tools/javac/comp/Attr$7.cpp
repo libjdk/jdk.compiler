@@ -107,6 +107,7 @@ void Attr$7::init$($Attr* this$0, $Check$CheckContext* enclosingContext, $JCTree
 }
 
 void Attr$7::report($JCDiagnostic$DiagnosticPosition* _unused, $JCDiagnostic* details) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->enclosingContext)->report($nc(this->val$clazz)->clazz, $($nc(this->this$0->diags)->fragment($($CompilerProperties$Fragments::CantApplyDiamond1($($CompilerProperties$Fragments::Diamond(this->val$tsym)), details)))));
 }
 

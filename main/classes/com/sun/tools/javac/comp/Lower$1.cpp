@@ -152,6 +152,7 @@ void Lower$1::visitVarDef($JCTree$JCVariableDecl* that) {
 }
 
 void Lower$1::visitClassDef($JCTree$JCClassDecl* that) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$TypeSymbol, prevCurrentClass, this->currentClass);
 	$set(this, currentClass, $nc(that)->sym);
 	{
@@ -170,6 +171,7 @@ void Lower$1::visitClassDef($JCTree$JCClassDecl* that) {
 }
 
 void Lower$1::checkConflicts($JCDiagnostic$DiagnosticPosition* pos, $Symbol* sym, $Symbol$TypeSymbol* c) {
+	$useLocalCurrentObjectStackCache();
 		$init($Type);
 	{
 		$var($Type, ct, $nc(c)->type);
@@ -204,6 +206,7 @@ void Lower$1::checkConflicts($JCDiagnostic$DiagnosticPosition* pos, $Symbol* sym
 }
 
 void Lower$1::syntheticError($JCDiagnostic$DiagnosticPosition* pos, $Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	if (!$nc($nc(sym)->type)->isErroneous()) {
 		$var($Symbol, var$0, sym->location());
 		$nc(this->this$0->log)->error(pos, $($CompilerProperties$Errors::CannotGenerateClass(var$0, $($CompilerProperties$Fragments::SyntheticNameConflict(sym, $(sym->location()))))));

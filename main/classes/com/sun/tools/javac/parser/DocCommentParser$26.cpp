@@ -89,6 +89,7 @@ $ints* DocCommentParser$26::$SwitchMap$com$sun$tools$javac$parser$DocCommentPars
 $ints* DocCommentParser$26::$SwitchMap$com$sun$tools$javac$parser$DocCommentParser$Phase = nullptr;
 
 void clinit$DocCommentParser$26($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(DocCommentParser$26::$SwitchMap$com$sun$tools$javac$parser$DocCommentParser$TagParser$Kind, $new($ints, $($DocCommentParser$TagParser$Kind::values())->length));
 	{
 		try {

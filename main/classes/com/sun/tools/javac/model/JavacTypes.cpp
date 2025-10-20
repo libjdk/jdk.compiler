@@ -261,6 +261,7 @@ void JavacTypes::init$($Context* context) {
 }
 
 $Element* JavacTypes::asElement($TypeMirror* t) {
+	$useLocalCurrentObjectStackCache();
 		$init($JavacTypes$1);
 	{
 		$var($Type, type, nullptr)
@@ -317,12 +318,14 @@ bool JavacTypes::isSubsignature($ExecutableType* m1, $ExecutableType* m2) {
 }
 
 $1List* JavacTypes::directSupertypes($TypeMirror* t) {
+	$useLocalCurrentObjectStackCache();
 	validateTypeNotIn(t, JavacTypes::EXEC_OR_PKG_OR_MOD);
 	$var($Type, ty, $cast($Type, t));
 	return $nc($($nc($($nc($($nc(this->types)->directSupertypes(ty)))->stream()))->map(static_cast<$Function*>($$new(JavacTypes$$Lambda$stripMetadataIfNeeded)))))->toList();
 }
 
 $TypeMirror* JavacTypes::erasure($TypeMirror* t) {
+	$useLocalCurrentObjectStackCache();
 	$TypeKind* kind = $nc(t)->getKind();
 	$init($TypeKind);
 	if (kind == $TypeKind::PACKAGE || kind == $TypeKind::MODULE) {
@@ -336,6 +339,7 @@ $TypeElement* JavacTypes::boxedClass($PrimitiveType* p) {
 }
 
 $PrimitiveType* JavacTypes::unboxedType($TypeMirror* t) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeKind);
 	if ($nc(t)->getKind() != $TypeKind::DECLARED) {
 		$throwNew($IllegalArgumentException, $(t->toString()));
@@ -418,6 +422,7 @@ $NoType* JavacTypes::getNoType($TypeKind* kind) {
 }
 
 $ArrayType* JavacTypes::getArrayType($TypeMirror* componentType) {
+	$useLocalCurrentObjectStackCache();
 	$init($JavacTypes$1);
 	switch ($nc($JavacTypes$1::$SwitchMap$javax$lang$model$type$TypeKind)->get($nc(($($nc(componentType)->getKind())))->ordinal())) {
 	case 13:
@@ -437,6 +442,7 @@ $ArrayType* JavacTypes::getArrayType($TypeMirror* componentType) {
 }
 
 $WildcardType* JavacTypes::getWildcardType($TypeMirror* extendsBound, $TypeMirror* superBound) {
+	$useLocalCurrentObjectStackCache();
 	$BoundKind* bkind = nullptr;
 	$var($Type, bound, nullptr);
 	if (extendsBound == nullptr && superBound == nullptr) {
@@ -474,6 +480,7 @@ $WildcardType* JavacTypes::getWildcardType($TypeMirror* extendsBound, $TypeMirro
 }
 
 $DeclaredType* JavacTypes::getDeclaredType($TypeElement* typeElem, $TypeMirrorArray* typeArgs) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$ClassSymbol, sym, $cast($Symbol$ClassSymbol, typeElem));
 	if ($nc(typeArgs)->length == 0) {
 		return $cast($DeclaredType, $nc(sym)->erasure(this->types));
@@ -485,6 +492,7 @@ $DeclaredType* JavacTypes::getDeclaredType($TypeElement* typeElem, $TypeMirrorAr
 }
 
 $DeclaredType* JavacTypes::getDeclaredType($DeclaredType* enclosing, $TypeElement* typeElem, $TypeMirrorArray* typeArgs) {
+	$useLocalCurrentObjectStackCache();
 	if (enclosing == nullptr) {
 		return getDeclaredType(typeElem, typeArgs);
 	}
@@ -500,6 +508,7 @@ $DeclaredType* JavacTypes::getDeclaredType($DeclaredType* enclosing, $TypeElemen
 }
 
 $DeclaredType* JavacTypes::getDeclaredType0($Type* outer, $Symbol$ClassSymbol* sym, $TypeMirrorArray* typeArgs) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(typeArgs)->length != $nc($($nc($nc(sym)->type)->getTypeArguments()))->length()) {
 		$throwNew($IllegalArgumentException, "Incorrect number of type arguments"_s);
 	}
@@ -522,6 +531,7 @@ $DeclaredType* JavacTypes::getDeclaredType0($Type* outer, $Symbol$ClassSymbol* s
 }
 
 $TypeMirror* JavacTypes::asMemberOf($DeclaredType* containing, $Element* element) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, site, $cast($Type, containing));
 	$var($Symbol, sym, $cast($Symbol, element));
 	if ($nc(this->types)->asSuper(site, $($cast($Symbol, $nc(sym)->getEnclosingElement()))) == nullptr) {
@@ -531,6 +541,7 @@ $TypeMirror* JavacTypes::asMemberOf($DeclaredType* containing, $Element* element
 }
 
 void JavacTypes::validateTypeNotIn($TypeMirror* t, $Set* invalidKinds) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(invalidKinds)->contains($($nc(t)->getKind()))) {
 		$throwNew($IllegalArgumentException, $($nc(t)->toString()));
 	}
@@ -545,6 +556,7 @@ $Object* JavacTypes::cast($Class* clazz, Object$* o) {
 }
 
 $Set* JavacTypes::getOverriddenMethods($Element* elem) {
+	$useLocalCurrentObjectStackCache();
 	$init($ElementKind);
 	bool var$1 = $nc(elem)->getKind() != $ElementKind::METHOD;
 	$init($Modifier);

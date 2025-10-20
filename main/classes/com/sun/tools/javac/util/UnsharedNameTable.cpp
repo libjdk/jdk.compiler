@@ -106,6 +106,7 @@ $Name* UnsharedNameTable::fromChars($chars* cs, int32_t start, int32_t len) {
 }
 
 $Name* UnsharedNameTable::fromUtf($bytes* cs, int32_t start, int32_t len) {
+	$useLocalCurrentObjectStackCache();
 	int32_t h = (int32_t)(hashValue(cs, start, len) & (uint32_t)this->hashMask);
 	$var($UnsharedNameTable$HashEntry, element, $nc(this->hashes)->get(h));
 	$var($UnsharedNameTable$NameImpl, n, nullptr);

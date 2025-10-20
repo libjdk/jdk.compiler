@@ -179,6 +179,7 @@ $Object* Type$ArrayType::accept($Type$Visitor* v, Object$* s) {
 }
 
 $String* Type$ArrayType::toString() {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, sb, $new($StringBuilder));
 	$var($Type, t, this->elemtype);
 	$init($TypeKind);

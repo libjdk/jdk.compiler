@@ -298,6 +298,7 @@ $Object* allocate$LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationCon
 }
 
 void LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext::init$($LambdaToMethod$LambdaAnalyzerPreprocessor* this$1, $JCTree$JCLambda* tree) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, this$1, this$1);
 	$LambdaToMethod$LambdaAnalyzerPreprocessor$TranslationContext::init$(this$1, tree);
 	$var($LambdaToMethod$LambdaAnalyzerPreprocessor$Frame, frame, $cast($LambdaToMethod$LambdaAnalyzerPreprocessor$Frame, $nc(this$1->frameStack)->head));
@@ -339,6 +340,7 @@ void LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext::init$($
 }
 
 $String* LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext::serializedLambdaDisambiguation() {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, buf, $new($StringBuilder));
 	$Assert::check($nc(this->owner)->type != nullptr || this->this$1->directlyEnclosingLambda() != nullptr);
 	if ($nc(this->owner)->type != nullptr) {
@@ -370,11 +372,13 @@ $String* LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext::ser
 }
 
 $Name* LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext::lambdaName() {
+	$useLocalCurrentObjectStackCache();
 	$var($String, var$0, $$str({$(enclosingMethodName()), "$"_s}));
 	return $nc($nc($nc(this->this$1->this$0)->names)->lambda)->append($($nc($nc(this->this$1->this$0)->names)->fromString($$concat(var$0, $$str(this->this$1->lambdaCount++)))));
 }
 
 $Name* LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext::serializedLambdaName() {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, buf, $new($StringBuilder));
 	buf->append(static_cast<$CharSequence*>($nc($nc(this->this$1->this$0)->names)->lambda));
 	buf->append($(enclosingMethodName()));
@@ -388,6 +392,7 @@ $Name* LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext::seria
 }
 
 $Symbol* LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext::translate($Symbol* sym, $LambdaToMethod$LambdaSymbolKind* skind) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, ret, nullptr);
 		$init($LambdaToMethod$1);
 	{
@@ -446,6 +451,7 @@ $Symbol* LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext::tra
 }
 
 void LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext::addSymbol($Symbol* sym, $LambdaToMethod$LambdaSymbolKind* skind$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($LambdaToMethod$LambdaSymbolKind, skind, skind$renamed);
 	$init($LambdaToMethod$LambdaSymbolKind);
 	$init($Kinds$Kind);
@@ -469,6 +475,7 @@ $Map* LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext::getSym
 }
 
 $JCTree* LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext::translate($JCTree$JCIdent* lambdaIdent) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($LambdaToMethod$LambdaSymbolKindArray, arr$, $LambdaToMethod$LambdaSymbolKind::values());
 		int32_t len$ = $nc(arr$)->length;
@@ -512,6 +519,7 @@ $JCTree* LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext::tra
 }
 
 $JCTree* LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext::translate($JCTree$JCFieldAccess* fieldAccess) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::check($nc(fieldAccess)->name == $nc($nc(this->this$1->this$0)->names)->_this);
 	$init($LambdaToMethod$LambdaSymbolKind);
 	$var($Map, m, $cast($Map, $nc(this->translatedSymbols)->get($LambdaToMethod$LambdaSymbolKind::CAPTURED_OUTER_THIS)));
@@ -524,6 +532,7 @@ $JCTree* LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext::tra
 }
 
 $JCTree$JCNewClass* LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext::translate($JCTree$JCNewClass* newClass) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::check($nc($nc($nc($nc(newClass)->clazz)->type)->tsym)->hasOuterInstance() && newClass->encl == nullptr);
 	$init($LambdaToMethod$LambdaSymbolKind);
 	$var($Map, m, $cast($Map, $nc(this->translatedSymbols)->get($LambdaToMethod$LambdaSymbolKind::CAPTURED_OUTER_THIS)));
@@ -537,6 +546,7 @@ $JCTree$JCNewClass* LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationC
 }
 
 void LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext::complete() {
+	$useLocalCurrentObjectStackCache();
 	if (this->syntheticParams != nullptr) {
 		return;
 	}

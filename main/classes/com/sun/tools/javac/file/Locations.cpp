@@ -351,6 +351,7 @@ $Path* Locations::getPath($String* first, $StringArray* more) {
 }
 
 void Locations::close() {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, list, $new($ListBuffer));
 	$nc(this->closeables)->forEach(static_cast<$Consumer*>($$new(Locations$$Lambda$lambda$close$0$1, list)));
 	if (list->nonEmpty()) {
@@ -393,6 +394,7 @@ $Iterable* Locations::getPathEntries($String* searchPath) {
 }
 
 $Iterable* Locations::getPathEntries($String* searchPath, $Path* emptyPathDefault) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, entries, $new($ListBuffer));
 	{
 		$init($File);
@@ -428,6 +430,7 @@ void Locations::setMultiReleaseValue($String* multiReleaseValue) {
 }
 
 bool Locations::contains($Collection* searchPath, $Path* file) {
+	$useLocalCurrentObjectStackCache();
 	if (searchPath == nullptr) {
 		return false;
 	}
@@ -464,6 +467,7 @@ bool Locations::contains($Collection* searchPath, $Path* file) {
 }
 
 void Locations::initHandlers() {
+	$useLocalCurrentObjectStackCache();
 	$set(this, handlersForLocation, $new($HashMap));
 	$load($Option);
 	$set(this, handlersForOption, $new($EnumMap, $Option::class$));
@@ -535,6 +539,7 @@ $Path* Locations::getOutputLocation($JavaFileManager$Location* location) {
 }
 
 void Locations::setLocation($JavaFileManager$Location* location, $Iterable* files) {
+	$useLocalCurrentObjectStackCache();
 	$var($Locations$LocationHandler, h, getHandler(location));
 	if (h == nullptr) {
 		if ($nc(location)->isOutputLocation()) {
@@ -558,6 +563,7 @@ $JavaFileManager$Location* Locations::getLocationForModule($JavaFileManager$Loca
 }
 
 void Locations::setLocationForModule($JavaFileManager$Location* location, $String* moduleName, $Iterable* files) {
+	$useLocalCurrentObjectStackCache();
 	$var($Locations$LocationHandler, h, getHandler(location));
 	if (h == nullptr) {
 		if ($nc(location)->isOutputLocation()) {
@@ -600,6 +606,7 @@ $Locations$LocationHandler* Locations::getHandler($JavaFileManager$Location* loc
 }
 
 bool Locations::isArchive($Path* file) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, n, $StringUtils::toLowerCase($($nc($($nc(file)->getFileName()))->toString())));
 	bool var$0 = $nc(this->fsInfo)->isFile(file);
 	if (var$0) {
@@ -611,6 +618,7 @@ bool Locations::isArchive($Path* file) {
 
 $Path* Locations::normalize($Path* p) {
 	$init(Locations);
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(p)->toRealPath($$new($LinkOptionArray, 0));
 	} catch ($IOException&) {
@@ -631,6 +639,7 @@ void Locations::lambda$close$0($ListBuffer* list, $Closeable* closeable) {
 }
 
 void clinit$Locations($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(Locations::javaHome, $nc($($FileSystems::getDefault()))->getPath($($System::getProperty("java.home"_s)), $$new($StringArray, 0)));
 	$assignStatic(Locations::thisSystemModules, $nc($($nc(Locations::javaHome)->resolve("lib"_s)))->resolve("modules"_s));
 }

@@ -260,6 +260,7 @@ $List* ArgumentAttr$ExplicitLambdaType::returnExpressions() {
 }
 
 $Type* ArgumentAttr$ExplicitLambdaType::overloadCheck($Attr$ResultInfo* resultInfo, $DeferredAttr$DeferredAttrContext* deferredAttrContext) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var($Attr$TargetInfo, targetInfo, $nc(this->this$0->attr)->getTargetInfo($cast($JCTree$JCPolyExpression, this->speculativeTree$), resultInfo, $(argtypes())));
 		$var($Type, lambdaType, $nc(targetInfo)->descriptor);
@@ -275,6 +276,7 @@ $Type* ArgumentAttr$ExplicitLambdaType::overloadCheck($Attr$ResultInfo* resultIn
 }
 
 void ArgumentAttr$ExplicitLambdaType::checkLambdaCompatible($Type* descriptor, $Attr$ResultInfo* resultInfo) {
+	$useLocalCurrentObjectStackCache();
 	$var($Check$CheckContext, checkContext, $nc(resultInfo)->checkContext);
 	$var($Attr$ResultInfo, bodyResultInfo, $nc(this->this$0->attr)->lambdaBodyResult($cast($JCTree$JCLambda, this->speculativeTree$), descriptor, resultInfo));
 	$init($ArgumentAttr$2);
@@ -302,6 +304,7 @@ void ArgumentAttr$ExplicitLambdaType::checkLambdaCompatible($Type* descriptor, $
 }
 
 void ArgumentAttr$ExplicitLambdaType::checkReturnInStatementLambda($JCTree$JCReturn* ret, $Attr$ResultInfo* resultInfo) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	if ($nc($nc(resultInfo)->pt)->hasTag($TypeTag::VOID) && $nc(ret)->expr != nullptr) {
 		$var($JCDiagnostic$DiagnosticPosition, var$0, $nc(($cast($JCTree$JCLambda, this->speculativeTree$)))->pos());
@@ -334,6 +337,7 @@ $ArgumentAttr$ArgumentType* ArgumentAttr$ExplicitLambdaType::dup($JCTree$JCExpre
 }
 
 $List* ArgumentAttr$ExplicitLambdaType::lambda$returnExpressions$1() {
+	$useLocalCurrentObjectStackCache();
 	$var($List, res, nullptr);
 	$var($ListBuffer, buf, $new($ListBuffer));
 	$$new($ArgumentAttr$ExplicitLambdaType$1, this, buf)->scan($nc(($cast($JCTree$JCLambda, this->speculativeTree$)))->body);

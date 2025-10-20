@@ -94,6 +94,7 @@ void Attribute$Array::accept($Attribute$Visitor* v) {
 }
 
 $String* Attribute$Array::toString() {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, buf, $new($StringBuilder));
 	buf->append(u'{');
 	bool first = true;

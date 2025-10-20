@@ -93,6 +93,7 @@ void DocCommentParser$21::init$($DocCommentParser* this$0, $DocCommentParser$Tag
 }
 
 $DCTree* DocCommentParser$21::parse(int32_t pos) {
+	$useLocalCurrentObjectStackCache();
 	this->this$0->skipWhitespace();
 	if (this->this$0->ch == u'}') {
 		$throwNew($DocCommentParser$ParseException, "dc.no.content"_s);

@@ -169,6 +169,7 @@ void Check$4::visitBlock($JCTree$JCBlock* tree) {
 }
 
 void Check$4::visitMethodDef($JCTree$JCMethodDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	if (!this->this$0->isAPISymbol($nc(tree)->sym)) {
 		return;
 	}
@@ -193,6 +194,7 @@ void Check$4::visitMethodDef($JCTree$JCMethodDecl* tree) {
 }
 
 void Check$4::visitVarDef($JCTree$JCVariableDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$Kind);
 	if (!this->this$0->isAPISymbol($nc(tree)->sym) && $nc($nc($nc(tree)->sym)->owner)->kind != $Kinds$Kind::MTH) {
 		return;
@@ -219,6 +221,7 @@ void Check$4::visitVarDef($JCTree$JCVariableDecl* tree) {
 }
 
 void Check$4::visitClassDef($JCTree$JCClassDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	if (tree != this->val$check) {
 		return;
 	}
@@ -282,6 +285,7 @@ void Check$4::visitTypeApply($JCTree$JCTypeApply* tree) {
 }
 
 void Check$4::visitIdent($JCTree$JCIdent* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, sym, $TreeInfo::symbol(tree));
 	$init($Kinds$Kind);
 	$init($TypeTag);
@@ -291,6 +295,7 @@ void Check$4::visitIdent($JCTree$JCIdent* tree) {
 }
 
 void Check$4::visitSelect($JCTree$JCFieldAccess* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, sym, $TreeInfo::symbol(tree));
 	$var($Symbol, sitesym, $TreeInfo::symbol($nc(tree)->selected));
 	$init($Kinds$Kind);

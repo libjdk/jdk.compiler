@@ -122,6 +122,7 @@ void ArgumentAttr$ConditionalType::init$($ArgumentAttr* this$0, $JCTree$JCExpres
 }
 
 $Type* ArgumentAttr$ConditionalType::overloadCheck($Attr$ResultInfo* resultInfo, $DeferredAttr$DeferredAttrContext* deferredAttrContext) {
+	$useLocalCurrentObjectStackCache();
 	$var($Attr$ResultInfo, localInfo, $nc(resultInfo)->dup($($nc(this->this$0->attr)->conditionalContext(resultInfo->checkContext))));
 	if ($nc(($cast($JCTree$JCConditional, this->speculativeTree$)))->isStandalone()) {
 		return $nc(localInfo)->check(this->speculativeTree$, $nc(($cast($JCTree$JCConditional, this->speculativeTree$)))->type);

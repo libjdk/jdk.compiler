@@ -82,6 +82,7 @@ bool PathAndPackageVerifier$EnclosingPkgIterator::hasNext() {
 }
 
 $Object* PathAndPackageVerifier$EnclosingPkgIterator::next() {
+	$useLocalCurrentObjectStackCache();
 	$var($Name, name, nullptr);
 	{
 		$var($JCTree$JCIdent, identNext, nullptr);

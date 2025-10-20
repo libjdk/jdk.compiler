@@ -97,6 +97,7 @@ $Collection* Locations$ClassPathLocationHandler::getPaths() {
 }
 
 $Locations$SearchPath* Locations$ClassPathLocationHandler::computePath($String* value) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, cp, value);
 	if (cp == nullptr) {
 		$assign(cp, $System::getProperty("env.class.path"_s));
@@ -111,6 +112,7 @@ $Locations$SearchPath* Locations$ClassPathLocationHandler::computePath($String* 
 }
 
 $Locations$SearchPath* Locations$ClassPathLocationHandler::createPath() {
+	$useLocalCurrentObjectStackCache();
 	return $nc($($$new($Locations$SearchPath, this->this$0)->expandJarClassPaths(true)))->emptyPathDefault($(this->this$0->getPath("."_s, $$new($StringArray, 0))));
 }
 

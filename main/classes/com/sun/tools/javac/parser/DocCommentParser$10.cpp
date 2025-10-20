@@ -95,6 +95,7 @@ void DocCommentParser$10::init$($DocCommentParser* this$0, $DocCommentParser$Tag
 }
 
 $DCTree* DocCommentParser$10::parse(int32_t pos) {
+	$useLocalCurrentObjectStackCache();
 	$var($DCTree$DCReference, ref, this->this$0->reference(true));
 	$var($1List, label, this->this$0->inlineContent());
 	return $cast($DCTree, $nc($($nc(this->this$0->m)->at(pos)))->newLinkPlainTree(ref, label));

@@ -107,6 +107,7 @@ void Option$HiddenGroup::init$($String* $enum$name, int32_t $enum$ordinal, $Stri
 }
 
 void Option$HiddenGroup::process($OptionHelper* helper, $String* option, $String* arg) {
+	$useLocalCurrentObjectStackCache();
 	$var($StringArray, subOptions, $nc(arg)->split(";"_s));
 	{
 		$var($StringArray, arr$, subOptions);

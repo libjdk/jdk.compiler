@@ -107,6 +107,7 @@ $JavaFileObject* JavacTrees$6::getSourcefile() {
 }
 
 $LineMap* JavacTrees$6::getLineMap() {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var($CharSequence, content, $nc(this->val$jfo)->getCharContent(true));
 		$var($String, s, $nc(content)->toString());

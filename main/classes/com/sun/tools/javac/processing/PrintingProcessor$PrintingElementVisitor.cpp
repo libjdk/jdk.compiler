@@ -521,6 +521,7 @@ PrintingProcessor$PrintingElementVisitor* PrintingProcessor$PrintingElementVisit
 }
 
 PrintingProcessor$PrintingElementVisitor* PrintingProcessor$PrintingElementVisitor::visitExecutable($ExecutableElement* e, $Boolean* p) {
+	$useLocalCurrentObjectStackCache();
 	$ElementKind* kind = $nc(e)->getKind();
 	$init($ElementKind);
 	if (kind != $ElementKind::STATIC_INIT && kind != $ElementKind::INSTANCE_INIT) {
@@ -560,6 +561,7 @@ PrintingProcessor$PrintingElementVisitor* PrintingProcessor$PrintingElementVisit
 }
 
 PrintingProcessor$PrintingElementVisitor* PrintingProcessor$PrintingElementVisitor::visitType($TypeElement* e, $Boolean* p) {
+	$useLocalCurrentObjectStackCache();
 	$ElementKind* kind = $nc(e)->getKind();
 	$NestingKind* nestingKind = e->getNestingKind();
 	$init($NestingKind);
@@ -672,6 +674,7 @@ PrintingProcessor$PrintingElementVisitor* PrintingProcessor$PrintingElementVisit
 }
 
 PrintingProcessor$PrintingElementVisitor* PrintingProcessor$PrintingElementVisitor::visitVariable($VariableElement* e, $Boolean* newLine) {
+	$useLocalCurrentObjectStackCache();
 	$ElementKind* kind = $nc(e)->getKind();
 	defaultAction(static_cast<$Element*>(e), newLine);
 	$init($ElementKind);
@@ -696,6 +699,7 @@ PrintingProcessor$PrintingElementVisitor* PrintingProcessor$PrintingElementVisit
 }
 
 PrintingProcessor$PrintingElementVisitor* PrintingProcessor$PrintingElementVisitor::visitPackage($PackageElement* e, $Boolean* p) {
+	$useLocalCurrentObjectStackCache();
 	defaultAction(static_cast<$Element*>(e), $($Boolean::valueOf(false)));
 	if (!$nc(e)->isUnnamed()) {
 		$nc(this->writer)->println($$str({"package "_s, $(e->getQualifiedName()), ";"_s}));
@@ -706,6 +710,7 @@ PrintingProcessor$PrintingElementVisitor* PrintingProcessor$PrintingElementVisit
 }
 
 PrintingProcessor$PrintingElementVisitor* PrintingProcessor$PrintingElementVisitor::visitModule($ModuleElement* e, $Boolean* p) {
+	$useLocalCurrentObjectStackCache();
 	defaultAction(static_cast<$Element*>(e), $($Boolean::valueOf(false)));
 	if (!$nc(e)->isUnnamed()) {
 		if (e->isOpen()) {
@@ -741,6 +746,7 @@ void PrintingProcessor$PrintingElementVisitor::flush() {
 }
 
 void PrintingProcessor$PrintingElementVisitor::printDocComment($Element* e) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, docComment, $nc(this->elementUtils)->getDocComment(e));
 	if (docComment != nullptr) {
 		$var($StringTokenizer, st, $new($StringTokenizer, docComment, "\n\r"_s));
@@ -757,6 +763,7 @@ void PrintingProcessor$PrintingElementVisitor::printDocComment($Element* e) {
 }
 
 void PrintingProcessor$PrintingElementVisitor::printModifiers($Element* e) {
+	$useLocalCurrentObjectStackCache();
 	$ElementKind* kind = $nc(e)->getKind();
 	$init($ElementKind);
 	if (kind == $ElementKind::PARAMETER || kind == $ElementKind::RECORD_COMPONENT) {
@@ -820,6 +827,7 @@ void PrintingProcessor$PrintingElementVisitor::printModifiers($Element* e) {
 }
 
 void PrintingProcessor$PrintingElementVisitor::printFormalTypeParameters($Parameterizable* e, bool pad) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, typeParams, $nc(e)->getTypeParameters());
 	if (!$nc(typeParams)->isEmpty()) {
 		$nc(this->writer)->print($cast($String, $($nc($($nc($(typeParams->stream()))->map(static_cast<$Function*>($$new(PrintingProcessor$PrintingElementVisitor$$Lambda$lambda$printFormalTypeParameters$2$3, this)))))->collect($($Collectors::joining(", "_s, "<"_s, ">"_s))))));
@@ -830,11 +838,13 @@ void PrintingProcessor$PrintingElementVisitor::printFormalTypeParameters($Parame
 }
 
 $String* PrintingProcessor$PrintingElementVisitor::annotationsToString($Element* e) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, annotations, $nc(e)->getAnnotationMirrors());
 	return $nc(annotations)->isEmpty() ? ""_s : $cast($String, $nc($($nc($($nc(annotations)->stream()))->map(static_cast<$Function*>($$new(PrintingProcessor$PrintingElementVisitor$$Lambda$toString$4)))))->collect($($Collectors::joining(" "_s, ""_s, " "_s))));
 }
 
 void PrintingProcessor$PrintingElementVisitor::printAnnotations($Element* e) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, annots, $nc(e)->getAnnotationMirrors());
 	{
 		$var($Iterator, i$, $nc(annots)->iterator());
@@ -851,6 +861,7 @@ void PrintingProcessor$PrintingElementVisitor::printAnnotations($Element* e) {
 }
 
 bool PrintingProcessor$PrintingElementVisitor::printedContainerAnnotation($Element* e, $AnnotationMirror* annotationMirror) {
+	$useLocalCurrentObjectStackCache();
 	$init($Elements$Origin);
 	if ($nc(this->elementUtils)->getOrigin(static_cast<$AnnotatedConstruct*>(e), annotationMirror) == $Elements$Origin::MANDATED) {
 		$var($Set, entries, $nc($($nc(annotationMirror)->getElementValues()))->entrySet());
@@ -878,6 +889,7 @@ bool PrintingProcessor$PrintingElementVisitor::printedContainerAnnotation($Eleme
 }
 
 void PrintingProcessor$PrintingElementVisitor::printParameters($ExecutableElement* e) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, parameters, $nc(e)->getParameters());
 	int32_t size = $nc(parameters)->size();
 	switch (size) {
@@ -957,6 +969,7 @@ void PrintingProcessor$PrintingElementVisitor::printParameters($ExecutableElemen
 }
 
 void PrintingProcessor$PrintingElementVisitor::printInterfaces($TypeElement* e) {
+	$useLocalCurrentObjectStackCache();
 	$ElementKind* kind = $nc(e)->getKind();
 	$init($ElementKind);
 	if (kind != $ElementKind::ANNOTATION_TYPE) {
@@ -969,6 +982,7 @@ void PrintingProcessor$PrintingElementVisitor::printInterfaces($TypeElement* e) 
 }
 
 void PrintingProcessor$PrintingElementVisitor::printPermittedSubclasses($TypeElement* e) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, subtypes, $nc(e)->getPermittedSubclasses());
 	if (!$nc(subtypes)->isEmpty()) {
 		$nc(this->writer)->print(" permits "_s);
@@ -977,6 +991,7 @@ void PrintingProcessor$PrintingElementVisitor::printPermittedSubclasses($TypeEle
 }
 
 void PrintingProcessor$PrintingElementVisitor::printThrows($ExecutableElement* e) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, thrownTypes, $nc(e)->getThrownTypes());
 	int32_t size = $nc(thrownTypes)->size();
 	if (size != 0) {
@@ -1061,6 +1076,7 @@ $String* PrintingProcessor$PrintingElementVisitor::lambda$printPermittedSubclass
 }
 
 $String* PrintingProcessor$PrintingElementVisitor::lambda$printFormalTypeParameters$2($TypeParameterElement* tpe) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, var$0, $(annotationsToString(tpe)));
 	return $concat(var$0, $($nc($of(tpe))->toString()));
 }
@@ -1071,6 +1087,7 @@ bool PrintingProcessor$PrintingElementVisitor::lambda$visitType$1($Element* elt)
 }
 
 $String* PrintingProcessor$PrintingElementVisitor::lambda$visitType$0($RecordComponentElement* recordDes) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, var$2, $(annotationsToString(recordDes)));
 	$var($String, var$1, $$concat(var$2, $($nc($($nc(recordDes)->asType()))->toString())));
 	$var($String, var$0, $$concat(var$1, " "));

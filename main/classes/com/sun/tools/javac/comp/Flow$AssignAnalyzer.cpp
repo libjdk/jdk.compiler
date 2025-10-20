@@ -399,6 +399,7 @@ void Flow$AssignAnalyzer::newVar($JCTree$JCVariableDecl* varDecl) {
 }
 
 void Flow$AssignAnalyzer::letInit($JCDiagnostic$DiagnosticPosition* pos, $Symbol$VarSymbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(sym)->adr >= this->firstadr && trackable(sym)) {
 		if (((int64_t)(sym->flags() & (uint64_t)(int64_t)0x0000020000000000)) != 0) {
 			if (!$nc(this->uninits)->isMember(sym->adr)) {
@@ -435,6 +436,7 @@ void Flow$AssignAnalyzer::uninit($Symbol$VarSymbol* sym) {
 }
 
 void Flow$AssignAnalyzer::letInit($JCTree* tree$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree, tree, tree$renamed);
 	$assign(tree, $TreeInfo::skipParens(tree));
 	$init($JCTree$Tag);
@@ -462,6 +464,7 @@ void Flow$AssignAnalyzer::checkInit($JCDiagnostic$DiagnosticPosition* pos, $Symb
 }
 
 void Flow$AssignAnalyzer::resetBits($BitsArray* bits) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($BitsArray, arr$, bits);
 		int32_t len$ = $nc(arr$)->length;
@@ -489,6 +492,7 @@ void Flow$AssignAnalyzer::split(bool setToNull) {
 }
 
 void Flow$AssignAnalyzer::merge() {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->inits)->assign($($nc(this->initsWhenFalse)->andSet(this->initsWhenTrue)));
 	$nc(this->uninits)->assign($($nc(this->uninitsWhenFalse)->andSet(this->uninitsWhenTrue)));
 }
@@ -549,6 +553,7 @@ void Flow$AssignAnalyzer::scanCond($JCTree* tree) {
 }
 
 void Flow$AssignAnalyzer::visitClassDef($JCTree$JCClassDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(tree)->sym == nullptr) {
 		return;
 	}
@@ -662,6 +667,7 @@ void Flow$AssignAnalyzer::visitClassDef($JCTree$JCClassDecl* tree) {
 }
 
 void Flow$AssignAnalyzer::visitMethodDef($JCTree$JCMethodDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(tree)->body == nullptr) {
 		return;
 	}
@@ -767,6 +773,7 @@ void Flow$AssignAnalyzer::visitMethodDef($JCTree$JCMethodDecl* tree) {
 }
 
 void Flow$AssignAnalyzer::clearPendingExits(bool inMethod) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, exits, $nc(this->pendingExits)->toList());
 	$set(this, pendingExits, $new($ListBuffer));
 	while ($nc(exits)->nonEmpty()) {
@@ -791,6 +798,7 @@ void Flow$AssignAnalyzer::initParam($JCTree$JCVariableDecl* def) {
 }
 
 void Flow$AssignAnalyzer::visitVarDef($JCTree$JCVariableDecl* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Lint, lintPrev, this->this$0->lint);
 	$set(this->this$0, lint, $nc(this->this$0->lint)->augment(static_cast<$Symbol*>($nc(tree)->sym)));
 	{
@@ -825,6 +833,7 @@ void Flow$AssignAnalyzer::visitBlock($JCTree$JCBlock* tree) {
 }
 
 void Flow$AssignAnalyzer::visitDoLoop($JCTree$JCDoWhileLoop* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, prevPendingExits, this->pendingExits);
 	$Flow$FlowKind* prevFlowKind = this->flowKind;
 	$init($Flow$FlowKind);
@@ -858,6 +867,7 @@ void Flow$AssignAnalyzer::visitDoLoop($JCTree$JCDoWhileLoop* tree) {
 }
 
 void Flow$AssignAnalyzer::visitWhileLoop($JCTree$JCWhileLoop* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, prevPendingExits, this->pendingExits);
 	$Flow$FlowKind* prevFlowKind = this->flowKind;
 	$init($Flow$FlowKind);
@@ -892,6 +902,7 @@ void Flow$AssignAnalyzer::visitWhileLoop($JCTree$JCWhileLoop* tree) {
 }
 
 void Flow$AssignAnalyzer::visitForLoop($JCTree$JCForLoop* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, prevPendingExits, this->pendingExits);
 	$Flow$FlowKind* prevFlowKind = this->flowKind;
 	$init($Flow$FlowKind);
@@ -937,6 +948,7 @@ void Flow$AssignAnalyzer::visitForLoop($JCTree$JCForLoop* tree) {
 }
 
 void Flow$AssignAnalyzer::visitForeachLoop($JCTree$JCEnhancedForLoop* tree) {
+	$useLocalCurrentObjectStackCache();
 	visitVarDef($nc(tree)->var);
 	$var($ListBuffer, prevPendingExits, this->pendingExits);
 	$Flow$FlowKind* prevFlowKind = this->flowKind;
@@ -984,6 +996,7 @@ void Flow$AssignAnalyzer::visitSwitchExpression($JCTree$JCSwitchExpression* tree
 }
 
 void Flow$AssignAnalyzer::handleSwitch($JCTree* tree, $JCTree$JCExpression* selector, $List* cases, bool hasTotalPattern) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, prevPendingExits, this->pendingExits);
 	$set(this, pendingExits, $new($ListBuffer));
 	int32_t nextadrPrev = this->nextadr;
@@ -1044,6 +1057,7 @@ void Flow$AssignAnalyzer::handleSwitch($JCTree* tree, $JCTree$JCExpression* sele
 }
 
 void Flow$AssignAnalyzer::addVars($List* stats$renamed, $Bits* inits, $Bits* uninits) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, stats, stats$renamed);
 	for (; $nc(stats)->nonEmpty(); $assign(stats, $nc(stats)->tail)) {
 		$var($JCTree, stat, $cast($JCTree, stats->head));
@@ -1057,6 +1071,7 @@ void Flow$AssignAnalyzer::addVars($List* stats$renamed, $Bits* inits, $Bits* uni
 }
 
 void Flow$AssignAnalyzer::visitTry($JCTree$JCTry* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, resourceVarDecls, $new($ListBuffer));
 	$var($Bits, uninitsTryPrev, $new($Bits, this->uninitsTry));
 	$var($ListBuffer, prevPendingExits, this->pendingExits);
@@ -1175,6 +1190,7 @@ void Flow$AssignAnalyzer::visitTry($JCTree$JCTry* tree) {
 }
 
 void Flow$AssignAnalyzer::visitConditional($JCTree$JCConditional* tree) {
+	$useLocalCurrentObjectStackCache();
 	scanCond($nc(tree)->cond);
 	$var($Bits, initsBeforeElse, $new($Bits, this->initsWhenFalse));
 	$var($Bits, uninitsBeforeElse, $new($Bits, this->uninitsWhenFalse));
@@ -1208,6 +1224,7 @@ void Flow$AssignAnalyzer::visitConditional($JCTree$JCConditional* tree) {
 }
 
 void Flow$AssignAnalyzer::visitIf($JCTree$JCIf* tree) {
+	$useLocalCurrentObjectStackCache();
 	scanCond($nc(tree)->cond);
 	$var($Bits, initsBeforeElse, $new($Bits, this->initsWhenFalse));
 	$var($Bits, uninitsBeforeElse, $new($Bits, this->uninitsWhenFalse));
@@ -1233,6 +1250,7 @@ void Flow$AssignAnalyzer::visitBreak($JCTree$JCBreak* tree) {
 }
 
 void Flow$AssignAnalyzer::visitYield($JCTree$JCYield* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCSwitchExpression, expr, $cast($JCTree$JCSwitchExpression, $nc(tree)->target));
 	$init($TypeTag);
 	if (expr != nullptr && $nc(expr->type)->hasTag($TypeTag::BOOLEAN)) {
@@ -1277,6 +1295,7 @@ void Flow$AssignAnalyzer::visitNewClass($JCTree$JCNewClass* tree) {
 }
 
 void Flow$AssignAnalyzer::visitLambda($JCTree$JCLambda* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Bits, prevUninits, $new($Bits, this->uninits));
 	$var($Bits, prevInits, $new($Bits, this->inits));
 	int32_t returnadrPrev = this->returnadr;
@@ -1323,6 +1342,7 @@ void Flow$AssignAnalyzer::visitNewArray($JCTree$JCNewArray* tree) {
 }
 
 void Flow$AssignAnalyzer::visitAssert($JCTree$JCAssert* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Bits, initsExit, $new($Bits, this->inits));
 	$var($Bits, uninitsExit, $new($Bits, this->uninits));
 	scanCond($nc(tree)->cond);
@@ -1359,6 +1379,7 @@ void Flow$AssignAnalyzer::visitAssignop($JCTree$JCAssignOp* tree) {
 }
 
 void Flow$AssignAnalyzer::visitUnary($JCTree$JCUnary* tree) {
+	$useLocalCurrentObjectStackCache();
 		$init($Flow$1);
 	{
 		$var($Bits, t, nullptr)
@@ -1395,6 +1416,7 @@ void Flow$AssignAnalyzer::visitUnary($JCTree$JCUnary* tree) {
 }
 
 void Flow$AssignAnalyzer::visitBinary($JCTree$JCBinary* tree) {
+	$useLocalCurrentObjectStackCache();
 		$init($Flow$1);
 	{
 		$var($Bits, initsWhenFalseLeft, nullptr)
@@ -1464,6 +1486,7 @@ void Flow$AssignAnalyzer::analyzeTree($Env* env, $TreeMaker* make) {
 }
 
 void Flow$AssignAnalyzer::analyzeTree($Env* env, $JCTree* tree, $TreeMaker* make) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Throwable, var$0, nullptr);
 		try {

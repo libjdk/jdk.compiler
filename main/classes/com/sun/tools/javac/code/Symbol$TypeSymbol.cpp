@@ -156,6 +156,7 @@ $Name* Symbol$TypeSymbol::formFlatName($Name* name, $Symbol* owner) {
 }
 
 bool Symbol$TypeSymbol::precedes(Symbol$TypeSymbol* that, $Types* types) {
+	$useLocalCurrentObjectStackCache();
 	if (this == that) {
 		return false;
 	}
@@ -181,6 +182,7 @@ bool Symbol$TypeSymbol::precedes(Symbol$TypeSymbol* that, $Types* types) {
 }
 
 $1List* Symbol$TypeSymbol::getEnclosedElements() {
+	$useLocalCurrentObjectStackCache();
 	$var($List, list, $List::nil());
 	$init($Kinds$Kind);
 	$init($TypeTag);

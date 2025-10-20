@@ -142,6 +142,7 @@ Lint* Lint::augment($Attribute$Compound* attr) {
 }
 
 Lint* Lint::augment($Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$var(Lint, l, $nc(this->augmentor)->augment(this, $($nc(sym)->getDeclarationAttributes())));
 	if ($nc(sym)->isDeprecated()) {
 		if (l == this) {
@@ -155,6 +156,7 @@ Lint* Lint::augment($Symbol* sym) {
 }
 
 Lint* Lint::suppress($Lint$LintCategoryArray* lc) {
+	$useLocalCurrentObjectStackCache();
 	$var(Lint, l, $new(Lint, this));
 	$nc(l->values)->removeAll($($Arrays::asList(lc)));
 	$nc(l->suppressedValues)->addAll($($Arrays::asList(lc)));
@@ -162,6 +164,7 @@ Lint* Lint::suppress($Lint$LintCategoryArray* lc) {
 }
 
 void Lint::init$($Context* context) {
+	$useLocalCurrentObjectStackCache();
 	$var($Options, options, $Options::instance(context));
 	$init($Option);
 	bool var$0 = $nc(options)->isSet($Option::XLINT);

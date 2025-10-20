@@ -455,6 +455,7 @@ Infer* Infer::instance($Context* context) {
 }
 
 void Infer::init$($Context* context) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, fromTypeVarFun, $new($Infer$1, this));
 	$set(this, legacyEngine, $new($Infer$2, this));
 	$set(this, graphEngine, $new($Infer$3, this));
@@ -485,6 +486,7 @@ $Infer$InferenceException* Infer::error($JCDiagnostic* diag) {
 }
 
 $Type* Infer::instantiateMethod($Env* env, $List* tvars, $Type$MethodType* mt$renamed, $Attr$ResultInfo* resultInfo, $Symbol$MethodSymbol* msym, $List* argtypes, bool allowBoxing, bool useVarargs, $Resolve$MethodResolutionContext* resolveContext, $Warner* warn) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type$MethodType, mt, mt$renamed);
 	$var($InferenceContext, inferenceContext, $new($InferenceContext, this, tvars));
 	{
@@ -573,6 +575,7 @@ bool Infer::shouldPropagate($Type* restype, $Attr$ResultInfo* target, $Inference
 }
 
 $List* Infer::roots($Type$MethodType* mt, $DeferredAttr$DeferredAttrContext* deferredAttrContext) {
+	$useLocalCurrentObjectStackCache();
 	$init($DeferredAttr$AttrMode);
 	if (deferredAttrContext != nullptr && deferredAttrContext->mode == $DeferredAttr$AttrMode::CHECK) {
 		$var($ListBuffer, roots, $new($ListBuffer));
@@ -597,6 +600,7 @@ $List* Infer::roots($Type$MethodType* mt, $DeferredAttr$DeferredAttrContext* def
 }
 
 void Infer::dumpGraphsIfNeeded($JCDiagnostic$DiagnosticPosition* pos, $Symbol* msym, $Resolve$MethodResolutionContext* rsContext) {
+	$useLocalCurrentObjectStackCache();
 	int32_t round = 0;
 	{
 		$var($Throwable, var$0, nullptr);
@@ -668,6 +672,7 @@ void Infer::dumpGraphsIfNeeded($JCDiagnostic$DiagnosticPosition* pos, $Symbol* m
 }
 
 $Type* Infer::generateReturnConstraints($JCTree* tree, $Attr$ResultInfo* resultInfo, $Type$MethodType* mt, $InferenceContext* inferenceContext) {
+	$useLocalCurrentObjectStackCache();
 	$var($InferenceContext, rsInfoInfContext, $nc($nc(resultInfo)->checkContext)->inferenceContext());
 	$var($Type, from, $nc(mt)->getReturnType());
 	if ($nc($(mt->getReturnType()))->containsAny($nc(inferenceContext)->inferencevars) && rsInfoInfContext != this->emptyContext) {
@@ -717,6 +722,7 @@ $Type* Infer::generateReturnConstraints($JCTree* tree, $Attr$ResultInfo* resultI
 }
 
 bool Infer::needsEagerInstantiation($Type$UndetVar* from, $Type* to, $InferenceContext* inferenceContext) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(to)->isPrimitive()) {
 		{
 			$var($Iterator, i$, $nc($($nc(from)->getBounds($($Type$UndetVar$InferenceBound::values()))))->iterator());
@@ -797,6 +803,7 @@ bool Infer::needsEagerInstantiation($Type$UndetVar* from, $Type* to, $InferenceC
 }
 
 bool Infer::commonSuperWithDiffParameterization($Type* t, $Type* s) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($(getParameterizedSupers(t, s)))->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -812,6 +819,7 @@ bool Infer::commonSuperWithDiffParameterization($Type* t, $Type* s) {
 }
 
 $Type* Infer::generateReferenceToTargetConstraint($JCTree* tree, $Type$UndetVar* from, $Type* to, $Attr$ResultInfo* resultInfo, $InferenceContext* inferenceContext) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, var$0, $List::of($nc(from)->qtype));
 	$nc(inferenceContext)->solve(var$0, $$new($Warner));
 	inferenceContext->notifyChange();
@@ -825,6 +833,7 @@ $Type* Infer::generateReferenceToTargetConstraint($JCTree* tree, $Type$UndetVar*
 }
 
 void Infer::instantiateAsUninferredVars($List* vars, $InferenceContext* inferenceContext) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, todo, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc(vars)->iterator());
@@ -867,6 +876,7 @@ void Infer::instantiateAsUninferredVars($List* vars, $InferenceContext* inferenc
 }
 
 $Type* Infer::instantiatePolymorphicSignatureInstance($Env* env, $Symbol$MethodSymbol* spMethod, $Resolve$MethodResolutionContext* resolveContext, $List* argtypes) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, restype, nullptr);
 	$var($Type, spType, spMethod == nullptr ? $nc(this->syms)->objectType : $nc(spMethod)->getReturnType());
 		$init($Infer$4);
@@ -899,6 +909,7 @@ $Type* Infer::instantiatePolymorphicSignatureInstance($Env* env, $Symbol$MethodS
 }
 
 $Type* Infer::instantiateFunctionalInterface($JCDiagnostic$DiagnosticPosition* pos, $Type* funcInterface, $List* paramTypes$renamed, $Check$CheckContext* checkContext) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, paramTypes, paramTypes$renamed);
 	if ($nc(this->types)->capture(funcInterface) == funcInterface) {
 		return funcInterface;
@@ -954,6 +965,7 @@ $Infer$AbstractIncorporationEngine* Infer::incorporationEngine() {
 }
 
 void Infer::doIncorporation($InferenceContext* inferenceContext, $Warner* warn) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Throwable, var$0, nullptr);
 		try {
@@ -988,6 +1000,7 @@ void Infer::doIncorporation($InferenceContext* inferenceContext, $Warner* warn) 
 }
 
 $List* Infer::getParameterizedSupers($Type* t, $Type* s) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, lubResult, $nc(this->types)->lub($$new($TypeArray, {
 		t,
 		s
@@ -1014,6 +1027,7 @@ $List* Infer::getParameterizedSupers($Type* t, $Type* s) {
 }
 
 $Type* Infer::asSuper($Type* t, $Type* sup) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, var$0, nullptr);
 	$init($TypeTag);
 	if ($nc(sup)->hasTag($TypeTag::ARRAY)) {
@@ -1026,6 +1040,7 @@ $Type* Infer::asSuper($Type* t, $Type* sup) {
 }
 
 bool Infer::doIncorporationOp($Infer$IncorporationBinaryOpKind* opKind, $Type* op1, $Type* op2, $Warner* warn) {
+	$useLocalCurrentObjectStackCache();
 	$var($Infer$IncorporationBinaryOp, newOp, $new($Infer$IncorporationBinaryOp, this, opKind, op1, op2));
 	$var($Boolean, res, $cast($Boolean, $nc(this->incorporationCache)->get(newOp)));
 	if (res == nullptr) {
@@ -1035,6 +1050,7 @@ bool Infer::doIncorporationOp($Infer$IncorporationBinaryOpKind* opKind, $Type* o
 }
 
 void Infer::reportInstError($Type$UndetVar* uv, $Type$UndetVar$InferenceBound* ib) {
+	$useLocalCurrentObjectStackCache();
 	$init($Infer$4);
 	switch ($nc($Infer$4::$SwitchMap$com$sun$tools$javac$code$Type$UndetVar$InferenceBound)->get($nc((ib))->ordinal())) {
 	case 1:
@@ -1056,6 +1072,7 @@ void Infer::reportInstError($Type$UndetVar* uv, $Type$UndetVar$InferenceBound* i
 }
 
 void Infer::reportBoundError($Type$UndetVar* uv, $Type$UndetVar$InferenceBound* ib) {
+	$useLocalCurrentObjectStackCache();
 	$init($Infer$4);
 	switch ($nc($Infer$4::$SwitchMap$com$sun$tools$javac$code$Type$UndetVar$InferenceBound)->get($nc((ib))->ordinal())) {
 	case 1:
@@ -1074,6 +1091,7 @@ void Infer::reportBoundError($Type$UndetVar* uv, $Type$UndetVar$InferenceBound* 
 }
 
 void Infer::reportBoundError($Type$UndetVar* uv, $Type$UndetVar$InferenceBound* ib1, $Type$UndetVar$InferenceBound* ib2) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, var$0, $nc(uv)->qtype);
 	$var($JCDiagnostic$Fragment, var$1, getBoundFragment(ib1, $(uv->getBounds($$new($Type$UndetVar$InferenceBoundArray, {ib1})))));
 	$throw($(error($($nc(this->diags)->fragment($($CompilerProperties$Fragments::IncompatibleBounds(var$0, var$1, $(getBoundFragment(ib2, $(uv->getBounds($$new($Type$UndetVar$InferenceBoundArray, {ib2}))))))))))));

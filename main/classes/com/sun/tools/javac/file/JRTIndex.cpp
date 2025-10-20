@@ -159,6 +159,7 @@ JRTIndex* JRTIndex::getSharedInstance() {
 }
 
 JRTIndex* JRTIndex::instance($Context* context) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$load(JRTIndex);
 		$var(JRTIndex, instance, $cast(JRTIndex, $nc(context)->get(JRTIndex::class$)));
@@ -174,6 +175,7 @@ JRTIndex* JRTIndex::instance($Context* context) {
 }
 
 bool JRTIndex::isAvailable() {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$FileSystems::getFileSystem($($URI::create("jrt:/"_s)));
 		return true;
@@ -193,11 +195,13 @@ void JRTIndex::init$() {
 }
 
 $JRTIndex$CtSym* JRTIndex::getCtSym($CharSequence* packageName) {
+	$useLocalCurrentObjectStackCache();
 	return $nc($(getEntry($($RelativePath$RelativeDirectory::forPackage(packageName)))))->ctSym;
 }
 
 $JRTIndex$Entry* JRTIndex::getEntry($RelativePath$RelativeDirectory* rd) {
 	$synchronized(this) {
+		$useLocalCurrentObjectStackCache();
 		$var($SoftReference, ref, $cast($SoftReference, $nc(this->entries)->get(rd)));
 		$var($JRTIndex$Entry, e, (ref == nullptr) ? ($JRTIndex$Entry*)nullptr : $cast($JRTIndex$Entry, $nc(ref)->get()));
 		if (e == nullptr) {
@@ -311,6 +315,7 @@ $JRTIndex$Entry* JRTIndex::getEntry($RelativePath$RelativeDirectory* rd) {
 }
 
 bool JRTIndex::isInJRT($FileObject* fo) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($PathFileObject, pathFileObject, nullptr);
 		bool var$0 = $instanceOf($PathFileObject, fo);
@@ -328,6 +333,7 @@ bool JRTIndex::isInJRT($FileObject* fo) {
 }
 
 $JRTIndex$CtSym* JRTIndex::getCtInfo($RelativePath$RelativeDirectory* dir) {
+	$useLocalCurrentObjectStackCache();
 	$beforeCallerSensitive();
 	if ($nc($nc(dir)->path)->isEmpty()) {
 		$init($JRTIndex$CtSym);

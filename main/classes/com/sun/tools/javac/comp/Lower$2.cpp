@@ -124,6 +124,7 @@ $ints* Lower$2::$SwitchMap$com$sun$tools$javac$code$Symbol$OperatorSymbol$Access
 $ints* Lower$2::$SwitchMap$com$sun$tools$javac$code$Kinds$Kind = nullptr;
 
 void clinit$Lower$2($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(Lower$2::$SwitchMap$com$sun$tools$javac$main$Option$PkgInfo, $new($ints, $($Option$PkgInfo::values())->length));
 	{
 		try {

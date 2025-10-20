@@ -115,6 +115,7 @@ void Resolve$MostSpecificCheck$MostSpecificCheckContext::init$($Resolve$MostSpec
 }
 
 bool Resolve$MostSpecificCheck$MostSpecificCheckContext::compatible($Type* found, $Type* req, $Warner* warn) {
+	$useLocalCurrentObjectStackCache();
 	bool var$0 = $nc(this->this$1->this$0)->allowFunctionalInterfaceMostSpecific && unrelatedFunctionalInterfaces(found, req);
 	$init($TypeTag);
 	if (var$0 && (this->actual != nullptr && $nc(this->actual)->getTag() == $TypeTag::DEFERRED)) {
@@ -128,6 +129,7 @@ bool Resolve$MostSpecificCheck$MostSpecificCheckContext::compatible($Type* found
 }
 
 bool Resolve$MostSpecificCheck$MostSpecificCheckContext::compatibleBySubtyping($Type* found$renamed, $Type* req) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, found, found$renamed);
 	bool var$0 = !this->strict;
 	if (var$0) {
@@ -147,6 +149,7 @@ bool Resolve$MostSpecificCheck$MostSpecificCheckContext::unrelatedFunctionalInte
 }
 
 bool Resolve$MostSpecificCheck$MostSpecificCheckContext::unrelatedInterfaces($Type* t, $Type* s) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(t)->isCompound()) {
 		{
 			$var($Iterator, i$, $nc($($nc($nc(this->this$1->this$0)->types)->interfaces(t)))->iterator());
@@ -180,6 +183,7 @@ bool Resolve$MostSpecificCheck$MostSpecificCheckContext::unrelatedInterfaces($Ty
 }
 
 bool Resolve$MostSpecificCheck$MostSpecificCheckContext::functionalInterfaceMostSpecific($Type* t, $Type* s, $JCTree* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, tDesc, $nc($nc(this->this$1->this$0)->types)->findDescriptorType($($nc($nc(this->this$1->this$0)->types)->capture(t))));
 	$var($Type, tDescNoCapture, $nc($nc(this->this$1->this$0)->types)->findDescriptorType(t));
 	$var($Type, sDesc, $nc($nc(this->this$1->this$0)->types)->findDescriptorType(s));

@@ -173,6 +173,7 @@ void Preview::init$($Context* context) {
 }
 
 $Map* Preview::initMajorVersionToSourceMap() {
+	$useLocalCurrentObjectStackCache();
 	$var($Map, majorVersionToSource, $new($HashMap));
 	{
 		$var($TargetArray, arr$, $Target::values());
@@ -197,6 +198,7 @@ void Preview::warnPreview(int32_t pos, $Source$Feature* feature) {
 }
 
 void Preview::warnPreview($JCDiagnostic$DiagnosticPosition* pos, $Source$Feature* feature) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::check(isEnabled());
 	$Assert::check(isPreview(feature));
 	$init($Lint$LintCategory);
@@ -207,6 +209,7 @@ void Preview::warnPreview($JCDiagnostic$DiagnosticPosition* pos, $Source$Feature
 }
 
 void Preview::warnPreview($JavaFileObject* classfile, int32_t majorVersion) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::check(isEnabled());
 	$init($Lint$LintCategory);
 	if ($nc(this->lint)->isEnabled($Lint$LintCategory::PREVIEW)) {
@@ -256,11 +259,13 @@ bool Preview::isPreview($Source$Feature* feature) {
 }
 
 $JCDiagnostic$Error* Preview::disabledError($Source$Feature* feature) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::check(!isEnabled());
 	return $nc(feature)->isPlural() ? $CompilerProperties$Errors::PreviewFeatureDisabledPlural($($nc(feature)->nameFragment())) : $CompilerProperties$Errors::PreviewFeatureDisabled($($nc(feature)->nameFragment()));
 }
 
 $JCDiagnostic$Error* Preview::disabledError($JavaFileObject* classfile, int32_t majorVersion) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::check(!isEnabled());
 	return $CompilerProperties$Errors::PreviewFeatureDisabledClassfile(classfile, $nc(($cast($Source, $($nc(this->majorVersionToSource)->get($($Integer::valueOf(majorVersion)))))))->name$);
 }
@@ -278,6 +283,7 @@ void Preview::clear() {
 }
 
 void Preview::checkSourceLevel($JCDiagnostic$DiagnosticPosition* pos, $Source$Feature* feature) {
+	$useLocalCurrentObjectStackCache();
 	bool var$0 = isPreview(feature);
 	if (var$0 && !isEnabled()) {
 		$init($JCDiagnostic$DiagnosticFlag);

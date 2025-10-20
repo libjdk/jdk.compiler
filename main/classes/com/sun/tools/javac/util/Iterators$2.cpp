@@ -82,6 +82,7 @@ void Iterators$2::init$($Iterator* val$input, $Predicate* val$test) {
 }
 
 $Object* Iterators$2::update() {
+	$useLocalCurrentObjectStackCache();
 	while ($nc(this->val$input)->hasNext()) {
 		$var($Object, sym, $nc(this->val$input)->next());
 		if ($nc(this->val$test)->test(sym)) {

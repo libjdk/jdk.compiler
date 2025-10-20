@@ -104,6 +104,7 @@ $Object* Attribute$Constant::getValue() {
 }
 
 $Object* Attribute$Constant::accept($AnnotationValueVisitor* v, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($String, str, nullptr);
 		$var($Object, patt3284$temp, this->value);

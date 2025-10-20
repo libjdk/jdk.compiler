@@ -769,6 +769,7 @@ ClassReader* ClassReader::instance($Context* context) {
 }
 
 void ClassReader::init$($Context* context) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, interimUses, $List::nil());
 	$set(this, interimProvides, $List::nil());
 	$set(this, currentClassFile, nullptr);
@@ -825,12 +826,14 @@ void ClassReader::enterMember($Symbol$ClassSymbol* c, $Symbol* sym) {
 }
 
 $ClassFinder$BadClassFile* ClassReader::badClassFile($String* key, $ObjectArray* args) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$TypeSymbol, var$0, static_cast<$Symbol$TypeSymbol*>($nc(this->currentOwner)->enclClass()));
 	$var($JavaFileObject, var$1, this->currentClassFile);
 	return $new($ClassFinder$BadClassFile, var$0, var$1, $($nc(this->diagFactory)->fragment(key, args)), this->diagFactory, this->dcfh);
 }
 
 $ClassFinder$BadEnclosingMethodAttr* ClassReader::badEnclosingMethod($Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$TypeSymbol, var$0, static_cast<$Symbol$TypeSymbol*>($nc(this->currentOwner)->enclClass()));
 	$var($JavaFileObject, var$1, this->currentClassFile);
 	return $new($ClassFinder$BadEnclosingMethodAttr, var$0, var$1, $($nc(this->diagFactory)->fragment($($CompilerProperties$Fragments::BadEnclosingMethod(sym)))), this->diagFactory, this->dcfh);
@@ -853,6 +856,7 @@ int32_t ClassReader::nextInt() {
 }
 
 $Set* ClassReader::readModuleFlags(int32_t flags) {
+	$useLocalCurrentObjectStackCache();
 	$load($Symbol$ModuleFlags);
 	$var($Set, set, $EnumSet::noneOf($Symbol$ModuleFlags::class$));
 	{
@@ -872,6 +876,7 @@ $Set* ClassReader::readModuleFlags(int32_t flags) {
 }
 
 $Set* ClassReader::readModuleResolutionFlags(int32_t flags) {
+	$useLocalCurrentObjectStackCache();
 	$load($Symbol$ModuleResolutionFlags);
 	$var($Set, set, $EnumSet::noneOf($Symbol$ModuleResolutionFlags::class$));
 	{
@@ -891,6 +896,7 @@ $Set* ClassReader::readModuleResolutionFlags(int32_t flags) {
 }
 
 $Set* ClassReader::readExportsFlags(int32_t flags) {
+	$useLocalCurrentObjectStackCache();
 	$load($Directive$ExportsFlag);
 	$var($Set, set, $EnumSet::noneOf($Directive$ExportsFlag::class$));
 	{
@@ -910,6 +916,7 @@ $Set* ClassReader::readExportsFlags(int32_t flags) {
 }
 
 $Set* ClassReader::readOpensFlags(int32_t flags) {
+	$useLocalCurrentObjectStackCache();
 	$load($Directive$OpensFlag);
 	$var($Set, set, $EnumSet::noneOf($Directive$OpensFlag::class$));
 	{
@@ -929,6 +936,7 @@ $Set* ClassReader::readOpensFlags(int32_t flags) {
 }
 
 $Set* ClassReader::readRequiresFlags(int32_t flags) {
+	$useLocalCurrentObjectStackCache();
 	$load($Directive$RequiresFlag);
 	$var($Set, set, $EnumSet::noneOf($Directive$RequiresFlag::class$));
 	{
@@ -955,6 +963,7 @@ $Type* ClassReader::sigToType($bytes* sig, int32_t offset, int32_t len) {
 }
 
 $Type* ClassReader::sigToType() {
+	$useLocalCurrentObjectStackCache();
 	{
 		int32_t start = 0;
 		$var($List, argtypes, nullptr)
@@ -1095,6 +1104,7 @@ $Type* ClassReader::sigToType() {
 }
 
 $Type* ClassReader::classSigToType() {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(this->signature)->get(this->sigp) != u'L') {
 		$throw($(badClassFile("bad.class.signature"_s, $$new($ObjectArray, {$($of($Convert::utf2string(this->signature, this->sigp, 10)))}))));
 	}
@@ -1186,6 +1196,7 @@ $Type* ClassReader::classSigToType() {
 }
 
 $List* ClassReader::sigToTypes(char16_t terminator) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, head, $List::of(nullptr));
 	$var($List, tail, head);
 	while ($nc(this->signature)->get(this->sigp) != terminator) {
@@ -1203,6 +1214,7 @@ $List* ClassReader::sigToTypeParams($bytes* sig, int32_t offset, int32_t len) {
 }
 
 $List* ClassReader::sigToTypeParams() {
+	$useLocalCurrentObjectStackCache();
 	$var($List, tvars, $List::nil());
 	if ($nc(this->signature)->get(this->sigp) == u'<') {
 		++this->sigp;
@@ -1222,6 +1234,7 @@ $List* ClassReader::sigToTypeParams() {
 }
 
 $Type* ClassReader::sigToTypeParam() {
+	$useLocalCurrentObjectStackCache();
 	int32_t start = this->sigp;
 	while ($nc(this->signature)->get(this->sigp) != u':') {
 		++this->sigp;
@@ -1251,6 +1264,7 @@ $Type* ClassReader::sigToTypeParam() {
 }
 
 $Type* ClassReader::findTypeVar($Name* name) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, s, $nc(this->typevars)->findFirst(name));
 	if (s != nullptr) {
 		return s->type;
@@ -1265,6 +1279,7 @@ $Type* ClassReader::findTypeVar($Name* name) {
 }
 
 void ClassReader::initAttributeReaders() {
+	$useLocalCurrentObjectStackCache();
 		$init($ClassFile$Version);
 	$var($ClassReader$AttributeReaderArray, readers, $new($ClassReader$AttributeReaderArray, {
 		static_cast<$ClassReader$AttributeReader*>($$new($ClassReader$2, this, $nc(this->names)->Code, $ClassFile$Version::V45_3, this->MEMBER_ATTRIBUTE)),
@@ -1306,6 +1321,7 @@ void ClassReader::initAttributeReaders() {
 }
 
 void ClassReader::readEnclosingMethodAttr($Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$nc($($nc($nc(sym)->owner)->members()))->remove(sym);
 	$var($Symbol$ClassSymbol, self, $cast($Symbol$ClassSymbol, sym));
 	$var($Symbol$ClassSymbol, c, $nc(this->poolReader)->getClass(nextChar()));
@@ -1356,6 +1372,7 @@ void ClassReader::readEnclosingMethodAttr($Symbol* sym) {
 }
 
 $Name* ClassReader::simpleBinaryName($Name* self, $Name* enclosing) {
+	$useLocalCurrentObjectStackCache();
 	if (!$nc(self)->startsWith(enclosing)) {
 		$throw($(badClassFile("bad.enclosing.method"_s, $$new($ObjectArray, {$of(self)}))));
 	}
@@ -1378,6 +1395,7 @@ $Name* ClassReader::simpleBinaryName($Name* self, $Name* enclosing) {
 }
 
 $Symbol$MethodSymbol* ClassReader::findMethod($PoolConstant$NameAndType* nt$renamed, $Scope* scope, int64_t flags) {
+	$useLocalCurrentObjectStackCache();
 	$var($PoolConstant$NameAndType, nt, nt$renamed);
 	if (nt == nullptr) {
 		return nullptr;
@@ -1411,6 +1429,7 @@ $Symbol$MethodSymbol* ClassReader::findMethod($PoolConstant$NameAndType* nt$rena
 }
 
 bool ClassReader::isSameBinaryType($Type$MethodType* mt1, $Type$MethodType* mt2) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, types1, $nc($($nc(this->types)->erasure($($nc(mt1)->getParameterTypes()))))->prepend($($nc(this->types)->erasure($($nc(mt1)->getReturnType())))));
 	$var($List, types2, $nc($($nc(mt2)->getParameterTypes()))->prepend($(mt2->getReturnType())));
 	while (true) {
@@ -1441,6 +1460,7 @@ void ClassReader::readMemberAttrs($Symbol* sym) {
 }
 
 void ClassReader::readAttrs($Symbol* sym, $ClassReader$AttributeKind* kind) {
+	$useLocalCurrentObjectStackCache();
 	char16_t ac = nextChar();
 	for (int32_t i = 0; i < ac; ++i) {
 		$var($Name, attrName, $nc(this->poolReader)->getName(nextChar()));
@@ -1471,6 +1491,7 @@ $Code* ClassReader::readCode($Symbol* owner) {
 }
 
 $List* ClassReader::readAnnotations() {
+	$useLocalCurrentObjectStackCache();
 	int32_t numAttributes = nextChar();
 	$var($ListBuffer, annotations, $new($ListBuffer));
 	for (int32_t i = 0; i < numAttributes; ++i) {
@@ -1484,6 +1505,7 @@ void ClassReader::attachAnnotations($Symbol* sym) {
 }
 
 void ClassReader::attachAnnotations($Symbol* sym, $List* annotations) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(annotations)->isEmpty()) {
 		return;
 	}
@@ -1558,6 +1580,7 @@ void ClassReader::attachAnnotations($Symbol* sym, $List* annotations) {
 }
 
 void ClassReader::setFlagIfAttributeTrue($ClassReader$CompoundAnnotationProxy* proxy, $Symbol* sym, $Name* attribute, int64_t flag) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($nc(proxy)->values)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -1587,6 +1610,7 @@ void ClassReader::setFlagIfAttributeTrue($ClassReader$CompoundAnnotationProxy* p
 }
 
 void ClassReader::readParameterAnnotations($Symbol* meth) {
+	$useLocalCurrentObjectStackCache();
 	int32_t numParameters = (int32_t)($nc(this->buf)->getByte(this->bp++) & (uint32_t)255);
 	if (this->parameterAnnotations == nullptr) {
 		$set(this, parameterAnnotations, $new($ClassReader$ParameterAnnotationsArray, numParameters));
@@ -1602,6 +1626,7 @@ void ClassReader::readParameterAnnotations($Symbol* meth) {
 }
 
 void ClassReader::attachTypeAnnotations($Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	int32_t numAttributes = nextChar();
 	if (numAttributes != 0) {
 		$var($ListBuffer, proxies, $new($ListBuffer));
@@ -1613,6 +1638,7 @@ void ClassReader::attachTypeAnnotations($Symbol* sym) {
 }
 
 void ClassReader::attachAnnotationDefault($Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$MethodSymbol, meth, $cast($Symbol$MethodSymbol, sym));
 	$var($Attribute, value, readAttributeValue());
 	$set($nc(meth), defaultValue, value);
@@ -1632,6 +1658,7 @@ $Type* ClassReader::readTypeToProxy(int32_t i) {
 }
 
 $ClassReader$CompoundAnnotationProxy* ClassReader::readCompoundAnnotation() {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, t, nullptr);
 	if ($equals($nc(this->currentModule)->module_info, this->currentOwner)) {
 		int32_t cpIndex = nextChar();
@@ -1650,12 +1677,14 @@ $ClassReader$CompoundAnnotationProxy* ClassReader::readCompoundAnnotation() {
 }
 
 $ClassReader$TypeAnnotationProxy* ClassReader::readTypeAnnotation() {
+	$useLocalCurrentObjectStackCache();
 	$var($TypeAnnotationPosition, position, readPosition());
 	$var($ClassReader$CompoundAnnotationProxy, proxy, readCompoundAnnotation());
 	return $new($ClassReader$TypeAnnotationProxy, proxy, position);
 }
 
 $TypeAnnotationPosition* ClassReader::readPosition() {
+	$useLocalCurrentObjectStackCache();
 	int32_t tag = nextByte();
 	if (!$TargetType::isValidTargetTypeValue(tag)) {
 		$throw($(badClassFile("bad.type.annotation.value"_s, $$new($ObjectArray, {$($of($String::format("0x%02X"_s, $$new($ObjectArray, {$($of($Integer::valueOf(tag)))}))))}))));
@@ -1871,6 +1900,7 @@ $TypeAnnotationPosition* ClassReader::readPosition() {
 }
 
 $List* ClassReader::readTypePath() {
+	$useLocalCurrentObjectStackCache();
 	int32_t len = nextByte();
 	$var($ListBuffer, loc, $new($ListBuffer));
 	for (int32_t i = 0; i < len * $TypeAnnotationPosition$TypePathEntry::bytesPerEntry; ++i) {
@@ -1884,6 +1914,7 @@ $Object* ClassReader::optPoolEntry(int32_t index, $IntFunction* poolFunc, Object
 }
 
 $Attribute* ClassReader::readAttributeValue() {
+	$useLocalCurrentObjectStackCache();
 	char16_t c = (char16_t)$nc(this->buf)->getByte(this->bp++);
 	switch (c) {
 	case u'B':
@@ -1954,6 +1985,7 @@ $Attribute* ClassReader::readAttributeValue() {
 }
 
 $Symbol$VarSymbol* ClassReader::readField() {
+	$useLocalCurrentObjectStackCache();
 	int64_t flags = adjustFieldFlags(nextChar());
 	$var($Name, name, $nc(this->poolReader)->getName(nextChar()));
 	$var($Type, type, $nc(this->poolReader)->getType(nextChar()));
@@ -1963,6 +1995,7 @@ $Symbol$VarSymbol* ClassReader::readField() {
 }
 
 $Symbol$MethodSymbol* ClassReader::readMethod() {
+	$useLocalCurrentObjectStackCache();
 	int64_t flags = adjustMethodFlags(nextChar());
 	$var($Name, name, $nc(this->poolReader)->getName(nextChar()));
 	$var($Type, type, $nc(this->poolReader)->getType(nextChar()));
@@ -2027,6 +2060,7 @@ $Symbol$MethodSymbol* ClassReader::readMethod() {
 }
 
 void ClassReader::validateMethodType($Name* name, $Type* t) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	bool var$1 = !$nc(t)->hasTag($TypeTag::METHOD);
 	bool var$0 = (var$1 && !t->hasTag($TypeTag::FORALL));
@@ -2036,6 +2070,7 @@ void ClassReader::validateMethodType($Name* name, $Type* t) {
 }
 
 $List* ClassReader::adjustMethodParams(int64_t flags, $List* args$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, args, args$renamed);
 	if ($nc(args)->isEmpty()) {
 		return args;
@@ -2071,6 +2106,7 @@ void ClassReader::initParameterNames($Symbol$MethodSymbol* sym) {
 }
 
 void ClassReader::setParameters($Symbol$MethodSymbol* sym, $Type* jvmType) {
+	$useLocalCurrentObjectStackCache();
 	int32_t firstParam = 0;
 	if (!this->sawMethodParameters) {
 		firstParam = (((int64_t)($nc(sym)->flags() & (uint64_t)(int64_t)8)) == 0) ? 1 : 0;
@@ -2118,6 +2154,7 @@ void ClassReader::setParameters($Symbol$MethodSymbol* sym, $Type* jvmType) {
 }
 
 $Symbol$VarSymbol* ClassReader::parameter(int32_t index, $Type* t, $Symbol$MethodSymbol* owner, $Set* exclude) {
+	$useLocalCurrentObjectStackCache();
 	int64_t flags = 0x0000000200000000;
 	$var($Name, argName, nullptr);
 	if (this->parameterAccessFlags != nullptr && index < $nc(this->parameterAccessFlags)->length && $nc(this->parameterAccessFlags)->get(index) != 0) {
@@ -2165,6 +2202,7 @@ void ClassReader::skipInnerClasses() {
 }
 
 void ClassReader::enterTypevars($Symbol* sym, $Type* t) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(t)->getEnclosingType() != nullptr) {
 		$init($TypeTag);
 		if (!$nc($(t->getEnclosingType()))->hasTag($TypeTag::NONE)) {
@@ -2193,6 +2231,7 @@ $Symbol$ClassSymbol* ClassReader::enterClass($Name* name, $Symbol$TypeSymbol* ow
 }
 
 void ClassReader::readClass($Symbol$ClassSymbol* c) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type$ClassType, ct, $cast($Type$ClassType, $nc(c)->type));
 	$set(c, members_field, $Scope$WriteableScope::create(c));
 	$set(this, typevars, $nc(this->typevars)->dup(this->currentOwner));
@@ -2284,6 +2323,7 @@ void ClassReader::readClass($Symbol$ClassSymbol* c) {
 }
 
 $Symbol$MethodSymbol* ClassReader::lookupMethod($Symbol$TypeSymbol* tsym, $Name* name, $List* argtypes) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($($nc($($nc(tsym)->members()))->getSymbolsByName(name, static_cast<$Predicate*>($$new(ClassReader$$Lambda$lambda$lookupMethod$1$3)))))->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -2299,6 +2339,7 @@ $Symbol$MethodSymbol* ClassReader::lookupMethod($Symbol$TypeSymbol* tsym, $Name*
 }
 
 void ClassReader::readInnerClasses($Symbol$ClassSymbol* c) {
+	$useLocalCurrentObjectStackCache();
 	int32_t n = nextChar();
 	for (int32_t i = 0; i < n; ++i) {
 		nextChar();
@@ -2330,6 +2371,7 @@ void ClassReader::readInnerClasses($Symbol$ClassSymbol* c) {
 }
 
 void ClassReader::readClassBuffer($Symbol$ClassSymbol* c) {
+	$useLocalCurrentObjectStackCache();
 	int32_t magic = nextInt();
 	if (magic != (int32_t)0xCAFEBABE) {
 		$throw($(badClassFile("illegal.start.of.class.file"_s, $$new($ObjectArray, 0))));
@@ -2375,6 +2417,7 @@ void ClassReader::readClassBuffer($Symbol$ClassSymbol* c) {
 }
 
 void ClassReader::readClassFile($Symbol$ClassSymbol* c) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, currentOwner, c);
 	$set(this, currentClassFile, $nc(c)->classfile);
 	$nc(this->warnedAttrs)->clear();

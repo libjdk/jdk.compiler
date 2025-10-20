@@ -335,6 +335,7 @@ void CompileJavaPackages::setExtra($Options* a) {
 }
 
 bool CompileJavaPackages::transform($CompilationService* sjavac, $Map* pkgSrcs, $Set* visibleSources, $Map* oldPackageDependents, $URI* destRoot, $Map* packageArtifacts, $Map* packageDependencies, $Map* packageCpDependencies, $Map* packagePubapis, $Map* dependencyPubapis, int32_t debugLevel, bool incremental, int32_t numCores) {
+	$useLocalCurrentObjectStackCache();
 	$Log::debug("Performing CompileJavaPackages transform..."_s);
 	bool rc = true;
 	bool concurrentCompiles = true;
@@ -541,6 +542,7 @@ bool CompileJavaPackages::transform($CompilationService* sjavac, $Map* pkgSrcs, 
 }
 
 $CompileChunkArray* CompileJavaPackages::createCompileChunks($Map* pkgSrcs, $Map* oldPackageDependents, int32_t numCompiles, int32_t sourcesPerCompile) {
+	$useLocalCurrentObjectStackCache();
 	$var($CompileChunkArray, compileChunks, $new($CompileChunkArray, numCompiles));
 	for (int32_t i = 0; i < compileChunks->length; ++i) {
 		compileChunks->set(i, $$new($CompileChunk));
@@ -584,6 +586,7 @@ $CompileChunkArray* CompileJavaPackages::createCompileChunks($Map* pkgSrcs, $Map
 }
 
 $CompilationSubResult* CompileJavaPackages::lambda$transform$0($Log* log, $CompilationService* sjavac, $String* chunkId, $CompileChunk* cc, $Set* visibleSources, Object$* lock) {
+	$useLocalCurrentObjectStackCache();
 	$Log::setLogForCurrentThread(log);
 	$var($String, var$0, "n/a"_s);
 	$var($String, var$1, chunkId);

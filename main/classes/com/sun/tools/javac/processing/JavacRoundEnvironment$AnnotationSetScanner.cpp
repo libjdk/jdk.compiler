@@ -110,6 +110,7 @@ void JavacRoundEnvironment$AnnotationSetScanner::init$($JavacRoundEnvironment* t
 }
 
 $Set* JavacRoundEnvironment$AnnotationSetScanner::scan($Element* e, $TypeElement* annotation) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($($nc(this->this$0->eltUtils)->getAllAnnotationMirrors(e)))->iterator());
 		for (; $nc(i$)->hasNext();) {

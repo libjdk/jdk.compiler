@@ -102,6 +102,7 @@ $Object* allocate$Infer$PartiallyInferredMethodType($Class* clazz) {
 }
 
 void Infer$PartiallyInferredMethodType::init$($Infer* this$0, $Type$MethodType* mtype, $InferenceContext* inferenceContext, $Env* env, $Warner* warn) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, this$0, this$0);
 	$var($List, var$0, $nc(mtype)->getParameterTypes());
 	$var($Type, var$1, mtype->getReturnType());
@@ -116,6 +117,7 @@ bool Infer$PartiallyInferredMethodType::isPartial() {
 }
 
 $Type* Infer$PartiallyInferredMethodType::check($Attr$ResultInfo* resultInfo) {
+	$useLocalCurrentObjectStackCache();
 	$var($Warner, noWarnings, $new($Warner, nullptr));
 	$var($List, saved_undet, nullptr);
 	{

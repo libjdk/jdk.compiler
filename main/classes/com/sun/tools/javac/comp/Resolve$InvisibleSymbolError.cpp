@@ -117,6 +117,7 @@ void Resolve$InvisibleSymbolError::init$($Resolve* this$0, $Env* env, bool suppr
 }
 
 $JCDiagnostic* Resolve$InvisibleSymbolError::getDiagnostic($JCDiagnostic$DiagnosticType* dkind, $JCDiagnostic$DiagnosticPosition* pos$renamed, $Symbol* location, $Type* site, $Name* name, $List* argtypes, $List* typeargtypes) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCDiagnostic$DiagnosticPosition, pos, pos$renamed);
 	if (this->suppressError) {
 		return nullptr;

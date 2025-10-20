@@ -108,6 +108,7 @@ $Object* allocate$DelegatingJavaFileManager($Class* clazz) {
 
 void DelegatingJavaFileManager::installReleaseFileManager($Context* context, $JavaFileManager* releaseFM, $JavaFileManager* originalFM) {
 	$init(DelegatingJavaFileManager);
+	$useLocalCurrentObjectStackCache();
 	$load($JavaFileManager);
 	$nc(context)->put($JavaFileManager::class$, ($JavaFileManager*)nullptr);
 	$var($StandardJavaFileManager, standardJavaFileManager, nullptr);

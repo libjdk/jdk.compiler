@@ -127,6 +127,7 @@ $JCDiagnostic$DiagnosticPosition* DCTree::pos($DCTree$DCDocComment* dc) {
 }
 
 $String* DCTree::toString() {
+	$useLocalCurrentObjectStackCache();
 	$var($StringWriter, s, $new($StringWriter));
 	try {
 		$$new($DocPretty, s)->print(static_cast<$DocTree*>(this));

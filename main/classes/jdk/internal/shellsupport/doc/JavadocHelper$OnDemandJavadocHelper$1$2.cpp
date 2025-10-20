@@ -99,6 +99,7 @@ void JavadocHelper$OnDemandJavadocHelper$1$2::init$($JavadocHelper$OnDemandJavad
 }
 
 $Void* JavadocHelper$OnDemandJavadocHelper$1$2::visitThrows($ThrowsTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	if ($Objects::equals($($nc(this->this$1->this$0)->getThrownException(this->this$1->inheritedJavacTask, this->this$1->inheritedTreePath, this->val$inheritedDocTree, node)), this->val$thrownName)) {
 		$nc(this->val$inheritedText)->add($($nc(node)->getDescription()));
 	}

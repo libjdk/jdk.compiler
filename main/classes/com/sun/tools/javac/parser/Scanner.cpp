@@ -110,6 +110,7 @@ $Tokens$Token* Scanner::token(int32_t lookahead) {
 }
 
 void Scanner::ensureLookahead(int32_t lookahead) {
+	$useLocalCurrentObjectStackCache();
 	for (int32_t i = $nc(this->savedTokens)->size(); i < lookahead; ++i) {
 		$nc(this->savedTokens)->add($($nc(this->tokenizer)->readToken()));
 	}

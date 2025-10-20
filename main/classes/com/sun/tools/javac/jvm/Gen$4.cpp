@@ -88,6 +88,7 @@ $ints* Gen$4::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag = nullptr;
 $ints* Gen$4::$SwitchMap$com$sun$tools$javac$code$TypeTag = nullptr;
 
 void clinit$Gen$4($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(Gen$4::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag, $new($ints, $($JCTree$Tag::values())->length));
 	{
 		try {

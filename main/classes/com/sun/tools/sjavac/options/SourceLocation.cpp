@@ -74,6 +74,7 @@ void SourceLocation::init$($Path* path, $List* includes, $List* excludes) {
 }
 
 void SourceLocation::findSourceFiles($Set* suffixes, $Map* foundFiles, $Map* foundModules, $Module* currentModule, bool permitSourcesInDefaultPackage, bool inLinksrc) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$Source::scanRoot($($nc(this->path)->toFile()), suffixes, this->excludes, this->includes, foundFiles, foundModules, currentModule, permitSourcesInDefaultPackage, false, inLinksrc);
 	} catch ($ProblemException&) {
@@ -95,6 +96,7 @@ $List* SourceLocation::getExcludes() {
 }
 
 $String* SourceLocation::toString() {
+	$useLocalCurrentObjectStackCache();
 	return $String::format("%s[\"%s\", includes: %s, excludes: %s]"_s, $$new($ObjectArray, {
 		$($of($of(this)->getClass()->getSimpleName())),
 		$of(this->path),

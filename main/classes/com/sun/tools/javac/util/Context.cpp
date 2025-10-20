@@ -113,6 +113,7 @@ void Context::put($Context$Key* key, Object$* data) {
 }
 
 $Object* Context::get($Context$Key* key) {
+	$useLocalCurrentObjectStackCache();
 	checkState(this->ht);
 	$var($Object, o, $nc(this->ht)->get(key));
 	{
@@ -140,6 +141,7 @@ void Context::init$() {
 }
 
 $Context$Key* Context::key($Class* clss) {
+	$useLocalCurrentObjectStackCache();
 	checkState(this->kt);
 	$var($Context$Key, k, $cast($Context$Key, uncheckedCast($($nc(this->kt)->get(clss)))));
 	if (k == nullptr) {
@@ -166,6 +168,7 @@ $Object* Context::uncheckedCast(Object$* o) {
 }
 
 void Context::dump() {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($($nc(this->ht)->values()))->iterator());
 		for (; $nc(i$)->hasNext();) {

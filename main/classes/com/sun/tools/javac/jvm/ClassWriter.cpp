@@ -519,6 +519,7 @@ ClassWriter* ClassWriter::instance($Context* context) {
 }
 
 void ClassWriter::init$($Context* context) {
+	$useLocalCurrentObjectStackCache();
 	$ClassFile::init$();
 	$set(this, extraAttributeHooks, $List::nil());
 	$set(this, databuf, $new($ByteBuffer, ClassWriter::DATA_BUF_SIZE));
@@ -608,6 +609,7 @@ int32_t ClassWriter::writeEnclosingMethodAttribute($Symbol$ClassSymbol* c) {
 }
 
 int32_t ClassWriter::writeEnclosingMethodAttribute($Name* attributeName, $Symbol$ClassSymbol* c) {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$Kind);
 	if ($nc($nc(c)->owner)->kind != $Kinds$Kind::MTH && c->name != $nc(this->names)->empty) {
 		return 0;
@@ -632,6 +634,7 @@ int32_t ClassWriter::writeFlagAttrs(int64_t flags) {
 }
 
 int32_t ClassWriter::writeMemberAttrs($Symbol* sym, bool isRecordComponent) {
+	$useLocalCurrentObjectStackCache();
 	int32_t acount = 0;
 	if (!isRecordComponent) {
 		acount = writeFlagAttrs($nc(sym)->flags());
@@ -654,6 +657,7 @@ int32_t ClassWriter::writeMemberAttrs($Symbol* sym, bool isRecordComponent) {
 }
 
 int32_t ClassWriter::writeMethodParametersAttr($Symbol$MethodSymbol* m) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type$MethodType, ty, $nc($($nc(m)->externalType(this->types)))->asMethodType());
 	int32_t allparams = $nc($nc(ty)->argtypes$)->size();
 	if (m->params$ != nullptr && allparams != 0) {
@@ -703,6 +707,7 @@ int32_t ClassWriter::writeMethodParametersAttr($Symbol$MethodSymbol* m) {
 }
 
 void ClassWriter::writeParamAnnotations($List* params, $Attribute$RetentionPolicy* retention) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->databuf)->appendByte($nc(params)->length());
 	{
 		$var($Iterator, i$, $nc(params)->iterator());
@@ -738,6 +743,7 @@ void ClassWriter::writeParamAnnotations($Symbol$MethodSymbol* m, $Attribute$Rete
 }
 
 int32_t ClassWriter::writeParameterAttrs($List* vars) {
+	$useLocalCurrentObjectStackCache();
 	bool hasVisible = false;
 	bool hasInvisible = false;
 	if (vars != nullptr) {
@@ -796,6 +802,7 @@ int32_t ClassWriter::writeParameterAttrs($List* vars) {
 }
 
 int32_t ClassWriter::writeJavaAnnotations($List* attrs) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(attrs)->isEmpty()) {
 		return 0;
 	}
@@ -859,6 +866,7 @@ int32_t ClassWriter::writeJavaAnnotations($List* attrs) {
 }
 
 int32_t ClassWriter::writeTypeAnnotations($List* typeAnnos, bool inCode) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(typeAnnos)->isEmpty()) {
 		return 0;
 	}
@@ -937,6 +945,7 @@ int32_t ClassWriter::writeTypeAnnotations($List* typeAnnos, bool inCode) {
 }
 
 void ClassWriter::writeCompoundAttribute($Attribute$Compound* c) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->databuf)->appendChar($nc(this->poolWriter)->putDescriptor($nc(c)->type));
 	$nc(this->databuf)->appendChar($nc($nc(c)->values)->length());
 	{
@@ -957,6 +966,7 @@ void ClassWriter::writeTypeAnnotation($Attribute$TypeCompound* c) {
 }
 
 void ClassWriter::writePosition($TypeAnnotationPosition* p) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->databuf)->appendByte($nc(p)->type->targetTypeValue());
 	$init($ClassWriter$1);
 	switch ($nc($ClassWriter$1::$SwitchMap$com$sun$tools$javac$code$TargetType)->get(($nc(p)->type)->ordinal())) {
@@ -1065,6 +1075,7 @@ void ClassWriter::writePosition($TypeAnnotationPosition* p) {
 }
 
 int32_t ClassWriter::writeModuleAttribute($Symbol$ClassSymbol* c) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$ModuleSymbol, m, $cast($Symbol$ModuleSymbol, $nc(c)->owner));
 	int32_t alenIdx = writeAttr($nc(this->names)->Module);
 	$nc(this->databuf)->appendChar($nc(this->poolWriter)->putModule(m));
@@ -1175,6 +1186,7 @@ int32_t ClassWriter::writeModuleAttribute($Symbol$ClassSymbol* c) {
 }
 
 void ClassWriter::writeInnerClasses() {
+	$useLocalCurrentObjectStackCache();
 	int32_t alenIdx = writeAttr($nc(this->names)->InnerClasses);
 	$nc(this->databuf)->appendChar($nc($nc(this->poolWriter)->innerClasses)->size());
 	{
@@ -1206,6 +1218,7 @@ void ClassWriter::writeInnerClasses() {
 }
 
 int32_t ClassWriter::writeRecordAttribute($Symbol$ClassSymbol* csym) {
+	$useLocalCurrentObjectStackCache();
 	int32_t alenIdx = writeAttr($nc(this->names)->Record);
 	$var($Scope, s, $nc(csym)->members());
 	$nc(this->databuf)->appendChar($nc($(csym->getRecordComponents()))->size());
@@ -1228,6 +1241,7 @@ int32_t ClassWriter::writeRecordAttribute($Symbol$ClassSymbol* csym) {
 }
 
 int32_t ClassWriter::writeNestMembersIfNeeded($Symbol$ClassSymbol* csym) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, nested, $new($ListBuffer));
 	listNested(csym, nested);
 	$var($Set, nestedUnique, $new($LinkedHashSet, static_cast<$Collection*>(static_cast<$AbstractCollection*>(static_cast<$AbstractQueue*>(nested)))));
@@ -1262,6 +1276,7 @@ int32_t ClassWriter::writeNestHostIfNeeded($Symbol$ClassSymbol* csym) {
 }
 
 void ClassWriter::listNested($Symbol* sym, $ListBuffer* seen) {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$Kind);
 	if ($nc(sym)->kind != $Kinds$Kind::TYP) {
 		return;
@@ -1295,6 +1310,7 @@ void ClassWriter::listNested($Symbol* sym, $ListBuffer* seen) {
 }
 
 int32_t ClassWriter::writePermittedSubclassesIfNeeded($Symbol$ClassSymbol* csym) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc($nc(csym)->permitted)->nonEmpty()) {
 		int32_t alenIdx = writeAttr($nc(this->names)->PermittedSubclasses);
 		$nc(this->databuf)->appendChar($nc(csym->permitted)->size());
@@ -1314,6 +1330,7 @@ int32_t ClassWriter::writePermittedSubclassesIfNeeded($Symbol$ClassSymbol* csym)
 }
 
 void ClassWriter::writeBootstrapMethods() {
+	$useLocalCurrentObjectStackCache();
 	int32_t alenIdx = writeAttr($nc(this->names)->BootstrapMethods);
 	$nc(this->databuf)->appendChar($nc($nc(this->poolWriter)->bootstrapMethods)->size());
 	{
@@ -1342,6 +1359,7 @@ void ClassWriter::writeBootstrapMethods() {
 }
 
 void ClassWriter::writeField($Symbol$VarSymbol* v) {
+	$useLocalCurrentObjectStackCache();
 	int32_t flags = adjustFlags($nc(v)->flags());
 	$nc(this->databuf)->appendChar(flags);
 	if (this->dumpFieldModifiers) {
@@ -1366,6 +1384,7 @@ void ClassWriter::writeField($Symbol$VarSymbol* v) {
 }
 
 void ClassWriter::writeMethod($Symbol$MethodSymbol* m) {
+	$useLocalCurrentObjectStackCache();
 	int32_t flags = adjustFlags($nc(m)->flags());
 	$nc(this->databuf)->appendChar(flags);
 	if (this->dumpMethodModifiers) {
@@ -1424,6 +1443,7 @@ void ClassWriter::writeMethod($Symbol$MethodSymbol* m) {
 }
 
 void ClassWriter::writeCode($Code* code) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->databuf)->appendChar($nc(code)->max_stack);
 	$nc(this->databuf)->appendChar($nc(code)->max_locals);
 	$nc(this->databuf)->appendInt($nc(code)->cp);
@@ -1540,6 +1560,7 @@ bool ClassWriter::needsLocalVariableTypeEntry($Type* t) {
 }
 
 void ClassWriter::writeStackMap($Code* code) {
+	$useLocalCurrentObjectStackCache();
 	int32_t nframes = $nc(code)->stackMapBufferSize;
 	if (this->debugstackmap) {
 		$init($System);
@@ -1627,6 +1648,7 @@ void ClassWriter::writeStackMap($Code* code) {
 }
 
 void ClassWriter::writeStackMapType($Type* t) {
+	$useLocalCurrentObjectStackCache();
 	if (t == nullptr) {
 		if (this->debugstackmap) {
 			$init($System);
@@ -1734,6 +1756,7 @@ void ClassWriter::writeStackMapType($Type* t) {
 }
 
 void ClassWriter::writeFields($Scope* s) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, vars, $List::nil());
 	{
 		$init($Scope$LookupKind);
@@ -1755,6 +1778,7 @@ void ClassWriter::writeFields($Scope* s) {
 }
 
 void ClassWriter::writeMethods($Scope* s) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, methods, $List::nil());
 	{
 		$init($Scope$LookupKind);
@@ -1776,6 +1800,7 @@ void ClassWriter::writeMethods($Scope* s) {
 }
 
 $JavaFileObject* ClassWriter::writeClass($Symbol$ClassSymbol* c) {
+	$useLocalCurrentObjectStackCache();
 	$init($Kinds$Kind);
 	$var($String, name, $nc(($nc($nc(c)->owner)->kind == $Kinds$Kind::MDL ? $nc(c)->name : c->flatname))->toString());
 	$var($JavaFileManager$Location, outLocn, nullptr);
@@ -1821,6 +1846,7 @@ $JavaFileObject* ClassWriter::writeClass($Symbol$ClassSymbol* c) {
 }
 
 void ClassWriter::writeClassFile($OutputStream* out, $Symbol$ClassSymbol* c) {
+	$useLocalCurrentObjectStackCache();
 	$Assert::check(((int64_t)($nc(c)->flags() & (uint64_t)(int64_t)0x01000000)) == 0);
 	$nc(this->databuf)->reset();
 	$nc(this->poolbuf)->reset();
@@ -1997,6 +2023,7 @@ int32_t ClassWriter::writeExtraClassAttributes($Symbol$ClassSymbol* c) {
 }
 
 int32_t ClassWriter::writeExtraAttributes($Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	int32_t i = 0;
 	{
 		$var($Iterator, i$, $nc(this->extraAttributeHooks)->iterator());
@@ -2028,6 +2055,7 @@ int32_t ClassWriter::adjustFlags(int64_t flags) {
 }
 
 int64_t ClassWriter::getLastModified($FileObject* filename) {
+	$useLocalCurrentObjectStackCache();
 	int64_t mod = 0;
 	try {
 		mod = $nc(filename)->getLastModified();

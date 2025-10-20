@@ -88,6 +88,7 @@ void PoolReader$ImmutablePoolHelper::init$($PoolReader* this$0, $ByteBuffer* poo
 }
 
 int32_t PoolReader$ImmutablePoolHelper::checkIndex(int32_t index) {
+	$useLocalCurrentObjectStackCache();
 	if (index <= 0 || index >= $nc(this->offsets)->length) {
 		$throw($($nc(this->this$0->reader)->badClassFile("bad.const.pool.index"_s, $$new($ObjectArray, {
 			$of($nc(this->this$0->reader)->currentClassFile),
@@ -104,6 +105,7 @@ int32_t PoolReader$ImmutablePoolHelper::offset(int32_t index) {
 }
 
 $Object* PoolReader$ImmutablePoolHelper::readIfNeeded(int32_t index, $BitSet* expectedTags) {
+	$useLocalCurrentObjectStackCache();
 	$var($Object0, v, $nc(this->values)->get(checkIndex(index)));
 	if (v != nullptr) {
 		return $of(v);

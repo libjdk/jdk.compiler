@@ -68,11 +68,13 @@ void Main::main($StringArray* args) {
 }
 
 int32_t Main::compile($StringArray* args) {
+	$useLocalCurrentObjectStackCache();
 	$var($Main, compiler, $new($Main, "javac"_s));
 	return $nc($(compiler->compile(args)))->exitCode;
 }
 
 int32_t Main::compile($StringArray* args, $PrintWriter* out) {
+	$useLocalCurrentObjectStackCache();
 	$var($Main, compiler, $new($Main, "javac"_s, out));
 	return $nc($(compiler->compile(args)))->exitCode;
 }

@@ -236,6 +236,7 @@ $Object* allocate$Package($Class* clazz) {
 $Pattern* Package::DEP_PATTERN = nullptr;
 
 void Package::init$($Module* m, $String* n) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, dependents$, $new($HashSet));
 	$set(this, dependencies, static_cast<$Map*>(static_cast<$AbstractMap*>($new($TreeMap))));
 	$set(this, cpDependencies, static_cast<$Map*>(static_cast<$AbstractMap*>($new($TreeMap))));
@@ -309,10 +310,12 @@ int32_t Package::compareTo(Package* o) {
 }
 
 void Package::addSource($Source* s) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->sources$)->put($($nc($($nc(s)->file()))->getPath()), s);
 }
 
 void Package::parseAndAddDependency($String* d, bool cp) {
+	$useLocalCurrentObjectStackCache();
 	$var($Matcher, m, $nc(Package::DEP_PATTERN)->matcher(d));
 	if (!$nc(m)->matches()) {
 		$throwNew($IllegalArgumentException, $$str({"Bad dependency string: "_s, d}));
@@ -322,6 +325,7 @@ void Package::parseAndAddDependency($String* d, bool cp) {
 }
 
 void Package::addDependency($String* fullyQualifiedFrom, $String* fullyQualifiedTo, bool cp) {
+	$useLocalCurrentObjectStackCache();
 	$var($Map, map, cp ? this->cpDependencies : this->dependencies);
 	if (!$nc(map)->containsKey(fullyQualifiedFrom)) {
 		map->put(fullyQualifiedFrom, $$new($HashSet));
@@ -347,6 +351,7 @@ void Package::setPubapi($PubApi* newPubApi) {
 }
 
 void Package::setDependencies($Map* ds, bool cp) {
+	$useLocalCurrentObjectStackCache();
 	$nc((cp ? this->cpDependencies : this->dependencies))->clear();
 	{
 		$var($Iterator, i$, $nc($($nc(ds)->keySet()))->iterator());
@@ -378,6 +383,7 @@ Package* Package::load($Module* module, $String* l) {
 }
 
 void Package::saveDependencies($StringBuilder* b) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($($nc(this->dependencies)->keySet()))->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -421,11 +427,13 @@ void Package::saveDependencies($StringBuilder* b) {
 }
 
 void Package::savePubapi($StringBuilder* b) {
+	$useLocalCurrentObjectStackCache();
 	$nc($($nc($($nc($($nc(this->pubApi)->asListOfStrings()))->stream()))->flatMap(static_cast<$Function*>($$new(Package$$Lambda$lambda$savePubapi$0)))))->forEach(static_cast<$Consumer*>($$new(Package$$Lambda$append$1, static_cast<$StringBuilder*>($nc(b)))));
 }
 
 void Package::savePackages($Map* packages, $StringBuilder* b) {
 	$init(Package);
+	$useLocalCurrentObjectStackCache();
 	$var($List, sorted_packages, $new($ArrayList));
 	{
 		$var($Iterator, i$, $nc($($nc(packages)->keySet()))->iterator());
@@ -458,6 +466,7 @@ void Package::addArtifact($File* f) {
 }
 
 void Package::addArtifacts($Set* as) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(as)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -476,6 +485,7 @@ void Package::setArtifacts($Set* as) {
 }
 
 void Package::loadArtifact($String* l) {
+	$useLocalCurrentObjectStackCache();
 	int32_t dp = $nc(l)->indexOf((int32_t)u' ', 2);
 	$var($String, fn, l->substring(2, dp));
 	int64_t last_modified = $Long::parseLong($(l->substring(dp + 1)));
@@ -489,6 +499,7 @@ void Package::loadArtifact($String* l) {
 }
 
 void Package::saveArtifacts($StringBuilder* b) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, sorted_artifacts, $new($ArrayList));
 	{
 		$var($Iterator, i$, $nc($($nc(this->artifacts$)->values()))->iterator());
@@ -514,6 +525,7 @@ void Package::saveArtifacts($StringBuilder* b) {
 }
 
 void Package::deleteArtifacts() {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($($nc(this->artifacts$)->values()))->iterator());
 		for (; $nc(i$)->hasNext();) {

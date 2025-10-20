@@ -107,6 +107,7 @@ $ints* ClassReader$28::$SwitchMap$com$sun$tools$javac$code$TargetType = nullptr;
 $ints* ClassReader$28::$SwitchMap$com$sun$tools$javac$code$TypeTag = nullptr;
 
 void clinit$ClassReader$28($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(ClassReader$28::$SwitchMap$com$sun$tools$javac$code$TargetType, $new($ints, $($TargetType::values())->length));
 	{
 		try {

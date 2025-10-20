@@ -91,6 +91,7 @@ void IdleResetSjavac::init$($Sjavac* delegate, $Terminable* toShutdown, int64_t 
 }
 
 $Main$Result* IdleResetSjavac::compile($StringArray* args) {
+	$useLocalCurrentObjectStackCache();
 	startCall();
 	{
 		$var($Throwable, var$0, nullptr);

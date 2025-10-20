@@ -100,6 +100,7 @@ void Locations$SimpleLocationHandler::init$($Locations* this$0, $JavaFileManager
 }
 
 bool Locations$SimpleLocationHandler::handleOption($Option* option, $String* value) {
+	$useLocalCurrentObjectStackCache();
 	if (!$nc(this->options)->contains(option)) {
 		return false;
 	}
@@ -113,6 +114,7 @@ $Collection* Locations$SimpleLocationHandler::getPaths() {
 }
 
 void Locations$SimpleLocationHandler::setPaths($Iterable* files) {
+	$useLocalCurrentObjectStackCache();
 	$var($Locations$SearchPath, p, nullptr);
 	if (files == nullptr) {
 		$assign(p, computePath(nullptr));

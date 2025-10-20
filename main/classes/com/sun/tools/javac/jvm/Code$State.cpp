@@ -128,6 +128,7 @@ void Code$State::init$($Code* this$0) {
 }
 
 Code$State* Code$State::dup() {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var(Code$State, state, $cast(Code$State, $Cloneable::clone()));
 		$set($nc(state), defined, $new($Bits, this->defined));
@@ -165,6 +166,7 @@ void Code$State::unlock(int32_t register$) {
 }
 
 void Code$State::push($Type* t$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, t, t$renamed);
 	if (this->this$0->debugCode) {
 		$init($System);
@@ -215,6 +217,7 @@ void Code$State::push($Type* t$renamed) {
 }
 
 $Type* Code$State::pop1() {
+	$useLocalCurrentObjectStackCache();
 	if (this->this$0->debugCode) {
 		$init($System);
 		$nc($System::err)->println($$str({"   popping "_s, $$str(1)}));
@@ -231,6 +234,7 @@ $Type* Code$State::peek() {
 }
 
 $Type* Code$State::pop2() {
+	$useLocalCurrentObjectStackCache();
 	if (this->this$0->debugCode) {
 		$init($System);
 		$nc($System::err)->println($$str({"   popping "_s, $$str(2)}));
@@ -243,6 +247,7 @@ $Type* Code$State::pop2() {
 }
 
 void Code$State::pop(int32_t n) {
+	$useLocalCurrentObjectStackCache();
 	if (this->this$0->debugCode) {
 		$init($System);
 		$nc($System::err)->println($$str({"   popping "_s, $$str(n)}));
@@ -258,6 +263,7 @@ void Code$State::pop($Type* t) {
 }
 
 void Code$State::forceStackTop($Type* t) {
+	$useLocalCurrentObjectStackCache();
 	if (!this->this$0->alive) {
 		return;
 	}
@@ -284,6 +290,7 @@ void Code$State::forceStackTop($Type* t) {
 }
 
 void Code$State::markInitialized($UninitializedType* old) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, newtype, $nc(old)->initializedType());
 	for (int32_t i = 0; i < this->stacksize; ++i) {
 		if ($equals($nc(this->stack)->get(i), old)) {
@@ -303,6 +310,7 @@ void Code$State::markInitialized($UninitializedType* old) {
 }
 
 Code$State* Code$State::join(Code$State* other) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->defined)->andSet($nc(other)->defined);
 	$Assert::check(this->stacksize == $nc(other)->stacksize && this->nlocks == other->nlocks);
 	for (int32_t i = 0; i < this->stacksize;) {
@@ -329,6 +337,7 @@ void Code$State::dump() {
 }
 
 void Code$State::dump(int32_t pc) {
+	$useLocalCurrentObjectStackCache();
 	$init($System);
 	$nc($System::err)->print($$str({"stackMap for "_s, $nc(this->this$0->meth)->owner, "."_s, this->this$0->meth}));
 	if (pc == -1) {

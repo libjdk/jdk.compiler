@@ -222,6 +222,7 @@ void TransPatterns$BasicBindingContext::init$($TransPatterns* this$0) {
 }
 
 $Symbol$VarSymbol* TransPatterns$BasicBindingContext::bindingDeclared($Symbol$BindingSymbol* varSymbol) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$VarSymbol, res, $nc(this->parent)->bindingDeclared(varSymbol));
 	if (res == nullptr) {
 		$assign(res, $new($Symbol$VarSymbol, $nc(varSymbol)->flags(), varSymbol->name, varSymbol->type, this->this$0->currentMethodSym));
@@ -232,6 +233,7 @@ $Symbol$VarSymbol* TransPatterns$BasicBindingContext::bindingDeclared($Symbol$Bi
 }
 
 $Symbol$VarSymbol* TransPatterns$BasicBindingContext::getBindingFor($Symbol$BindingSymbol* varSymbol) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$VarSymbol, res, $nc(this->parent)->getBindingFor(varSymbol));
 	if (res != nullptr) {
 		return res;
@@ -240,6 +242,7 @@ $Symbol$VarSymbol* TransPatterns$BasicBindingContext::getBindingFor($Symbol$Bind
 }
 
 $List* TransPatterns$BasicBindingContext::bindingVars(int32_t diagPos) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(this->hoistedVarMap)->isEmpty()) {
 		return $List::nil();
 	}
@@ -261,6 +264,7 @@ $List* TransPatterns$BasicBindingContext::bindingVars(int32_t diagPos) {
 }
 
 $JCTree$JCStatement* TransPatterns$BasicBindingContext::decorateStatement($JCTree$JCStatement* stat$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCStatement, stat, stat$renamed);
 	$var($List, stats, bindingVars($nc(stat)->pos$));
 	if ($nc(stats)->nonEmpty()) {
@@ -270,6 +274,7 @@ $JCTree$JCStatement* TransPatterns$BasicBindingContext::decorateStatement($JCTre
 }
 
 $JCTree$JCExpression* TransPatterns$BasicBindingContext::decorateExpression($JCTree$JCExpression* expr$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCExpression, expr, expr$renamed);
 	{
 		$var($Iterator, i$, $nc($($nc(this->hoistedVarMap)->values()))->iterator());

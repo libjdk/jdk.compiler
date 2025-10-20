@@ -82,6 +82,7 @@ void ClientCodeWrapper$WrappedDiagnosticListener::init$($ClientCodeWrapper* this
 }
 
 void ClientCodeWrapper$WrappedDiagnosticListener::report($Diagnostic* diagnostic) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$nc(this->clientDiagnosticListener)->report($(this->this$0->unwrap(diagnostic)));
 	} catch ($ClientCodeException&) {

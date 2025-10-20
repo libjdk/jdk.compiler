@@ -91,6 +91,7 @@ void DocCommentParser$20::init$($DocCommentParser* this$0, $DocCommentParser$Tag
 }
 
 $DCTree* DocCommentParser$20::parse(int32_t pos) {
+	$useLocalCurrentObjectStackCache();
 	$var($1List, summary, this->this$0->inlineContent());
 	return $cast($DCTree, $nc($($nc(this->this$0->m)->at(pos)))->newSummaryTree(summary));
 }

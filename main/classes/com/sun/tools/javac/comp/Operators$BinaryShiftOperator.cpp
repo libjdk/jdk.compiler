@@ -81,11 +81,13 @@ void Operators$BinaryShiftOperator::init$($Operators* this$0, $JCTree$Tag* tag) 
 }
 
 $Symbol$OperatorSymbol* Operators$BinaryShiftOperator::resolve($Type* arg1, $Type* arg2) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, var$0, this->this$0->unaryPromotion(arg1));
 	return doLookup(var$0, $(this->this$0->unaryPromotion(arg2)));
 }
 
 bool Operators$BinaryShiftOperator::test($Type* arg1, $Type* arg2) {
+	$useLocalCurrentObjectStackCache();
 	$TypeTag* op1 = $nc($(this->this$0->unaryPromotion(arg1)))->getTag();
 	$TypeTag* op2 = $nc($(this->this$0->unaryPromotion(arg2)))->getTag();
 	$init($TypeTag);

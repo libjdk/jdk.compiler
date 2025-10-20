@@ -191,6 +191,7 @@ Target* Target::valueOf($String* name) {
 
 Target* Target::instance($Context* context) {
 	$init(Target);
+	$useLocalCurrentObjectStackCache();
 	Target* instance = $cast(Target, $nc(context)->get(Target::targetKey));
 	if (instance == nullptr) {
 		$var($Options, options, $Options::instance(context));
@@ -265,6 +266,7 @@ bool Target::obsoleteAccStrict() {
 }
 
 void clinit$Target($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(Target::JDK1_1, $new(Target, "JDK1_1"_s, 0, "1.1"_s, 45, 3));
 	$assignStatic(Target::JDK1_2, $new(Target, "JDK1_2"_s, 1, "1.2"_s, 46, 0));
 	$assignStatic(Target::JDK1_3, $new(Target, "JDK1_3"_s, 2, "1.3"_s, 47, 0));

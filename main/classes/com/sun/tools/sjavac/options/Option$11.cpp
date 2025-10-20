@@ -81,6 +81,7 @@ void Option$11::init$($String* $enum$name, int32_t $enum$ordinal, $String* arg, 
 }
 
 void Option$11::processMatching($ArgumentIterator* iter, $OptionHelper* helper) {
+	$useLocalCurrentObjectStackCache();
 	$beforeCallerSensitive();
 	if (!$nc(iter)->hasNext()) {
 		$nc(helper)->reportError($$str({this->arg, " must be followed by a translation rule"_s}));

@@ -147,6 +147,7 @@ void Option$7::init$($String* $enum$name, int32_t $enum$ordinal, $String* text, 
 }
 
 void Option$7::process($OptionHelper* helper, $String* option, $String* arg) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(arg)->isEmpty()) {
 		$throw($($nc(helper)->newInvalidValueException($($CompilerProperties$Errors::NoValueForOption(option)))));
 	} else if ($nc($($nc($(getPattern()))->matcher(arg)))->matches()) {

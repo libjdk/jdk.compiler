@@ -191,6 +191,7 @@ void Types$TypeProjection::init$($Types* this$0, $List* vars) {
 }
 
 $Type* Types$TypeProjection::visitClassType($Type$ClassType* t, $Types$ProjectionKind* pkind) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(t)->isCompound()) {
 		$var($List, components, this->this$0->directSupertypes(t));
 		$var($List, components1, $nc(components)->map(static_cast<$Function*>($$new(Types$TypeProjection$$Lambda$lambda$visitClassType$0, this, pkind))));
@@ -234,6 +235,7 @@ $Type* Types$TypeProjection::visitClassType($Type$ClassType* t, $Types$Projectio
 }
 
 $Type* Types$TypeProjection::visitArrayType($Type$ArrayType* t, $Types$ProjectionKind* s) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, elemtype, $nc(t)->elemtype);
 	$var($Type, elemtype1, $cast($Type, visit(elemtype, s)));
 	if (elemtype1 == elemtype) {
@@ -249,6 +251,7 @@ $Type* Types$TypeProjection::visitArrayType($Type$ArrayType* t, $Types$Projectio
 }
 
 $Type* Types$TypeProjection::visitTypeVar($Type$TypeVar* t, $Types$ProjectionKind* pkind) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(this->vars)->contains(t)) {
 		if ($nc(this->seen)->add(t)) {
 			{

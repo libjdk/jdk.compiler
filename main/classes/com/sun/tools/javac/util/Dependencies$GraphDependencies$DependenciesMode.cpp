@@ -117,6 +117,7 @@ void Dependencies$GraphDependencies$DependenciesMode::init$($String* $enum$name,
 
 $EnumSet* Dependencies$GraphDependencies$DependenciesMode::getDependenciesModes($StringArray* modes) {
 	$init(Dependencies$GraphDependencies$DependenciesMode);
+	$useLocalCurrentObjectStackCache();
 	$var($EnumSet, res, $EnumSet::noneOf(Dependencies$GraphDependencies$DependenciesMode::class$));
 	$var($Collection, args, $Arrays::asList(modes));
 	if ($nc(args)->contains("all"_s)) {

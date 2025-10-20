@@ -93,6 +93,7 @@ void DocCommentParser$24::init$($DocCommentParser* this$0, $DocCommentParser$Tag
 }
 
 $DCTree* DocCommentParser$24::parse(int32_t pos) {
+	$useLocalCurrentObjectStackCache();
 	$var($DCTree$DCReference, ref, this->this$0->reference(true));
 	this->this$0->skipWhitespace();
 	if (this->this$0->ch == u'}') {

@@ -93,6 +93,7 @@ $Object* allocate$JavacProcessingEnvironment$NameServiceIterator($Class* clazz) 
 }
 
 void JavacProcessingEnvironment$NameServiceIterator::init$($JavacProcessingEnvironment* this$0, $ServiceLoader* loader, $Log* log, $String* theNames) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, this$0, this$0);
 	$JavacProcessingEnvironment$ServiceIterator::init$(this$0, loader, log);
 	$set(this, namedProcessorsMap, $new($HashMap));
@@ -102,6 +103,7 @@ void JavacProcessingEnvironment$NameServiceIterator::init$($JavacProcessingEnvir
 }
 
 bool JavacProcessingEnvironment$NameServiceIterator::internalHasNext() {
+	$useLocalCurrentObjectStackCache();
 	if (this->nextProc != nullptr) {
 		return true;
 	}

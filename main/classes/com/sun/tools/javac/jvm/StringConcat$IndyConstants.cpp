@@ -115,6 +115,7 @@ void StringConcat$IndyConstants::init$($Context* context) {
 }
 
 void StringConcat$IndyConstants::emit($JCDiagnostic$DiagnosticPosition* pos, $List* args, bool generateFirstArg, $Type* type) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, split, this->split(args));
 	bool first = true;
 	{
@@ -181,6 +182,7 @@ void StringConcat$IndyConstants::emit($JCDiagnostic$DiagnosticPosition* pos, $Li
 }
 
 void StringConcat$IndyConstants::doCall($Type* type, $JCDiagnostic$DiagnosticPosition* pos, $String* recipe, $List* staticArgs, $List* dynamicArgTypes) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type$MethodType, indyType, $new($Type$MethodType, dynamicArgTypes, type, $($List::nil()), $nc(this->syms)->methodClass));
 	int32_t prevPos = $nc(this->make)->pos;
 	{

@@ -101,6 +101,7 @@ $Object* allocate$JavacProcessingEnvironment$ServiceIterator($Class* clazz) {
 }
 
 void JavacProcessingEnvironment$ServiceIterator::init$($JavacProcessingEnvironment* this$0, $ClassLoader* classLoader, $Log* log) {
+	$useLocalCurrentObjectStackCache();
 	$beforeCallerSensitive();
 	$set(this, this$0, this$0);
 	$set(this, log, log);
@@ -129,6 +130,7 @@ void JavacProcessingEnvironment$ServiceIterator::init$($JavacProcessingEnvironme
 }
 
 bool JavacProcessingEnvironment$ServiceIterator::hasNext() {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return internalHasNext();
 	} catch ($ServiceConfigurationError&) {
@@ -156,6 +158,7 @@ bool JavacProcessingEnvironment$ServiceIterator::internalHasNext() {
 }
 
 $Object* JavacProcessingEnvironment$ServiceIterator::next() {
+	$useLocalCurrentObjectStackCache();
 	try {
 		return $of(internalNext());
 	} catch ($ServiceConfigurationError&) {

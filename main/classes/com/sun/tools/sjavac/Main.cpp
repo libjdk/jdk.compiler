@@ -111,6 +111,7 @@ void Main::main($StringArray* args) {
 }
 
 int32_t Main::go($StringArray* args) {
+	$useLocalCurrentObjectStackCache();
 	bool serverMode = $nc($($nc($($Arrays::asList(args)))->stream()))->anyMatch(static_cast<$Predicate*>($$new(Main$$Lambda$lambda$go$0)));
 	return serverMode ? $ServerMain::run(args) : $ClientMain::run(args);
 }

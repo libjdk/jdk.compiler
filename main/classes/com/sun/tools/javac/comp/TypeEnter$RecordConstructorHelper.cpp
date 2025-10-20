@@ -173,6 +173,7 @@ $Object* allocate$TypeEnter$RecordConstructorHelper($Class* clazz) {
 }
 
 void TypeEnter$RecordConstructorHelper::init$($TypeEnter* this$0, $Symbol$ClassSymbol* owner, $List* recordFieldDecls) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, this$0, this$0);
 	$TypeEnter$BasicConstructorHelper::init$(this$0, owner);
 	$set(this, recordFieldDecls, recordFieldDecls);
@@ -180,6 +181,7 @@ void TypeEnter$RecordConstructorHelper::init$($TypeEnter* this$0, $Symbol$ClassS
 }
 
 $Type* TypeEnter$RecordConstructorHelper::constructorType() {
+	$useLocalCurrentObjectStackCache();
 	if (this->$TypeEnter$BasicConstructorHelper::constructorType$ == nullptr) {
 		$var($ListBuffer, argtypes, $new($ListBuffer));
 		$var($JCTree$JCVariableDecl, lastField, $cast($JCTree$JCVariableDecl, $nc(this->recordFieldDecls)->last()));
@@ -200,6 +202,7 @@ $Type* TypeEnter$RecordConstructorHelper::constructorType() {
 }
 
 $Symbol$MethodSymbol* TypeEnter$RecordConstructorHelper::constructorSymbol() {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$MethodSymbol, csym, $TypeEnter$BasicConstructorHelper::constructorSymbol());
 	$nc(csym)->flags_field |= $Flags::COMPACT_RECORD_CONSTRUCTOR | (int64_t)0x0000001000000000;
 	$var($ListBuffer, params, $new($ListBuffer));
@@ -219,6 +222,7 @@ $Symbol$MethodSymbol* TypeEnter$RecordConstructorHelper::constructorSymbol() {
 }
 
 $JCTree$JCMethodDecl* TypeEnter$RecordConstructorHelper::finalAdjustment($JCTree$JCMethodDecl* md) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, tmpRecordFieldDecls, this->recordFieldDecls);
 	{
 		$var($Iterator, i$, $nc($nc(md)->params)->iterator());

@@ -72,6 +72,7 @@ void Entity::put($String* name, char16_t c) {
 
 void Entity::put($String* name, char16_t c1, char16_t c2) {
 	$init(Entity);
+	$useLocalCurrentObjectStackCache();
 	$nc(Entity::entities)->put(name, $($String::valueOf($$new($chars, {
 		c1,
 		c2
@@ -80,6 +81,7 @@ void Entity::put($String* name, char16_t c1, char16_t c2) {
 
 $String* Entity::getCharacters($EntityTree* tree) {
 	$init(Entity);
+	$useLocalCurrentObjectStackCache();
 	$var($String, name, $nc($of($($nc(tree)->getName())))->toString());
 	if ($nc(name)->startsWith("#"_s)) {
 		try {

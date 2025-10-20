@@ -254,6 +254,7 @@ void Options$ArgDecoderOptionHelper::stateDir($Path* dir) {
 }
 
 $List* Options$ArgDecoderOptionHelper::createSourceLocations($List* paths) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, result, $new($ArrayList));
 	{
 		$var($Iterator, i$, $nc(paths)->iterator());

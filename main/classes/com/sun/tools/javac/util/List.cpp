@@ -420,6 +420,7 @@ List* List::nil() {
 
 List* List::filter(List* l, Object$* elem) {
 	$init(List);
+	$useLocalCurrentObjectStackCache();
 	$Assert::checkNonNull(elem);
 	$var(List, res, List::nil());
 	{
@@ -437,6 +438,7 @@ List* List::filter(List* l, Object$* elem) {
 }
 
 List* List::intersect(List* that) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, buf, $new($ListBuffer));
 	{
 		$var($Iterator, i$, this->iterator());
@@ -453,6 +455,7 @@ List* List::intersect(List* that) {
 }
 
 List* List::diff(List* that) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, buf, $new($ListBuffer));
 	{
 		$var($Iterator, i$, this->iterator());
@@ -469,6 +472,7 @@ List* List::diff(List* that) {
 }
 
 List* List::take(int32_t n) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, buf, $new($ListBuffer));
 	int32_t count = 0;
 	{
@@ -503,6 +507,7 @@ List* List::of(Object$* x1, Object$* x2, Object$* x3) {
 
 List* List::of(Object$* x1, Object$* x2, Object$* x3, $ObjectArray* rest) {
 	$init(List);
+	$useLocalCurrentObjectStackCache();
 	return $new(List, x1, $$new(List, x2, $$new(List, x3, $(from(rest)))));
 }
 
@@ -519,6 +524,7 @@ List* List::from($ObjectArray* array) {
 
 List* List::from($Iterable* coll) {
 	$init(List);
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, xs, $new($ListBuffer));
 	{
 		$var($Iterator, i$, $nc(coll)->iterator());
@@ -573,6 +579,7 @@ List* List::prepend(Object$* x) {
 }
 
 List* List::prependList(List* xs) {
+	$useLocalCurrentObjectStackCache();
 	if (this->isEmpty()) {
 		return xs;
 	}
@@ -595,6 +602,7 @@ List* List::prependList(List* xs) {
 }
 
 List* List::reverse() {
+	$useLocalCurrentObjectStackCache();
 	bool var$0 = isEmpty();
 	if (var$0 || $nc(this->tail)->isEmpty()) {
 		return this;
@@ -622,6 +630,7 @@ List* List::appendList($ListBuffer* x) {
 }
 
 $ObjectArray* List::toArray($ObjectArray* vec$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($ObjectArray, vec, vec$renamed);
 	int32_t i = 0;
 	$var(List, l, this);
@@ -647,6 +656,7 @@ $ObjectArray* List::toArray() {
 }
 
 $String* List::toString($String* sep) {
+	$useLocalCurrentObjectStackCache();
 	if (isEmpty()) {
 		return ""_s;
 	} else {
@@ -678,6 +688,7 @@ int32_t List::hashCode() {
 }
 
 bool List::equals(Object$* other) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var(List, javacList, nullptr);
 		bool var$0 = $instanceOf(List, other);
@@ -715,6 +726,7 @@ bool List::equals(Object$* other) {
 
 bool List::equals(List* xs$renamed, List* ys$renamed) {
 	$init(List);
+	$useLocalCurrentObjectStackCache();
 	$var(List, ys, ys$renamed);
 	$var(List, xs, xs$renamed);
 	while ($nc(xs)->tail != nullptr && $nc(ys)->tail != nullptr) {
@@ -747,6 +759,7 @@ bool List::contains(Object$* x) {
 }
 
 $Object* List::last() {
+	$useLocalCurrentObjectStackCache();
 	$var($Object, last, nullptr);
 	$var(List, t, this);
 	while ($nc(t)->tail != nullptr) {
@@ -757,6 +770,7 @@ $Object* List::last() {
 }
 
 List* List::map($Function* mapper) {
+	$useLocalCurrentObjectStackCache();
 	bool changed = false;
 	$var($ListBuffer, buf, $new($ListBuffer));
 	{
@@ -775,6 +789,7 @@ List* List::map($Function* mapper) {
 
 List* List::convert($Class* klass, List* list) {
 	$init(List);
+	$useLocalCurrentObjectStackCache();
 	if (list == nullptr) {
 		return nullptr;
 	}
@@ -801,6 +816,7 @@ $Iterator* List::iterator() {
 }
 
 $Object* List::get(int32_t index) {
+	$useLocalCurrentObjectStackCache();
 	if (index < 0) {
 		$throwNew($IndexOutOfBoundsException, $($String::valueOf(index)));
 	}
@@ -862,14 +878,17 @@ int32_t List::lastIndexOf(Object$* o) {
 }
 
 $ListIterator* List::listIterator() {
+	$useLocalCurrentObjectStackCache();
 	return $nc($($Collections::unmodifiableList($$new($ArrayList, static_cast<$Collection*>(static_cast<$AbstractCollection*>(this))))))->listIterator();
 }
 
 $ListIterator* List::listIterator(int32_t index) {
+	$useLocalCurrentObjectStackCache();
 	return $nc($($Collections::unmodifiableList($$new($ArrayList, static_cast<$Collection*>(static_cast<$AbstractCollection*>(this))))))->listIterator(index);
 }
 
 $List* List::subList(int32_t fromIndex, int32_t toIndex) {
+	$useLocalCurrentObjectStackCache();
 	if (fromIndex < 0 || toIndex > size() || fromIndex > toIndex) {
 		$throwNew($IllegalArgumentException);
 	}
@@ -891,6 +910,7 @@ $List* List::subList(int32_t fromIndex, int32_t toIndex) {
 
 $Collector* List::collector() {
 	$init(List);
+	$useLocalCurrentObjectStackCache();
 	$var($Supplier, var$0, static_cast<$Supplier*>($new(List$$Lambda$ListBuffer)));
 	$var($BiConsumer, var$1, static_cast<$BiConsumer*>($new(List$$Lambda$add$1)));
 	$var($BinaryOperator, var$2, static_cast<$BinaryOperator*>($new(List$$Lambda$lambda$collector$0$2)));

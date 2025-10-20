@@ -108,6 +108,7 @@ $Type* Infer$ImplicitArgType::visitClassType($Type$ClassType* t, $Void* aVoid) {
 }
 
 $Type* Infer$ImplicitArgType::visitType($Type* t$renamed, $Void* _unused) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, t, t$renamed);
 	$init($TypeTag);
 	if ($nc(t)->hasTag($TypeTag::DEFERRED)) {

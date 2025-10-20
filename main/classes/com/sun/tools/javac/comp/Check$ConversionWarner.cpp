@@ -107,6 +107,7 @@ void Check$ConversionWarner::init$($Check* this$0, $JCDiagnostic$DiagnosticPosit
 }
 
 void Check$ConversionWarner::warn($Lint$LintCategory* lint) {
+	$useLocalCurrentObjectStackCache();
 	bool warned = this->warned;
 	$Warner::warn(lint);
 	if (warned) {

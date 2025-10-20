@@ -101,6 +101,7 @@ void TypeEnter$PermitsPhase::init$($TypeEnter* this$0) {
 }
 
 void TypeEnter$PermitsPhase::runPhase($Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCClassDecl, tree, $nc(env)->enclClass);
 	bool var$0 = !$nc($nc(tree)->sym)->isAnonymous();
 	if (var$0 || $nc($nc(tree)->sym)->isEnum()) {

@@ -195,6 +195,7 @@ void JavadocFormatter$FormatJavadocScanner::init$($JavadocFormatter* this$0, $St
 }
 
 $Object* JavadocFormatter$FormatJavadocScanner::visitDocComment($DocCommentTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, tableColumns, $JavadocFormatter::countTableColumns(node));
 	this->reflownTo = $nc(this->result)->length();
 	scan($(static_cast<$Iterable*>($nc(node)->getFirstSentence())), p);
@@ -239,6 +240,7 @@ $Object* JavadocFormatter$FormatJavadocScanner::visitDocComment($DocCommentTree*
 }
 
 void JavadocFormatter$FormatJavadocScanner::startSection($JavadocFormatter$Sections* current) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(this->result)->charAt($nc(this->result)->length() - 1) != u'\n') {
 		$nc(this->result)->append("\n"_s);
 	}
@@ -248,6 +250,7 @@ void JavadocFormatter$FormatJavadocScanner::startSection($JavadocFormatter$Secti
 }
 
 $Object* JavadocFormatter$FormatJavadocScanner::visitText($TextTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, text, $nc(node)->getBody());
 	if (!this->pre) {
 		$assign(text, $($nc(text)->replaceAll("[ \t\r\n]+"_s, " "_s))->trim());
@@ -262,6 +265,7 @@ $Object* JavadocFormatter$FormatJavadocScanner::visitText($TextTree* node, Objec
 }
 
 $Object* JavadocFormatter$FormatJavadocScanner::visitLink($LinkTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	if (!$nc($($nc(node)->getLabel()))->isEmpty()) {
 		scan($(static_cast<$Iterable*>(node->getLabel())), p);
 	} else {
@@ -271,16 +275,19 @@ $Object* JavadocFormatter$FormatJavadocScanner::visitLink($LinkTree* node, Objec
 }
 
 $Object* JavadocFormatter$FormatJavadocScanner::visitParam($ParamTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($CharSequence, var$0, static_cast<$CharSequence*>($nc($($nc(node)->getName()))->getName()));
 	return $of(formatDef(var$0, $(node->getDescription())));
 }
 
 $Object* JavadocFormatter$FormatJavadocScanner::visitThrows($ThrowsTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($CharSequence, var$0, static_cast<$CharSequence*>($nc($($nc(node)->getExceptionName()))->getSignature()));
 	return $of(formatDef(var$0, $(node->getDescription())));
 }
 
 $Object* JavadocFormatter$FormatJavadocScanner::formatDef($CharSequence* name, $List* description) {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->result)->append(name);
 	$nc(this->result)->append(" - "_s);
 	this->reflownTo = $nc(this->result)->length();
@@ -320,6 +327,7 @@ $Object* JavadocFormatter$FormatJavadocScanner::visitLiteral($LiteralTree* node,
 }
 
 $Object* JavadocFormatter$FormatJavadocScanner::visitReturn($ReturnTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(node)->isInline() && p == nullptr) {
 		$var($String, MARKER, "{0}"_s);
 		$init($JavadocFormatter);
@@ -372,6 +380,7 @@ $Object* JavadocFormatter$FormatJavadocScanner::visitReturn($ReturnTree* node, O
 }
 
 $Object* JavadocFormatter$FormatJavadocScanner::visitStartElement($StartElementTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 		$init($JavadocFormatter$3);
 	{
 		int32_t columns = 0;
@@ -562,6 +571,7 @@ $Object* JavadocFormatter$FormatJavadocScanner::visitEndElement($EndElementTree*
 }
 
 void JavadocFormatter$FormatJavadocScanner::handleEndElement($Name* name) {
+	$useLocalCurrentObjectStackCache();
 		$init($JavadocFormatter$3);
 	{
 		$var($List, cells, nullptr)
@@ -699,12 +709,14 @@ void JavadocFormatter$FormatJavadocScanner::handleEndElement($Name* name) {
 }
 
 $Object* JavadocFormatter$FormatJavadocScanner::visitEntity($EntityTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, value, $nc(this->trees)->getCharacters(node));
 	$nc(this->result)->append(value == nullptr ? $($nc($of(node))->toString()) : value);
 	return $of($DocTreeScanner::visitEntity(node, p));
 }
 
 $Object* JavadocFormatter$FormatJavadocScanner::scan($DocTree* node, Object$* p) {
+	$useLocalCurrentObjectStackCache();
 	if ($instanceOf($InlineTagTree, node)) {
 		$JavadocFormatter::addSpaceIfNeeded(this->result);
 	}

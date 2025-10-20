@@ -153,6 +153,7 @@ ClassFile$Version* ClassFile$Version::MAX() {
 }
 
 void clinit$ClassFile$Version($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(ClassFile$Version::V45_3, $new(ClassFile$Version, "V45_3"_s, 0, 45, 3));
 	$assignStatic(ClassFile$Version::V49, $new(ClassFile$Version, "V49"_s, 1, 49, 0));
 	$assignStatic(ClassFile$Version::V50, $new(ClassFile$Version, "V50"_s, 2, 50, 0));

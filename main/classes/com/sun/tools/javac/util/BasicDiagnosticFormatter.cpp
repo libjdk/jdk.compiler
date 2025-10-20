@@ -138,6 +138,7 @@ void BasicDiagnosticFormatter::init$($JavacMessages* msgs) {
 }
 
 $String* BasicDiagnosticFormatter::formatDiagnostic($JCDiagnostic* d, $Locale* l$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($Locale, l, l$renamed);
 	if (l == nullptr) {
 		$assign(l, $nc(this->messages)->getCurrentLocale());
@@ -161,6 +162,7 @@ $String* BasicDiagnosticFormatter::formatDiagnostic($JCDiagnostic* d, $Locale* l
 }
 
 $String* BasicDiagnosticFormatter::formatMessage($JCDiagnostic* d, $Locale* l) {
+	$useLocalCurrentObjectStackCache();
 	int32_t currentIndentation = 0;
 	$var($StringBuilder, buf, $new($StringBuilder));
 	$var($Collection, args, formatArguments(d, l));
@@ -199,6 +201,7 @@ $String* BasicDiagnosticFormatter::formatMessage($JCDiagnostic* d, $Locale* l) {
 }
 
 $String* BasicDiagnosticFormatter::addSourceLineIfNeeded($JCDiagnostic* d, $String* msg) {
+	$useLocalCurrentObjectStackCache();
 	if (!displaySource(d)) {
 		return msg;
 	} else {
@@ -307,6 +310,7 @@ $String* BasicDiagnosticFormatter::formatMeta(char16_t c, $JCDiagnostic* d, $Loc
 }
 
 $String* BasicDiagnosticFormatter::selectFormat($JCDiagnostic* d) {
+	$useLocalCurrentObjectStackCache();
 	$var($DiagnosticSource, source, $nc(d)->getDiagnosticSource());
 	$init($BasicDiagnosticFormatter$BasicConfiguration$BasicFormatKind);
 	$var($String, format, $nc($($cast($BasicDiagnosticFormatter$BasicConfiguration, getConfiguration())))->getFormat($BasicDiagnosticFormatter$BasicConfiguration$BasicFormatKind::DEFAULT_NO_POS_FORMAT));

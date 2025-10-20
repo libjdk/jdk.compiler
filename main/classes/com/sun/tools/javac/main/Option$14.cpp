@@ -188,6 +188,7 @@ void Option$14::init$($String* $enum$name, int32_t $enum$ordinal, $String* text,
 }
 
 void Option$14::help($Log* log) {
+	$useLocalCurrentObjectStackCache();
 	$beforeCallerSensitive();
 	$load($PlatformProvider);
 	$load($Arguments);
@@ -212,6 +213,7 @@ void Option$14::help($Log* log) {
 
 $Stream* Option$14::lambda$help$0($PlatformProvider* provider) {
 	$init(Option$14);
+	$useLocalCurrentObjectStackCache();
 	return $StreamSupport::stream($($nc($($nc(provider)->getSupportedPlatformNames()))->spliterator()), false);
 }
 

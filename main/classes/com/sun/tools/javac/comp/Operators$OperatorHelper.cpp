@@ -216,10 +216,12 @@ void Operators$OperatorHelper::init$($Operators* this$0, $JCTree$Tag* tag) {
 }
 
 $Symbol$OperatorSymbol* Operators$OperatorHelper::doLookup($Predicate* applicabilityTest) {
+	$useLocalCurrentObjectStackCache();
 	return $cast($Symbol$OperatorSymbol, $nc($($nc($($nc($($Stream::of($cast($Symbol$OperatorSymbolArray, $($nc(this->alternatives)->orElseGet(static_cast<$Supplier*>($$new(Operators$OperatorHelper$$Lambda$initOperators, this))))))))->filter(applicabilityTest)))->findFirst()))->orElse(this->this$0->noOpSymbol));
 }
 
 $Symbol$OperatorSymbolArray* Operators$OperatorHelper::initOperators() {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$OperatorSymbolArray, operators, $fcast($Symbol$OperatorSymbolArray, $nc($($nc($($nc(this->operatorSuppliers)->stream()))->map(static_cast<$Function*>($$new(Operators$OperatorHelper$$Lambda$get$1)))))->toArray(static_cast<$IntFunction*>($$new(Operators$OperatorHelper$$Lambda$lambda$initOperators$0$2)))));
 	$set(this, alternatives, $Optional::of(operators));
 	$set(this, operatorSuppliers, nullptr);

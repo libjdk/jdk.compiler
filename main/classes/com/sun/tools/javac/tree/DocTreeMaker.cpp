@@ -380,12 +380,14 @@ DocTreeMaker* DocTreeMaker::at($JCDiagnostic$DiagnosticPosition* pos) {
 }
 
 $AttributeTree* DocTreeMaker::newAttributeTree($1Name* name, $AttributeTree$ValueKind* vkind, $1List* value) {
+	$useLocalCurrentObjectStackCache();
 	$var($DCTree$DCAttribute, tree, $new($DCTree$DCAttribute, name, vkind, $(cast(value))));
 	tree->pos$ = this->pos;
 	return tree;
 }
 
 $AuthorTree* DocTreeMaker::newAuthorTree($1List* name) {
+	$useLocalCurrentObjectStackCache();
 	$var($DCTree$DCAuthor, tree, $new($DCTree$DCAuthor, $(cast(name))));
 	tree->pos$ = this->pos;
 	return tree;
@@ -405,12 +407,14 @@ $CommentTree* DocTreeMaker::newCommentTree($String* text) {
 }
 
 $DeprecatedTree* DocTreeMaker::newDeprecatedTree($1List* text) {
+	$useLocalCurrentObjectStackCache();
 	$var($DCTree$DCDeprecated, tree, $new($DCTree$DCDeprecated, $(cast(text))));
 	tree->pos$ = this->pos;
 	return tree;
 }
 
 $DocCommentTree* DocTreeMaker::newDocCommentTree($1List* fullBody, $1List* tags) {
+	$useLocalCurrentObjectStackCache();
 	$var($1List, var$0, fullBody);
 	$var($1List, var$1, tags);
 	$var($1List, var$2, $Collections::emptyList());
@@ -418,6 +422,7 @@ $DocCommentTree* DocTreeMaker::newDocCommentTree($1List* fullBody, $1List* tags)
 }
 
 $DCTree$DCDocComment* DocTreeMaker::newDocCommentTree($Tokens$Comment* comment, $1List* fullBody, $1List* tags, $1List* preamble, $1List* postamble) {
+	$useLocalCurrentObjectStackCache();
 	$var($Pair, pair, splitBody(fullBody));
 	$var($Tokens$Comment, var$0, comment);
 	$var($1List, var$1, cast(fullBody));
@@ -431,6 +436,7 @@ $DCTree$DCDocComment* DocTreeMaker::newDocCommentTree($Tokens$Comment* comment, 
 }
 
 $DocCommentTree* DocTreeMaker::newDocCommentTree($1List* fullBody, $1List* tags, $1List* preamble, $1List* postamble) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, lb, $new($ListBuffer));
 	lb->addAll($(cast(fullBody)));
 	$var($1List, fBody, lb->toList());
@@ -483,6 +489,7 @@ $DCTree$DCErroneous* DocTreeMaker::newErroneousTree($String* text, $DiagnosticSo
 }
 
 $ThrowsTree* DocTreeMaker::newExceptionTree($ReferenceTree* name, $1List* description) {
+	$useLocalCurrentObjectStackCache();
 	$init($DocTree$Kind);
 	$var($DCTree$DCThrows, tree, $new($DCTree$DCThrows, $DocTree$Kind::EXCEPTION, $cast($DCTree$DCReference, name), $(cast(description))));
 	tree->pos$ = this->pos;
@@ -490,6 +497,7 @@ $ThrowsTree* DocTreeMaker::newExceptionTree($ReferenceTree* name, $1List* descri
 }
 
 $HiddenTree* DocTreeMaker::newHiddenTree($1List* text) {
+	$useLocalCurrentObjectStackCache();
 	$var($DCTree$DCHidden, tree, $new($DCTree$DCHidden, $(cast(text))));
 	tree->pos$ = this->pos;
 	return tree;
@@ -502,6 +510,7 @@ $IdentifierTree* DocTreeMaker::newIdentifierTree($1Name* name) {
 }
 
 $IndexTree* DocTreeMaker::newIndexTree($DocTree* term, $1List* description) {
+	$useLocalCurrentObjectStackCache();
 	$var($DCTree$DCIndex, tree, $new($DCTree$DCIndex, $cast($DCTree, term), $(cast(description))));
 	tree->pos$ = this->pos;
 	return tree;
@@ -514,6 +523,7 @@ $InheritDocTree* DocTreeMaker::newInheritDocTree() {
 }
 
 $LinkTree* DocTreeMaker::newLinkTree($ReferenceTree* ref, $1List* label) {
+	$useLocalCurrentObjectStackCache();
 	$init($DocTree$Kind);
 	$var($DCTree$DCLink, tree, $new($DCTree$DCLink, $DocTree$Kind::LINK, $cast($DCTree$DCReference, ref), $(cast(label))));
 	tree->pos$ = this->pos;
@@ -521,6 +531,7 @@ $LinkTree* DocTreeMaker::newLinkTree($ReferenceTree* ref, $1List* label) {
 }
 
 $LinkTree* DocTreeMaker::newLinkPlainTree($ReferenceTree* ref, $1List* label) {
+	$useLocalCurrentObjectStackCache();
 	$init($DocTree$Kind);
 	$var($DCTree$DCLink, tree, $new($DCTree$DCLink, $DocTree$Kind::LINK_PLAIN, $cast($DCTree$DCReference, ref), $(cast(label))));
 	tree->pos$ = this->pos;
@@ -535,18 +546,21 @@ $LiteralTree* DocTreeMaker::newLiteralTree($TextTree* text) {
 }
 
 $ParamTree* DocTreeMaker::newParamTree(bool isTypeParameter, $IdentifierTree* name, $1List* description) {
+	$useLocalCurrentObjectStackCache();
 	$var($DCTree$DCParam, tree, $new($DCTree$DCParam, isTypeParameter, $cast($DCTree$DCIdentifier, name), $(cast(description))));
 	tree->pos$ = this->pos;
 	return tree;
 }
 
 $ProvidesTree* DocTreeMaker::newProvidesTree($ReferenceTree* name, $1List* description) {
+	$useLocalCurrentObjectStackCache();
 	$var($DCTree$DCProvides, tree, $new($DCTree$DCProvides, $cast($DCTree$DCReference, name), $(cast(description))));
 	tree->pos$ = this->pos;
 	return tree;
 }
 
 $ReferenceTree* DocTreeMaker::newReferenceTree($String* signature) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var($ReferenceParser$Reference, ref, $nc(this->referenceParser)->parse(signature));
 		$var($DCTree$DCReference, tree, $new($DCTree$DCReference, signature, $nc(ref)->moduleName, ref->qualExpr, ref->member, ref->paramTypes));
@@ -570,48 +584,56 @@ $ReturnTree* DocTreeMaker::newReturnTree($1List* description) {
 }
 
 $ReturnTree* DocTreeMaker::newReturnTree(bool isInline, $1List* description) {
+	$useLocalCurrentObjectStackCache();
 	$var($DCTree$DCReturn, tree, $new($DCTree$DCReturn, isInline, $(cast(description))));
 	tree->pos$ = this->pos;
 	return tree;
 }
 
 $SeeTree* DocTreeMaker::newSeeTree($1List* reference) {
+	$useLocalCurrentObjectStackCache();
 	$var($DCTree$DCSee, tree, $new($DCTree$DCSee, $(cast(reference))));
 	tree->pos$ = this->pos;
 	return tree;
 }
 
 $SerialTree* DocTreeMaker::newSerialTree($1List* description) {
+	$useLocalCurrentObjectStackCache();
 	$var($DCTree$DCSerial, tree, $new($DCTree$DCSerial, $(cast(description))));
 	tree->pos$ = this->pos;
 	return tree;
 }
 
 $SerialDataTree* DocTreeMaker::newSerialDataTree($1List* description) {
+	$useLocalCurrentObjectStackCache();
 	$var($DCTree$DCSerialData, tree, $new($DCTree$DCSerialData, $(cast(description))));
 	tree->pos$ = this->pos;
 	return tree;
 }
 
 $SerialFieldTree* DocTreeMaker::newSerialFieldTree($IdentifierTree* name, $ReferenceTree* type, $1List* description) {
+	$useLocalCurrentObjectStackCache();
 	$var($DCTree$DCSerialField, tree, $new($DCTree$DCSerialField, $cast($DCTree$DCIdentifier, name), $cast($DCTree$DCReference, type), $(cast(description))));
 	tree->pos$ = this->pos;
 	return tree;
 }
 
 $SinceTree* DocTreeMaker::newSinceTree($1List* text) {
+	$useLocalCurrentObjectStackCache();
 	$var($DCTree$DCSince, tree, $new($DCTree$DCSince, $(cast(text))));
 	tree->pos$ = this->pos;
 	return tree;
 }
 
 $StartElementTree* DocTreeMaker::newStartElementTree($1Name* name, $1List* attrs, bool selfClosing) {
+	$useLocalCurrentObjectStackCache();
 	$var($DCTree$DCStartElement, tree, $new($DCTree$DCStartElement, name, $(cast(attrs)), selfClosing));
 	tree->pos$ = this->pos;
 	return tree;
 }
 
 $SummaryTree* DocTreeMaker::newSummaryTree($1List* text) {
+	$useLocalCurrentObjectStackCache();
 	$var($DCTree$DCSummary, tree, $new($DCTree$DCSummary, $(cast(text))));
 	tree->pos$ = this->pos;
 	return tree;
@@ -630,6 +652,7 @@ $TextTree* DocTreeMaker::newTextTree($String* text) {
 }
 
 $ThrowsTree* DocTreeMaker::newThrowsTree($ReferenceTree* name, $1List* description) {
+	$useLocalCurrentObjectStackCache();
 	$init($DocTree$Kind);
 	$var($DCTree$DCThrows, tree, $new($DCTree$DCThrows, $DocTree$Kind::THROWS, $cast($DCTree$DCReference, name), $(cast(description))));
 	tree->pos$ = this->pos;
@@ -637,18 +660,21 @@ $ThrowsTree* DocTreeMaker::newThrowsTree($ReferenceTree* name, $1List* descripti
 }
 
 $UnknownBlockTagTree* DocTreeMaker::newUnknownBlockTagTree($1Name* name, $1List* content) {
+	$useLocalCurrentObjectStackCache();
 	$var($DCTree$DCUnknownBlockTag, tree, $new($DCTree$DCUnknownBlockTag, name, $(cast(content))));
 	tree->pos$ = this->pos;
 	return tree;
 }
 
 $UnknownInlineTagTree* DocTreeMaker::newUnknownInlineTagTree($1Name* name, $1List* content) {
+	$useLocalCurrentObjectStackCache();
 	$var($DCTree$DCUnknownInlineTag, tree, $new($DCTree$DCUnknownInlineTag, name, $(cast(content))));
 	tree->pos$ = this->pos;
 	return tree;
 }
 
 $UsesTree* DocTreeMaker::newUsesTree($ReferenceTree* name, $1List* description) {
+	$useLocalCurrentObjectStackCache();
 	$var($DCTree$DCUses, tree, $new($DCTree$DCUses, $cast($DCTree$DCReference, name), $(cast(description))));
 	tree->pos$ = this->pos;
 	return tree;
@@ -661,6 +687,7 @@ $ValueTree* DocTreeMaker::newValueTree($ReferenceTree* ref) {
 }
 
 $VersionTree* DocTreeMaker::newVersionTree($1List* text) {
+	$useLocalCurrentObjectStackCache();
 	$var($DCTree$DCVersion, tree, $new($DCTree$DCVersion, $(cast(text))));
 	tree->pos$ = this->pos;
 	return tree;
@@ -672,6 +699,7 @@ $1List* DocTreeMaker::getFirstSentence($1List* list) {
 }
 
 $Pair* DocTreeMaker::splitBody($Collection* list) {
+	$useLocalCurrentObjectStackCache();
 	int32_t savedpos = this->pos;
 	{
 		$var($Throwable, var$0, nullptr);
@@ -815,6 +843,7 @@ int32_t DocTreeMaker::defaultSentenceBreak($String* s) {
 }
 
 int32_t DocTreeMaker::getSentenceBreak($String* s, $DocTree* dt) {
+	$useLocalCurrentObjectStackCache();
 	$var($BreakIterator, breakIterator, $nc(this->trees)->getBreakIterator());
 	if (breakIterator == nullptr) {
 		return defaultSentenceBreak(s);
@@ -849,10 +878,12 @@ int32_t DocTreeMaker::getSentenceBreak($String* s, $DocTree* dt) {
 }
 
 bool DocTreeMaker::isSentenceBreak($1Name* tagName) {
+	$useLocalCurrentObjectStackCache();
 	return $nc(this->sentenceBreakTags)->contains($($StringUtils::toUpperCase($($nc($of(tagName))->toString()))));
 }
 
 bool DocTreeMaker::isSentenceBreak($DocTree* dt, bool isFirstDocTree) {
+	$useLocalCurrentObjectStackCache();
 		$init($DocTreeMaker$2);
 	{
 		$var($StartElementTree, set, nullptr)

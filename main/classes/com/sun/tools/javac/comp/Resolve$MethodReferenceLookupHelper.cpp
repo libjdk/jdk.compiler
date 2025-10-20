@@ -117,6 +117,7 @@ void Resolve$MethodReferenceLookupHelper::init$($Resolve* this$0, $JCTree$JCMemb
 }
 
 $Symbol* Resolve$MethodReferenceLookupHelper::lookup($Env* env, $Resolve$MethodResolutionPhase* phase) {
+	$useLocalCurrentObjectStackCache();
 	$var($Env, var$0, env);
 	$var($Type, var$1, this->site);
 	$var($Name, var$2, this->name);
@@ -145,6 +146,7 @@ $Resolve$ReferenceLookupHelper* Resolve$MethodReferenceLookupHelper::unboundLook
 }
 
 $JCTree$JCMemberReference$ReferenceKind* Resolve$MethodReferenceLookupHelper::referenceKind($Symbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(sym)->isStatic()) {
 		$init($JCTree$JCMemberReference$ReferenceKind);
 		return $JCTree$JCMemberReference$ReferenceKind::STATIC;

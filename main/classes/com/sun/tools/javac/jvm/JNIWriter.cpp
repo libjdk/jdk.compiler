@@ -289,6 +289,7 @@ bool JNIWriter::needsHeader($Symbol$ClassSymbol* c) {
 }
 
 bool JNIWriter::needsHeader($Symbol$ClassSymbol* c, bool checkNestedClasses) {
+	$useLocalCurrentObjectStackCache();
 	bool var$0 = $nc(c)->isDirectlyOrIndirectlyLocal();
 	if (var$0 || isSynthetic(c)) {
 		return false;
@@ -336,6 +337,7 @@ bool JNIWriter::needsHeader($Symbol$ClassSymbol* c, bool checkNestedClasses) {
 }
 
 $FileObject* JNIWriter::write($Symbol$ClassSymbol* c) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, className, $nc($($nc(c)->flatName()))->toString());
 	$var($JavaFileManager$Location, outLocn, nullptr);
 	if (this->multiModuleMode) {
@@ -375,6 +377,7 @@ $FileObject* JNIWriter::write($Symbol$ClassSymbol* c) {
 }
 
 void JNIWriter::write($PrintWriter* out, $Symbol$ClassSymbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	lazyInit();
 	try {
 		$init($JNIWriter$EncoderType);
@@ -394,6 +397,7 @@ void JNIWriter::write($PrintWriter* out, $Symbol$ClassSymbol* sym) {
 }
 
 void JNIWriter::writeStatics($PrintWriter* out, $Symbol$ClassSymbol* sym) {
+	$useLocalCurrentObjectStackCache();
 	$var($1List, clist, $new($ArrayList));
 	{
 		$var($Symbol$ClassSymbol, cd, sym);
@@ -431,6 +435,7 @@ void JNIWriter::writeStatics($PrintWriter* out, $Symbol$ClassSymbol* sym) {
 
 void JNIWriter::printStaticDefines($PrintWriter* out, $Pair* p) {
 	$init(JNIWriter);
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol$ClassSymbol, cls, $cast($Symbol$ClassSymbol, $nc(p)->fst));
 	$var($Symbol$VarSymbol, f, $cast($Symbol$VarSymbol, p->snd));
 	$var($Object, value, $nc(f)->getConstantValue());
@@ -496,6 +501,7 @@ void JNIWriter::printStaticDefines($PrintWriter* out, $Pair* p) {
 }
 
 void JNIWriter::writeMethods($PrintWriter* out, $Symbol$ClassSymbol* sym, $String* cname) {
+	$useLocalCurrentObjectStackCache();
 	$var($1List, classmethods, $nc(sym)->getEnclosedElements());
 	{
 		$var($Iterator, i$, $nc(classmethods)->iterator());
@@ -547,6 +553,7 @@ void JNIWriter::writeMethods($PrintWriter* out, $Symbol$ClassSymbol* sym, $Strin
 }
 
 $String* JNIWriter::jniType($Type* t) {
+	$useLocalCurrentObjectStackCache();
 	$init($JNIWriter$1);
 	switch ($nc($JNIWriter$1::$SwitchMap$javax$lang$model$type$TypeKind)->get($nc(($($nc(t)->getKind())))->ordinal())) {
 	case 9:
@@ -675,6 +682,7 @@ void JNIWriter::cppGuardEnd($PrintWriter* out) {
 }
 
 void JNIWriter::guardBegin($PrintWriter* out, $String* cname) {
+	$useLocalCurrentObjectStackCache();
 	$nc(out)->println($$str({"/* Header for class "_s, cname, " */"_s}));
 	out->println();
 	out->println($$str({"#ifndef _Included_"_s, cname}));
@@ -686,6 +694,7 @@ void JNIWriter::guardEnd($PrintWriter* out) {
 }
 
 $String* JNIWriter::encodeMethod($Symbol* msym, $Symbol$ClassSymbol* clazz, bool isOverloaded) {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, result, $new($StringBuilder, 100));
 	result->append("Java_"_s);
 	$init($JNIWriter$EncoderType);
@@ -702,6 +711,7 @@ $String* JNIWriter::encodeMethod($Symbol* msym, $Symbol$ClassSymbol* clazz, bool
 
 $String* JNIWriter::encode($CharSequence* name, $JNIWriter$EncoderType* mtype) {
 	$init(JNIWriter);
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, result, $new($StringBuilder, 100));
 	int32_t length = $nc(name)->length();
 	for (int32_t i = 0; i < length; ++i) {
@@ -787,6 +797,7 @@ $String* JNIWriter::encode($CharSequence* name, $JNIWriter$EncoderType* mtype) {
 
 $String* JNIWriter::encodeChar(char16_t ch) {
 	$init(JNIWriter);
+	$useLocalCurrentObjectStackCache();
 	$var($String, s, $Integer::toHexString(ch));
 	int32_t nzeros = 5 - $nc(s)->length();
 	$var($chars, result, $new($chars, 6));

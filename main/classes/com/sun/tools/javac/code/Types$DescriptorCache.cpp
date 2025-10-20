@@ -320,6 +320,7 @@ void Types$DescriptorCache::init$($Types* this$0) {
 }
 
 $Types$DescriptorCache$FunctionDescriptor* Types$DescriptorCache::get($Symbol$TypeSymbol* origin) {
+	$useLocalCurrentObjectStackCache();
 	$var($Types$DescriptorCache$Entry, e, $cast($Types$DescriptorCache$Entry, $nc(this->_map)->get(origin)));
 	$var($Scope$CompoundScope, members, this->this$0->membersClosure($nc(origin)->type, false));
 	if (e == nullptr || !$nc(e)->matches($nc(members)->getMark())) {
@@ -332,6 +333,7 @@ $Types$DescriptorCache$FunctionDescriptor* Types$DescriptorCache::get($Symbol$Ty
 }
 
 $Types$DescriptorCache$FunctionDescriptor* Types$DescriptorCache::findDescriptorInternal($Symbol$TypeSymbol* origin, $Scope$CompoundScope* membersCache) {
+	$useLocalCurrentObjectStackCache();
 	bool var$1 = !$nc(origin)->isInterface();
 	bool var$0 = var$1 || ((int64_t)($nc(origin)->flags() & (uint64_t)(int64_t)8192)) != 0;
 	if (var$0 || $nc(origin)->isSealed()) {
@@ -397,6 +399,7 @@ $Types$DescriptorCache$FunctionDescriptor* Types$DescriptorCache::findDescriptor
 }
 
 $Types$DescriptorCache$FunctionDescriptor* Types$DescriptorCache::mergeDescriptors($Symbol$TypeSymbol* origin, $List* methodSyms) {
+	$useLocalCurrentObjectStackCache();
 	return $cast($Types$DescriptorCache$FunctionDescriptor, $nc($($nc($(this->this$0->mergeAbstracts(methodSyms, $nc(origin)->type, false)))->map(static_cast<$Function*>($$new(Types$DescriptorCache$$Lambda$lambda$mergeDescriptors$3$3, this)))))->orElse(nullptr));
 }
 

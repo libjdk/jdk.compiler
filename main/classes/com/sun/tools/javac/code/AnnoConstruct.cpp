@@ -91,6 +91,7 @@ void AnnoConstruct::init$() {
 }
 
 $Attribute$Compound* AnnoConstruct::getAttribute($Class* annoType) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, name, $nc(annoType)->getName());
 	{
 		$var($Iterator, i$, $nc($($cast($List, getAnnotationMirrors())))->iterator());
@@ -111,6 +112,7 @@ $AnnotationArray* AnnoConstruct::getInheritedAnnotations($Class* annoType) {
 }
 
 $AnnotationArray* AnnoConstruct::getAnnotationsByType($Class* annoType) {
+	$useLocalCurrentObjectStackCache();
 	if (!$nc(annoType)->isAnnotation()) {
 		$throwNew($IllegalArgumentException, $$str({"Not an annotation type: "_s, annoType}));
 	}
@@ -181,6 +183,7 @@ $AnnotationArray* AnnoConstruct::getAnnotationsByType($Class* annoType) {
 }
 
 $Attribute$CompoundArray* AnnoConstruct::unpackContained($Attribute$Compound* container) {
+	$useLocalCurrentObjectStackCache();
 	$var($AttributeArray, contained0, nullptr);
 	if (container != nullptr) {
 		$assign(contained0, unpackAttributes(container));
@@ -211,6 +214,7 @@ $Attribute$CompoundArray* AnnoConstruct::unpackContained($Attribute$Compound* co
 }
 
 $Annotation* AnnoConstruct::getAnnotation($Class* annoType) {
+	$useLocalCurrentObjectStackCache();
 	if (!$nc(annoType)->isAnnotation()) {
 		$throwNew($IllegalArgumentException, $$str({"Not an annotation type: "_s, annoType}));
 	}

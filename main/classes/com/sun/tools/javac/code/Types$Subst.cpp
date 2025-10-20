@@ -100,6 +100,7 @@ $Object* allocate$Types$Subst($Class* clazz) {
 }
 
 void Types$Subst::init$($Types* this$0, $List* from$renamed, $List* to$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, from, from$renamed);
 	$var($List, to, to$renamed);
 	$set(this, this$0, this$0);
@@ -119,6 +120,7 @@ void Types$Subst::init$($Types* this$0, $List* from$renamed, $List* to$renamed) 
 }
 
 $Type* Types$Subst::visitTypeVar($Type$TypeVar* t, $Void* ignored) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($List, from, this->from);
 		$var($List, to, this->to);
@@ -132,6 +134,7 @@ $Type* Types$Subst::visitTypeVar($Type$TypeVar* t, $Void* ignored) {
 }
 
 $Type* Types$Subst::visitClassType($Type$ClassType* t, $Void* ignored) {
+	$useLocalCurrentObjectStackCache();
 	if (!$nc(t)->isCompound()) {
 		return $cast($Type, $Type$StructuralTypeMapping::visitClassType(t, ignored));
 	} else {
@@ -156,6 +159,7 @@ $Type* Types$Subst::visitWildcardType($Type$WildcardType* t, $Void* ignored) {
 }
 
 $Type* Types$Subst::visitForAll($Type$ForAll* t$renamed, $Void* ignored) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type$ForAll, t, t$renamed);
 	if ($Type::containsAny(this->to, $nc(t)->tvars)) {
 		$var($List, freevars, this->this$0->newInstances($nc(t)->tvars));

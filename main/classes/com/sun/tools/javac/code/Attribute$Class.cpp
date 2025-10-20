@@ -95,6 +95,7 @@ void Attribute$Class::init$($Types* types, $Type* type) {
 
 $Type* Attribute$Class::makeClassType($Types* types, $Type* type) {
 	$init(Attribute$Class);
+	$useLocalCurrentObjectStackCache();
 	$var($Type, arg, $nc(type)->isPrimitive() ? $nc($($nc(types)->boxedClass(type)))->type : types->erasure(type));
 	$var($Type, var$0, $nc($nc(types->syms)->classType)->getEnclosingType());
 	return $new($Type$ClassType, var$0, $($List::of(arg)), $nc($nc(types->syms)->classType)->tsym);

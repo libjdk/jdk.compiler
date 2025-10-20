@@ -127,6 +127,7 @@ $ints* Attr$13::$SwitchMap$com$sun$tools$javac$code$Kinds$Kind = nullptr;
 $ints* Attr$13::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag = nullptr;
 
 void clinit$Attr$13($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(Attr$13::$SwitchMap$com$sun$tools$javac$code$TypeTag, $new($ints, $($TypeTag::values())->length));
 	{
 		try {

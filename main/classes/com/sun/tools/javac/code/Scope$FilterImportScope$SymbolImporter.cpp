@@ -91,6 +91,7 @@ void Scope$FilterImportScope$SymbolImporter::init$($Scope$FilterImportScope* thi
 }
 
 $List* Scope$FilterImportScope$SymbolImporter::importFrom($Symbol$TypeSymbol* tsym, $List* results$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, results, results$renamed);
 	if (tsym == nullptr || !$nc(this->processed)->add(tsym)) {
 		return results;

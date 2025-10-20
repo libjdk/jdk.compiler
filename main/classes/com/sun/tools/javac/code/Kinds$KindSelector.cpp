@@ -131,6 +131,7 @@ void Kinds$KindSelector::init$(int32_t data) {
 
 Kinds$KindSelector* Kinds$KindSelector::of($Kinds$KindSelectorArray* kindSelectors) {
 	$init(Kinds$KindSelector);
+	$useLocalCurrentObjectStackCache();
 	int8_t newData = (int8_t)0;
 	{
 		$var($Kinds$KindSelectorArray, arr$, kindSelectors);
@@ -186,6 +187,7 @@ $Set* Kinds$KindSelector::kindNames() {
 }
 
 void clinit$Kinds$KindSelector($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(Kinds$KindSelector::NIL, $new(Kinds$KindSelector, 0));
 	$assignStatic(Kinds$KindSelector::PCK, $new(Kinds$KindSelector, 1));
 	$assignStatic(Kinds$KindSelector::TYP, $new(Kinds$KindSelector, 2));

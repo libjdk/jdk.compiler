@@ -257,6 +257,7 @@ $Iterable* Scope$NamedImportScope::getSymbolsByName($Name* name, $Predicate* sf,
 }
 
 void Scope$NamedImportScope::finalizeScope() {
+	$useLocalCurrentObjectStackCache();
 	$Scope$ImportScope::finalizeScope();
 	{
 		$var($Iterator, i$, $nc($($nc(this->name2Scopes)->values()))->iterator());
@@ -273,6 +274,7 @@ void Scope$NamedImportScope::finalizeScope() {
 
 $Iterator* Scope$NamedImportScope::lambda$getSymbolsByName$1($ScopeArray* scopes, $Name* name, $Predicate* sf, $Scope$LookupKind* lookupKind) {
 	$init(Scope$NamedImportScope);
+	$useLocalCurrentObjectStackCache();
 	$var($Iterable, var$0, static_cast<$Iterable*>($Arrays::asList(scopes)));
 	return $Iterators::createCompoundIterator(var$0, static_cast<$Function*>($$new(Scope$NamedImportScope$$Lambda$lambda$getSymbolsByName$0$1, name, sf, lookupKind)));
 }

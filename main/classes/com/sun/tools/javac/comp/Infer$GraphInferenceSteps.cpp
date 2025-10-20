@@ -111,6 +111,7 @@ void Infer$GraphInferenceSteps::init$($String* $enum$name, int32_t $enum$ordinal
 }
 
 void clinit$Infer$GraphInferenceSteps($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$init($Infer$InferenceStep);
 	$assignStatic(Infer$GraphInferenceSteps::EQ, $new(Infer$GraphInferenceSteps, "EQ"_s, 0, $($EnumSet::of($Infer$InferenceStep::EQ))));
 	$assignStatic(Infer$GraphInferenceSteps::EQ_LOWER, $new(Infer$GraphInferenceSteps, "EQ_LOWER"_s, 1, $($EnumSet::of(static_cast<$Enum*>($Infer$InferenceStep::EQ), static_cast<$Enum*>($Infer$InferenceStep::LOWER)))));

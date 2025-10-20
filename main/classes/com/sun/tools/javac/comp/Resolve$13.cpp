@@ -96,6 +96,7 @@ void Resolve$13::init$($Resolve* this$0, $Name* name, $Type* site, $List* argtyp
 }
 
 $Symbol* Resolve$13::doLookup($Env* env, $Resolve$MethodResolutionPhase* phase) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCDiagnostic$DiagnosticPosition, var$0, this->val$pos);
 	$var($Env, var$1, env);
 	$var($Type, var$2, this->site);

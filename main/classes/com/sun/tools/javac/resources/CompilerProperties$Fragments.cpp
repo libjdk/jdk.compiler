@@ -765,6 +765,7 @@ $JCDiagnostic$Fragment* CompilerProperties$Fragments::AnonymousClass($Name* arg0
 
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::ApplicableMethodFound(int32_t arg0, $Symbol* arg1, $Void* arg2) {
 	$init(CompilerProperties$Fragments);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Fragment, "compiler"_s, "applicable.method.found"_s, $$new($ObjectArray, {
 		$($of($Integer::valueOf(arg0))),
 		$of(arg1),
@@ -774,6 +775,7 @@ $JCDiagnostic$Fragment* CompilerProperties$Fragments::ApplicableMethodFound(int3
 
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::ApplicableMethodFound1(int32_t arg0, $Symbol* arg1, $JCDiagnostic* arg2) {
 	$init(CompilerProperties$Fragments);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Fragment, "compiler"_s, "applicable.method.found.1"_s, $$new($ObjectArray, {
 		$($of($Integer::valueOf(arg0))),
 		$of(arg1),
@@ -783,6 +785,7 @@ $JCDiagnostic$Fragment* CompilerProperties$Fragments::ApplicableMethodFound1(int
 
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::ApplicableMethodFound1(int32_t arg0, $Symbol* arg1, $JCDiagnostic$Fragment* arg2) {
 	$init(CompilerProperties$Fragments);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Fragment, "compiler"_s, "applicable.method.found.1"_s, $$new($ObjectArray, {
 		$($of($Integer::valueOf(arg0))),
 		$of(arg1),
@@ -792,6 +795,7 @@ $JCDiagnostic$Fragment* CompilerProperties$Fragments::ApplicableMethodFound1(int
 
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::ApplicableMethodFound2(int32_t arg0, $JCDiagnostic$Fragment* arg1, $Symbol* arg2) {
 	$init(CompilerProperties$Fragments);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Fragment, "compiler"_s, "applicable.method.found.2"_s, $$new($ObjectArray, {
 		$($of($Integer::valueOf(arg0))),
 		$of(arg1),
@@ -801,6 +805,7 @@ $JCDiagnostic$Fragment* CompilerProperties$Fragments::ApplicableMethodFound2(int
 
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::ApplicableMethodFound3(int32_t arg0, $JCDiagnostic$Fragment* arg1, $Symbol* arg2, $JCDiagnostic* arg3) {
 	$init(CompilerProperties$Fragments);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Fragment, "compiler"_s, "applicable.method.found.3"_s, $$new($ObjectArray, {
 		$($of($Integer::valueOf(arg0))),
 		$of(arg1),
@@ -811,6 +816,7 @@ $JCDiagnostic$Fragment* CompilerProperties$Fragments::ApplicableMethodFound3(int
 
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::ApplicableMethodFound3(int32_t arg0, $JCDiagnostic$Fragment* arg1, $Symbol* arg2, $JCDiagnostic$Fragment* arg3) {
 	$init(CompilerProperties$Fragments);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Fragment, "compiler"_s, "applicable.method.found.3"_s, $$new($ObjectArray, {
 		$($of($Integer::valueOf(arg0))),
 		$of(arg1),
@@ -874,6 +880,7 @@ $JCDiagnostic$Fragment* CompilerProperties$Fragments::BadClassFileHeader($Path* 
 
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::BadConstPoolEntry($File* arg0, $String* arg1, int32_t arg2) {
 	$init(CompilerProperties$Fragments);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Fragment, "compiler"_s, "bad.const.pool.entry"_s, $$new($ObjectArray, {
 		$of(arg0),
 		$of(arg1),
@@ -883,6 +890,7 @@ $JCDiagnostic$Fragment* CompilerProperties$Fragments::BadConstPoolEntry($File* a
 
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::BadConstPoolEntry($JavaFileObject* arg0, $String* arg1, int32_t arg2) {
 	$init(CompilerProperties$Fragments);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Fragment, "compiler"_s, "bad.const.pool.entry"_s, $$new($ObjectArray, {
 		$of(arg0),
 		$of(arg1),
@@ -892,6 +900,7 @@ $JCDiagnostic$Fragment* CompilerProperties$Fragments::BadConstPoolEntry($JavaFil
 
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::BadConstPoolEntry($Path* arg0, $String* arg1, int32_t arg2) {
 	$init(CompilerProperties$Fragments);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Fragment, "compiler"_s, "bad.const.pool.entry"_s, $$new($ObjectArray, {
 		$of(arg0),
 		$of(arg1),
@@ -901,6 +910,7 @@ $JCDiagnostic$Fragment* CompilerProperties$Fragments::BadConstPoolEntry($Path* a
 
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::BadConstPoolIndex($File* arg0, int32_t arg1, int32_t arg2) {
 	$init(CompilerProperties$Fragments);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Fragment, "compiler"_s, "bad.const.pool.index"_s, $$new($ObjectArray, {
 		$of(arg0),
 		$($of($Integer::valueOf(arg1))),
@@ -910,6 +920,7 @@ $JCDiagnostic$Fragment* CompilerProperties$Fragments::BadConstPoolIndex($File* a
 
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::BadConstPoolIndex($JavaFileObject* arg0, int32_t arg1, int32_t arg2) {
 	$init(CompilerProperties$Fragments);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Fragment, "compiler"_s, "bad.const.pool.index"_s, $$new($ObjectArray, {
 		$of(arg0),
 		$($of($Integer::valueOf(arg1))),
@@ -919,6 +930,7 @@ $JCDiagnostic$Fragment* CompilerProperties$Fragments::BadConstPoolIndex($JavaFil
 
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::BadConstPoolIndex($Path* arg0, int32_t arg1, int32_t arg2) {
 	$init(CompilerProperties$Fragments);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Fragment, "compiler"_s, "bad.const.pool.index"_s, $$new($ObjectArray, {
 		$of(arg0),
 		$($of($Integer::valueOf(arg1))),
@@ -1432,6 +1444,7 @@ $JCDiagnostic$Fragment* CompilerProperties$Fragments::CantResolveLocationArgsPar
 
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::CapturedType(int32_t arg0) {
 	$init(CompilerProperties$Fragments);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Fragment, "compiler"_s, "captured.type"_s, $$new($ObjectArray, {$($of($Integer::valueOf(arg0)))}));
 }
 
@@ -1457,16 +1470,19 @@ $JCDiagnostic$Fragment* CompilerProperties$Fragments::ClassIsNotSealed($String* 
 
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::CountError(int32_t arg0) {
 	$init(CompilerProperties$Fragments);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Fragment, "compiler"_s, "count.error"_s, $$new($ObjectArray, {$($of($Integer::valueOf(arg0)))}));
 }
 
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::CountErrorPlural(int32_t arg0) {
 	$init(CompilerProperties$Fragments);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Fragment, "compiler"_s, "count.error.plural"_s, $$new($ObjectArray, {$($of($Integer::valueOf(arg0)))}));
 }
 
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::CountErrorRecompile(int32_t arg0, int32_t arg1) {
 	$init(CompilerProperties$Fragments);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Fragment, "compiler"_s, "count.error.recompile"_s, $$new($ObjectArray, {
 		$($of($Integer::valueOf(arg0))),
 		$($of($Integer::valueOf(arg1)))
@@ -1475,16 +1491,19 @@ $JCDiagnostic$Fragment* CompilerProperties$Fragments::CountErrorRecompile(int32_
 
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::CountWarn(int32_t arg0) {
 	$init(CompilerProperties$Fragments);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Fragment, "compiler"_s, "count.warn"_s, $$new($ObjectArray, {$($of($Integer::valueOf(arg0)))}));
 }
 
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::CountWarnPlural(int32_t arg0) {
 	$init(CompilerProperties$Fragments);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Fragment, "compiler"_s, "count.warn.plural"_s, $$new($ObjectArray, {$($of($Integer::valueOf(arg0)))}));
 }
 
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::CountWarnRecompile(int32_t arg0, int32_t arg1) {
 	$init(CompilerProperties$Fragments);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Fragment, "compiler"_s, "count.warn.recompile"_s, $$new($ObjectArray, {
 		$($of($Integer::valueOf(arg0))),
 		$($of($Integer::valueOf(arg1)))
@@ -1872,6 +1891,7 @@ $JCDiagnostic$Fragment* CompilerProperties$Fragments::InferredDoNotConformToUppe
 
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::IntersectionType(int32_t arg0) {
 	$init(CompilerProperties$Fragments);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Fragment, "compiler"_s, "intersection.type"_s, $$new($ObjectArray, {$($of($Integer::valueOf(arg0)))}));
 }
 
@@ -2058,6 +2078,7 @@ $JCDiagnostic$Fragment* CompilerProperties$Fragments::NotAnIntfComponent($Type* 
 
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::NotApplicableMethodFound(int32_t arg0, $Symbol* arg1, $JCDiagnostic* arg2) {
 	$init(CompilerProperties$Fragments);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Fragment, "compiler"_s, "not.applicable.method.found"_s, $$new($ObjectArray, {
 		$($of($Integer::valueOf(arg0))),
 		$of(arg1),
@@ -2067,6 +2088,7 @@ $JCDiagnostic$Fragment* CompilerProperties$Fragments::NotApplicableMethodFound(i
 
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::NotApplicableMethodFound(int32_t arg0, $Symbol* arg1, $JCDiagnostic$Fragment* arg2) {
 	$init(CompilerProperties$Fragments);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Fragment, "compiler"_s, "not.applicable.method.found"_s, $$new($ObjectArray, {
 		$($of($Integer::valueOf(arg0))),
 		$of(arg1),
@@ -2309,6 +2331,7 @@ $JCDiagnostic$Fragment* CompilerProperties$Fragments::TypeParameter($Type* arg0)
 
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::TypeVar($Name* arg0, int32_t arg1) {
 	$init(CompilerProperties$Fragments);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Fragment, "compiler"_s, "type.var"_s, $$new($ObjectArray, {
 		$of(arg0),
 		$($of($Integer::valueOf(arg1)))
@@ -2563,6 +2586,7 @@ $JCDiagnostic$Fragment* CompilerProperties$Fragments::WrongNumberTypeArgs($Strin
 
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::XPrintProcessorInfo($String* arg0, $String* arg1, bool arg2) {
 	$init(CompilerProperties$Fragments);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Fragment, "compiler"_s, "x.print.processor.info"_s, $$new($ObjectArray, {
 		$of(arg0),
 		$of(arg1),
@@ -2572,6 +2596,7 @@ $JCDiagnostic$Fragment* CompilerProperties$Fragments::XPrintProcessorInfo($Strin
 
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::XPrintRounds(int32_t arg0, $String* arg1, $Set* arg2, bool arg3) {
 	$init(CompilerProperties$Fragments);
+	$useLocalCurrentObjectStackCache();
 	return $new($JCDiagnostic$Fragment, "compiler"_s, "x.print.rounds"_s, $$new($ObjectArray, {
 		$($of($Integer::valueOf(arg0))),
 		$of(arg1),
@@ -2581,6 +2606,7 @@ $JCDiagnostic$Fragment* CompilerProperties$Fragments::XPrintRounds(int32_t arg0,
 }
 
 void clinit$CompilerProperties$Fragments($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(CompilerProperties$Fragments::AccessorMethodCantThrowException, $new($JCDiagnostic$Fragment, "compiler"_s, "accessor.method.cant.throw.exception"_s, $$new($ObjectArray, 0)));
 	$assignStatic(CompilerProperties$Fragments::AccessorMethodMustNotBeGeneric, $new($JCDiagnostic$Fragment, "compiler"_s, "accessor.method.must.not.be.generic"_s, $$new($ObjectArray, 0)));
 	$assignStatic(CompilerProperties$Fragments::AccessorMethodMustNotBeStatic, $new($JCDiagnostic$Fragment, "compiler"_s, "accessor.method.must.not.be.static"_s, $$new($ObjectArray, 0)));

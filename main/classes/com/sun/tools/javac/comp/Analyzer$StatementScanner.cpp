@@ -136,6 +136,7 @@ void Analyzer$StatementScanner::scan() {
 }
 
 void Analyzer$StatementScanner::scan($JCTree* tree) {
+	$useLocalCurrentObjectStackCache();
 	if (tree != nullptr) {
 		{
 			$var($Analyzer$StatementAnalyzerArray, arr$, this->this$0->analyzers);
@@ -182,11 +183,13 @@ void Analyzer$StatementScanner::visitSwitch($JCTree$JCSwitch* tree) {
 }
 
 void Analyzer$StatementScanner::visitForLoop($JCTree$JCForLoop* tree) {
+	$useLocalCurrentObjectStackCache();
 	scan($($cast($JCTree, $nc(tree)->getCondition())));
 	scan($($cast($List, $nc(tree)->getUpdate())));
 }
 
 void Analyzer$StatementScanner::visitTry($JCTree$JCTry* tree) {
+	$useLocalCurrentObjectStackCache();
 	scan($($cast($JCTree, $nc(tree)->getBlock())));
 	scan($($cast($List, $nc(tree)->getCatches())));
 	scan($($cast($JCTree, $nc(tree)->getFinallyBlock())));

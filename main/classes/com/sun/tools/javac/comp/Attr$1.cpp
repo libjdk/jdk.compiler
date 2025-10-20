@@ -104,6 +104,7 @@ void Attr$1::init$($Attr* this$0, $JCTree$JCSwitchExpression* val$tree, $ListBuf
 }
 
 void Attr$1::visitYield($JCTree$JCYield* brk) {
+	$useLocalCurrentObjectStackCache();
 	if ($equals($nc(brk)->target, this->val$tree)) {
 		$nc(this->val$caseTypePositions)->append(brk->value != nullptr ? $($nc(brk->value)->pos()) : $(brk->pos()));
 		$nc(this->val$caseTypes)->append(brk->value != nullptr ? $nc(brk->value)->type : $nc(this->this$0->syms)->errType);

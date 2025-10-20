@@ -95,6 +95,7 @@ void StringConcat$Indy::init$($Context* context) {
 }
 
 $Items$Item* StringConcat$Indy::makeConcat($JCTree$JCAssignOp* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, args, collectAll($nc(tree)->lhs, tree->rhs));
 	$var($Items$Item, l, $nc(this->gen)->genExpr($nc(tree)->lhs, $nc(tree->lhs)->type));
 	$nc(l)->duplicate();
@@ -104,12 +105,14 @@ $Items$Item* StringConcat$Indy::makeConcat($JCTree$JCAssignOp* tree) {
 }
 
 $Items$Item* StringConcat$Indy::makeConcat($JCTree$JCBinary* tree) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, args, collectAll($nc(tree)->lhs, tree->rhs));
 	emit($($nc(tree)->pos()), args, true, tree->type);
 	return $nc($($nc(this->gen)->getItems()))->makeStackItem($nc(this->syms)->stringType);
 }
 
 $List* StringConcat$Indy::split($List* args) {
+	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, splits, $new($ListBuffer));
 	int32_t slots = 0;
 	$var($ListBuffer, cArgs, $new($ListBuffer));

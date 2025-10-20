@@ -51,6 +51,7 @@ $Object* allocate$DocCommentTree($Class* clazz) {
 }
 
 $List* DocCommentTree::getFullBody() {
+	$useLocalCurrentObjectStackCache();
 	$var($ArrayList, bodyList, $new($ArrayList));
 	bodyList->addAll($(getFirstSentence()));
 	bodyList->addAll($(getBody()));

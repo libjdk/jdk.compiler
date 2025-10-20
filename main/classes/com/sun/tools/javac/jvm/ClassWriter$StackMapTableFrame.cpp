@@ -101,6 +101,7 @@ void ClassWriter$StackMapTableFrame::init$() {
 }
 
 void ClassWriter$StackMapTableFrame::write($ClassWriter* writer) {
+	$useLocalCurrentObjectStackCache();
 	int32_t frameType = getFrameType();
 	$nc($nc(writer)->databuf)->appendByte(frameType);
 	if (writer->debugstackmap) {
@@ -110,6 +111,7 @@ void ClassWriter$StackMapTableFrame::write($ClassWriter* writer) {
 }
 
 ClassWriter$StackMapTableFrame* ClassWriter$StackMapTableFrame::getInstance($Code$StackMapFrame* this_frame, int32_t prev_pc, $TypeArray* prev_locals, $Types* types) {
+	$useLocalCurrentObjectStackCache();
 	$var($TypeArray, locals, $nc(this_frame)->locals);
 	$var($TypeArray, stack, this_frame->stack);
 	int32_t offset_delta = this_frame->pc - prev_pc - 1;

@@ -94,6 +94,7 @@ void ClassReader$5::init$($ClassReader* this$0, $Name* name, $ClassFile$Version*
 }
 
 void ClassReader$5::read($Symbol* sym, int32_t attrLen) {
+	$useLocalCurrentObjectStackCache();
 	int32_t nexceptions = this->this$0->nextChar();
 	$var($List, thrown, $List::nil());
 	for (int32_t j = 0; j < nexceptions; ++j) {

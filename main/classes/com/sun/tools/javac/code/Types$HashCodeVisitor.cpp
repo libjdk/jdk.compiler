@@ -117,6 +117,7 @@ $Integer* Types$HashCodeVisitor::visitType($Type* t, $Void* ignored) {
 }
 
 $Integer* Types$HashCodeVisitor::visitClassType($Type$ClassType* t, $Void* ignored) {
+	$useLocalCurrentObjectStackCache();
 	int32_t result = $nc(($cast($Integer, $(visit($($nc(t)->getEnclosingType()))))))->intValue();
 	result *= 127;
 	result += $nc($of($($nc($nc(t)->tsym)->flatName())))->hashCode();
@@ -134,6 +135,7 @@ $Integer* Types$HashCodeVisitor::visitClassType($Type$ClassType* t, $Void* ignor
 }
 
 $Integer* Types$HashCodeVisitor::visitMethodType($Type$MethodType* t, $Void* ignored) {
+	$useLocalCurrentObjectStackCache();
 	$init($TypeTag);
 	int32_t h = $TypeTag::METHOD->ordinal();
 	{

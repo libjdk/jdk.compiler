@@ -115,6 +115,7 @@ void DeferredAttr$2::init$($DeferredAttr* this$0, $TreeMaker* M) {
 }
 
 $JCTree* DeferredAttr$2::visitNewClass($NewClassTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCNewClass, t, $cast($JCTree$JCNewClass, node));
 	if ($TreeInfo::isDiamond(t)) {
 		$var($JCTree$JCExpression, encl, $cast($JCTree$JCExpression, copy(static_cast<$JCTree*>($nc(t)->encl), $of(p))));
@@ -129,6 +130,7 @@ $JCTree* DeferredAttr$2::visitNewClass($NewClassTree* node, $Void* p) {
 }
 
 $JCTree* DeferredAttr$2::visitMemberReference($MemberReferenceTree* node, $Void* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCMemberReference, t, $cast($JCTree$JCMemberReference, node));
 	$var($JCTree$JCExpression, expr, $cast($JCTree$JCExpression, copy(static_cast<$JCTree*>($nc(t)->expr), $of(p))));
 	$var($List, typeargs, copy($nc(t)->typeargs, $of(p)));

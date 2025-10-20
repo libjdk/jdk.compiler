@@ -136,6 +136,7 @@ void TypeAnnotations$TypeAnnotationPositions$1::init$($TypeAnnotations$TypeAnnot
 }
 
 $Type* TypeAnnotations$TypeAnnotationPositions$1::visitClassType($Type$ClassType* t, $List* s) {
+	$useLocalCurrentObjectStackCache();
 	$init($Type);
 	if ($equals(t, this->val$stopAt) || $equals($nc(t)->getEnclosingType(), $Type::noType)) {
 		return t->annotatedType(s);
@@ -158,6 +159,7 @@ $Type* TypeAnnotations$TypeAnnotationPositions$1::visitWildcardType($Type$Wildca
 }
 
 $Type* TypeAnnotations$TypeAnnotationPositions$1::visitArrayType($Type$ArrayType* t, $List* s) {
+	$useLocalCurrentObjectStackCache();
 	$var($Type, var$0, $cast($Type, $nc($nc(t)->elemtype)->accept(static_cast<$Type$Visitor*>(this), $of(s))));
 	$var($Symbol$TypeSymbol, var$1, t->tsym);
 	$var($Type$ArrayType, ret, $new($Type$ArrayType, var$0, var$1, $(t->getMetadata())));

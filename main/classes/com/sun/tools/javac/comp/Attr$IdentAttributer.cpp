@@ -115,6 +115,7 @@ void Attr$IdentAttributer::init$($Attr* this$0) {
 }
 
 $Symbol* Attr$IdentAttributer::visitMemberSelect($MemberSelectTree* node, $Env* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($Symbol, site, $cast($Symbol, visit($(static_cast<$Tree*>($nc(node)->getExpression())), $of(env))));
 	$init($Kinds$Kind);
 	if ($nc(site)->kind == $Kinds$Kind::ERR || $nc(site)->kind == $Kinds$Kind::ABSENT_TYP || $nc(site)->kind == $Kinds$Kind::HIDDEN) {

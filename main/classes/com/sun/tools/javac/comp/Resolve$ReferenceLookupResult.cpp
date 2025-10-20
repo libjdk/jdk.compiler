@@ -244,6 +244,7 @@ void Resolve$ReferenceLookupResult::init$($Symbol* sym, $Resolve$ReferenceLookup
 }
 
 $Resolve$ReferenceLookupResult$StaticKind* Resolve$ReferenceLookupResult::staticKind($Symbol* sym, $Resolve$MethodResolutionContext* resolutionContext) {
+	$useLocalCurrentObjectStackCache();
 	$init($Resolve$18);
 	switch ($nc($Resolve$18::$SwitchMap$com$sun$tools$javac$code$Kinds$Kind)->get($nc(($nc(sym)->kind))->ordinal())) {
 	case 4:
@@ -271,6 +272,7 @@ bool Resolve$ReferenceLookupResult::hasKind($Resolve$ReferenceLookupResult$Stati
 }
 
 bool Resolve$ReferenceLookupResult::canIgnore() {
+	$useLocalCurrentObjectStackCache();
 		$init($Resolve$18);
 	{
 		$var($Resolve$InapplicableSymbolError, errSym, nullptr)

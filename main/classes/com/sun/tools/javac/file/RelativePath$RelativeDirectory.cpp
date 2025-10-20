@@ -62,6 +62,7 @@ $Object* allocate$RelativePath$RelativeDirectory($Class* clazz) {
 
 RelativePath$RelativeDirectory* RelativePath$RelativeDirectory::forPackage($CharSequence* packageName) {
 	$init(RelativePath$RelativeDirectory);
+	$useLocalCurrentObjectStackCache();
 	return $new(RelativePath$RelativeDirectory, $($nc($($nc(packageName)->toString()))->replace(u'.', u'/')));
 }
 
