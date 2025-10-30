@@ -1,15 +1,6 @@
 #include <com/sun/tools/javac/jvm/ModuleNameReader$BadClassFile.h>
 
 #include <com/sun/tools/javac/jvm/ModuleNameReader.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $ModuleNameReader = ::com::sun::tools::javac::jvm::ModuleNameReader;
@@ -67,16 +58,10 @@ void ModuleNameReader$BadClassFile::init$($String* msg) {
 ModuleNameReader$BadClassFile::ModuleNameReader$BadClassFile() {
 }
 
-ModuleNameReader$BadClassFile::ModuleNameReader$BadClassFile(const ModuleNameReader$BadClassFile& e) {
+ModuleNameReader$BadClassFile::ModuleNameReader$BadClassFile(const ModuleNameReader$BadClassFile& e) : $Exception(e) {
 }
 
-ModuleNameReader$BadClassFile ModuleNameReader$BadClassFile::wrapper$() {
-	$pendingException(this);
-	return *this;
-}
-
-void ModuleNameReader$BadClassFile::throwWrapper$() {
-	$pendingException(this);
+void ModuleNameReader$BadClassFile::throw$() {
 	throw *this;
 }
 

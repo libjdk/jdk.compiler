@@ -1,15 +1,6 @@
 #include <com/sun/tools/javac/parser/ReferenceParser$ParseException.h>
 
 #include <com/sun/tools/javac/parser/ReferenceParser.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $ReferenceParser = ::com::sun::tools::javac::parser::ReferenceParser;
@@ -67,16 +58,10 @@ void ReferenceParser$ParseException::init$($String* message) {
 ReferenceParser$ParseException::ReferenceParser$ParseException() {
 }
 
-ReferenceParser$ParseException::ReferenceParser$ParseException(const ReferenceParser$ParseException& e) {
+ReferenceParser$ParseException::ReferenceParser$ParseException(const ReferenceParser$ParseException& e) : $Exception(e) {
 }
 
-ReferenceParser$ParseException ReferenceParser$ParseException::wrapper$() {
-	$pendingException(this);
-	return *this;
-}
-
-void ReferenceParser$ParseException::throwWrapper$() {
-	$pendingException(this);
+void ReferenceParser$ParseException::throw$() {
 	throw *this;
 }
 

@@ -48,8 +48,10 @@ public:
 	void init$(::com::sun::tools::javac::code::Symbol$TypeSymbol* sym, ::javax::tools::JavaFileObject* file, ::com::sun::tools::javac::util::JCDiagnostic* diag, ::com::sun::tools::javac::util::JCDiagnostic$Factory* diagFactory, ::com::sun::tools::javac::code::DeferredCompletionFailureHandler* dcfh);
 	static const int64_t serialVersionUID = 0;
 	ClassFinder$BadEnclosingMethodAttr(const ClassFinder$BadEnclosingMethodAttr& e);
-	ClassFinder$BadEnclosingMethodAttr wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline ClassFinder$BadEnclosingMethodAttr* operator ->() {
+		return (ClassFinder$BadEnclosingMethodAttr*)throwing$;
+	}
 };
 
 				} // code

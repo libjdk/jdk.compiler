@@ -8,16 +8,6 @@
 #include <com/sun/tools/javac/tree/JCTree$JCExpression.h>
 #include <com/sun/tools/javac/tree/JCTree$JCReturn.h>
 #include <com/sun/tools/javac/tree/JCTree.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $Type = ::com::sun::tools::javac::code::Type;
@@ -101,8 +91,8 @@ void DeferredAttr$CheckStuckPolicy$1::visitReturn($JCTree$JCReturn* tree) {
 			try {
 				$set(this->this$1, pt, this->val$pt);
 				this->this$1->scan(static_cast<$JCTree*>(tree->expr));
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$1) {
+				$assign(var$0, var$1);
 			} /*finally*/ {
 				$set(this->this$1, pt, prevPt);
 			}

@@ -64,23 +64,12 @@
 #include <com/sun/tools/javac/util/Name.h>
 #include <com/sun/tools/javac/util/Names.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Iterator.h>
 #include <java/util/List.h>
 #include <java/util/function/Consumer.h>
@@ -350,8 +339,8 @@ void TypeAnnotations$TypeAnnotationPositions::scan($JCTree* tree) {
 		$var($Throwable, var$0, nullptr);
 		try {
 			$TreeScanner::scan(tree);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			pop();
 		}
@@ -630,7 +619,7 @@ $Attribute$TypeCompound* TypeAnnotations$TypeAnnotationPositions::toTypeCompound
 $TypeAnnotationPosition* TypeAnnotations$TypeAnnotationPositions::resolveFrame($JCTree* tree, $JCTree* frame, $List* path, $JCTree$JCLambda* currentLambda, int32_t outer_type_index, $ListBuffer* location$renamed) {
 	$useLocalCurrentObjectStackCache();
 	$var($ListBuffer, location, location$renamed);
-		$init($TypeAnnotations$1);
+	$init($TypeAnnotations$1);
 	{
 		$var($JCTree$JCNewClass, frameNewClass, nullptr)
 		$var($Symbol$VarSymbol, v, nullptr)
@@ -1022,8 +1011,8 @@ void TypeAnnotations$TypeAnnotationPositions::visitMethodDef($JCTree$JCMethodDec
 				$var($Throwable, var$0, nullptr);
 				try {
 					separateAnnotationsKinds($nc(tree->recvparam)->vartype, $nc($nc(tree->recvparam)->sym)->type, $nc(tree->recvparam)->sym, pos);
-				} catch ($Throwable&) {
-					$assign(var$0, $catch());
+				} catch ($Throwable& var$1) {
+					$assign(var$0, var$1);
 				} /*finally*/ {
 					pop();
 				}
@@ -1042,16 +1031,16 @@ void TypeAnnotations$TypeAnnotationPositions::visitMethodDef($JCTree$JCMethodDec
 						$var($TypeAnnotationPosition, pos, $TypeAnnotationPosition::methodParameter(i, $nc(param->vartype)->pos$));
 						push(param);
 						{
-							$var($Throwable, var$1, nullptr);
+							$var($Throwable, var$2, nullptr);
 							try {
 								separateAnnotationsKinds(param->vartype, $nc(param->sym)->type, param->sym, pos);
-							} catch ($Throwable&) {
-								$assign(var$1, $catch());
+							} catch ($Throwable& var$3) {
+								$assign(var$2, var$3);
 							} /*finally*/ {
 								pop();
 							}
-							if (var$1 != nullptr) {
-								$throw(var$1);
+							if (var$2 != nullptr) {
+								$throw(var$2);
 							}
 						}
 					}
@@ -1095,8 +1084,8 @@ void TypeAnnotations$TypeAnnotationPositions::visitLambda($JCTree$JCLambda* tree
 									if (!param->declaredUsingVar()) {
 										separateAnnotationsKinds(param->vartype, $nc(param->sym)->type, param->sym, pos);
 									}
-								} catch ($Throwable&) {
-									$assign(var$1, $catch());
+								} catch ($Throwable& var$2) {
+									$assign(var$1, var$2);
 								} /*finally*/ {
 									pop();
 								}
@@ -1111,8 +1100,8 @@ void TypeAnnotations$TypeAnnotationPositions::visitLambda($JCTree$JCLambda* tree
 			}
 			scan(tree->body);
 			scan(tree->params);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} /*finally*/ {
 			$set(this, currentLambda, prevLambda);
 		}

@@ -1,15 +1,6 @@
 #include <jdk/internal/shellsupport/doc/JavadocFormatter$3.h>
 
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/NoSuchFieldError.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jdk/internal/shellsupport/doc/JavadocFormatter$HtmlTag.h>
 #include <jdk/internal/shellsupport/doc/JavadocFormatter.h>
 #include <jcpp.h>
@@ -87,103 +78,83 @@ void clinit$JavadocFormatter$3($Class* class$) {
 	{
 		try {
 			$nc(JavadocFormatter$3::$SwitchMap$jdk$internal$shellsupport$doc$JavadocFormatter$HtmlTag)->set($JavadocFormatter$HtmlTag::P->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavadocFormatter$3::$SwitchMap$jdk$internal$shellsupport$doc$JavadocFormatter$HtmlTag)->set($JavadocFormatter$HtmlTag::BLOCKQUOTE->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavadocFormatter$3::$SwitchMap$jdk$internal$shellsupport$doc$JavadocFormatter$HtmlTag)->set($JavadocFormatter$HtmlTag::PRE->ordinal(), 3);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavadocFormatter$3::$SwitchMap$jdk$internal$shellsupport$doc$JavadocFormatter$HtmlTag)->set($JavadocFormatter$HtmlTag::UL->ordinal(), 4);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavadocFormatter$3::$SwitchMap$jdk$internal$shellsupport$doc$JavadocFormatter$HtmlTag)->set($JavadocFormatter$HtmlTag::OL->ordinal(), 5);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavadocFormatter$3::$SwitchMap$jdk$internal$shellsupport$doc$JavadocFormatter$HtmlTag)->set($JavadocFormatter$HtmlTag::DL->ordinal(), 6);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavadocFormatter$3::$SwitchMap$jdk$internal$shellsupport$doc$JavadocFormatter$HtmlTag)->set($JavadocFormatter$HtmlTag::LI->ordinal(), 7);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavadocFormatter$3::$SwitchMap$jdk$internal$shellsupport$doc$JavadocFormatter$HtmlTag)->set($JavadocFormatter$HtmlTag::DT->ordinal(), 8);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavadocFormatter$3::$SwitchMap$jdk$internal$shellsupport$doc$JavadocFormatter$HtmlTag)->set($JavadocFormatter$HtmlTag::DD->ordinal(), 9);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavadocFormatter$3::$SwitchMap$jdk$internal$shellsupport$doc$JavadocFormatter$HtmlTag)->set($JavadocFormatter$HtmlTag::H1->ordinal(), 10);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavadocFormatter$3::$SwitchMap$jdk$internal$shellsupport$doc$JavadocFormatter$HtmlTag)->set($JavadocFormatter$HtmlTag::H2->ordinal(), 11);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavadocFormatter$3::$SwitchMap$jdk$internal$shellsupport$doc$JavadocFormatter$HtmlTag)->set($JavadocFormatter$HtmlTag::H3->ordinal(), 12);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavadocFormatter$3::$SwitchMap$jdk$internal$shellsupport$doc$JavadocFormatter$HtmlTag)->set($JavadocFormatter$HtmlTag::H4->ordinal(), 13);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavadocFormatter$3::$SwitchMap$jdk$internal$shellsupport$doc$JavadocFormatter$HtmlTag)->set($JavadocFormatter$HtmlTag::H5->ordinal(), 14);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavadocFormatter$3::$SwitchMap$jdk$internal$shellsupport$doc$JavadocFormatter$HtmlTag)->set($JavadocFormatter$HtmlTag::H6->ordinal(), 15);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavadocFormatter$3::$SwitchMap$jdk$internal$shellsupport$doc$JavadocFormatter$HtmlTag)->set($JavadocFormatter$HtmlTag::TABLE->ordinal(), 16);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavadocFormatter$3::$SwitchMap$jdk$internal$shellsupport$doc$JavadocFormatter$HtmlTag)->set($JavadocFormatter$HtmlTag::TR->ordinal(), 17);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavadocFormatter$3::$SwitchMap$jdk$internal$shellsupport$doc$JavadocFormatter$HtmlTag)->set($JavadocFormatter$HtmlTag::TH->ordinal(), 18);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavadocFormatter$3::$SwitchMap$jdk$internal$shellsupport$doc$JavadocFormatter$HtmlTag)->set($JavadocFormatter$HtmlTag::TD->ordinal(), 19);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavadocFormatter$3::$SwitchMap$jdk$internal$shellsupport$doc$JavadocFormatter$HtmlTag)->set($JavadocFormatter$HtmlTag::IMG->ordinal(), 20);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 }

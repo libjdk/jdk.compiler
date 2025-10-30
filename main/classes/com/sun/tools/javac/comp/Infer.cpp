@@ -81,26 +81,13 @@
 #include <java/io/IOException.h>
 #include <java/io/Serializable.h>
 #include <java/io/Writer.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Boolean.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/file/Files.h>
 #include <java/nio/file/OpenOption.h>
 #include <java/nio/file/Path.h>
@@ -442,7 +429,6 @@ $Object* allocate$Infer($Class* clazz) {
 }
 
 $Context$Key* Infer::inferKey = nullptr;
-
 $Type* Infer::anyPoly = nullptr;
 
 Infer* Infer::instance($Context* context) {
@@ -541,8 +527,8 @@ $Type* Infer::instantiateMethod($Env* env, $List* tvars, $Type$MethodType* mt$re
 			$assign(var$2, mt);
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$4) {
+			$assign(var$0, var$4);
 		} $finally: {
 			if (resultInfo != nullptr || !this->allowGraphInference) {
 				inferenceContext->notifyChange();
@@ -628,20 +614,18 @@ void Infer::dumpGraphsIfNeeded($JCDiagnostic$DiagnosticPosition* pos, $Symbol* m
 									try {
 										try {
 											$nc(w)->append(static_cast<$CharSequence*>(graph));
-										} catch ($Throwable&) {
-											$var($Throwable, t$, $catch());
+										} catch ($Throwable& t$) {
 											if (w != nullptr) {
 												try {
 													w->close();
-												} catch ($Throwable&) {
-													$var($Throwable, x2, $catch());
+												} catch ($Throwable& x2) {
 													t$->addSuppressed(x2);
 												}
 											}
 											$throw(t$);
 										}
-									} catch ($Throwable&) {
-										$assign(var$1, $catch());
+									} catch ($Throwable& var$2) {
+										$assign(var$1, var$2);
 									} /*finally*/ {
 										if (w != nullptr) {
 											w->close();
@@ -656,12 +640,11 @@ void Infer::dumpGraphsIfNeeded($JCDiagnostic$DiagnosticPosition* pos, $Symbol* m
 						}
 					}
 				}
-			} catch ($IOException&) {
-				$var($IOException, ex, $catch());
+			} catch ($IOException& ex) {
 				$Assert::error($$str({"Error occurred when dumping inference graph: "_s, $(ex->getMessage())}));
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} /*finally*/ {
 			$set(this, pendingGraphs, $List::nil());
 		}
@@ -743,7 +726,7 @@ bool Infer::needsEagerInstantiation($Type$UndetVar* from, $Type* to, $InferenceC
 	$var($Type, captureOfTo, $nc(this->types)->capture(to));
 	if (captureOfTo == to) {
 		{
-				$init($Type$UndetVar$InferenceBound);
+			$init($Type$UndetVar$InferenceBound);
 			$var($Iterator, i$, $nc($($nc(from)->getBounds($$new($Type$UndetVar$InferenceBoundArray, {
 				$Type$UndetVar$InferenceBound::EQ,
 				$Type$UndetVar$InferenceBound::LOWER
@@ -783,7 +766,7 @@ bool Infer::needsEagerInstantiation($Type$UndetVar* from, $Type* to, $InferenceC
 	}
 	if ($nc(to)->isParameterized()) {
 		{
-				$init($Type$UndetVar$InferenceBound);
+			$init($Type$UndetVar$InferenceBound);
 			$var($Iterator, i$, $nc($($nc(from)->getBounds($$new($Type$UndetVar$InferenceBoundArray, {
 				$Type$UndetVar$InferenceBound::EQ,
 				$Type$UndetVar$InferenceBound::LOWER
@@ -879,7 +862,7 @@ $Type* Infer::instantiatePolymorphicSignatureInstance($Env* env, $Symbol$MethodS
 	$useLocalCurrentObjectStackCache();
 	$var($Type, restype, nullptr);
 	$var($Type, spType, spMethod == nullptr ? $nc(this->syms)->objectType : $nc(spMethod)->getReturnType());
-		$init($Infer$4);
+	$init($Infer$4);
 	{
 		$var($JCTree$JCTypeCast, castTree, nullptr)
 		$var($JCTree$JCExpressionStatement, execTree, nullptr)
@@ -988,8 +971,8 @@ void Infer::doIncorporation($InferenceContext* inferenceContext, $Warner* warn) 
 				}
 				++round;
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc(this->incorporationCache)->clear();
 		}

@@ -115,33 +115,16 @@
 #include <java/io/BufferedWriter.h>
 #include <java/io/Closeable.h>
 #include <java/io/IOException.h>
-#include <java/io/PrintStream.h>
 #include <java/io/Serializable.h>
 #include <java/io/Writer.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/CompoundAttribute.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/Long.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractCollection.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/AbstractQueue.h>
@@ -826,7 +809,6 @@ $Object* allocate$JavaCompiler($Class* clazz) {
 	return $of($alloc(JavaCompiler));
 }
 
-
 $Context$Key* JavaCompiler::compilerKey = nullptr;
 $String* JavaCompiler::versionRBName = nullptr;
 $ResourceBundle* JavaCompiler::versionRB = nullptr;
@@ -858,15 +840,13 @@ $String* JavaCompiler::version($String* key) {
 	if (JavaCompiler::versionRB == nullptr) {
 		try {
 			$assignStatic(JavaCompiler::versionRB, $ResourceBundle::getBundle(JavaCompiler::versionRBName));
-		} catch ($MissingResourceException&) {
-			$var($MissingResourceException, e, $catch());
+		} catch ($MissingResourceException& e) {
 			return $Log::getLocalizedString("version.not.available"_s, $$new($ObjectArray, 0));
 		}
 	}
 	try {
 		return $nc(JavaCompiler::versionRB)->getString(key);
-	} catch ($MissingResourceException&) {
-		$var($MissingResourceException, e, $catch());
+	} catch ($MissingResourceException& e) {
 		return $Log::getLocalizedString("version.not.available"_s, $$new($ObjectArray, 0));
 	}
 	$shouldNotReachHere();
@@ -906,8 +886,7 @@ void JavaCompiler::init$($Context* context) {
 	$set(this, compileStates, $CompileStates::instance(context));
 	try {
 		$set(this, syms, $Symtab::instance(context));
-	} catch ($Symbol$CompletionFailure&) {
-		$var($Symbol$CompletionFailure, ex, $catch());
+	} catch ($Symbol$CompletionFailure& ex) {
 		$nc(this->log)->error($($CompilerProperties$Errors::CantAccess(ex->sym, $(ex->getDetailValue()))));
 	}
 	$set(this, source, $Source::instance(context));
@@ -992,8 +971,7 @@ $CharSequence* JavaCompiler::readSource($JavaFileObject* filename) {
 	try {
 		$nc(this->inputFiles)->add(filename);
 		return $nc(filename)->getCharContent(false);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$nc(this->log)->error($($CompilerProperties$Errors::ErrorReadingFile(filename, $($JavacFileManager::getMessage(e)))));
 		return nullptr;
 	}
@@ -1060,8 +1038,8 @@ $JCTree$JCCompilationUnit* JavaCompiler::parse($JavaFileObject* filename) {
 			$assign(var$2, t);
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$nc(this->log)->useSource(prev);
 		}
@@ -1102,8 +1080,7 @@ $Symbol* JavaCompiler::resolveBinaryNameOrIdent($Symbol$ModuleSymbol* msym, $Str
 	try {
 		$var($Name, flatname, $nc(this->names)->fromString($($nc(name)->replace(static_cast<$CharSequence*>("/"_s), static_cast<$CharSequence*>("."_s)))));
 		return $nc(this->finder)->loadClass(msym, flatname);
-	} catch ($Symbol$CompletionFailure&) {
-		$var($Symbol$CompletionFailure, ignore, $catch());
+	} catch ($Symbol$CompletionFailure& ignore) {
 		return resolveIdent(msym, name);
 	}
 	$shouldNotReachHere();
@@ -1143,8 +1120,8 @@ $Symbol* JavaCompiler::resolveIdent($Symbol$ModuleSymbol* msym, $String* name) {
 			$assign(var$2, $nc(this->attr)->attribIdent(static_cast<$JCTree*>(tree), toplevel));
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$nc(this->log)->useSource(prev);
 		}
@@ -1165,16 +1142,13 @@ $JavaFileObject* JavaCompiler::genCode($Env* env, $JCTree$JCClassDecl* cdef) {
 		if (var$0 && (errorCount() == 0)) {
 			return $nc(this->writer)->writeClass($nc(cdef)->sym);
 		}
-	} catch ($ClassWriter$PoolOverflow&) {
-		$var($ClassWriter$PoolOverflow, ex, $catch());
+	} catch ($ClassWriter$PoolOverflow& ex) {
 		$init($CompilerProperties$Errors);
 		$nc(this->log)->error($($nc(cdef)->pos()), $CompilerProperties$Errors::LimitPool);
-	} catch ($ClassWriter$StringOverflow&) {
-		$var($ClassWriter$StringOverflow, ex, $catch());
+	} catch ($ClassWriter$StringOverflow& ex) {
 		$var($JCDiagnostic$DiagnosticPosition, var$1, $nc(cdef)->pos());
 		$nc(this->log)->error(var$1, $($CompilerProperties$Errors::LimitStringOverflow($($nc(ex->value)->substring(0, 20)))));
-	} catch ($Symbol$CompletionFailure&) {
-		$var($Symbol$CompletionFailure, ex, $catch());
+	} catch ($Symbol$CompletionFailure& ex) {
 		$nc(this->chk)->completionError($($nc(cdef)->pos()), ex);
 	}
 	return nullptr;
@@ -1200,18 +1174,16 @@ $JavaFileObject* JavaCompiler::printSource($Env* env, $JCTree$JCClassDecl* cdef)
 						if (this->verbose) {
 							$nc(this->log)->printVerbose("wrote.file"_s, $$new($ObjectArray, {$($of($nc(outFile)->getName()))}));
 						}
-					} catch ($Throwable&) {
-						$var($Throwable, t$, $catch());
+					} catch ($Throwable& t$) {
 						try {
 							out->close();
-						} catch ($Throwable&) {
-							$var($Throwable, x2, $catch());
+						} catch ($Throwable& x2) {
 							t$->addSuppressed(x2);
 						}
 						$throw(t$);
 					}
-				} catch ($Throwable&) {
-					$assign(var$1, $catch());
+				} catch ($Throwable& var$2) {
+					$assign(var$1, var$2);
 				} /*finally*/ {
 					out->close();
 				}
@@ -1242,13 +1214,12 @@ void JavaCompiler::readSourceFile($JCTree$JCCompilationUnit* tree$renamed, $Symb
 			try {
 				try {
 					$assign(tree, parse(filename, $($nc(filename)->getCharContent(false))));
-				} catch ($IOException&) {
-					$var($IOException, e, $catch());
+				} catch ($IOException& e) {
 					$nc(this->log)->error($($CompilerProperties$Errors::ErrorReadingFile(filename, $($JavacFileManager::getMessage(e)))));
 					$assign(tree, $nc(this->make)->TopLevel($($List::nil())));
 				}
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$1) {
+				$assign(var$0, var$1);
 			} /*finally*/ {
 				$nc(this->log)->useSource(prev);
 			}
@@ -1388,15 +1359,13 @@ void JavaCompiler::compile($Collection* sourceFileObjects, $Collection* classnam
 						}
 					}
 				}
-			} catch ($Abort&) {
-				$var($Abort, ex, $catch());
+			} catch ($Abort& ex) {
 				if (this->devVerbose) {
-					$init($System);
 					ex->printStackTrace($System::err);
 				}
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$2) {
+			$assign(var$0, var$2);
 		} /*finally*/ {
 			if (this->verbose) {
 				this->elapsed_msec = elapsed(this->start_msec);
@@ -1633,8 +1602,7 @@ void JavaCompiler::processAnnotations($List* roots, $Collection* classnames) {
 								$Assert::check($nc(sym)->kind == $Kinds$Kind::PCK);
 								$nc(this->log)->warning($($CompilerProperties$Warnings::ProcPackageDoesNotExist(nameStr)));
 								$assign(pckSymbols, $nc(pckSymbols)->prepend($cast($Symbol$PackageSymbol, sym)));
-							} catch ($Symbol$CompletionFailure&) {
-								$var($Symbol$CompletionFailure, e, $catch());
+							} catch ($Symbol$CompletionFailure& e) {
 								$nc(this->log)->error($($CompilerProperties$Errors::ProcCantFindClass(nameStr)));
 								errors = true;
 								continue;
@@ -1653,8 +1621,8 @@ void JavaCompiler::processAnnotations($List* roots, $Collection* classnames) {
 			$var($Throwable, var$0, nullptr);
 			try {
 				this->annotationProcessingOccurred = $nc(this->procEnvImpl)->doProcessing(roots, classSymbols, static_cast<$Iterable*>(static_cast<$Collection*>(static_cast<$AbstractCollection*>(pckSymbols))), this->deferredDiagnosticHandler);
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$1) {
+				$assign(var$0, var$1);
 			} /*finally*/ {
 				$nc(this->procEnvImpl)->close();
 			}
@@ -1662,8 +1630,7 @@ void JavaCompiler::processAnnotations($List* roots, $Collection* classnames) {
 				$throw(var$0);
 			}
 		}
-	} catch ($Symbol$CompletionFailure&) {
-		$var($Symbol$CompletionFailure, ex, $catch());
+	} catch ($Symbol$CompletionFailure& ex) {
 		$nc(this->log)->error($($CompilerProperties$Errors::CantAccess(ex->sym, $(ex->getDetailValue()))));
 		if (this->deferredDiagnosticHandler != nullptr) {
 			$nc(this->deferredDiagnosticHandler)->reportDeferredDiagnostics();
@@ -1748,8 +1715,8 @@ $Env* JavaCompiler::attribute($Env* env) {
 				$nc(this->attr)->postAttr($nc(env)->tree);
 			}
 			$nc(this->compileStates)->put(env, $CompileStates$CompileState::ATTR);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$2) {
+			$assign(var$0, var$2);
 		} /*finally*/ {
 			$nc(this->log)->useSource(prev);
 		}
@@ -1816,8 +1783,8 @@ void JavaCompiler::flow($Env* env, $Queue* results) {
 					}
 					$nc(this->analyzer)->flush(env);
 					$nc(results)->add(env);
-				} catch ($Throwable&) {
-					$assign(var$2, $catch());
+				} catch ($Throwable& var$4) {
+					$assign(var$2, var$4);
 				} $finally1: {
 					$nc(this->log)->useSource(prev);
 				}
@@ -1829,8 +1796,8 @@ void JavaCompiler::flow($Env* env, $Queue* results) {
 					goto $finally;
 				}
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$5) {
+			$assign(var$0, var$5);
 		} $finally: {
 			if (!$nc(this->taskListener)->isEmpty()) {
 				$init($TaskEvent$Kind);
@@ -1979,8 +1946,8 @@ void JavaCompiler::desugar($Env* env, $Queue* results) {
 					$nc(results)->add($$new($Pair, env, cdef));
 				}
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$5) {
+			$assign(var$0, var$5);
 		} $finally: {
 			$nc(this->log)->useSource(prev);
 		}
@@ -2038,15 +2005,14 @@ void JavaCompiler::generate($Queue* queue, $Queue* results) {
 							if (results != nullptr && file != nullptr) {
 								results->add(file);
 							}
-						} catch ($IOException&) {
-							$var($IOException, ex, $catch());
+						} catch ($IOException& ex) {
 							$var($JCDiagnostic$DiagnosticPosition, var$3, $nc(cdef)->pos());
 							$nc(this->log)->error(var$3, $($CompilerProperties$Errors::ClassCantWrite(cdef->sym, $(ex->getMessage()))));
 							return$1 = true;
 							goto $finally;
 						}
-					} catch ($Throwable&) {
-						$assign(var$0, $catch());
+					} catch ($Throwable& var$4) {
+						$assign(var$0, var$4);
 					} $finally: {
 						$nc(this->log)->useSource(prev);
 					}
@@ -2145,14 +2111,13 @@ $Name* JavaCompiler::parseAndGetName($JavaFileObject* fo, $Function* tree2Name) 
 				$assign(var$2, $cast($Name, $nc(tree2Name)->apply(t)));
 				return$1 = true;
 				goto $finally;
-			} catch ($IOException&) {
-				$var($IOException, e, $catch());
+			} catch ($IOException& e) {
 				$assign(var$2, nullptr);
 				return$1 = true;
 				goto $finally;
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$nc(this->log)->popDiagnosticHandler(dh);
 			$nc(this->log)->useSource(prevSource);
@@ -2196,12 +2161,11 @@ void JavaCompiler::close() {
 		try {
 			try {
 				$nc(this->fileManager)->flush();
-			} catch ($IOException&) {
-				$var($IOException, e, $catch());
+			} catch ($IOException& e) {
 				$throwNew($Abort, e);
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			if (this->names != nullptr) {
 				$nc(this->names)->dispose();
@@ -2215,8 +2179,7 @@ void JavaCompiler::close() {
 					{
 						try {
 							$nc(c)->close();
-						} catch ($IOException&) {
-							$var($IOException, e, $catch());
+						} catch ($IOException& e) {
 							if (fatalError == nullptr) {
 								$init($CompilerProperties$Fragments);
 								$var($JCDiagnostic, msg, $nc(this->diagFactory)->fragment($CompilerProperties$Fragments::FatalErrCantClose));

@@ -19,29 +19,14 @@
 #include <java/io/IOException.h>
 #include <java/io/Serializable.h>
 #include <java/io/Writer.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
 #include <java/lang/IllegalStateException.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/StringBuilder.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/URI.h>
 #include <java/net/URISyntaxException.h>
 #include <java/util/AbstractMap.h>
@@ -699,8 +684,7 @@ $Pair* JavadocHelper$OnDemandJavadocHelper::parseDocComment($JavacTask* task, $S
 		int32_t offset = (int32_t)$nc($($cast($DocSourcePositions, trees->getSourcePositions())))->getStartPosition(nullptr, tree, tree);
 		offset += "<body>"_s->length();
 		return $Pair::of(tree, $($Integer::valueOf(offset)));
-	} catch ($URISyntaxException&) {
-		$var($URISyntaxException, ex, $catch());
+	} catch ($URISyntaxException& ex) {
 		$throwNew($IllegalStateException, static_cast<$Throwable*>(ex));
 	}
 	$shouldNotReachHere();
@@ -745,7 +729,7 @@ $Pair* JavadocHelper$OnDemandJavadocHelper::getSourceElement($JavacTask* origin,
 
 $String* JavadocHelper$OnDemandJavadocHelper::elementSignature($Element* el) {
 	$useLocalCurrentObjectStackCache();
-		$init($JavadocHelper$2);
+	$init($JavadocHelper$2);
 	{
 		$var($StringBuilder, header, nullptr)
 		$var($String, sep, nullptr)

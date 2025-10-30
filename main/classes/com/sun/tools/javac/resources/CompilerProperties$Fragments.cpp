@@ -9,18 +9,6 @@
 #include <com/sun/tools/javac/util/JCDiagnostic.h>
 #include <com/sun/tools/javac/util/Name.h>
 #include <java/io/File.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Void.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/file/Path.h>
 #include <java/util/List.h>
 #include <java/util/Set.h>
@@ -462,281 +450,143 @@ $Object* allocate$CompilerProperties$Fragments($Class* clazz) {
 	return $of($alloc(CompilerProperties$Fragments));
 }
 
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::AccessorMethodCantThrowException = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::AccessorMethodMustNotBeGeneric = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::AccessorMethodMustNotBeStatic = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::Anonymous = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::ArgLengthMismatch = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::BadClassSignature = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::BadConstPoolTag = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::BadConstPoolTagAt = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::BadEnclosingClass = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::BadModuleInfoName = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::BadRequiresFlag = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::BadRuntimeInvisibleParamAnnotations = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::BadSignature = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::BadTypeAnnotationValue = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::BaseMembership = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::Bound = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::Canonical = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::CanonicalCantHaveReturnStatement = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::CanonicalMustNotContainExplicitConstructorInvocation = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::CanonicalMustNotDeclareTypeVariables = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::CanonicalWithNameMismatch = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::CantResolveModules = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::ClassFileWrongClass = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::Compact = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::ConditionalTargetCantBeVoid = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::DiamondAnonymousMethodsImplicitlyOverride = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::FatalErrCantClose = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::FatalErrNoJavaLang = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::FeatureAnnotationsAfterTypeParams = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::FeatureCaseNull = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::FeatureDefaultMethods = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::FeatureDiamond = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::FeatureDiamondAndAnonClass = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::FeatureIntersectionTypesInCast = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::FeatureLambda = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::FeatureMethodReferences = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::FeatureModules = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::FeatureMultipleCaseLabels = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::FeaturePatternMatchingInstanceof = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::FeaturePatternSwitch = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::FeaturePrivateIntfMethods = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::FeatureRecords = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::FeatureReifiableTypesInstanceof = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::FeatureRepeatableAnnotations = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::FeatureSealedClasses = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::FeatureStaticIntfMethodInvoke = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::FeatureStaticIntfMethods = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::FeatureSwitchExpressions = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::FeatureSwitchRules = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::FeatureTextBlocks = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::FeatureTypeAnnotations = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::FeatureVarInTryWithResources = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::FeatureVarSyntaxInImplicitLambda = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::FileDoesNotContainModule = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::Guard = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::IllegalStartOfClassFile = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::ImplicitAndExplicitNotAllowed = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::IncompatibleArgTypesInLambda = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::IncompatibleArgTypesInMref = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::InnerCls = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::KindnameAnnotation = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::KindnameClass = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::KindnameConstructor = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::KindnameEnum = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::KindnameInstanceInit = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::KindnameInterface = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::KindnameMethod = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::KindnameModule = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::KindnamePackage = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::KindnameRecord = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::KindnameRecordComponent = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::KindnameStatic = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::KindnameStaticInit = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::KindnameTypeVariable = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::KindnameTypeVariableBound = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::KindnameValue = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::KindnameVariable = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::Lambda = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::Local = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::LocalArrayMissingTarget = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::LocalCantInferNull = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::LocalCantInferVoid = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::LocalLambdaMissingTarget = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::LocalMissingInit = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::LocalMrefMissingTarget = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::LocalSelfRef = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::LocnModule_path = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::LocnModule_source_path = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::LocnSystem_modules = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::LocnUpgrade_module_path = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::MalformedVarargMethod = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::MethodMustBePublic = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::ModuleInfoDefinitionExpected = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::ModuleInfoInvalidSuperClass = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::MrefInferAndExplicitParams = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::MustNotBeSameClass = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::NoArgs = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::NonStatic = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::ResumeAbort = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::SourceUnavailable = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::StatExprExpected = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::Static = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::StaticMrefWithTargs = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::SwitchExpressionTargetCantBeVoid = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::TokenBadSymbol = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::TokenCharacter = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::TokenDouble = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::TokenEndOfInput = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::TokenFloat = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::TokenIdentifier = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::TokenInteger = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::TokenLongInteger = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::TokenString = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::TypeCaptureof1 = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::TypeMustBeIdenticalToCorrespondingRecordComponentType = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::TypeNone = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::TypeNull = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::TypeReqArrayOrIterable = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::TypeReqClass = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::TypeReqClassArray = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::TypeReqExact = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::TypeReqRef = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::UnableToAccessFile = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::Unbound = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::UncheckedAssign = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::UncheckedCastToType = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::UndeclTypeVar = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::UnexpectedConstPoolTagAt = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::UnexpectedRetVal = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::UnicodeStrNotSupported = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::UnnamedModule = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::UnnamedPackage = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::UserSelectedCompletionFailure = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::VarAndExplicitNotAllowed = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::VarAndImplicitNotAllowed = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::VersionNotAvailable = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::WhereDescriptionCaptured = nullptr;
-
 $JCDiagnostic$Fragment* CompilerProperties$Fragments::WrongVersion = nullptr;
 
 void CompilerProperties$Fragments::init$() {

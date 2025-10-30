@@ -5,16 +5,6 @@
 #include <com/sun/tools/sjavac/options/OptionHelper.h>
 #include <com/sun/tools/sjavac/options/Options.h>
 #include <com/sun/tools/sjavac/options/SourceLocation.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/IllegalArgumentException.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/file/Path.h>
 #include <java/util/AbstractList.h>
 #include <java/util/ArrayList.h>

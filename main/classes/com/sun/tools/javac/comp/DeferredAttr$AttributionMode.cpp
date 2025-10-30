@@ -1,16 +1,7 @@
 #include <com/sun/tools/javac/comp/DeferredAttr$AttributionMode.h>
 
 #include <com/sun/tools/javac/comp/DeferredAttr.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef ANALYZER
@@ -78,13 +69,9 @@ $Object* allocate$DeferredAttr$AttributionMode($Class* clazz) {
 	return $of($alloc(DeferredAttr$AttributionMode));
 }
 
-
 DeferredAttr$AttributionMode* DeferredAttr$AttributionMode::FULL = nullptr;
-
 DeferredAttr$AttributionMode* DeferredAttr$AttributionMode::ATTRIB_TO_TREE = nullptr;
-
 DeferredAttr$AttributionMode* DeferredAttr$AttributionMode::ANALYZER = nullptr;
-
 DeferredAttr$AttributionMode* DeferredAttr$AttributionMode::SPECULATIVE = nullptr;
 $DeferredAttr$AttributionModeArray* DeferredAttr$AttributionMode::$VALUES = nullptr;
 

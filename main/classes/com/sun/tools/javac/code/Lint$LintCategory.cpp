@@ -1,16 +1,7 @@
 #include <com/sun/tools/javac/code/Lint$LintCategory.h>
 
 #include <com/sun/tools/javac/code/Lint.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Map.h>
 #include <jcpp.h>
 
@@ -134,67 +125,36 @@ $Object* allocate$Lint$LintCategory($Class* clazz) {
 	return $of($alloc(Lint$LintCategory));
 }
 
-
 Lint$LintCategory* Lint$LintCategory::AUXILIARYCLASS = nullptr;
-
 Lint$LintCategory* Lint$LintCategory::CAST = nullptr;
-
 Lint$LintCategory* Lint$LintCategory::CLASSFILE = nullptr;
-
 Lint$LintCategory* Lint$LintCategory::DEPRECATION = nullptr;
-
 Lint$LintCategory* Lint$LintCategory::DEP_ANN = nullptr;
-
 Lint$LintCategory* Lint$LintCategory::DIVZERO = nullptr;
-
 Lint$LintCategory* Lint$LintCategory::EMPTY = nullptr;
-
 Lint$LintCategory* Lint$LintCategory::EXPORTS = nullptr;
-
 Lint$LintCategory* Lint$LintCategory::FALLTHROUGH = nullptr;
-
 Lint$LintCategory* Lint$LintCategory::FINALLY = nullptr;
-
 Lint$LintCategory* Lint$LintCategory::MISSING_EXPLICIT_CTOR = nullptr;
-
 Lint$LintCategory* Lint$LintCategory::MODULE = nullptr;
-
 Lint$LintCategory* Lint$LintCategory::OPENS = nullptr;
-
 Lint$LintCategory* Lint$LintCategory::OPTIONS = nullptr;
-
 Lint$LintCategory* Lint$LintCategory::OVERLOADS = nullptr;
-
 Lint$LintCategory* Lint$LintCategory::OVERRIDES = nullptr;
-
 Lint$LintCategory* Lint$LintCategory::PATH = nullptr;
-
 Lint$LintCategory* Lint$LintCategory::PROCESSING = nullptr;
-
 Lint$LintCategory* Lint$LintCategory::RAW = nullptr;
-
 Lint$LintCategory* Lint$LintCategory::REMOVAL = nullptr;
-
 Lint$LintCategory* Lint$LintCategory::REQUIRES_AUTOMATIC = nullptr;
-
 Lint$LintCategory* Lint$LintCategory::REQUIRES_TRANSITIVE_AUTOMATIC = nullptr;
-
 Lint$LintCategory* Lint$LintCategory::SERIAL = nullptr;
-
 Lint$LintCategory* Lint$LintCategory::STATIC = nullptr;
-
 Lint$LintCategory* Lint$LintCategory::STRICTFP = nullptr;
-
 Lint$LintCategory* Lint$LintCategory::SYNCHRONIZATION = nullptr;
-
 Lint$LintCategory* Lint$LintCategory::TEXT_BLOCKS = nullptr;
-
 Lint$LintCategory* Lint$LintCategory::TRY = nullptr;
-
 Lint$LintCategory* Lint$LintCategory::UNCHECKED = nullptr;
-
 Lint$LintCategory* Lint$LintCategory::VARARGS = nullptr;
-
 Lint$LintCategory* Lint$LintCategory::PREVIEW = nullptr;
 $Lint$LintCategoryArray* Lint$LintCategory::$VALUES = nullptr;
 

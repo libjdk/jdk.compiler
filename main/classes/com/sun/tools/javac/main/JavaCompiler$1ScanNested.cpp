@@ -13,16 +13,6 @@
 #include <com/sun/tools/javac/tree/JCTree$JCMemberReference.h>
 #include <com/sun/tools/javac/tree/JCTree.h>
 #include <com/sun/tools/javac/tree/TreeScanner.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractSet.h>
 #include <java/util/HashSet.h>
 #include <java/util/LinkedHashSet.h>
@@ -130,8 +120,8 @@ void JavaCompiler$1ScanNested::visitClassDef($JCTree$JCClassDecl* node) {
 					$var($Throwable, var$0, nullptr);
 					try {
 						scan(stEnv->tree);
-					} catch ($Throwable&) {
-						$assign(var$0, $catch());
+					} catch ($Throwable& var$1) {
+						$assign(var$0, var$1);
 					} /*finally*/ {
 						this->hasLambdas = prevHasLambdas;
 					}

@@ -4,17 +4,8 @@
 #include <com/sun/tools/sjavac/options/ArgumentIterator.h>
 #include <com/sun/tools/sjavac/options/Option.h>
 #include <com/sun/tools/sjavac/options/OptionHelper.h>
-#include <java/lang/Array.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
 #include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/regex/Matcher.h>
 #include <java/util/regex/Pattern.h>
 #include <jcpp.h>
@@ -107,8 +98,7 @@ void Option$11::processMatching($ArgumentIterator* iter, $OptionHelper* helper) 
 		$var($Transformer, transformer, $cast($Transformer, $nc($($nc(trCls)->getConstructor($$new($ClassArray, 0))))->newInstance($$new($ObjectArray, 0))));
 		$nc(transformer)->setExtra(extra);
 		$nc(helper)->addTransformer(suffix, transformer);
-	} catch ($Exception&) {
-		$var($Exception, e, $catch());
+	} catch ($Exception& e) {
 		$nc(helper)->reportError($$str({"Cannot use "_s, classname, " as a translator: "_s, $(e->getMessage())}));
 	}
 }

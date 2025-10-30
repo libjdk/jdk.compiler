@@ -3,16 +3,7 @@
 #include <com/sun/tools/javac/code/BoundKind.h>
 #include <com/sun/tools/javac/code/TypeTag.h>
 #include <com/sun/tools/javac/tree/JCTree.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/NoSuchFieldError.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef BOOLEAN
@@ -85,31 +76,26 @@ void clinit$JCTree$1($Class* class$) {
 	{
 		try {
 			$nc(JCTree$1::$SwitchMap$com$sun$tools$javac$code$BoundKind)->set($BoundKind::UNBOUND->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JCTree$1::$SwitchMap$com$sun$tools$javac$code$BoundKind)->set($BoundKind::EXTENDS->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JCTree$1::$SwitchMap$com$sun$tools$javac$code$BoundKind)->set($BoundKind::SUPER->ordinal(), 3);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 	$assignStatic(JCTree$1::$SwitchMap$com$sun$tools$javac$code$TypeTag, $new($ints, $($TypeTag::values())->length));
 	{
 		try {
 			$nc(JCTree$1::$SwitchMap$com$sun$tools$javac$code$TypeTag)->set($TypeTag::BOOLEAN->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JCTree$1::$SwitchMap$com$sun$tools$javac$code$TypeTag)->set($TypeTag::CHAR->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 }

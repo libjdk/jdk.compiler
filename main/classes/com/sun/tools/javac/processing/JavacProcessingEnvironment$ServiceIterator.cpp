@@ -5,22 +5,12 @@
 #include <com/sun/tools/javac/util/Abort.h>
 #include <com/sun/tools/javac/util/JCDiagnostic$Error.h>
 #include <com/sun/tools/javac/util/Log.h>
-#include <java/lang/Class.h>
 #include <java/lang/ClassFormatError.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/ClassLoader.h>
 #include <java/lang/Error.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/LinkageError.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/UnsupportedClassVersionError.h>
 #include <java/lang/UnsupportedOperationException.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Iterator.h>
 #include <java/util/ServiceConfigurationError.h>
 #include <java/util/ServiceLoader.h>
@@ -101,7 +91,6 @@ $Object* allocate$JavacProcessingEnvironment$ServiceIterator($Class* clazz) {
 }
 
 void JavacProcessingEnvironment$ServiceIterator::init$($JavacProcessingEnvironment* this$0, $ClassLoader* classLoader, $Log* log) {
-	$useLocalCurrentObjectStackCache();
 	$beforeCallerSensitive();
 	$set(this, this$0, this$0);
 	$set(this, log, log);
@@ -110,12 +99,10 @@ void JavacProcessingEnvironment$ServiceIterator::init$($JavacProcessingEnvironme
 			$load($Processor);
 			$set(this, loader, $ServiceLoader::load($Processor::class$, classLoader));
 			$set(this, iterator, $nc(this->loader)->iterator());
-		} catch ($Exception&) {
-			$var($Exception, e, $catch());
+		} catch ($Exception& e) {
 			$set(this, iterator, this$0->handleServiceLoaderUnavailability("proc.no.service"_s, nullptr));
 		}
-	} catch ($Throwable&) {
-		$var($Throwable, t, $catch());
+	} catch ($Throwable& t) {
 		$init($CompilerProperties$Errors);
 		$nc(log)->error($CompilerProperties$Errors::ProcServiceProblem);
 		$throwNew($Abort, t);
@@ -133,20 +120,16 @@ bool JavacProcessingEnvironment$ServiceIterator::hasNext() {
 	$useLocalCurrentObjectStackCache();
 	try {
 		return internalHasNext();
-	} catch ($ServiceConfigurationError&) {
-		$var($ServiceConfigurationError, sce, $catch());
+	} catch ($ServiceConfigurationError& sce) {
 		$nc(this->log)->error($($CompilerProperties$Errors::ProcBadConfigFile($(sce->getLocalizedMessage()))));
 		$throwNew($Abort, sce);
-	} catch ($UnsupportedClassVersionError&) {
-		$var($UnsupportedClassVersionError, ucve, $catch());
+	} catch ($UnsupportedClassVersionError& ucve) {
 		$nc(this->log)->error($($CompilerProperties$Errors::ProcCantLoadClass($(ucve->getLocalizedMessage()))));
 		$throwNew($Abort, ucve);
-	} catch ($ClassFormatError&) {
-		$var($ClassFormatError, cfe, $catch());
+	} catch ($ClassFormatError& cfe) {
 		$nc(this->log)->error($($CompilerProperties$Errors::ProcCantLoadClass($(cfe->getLocalizedMessage()))));
 		$throwNew($Abort, cfe);
-	} catch ($Throwable&) {
-		$var($Throwable, t, $catch());
+	} catch ($Throwable& t) {
 		$nc(this->log)->error($($CompilerProperties$Errors::ProcBadConfigFile($(t->getLocalizedMessage()))));
 		$throwNew($Abort, t);
 	}
@@ -161,12 +144,10 @@ $Object* JavacProcessingEnvironment$ServiceIterator::next() {
 	$useLocalCurrentObjectStackCache();
 	try {
 		return $of(internalNext());
-	} catch ($ServiceConfigurationError&) {
-		$var($ServiceConfigurationError, sce, $catch());
+	} catch ($ServiceConfigurationError& sce) {
 		$nc(this->log)->error($($CompilerProperties$Errors::ProcBadConfigFile($(sce->getLocalizedMessage()))));
 		$throwNew($Abort, sce);
-	} catch ($Throwable&) {
-		$var($Throwable, t, $catch());
+	} catch ($Throwable& t) {
 		$nc(this->log)->error($($CompilerProperties$Errors::ProcBadConfigFile($(t->getLocalizedMessage()))));
 		$throwNew($Abort, t);
 	}
@@ -185,8 +166,7 @@ void JavacProcessingEnvironment$ServiceIterator::close() {
 	if (this->loader != nullptr) {
 		try {
 			$nc(this->loader)->reload();
-		} catch ($Exception&) {
-			$catch();
+		} catch ($Exception& e) {
 		}
 	}
 }

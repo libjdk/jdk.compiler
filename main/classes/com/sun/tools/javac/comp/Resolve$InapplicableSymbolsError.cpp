@@ -32,16 +32,7 @@
 #include <com/sun/tools/javac/util/Name.h>
 #include <com/sun/tools/javac/util/Names.h>
 #include <com/sun/tools/javac/util/Pair.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/AbstractSet.h>
 #include <java/util/Collection.h>
@@ -180,7 +171,7 @@ $JCDiagnostic* Resolve$InapplicableSymbolsError::getDiagnostic($JCDiagnostic$Dia
 		$var($DiagnosticSource, var$3, $nc(this->this$0->log)->currentSource());
 		$var($JCDiagnostic$DiagnosticPosition, var$4, pos);
 		$var($String, var$5, "cant.apply.symbols"_s);
-			$init($Kinds$KindName);
+		$init($Kinds$KindName);
 		$var($JCDiagnostic, err, $nc(this->this$0->diags)->create(var$1, nullptr, var$2, var$3, var$4, var$5, $$new($ObjectArray, {
 			name == $nc(this->this$0->names)->init ? $of($Kinds$KindName::CONSTRUCTOR) : $($of($nc(this->kind)->absentKind())),
 			name == $nc(this->this$0->names)->init ? $of($nc($nc(site)->tsym)->name) : $of(name),

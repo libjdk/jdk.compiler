@@ -30,17 +30,6 @@
 #include <com/sun/tools/javac/util/RichDiagnosticFormatter$ClassNameSimplifier.h>
 #include <com/sun/tools/javac/util/RichDiagnosticFormatter$WhereClauseKind.h>
 #include <com/sun/tools/javac/util/RichDiagnosticFormatter.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Void.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Iterator.h>
 #include <java/util/List.h>
 #include <java/util/Map.h>
@@ -259,8 +248,7 @@ $Void* RichDiagnosticFormatter$1::visitClassType($Type$ClassType* t, $Void* igno
 	$var($Type, enclosingType, nullptr);
 	try {
 		$assign(enclosingType, $nc(t)->getEnclosingType());
-	} catch ($Symbol$CompletionFailure&) {
-		$var($Symbol$CompletionFailure, cf, $catch());
+	} catch ($Symbol$CompletionFailure& cf) {
 		return nullptr;
 	}
 	$init($Type);

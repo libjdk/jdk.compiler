@@ -24,8 +24,10 @@ public:
 	void init$($String* value, $Throwable* cause);
 	static const int64_t serialVersionUID = (int64_t)0x7E4FC3F7CCB1EFEA;
 	PathFileObject$CannotCreateUriError(const PathFileObject$CannotCreateUriError& e);
-	PathFileObject$CannotCreateUriError wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline PathFileObject$CannotCreateUriError* operator ->() {
+		return (PathFileObject$CannotCreateUriError*)throwing$;
+	}
 };
 
 				} // file

@@ -3,21 +3,8 @@
 #include <com/sun/tools/javac/processing/PrintingProcessor$PrintingElementVisitor.h>
 #include <java/io/FilterOutputStream.h>
 #include <java/io/OutputStream.h>
-#include <java/io/PrintStream.h>
 #include <java/io/PrintWriter.h>
 #include <java/io/Writer.h>
-#include <java/lang/Attribute.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/CompoundAttribute.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NamedAttribute.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Iterator.h>
 #include <java/util/Set.h>
 #include <javax/annotation/processing/AbstractProcessor.h>
@@ -70,12 +57,12 @@ $NamedAttribute PrintingProcessor_Attribute_var$2[] = {
 	{"value", 'e', "Ljavax/lang/model/SourceVersion; RELEASE_17"},
 	{}
 };
+
 $CompoundAttribute _PrintingProcessor_Annotations_[] = {
 	{"Ljavax/annotation/processing/SupportedAnnotationTypes;", PrintingProcessor_Attribute_var$0},
 	{"Ljavax/annotation/processing/SupportedSourceVersion;", PrintingProcessor_Attribute_var$2},
 	{}
 };
-
 
 $FieldInfo _PrintingProcessor_FieldInfo_[] = {
 	{"writer", "Ljava/io/PrintWriter;", nullptr, 0, $field(PrintingProcessor, writer)},
@@ -117,7 +104,6 @@ $Object* allocate$PrintingProcessor($Class* clazz) {
 
 void PrintingProcessor::init$() {
 	$AbstractProcessor::init$();
-	$init($System);
 	$set(this, writer, $new($PrintWriter, static_cast<$OutputStream*>($System::out)));
 }
 

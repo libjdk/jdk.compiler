@@ -2,18 +2,7 @@
 
 #include <com/sun/tools/javac/api/ClientCodeWrapper.h>
 #include <com/sun/tools/javac/util/ClientCodeException.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Error.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Objects.h>
 #include <javax/tools/Diagnostic.h>
 #include <javax/tools/DiagnosticListener.h>
@@ -82,17 +71,13 @@ void ClientCodeWrapper$WrappedDiagnosticListener::init$($ClientCodeWrapper* this
 }
 
 void ClientCodeWrapper$WrappedDiagnosticListener::report($Diagnostic* diagnostic) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		$nc(this->clientDiagnosticListener)->report($(this->this$0->unwrap(diagnostic)));
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 }

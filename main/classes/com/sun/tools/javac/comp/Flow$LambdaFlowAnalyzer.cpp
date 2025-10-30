@@ -10,15 +10,6 @@
 #include <com/sun/tools/javac/tree/JCTree.h>
 #include <com/sun/tools/javac/util/List.h>
 #include <com/sun/tools/javac/util/ListBuffer.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $Symtab = ::com::sun::tools::javac::code::Symtab;
@@ -104,8 +95,8 @@ void Flow$LambdaFlowAnalyzer::visitLambda($JCTree$JCLambda* tree) {
 			$set(this, thrown, $List::nil());
 			scan($nc(tree)->body);
 			$set(this, inferredThrownTypes, this->thrown);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, pendingExits, prevPending);
 			$set(this, caught, prevCaught);

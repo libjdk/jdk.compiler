@@ -10,27 +10,12 @@
 #include <com/sun/tools/sjavac/server/CompilationSubResult.h>
 #include <com/sun/tools/sjavac/server/SysInfo.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Double.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
 #include <java/lang/InterruptedException.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/StringBuilder.h>
-#include <java/lang/System.h>
-#include <java/lang/Thread.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/URI.h>
 #include <java/util/AbstractList.h>
 #include <java/util/ArrayList.h>
@@ -456,12 +441,10 @@ bool CompileJavaPackages::transform($CompilationService* sjavac, $Map* pkgSrcs, 
 			{
 				try {
 					subResults->add($cast($CompilationSubResult, $($nc(fut)->get())));
-				} catch ($ExecutionException&) {
-					$var($ExecutionException, ee, $catch());
+				} catch ($ExecutionException& ee) {
 					$Log::error($$str({"Compilation failed: "_s, $(ee->getMessage())}));
 					$Log::error(static_cast<$Throwable*>(ee));
-				} catch ($InterruptedException&) {
-					$var($InterruptedException, ie, $catch());
+				} catch ($InterruptedException& ie) {
 					$Log::error($$str({"Compilation interrupted: "_s, $(ie->getMessage())}));
 					$Log::error(static_cast<$Throwable*>(ie));
 					$($Thread::currentThread())->interrupt();

@@ -24,8 +24,10 @@ public:
 	void init$($Throwable* cause);
 	static const int64_t serialVersionUID = (int64_t)0xB140256640399E45;
 	ClientCodeException(const ClientCodeException& e);
-	ClientCodeException wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline ClientCodeException* operator ->() {
+		return (ClientCodeException*)throwing$;
+	}
 };
 
 				} // util

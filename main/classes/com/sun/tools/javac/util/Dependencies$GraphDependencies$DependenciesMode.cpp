@@ -1,16 +1,7 @@
 #include <com/sun/tools/javac/util/Dependencies$GraphDependencies$DependenciesMode.h>
 
 #include <com/sun/tools/javac/util/Dependencies$GraphDependencies.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractCollection.h>
 #include <java/util/Arrays.h>
 #include <java/util/Collection.h>

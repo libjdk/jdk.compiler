@@ -12,18 +12,8 @@
 #include <com/sun/tools/sjavac/server/Sjavac.h>
 #include <com/sun/tools/sjavac/server/Terminable.h>
 #include <java/io/IOException.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
 #include <java/lang/InterruptedException.h>
-#include <java/lang/MethodInfo.h>
 #include <java/lang/Runtime.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/InetAddress.h>
 #include <java/net/InetSocketAddress.h>
 #include <java/net/ServerSocket.h>
@@ -142,7 +132,6 @@ $PortFile* SjavacServer::getPortFile($String* filename) {
 	$load(SjavacServer);
 	$synchronized(class$) {
 		$init(SjavacServer);
-		$useLocalCurrentObjectStackCache();
 		if (SjavacServer::allPortFiles == nullptr) {
 			$assignStatic(SjavacServer::allPortFiles, $new($HashMap));
 		}
@@ -152,8 +141,7 @@ $PortFile* SjavacServer::getPortFile($String* filename) {
 				if (!pf->exists()) {
 					$assign(pf, nullptr);
 				}
-			} catch ($IOException&) {
-				$var($IOException, ioex, $catch());
+			} catch ($IOException& ioex) {
 				ioex->printStackTrace();
 			}
 		}
@@ -211,8 +199,7 @@ int32_t SjavacServer::startServer() {
 		try {
 			$var($Socket, socket, $nc(this->serverSocket)->accept());
 			$$new($RequestHandler, socket, this->sjavac)->start();
-		} catch ($SocketException&) {
-			$catch();
+		} catch ($SocketException& se) {
 		}
 	} while ($nc(this->keepAcceptingRequests)->get());
 	$Log::debug("Shutting down."_s);
@@ -224,7 +211,6 @@ int32_t SjavacServer::startServer() {
 }
 
 void SjavacServer::shutdown($String* quitMsg) {
-	$useLocalCurrentObjectStackCache();
 	if (!$nc(this->keepAcceptingRequests)->compareAndSet(true, false)) {
 		return;
 	}
@@ -232,17 +218,14 @@ void SjavacServer::shutdown($String* quitMsg) {
 	$nc(this->portFileMonitor)->shutdown();
 	try {
 		$nc(this->portFile)->delete$();
-	} catch ($IOException&) {
-		$var($Exception, e, $catch());
+	} catch ($IOException& e) {
 		$Log::error(static_cast<$Throwable*>(e));
-	} catch ($InterruptedException&) {
-		$var($Exception, e, $catch());
+	} catch ($InterruptedException& e) {
 		$Log::error(static_cast<$Throwable*>(e));
 	}
 	try {
 		$nc(this->serverSocket)->close();
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$Log::error(static_cast<$Throwable*>(e));
 	}
 }

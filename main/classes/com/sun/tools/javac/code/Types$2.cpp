@@ -15,15 +15,6 @@
 #include <com/sun/tools/javac/code/Types.h>
 #include <com/sun/tools/javac/util/List.h>
 #include <com/sun/tools/javac/util/ListBuffer.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef UNBOUND
@@ -125,8 +116,7 @@ $Type* Types$2::visitClassType($Type$ClassType* t, $Symbol* sym) {
 	$var($ListBuffer, to, $new($ListBuffer));
 	try {
 		this->this$0->adapt(base, t, from, to);
-	} catch ($Types$AdaptFailure&) {
-		$var($Types$AdaptFailure, ex, $catch());
+	} catch ($Types$AdaptFailure& ex) {
 		return nullptr;
 	}
 	$var($Type, var$0, $nc(sym)->type);

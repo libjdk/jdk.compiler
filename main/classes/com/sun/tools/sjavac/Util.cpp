@@ -5,25 +5,11 @@
 #include <java/io/Serializable.h>
 #include <java/io/StringWriter.h>
 #include <java/io/Writer.h>
-#include <java/lang/Array.h>
-#include <java/lang/Character.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/IllegalArgumentException.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/StringBuilder.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/file/Path.h>
 #include <java/util/AbstractSet.h>
 #include <java/util/Arrays.h>
@@ -228,8 +214,7 @@ int32_t Util::extractIntOption($String* opName, $String* s, int32_t deflt) {
 	int32_t v = 0;
 	try {
 		v = $Integer::parseInt($(s->substring(p, pe)));
-	} catch ($Exception&) {
-		$catch();
+	} catch ($Exception& e) {
 	}
 	return v;
 }

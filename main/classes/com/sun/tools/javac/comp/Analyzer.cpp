@@ -52,23 +52,13 @@
 #include <com/sun/tools/javac/util/Options.h>
 #include <com/sun/tools/javac/util/Position.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
 #include <java/lang/StackTraceElement.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Arrays.h>
 #include <java/util/EnumSet.h>
 #include <java/util/Iterator.h>
@@ -415,15 +405,14 @@ void Analyzer::doAnalysis($Analyzer$RewritingContext* rewriting) {
 				$var($DeferredAttr$AttributionMode, var$6, $DeferredAttr$AttributionMode::ANALYZER);
 				$nc(this->deferredAttr)->attribSpeculative(var$1, var$2, var$3, var$4, var$5, var$6, $($nc(this->argumentAttr)->withLocalCacheContext()));
 				$nc(rewriting->analyzer)->process(rewriting->oldTree, rewriting->replacement, rewriting->erroneous);
-			} catch ($Throwable&) {
-				$var($Throwable, ex, $catch());
+			} catch ($Throwable& ex) {
 				$var($String, var$9, $$str({"Analyzer error when processing: "_s, $nc(rewriting)->originalTree, ":"_s}));
 				$var($String, var$8, $$concat(var$9, $(ex->toString())));
 				$var($String, var$7, $$concat(var$8, "\n"));
 				$Assert::error($$concat(var$7, $cast($String, $($nc($($nc($($Arrays::stream($(ex->getStackTrace()))))->map(static_cast<$Function*>($$new(Analyzer$$Lambda$lambda$doAnalysis$1$1)))))->collect($($Collectors::joining("\n"_s)))))));
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$10) {
+			$assign(var$0, var$10);
 		} /*finally*/ {
 			$nc(this->log)->useSource($($nc(prevSource)->getFile()));
 			$nc(localCacheContext)->leave();

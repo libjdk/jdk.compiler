@@ -2,15 +2,6 @@
 
 #include <com/sun/tools/javac/comp/Attr.h>
 #include <com/sun/tools/javac/comp/Env.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $Attr = ::com::sun::tools::javac::comp::Attr;
@@ -71,16 +62,10 @@ void Attr$BreakAttr::init$($Env* env) {
 Attr$BreakAttr::Attr$BreakAttr() {
 }
 
-Attr$BreakAttr::Attr$BreakAttr(const Attr$BreakAttr& e) {
+Attr$BreakAttr::Attr$BreakAttr(const Attr$BreakAttr& e) : $RuntimeException(e) {
 }
 
-Attr$BreakAttr Attr$BreakAttr::wrapper$() {
-	$pendingException(this);
-	return *this;
-}
-
-void Attr$BreakAttr::throwWrapper$() {
-	$pendingException(this);
+void Attr$BreakAttr::throw$() {
 	throw *this;
 }
 

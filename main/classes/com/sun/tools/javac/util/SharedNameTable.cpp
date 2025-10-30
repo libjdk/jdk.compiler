@@ -7,17 +7,7 @@
 #include <com/sun/tools/javac/util/Name.h>
 #include <com/sun/tools/javac/util/Names.h>
 #include <com/sun/tools/javac/util/SharedNameTable$NameImpl.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
 #include <java/lang/ref/SoftReference.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $SharedNameTable$NameImplArray = $Array<::com::sun::tools::javac::util::SharedNameTable$NameImpl>;
@@ -126,7 +116,7 @@ void SharedNameTable::init$($Names* names) {
 $Name* SharedNameTable::fromChars($chars* cs, int32_t start, int32_t len) {
 	$useLocalCurrentObjectStackCache();
 	int32_t nc = this->nc;
-	$var($bytes, bytes, $assignField(this, bytes, $ArrayUtils::ensureCapacity(this->bytes, nc + len * 3)));
+	$var($bytes, bytes, $set(this, bytes, $ArrayUtils::ensureCapacity(this->bytes, nc + len * 3)));
 	int32_t nbytes = $Convert::chars2utf(cs, start, bytes, nc, len) - nc;
 	int32_t h = (int32_t)(hashValue(bytes, nc, nbytes) & (uint32_t)this->hashMask);
 	$var($SharedNameTable$NameImpl, n, $nc(this->hashes)->get(h));
@@ -177,7 +167,7 @@ $Name* SharedNameTable::fromUtf($bytes* cs, int32_t start, int32_t len) {
 	}
 	if (n == nullptr) {
 		int32_t nc = this->nc;
-		$assign(names, ($assignField(this, bytes, $ArrayUtils::ensureCapacity(names, nc + len))));
+		$assign(names, ($set(this, bytes, $ArrayUtils::ensureCapacity(names, nc + len))));
 		$System::arraycopy(cs, start, names, nc, len);
 		$assign(n, $new($SharedNameTable$NameImpl, this));
 		n->index = nc;

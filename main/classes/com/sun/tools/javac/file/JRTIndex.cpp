@@ -7,20 +7,8 @@
 #include <com/sun/tools/javac/util/Context.h>
 #include <java/io/IOException.h>
 #include <java/io/UncheckedIOException.h>
-#include <java/lang/Array.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/ref/SoftReference.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/URI.h>
 #include <java/nio/file/DirectoryStream.h>
 #include <java/nio/file/FileSystem.h>
@@ -139,7 +127,6 @@ $Object* allocate$JRTIndex($Class* clazz) {
 	return $of($alloc(JRTIndex));
 }
 
-
 JRTIndex* JRTIndex::sharedInstance = nullptr;
 
 JRTIndex* JRTIndex::getSharedInstance() {
@@ -149,8 +136,7 @@ JRTIndex* JRTIndex::getSharedInstance() {
 		if (JRTIndex::sharedInstance == nullptr) {
 			try {
 				$assignStatic(JRTIndex::sharedInstance, $new(JRTIndex));
-			} catch ($IOException&) {
-				$var($IOException, e, $catch());
+			} catch ($IOException& e) {
 				$throwNew($UncheckedIOException, e);
 			}
 		}
@@ -159,7 +145,6 @@ JRTIndex* JRTIndex::getSharedInstance() {
 }
 
 JRTIndex* JRTIndex::instance($Context* context) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		$load(JRTIndex);
 		$var(JRTIndex, instance, $cast(JRTIndex, $nc(context)->get(JRTIndex::class$)));
@@ -167,23 +152,19 @@ JRTIndex* JRTIndex::instance($Context* context) {
 			context->put(JRTIndex::class$, $of(($assign(instance, $new(JRTIndex)))));
 		}
 		return instance;
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($UncheckedIOException, e);
 	}
 	$shouldNotReachHere();
 }
 
 bool JRTIndex::isAvailable() {
-	$useLocalCurrentObjectStackCache();
 	try {
 		$FileSystems::getFileSystem($($URI::create("jrt:/"_s)));
 		return true;
-	} catch ($ProviderNotFoundException&) {
-		$var($RuntimeException, e, $catch());
+	} catch ($ProviderNotFoundException& e) {
 		return false;
-	} catch ($FileSystemNotFoundException&) {
-		$var($RuntimeException, e, $catch());
+	} catch ($FileSystemNotFoundException& e) {
 		return false;
 	}
 	$shouldNotReachHere();
@@ -253,20 +234,18 @@ $JRTIndex$Entry* JRTIndex::getEntry($RelativePath$RelativeDirectory* rd) {
 																	}
 																}
 															}
-														} catch ($Throwable&) {
-															$var($Throwable, t$, $catch());
+														} catch ($Throwable& t$) {
 															if (stream != nullptr) {
 																try {
 																	stream->close();
-																} catch ($Throwable&) {
-																	$var($Throwable, x2, $catch());
+																} catch ($Throwable& x2) {
 																	t$->addSuppressed(x2);
 																}
 															}
 															$throw(t$);
 														}
-													} catch ($Throwable&) {
-														$assign(var$1, $catch());
+													} catch ($Throwable& var$2) {
+														$assign(var$1, var$2);
 													} /*finally*/ {
 														if (stream != nullptr) {
 															stream->close();
@@ -280,20 +259,18 @@ $JRTIndex$Entry* JRTIndex::getEntry($RelativePath$RelativeDirectory* rd) {
 										}
 									}
 								}
-							} catch ($Throwable&) {
-								$var($Throwable, t$, $catch());
+							} catch ($Throwable& t$) {
 								if (modules != nullptr) {
 									try {
 										modules->close();
-									} catch ($Throwable&) {
-										$var($Throwable, x2, $catch());
+									} catch ($Throwable& x2) {
 										t$->addSuppressed(x2);
 									}
 								}
 								$throw(t$);
 							}
-						} catch ($Throwable&) {
-							$assign(var$0, $catch());
+						} catch ($Throwable& var$3) {
+							$assign(var$0, var$3);
 						} /*finally*/ {
 							if (modules != nullptr) {
 								modules->close();
@@ -305,9 +282,9 @@ $JRTIndex$Entry* JRTIndex::getEntry($RelativePath$RelativeDirectory* rd) {
 					}
 				}
 			}
-			$var($Map, var$2, $Collections::unmodifiableMap(files));
-			$var($Set, var$3, $Collections::unmodifiableSet(subdirs));
-			$assign(e, $new($JRTIndex$Entry, this, var$2, var$3, $(getCtInfo(rd))));
+			$var($Map, var$4, $Collections::unmodifiableMap(files));
+			$var($Set, var$5, $Collections::unmodifiableSet(subdirs));
+			$assign(e, $new($JRTIndex$Entry, this, var$4, var$5, $(getCtInfo(rd))));
 			$nc(this->entries)->put(rd, $$new($SoftReference, e));
 		}
 		return e;
@@ -395,8 +372,7 @@ $JRTIndex$CtSym* JRTIndex::getCtInfo($RelativePath$RelativeDirectory* dir) {
 			}
 		}
 		return $new($JRTIndex$CtSym, hidden, proprietary, minProfile);
-	} catch ($MissingResourceException&) {
-		$var($MissingResourceException, e, $catch());
+	} catch ($MissingResourceException& e) {
 		$init($JRTIndex$CtSym);
 		return $JRTIndex$CtSym::EMPTY;
 	}

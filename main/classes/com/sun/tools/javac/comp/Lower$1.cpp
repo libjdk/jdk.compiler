@@ -26,17 +26,7 @@
 #include <com/sun/tools/javac/util/JCDiagnostic$Fragment.h>
 #include <com/sun/tools/javac/util/Log.h>
 #include <com/sun/tools/javac/util/Name.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Iterator.h>
 #include <jcpp.h>
 
@@ -159,8 +149,8 @@ void Lower$1::visitClassDef($JCTree$JCClassDecl* that) {
 		$var($Throwable, var$0, nullptr);
 		try {
 			$TreeScanner::visitClassDef(that);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, currentClass, prevCurrentClass);
 		}
@@ -172,7 +162,7 @@ void Lower$1::visitClassDef($JCTree$JCClassDecl* that) {
 
 void Lower$1::checkConflicts($JCDiagnostic$DiagnosticPosition* pos, $Symbol* sym, $Symbol$TypeSymbol* c) {
 	$useLocalCurrentObjectStackCache();
-		$init($Type);
+	$init($Type);
 	{
 		$var($Type, ct, $nc(c)->type);
 		for (; !$equals(ct, $Type::noType); $assign(ct, $nc(this->this$0->types)->supertype(ct))) {

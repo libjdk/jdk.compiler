@@ -1,16 +1,7 @@
 #include <com/sun/tools/javac/code/Source$1.h>
 
 #include <com/sun/tools/javac/code/Source.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/NoSuchFieldError.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef JDK10
@@ -88,83 +79,67 @@ void clinit$Source$1($Class* class$) {
 	{
 		try {
 			$nc(Source$1::$SwitchMap$com$sun$tools$javac$code$Source)->set($Source::JDK17->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Source$1::$SwitchMap$com$sun$tools$javac$code$Source)->set($Source::JDK16->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Source$1::$SwitchMap$com$sun$tools$javac$code$Source)->set($Source::JDK15->ordinal(), 3);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Source$1::$SwitchMap$com$sun$tools$javac$code$Source)->set($Source::JDK14->ordinal(), 4);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Source$1::$SwitchMap$com$sun$tools$javac$code$Source)->set($Source::JDK13->ordinal(), 5);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Source$1::$SwitchMap$com$sun$tools$javac$code$Source)->set($Source::JDK12->ordinal(), 6);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Source$1::$SwitchMap$com$sun$tools$javac$code$Source)->set($Source::JDK11->ordinal(), 7);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Source$1::$SwitchMap$com$sun$tools$javac$code$Source)->set($Source::JDK10->ordinal(), 8);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Source$1::$SwitchMap$com$sun$tools$javac$code$Source)->set($Source::JDK9->ordinal(), 9);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Source$1::$SwitchMap$com$sun$tools$javac$code$Source)->set($Source::JDK8->ordinal(), 10);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Source$1::$SwitchMap$com$sun$tools$javac$code$Source)->set($Source::JDK7->ordinal(), 11);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Source$1::$SwitchMap$com$sun$tools$javac$code$Source)->set($Source::JDK6->ordinal(), 12);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Source$1::$SwitchMap$com$sun$tools$javac$code$Source)->set($Source::JDK5->ordinal(), 13);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Source$1::$SwitchMap$com$sun$tools$javac$code$Source)->set($Source::JDK1_4->ordinal(), 14);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Source$1::$SwitchMap$com$sun$tools$javac$code$Source)->set($Source::JDK1_2->ordinal(), 15);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Source$1::$SwitchMap$com$sun$tools$javac$code$Source)->set($Source::JDK1_3->ordinal(), 16);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 }

@@ -1,12 +1,5 @@
 #include <com/sun/source/tree/ParenthesizedPatternTree.h>
 
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/CompoundAttribute.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $PatternTree = ::com::sun::source::tree::PatternTree;
@@ -18,10 +11,10 @@ namespace com {
 	namespace sun {
 		namespace source {
 			namespace tree {
+
 $CompoundAttribute _ParenthesizedPatternTree_Annotations_[] = {
 	{}
 };
-
 
 $MethodInfo _ParenthesizedPatternTree_MethodInfo_[] = {
 	{"getPattern", "()Lcom/sun/source/tree/PatternTree;", nullptr, $PUBLIC | $ABSTRACT},

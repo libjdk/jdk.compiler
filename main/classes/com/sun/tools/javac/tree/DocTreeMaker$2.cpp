@@ -2,16 +2,7 @@
 
 #include <com/sun/source/doctree/DocTree$Kind.h>
 #include <com/sun/tools/javac/tree/DocTreeMaker.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/NoSuchFieldError.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef END_ELEMENT
@@ -79,28 +70,23 @@ void clinit$DocTreeMaker$2($Class* class$) {
 	{
 		try {
 			$nc(DocTreeMaker$2::$SwitchMap$com$sun$source$doctree$DocTree$Kind)->set($DocTree$Kind::RETURN->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(DocTreeMaker$2::$SwitchMap$com$sun$source$doctree$DocTree$Kind)->set($DocTree$Kind::SUMMARY->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(DocTreeMaker$2::$SwitchMap$com$sun$source$doctree$DocTree$Kind)->set($DocTree$Kind::TEXT->ordinal(), 3);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(DocTreeMaker$2::$SwitchMap$com$sun$source$doctree$DocTree$Kind)->set($DocTree$Kind::START_ELEMENT->ordinal(), 4);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(DocTreeMaker$2::$SwitchMap$com$sun$source$doctree$DocTree$Kind)->set($DocTree$Kind::END_ELEMENT->ordinal(), 5);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 }

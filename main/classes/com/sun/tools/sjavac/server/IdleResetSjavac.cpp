@@ -4,17 +4,7 @@
 #include <com/sun/tools/sjavac/server/IdleResetSjavac$1.h>
 #include <com/sun/tools/sjavac/server/Sjavac.h>
 #include <com/sun/tools/sjavac/server/Terminable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
 #include <java/lang/IllegalStateException.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Timer.h>
 #include <java/util/TimerTask.h>
 #include <jcpp.h>
@@ -101,8 +91,8 @@ $Main$Result* IdleResetSjavac::compile($StringArray* args) {
 			$assign(var$2, $nc(this->delegate)->compile(args));
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			endCall();
 		}

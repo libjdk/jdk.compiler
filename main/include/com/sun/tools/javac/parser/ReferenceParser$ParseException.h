@@ -18,8 +18,10 @@ public:
 	void init$($String* message);
 	static const int64_t serialVersionUID = 0;
 	ReferenceParser$ParseException(const ReferenceParser$ParseException& e);
-	ReferenceParser$ParseException wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline ReferenceParser$ParseException* operator ->() {
+		return (ReferenceParser$ParseException*)throwing$;
+	}
 };
 
 				} // parser

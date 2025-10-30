@@ -2,16 +2,7 @@
 
 #include <com/sun/tools/javac/file/BaseFileManager.h>
 #include <com/sun/tools/javac/file/PathFileObject.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/IllegalArgumentException.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/URI.h>
 #include <java/nio/file/Path.h>
 #include <java/util/Iterator.h>
@@ -107,8 +98,7 @@ $String* PathFileObject$SimpleFileObject::inferBinaryName($Iterable* paths) {
 						if (rp != nullptr) {
 							return toBinaryName(rp);
 						}
-					} catch ($IllegalArgumentException&) {
-						$catch();
+					} catch ($IllegalArgumentException& e) {
 					}
 				}
 			}

@@ -18,8 +18,10 @@ public:
 	void init$();
 	static const int64_t serialVersionUID = 0;
 	Gen$CodeSizeOverflow(const Gen$CodeSizeOverflow& e);
-	Gen$CodeSizeOverflow wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline Gen$CodeSizeOverflow* operator ->() {
+		return (Gen$CodeSizeOverflow*)throwing$;
+	}
 };
 
 				} // jvm

@@ -12,17 +12,6 @@
 #include <com/sun/tools/javac/jvm/Code$StackMapFrame.h>
 #include <com/sun/tools/javac/jvm/UninitializedType.h>
 #include <com/sun/tools/javac/util/ByteBuffer.h>
-#include <java/io/PrintStream.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef BOOLEAN
@@ -105,7 +94,6 @@ void ClassWriter$StackMapTableFrame::write($ClassWriter* writer) {
 	int32_t frameType = getFrameType();
 	$nc($nc(writer)->databuf)->appendByte(frameType);
 	if (writer->debugstackmap) {
-		$init($System);
 		$nc($System::out)->print($$str({" frame_type="_s, $$str(frameType)}));
 	}
 }

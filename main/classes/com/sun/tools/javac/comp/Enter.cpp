@@ -66,23 +66,12 @@
 #include <com/sun/tools/javac/util/Names.h>
 #include <com/sun/tools/javac/util/Options.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Collection.h>
 #include <java/util/Iterator.h>
 #include <java/util/Map.h>
@@ -579,14 +568,13 @@ $Type* Enter::classEnter($JCTree* tree, $Env* env) {
 				$assign(var$2, this->result);
 				return$1 = true;
 				goto $finally;
-			} catch ($Symbol$CompletionFailure&) {
-				$var($Symbol$CompletionFailure, ex, $catch());
+			} catch ($Symbol$CompletionFailure& ex) {
 				$assign(var$2, $nc(this->chk)->completionError($($nc(tree)->pos()), ex));
 				return$1 = true;
 				goto $finally;
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$nc(this->annotate)->unblockAnnotations();
 			$set(this, env, prevEnv);
@@ -635,7 +623,7 @@ void Enter::visitTopLevel($JCTree$JCCompilationUnit* tree) {
 	} else {
 		$var($JCTree$JCPackageDecl, pd, $cast($JCTree$JCPackageDecl, tree->getPackage()));
 		if (pd != nullptr) {
-			$set(tree, packge, ($assignField(pd, packge, $nc(this->syms)->enterPackage(tree->modle, $($TreeInfo::fullName(pd->pid))))));
+			$set(tree, packge, ($set(pd, packge, $nc(this->syms)->enterPackage(tree->modle, $($TreeInfo::fullName(pd->pid))))));
 			$nc(this->setPackageSymbols)->scan(static_cast<$JCTree*>(pd));
 			$init($Option$PkgInfo);
 			if ($nc(pd->annotations)->nonEmpty() || this->pkginfoOpt == $Option$PkgInfo::ALWAYS || tree->docComments != nullptr) {
@@ -667,7 +655,7 @@ void Enter::visitTopLevel($JCTree$JCCompilationUnit* tree) {
 				}
 			}
 			$nc(this->typeEnvs)->put(tree->packge, packageEnv);
-				$init($Kinds$Kind);
+			$init($Kinds$Kind);
 			{
 				$var($Symbol, q, tree->packge);
 				for (; q != nullptr && q->kind == $Kinds$Kind::PCK; $assign(q, $nc(q)->owner)) {
@@ -871,8 +859,8 @@ void Enter::complete($List* trees, $Symbol$ClassSymbol* c) {
 					$nc(this->typeEnter)->ensureImportsChecked(trees);
 				}
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, uncompleted, prevUncompleted);
 			$nc(this->annotate)->unblockAnnotations();

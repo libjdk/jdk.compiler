@@ -1,16 +1,7 @@
 #include <com/sun/source/util/TreePath$1Result.h>
 
 #include <com/sun/source/util/TreePath.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
 #include <java/lang/Error.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $TreePath = ::com::sun::source::util::TreePath;
@@ -76,16 +67,10 @@ void TreePath$1Result::init$($TreePath* path) {
 TreePath$1Result::TreePath$1Result() {
 }
 
-TreePath$1Result::TreePath$1Result(const TreePath$1Result& e) {
+TreePath$1Result::TreePath$1Result(const TreePath$1Result& e) : $Error(e) {
 }
 
-TreePath$1Result TreePath$1Result::wrapper$() {
-	$pendingException(this);
-	return *this;
-}
-
-void TreePath$1Result::throwWrapper$() {
-	$pendingException(this);
+void TreePath$1Result::throw$() {
 	throw *this;
 }
 

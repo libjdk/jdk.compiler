@@ -3,16 +3,7 @@
 #include <com/sun/source/tree/LambdaExpressionTree$BodyKind.h>
 #include <com/sun/source/tree/LambdaExpressionTree.h>
 #include <com/sun/tools/javac/comp/ArgumentAttr.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/NoSuchFieldError.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef EXPRESSION
@@ -78,13 +69,11 @@ void clinit$ArgumentAttr$2($Class* class$) {
 	{
 		try {
 			$nc(ArgumentAttr$2::$SwitchMap$com$sun$source$tree$LambdaExpressionTree$BodyKind)->set($LambdaExpressionTree$BodyKind::EXPRESSION->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(ArgumentAttr$2::$SwitchMap$com$sun$source$tree$LambdaExpressionTree$BodyKind)->set($LambdaExpressionTree$BodyKind::STATEMENT->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 }

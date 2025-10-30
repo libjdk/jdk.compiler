@@ -40,17 +40,7 @@
 #include <com/sun/tools/javac/util/List.h>
 #include <com/sun/tools/javac/util/ListBuffer.h>
 #include <com/sun/tools/javac/util/Log.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Iterator.h>
 #include <jcpp.h>
 
@@ -278,8 +268,8 @@ void Flow$CaptureAnalyzer::visitClassDef($JCTree$JCClassDecl* tree) {
 		try {
 			$set(this, currentTree, $nc($nc(tree)->sym)->isDirectlyOrIndirectlyLocal() ? static_cast<$JCTree*>(tree) : ($JCTree*)nullptr);
 			$Flow$BaseAnalyzer::visitClassDef(tree);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, currentTree, prevTree);
 		}
@@ -297,8 +287,8 @@ void Flow$CaptureAnalyzer::visitLambda($JCTree$JCLambda* tree) {
 		try {
 			$set(this, currentTree, tree);
 			$Flow$BaseAnalyzer::visitLambda(tree);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, currentTree, prevTree);
 		}
@@ -317,8 +307,8 @@ void Flow$CaptureAnalyzer::visitGuardPattern($JCTree$JCGuardPattern* tree) {
 		try {
 			$set(this, currentTree, tree);
 			scan(static_cast<$JCTree*>($nc(tree)->expr));
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, currentTree, prevTree);
 		}
@@ -412,8 +402,8 @@ void Flow$CaptureAnalyzer::analyzeTree($Env* env, $JCTree* tree, $TreeMaker* mak
 			$set(this->this$0, make, make);
 			$set(this, pendingExits, $new($ListBuffer));
 			scan(tree);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, pendingExits, nullptr);
 			$set(this->this$0, make, nullptr);

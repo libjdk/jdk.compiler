@@ -10,17 +10,7 @@
 #include <java/io/IOException.h>
 #include <java/io/InputStream.h>
 #include <java/io/OutputStream.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $ArrayUtils = ::com::sun::tools::javac::util::ArrayUtils;
@@ -134,8 +124,7 @@ void ByteBuffer::appendLong(int64_t x) {
 	try {
 		bufout->writeLong(x);
 		appendBytes($(buffer->toByteArray()), 0, 8);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($AssertionError, $of("write"_s));
 	}
 }
@@ -147,8 +136,7 @@ void ByteBuffer::appendFloat(float x) {
 	try {
 		bufout->writeFloat(x);
 		appendBytes($(buffer->toByteArray()), 0, 4);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($AssertionError, $of("write"_s));
 	}
 }
@@ -160,8 +148,7 @@ void ByteBuffer::appendDouble(double x) {
 	try {
 		bufout->writeDouble(x);
 		appendBytes($(buffer->toByteArray()), 0, 8);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($AssertionError, $of("write"_s));
 	}
 }
@@ -186,13 +173,12 @@ void ByteBuffer::appendStream($InputStream* is) {
 				$set(this, elems, $ArrayUtils::ensureCapacity(this->elems, bp));
 				r = is->read(this->elems, bp, $nc(this->elems)->length - bp);
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			try {
 				$nc(is)->close();
-			} catch ($IOException&) {
-				$catch();
+			} catch ($IOException& e) {
 			}
 		}
 		if (var$0 != nullptr) {
@@ -210,8 +196,7 @@ int64_t ByteBuffer::getLong(int32_t bp) {
 	$var($DataInputStream, elemsin, $new($DataInputStream, $$new($ByteArrayInputStream, this->elems, bp, 8)));
 	try {
 		return elemsin->readLong();
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($AssertionError, $of(e));
 	}
 	$shouldNotReachHere();
@@ -222,8 +207,7 @@ float ByteBuffer::getFloat(int32_t bp) {
 	$var($DataInputStream, elemsin, $new($DataInputStream, $$new($ByteArrayInputStream, this->elems, bp, 4)));
 	try {
 		return elemsin->readFloat();
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($AssertionError, $of(e));
 	}
 	$shouldNotReachHere();
@@ -234,8 +218,7 @@ double ByteBuffer::getDouble(int32_t bp) {
 	$var($DataInputStream, elemsin, $new($DataInputStream, $$new($ByteArrayInputStream, this->elems, bp, 8)));
 	try {
 		return elemsin->readDouble();
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($AssertionError, $of(e));
 	}
 	$shouldNotReachHere();

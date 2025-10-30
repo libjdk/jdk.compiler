@@ -14,16 +14,6 @@
 #include <com/sun/tools/javac/code/Types.h>
 #include <com/sun/tools/javac/util/List.h>
 #include <com/sun/tools/javac/util/ListBuffer.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/AbstractSet.h>
 #include <java/util/HashMap.h>
@@ -214,8 +204,8 @@ void Types$Adapter::adaptRecursive($Type* source, $Type* target) {
 			$var($Throwable, var$0, nullptr);
 			try {
 				visit(source, target);
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$1) {
+				$assign(var$0, var$1);
 			} /*finally*/ {
 				$nc(this->cache)->remove(pair);
 			}

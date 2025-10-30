@@ -1,16 +1,7 @@
 #include <com/sun/source/doctree/AttributeTree$ValueKind.h>
 
 #include <com/sun/source/doctree/AttributeTree.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef DOUBLE
@@ -73,13 +64,9 @@ $Object* allocate$AttributeTree$ValueKind($Class* clazz) {
 	return $of($alloc(AttributeTree$ValueKind));
 }
 
-
 AttributeTree$ValueKind* AttributeTree$ValueKind::EMPTY = nullptr;
-
 AttributeTree$ValueKind* AttributeTree$ValueKind::UNQUOTED = nullptr;
-
 AttributeTree$ValueKind* AttributeTree$ValueKind::SINGLE = nullptr;
-
 AttributeTree$ValueKind* AttributeTree$ValueKind::DOUBLE = nullptr;
 $AttributeTree$ValueKindArray* AttributeTree$ValueKind::$VALUES = nullptr;
 

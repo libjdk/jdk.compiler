@@ -12,27 +12,13 @@
 #include <com/sun/tools/javac/util/Log.h>
 #include <java/io/IOException.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/ClassLoader.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/file/FileSystem.h>
 #include <java/nio/file/FileSystems.h>
 #include <java/nio/file/Files.h>
@@ -280,8 +266,8 @@ Locations$SearchPath* Locations$SearchPath::addDirectories($String* dirs, bool w
 			$assign(var$2, this);
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			this->expandJarClassPaths$ = prev;
 		}
@@ -315,20 +301,18 @@ void Locations$SearchPath::addDirectory($Path* dir, bool warn) {
 			try {
 				try {
 					$nc($($nc(s)->filter(static_cast<$Predicate*>($$new(Locations$SearchPath$$Lambda$isArchive, this->this$0)))))->forEach(static_cast<$Consumer*>($$new(Locations$SearchPath$$Lambda$lambda$addDirectory$0$1, this, warn)));
-				} catch ($Throwable&) {
-					$var($Throwable, t$, $catch());
+				} catch ($Throwable& t$) {
 					if (s != nullptr) {
 						try {
 							s->close();
-						} catch ($Throwable&) {
-							$var($Throwable, x2, $catch());
+						} catch ($Throwable& x2) {
 							t$->addSuppressed(x2);
 						}
 					}
 					$throw(t$);
 				}
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$1) {
+				$assign(var$0, var$1);
 			} /*finally*/ {
 				if (s != nullptr) {
 					s->close();
@@ -338,8 +322,7 @@ void Locations$SearchPath::addDirectory($Path* dir, bool warn) {
 				$throw(var$0);
 			}
 		}
-	} catch ($IOException&) {
-		$catch();
+	} catch ($IOException& ignore) {
 	}
 }
 
@@ -401,15 +384,13 @@ void Locations$SearchPath::addFile($Path* file, bool warn) {
 						$init($Lint$LintCategory);
 						$nc(this->this$0->log)->warning($Lint$LintCategory::PATH, $($CompilerProperties$Warnings::UnexpectedArchiveFile(file)));
 					}
-				} catch ($IOException&) {
-					$var($Exception, e, $catch());
+				} catch ($IOException& e) {
 					if (warn) {
 						$init($Lint$LintCategory);
 						$nc(this->this$0->log)->warning($Lint$LintCategory::PATH, $($CompilerProperties$Warnings::InvalidArchiveFile(file)));
 					}
 					return;
-				} catch ($ProviderNotFoundException&) {
-					$var($Exception, e, $catch());
+				} catch ($ProviderNotFoundException& e) {
 					if (warn) {
 						$init($Lint$LintCategory);
 						$nc(this->this$0->log)->warning($Lint$LintCategory::PATH, $($CompilerProperties$Warnings::InvalidArchiveFile(file)));
@@ -442,8 +423,7 @@ void Locations$SearchPath::addJarClassPath($Path* jarFile, bool warn) {
 				}
 			}
 		}
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$nc(this->this$0->log)->error($($CompilerProperties$Errors::ErrorReadingFile(jarFile, $($JavacFileManager::getMessage(e)))));
 	}
 }

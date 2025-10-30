@@ -2,21 +2,9 @@
 
 #include <com/sun/tools/javac/file/JavacFileManager.h>
 #include <java/io/File.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
 #include <java/lang/IllegalStateException.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/UnsupportedOperationException.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/file/Path.h>
 #include <java/util/Iterator.h>
 #include <jcpp.h>
@@ -96,11 +84,9 @@ bool JavacFileManager$3::hasNext() {
 }
 
 $Object* JavacFileManager$3::next() {
-	$useLocalCurrentObjectStackCache();
 	try {
 		return $of($nc(($cast($Path, $($nc(this->iter)->next()))))->toFile());
-	} catch ($UnsupportedOperationException&) {
-		$var($UnsupportedOperationException, e, $catch());
+	} catch ($UnsupportedOperationException& e) {
 		$throwNew($IllegalStateException, static_cast<$Throwable*>(e));
 	}
 	$shouldNotReachHere();

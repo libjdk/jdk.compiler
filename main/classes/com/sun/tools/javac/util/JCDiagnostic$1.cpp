@@ -3,16 +3,7 @@
 #include <com/sun/tools/javac/util/JCDiagnostic$DiagnosticFlag.h>
 #include <com/sun/tools/javac/util/JCDiagnostic$DiagnosticType.h>
 #include <com/sun/tools/javac/util/JCDiagnostic.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/NoSuchFieldError.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef ERROR
@@ -86,36 +77,30 @@ void clinit$JCDiagnostic$1($Class* class$) {
 	{
 		try {
 			$nc(JCDiagnostic$1::$SwitchMap$com$sun$tools$javac$util$JCDiagnostic$DiagnosticFlag)->set($JCDiagnostic$DiagnosticFlag::SYNTAX->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JCDiagnostic$1::$SwitchMap$com$sun$tools$javac$util$JCDiagnostic$DiagnosticFlag)->set($JCDiagnostic$DiagnosticFlag::RESOLVE_ERROR->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 	$assignStatic(JCDiagnostic$1::$SwitchMap$com$sun$tools$javac$util$JCDiagnostic$DiagnosticType, $new($ints, $($JCDiagnostic$DiagnosticType::values())->length));
 	{
 		try {
 			$nc(JCDiagnostic$1::$SwitchMap$com$sun$tools$javac$util$JCDiagnostic$DiagnosticType)->set($JCDiagnostic$DiagnosticType::ERROR->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JCDiagnostic$1::$SwitchMap$com$sun$tools$javac$util$JCDiagnostic$DiagnosticType)->set($JCDiagnostic$DiagnosticType::WARNING->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JCDiagnostic$1::$SwitchMap$com$sun$tools$javac$util$JCDiagnostic$DiagnosticType)->set($JCDiagnostic$DiagnosticType::NOTE->ordinal(), 3);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JCDiagnostic$1::$SwitchMap$com$sun$tools$javac$util$JCDiagnostic$DiagnosticType)->set($JCDiagnostic$DiagnosticType::FRAGMENT->ordinal(), 4);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 }

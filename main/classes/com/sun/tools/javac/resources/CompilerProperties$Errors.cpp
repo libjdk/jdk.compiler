@@ -15,17 +15,6 @@
 #include <com/sun/tools/javac/util/JCDiagnostic.h>
 #include <com/sun/tools/javac/util/Name.h>
 #include <java/io/File.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Void.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/URL.h>
 #include <java/nio/file/Path.h>
 #include <java/util/Collection.h>
@@ -634,429 +623,217 @@ $Object* allocate$CompilerProperties$Errors($Class* clazz) {
 	return $of($alloc(CompilerProperties$Errors));
 }
 
-
 $JCDiagnostic$Error* CompilerProperties$Errors::AbstractMethCantHaveBody = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::AddmodsAllModulePathInvalid = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::AnnotationDeclNotAllowedHere = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::AnnotationTypeNotApplicable = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::AnnotationValueMustBeAnnotation = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::AnnotationValueMustBeClassLiteral = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::AnnotationValueMustBeNameValue = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::AnnotationValueNotAllowableType = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::AnonClassImplIntfNoArgs = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::AnonClassImplIntfNoQualForNew = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::AnonClassImplIntfNoTypeargs = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::ArrayAndReceiver = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::ArrayDimensionMissing = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::AssertAsIdentifier = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::AttributeValueMustBeConstant = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::BadFunctionalIntfAnno = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::BreakOutsideSwitchExpression = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::BreakOutsideSwitchLoop = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::CannotCreateArrayWithDiamond = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::CannotCreateArrayWithTypeArguments = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::CantAssignValToThis = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::CantExtendIntfAnnotation = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::CantInheritFromAnon = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::CantReadFile = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::CantSelectStaticClassFromParamType = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::CatchWithoutTry = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::ClassNotAllowed = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::ConstExprReq = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::ContOutsideLoop = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::ContinueOutsideSwitchExpression = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::DcBadEntity = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::DcBadInlineTag = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::DcGtExpected = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::DcIdentifierExpected = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::DcMalformedHtml = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::DcMissingSemicolon = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::DcNoContent = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::DcNoTagName = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::DcRefBadParens = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::DcRefSyntaxError = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::DcRefUnexpectedInput = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::DcUnexpectedContent = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::DcUnterminatedInlineTag = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::DcUnterminatedSignature = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::DcUnterminatedString = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::DefaultAllowedInIntfAnnotationMember = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::DotClassExpected = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::DuplicateCaseLabel = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::DuplicateDefaultLabel = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::DuplicateTotalPattern = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::ElseWithoutIf = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::EmptyAArgument = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::EmptyCharLit = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::EnumAnnotationMustBeEnumConstant = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::EnumAsIdentifier = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::EnumCantBeInstantiated = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::EnumConstantExpected = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::EnumConstantNotExpected = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::EnumLabelMustBeUnqualifiedEnum = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::EnumNoFinalize = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::EnumNoSubclassing = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::EnumTypesNotExtensible = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::Error = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::ExpectedModule = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::ExpectedModuleOrOpen = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::ExpressionNotAllowableAsAnnotationValue = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::FileSbOnSourceOrPatchPathForModule = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::FinallyWithoutTry = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::FlowsThroughFromPattern = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::FlowsThroughToPattern = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::FpNumberTooLarge = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::FpNumberTooSmall = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::GenericArrayCreation = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::GenericThrowable = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::IllegalArrayCreationBothDimensionAndInitialization = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::IllegalDot = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::IllegalEnumStaticRef = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::IllegalEscChar = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::IllegalForwardRef = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::IllegalLineEndInCharLit = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::IllegalNonasciiDigit = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::IllegalParenthesizedExpression = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::IllegalSelfRef = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::IllegalStartOfExpr = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::IllegalStartOfStmt = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::IllegalStartOfType = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::IllegalTextBlockOpen = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::IllegalUnderscore = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::IllegalUnicodeEsc = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::ImproperlyFormedTypeInnerRawParam = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::ImproperlyFormedTypeParamMissing = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::InitializerMustBeAbleToCompleteNormally = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::InitializerNotAllowed = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::InstanceInitializerNotAllowedInRecords = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::IntfAnnotationMembersCantHaveParams = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::IntfAnnotationMembersCantHaveTypeParams = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::IntfExpectedHere = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::IntfMethCantHaveBody = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::IntfNotAllowedHere = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::InvalidAnnotationMemberType = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::InvalidBinaryNumber = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::InvalidHexNumber = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::InvalidMethDeclRetTypeReq = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::InvalidModuleDirective = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::InvalidYield = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::IoException = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::LambdaBodyNeitherValueNorVoidCompatible = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::LimitCode = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::LimitCodeTooLargeForTryStmt = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::LimitDimensions = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::LimitLocals = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::LimitParameters = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::LimitPool = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::LimitPoolInClass = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::LimitStack = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::LimitString = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::LocalEnum = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::MalformedFpLit = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::MatchBindingExists = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::MethodDoesNotOverrideSuperclass = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::MissingMethBodyOrDeclAbstract = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::MissingRetStmt = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::ModuleDeclSbInModuleInfoJava = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::ModuleNotFoundOnModuleSourcePath = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::ModulesourcepathMustBeSpecifiedWithDashMOption = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::MultipleValuesForModuleSourcePath = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::NameReservedForInternalUse = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::NativeMethCantHaveBody = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::NewNotAllowedInAnnotation = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::NoAnnotationsOnDotClass = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::NoIntfExpectedHere = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::NoMatchEntry = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::NoOpensUnlessStrong = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::NoOutputDir = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::NoPkgInModuleInfoJava = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::NoSourceFiles = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::NoSourceFilesClasses = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::NoSwitchExpression = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::NoSwitchExpressionQualify = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::NonSealedOrSealedExpected = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::NonSealedSealedOrFinalExpected = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::NotExhaustive = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::NotExhaustiveStatement = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::NotInModuleOnModuleSourcePath = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::NotStmt = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::OutputDirMustBeSpecifiedWithDashMOption = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::PatternDominated = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::PatternExpected = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::PkgAnnotationsSbInPackageInfoJava = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::PrematureEof = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::PreviewWithoutSourceOrRelease = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::ProcCantCreateLoader = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::ProcNoService = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::ProcServiceProblem = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::ProcessorpathNoProcessormodulepath = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::ProfileBootclasspathConflict = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::ReceiverParameterNotApplicableConstructorToplevelClass = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::RecordCannotDeclareInstanceFields = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::RecordCantDeclareFieldModifiers = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::RecordComponentAndOldArraySyntax = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::RecordHeaderExpected = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::RecursiveCtorInvocation = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::RepeatedAnnotationTarget = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::RepeatedInterface = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::RepeatedModifier = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::RetOutsideMeth = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::ReturnOutsideSwitchExpression = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::RuleCompletesNormally = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::SealedClassMustHaveSubclasses = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::SealedOrNonSealedLocalClassesNotAllowed = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::ServiceImplementationMustBeSubtypeOfServiceInterface = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::ServiceImplementationProviderReturnMustBeSubtypeOfServiceInterface = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::SignatureDoesntMatchIntf = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::SignatureDoesntMatchSupertype = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::SourcepathModulesourcepathConflict = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::StaticDeclarationNotAllowedInInnerClasses = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::StaticImpOnlyClassesAndInterfaces = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::StaticMethodsCannotBeAnnotatedWithOverride = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::StringConstReq = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::SwitchCaseUnexpectedStatement = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::SwitchExpressionCompletesNormally = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::SwitchExpressionEmpty = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::SwitchExpressionNoResultExpressions = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::SwitchMixingCaseTypes = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::ThisAsIdentifier = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::ThrowsNotAllowedInIntfAnnotation = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::TooManyModules = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::TotalPatternAndDefault = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::TryWithResourcesExprNeedsVar = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::TryWithoutCatchFinallyOrResourceDecls = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::TwoClassLoaders1 = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::TypeVarCantBeDeref = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::TypeVarMayNotBeFollowedByOtherBounds = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::TypeVarMoreThanOnce = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::TypeVarMoreThanOnceInResult = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::UnclosedCharLit = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::UnclosedComment = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::UnclosedStrLit = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::UnclosedTextBlock = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::UnderscoreAsIdentifier = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::UnderscoreAsIdentifierInLambda = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::UnexpectedLambda = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::UnexpectedMref = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::UnnamedPkgNotAllowedNamedModules = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::UnreachableStmt = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::VarargsAndOldArraySyntax = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::VarargsAndReceiver = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::VarargsMustBeLast = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::VariableNotAllowed = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::VoidNotAllowedHere = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::WarningsAndWerror = nullptr;
-
 $JCDiagnostic$Error* CompilerProperties$Errors::WrongReceiver = nullptr;
 
 void CompilerProperties$Errors::init$() {

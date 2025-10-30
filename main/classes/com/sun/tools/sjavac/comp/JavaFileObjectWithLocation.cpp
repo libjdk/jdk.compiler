@@ -1,13 +1,5 @@
 #include <com/sun/tools/sjavac/comp/JavaFileObjectWithLocation.h>
 
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/CompoundAttribute.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <javax/tools/FileObject.h>
 #include <javax/tools/ForwardingFileObject.h>
 #include <javax/tools/ForwardingJavaFileObject.h>
@@ -30,11 +22,11 @@ namespace com {
 		namespace tools {
 			namespace sjavac {
 				namespace comp {
+
 $CompoundAttribute _JavaFileObjectWithLocation_Annotations_[] = {
 	{"Lcom/sun/tools/javac/api/ClientCodeWrapper$Trusted;", nullptr},
 	{}
 };
-
 
 $FieldInfo _JavaFileObjectWithLocation_FieldInfo_[] = {
 	{"loc", "Ljavax/tools/JavaFileManager$Location;", nullptr, $PRIVATE | $FINAL, $field(JavaFileObjectWithLocation, loc)},

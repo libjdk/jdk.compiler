@@ -9,16 +9,6 @@
 #include <com/sun/tools/javac/code/Symbol.h>
 #include <com/sun/tools/javac/comp/Modules.h>
 #include <com/sun/tools/javac/util/List.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <javax/tools/JavaFileObject$Kind.h>
 #include <javax/tools/JavaFileObject.h>
 #include <jcpp.h>
@@ -102,7 +92,6 @@ void Modules$1::init$($Modules* this$0) {
 }
 
 void Modules$1::complete($Symbol* sym) {
-	$useLocalCurrentObjectStackCache();
 	$var($Symbol$ModuleSymbol, msym, $nc(this->this$0->moduleFinder)->findModule($cast($Symbol$ModuleSymbol, sym)));
 	$init($Kinds$Kind);
 	if ($nc(msym)->kind == $Kinds$Kind::ERR) {
@@ -112,8 +101,7 @@ void Modules$1::complete($Symbol* sym) {
 	} else {
 		try {
 			$nc(msym->module_info)->complete();
-		} catch ($Symbol$CompletionFailure&) {
-			$var($Symbol$CompletionFailure, cf, $catch());
+		} catch ($Symbol$CompletionFailure& cf) {
 			$set(msym, kind, $Kinds$Kind::ERR);
 			initErrModule(msym);
 			this->this$0->completeModule(msym);

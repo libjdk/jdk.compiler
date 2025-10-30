@@ -90,24 +90,13 @@
 #include <com/sun/tools/javac/util/Names.h>
 #include <com/sun/tools/javac/util/Position.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
 #include <java/lang/UnsupportedOperationException.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Collection.h>
 #include <java/util/Iterator.h>
 #include <java/util/List.h>
@@ -1121,7 +1110,7 @@ bool TreeInfo::isStaticSelector($JCTree* base, $Names* names) {
 	if (base == nullptr) {
 		return false;
 	}
-		$init($TreeInfo$2);
+	$init($TreeInfo$2);
 	{
 		$var($JCTree$JCIdent, id, nullptr)
 		switch ($nc($TreeInfo$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($($nc(base)->getTag())))->ordinal())) {
@@ -1713,15 +1702,13 @@ $Env* TreeInfo::scopeFor($List* path) {
 }
 
 $List* TreeInfo::pathFor($JCTree* node, $JCTree$JCCompilationUnit* unit) {
-	$useLocalCurrentObjectStackCache();
 	{
 	}
 	{
 	}
 	try {
 		$$new($TreeInfo$1PathFinder, node)->scan(static_cast<$JCTree*>(unit));
-	} catch ($TreeInfo$1Result&) {
-		$var($TreeInfo$1Result, result, $catch());
+	} catch ($TreeInfo$1Result& result) {
 		return result->path;
 	}
 	return $List::nil();
@@ -1811,7 +1798,7 @@ $Name* TreeInfo::fullName($JCTree* tree$renamed) {
 	$useLocalCurrentObjectStackCache();
 	$var($JCTree, tree, tree$renamed);
 	$assign(tree, skipParens(tree));
-		$init($TreeInfo$2);
+	$init($TreeInfo$2);
 	{
 		$var($Name, sname, nullptr)
 		switch ($nc($TreeInfo$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($($nc(tree)->getTag())))->ordinal())) {
@@ -1841,7 +1828,7 @@ $Symbol* TreeInfo::symbolForImpl($JCTree* node$renamed) {
 	$useLocalCurrentObjectStackCache();
 	$var($JCTree, node, node$renamed);
 	$assign(node, skipParens(node));
-		$init($TreeInfo$2);
+	$init($TreeInfo$2);
 	{
 		$var($JCTree$JCCompilationUnit, cut, nullptr)
 		$var($JCTree$JCModuleDecl, moduleDecl, nullptr)

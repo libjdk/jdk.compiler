@@ -2,15 +2,6 @@
 
 #include <com/sun/tools/javac/launcher/Main.h>
 #include <com/sun/tools/javac/util/JCDiagnostic$Error.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $Main = ::com::sun::tools::javac::launcher::Main;
@@ -71,16 +62,10 @@ void Main$Fault::init$($Main* this$0, $JCDiagnostic$Error* error) {
 Main$Fault::Main$Fault() {
 }
 
-Main$Fault::Main$Fault(const Main$Fault& e) {
+Main$Fault::Main$Fault(const Main$Fault& e) : $Exception(e) {
 }
 
-Main$Fault Main$Fault::wrapper$() {
-	$pendingException(this);
-	return *this;
-}
-
-void Main$Fault::throwWrapper$() {
-	$pendingException(this);
+void Main$Fault::throw$() {
 	throw *this;
 }
 

@@ -42,8 +42,10 @@ public:
 	::com::sun::tools::javac::launcher::Main* this$0 = nullptr;
 	static const int64_t serialVersionUID = (int64_t)1;
 	Main$Fault(const Main$Fault& e);
-	Main$Fault wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline Main$Fault* operator ->() {
+		return (Main$Fault*)throwing$;
+	}
 };
 
 				} // launcher

@@ -23,24 +23,11 @@
 #include <java/io/StringWriter.h>
 #include <java/io/UncheckedIOException.h>
 #include <java/io/Writer.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/IllegalArgumentException.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/file/Files.h>
 #include <java/nio/file/LinkOption.h>
 #include <java/nio/file/Path.h>
@@ -270,8 +257,7 @@ $Main$Result* SjavacImpl::compile($StringArray* args) {
 	$var($Options, options, nullptr);
 	try {
 		$assign(options, $Options::parseArgs(args));
-	} catch ($IllegalArgumentException&) {
-		$var($IllegalArgumentException, e, $catch());
+	} catch ($IllegalArgumentException& e) {
 		$1Log::error($(e->getMessage()));
 		$init($Main$Result);
 		return $Main$Result::CMDERR;
@@ -326,8 +312,7 @@ $Main$Result* SjavacImpl::compile($StringArray* args) {
 			if (var$1) {
 				try {
 					$nc(javacFileManager)->close();
-				} catch ($IOException&) {
-					$var($IOException, es, $catch());
+				} catch ($IOException& es) {
 					$throwNew($UncheckedIOException, es);
 				}
 			}
@@ -415,14 +400,12 @@ $Main$Result* SjavacImpl::compile($StringArray* args) {
 			}
 			$init($Main$Result);
 			return rc->get(0) ? $Main$Result::OK : $Main$Result::ERROR;
-		} catch ($ProblemException&) {
-			$var($ProblemException, e, $catch());
+		} catch ($ProblemException& e) {
 			$1Log::error($(e->getMessage()));
 			$1Log::debug(static_cast<$Throwable*>(e));
 			$init($Main$Result);
 			return $Main$Result::ERROR;
-		} catch ($Exception&) {
-			$var($Exception, e, $catch());
+		} catch ($Exception& e) {
 			$1Log::error(static_cast<$Throwable*>(e));
 			$init($Main$Result);
 			return $Main$Result::ERROR;
@@ -502,8 +485,7 @@ bool SjavacImpl::createIfMissing($Path* dir) {
 	}
 	try {
 		$Files::createDirectories(dir, $$new($FileAttributeArray, 0));
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$1Log::error($$str({"Could not create directory: "_s, $(e->getMessage())}));
 		return false;
 	}

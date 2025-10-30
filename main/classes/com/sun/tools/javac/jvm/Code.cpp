@@ -42,28 +42,13 @@
 #include <com/sun/tools/javac/util/Log.h>
 #include <com/sun/tools/javac/util/Position$LineMap.h>
 #include <com/sun/tools/javac/util/Position.h>
-#include <java/io/PrintStream.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Character.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/Short.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Arrays.h>
 #include <java/util/Collection.h>
 #include <java/util/Iterator.h>
@@ -807,7 +792,6 @@ void Code::emitop(int32_t op) {
 			emitStackMap();
 		}
 		if (this->debugCode) {
-			$init($System);
 			$nc($System::err)->println($$str({"emit@"_s, $$str(this->cp), " stack="_s, $$str($nc(this->state)->stacksize), ": "_s, $(mnem(op))}));
 		}
 		emit1(op);
@@ -1876,7 +1860,6 @@ int32_t Code::entryPoint($Code$State* state) {
 	$set(this, state, newState);
 	$Assert::check(state->stacksize <= this->max_stack);
 	if (this->debugCode) {
-		$init($System);
 		$nc($System::err)->println($$str({"entry point "_s, state}));
 	}
 	this->pendingStackMap = this->needStackMap;
@@ -1893,7 +1876,6 @@ int32_t Code::entryPoint($Code$State* state, $Type* pushed) {
 	$Assert::check(state->stacksize <= this->max_stack);
 	$nc(this->state)->push(pushed);
 	if (this->debugCode) {
-		$init($System);
 		$nc($System::err)->println($$str({"entry point "_s, state}));
 	}
 	this->pendingStackMap = this->needStackMap;
@@ -2156,7 +2138,6 @@ void Code::resolve($Code$Chain* chain$renamed, int32_t target) {
 		if (this->cp == target) {
 			changed = true;
 			if (this->debugCode) {
-				$init($System);
 				$nc($System::err)->println($$str({"resolving chain state="_s, chain->state}));
 			}
 			if (this->alive) {

@@ -32,14 +32,6 @@
 #include <com/sun/tools/javac/util/Log.h>
 #include <com/sun/tools/javac/util/Name.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
 #include <java/lang/annotation/Annotation.h>
 #include <java/lang/annotation/Inherited.h>
 #include <java/lang/invoke/CallSite.h>
@@ -47,8 +39,6 @@
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Iterator.h>
 #include <java/util/List.h>
 #include <java/util/Set.h>
@@ -492,7 +482,7 @@ bool Symbol$ClassSymbol::isSubClass($Symbol* base, $Types* types) {
 	if ($equals(this, base)) {
 		return true;
 	} else if (((int64_t)(base->flags() & (uint64_t)(int64_t)512)) != 0) {
-			$init($TypeTag);
+		$init($TypeTag);
 		{
 			$var($Type, t, this->type);
 			for (; $nc(t)->hasTag($TypeTag::CLASS); $assign(t, $nc(types)->supertype(t))) {
@@ -507,7 +497,7 @@ bool Symbol$ClassSymbol::isSubClass($Symbol* base, $Types* types) {
 			}
 		}
 	} else {
-			$init($TypeTag);
+		$init($TypeTag);
 		{
 			$var($Type, t, this->type);
 			for (; $nc(t)->hasTag($TypeTag::CLASS); $assign(t, $nc(types)->supertype(t))) {
@@ -521,12 +511,10 @@ bool Symbol$ClassSymbol::isSubClass($Symbol* base, $Types* types) {
 }
 
 void Symbol$ClassSymbol::complete() {
-	$useLocalCurrentObjectStackCache();
 	$var($Symbol$Completer, origCompleter, this->completer);
 	try {
 		$Symbol$TypeSymbol::complete();
-	} catch ($Symbol$CompletionFailure&) {
-		$var($Symbol$CompletionFailure, ex, $catch());
+	} catch ($Symbol$CompletionFailure& ex) {
 		$nc(ex->dcfh)->classSymbolCompleteFailed(this, origCompleter);
 		this->flags_field |= (1 | 8);
 		$init($Type);

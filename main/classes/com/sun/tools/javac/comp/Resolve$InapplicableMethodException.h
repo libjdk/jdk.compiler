@@ -32,8 +32,10 @@ public:
 	static const int64_t serialVersionUID = 0;
 	::com::sun::tools::javac::util::JCDiagnostic* diagnostic = nullptr;
 	Resolve$InapplicableMethodException(const Resolve$InapplicableMethodException& e);
-	Resolve$InapplicableMethodException wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline Resolve$InapplicableMethodException* operator ->() {
+		return (Resolve$InapplicableMethodException*)throwing$;
+	}
 };
 
 				} // comp

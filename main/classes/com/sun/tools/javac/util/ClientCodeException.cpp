@@ -1,14 +1,5 @@
 #include <com/sun/tools/javac/util/ClientCodeException.h>
 
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $ClassInfo = ::java::lang::ClassInfo;
@@ -52,16 +43,10 @@ void ClientCodeException::init$($Throwable* cause) {
 ClientCodeException::ClientCodeException() {
 }
 
-ClientCodeException::ClientCodeException(const ClientCodeException& e) {
+ClientCodeException::ClientCodeException(const ClientCodeException& e) : $RuntimeException(e) {
 }
 
-ClientCodeException ClientCodeException::wrapper$() {
-	$pendingException(this);
-	return *this;
-}
-
-void ClientCodeException::throwWrapper$() {
-	$pendingException(this);
+void ClientCodeException::throw$() {
 	throw *this;
 }
 

@@ -8,28 +8,13 @@
 #include <com/sun/tools/javac/main/Option.h>
 #include <java/io/IOException.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/ClassLoader.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/IllegalArgumentException.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/URI.h>
 #include <java/net/URL.h>
 #include <java/net/URLClassLoader.h>
@@ -287,12 +272,10 @@ void Locations$SystemModulesLocationHandler::update($Path* p) {
 }
 
 bool Locations$SystemModulesLocationHandler::isCurrentPlatform($Path* p) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		$init($Locations);
 		return $Files::isSameFile(p, $Locations::javaHome);
-	} catch ($IOException&) {
-		$var($IOException, ex, $catch());
+	} catch ($IOException& ex) {
 		$throwNew($IllegalArgumentException, $($nc(p)->toString()), ex);
 	}
 	$shouldNotReachHere();
@@ -338,8 +321,7 @@ void Locations$SystemModulesLocationHandler::initSystemModules() {
 				try {
 					$var($Map, attrMap, $Collections::singletonMap("java.home"_s, $($nc(this->systemJavaHome)->toString())));
 					$assign(jrtfs, $FileSystems::newFileSystem(jrtURI, attrMap));
-				} catch ($ProviderNotFoundException&) {
-					$var($ProviderNotFoundException, ex, $catch());
+				} catch ($ProviderNotFoundException& ex) {
 					$var($URL, javaHomeURL, $nc($($nc($($nc(this->systemJavaHome)->resolve("jrt-fs.jar"_s)))->toUri()))->toURL());
 					$load($Locations);
 					$var($ClassLoader, currentLoader, $Locations::class$->getClassLoader());
@@ -350,14 +332,12 @@ void Locations$SystemModulesLocationHandler::initSystemModules() {
 				$nc(this->this$0->closeables)->add(jrtfs);
 			}
 			$set(this, modules, $nc(jrtfs)->getPath("/modules"_s, $$new($StringArray, 0)));
-		} catch ($FileSystemNotFoundException&) {
-			$var($RuntimeException, e, $catch());
+		} catch ($FileSystemNotFoundException& e) {
 			$set(this, modules, $nc(this->systemJavaHome)->resolve("modules"_s));
 			if (!$Files::exists(this->modules, $$new($LinkOptionArray, 0))) {
 				$throwNew($IOException, "can\'t find system classes"_s, e);
 			}
-		} catch ($ProviderNotFoundException&) {
-			$var($RuntimeException, e, $catch());
+		} catch ($ProviderNotFoundException& e) {
 			$set(this, modules, $nc(this->systemJavaHome)->resolve("modules"_s));
 			if (!$Files::exists(this->modules, $$new($LinkOptionArray, 0))) {
 				$throwNew($IOException, "can\'t find system classes"_s, e);
@@ -383,20 +363,18 @@ void Locations$SystemModulesLocationHandler::initSystemModules() {
 							}
 						}
 					}
-				} catch ($Throwable&) {
-					$var($Throwable, t$, $catch());
+				} catch ($Throwable& t$) {
 					if (stream != nullptr) {
 						try {
 							stream->close();
-						} catch ($Throwable&) {
-							$var($Throwable, x2, $catch());
+						} catch ($Throwable& x2) {
 							t$->addSuppressed(x2);
 						}
 					}
 					$throw(t$);
 				}
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$1) {
+				$assign(var$0, var$1);
 			} /*finally*/ {
 				if (stream != nullptr) {
 					stream->close();

@@ -3,16 +3,7 @@
 #include <com/sun/tools/javac/util/Assert.h>
 #include <com/sun/tools/javac/util/List.h>
 #include <com/sun/tools/javac/util/ListBuffer$1.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
 #include <java/lang/UnsupportedOperationException.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractQueue.h>
 #include <java/util/Collection.h>
 #include <java/util/Iterator.h>
@@ -140,7 +131,7 @@ bool ListBuffer::nonEmpty() {
 void ListBuffer::copy() {
 	if ($nc(this->elems)->nonEmpty()) {
 		$var($List, orig, this->elems);
-		$set(this, elems, ($assignField(this, last$, $List::of($nc(orig)->head))));
+		$set(this, elems, ($set(this, last$, $List::of($nc(orig)->head))));
 		while ($nc(($assign(orig, $nc(orig)->tail)))->nonEmpty()) {
 			$set($nc(this->last$), tail, $List::of(orig->head));
 			$set(this, last$, $nc(this->last$)->tail);
@@ -167,7 +158,7 @@ ListBuffer* ListBuffer::append(Object$* x) {
 		$set($nc(this->last$), tail, newLast);
 		$set(this, last$, newLast);
 	} else {
-		$set(this, elems, ($assignField(this, last$, newLast)));
+		$set(this, elems, ($set(this, last$, newLast)));
 	}
 	++this->count;
 	return this;

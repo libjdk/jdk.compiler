@@ -7,17 +7,6 @@
 #include <java/io/InputStream.h>
 #include <java/io/InputStreamReader.h>
 #include <java/io/Reader.h>
-#include <java/lang/Array.h>
-#include <java/lang/Character.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/MalformedURLException.h>
 #include <java/net/URL.h>
 #include <jcpp.h>
@@ -141,32 +130,28 @@ bool ServiceProxy::parse($Class* service, $URL* u) {
 						goto $finally;
 					}
 				}
-			} catch ($FileNotFoundException&) {
-				$var($FileNotFoundException, x, $catch());
+			} catch ($FileNotFoundException& x) {
 				var$2 = false;
 				return$1 = true;
 				goto $finally;
-			} catch ($IOException&) {
-				$var($IOException, x, $catch());
+			} catch ($IOException& x) {
 				fail(service, $$str({": "_s, x}));
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$4) {
+			$assign(var$0, var$4);
 		} $finally: {
 			try {
 				if (r != nullptr) {
 					r->close();
 				}
-			} catch ($IOException&) {
-				$var($IOException, y, $catch());
+			} catch ($IOException& y) {
 				fail(service, $$str({": "_s, y}));
 			}
 			try {
 				if (in != nullptr) {
 					in->close();
 				}
-			} catch ($IOException&) {
-				$var($IOException, y, $catch());
+			} catch ($IOException& y) {
 				fail(service, $$str({": "_s, y}));
 			}
 		}
@@ -197,8 +182,7 @@ bool ServiceProxy::hasService($Class* service, $URLArray* urls) {
 					if (found) {
 						return true;
 					}
-				} catch ($MalformedURLException&) {
-					$catch();
+				} catch ($MalformedURLException& e) {
 				}
 			}
 		}

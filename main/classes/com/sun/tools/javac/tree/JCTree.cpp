@@ -11,18 +11,7 @@
 #include <java/io/StringWriter.h>
 #include <java/io/Writer.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/CloneNotSupportedException.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $Tree = ::com::sun::source::tree::Tree;
@@ -206,8 +195,7 @@ $String* JCTree::toString() {
 	$var($StringWriter, s, $new($StringWriter));
 	try {
 		$$new($Pretty, s, false)->printExpr(this);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($AssertionError, $of(e));
 	}
 	return s->toString();
@@ -226,8 +214,7 @@ JCTree* JCTree::setType($Type* type) {
 $Object* JCTree::clone() {
 	try {
 		return $of($Tree::clone());
-	} catch ($CloneNotSupportedException&) {
-		$var($CloneNotSupportedException, e, $catch());
+	} catch ($CloneNotSupportedException& e) {
 		$throwNew($RuntimeException, static_cast<$Throwable*>(e));
 	}
 	$shouldNotReachHere();

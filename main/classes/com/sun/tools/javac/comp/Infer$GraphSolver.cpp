@@ -12,17 +12,7 @@
 #include <com/sun/tools/javac/util/JCDiagnostic.h>
 #include <com/sun/tools/javac/util/List.h>
 #include <com/sun/tools/javac/util/Warner.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/EnumSet.h>
 #include <jcpp.h>
 
@@ -133,8 +123,7 @@ void Infer$GraphSolver::solve($Infer$GraphStrategy* sstrategy) {
 				}
 				$throw($(this->this$0->error(nullptr)));
 			}
-		} catch ($Infer$InferenceException&) {
-			$var($Infer$InferenceException, ex, $catch());
+		} catch ($Infer$InferenceException& ex) {
 			$nc(this->inferenceContext)->rollback(saved_undet);
 			this->this$0->instantiateAsUninferredVars(varsToSolve, this->inferenceContext);
 			this->this$0->doIncorporation(this->inferenceContext, this->warn);

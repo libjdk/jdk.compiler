@@ -6,14 +6,6 @@
 #include <com/sun/tools/javac/code/Symbol$TypeSymbol.h>
 #include <com/sun/tools/javac/util/JCDiagnostic$Factory.h>
 #include <com/sun/tools/javac/util/JCDiagnostic.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <javax/tools/JavaFileObject.h>
 #include <jcpp.h>
 
@@ -78,16 +70,10 @@ void ClassFinder$BadEnclosingMethodAttr::init$($Symbol$TypeSymbol* sym, $JavaFil
 ClassFinder$BadEnclosingMethodAttr::ClassFinder$BadEnclosingMethodAttr() {
 }
 
-ClassFinder$BadEnclosingMethodAttr::ClassFinder$BadEnclosingMethodAttr(const ClassFinder$BadEnclosingMethodAttr& e) {
+ClassFinder$BadEnclosingMethodAttr::ClassFinder$BadEnclosingMethodAttr(const ClassFinder$BadEnclosingMethodAttr& e) : $ClassFinder$BadClassFile(e) {
 }
 
-ClassFinder$BadEnclosingMethodAttr ClassFinder$BadEnclosingMethodAttr::wrapper$() {
-	$pendingException(this);
-	return *this;
-}
-
-void ClassFinder$BadEnclosingMethodAttr::throwWrapper$() {
-	$pendingException(this);
+void ClassFinder$BadEnclosingMethodAttr::throw$() {
 	throw *this;
 }
 

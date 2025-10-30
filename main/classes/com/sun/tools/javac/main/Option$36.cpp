@@ -7,17 +7,7 @@
 #include <com/sun/tools/javac/main/OptionHelper.h>
 #include <com/sun/tools/javac/resources/CompilerProperties$Errors.h>
 #include <com/sun/tools/javac/util/JCDiagnostic$Error.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/IllegalArgumentException.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
 #include <java/lang/module/ModuleDescriptor$Version.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $Option = ::com::sun::tools::javac::main::Option;
@@ -89,8 +79,7 @@ void Option$36::process($OptionHelper* helper, $String* option, $String* arg) {
 	} else {
 		try {
 			$ModuleDescriptor$Version::parse(arg);
-		} catch ($IllegalArgumentException&) {
-			$var($IllegalArgumentException, e, $catch());
+		} catch ($IllegalArgumentException& e) {
 			$throw($($nc(helper)->newInvalidValueException($($CompilerProperties$Errors::BadValueForOption(option, arg)))));
 		}
 	}

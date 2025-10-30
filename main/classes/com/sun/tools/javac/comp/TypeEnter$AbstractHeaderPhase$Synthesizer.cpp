@@ -30,15 +30,6 @@
 #include <com/sun/tools/javac/util/ListBuffer.h>
 #include <com/sun/tools/javac/util/Name.h>
 #include <com/sun/tools/javac/util/Names.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Iterator.h>
 #include <jcpp.h>
 
@@ -191,8 +182,8 @@ void TypeEnter$AbstractHeaderPhase$Synthesizer::visitSelect($JCTree$JCFieldAcces
 			try {
 				this->interfaceExpected = false;
 				$assign(selectedType, visit(static_cast<$JCTree*>(tree->selected)));
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$1) {
+				$assign(var$0, var$1);
 			} /*finally*/ {
 				this->interfaceExpected = prev;
 			}

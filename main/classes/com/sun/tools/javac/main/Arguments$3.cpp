@@ -2,16 +2,7 @@
 
 #include <com/sun/tools/javac/main/Arguments$ErrorMode.h>
 #include <com/sun/tools/javac/main/Arguments.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/NoSuchFieldError.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef ILLEGAL_ARGUMENT
@@ -77,18 +68,15 @@ void clinit$Arguments$3($Class* class$) {
 	{
 		try {
 			$nc(Arguments$3::$SwitchMap$com$sun$tools$javac$main$Arguments$ErrorMode)->set($Arguments$ErrorMode::ILLEGAL_ARGUMENT->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Arguments$3::$SwitchMap$com$sun$tools$javac$main$Arguments$ErrorMode)->set($Arguments$ErrorMode::ILLEGAL_STATE->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Arguments$3::$SwitchMap$com$sun$tools$javac$main$Arguments$ErrorMode)->set($Arguments$ErrorMode::LOG->ordinal(), 3);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 }

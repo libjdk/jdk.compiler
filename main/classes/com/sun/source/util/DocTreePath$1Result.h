@@ -28,8 +28,10 @@ public:
 	static const int64_t serialVersionUID = (int64_t)0xAD89763BB0F151E7;
 	::com::sun::source::util::DocTreePath* path = nullptr;
 	DocTreePath$1Result(const DocTreePath$1Result& e);
-	DocTreePath$1Result wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline DocTreePath$1Result* operator ->() {
+		return (DocTreePath$1Result*)throwing$;
+	}
 };
 
 			} // util

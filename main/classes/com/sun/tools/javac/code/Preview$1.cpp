@@ -2,16 +2,7 @@
 
 #include <com/sun/tools/javac/code/Preview.h>
 #include <com/sun/tools/javac/code/Source$Feature.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/NoSuchFieldError.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef CASE_NULL
@@ -76,13 +67,11 @@ void clinit$Preview$1($Class* class$) {
 	{
 		try {
 			$nc(Preview$1::$SwitchMap$com$sun$tools$javac$code$Source$Feature)->set($Source$Feature::CASE_NULL->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Preview$1::$SwitchMap$com$sun$tools$javac$code$Source$Feature)->set($Source$Feature::PATTERN_SWITCH->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 }

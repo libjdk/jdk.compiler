@@ -2,15 +2,6 @@
 
 #include <com/sun/tools/javac/code/Types.h>
 #include <com/sun/tools/javac/util/JCDiagnostic.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $Types = ::com::sun::tools::javac::code::Types;
@@ -82,16 +73,10 @@ $JCDiagnostic* Types$FunctionDescriptorLookupError::getDiagnostic() {
 Types$FunctionDescriptorLookupError::Types$FunctionDescriptorLookupError() {
 }
 
-Types$FunctionDescriptorLookupError::Types$FunctionDescriptorLookupError(const Types$FunctionDescriptorLookupError& e) {
+Types$FunctionDescriptorLookupError::Types$FunctionDescriptorLookupError(const Types$FunctionDescriptorLookupError& e) : $RuntimeException(e) {
 }
 
-Types$FunctionDescriptorLookupError Types$FunctionDescriptorLookupError::wrapper$() {
-	$pendingException(this);
-	return *this;
-}
-
-void Types$FunctionDescriptorLookupError::throwWrapper$() {
-	$pendingException(this);
+void Types$FunctionDescriptorLookupError::throw$() {
 	throw *this;
 }
 

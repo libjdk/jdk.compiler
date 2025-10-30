@@ -23,16 +23,6 @@
 #include <com/sun/tools/javac/util/RichDiagnosticFormatter$RichConfiguration.h>
 #include <com/sun/tools/javac/util/RichDiagnosticFormatter$WhereClauseKind.h>
 #include <com/sun/tools/javac/util/RichDiagnosticFormatter.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Locale.h>
 #include <jcpp.h>
 
@@ -197,7 +187,7 @@ $String* RichDiagnosticFormatter$RichPrinter::visitTypeVar($Type$TypeVar* t, $Lo
 	if (var$0 || !$nc($($cast($RichDiagnosticFormatter$RichConfiguration, this->this$0->getConfiguration())))->isEnabled($RichDiagnosticFormatter$RichConfiguration$RichFormatterFeature::UNIQUE_TYPEVAR_NAMES)) {
 		return $nc(t)->toString();
 	} else {
-			$init($RichDiagnosticFormatter$WhereClauseKind);
+		$init($RichDiagnosticFormatter$WhereClauseKind);
 		return localize(locale, "compiler.misc.type.var"_s, $$new($ObjectArray, {
 			$($of($nc(t)->toString())),
 			$($of($Integer::valueOf(this->this$0->indexOf(t, $RichDiagnosticFormatter$WhereClauseKind::TYPEVAR))))

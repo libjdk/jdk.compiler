@@ -18,33 +18,16 @@
 #include <com/sun/tools/javac/util/Options.h>
 #include <java/io/InputStream.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Byte.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/ClassLoader.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/Float.h>
-#include <java/lang/IllegalArgumentException.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
 #include <java/lang/NumberFormatException.h>
 #include <java/lang/ReflectiveOperationException.h>
-#include <java/lang/String.h>
-#include <java/lang/StringBuilder.h>
-#include <java/lang/System.h>
-#include <java/lang/Thread.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
 #include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/URL.h>
 #include <java/net/URLClassLoader.h>
 #include <java/nio/ByteBuffer.h>
@@ -291,8 +274,7 @@ void BaseFileManager::setContext($Context* context) {
 	if (s != nullptr) {
 		try {
 			this->deferredCloseTimeout = $cast(int32_t, ($Float::parseFloat(s) * 1000));
-		} catch ($NumberFormatException&) {
-			$var($NumberFormatException, e, $catch());
+		} catch ($NumberFormatException& e) {
 			this->deferredCloseTimeout = 60 * 1000;
 		}
 	}
@@ -330,7 +312,7 @@ $ClassLoader* BaseFileManager::getClassLoader($URLArray* urls) {
 		try {
 			$load($ClassLoader);
 			$Class* loader = $Class::forName(this->classLoaderClass)->asSubclass($ClassLoader::class$);
-				$load($URLArray);
+			$load($URLArray);
 			$var($ClassArray, constrArgTypes, $new($ClassArray, {
 				$getClass($URLArray),
 				$ClassLoader::class$
@@ -340,8 +322,7 @@ $ClassLoader* BaseFileManager::getClassLoader($URLArray* urls) {
 				$of(urls),
 				$of(thisClassLoader)
 			})));
-		} catch ($ReflectiveOperationException&) {
-			$catch();
+		} catch ($ReflectiveOperationException& t) {
 		}
 	}
 	return $new($URLClassLoader, urls, thisClassLoader);
@@ -364,8 +345,7 @@ bool BaseFileManager::handleOption($String* current, $Iterator* remaining) {
 	}
 	try {
 		$nc(o)->handleOption(helper, current, remaining);
-	} catch ($Option$InvalidValueException&) {
-		$var($Option$InvalidValueException, e, $catch());
+	} catch ($Option$InvalidValueException& e) {
 		$throwNew($IllegalArgumentException, $(e->getMessage()), e);
 	}
 	return true;
@@ -410,8 +390,7 @@ bool BaseFileManager::handleOptions($Map* map) {
 					$var($Option, var$2, $cast($Option, $nc(e)->getKey()));
 					bool var$1 = handleOption(var$2, $cast($String, $(e->getValue())));
 					ok = var$0 & var$1;
-				} catch ($IllegalArgumentException&) {
-					$var($IllegalArgumentException, ex, $catch());
+				} catch ($IllegalArgumentException& ex) {
 					$var($String, var$3, $nc(($cast($Option, $($nc(e)->getKey()))))->getPrimaryName());
 					$nc(this->log)->error($($CompilerProperties$Errors::IllegalArgumentForOption(var$3, $(ex->getMessage()))));
 					ok = false;
@@ -439,12 +418,10 @@ $CharBuffer* BaseFileManager::decode($ByteBuffer* inbuf, bool ignoreEncodingErro
 	$var($CharsetDecoder, decoder, nullptr);
 	try {
 		$assign(decoder, getDecoder(encName, ignoreEncodingErrors));
-	} catch ($IllegalCharsetNameException&) {
-		$var($IllegalArgumentException, e, $catch());
+	} catch ($IllegalCharsetNameException& e) {
 		$nc(this->log)->error($($CompilerProperties$Errors::UnsupportedEncoding(encName)));
 		return $nc($($CharBuffer::allocate(1)))->flip();
-	} catch ($UnsupportedCharsetException&) {
-		$var($IllegalArgumentException, e, $catch());
+	} catch ($UnsupportedCharsetException& e) {
 		$nc(this->log)->error($($CompilerProperties$Errors::UnsupportedEncoding(encName)));
 		return $nc($($CharBuffer::allocate(1)))->flip();
 	}

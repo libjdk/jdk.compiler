@@ -32,19 +32,8 @@
 #include <com/sun/tools/javac/util/Name.h>
 #include <com/sun/tools/javac/util/Names.h>
 #include <java/io/IOException.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Error.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/HashMap.h>
 #include <java/util/Iterator.h>
@@ -187,7 +176,6 @@ $Object* allocate$ModuleFinder($Class* clazz) {
 	return $of($alloc(ModuleFinder));
 }
 
-
 $Context$Key* ModuleFinder::moduleFinderKey = nullptr;
 
 ModuleFinder* ModuleFinder::instance($Context* context) {
@@ -268,8 +256,7 @@ $Symbol$ModuleSymbol* ModuleFinder::findSingleModule() {
 			$set(msym, patchOutputLocation, $StandardLocation::CLASS_OUTPUT);
 		}
 		return msym;
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Error, static_cast<$Throwable*>(e));
 	}
 	$shouldNotReachHere();
@@ -295,11 +282,9 @@ $Symbol$ModuleSymbol* ModuleFinder::readModule($JavaFileObject* fo) {
 		{
 			try {
 				$assign(name, $nc(this->names)->fromString($(readModuleName(fo))));
-			} catch ($ModuleNameReader$BadClassFile&) {
-				$var($Exception, ex, $catch());
+			} catch ($ModuleNameReader$BadClassFile& ex) {
 				$assign(name, $nc(this->names)->error);
-			} catch ($IOException&) {
-				$var($Exception, ex, $catch());
+			} catch ($IOException& ex) {
 				$assign(name, $nc(this->names)->error);
 			}
 			break;
@@ -391,8 +376,7 @@ $List* ModuleFinder::scanModulePath($Symbol$ModuleSymbol* toFind) {
 						} else {
 							$nc(this->log)->error($($CompilerProperties$Errors::DuplicateModuleOnPath($(getDescription($nc(this->moduleLocationIterator)->outer)), n)));
 						}
-					} catch ($IOException&) {
-						$catch();
+					} catch ($IOException& e) {
 					}
 				}
 			}
@@ -429,8 +413,7 @@ void ModuleFinder::findModuleInfo($Symbol$ModuleSymbol* msym) {
 			$set($nc($nc(msym)->module_info), classfile, fo);
 			$set($nc(msym->module_info), completer, $new($ModuleFinder$1, this, msym));
 		}
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$init($Kinds$Kind);
 		$set($nc(msym), kind, $Kinds$Kind::ERR);
 	}

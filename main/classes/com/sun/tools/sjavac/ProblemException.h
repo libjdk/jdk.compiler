@@ -17,8 +17,10 @@ public:
 	void init$($String* s);
 	static const int64_t serialVersionUID = (int64_t)0xD0FD1F3E1A3B1CC3;
 	ProblemException(const ProblemException& e);
-	ProblemException wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline ProblemException* operator ->() {
+		return (ProblemException*)throwing$;
+	}
 };
 
 			} // sjavac

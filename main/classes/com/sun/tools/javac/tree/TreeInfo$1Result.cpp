@@ -2,16 +2,7 @@
 
 #include <com/sun/tools/javac/tree/TreeInfo.h>
 #include <com/sun/tools/javac/util/List.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
 #include <java/lang/Error.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $TreeInfo = ::com::sun::tools::javac::tree::TreeInfo;
@@ -80,16 +71,10 @@ void TreeInfo$1Result::init$($List* path) {
 TreeInfo$1Result::TreeInfo$1Result() {
 }
 
-TreeInfo$1Result::TreeInfo$1Result(const TreeInfo$1Result& e) {
+TreeInfo$1Result::TreeInfo$1Result(const TreeInfo$1Result& e) : $Error(e) {
 }
 
-TreeInfo$1Result TreeInfo$1Result::wrapper$() {
-	$pendingException(this);
-	return *this;
-}
-
-void TreeInfo$1Result::throwWrapper$() {
-	$pendingException(this);
+void TreeInfo$1Result::throw$() {
 	throw *this;
 }
 

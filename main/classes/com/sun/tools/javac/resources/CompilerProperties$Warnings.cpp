@@ -13,16 +13,6 @@
 #include <com/sun/tools/javac/util/JCDiagnostic.h>
 #include <com/sun/tools/javac/util/Name.h>
 #include <java/io/File.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/file/Path.h>
 #include <java/util/List.h>
 #include <java/util/Set.h>
@@ -245,61 +235,33 @@ $Object* allocate$CompilerProperties$Warnings($Class* clazz) {
 	return $of($alloc(CompilerProperties$Warnings));
 }
 
-
 $JCDiagnostic$Warning* CompilerProperties$Warnings::AddopensIgnored = nullptr;
-
 $JCDiagnostic$Warning* CompilerProperties$Warnings::AttemptToSynchronizeOnInstanceOfValueBasedClass = nullptr;
-
 $JCDiagnostic$Warning* CompilerProperties$Warnings::DiamondRedundantArgs = nullptr;
-
 $JCDiagnostic$Warning* CompilerProperties$Warnings::DivZero = nullptr;
-
 $JCDiagnostic$Warning* CompilerProperties$Warnings::DoclintNotAvailable = nullptr;
-
 $JCDiagnostic$Warning* CompilerProperties$Warnings::EmptyIf = nullptr;
-
 $JCDiagnostic$Warning* CompilerProperties$Warnings::FinallyCannotComplete = nullptr;
-
 $JCDiagnostic$Warning* CompilerProperties$Warnings::IllegalCharForEncoding = nullptr;
-
 $JCDiagnostic$Warning* CompilerProperties$Warnings::InconsistentWhiteSpaceIndentation = nullptr;
-
 $JCDiagnostic$Warning* CompilerProperties$Warnings::InvalidYield = nullptr;
-
 $JCDiagnostic$Warning* CompilerProperties$Warnings::LocalRedundantType = nullptr;
-
 $JCDiagnostic$Warning* CompilerProperties$Warnings::MethodRedundantTypeargs = nullptr;
-
 $JCDiagnostic$Warning* CompilerProperties$Warnings::MissingDeprecatedAnnotation = nullptr;
-
 $JCDiagnostic$Warning* CompilerProperties$Warnings::OptionObsoleteSuppression = nullptr;
-
 $JCDiagnostic$Warning* CompilerProperties$Warnings::PossibleFallThroughIntoCase = nullptr;
-
 $JCDiagnostic$Warning* CompilerProperties$Warnings::PotentialLambdaFound = nullptr;
-
 $JCDiagnostic$Warning* CompilerProperties$Warnings::ProcProcOnlyRequestedNoProcs = nullptr;
-
 $JCDiagnostic$Warning* CompilerProperties$Warnings::ProcUseImplicit = nullptr;
-
 $JCDiagnostic$Warning* CompilerProperties$Warnings::ProcUseProcOrImplicit = nullptr;
-
 $JCDiagnostic$Warning* CompilerProperties$Warnings::RequiresAutomatic = nullptr;
-
 $JCDiagnostic$Warning* CompilerProperties$Warnings::RequiresTransitiveAutomatic = nullptr;
-
 $JCDiagnostic$Warning* CompilerProperties$Warnings::Strictfp = nullptr;
-
 $JCDiagnostic$Warning* CompilerProperties$Warnings::TrailingWhiteSpaceWillBeRemoved = nullptr;
-
 $JCDiagnostic$Warning* CompilerProperties$Warnings::TryExplicitCloseCall = nullptr;
-
 $JCDiagnostic$Warning* CompilerProperties$Warnings::UncheckedAssign = nullptr;
-
 $JCDiagnostic$Warning* CompilerProperties$Warnings::UncheckedCastToType = nullptr;
-
 $JCDiagnostic$Warning* CompilerProperties$Warnings::UnderscoreAsIdentifier = nullptr;
-
 $JCDiagnostic$Warning* CompilerProperties$Warnings::Warning = nullptr;
 
 void CompilerProperties$Warnings::init$() {

@@ -15,35 +15,17 @@
 #include <java/io/FilterOutputStream.h>
 #include <java/io/IOException.h>
 #include <java/io/OutputStream.h>
-#include <java/io/PrintStream.h>
 #include <java/io/PrintWriter.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Character.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/ClassLoader.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
 #include <java/lang/IllegalStateException.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/URI.h>
 #include <java/nio/charset/Charset.h>
 #include <java/nio/file/DirectoryStream.h>
@@ -362,7 +344,6 @@ void JDKPlatformProvider$PlatformDescriptionImpl::init$($String* sourceVersion) 
 $JavaFileManager* JDKPlatformProvider$PlatformDescriptionImpl::getFileManager() {
 	$useLocalCurrentObjectStackCache();
 	$var($Context, context, $new($Context));
-	$init($System);
 	$var($PrintWriter, pw, $new($PrintWriter, static_cast<$OutputStream*>($System::err), true));
 	$init($Log);
 	context->put($Log::errKey, $of(pw));
@@ -412,20 +393,18 @@ $JavaFileManager* JDKPlatformProvider$PlatformDescriptionImpl::getFileManager() 
 																		}
 																	}
 																}
-															} catch ($Throwable&) {
-																$var($Throwable, t$, $catch());
+															} catch ($Throwable& t$) {
 																if (modules != nullptr) {
 																	try {
 																		modules->close();
-																	} catch ($Throwable&) {
-																		$var($Throwable, x2, $catch());
+																	} catch ($Throwable& x2) {
 																		t$->addSuppressed(x2);
 																	}
 																}
 																$throw(t$);
 															}
-														} catch ($Throwable&) {
-															$assign(var$2, $catch());
+														} catch ($Throwable& var$3) {
+															$assign(var$2, var$3);
 														} /*finally*/ {
 															if (modules != nullptr) {
 																modules->close();
@@ -440,20 +419,18 @@ $JavaFileManager* JDKPlatformProvider$PlatformDescriptionImpl::getFileManager() 
 										}
 									}
 								}
-							} catch ($Throwable&) {
-								$var($Throwable, t$, $catch());
+							} catch ($Throwable& t$) {
 								if (dir != nullptr) {
 									try {
 										dir->close();
-									} catch ($Throwable&) {
-										$var($Throwable, x2, $catch());
+									} catch ($Throwable& x2) {
 										t$->addSuppressed(x2);
 									}
 								}
 								$throw(t$);
 							}
-						} catch ($Throwable&) {
-							$assign(var$0, $catch());
+						} catch ($Throwable& var$4) {
+							$assign(var$0, var$4);
 						} /*finally*/ {
 							if (dir != nullptr) {
 								dir->close();
@@ -472,31 +449,29 @@ $JavaFileManager* JDKPlatformProvider$PlatformDescriptionImpl::getFileManager() 
 				{
 					$var($Stream, lines, $Files::lines(systemModules, utf8));
 					{
-						$var($Throwable, var$3, nullptr);
+						$var($Throwable, var$5, nullptr);
 						try {
 							try {
 								$nc($($nc($($nc(lines)->map(static_cast<$Function*>($$new(JDKPlatformProvider$PlatformDescriptionImpl$$Lambda$lambda$getFileManager$0, jrtModules)))))->filter(static_cast<$Predicate*>($$new(JDKPlatformProvider$PlatformDescriptionImpl$$Lambda$lambda$getFileManager$1$1)))))->forEach(static_cast<$Consumer*>($$new(JDKPlatformProvider$PlatformDescriptionImpl$$Lambda$lambda$getFileManager$2$2, fm)));
-							} catch ($Throwable&) {
-								$var($Throwable, t$, $catch());
+							} catch ($Throwable& t$) {
 								if (lines != nullptr) {
 									try {
 										lines->close();
-									} catch ($Throwable&) {
-										$var($Throwable, x2, $catch());
+									} catch ($Throwable& x2) {
 										t$->addSuppressed(x2);
 									}
 								}
 								$throw(t$);
 							}
-						} catch ($Throwable&) {
-							$assign(var$3, $catch());
+						} catch ($Throwable& var$6) {
+							$assign(var$5, var$6);
 						} /*finally*/ {
 							if (lines != nullptr) {
 								lines->close();
 							}
 						}
-						if (var$3 != nullptr) {
-							$throw(var$3);
+						if (var$5 != nullptr) {
+							$throw(var$5);
 						}
 					}
 				}
@@ -505,7 +480,7 @@ $JavaFileManager* JDKPlatformProvider$PlatformDescriptionImpl::getFileManager() 
 				{
 					$var($DirectoryStream, dir, $Files::newDirectoryStream(root));
 					{
-						$var($Throwable, var$4, nullptr);
+						$var($Throwable, var$7, nullptr);
 						try {
 							try {
 								{
@@ -513,12 +488,12 @@ $JavaFileManager* JDKPlatformProvider$PlatformDescriptionImpl::getFileManager() 
 									for (; $nc(i$)->hasNext();) {
 										$var($Path, section, $cast($Path, i$->next()));
 										{
-											bool var$5 = $nc($($nc($($nc(section)->getFileName()))->toString()))->contains(this->ctSymVersion);
-											if (var$5 && !$nc($($nc($(section->getFileName()))->toString()))->contains("-"_s)) {
+											bool var$8 = $nc($($nc($($nc(section)->getFileName()))->toString()))->contains(this->ctSymVersion);
+											if (var$8 && !$nc($($nc($(section->getFileName()))->toString()))->contains("-"_s)) {
 												{
 													$var($DirectoryStream, modules, $Files::newDirectoryStream(section));
 													{
-														$var($Throwable, var$6, nullptr);
+														$var($Throwable, var$9, nullptr);
 														try {
 															try {
 																{
@@ -526,32 +501,30 @@ $JavaFileManager* JDKPlatformProvider$PlatformDescriptionImpl::getFileManager() 
 																	for (; $nc(i$)->hasNext();) {
 																		$var($Path, module, $cast($Path, i$->next()));
 																		{
-																			$var($Object, var$7, $of($nc($($nc(module)->getFileName()))->toString()));
-																			$nc(($cast($List, $(module2Paths->computeIfAbsent(var$7, static_cast<$Function*>($$new(JDKPlatformProvider$PlatformDescriptionImpl$$Lambda$lambda$getFileManager$3$3)))))))->add(module);
+																			$var($Object, var$10, $of($nc($($nc(module)->getFileName()))->toString()));
+																			$nc(($cast($List, $(module2Paths->computeIfAbsent(var$10, static_cast<$Function*>($$new(JDKPlatformProvider$PlatformDescriptionImpl$$Lambda$lambda$getFileManager$3$3)))))))->add(module);
 																		}
 																	}
 																}
-															} catch ($Throwable&) {
-																$var($Throwable, t$, $catch());
+															} catch ($Throwable& t$) {
 																if (modules != nullptr) {
 																	try {
 																		modules->close();
-																	} catch ($Throwable&) {
-																		$var($Throwable, x2, $catch());
+																	} catch ($Throwable& x2) {
 																		t$->addSuppressed(x2);
 																	}
 																}
 																$throw(t$);
 															}
-														} catch ($Throwable&) {
-															$assign(var$6, $catch());
+														} catch ($Throwable& var$11) {
+															$assign(var$9, var$11);
 														} /*finally*/ {
 															if (modules != nullptr) {
 																modules->close();
 															}
 														}
-														if (var$6 != nullptr) {
-															$throw(var$6);
+														if (var$9 != nullptr) {
+															$throw(var$9);
 														}
 													}
 												}
@@ -559,27 +532,25 @@ $JavaFileManager* JDKPlatformProvider$PlatformDescriptionImpl::getFileManager() 
 										}
 									}
 								}
-							} catch ($Throwable&) {
-								$var($Throwable, t$, $catch());
+							} catch ($Throwable& t$) {
 								if (dir != nullptr) {
 									try {
 										dir->close();
-									} catch ($Throwable&) {
-										$var($Throwable, x2, $catch());
+									} catch ($Throwable& x2) {
 										t$->addSuppressed(x2);
 									}
 								}
 								$throw(t$);
 							}
-						} catch ($Throwable&) {
-							$assign(var$4, $catch());
+						} catch ($Throwable& var$12) {
+							$assign(var$7, var$12);
 						} /*finally*/ {
 							if (dir != nullptr) {
 								dir->close();
 							}
 						}
-						if (var$4 != nullptr) {
-							$throw(var$4);
+						if (var$7 != nullptr) {
+							$throw(var$7);
 						}
 					}
 				}
@@ -590,16 +561,15 @@ $JavaFileManager* JDKPlatformProvider$PlatformDescriptionImpl::getFileManager() 
 						$var($Map$Entry, e, $cast($Map$Entry, i$->next()));
 						{
 							$init($StandardLocation);
-							$var($JavaFileManager$Location, var$8, static_cast<$JavaFileManager$Location*>($StandardLocation::SYSTEM_MODULES));
-							$var($String, var$9, $cast($String, $nc(e)->getKey()));
-							fm->setLocationForModule(var$8, var$9, $cast($Collection, $(e->getValue())));
+							$var($JavaFileManager$Location, var$13, static_cast<$JavaFileManager$Location*>($StandardLocation::SYSTEM_MODULES));
+							$var($String, var$14, $cast($String, $nc(e)->getKey()));
+							fm->setLocationForModule(var$13, var$14, $cast($Collection, $(e->getValue())));
 						}
 					}
 				}
 			}
 			return static_cast<$JavaFileManager*>(static_cast<$BaseFileManager*>(fm));
-		} catch ($IOException&) {
-			$var($IOException, ex, $catch());
+		} catch ($IOException& ex) {
 			$throwNew($IllegalStateException, static_cast<$Throwable*>(ex));
 		}
 	} else {
@@ -616,8 +586,7 @@ void JDKPlatformProvider$PlatformDescriptionImpl::setModule($StandardJavaFileMan
 		$var($JavaFileManager$Location, var$0, static_cast<$JavaFileManager$Location*>($StandardLocation::SYSTEM_MODULES));
 		$var($String, var$1, $nc($($nc(mod)->getFileName()))->toString());
 		$nc(fm)->setLocationForModule(var$0, var$1, $($Collections::singleton(mod)));
-	} catch ($IOException&) {
-		$var($IOException, ex, $catch());
+	} catch ($IOException& ex) {
 		$throwNew($IllegalStateException, static_cast<$Throwable*>(ex));
 	}
 }

@@ -18,8 +18,10 @@ public:
 	void init$($String* key);
 	static const int64_t serialVersionUID = 0;
 	DocCommentParser$ParseException(const DocCommentParser$ParseException& e);
-	DocCommentParser$ParseException wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline DocCommentParser$ParseException* operator ->() {
+		return (DocCommentParser$ParseException*)throwing$;
+	}
 };
 
 				} // parser

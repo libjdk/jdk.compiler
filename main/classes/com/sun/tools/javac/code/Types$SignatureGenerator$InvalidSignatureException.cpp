@@ -2,15 +2,6 @@
 
 #include <com/sun/tools/javac/code/Type.h>
 #include <com/sun/tools/javac/code/Types$SignatureGenerator.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $Type = ::com::sun::tools::javac::code::Type;
@@ -77,16 +68,10 @@ $Type* Types$SignatureGenerator$InvalidSignatureException::type() {
 Types$SignatureGenerator$InvalidSignatureException::Types$SignatureGenerator$InvalidSignatureException() {
 }
 
-Types$SignatureGenerator$InvalidSignatureException::Types$SignatureGenerator$InvalidSignatureException(const Types$SignatureGenerator$InvalidSignatureException& e) {
+Types$SignatureGenerator$InvalidSignatureException::Types$SignatureGenerator$InvalidSignatureException(const Types$SignatureGenerator$InvalidSignatureException& e) : $RuntimeException(e) {
 }
 
-Types$SignatureGenerator$InvalidSignatureException Types$SignatureGenerator$InvalidSignatureException::wrapper$() {
-	$pendingException(this);
-	return *this;
-}
-
-void Types$SignatureGenerator$InvalidSignatureException::throwWrapper$() {
-	$pendingException(this);
+void Types$SignatureGenerator$InvalidSignatureException::throw$() {
 	throw *this;
 }
 

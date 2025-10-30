@@ -1,16 +1,7 @@
 #include <com/sun/tools/javac/processing/JavacMessager$1.h>
 
 #include <com/sun/tools/javac/processing/JavacMessager.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/NoSuchFieldError.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <javax/tools/Diagnostic$Kind.h>
 #include <javax/tools/Diagnostic.h>
 #include <jcpp.h>
@@ -79,18 +70,15 @@ void clinit$JavacMessager$1($Class* class$) {
 	{
 		try {
 			$nc(JavacMessager$1::$SwitchMap$javax$tools$Diagnostic$Kind)->set($Diagnostic$Kind::ERROR->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacMessager$1::$SwitchMap$javax$tools$Diagnostic$Kind)->set($Diagnostic$Kind::WARNING->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacMessager$1::$SwitchMap$javax$tools$Diagnostic$Kind)->set($Diagnostic$Kind::MANDATORY_WARNING->ordinal(), 3);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 }

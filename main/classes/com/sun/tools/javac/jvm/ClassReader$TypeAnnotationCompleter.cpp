@@ -11,15 +11,6 @@
 #include <com/sun/tools/javac/jvm/ClassReader.h>
 #include <com/sun/tools/javac/util/List.h>
 #include <com/sun/tools/javac/util/ListBuffer.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Iterator.h>
 #include <javax/tools/JavaFileObject.h>
 #include <jcpp.h>
@@ -119,8 +110,8 @@ void ClassReader$TypeAnnotationCompleter::run() {
 			$set(this->this$0, currentClassFile, this->classFile);
 			$var($List, newList, deproxyTypeCompoundList(this->proxies));
 			$nc(this->sym)->setTypeAttributes($($nc(newList)->prependList($($nc(this->sym)->getRawTypeAttributes()))));
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this->this$0, currentClassFile, previousClassFile);
 		}

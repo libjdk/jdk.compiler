@@ -27,24 +27,14 @@
 #include <com/sun/tools/javac/util/Options.h>
 #include <com/sun/tools/javac/util/PropagatedException.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/IllegalArgumentException.h>
 #include <java/lang/IllegalStateException.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
 #include <java/lang/Module.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractSet.h>
 #include <java/util/Collection.h>
 #include <java/util/HashSet.h>
@@ -340,8 +330,7 @@ void BasicJavacTask::initPlugins($Set* pluginOpts) {
 					try {
 						$var($Plugin, var$0, $cast($Plugin, pluginDesc->getPlugin()));
 						initPlugin(var$0, $fcast($StringArray, $($nc(options)->toArray($$new($StringArray, options->size())))));
-					} catch ($RuntimeException&) {
-						$var($RuntimeException, ex, $catch());
+					} catch ($RuntimeException& ex) {
 						$throwNew($PropagatedException, ex);
 					}
 				}
@@ -371,8 +360,7 @@ void BasicJavacTask::initPlugins($Set* pluginOpts) {
 								autoStart->remove(plugin);
 								try {
 									initPlugin(plugin, $fcast($StringArray, $($nc($nc(p)->tail)->toArray($$new($StringArray, $nc(p->tail)->size())))));
-								} catch ($RuntimeException&) {
-									$var($RuntimeException, ex, $catch());
+								} catch ($RuntimeException& ex) {
 									$throwNew($PropagatedException, ex);
 								}
 								break;
@@ -399,8 +387,7 @@ void BasicJavacTask::initPlugins($Set* pluginOpts) {
 			{
 				try {
 					initPlugin(plugin, $$new($StringArray, 0));
-				} catch ($RuntimeException&) {
-					$var($RuntimeException, ex, $catch());
+				} catch ($RuntimeException& ex) {
 					$throwNew($PropagatedException, ex);
 				}
 			}
@@ -426,8 +413,7 @@ void BasicJavacTask::initDocLint($List* docLintOpts) {
 	try {
 		$nc($($DocLint::newDocLint()))->init(this, $fcast($StringArray, $($nc(docLintOpts)->toArray($$new($StringArray, docLintOpts->size())))));
 		$nc($($JavaCompiler::instance(this->context)))->keepComments$ = true;
-	} catch ($IllegalStateException&) {
-		$var($IllegalStateException, e, $catch());
+	} catch ($IllegalStateException& e) {
 		$init($CompilerProperties$Warnings);
 		$nc($($Log::instance(this->context)))->warning($CompilerProperties$Warnings::DoclintNotAvailable);
 	}

@@ -37,8 +37,10 @@ public:
 	void init$($String* s);
 	static const int64_t serialVersionUID = 0;
 	FatalError(const FatalError& e);
-	FatalError wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline FatalError* operator ->() {
+		return (FatalError*)throwing$;
+	}
 };
 
 				} // util

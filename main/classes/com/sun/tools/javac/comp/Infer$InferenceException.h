@@ -33,8 +33,10 @@ public:
 	static const int64_t serialVersionUID = 0;
 	::com::sun::tools::javac::util::List* messages = nullptr;
 	Infer$InferenceException(const Infer$InferenceException& e);
-	Infer$InferenceException wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline Infer$InferenceException* operator ->() {
+		return (Infer$InferenceException*)throwing$;
+	}
 };
 
 				} // comp

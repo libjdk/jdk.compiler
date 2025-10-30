@@ -3,13 +3,6 @@
 #include <com/sun/tools/javac/code/Attribute$Visitor.h>
 #include <com/sun/tools/javac/code/Attribute.h>
 #include <com/sun/tools/javac/code/Type.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <javax/lang/model/element/AnnotationValueVisitor.h>
 #include <jcpp.h>
 

@@ -7,16 +7,7 @@
 #include <com/sun/tools/javac/code/TypeTag.h>
 #include <com/sun/tools/javac/comp/Check.h>
 #include <com/sun/tools/javac/tree/JCTree$Tag.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/NoSuchFieldError.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <javax/lang/model/element/NestingKind.h>
 #include <jcpp.h>
 
@@ -116,93 +107,78 @@ void clinit$Check$5($Class* class$) {
 	{
 		try {
 			$nc(Check$5::$SwitchMap$com$sun$tools$javac$code$Lint$LintCategory)->set($Lint$LintCategory::UNCHECKED->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Check$5::$SwitchMap$com$sun$tools$javac$code$Lint$LintCategory)->set($Lint$LintCategory::VARARGS->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 	$assignStatic(Check$5::$SwitchMap$javax$lang$model$element$NestingKind, $new($ints, $($NestingKind::values())->length));
 	{
 		try {
 			$nc(Check$5::$SwitchMap$javax$lang$model$element$NestingKind)->set($NestingKind::ANONYMOUS->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Check$5::$SwitchMap$javax$lang$model$element$NestingKind)->set($NestingKind::LOCAL->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Check$5::$SwitchMap$javax$lang$model$element$NestingKind)->set($NestingKind::TOP_LEVEL->ordinal(), 3);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Check$5::$SwitchMap$javax$lang$model$element$NestingKind)->set($NestingKind::MEMBER->ordinal(), 4);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 	$assignStatic(Check$5::$SwitchMap$com$sun$tools$javac$code$TypeTag, $new($ints, $($TypeTag::values())->length));
 	{
 		try {
 			$nc(Check$5::$SwitchMap$com$sun$tools$javac$code$TypeTag)->set($TypeTag::CLASS->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Check$5::$SwitchMap$com$sun$tools$javac$code$TypeTag)->set($TypeTag::ARRAY->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 	$assignStatic(Check$5::$SwitchMap$com$sun$tools$javac$code$Attribute$RetentionPolicy, $new($ints, $($Attribute$RetentionPolicy::values())->length));
 	{
 		try {
 			$nc(Check$5::$SwitchMap$com$sun$tools$javac$code$Attribute$RetentionPolicy)->set($Attribute$RetentionPolicy::RUNTIME->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Check$5::$SwitchMap$com$sun$tools$javac$code$Attribute$RetentionPolicy)->set($Attribute$RetentionPolicy::CLASS->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 	$assignStatic(Check$5::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag, $new($ints, $($JCTree$Tag::values())->length));
 	{
 		try {
 			$nc(Check$5::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->set($JCTree$Tag::SELECT->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Check$5::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->set($JCTree$Tag::IDENT->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 	$assignStatic(Check$5::$SwitchMap$com$sun$tools$javac$code$Kinds$Kind, $new($ints, $($Kinds$Kind::values())->length));
 	{
 		try {
 			$nc(Check$5::$SwitchMap$com$sun$tools$javac$code$Kinds$Kind)->set($Kinds$Kind::VAR->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Check$5::$SwitchMap$com$sun$tools$javac$code$Kinds$Kind)->set($Kinds$Kind::MTH->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Check$5::$SwitchMap$com$sun$tools$javac$code$Kinds$Kind)->set($Kinds$Kind::TYP->ordinal(), 3);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 }

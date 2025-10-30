@@ -4,16 +4,7 @@
 #include <com/sun/tools/javac/code/Kinds$KindName.h>
 #include <com/sun/tools/javac/comp/Resolve.h>
 #include <com/sun/tools/javac/tree/JCTree$Tag.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/NoSuchFieldError.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef ABSENT_MTH
@@ -96,64 +87,53 @@ void clinit$Resolve$18($Class* class$) {
 	{
 		try {
 			$nc(Resolve$18::$SwitchMap$com$sun$tools$javac$code$Kinds$KindName)->set($Kinds$KindName::METHOD->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Resolve$18::$SwitchMap$com$sun$tools$javac$code$Kinds$KindName)->set($Kinds$KindName::CONSTRUCTOR->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 	$assignStatic(Resolve$18::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag, $new($ints, $($JCTree$Tag::values())->length));
 	{
 		try {
 			$nc(Resolve$18::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->set($JCTree$Tag::LAMBDA->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Resolve$18::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->set($JCTree$Tag::REFERENCE->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Resolve$18::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->set($JCTree$Tag::CONDEXPR->ordinal(), 3);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 	$assignStatic(Resolve$18::$SwitchMap$com$sun$tools$javac$code$Kinds$Kind, $new($ints, $($Kinds$Kind::values())->length));
 	{
 		try {
 			$nc(Resolve$18::$SwitchMap$com$sun$tools$javac$code$Kinds$Kind)->set($Kinds$Kind::ABSENT_MTH->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Resolve$18::$SwitchMap$com$sun$tools$javac$code$Kinds$Kind)->set($Kinds$Kind::HIDDEN->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Resolve$18::$SwitchMap$com$sun$tools$javac$code$Kinds$Kind)->set($Kinds$Kind::WRONG_MTH->ordinal(), 3);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Resolve$18::$SwitchMap$com$sun$tools$javac$code$Kinds$Kind)->set($Kinds$Kind::MTH->ordinal(), 4);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Resolve$18::$SwitchMap$com$sun$tools$javac$code$Kinds$Kind)->set($Kinds$Kind::AMBIGUOUS->ordinal(), 5);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Resolve$18::$SwitchMap$com$sun$tools$javac$code$Kinds$Kind)->set($Kinds$Kind::WRONG_MTHS->ordinal(), 6);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 }

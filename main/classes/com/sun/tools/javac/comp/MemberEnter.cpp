@@ -56,15 +56,6 @@
 #include <com/sun/tools/javac/util/ListBuffer.h>
 #include <com/sun/tools/javac/util/Log.h>
 #include <com/sun/tools/javac/util/Name.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef CLASS
@@ -280,12 +271,11 @@ void MemberEnter::memberEnter($JCTree* tree, $Env* env) {
 			try {
 				$set(this, env, env);
 				$nc(tree)->accept(this);
-			} catch ($Symbol$CompletionFailure&) {
-				$var($Symbol$CompletionFailure, ex, $catch());
+			} catch ($Symbol$CompletionFailure& ex) {
 				$nc(this->chk)->completionError($($nc(tree)->pos()), ex);
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, env, prevEnv);
 		}
@@ -319,8 +309,8 @@ void MemberEnter::visitMethodDef($JCTree$JCMethodDecl* tree) {
 		$var($Throwable, var$0, nullptr);
 		try {
 			$set(m, type, signature(m, tree->typarams, tree->params, tree->restype, tree->recvparam, tree->thrown, localEnv));
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc(this->deferredLintHandler)->setPos(prevLintPos);
 		}
@@ -390,8 +380,8 @@ void MemberEnter::visitVarDef($JCTree$JCVariableDecl* tree) {
 					checkReceiver(tree, localEnv);
 				}
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc(this->deferredLintHandler)->setPos(prevLintPos);
 		}

@@ -1,16 +1,7 @@
 #include <com/sun/tools/javac/main/Option$41.h>
 
 #include <com/sun/tools/javac/main/Option.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/NoSuchFieldError.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef ADD_MODULES
@@ -73,8 +64,7 @@ void clinit$Option$41($Class* class$) {
 	{
 		try {
 			$nc(Option$41::$SwitchMap$com$sun$tools$javac$main$Option)->set($Option::ADD_MODULES->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 }

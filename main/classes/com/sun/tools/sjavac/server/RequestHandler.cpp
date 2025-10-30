@@ -13,20 +13,6 @@
 #include <java/io/PrintWriter.h>
 #include <java/io/Reader.h>
 #include <java/io/Writer.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
-#include <java/lang/Thread.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/Socket.h>
 #include <java/nio/file/Path.h>
 #include <jcpp.h>
@@ -130,18 +116,16 @@ void RequestHandler::run() {
 										$Main$Result* rc = $nc(this->sjavac)->compile(args);
 										out->println($$str({"RC"_s, ":"_s, $($nc(rc)->name())}));
 										checkInternalErrorLog();
-									} catch ($Throwable&) {
-										$var($Throwable, t$, $catch());
+									} catch ($Throwable& t$) {
 										try {
 											out->close();
-										} catch ($Throwable&) {
-											$var($Throwable, x2, $catch());
+										} catch ($Throwable& x2) {
 											t$->addSuppressed(x2);
 										}
 										$throw(t$);
 									}
-								} catch ($Throwable&) {
-									$assign(var$2, $catch());
+								} catch ($Throwable& var$3) {
+									$assign(var$2, var$3);
 								} /*finally*/ {
 									out->close();
 								}
@@ -149,18 +133,16 @@ void RequestHandler::run() {
 									$throw(var$2);
 								}
 							}
-						} catch ($Throwable&) {
-							$var($Throwable, t$, $catch());
+						} catch ($Throwable& t$) {
 							try {
 								in->close();
-							} catch ($Throwable&) {
-								$var($Throwable, x2, $catch());
+							} catch ($Throwable& x2) {
 								t$->addSuppressed(x2);
 							}
 							$throw(t$);
 						}
-					} catch ($Throwable&) {
-						$assign(var$1, $catch());
+					} catch ($Throwable& var$4) {
+						$assign(var$1, var$4);
 					} /*finally*/ {
 						in->close();
 					}
@@ -168,12 +150,11 @@ void RequestHandler::run() {
 						$throw(var$1);
 					}
 				}
-			} catch ($Exception&) {
-				$var($Exception, ex, $catch());
+			} catch ($Exception& ex) {
 				$Log::error(static_cast<$Throwable*>(ex));
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$5) {
+			$assign(var$0, var$5);
 		} /*finally*/ {
 			$Log::setLogForCurrentThread(nullptr);
 		}

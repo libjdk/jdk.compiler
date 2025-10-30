@@ -3,16 +3,7 @@
 #include <com/sun/tools/javac/code/Kinds$Kind.h>
 #include <com/sun/tools/javac/code/Kinds.h>
 #include <com/sun/tools/javac/model/JavacElements.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/NoSuchFieldError.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <javax/lang/model/element/ModuleElement$DirectiveKind.h>
 #include <javax/lang/model/element/ModuleElement.h>
 #include <jcpp.h>
@@ -89,31 +80,26 @@ void clinit$JavacElements$1($Class* class$) {
 	{
 		try {
 			$nc(JavacElements$1::$SwitchMap$com$sun$tools$javac$code$Kinds$Kind)->set($Kinds$Kind::PCK->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacElements$1::$SwitchMap$com$sun$tools$javac$code$Kinds$Kind)->set($Kinds$Kind::MDL->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 	$assignStatic(JavacElements$1::$SwitchMap$javax$lang$model$element$ModuleElement$DirectiveKind, $new($ints, $($ModuleElement$DirectiveKind::values())->length));
 	{
 		try {
 			$nc(JavacElements$1::$SwitchMap$javax$lang$model$element$ModuleElement$DirectiveKind)->set($ModuleElement$DirectiveKind::REQUIRES->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacElements$1::$SwitchMap$javax$lang$model$element$ModuleElement$DirectiveKind)->set($ModuleElement$DirectiveKind::EXPORTS->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacElements$1::$SwitchMap$javax$lang$model$element$ModuleElement$DirectiveKind)->set($ModuleElement$DirectiveKind::OPENS->ordinal(), 3);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 }

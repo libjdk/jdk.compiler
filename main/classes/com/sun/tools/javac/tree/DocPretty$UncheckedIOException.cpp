@@ -2,17 +2,7 @@
 
 #include <com/sun/tools/javac/tree/DocPretty.h>
 #include <java/io/IOException.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Error.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $DocPretty = ::com::sun::tools::javac::tree::DocPretty;
@@ -72,16 +62,10 @@ void DocPretty$UncheckedIOException::init$($IOException* e) {
 DocPretty$UncheckedIOException::DocPretty$UncheckedIOException() {
 }
 
-DocPretty$UncheckedIOException::DocPretty$UncheckedIOException(const DocPretty$UncheckedIOException& e) {
+DocPretty$UncheckedIOException::DocPretty$UncheckedIOException(const DocPretty$UncheckedIOException& e) : $Error(e) {
 }
 
-DocPretty$UncheckedIOException DocPretty$UncheckedIOException::wrapper$() {
-	$pendingException(this);
-	return *this;
-}
-
-void DocPretty$UncheckedIOException::throwWrapper$() {
-	$pendingException(this);
+void DocPretty$UncheckedIOException::throw$() {
 	throw *this;
 }
 

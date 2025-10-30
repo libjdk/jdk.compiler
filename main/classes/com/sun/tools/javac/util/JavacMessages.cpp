@@ -17,27 +17,14 @@
 #include <com/sun/tools/javac/util/Options.h>
 #include <com/sun/tools/javac/util/RawDiagnosticFormatter.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/CompoundAttribute.h>
 #include <java/lang/Error.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/InternalError.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
 #include <java/lang/ref/SoftReference.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/text/MessageFormat.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/HashMap.h>
@@ -209,7 +196,6 @@ $Object* allocate$JavacMessages($Class* clazz) {
 	return $of($alloc(JavacMessages));
 }
 
-
 $Context$Key* JavacMessages::messagesKey = nullptr;
 $String* JavacMessages::defaultBundleName = nullptr;
 $ResourceBundle* JavacMessages::defaultBundle = nullptr;
@@ -292,8 +278,7 @@ $List* JavacMessages::getBundles($Locale* locale) {
 					try {
 						$var($ResourceBundle, rb, $nc(helper)->getResourceBundle(locale));
 						$assign(bundleList, $nc(bundleList)->prepend(rb));
-					} catch ($MissingResourceException&) {
-						$var($MissingResourceException, e, $catch());
+					} catch ($MissingResourceException& e) {
 						$throwNew($InternalError, $$str({"Cannot find requested resource bundle for locale "_s, locale}), e);
 					}
 				}
@@ -352,8 +337,7 @@ $ResourceBundle* JavacMessages::getDefaultBundle() {
 			$assignStatic(JavacMessages::defaultBundle, $ResourceBundle::getBundle(JavacMessages::defaultBundleName));
 		}
 		return JavacMessages::defaultBundle;
-	} catch ($MissingResourceException&) {
-		$var($MissingResourceException, e, $catch());
+	} catch ($MissingResourceException& e) {
 		$throwNew($Error, "Fatal: Resource for compiler is missing"_s, e);
 	}
 	$shouldNotReachHere();
@@ -369,8 +353,7 @@ $String* JavacMessages::getLocalizedString($List* bundles, $String* key, $Object
 			$var($ResourceBundle, rb, $cast($ResourceBundle, l->head));
 			try {
 				$assign(msg, $nc(rb)->getString(key));
-			} catch ($MissingResourceException&) {
-				$catch();
+			} catch ($MissingResourceException& e) {
 			}
 		}
 	}
@@ -389,8 +372,7 @@ $String* JavacMessages::getLocalizedString($List* bundles, $JCDiagnostic$Diagnos
 			$var($ResourceBundle, rb, $cast($ResourceBundle, l->head));
 			try {
 				$assign(msg, $nc(rb)->getString($($nc(diagInfo)->key())));
-			} catch ($MissingResourceException&) {
-				$catch();
+			} catch ($MissingResourceException& e) {
 			}
 		}
 	}

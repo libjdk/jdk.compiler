@@ -150,26 +150,14 @@
 #include <com/sun/tools/javac/util/Pair.h>
 #include <com/sun/tools/javac/util/Warner.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
 #include <java/lang/Iterable.h>
 #include <java/lang/Math.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractSet.h>
 #include <java/util/Collection.h>
 #include <java/util/EnumSet.h>
@@ -1495,7 +1483,7 @@ $Type* Resolve::checkMethod($Env* env, $Type* site, $Symbol* m, $Attr$ResultInfo
 			if ($nc($nc(env)->tree)->hasTag($JCTree$Tag::REFERENCE)) {
 				$set($nc(this->currentResolutionContext), methodCheck, $new($Resolve$MethodReferenceCheck, this, $($nc($nc(resultInfo)->checkContext)->inferenceContext())));
 			}
-			$Resolve$MethodResolutionPhase* step = $assignField($nc(this->currentResolutionContext), step, $nc(($cast($AttrContext, $nc(env)->info)))->pendingResolutionPhase);
+			$Resolve$MethodResolutionPhase* step = $set($nc(this->currentResolutionContext), step, $nc(($cast($AttrContext, $nc(env)->info)))->pendingResolutionPhase);
 			$var($Env, var$3, env);
 			$var($Type, var$4, site);
 			$var($Symbol, var$5, m);
@@ -1506,8 +1494,8 @@ $Type* Resolve::checkMethod($Env* env, $Type* site, $Symbol* m, $Attr$ResultInfo
 			$assign(var$2, rawInstantiate(var$3, var$4, var$5, var$6, var$7, var$8, var$9, step->isVarargsRequired(), warn));
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$10) {
+			$assign(var$0, var$10);
 		} $finally: {
 			$set(this, currentResolutionContext, prevContext);
 		}
@@ -1524,8 +1512,7 @@ $Type* Resolve::checkMethod($Env* env, $Type* site, $Symbol* m, $Attr$ResultInfo
 $Type* Resolve::instantiate($Env* env, $Type* site, $Symbol* m, $Attr$ResultInfo* resultInfo, $List* argtypes, $List* typeargtypes, bool allowBoxing, bool useVarargs, $Warner* warn) {
 	try {
 		return rawInstantiate(env, site, m, resultInfo, argtypes, typeargtypes, allowBoxing, useVarargs, warn);
-	} catch ($Resolve$InapplicableMethodException&) {
-		$var($Resolve$InapplicableMethodException, ex, $catch());
+	} catch ($Resolve$InapplicableMethodException& ex) {
 		return nullptr;
 	}
 	$shouldNotReachHere();
@@ -1562,7 +1549,7 @@ $Symbol* Resolve::findField($Env* env, $Type* site, $Name* name, $Symbol$TypeSym
 		$assign(sym, findField(env, site, name, $nc(st)->tsym));
 		$assign(bestSoFar, bestOf(bestSoFar, sym));
 	}
-		$init($Kinds$Kind);
+	$init($Kinds$Kind);
 	{
 		$var($List, l, $nc(this->types)->interfaces(c->type));
 		for (; $nc(bestSoFar)->kind != $Kinds$Kind::AMBIGUOUS && $nc(l)->nonEmpty(); $assign(l, $nc(l)->tail)) {
@@ -1700,8 +1687,7 @@ $Symbol* Resolve::selectBest($Env* env, $Type* site, $List* argtypes, $List* typ
 		$nc($nc(this->types)->noWarnings)->clear();
 		$var($Type, mt, rawInstantiate(env, site, sym, nullptr, argtypes, typeargtypes, allowBoxing, useVarargs, $nc(this->types)->noWarnings));
 		$nc(this->currentResolutionContext)->addApplicableCandidate(sym, mt);
-	} catch ($Resolve$InapplicableMethodException&) {
-		$var($Resolve$InapplicableMethodException, ex, $catch());
+	} catch ($Resolve$InapplicableMethodException& ex) {
 		$nc(this->currentResolutionContext)->addInapplicableCandidate(sym, $(ex->getDiagnostic()));
 		$var($Resolve$AccessError, accessError, nullptr);
 		$init($Resolve$18);
@@ -1775,7 +1761,7 @@ $Symbol* Resolve::selectBest($Env* env, $Type* site, $List* argtypes, $List* typ
 
 $Symbol* Resolve::mostSpecific($List* argtypes, $Symbol* m1, $Symbol* m2, $Env* env, $Type* site, bool useVarargs) {
 	$useLocalCurrentObjectStackCache();
-		$init($Resolve$18);
+	$init($Resolve$18);
 	{
 		bool m1SignatureMoreSpecific = false;
 		bool m2SignatureMoreSpecific = false;
@@ -1885,8 +1871,8 @@ bool Resolve::signatureMoreSpecific($List* actuals, $Env* env, $Type* site, $Sym
 			var$4 = mst != nullptr && !$nc(this->noteWarner)->hasLint($Lint$LintCategory::UNCHECKED);
 			return$3 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$2, $catch());
+		} catch ($Throwable& var$5) {
+			$assign(var$2, var$5);
 		} $finally: {
 			$set(this, currentResolutionContext, prevResolutionContext);
 		}
@@ -2052,8 +2038,8 @@ $Symbol* Resolve::findFun($Env* env, $Name* name, $List* argtypes, $List* typear
 				} else {
 					$assign(bestSoFar, bestOf(bestSoFar, sym));
 				}
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$3) {
+				$assign(var$0, var$3);
 			} $finally: {
 				$set($nc($cast($AttrContext, env1->info)), preferredTreeForDiagnostics, nullptr);
 			}
@@ -2122,11 +2108,9 @@ $Symbol* Resolve::loadClass($Env* env, $Name* name, $Resolve$RecoveryLoadClass* 
 	try {
 		$var($Symbol$ClassSymbol, c, $nc(this->finder)->loadClass($nc($nc(env)->toplevel)->modle, name));
 		return isAccessible(env, static_cast<$Symbol$TypeSymbol*>(c)) ? static_cast<$Symbol*>(c) : static_cast<$Symbol*>($new($Resolve$AccessError, this, env, nullptr, c));
-	} catch ($ClassFinder$BadClassFile&) {
-		$var($ClassFinder$BadClassFile, err, $catch());
+	} catch ($ClassFinder$BadClassFile& err) {
 		return $new($Resolve$BadClassFileError, this, err);
-	} catch ($Symbol$CompletionFailure&) {
-		$var($Symbol$CompletionFailure, ex, $catch());
+	} catch ($Symbol$CompletionFailure& ex) {
 		$var($Symbol, candidate, $nc(recoveryLoadClass)->loadClass(env, name));
 		if (candidate != nullptr) {
 			return candidate;
@@ -2248,7 +2232,7 @@ $Symbol* Resolve::findInheritedMemberType($Env* env, $Type* site, $Name* name, $
 		$assign(sym, findMemberType(env, site, name, st->tsym));
 		$assign(bestSoFar, bestOf(bestSoFar, sym));
 	}
-		$init($Kinds$Kind);
+	$init($Kinds$Kind);
 	{
 		$var($List, l, $nc(this->types)->interfaces($nc(c)->type));
 		for (; $nc(bestSoFar)->kind != $Kinds$Kind::AMBIGUOUS && $nc(l)->nonEmpty(); $assign(l, $nc(l)->tail)) {
@@ -2747,7 +2731,7 @@ void Resolve::dumpMethodReferenceSearchResults($JCTree$JCMemberReference* refere
 						$assign(subDiag, $nc(this->diags)->fragment($($CompilerProperties$Fragments::PartialInstSig(c->mtype))));
 					}
 					$var($String, key, subDiag == nullptr ? "applicable.method.found.2"_s : "applicable.method.found.3"_s);
-						$init($CompilerProperties$Fragments);
+					$init($CompilerProperties$Fragments);
 					subDiags->append($($nc(this->diags)->fragment(key, $$new($ObjectArray, {
 						$($of($Integer::valueOf(pos))),
 						$nc(c->sym)->isStatic() ? $of($CompilerProperties$Fragments::Static) : $of($CompilerProperties$Fragments::NonStatic),
@@ -2765,7 +2749,7 @@ void Resolve::dumpMethodReferenceSearchResults($JCTree$JCMemberReference* refere
 	$var($DiagnosticSource, var$0, $nc(this->log)->currentSource());
 	$var($JCDiagnostic$DiagnosticPosition, var$1, static_cast<$JCDiagnostic$DiagnosticPosition*>(referenceTree));
 	$var($String, var$2, "method.ref.search.results.multi"_s);
-		$init($CompilerProperties$Fragments);
+	$init($CompilerProperties$Fragments);
 	$var($JCDiagnostic, main, $nc(this->diags)->note(var$0, var$1, var$2, $$new($ObjectArray, {
 		bound ? $of($CompilerProperties$Fragments::Bound) : $of($CompilerProperties$Fragments::Unbound),
 		$($of($nc(referenceTree)->toString())),
@@ -2812,8 +2796,8 @@ $Symbol* Resolve::lookupMethod($Env* env, $JCDiagnostic$DiagnosticPosition* pos,
 			$assign(var$2, $nc(lookupHelper)->access(env, pos, location, bestSoFar));
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$set(this, currentResolutionContext, prevResolutionContext);
 		}
@@ -3062,8 +3046,7 @@ $Symbol* Resolve::lambda$new$6($Env* env, $Name* name) {
 		try {
 			$assign(existing, $nc(this->finder)->loadClass($nc($(existing->packge()))->modle, name));
 			return $new($Resolve$InvisibleSymbolError, this, env, true, existing);
-		} catch ($Symbol$CompletionFailure&) {
-			$catch();
+		} catch ($Symbol$CompletionFailure& cf) {
 		}
 	}
 	return nullptr;

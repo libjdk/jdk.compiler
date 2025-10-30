@@ -17,28 +17,14 @@
 #include <com/sun/tools/javac/util/Pair.h>
 #include <java/io/IOException.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/Long.h>
 #include <java/lang/Math.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractList.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/AbstractSet.h>
@@ -443,7 +429,7 @@ void JavadocHelper$OnDemandJavadocHelper$1::init$($JavadocHelper$OnDemandJavadoc
 	$set(this, interestingParent, $new($Stack));
 	$set(this, syntheticTrees, $new($IdentityHashMap));
 	this->insertPos = this->val$offset;
-		$init($DocTree$Kind);
+	$init($DocTree$Kind);
 	$set(this, tagOrder, $Arrays::asList($$new($DocTree$KindArray, {
 		$DocTree$Kind::PARAM,
 		$DocTree$Kind::THROWS,
@@ -471,8 +457,8 @@ $Void* JavadocHelper$OnDemandJavadocHelper$1::visitDocComment($DocCommentTree* n
 						this->inSynthetic = true;
 						scan($(static_cast<$Iterable*>($nc(dc)->getFirstSentence())), $of(p));
 						scan($(static_cast<$Iterable*>($nc(dc)->getBody())), $of(p));
-					} catch ($Throwable&) {
-						$assign(var$3, $catch());
+					} catch ($Throwable& var$4) {
+						$assign(var$3, var$4);
 					} /*finally*/ {
 						this->inSynthetic = prevInSynthetic;
 						$nc(this->interestingParent)->pop();
@@ -552,8 +538,8 @@ $Void* JavadocHelper$OnDemandJavadocHelper$1::visitDocComment($DocCommentTree* n
 			$assign(var$2, nullptr);
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$5) {
+			$assign(var$0, var$5);
 		} $finally: {
 			$nc(this->interestingParent)->pop();
 		}
@@ -578,8 +564,8 @@ $Void* JavadocHelper$OnDemandJavadocHelper$1::visitParam($ParamTree* node, $Void
 			$assign(var$2, $cast($Void, $DocTreeScanner::visitParam(node, p)));
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$nc(this->interestingParent)->pop();
 		}
@@ -604,8 +590,8 @@ $Void* JavadocHelper$OnDemandJavadocHelper$1::visitThrows($ThrowsTree* node, $Vo
 			$assign(var$2, $cast($Void, $DocTreeScanner::visitThrows(node, p)));
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$nc(this->interestingParent)->pop();
 		}
@@ -630,8 +616,8 @@ $Void* JavadocHelper$OnDemandJavadocHelper$1::visitReturn($ReturnTree* node, $Vo
 			$assign(var$2, $cast($Void, $DocTreeScanner::visitReturn(node, p)));
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$nc(this->interestingParent)->pop();
 		}
@@ -672,8 +658,7 @@ $Void* JavadocHelper$OnDemandJavadocHelper$1::visitInheritDoc($InheritDocTree* n
 					}
 				}
 			}
-		} catch ($IOException&) {
-			$var($IOException, ex, $catch());
+		} catch ($IOException& ex) {
 			$nc(this->val$exception)->set(0, ex);
 			return nullptr;
 		}
@@ -686,7 +671,7 @@ $Void* JavadocHelper$OnDemandJavadocHelper$1::visitInheritDoc($InheritDocTree* n
 	int32_t offset = $nc(($cast($Integer, parsed->snd)))->intValue();
 	$var($List, inheritedText, $new($ArrayList));
 	$var($DocTree, parent, $cast($DocTree, $nc(this->interestingParent)->peek()));
-		$init($JavadocHelper$2);
+	$init($JavadocHelper$2);
 	{
 		$var($String, paramName, nullptr)
 		$var($String, thrownName, nullptr)
@@ -763,14 +748,14 @@ $Void* JavadocHelper$OnDemandJavadocHelper$1::scan($DocTree* tree, $Void* p) {
 			$assign(var$2, $cast($Void, $DocTreeScanner::scan(tree, $of(p))));
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			if (!this->inSynthetic && tree != nullptr) {
 				int64_t endPos = $nc(this->val$sp)->getEndPosition(nullptr, this->dcTree, tree);
 				if (endPos >= 0) {
-					bool var$3 = endPos - this->val$offset + 1 < $nc(this->val$docComment)->length();
-					if (var$3 && $nc(this->val$docComment)->charAt((int32_t)(endPos - this->val$offset + 1)) == u'\n') {
+					bool var$4 = endPos - this->val$offset + 1 < $nc(this->val$docComment)->length();
+					if (var$4 && $nc(this->val$docComment)->charAt((int32_t)(endPos - this->val$offset + 1)) == u'\n') {
 						++endPos;
 					}
 					if (endPos - this->val$offset < $nc(this->val$docComment)->length()) {

@@ -2,12 +2,6 @@
 
 #include <com/sun/tools/javac/parser/Tokens$Token.h>
 #include <com/sun/tools/javac/util/Position$LineMap.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $Tokens$Token = ::com::sun::tools::javac::parser::Tokens$Token;

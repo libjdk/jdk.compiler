@@ -1,16 +1,7 @@
 #include <com/sun/tools/javac/processing/PrintingProcessor$1.h>
 
 #include <com/sun/tools/javac/processing/PrintingProcessor.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/NoSuchFieldError.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <javax/lang/model/element/ElementKind.h>
 #include <jcpp.h>
 
@@ -81,38 +72,31 @@ void clinit$PrintingProcessor$1($Class* class$) {
 	{
 		try {
 			$nc(PrintingProcessor$1::$SwitchMap$javax$lang$model$element$ElementKind)->set($ElementKind::CONSTRUCTOR->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(PrintingProcessor$1::$SwitchMap$javax$lang$model$element$ElementKind)->set($ElementKind::METHOD->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(PrintingProcessor$1::$SwitchMap$javax$lang$model$element$ElementKind)->set($ElementKind::ANNOTATION_TYPE->ordinal(), 3);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(PrintingProcessor$1::$SwitchMap$javax$lang$model$element$ElementKind)->set($ElementKind::INTERFACE->ordinal(), 4);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(PrintingProcessor$1::$SwitchMap$javax$lang$model$element$ElementKind)->set($ElementKind::ENUM->ordinal(), 5);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(PrintingProcessor$1::$SwitchMap$javax$lang$model$element$ElementKind)->set($ElementKind::RECORD->ordinal(), 6);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(PrintingProcessor$1::$SwitchMap$javax$lang$model$element$ElementKind)->set($ElementKind::FIELD->ordinal(), 7);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 }

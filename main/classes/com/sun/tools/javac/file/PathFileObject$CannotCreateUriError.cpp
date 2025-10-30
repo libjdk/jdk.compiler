@@ -1,16 +1,7 @@
 #include <com/sun/tools/javac/file/PathFileObject$CannotCreateUriError.h>
 
 #include <com/sun/tools/javac/file/PathFileObject.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Error.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $PathFileObject = ::com::sun::tools::javac::file::PathFileObject;
@@ -68,16 +59,10 @@ void PathFileObject$CannotCreateUriError::init$($String* value, $Throwable* caus
 PathFileObject$CannotCreateUriError::PathFileObject$CannotCreateUriError() {
 }
 
-PathFileObject$CannotCreateUriError::PathFileObject$CannotCreateUriError(const PathFileObject$CannotCreateUriError& e) {
+PathFileObject$CannotCreateUriError::PathFileObject$CannotCreateUriError(const PathFileObject$CannotCreateUriError& e) : $Error(e) {
 }
 
-PathFileObject$CannotCreateUriError PathFileObject$CannotCreateUriError::wrapper$() {
-	$pendingException(this);
-	return *this;
-}
-
-void PathFileObject$CannotCreateUriError::throwWrapper$() {
-	$pendingException(this);
+void PathFileObject$CannotCreateUriError::throw$() {
 	throw *this;
 }
 

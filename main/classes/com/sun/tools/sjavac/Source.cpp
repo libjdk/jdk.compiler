@@ -5,21 +5,8 @@
 #include <com/sun/tools/sjavac/Package.h>
 #include <com/sun/tools/sjavac/Source$1.h>
 #include <java/io/File.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/Long.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
-#include <java/lang/StringBuilder.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/file/FileSystem.h>
 #include <java/nio/file/FileVisitor.h>
 #include <java/nio/file/Files.h>
@@ -314,8 +301,7 @@ $List* Source::createPathMatchers($FileSystem* fs, $List* patterns) {
 			{
 				try {
 					matchers->add($($nc(fs)->getPathMatcher($$str({"glob:"_s, pattern}))));
-				} catch ($PatternSyntaxException&) {
-					$var($PatternSyntaxException, e, $catch());
+				} catch ($PatternSyntaxException& e) {
 					$Log::error($$str({"Invalid pattern: "_s, pattern}));
 					$throw(e);
 				}

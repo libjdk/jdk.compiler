@@ -1,16 +1,7 @@
 #include <com/sun/tools/javac/util/RichDiagnosticFormatter$WhereClauseKind.h>
 
 #include <com/sun/tools/javac/util/RichDiagnosticFormatter.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef CAPTURED
@@ -74,11 +65,8 @@ $Object* allocate$RichDiagnosticFormatter$WhereClauseKind($Class* clazz) {
 	return $of($alloc(RichDiagnosticFormatter$WhereClauseKind));
 }
 
-
 RichDiagnosticFormatter$WhereClauseKind* RichDiagnosticFormatter$WhereClauseKind::TYPEVAR = nullptr;
-
 RichDiagnosticFormatter$WhereClauseKind* RichDiagnosticFormatter$WhereClauseKind::CAPTURED = nullptr;
-
 RichDiagnosticFormatter$WhereClauseKind* RichDiagnosticFormatter$WhereClauseKind::INTERSECTION = nullptr;
 $RichDiagnosticFormatter$WhereClauseKindArray* RichDiagnosticFormatter$WhereClauseKind::$VALUES = nullptr;
 

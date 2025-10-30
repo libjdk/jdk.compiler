@@ -25,31 +25,16 @@
 #include <com/sun/tools/javac/util/Options.h>
 #include <java/io/File.h>
 #include <java/io/IOException.h>
-#include <java/io/PrintStream.h>
 #include <java/io/Serializable.h>
 #include <java/io/UncheckedIOException.h>
 #include <java/io/UnsupportedEncodingException.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/ClassLoader.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/IllegalArgumentException.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
 #include <java/lang/Module.h>
 #include <java/lang/ModuleLayer.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/RuntimeException.h>
 #include <java/lang/SecurityException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
@@ -57,8 +42,6 @@
 #include <java/lang/invoke/MethodType.h>
 #include <java/lang/module/Configuration.h>
 #include <java/lang/module/ModuleFinder.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/MalformedURLException.h>
 #include <java/net/URI.h>
 #include <java/net/URISyntaxException.h>
@@ -821,8 +804,7 @@ void JavacFileManager::testName($String* name, bool isValidPackageName, bool isV
 			$throwNew($AssertionError, $of($$str({"Invalid package name accepted: "_s, name})));
 		}
 		printAscii("Valid package name: \"%s\""_s, $$new($ObjectArray, {$of(name)}));
-	} catch ($IllegalArgumentException&) {
-		$var($IllegalArgumentException, e, $catch());
+	} catch ($IllegalArgumentException& e) {
 		if (isValidPackageName) {
 			$throwNew($AssertionError, $of($$str({"Valid package name rejected: "_s, name})));
 		}
@@ -834,8 +816,7 @@ void JavacFileManager::testName($String* name, bool isValidPackageName, bool isV
 			$throwNew($AssertionError, $of($$str({"Invalid class name accepted: "_s, name})));
 		}
 		printAscii("Valid class name: \"%s\""_s, $$new($ObjectArray, {$of(name)}));
-	} catch ($IllegalArgumentException&) {
-		$var($IllegalArgumentException, e, $catch());
+	} catch ($IllegalArgumentException& e) {
 		if (isValidClassName) {
 			$throwNew($AssertionError, $of($$str({"Valid class name rejected: "_s, name})));
 		}
@@ -850,11 +831,9 @@ void JavacFileManager::printAscii($String* format, $ObjectArray* args) {
 	try {
 		$var($String, ascii, "US-ASCII"_s);
 		$assign(message, $new($String, $($nc($($String::format(nullptr, format, args)))->getBytes(ascii)), ascii));
-	} catch ($UnsupportedEncodingException&) {
-		$var($UnsupportedEncodingException, ex, $catch());
+	} catch ($UnsupportedEncodingException& ex) {
 		$throwNew($AssertionError, $of(ex));
 	}
-	$init($System);
 	$nc($System::out)->println(message);
 }
 
@@ -881,8 +860,7 @@ $JavacFileManager$Container* JavacFileManager::getContainer($Path* path) {
 		try {
 			$load($BasicFileAttributes);
 			$assign(attr, $Files::readAttributes(realPath, $BasicFileAttributes::class$, $$new($LinkOptionArray, 0)));
-		} catch ($IOException&) {
-			$var($IOException, ex, $catch());
+		} catch ($IOException& ex) {
 			$assign(fs, JavacFileManager::MISSING_CONTAINER);
 		}
 		if (attr != nullptr) {
@@ -891,11 +869,9 @@ $JavacFileManager$Container* JavacFileManager::getContainer($Path* path) {
 			} else {
 				try {
 					$assign(fs, $new($JavacFileManager$ArchiveContainer, this, path));
-				} catch ($ProviderNotFoundException&) {
-					$var($RuntimeException, ex, $catch());
+				} catch ($ProviderNotFoundException& ex) {
 					$throwNew($IOException, static_cast<$Throwable*>(ex));
-				} catch ($SecurityException&) {
-					$var($RuntimeException, ex, $catch());
+				} catch ($SecurityException& ex) {
 					$throwNew($IOException, static_cast<$Throwable*>(ex));
 				}
 			}
@@ -931,8 +907,7 @@ bool JavacFileManager::caseMapCheck($Path* f, $RelativePath* name) {
 		$init($LinkOption);
 		$assign(path, $nc($($nc(f)->toRealPath($$new($LinkOptionArray, {$LinkOption::NOFOLLOW_LINKS}))))->toString());
 		sep = $nc($($nc($(f->getFileSystem()))->getSeparator()))->charAt(0);
-	} catch ($IOException&) {
-		$var($IOException, ex, $catch());
+	} catch ($IOException& ex) {
 		return false;
 	}
 	$var($chars, pcs, $nc(path)->toCharArray());
@@ -1000,8 +975,7 @@ $ClassLoader* JavacFileManager::getClassLoader($JavaFileManager$Location* locati
 			{
 				try {
 					lb->append($($nc($($nc(f)->toURI()))->toURL()));
-				} catch ($MalformedURLException&) {
-					$var($MalformedURLException, e, $catch());
+				} catch ($MalformedURLException& e) {
 					$throwNew($AssertionError, $of(e));
 				}
 			}
@@ -1210,8 +1184,7 @@ $JavaFileObject* JavacFileManager::getFileForOutput($JavaFileManager$Location* l
 		}
 		$var($Path, path, $nc(fileName)->resolveAgainst($($nc(this->fsInfo)->getCanonicalFile(dir))));
 		return $PathFileObject::forDirectoryPath(this, path, dir, fileName);
-	} catch ($InvalidPathException&) {
-		$var($InvalidPathException, e, $catch());
+	} catch ($InvalidPathException& e) {
 		$throwNew($IOException, $$str({"bad filename "_s, fileName}), e);
 	}
 	$shouldNotReachHere();
@@ -1301,8 +1274,7 @@ $1List* JavacFileManager::pathsAndContainers($JavaFileManager$Location* location
 	$useLocalCurrentObjectStackCache();
 	try {
 		return $cast($1List, $nc(($cast($Map, $($nc(this->pathsAndContainersByLocationAndRelativeDirectory)->computeIfAbsent(location, static_cast<$Function*>($$new(JavacFileManager$$Lambda$indexPathsAndContainersByRelativeDirectory$2, this)))))))->computeIfAbsent(relativeDirectory, static_cast<$Function*>($$new(JavacFileManager$$Lambda$lambda$pathsAndContainers$1$3, this, location))));
-	} catch ($UncheckedIOException&) {
-		$var($UncheckedIOException, e, $catch());
+	} catch ($UncheckedIOException& e) {
 		$throw($($cast($IOException, e->getCause())));
 	}
 	$shouldNotReachHere();
@@ -1364,8 +1336,7 @@ $1List* JavacFileManager::pathsAndContainers($JavaFileManager$Location* location
 				$var($JavacFileManager$Container, container, nullptr);
 				try {
 					$assign(container, getContainer(path));
-				} catch ($IOException&) {
-					$var($IOException, e, $catch());
+				} catch ($IOException& e) {
 					$throwNew($UncheckedIOException, e);
 				}
 				pathsAndContainers->add($$new($JavacFileManager$PathAndContainer, path, container, pathsAndContainers->size()));
@@ -1499,11 +1470,9 @@ bool JavacFileManager::isRelativeUri($URI* uri) {
 
 bool JavacFileManager::isRelativeUri($String* u) {
 	$init(JavacFileManager);
-	$useLocalCurrentObjectStackCache();
 	try {
 		return isRelativeUri($$new($URI, u));
-	} catch ($URISyntaxException&) {
-		$var($URISyntaxException, e, $catch());
+	} catch ($URISyntaxException& e) {
 		return false;
 	}
 	$shouldNotReachHere();

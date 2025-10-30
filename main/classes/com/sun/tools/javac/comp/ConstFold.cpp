@@ -10,21 +10,7 @@
 #include <com/sun/tools/javac/jvm/ByteCodes.h>
 #include <com/sun/tools/javac/util/Context$Key.h>
 #include <com/sun/tools/javac/util/Context.h>
-#include <java/lang/ArithmeticException.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Double.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/Float.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/Long.h>
-#include <java/lang/MethodInfo.h>
 #include <java/lang/Number.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef BOOLEAN
@@ -214,8 +200,7 @@ $Type* ConstFold::fold1(int32_t opcode, $Type* operand) {
 				return nullptr;
 			}
 		}
-	} catch ($ArithmeticException&) {
-		$var($ArithmeticException, e, $catch());
+	} catch ($ArithmeticException& e) {
 		return nullptr;
 	}
 	$shouldNotReachHere();
@@ -521,8 +506,7 @@ $Type* ConstFold::fold2(int32_t opcode, $Type* left, $Type* right) {
 				}
 			}
 		}
-	} catch ($ArithmeticException&) {
-		$var($ArithmeticException, e, $catch());
+	} catch ($ArithmeticException& e) {
 		return nullptr;
 	}
 	$shouldNotReachHere();

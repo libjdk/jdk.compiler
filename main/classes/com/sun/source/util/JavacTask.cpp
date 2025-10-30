@@ -5,15 +5,7 @@
 #include <com/sun/tools/javac/api/BasicJavacTask.h>
 #include <com/sun/tools/javac/processing/JavacProcessingEnvironment.h>
 #include <com/sun/tools/javac/util/Context.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/IllegalArgumentException.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <javax/annotation/processing/ProcessingEnvironment.h>
 #include <javax/lang/model/type/TypeMirror.h>
 #include <javax/lang/model/util/Elements.h>

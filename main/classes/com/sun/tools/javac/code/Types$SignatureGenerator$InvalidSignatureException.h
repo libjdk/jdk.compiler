@@ -32,8 +32,10 @@ public:
 	static const int64_t serialVersionUID = 0;
 	::com::sun::tools::javac::code::Type* type$ = nullptr;
 	Types$SignatureGenerator$InvalidSignatureException(const Types$SignatureGenerator$InvalidSignatureException& e);
-	Types$SignatureGenerator$InvalidSignatureException wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline Types$SignatureGenerator$InvalidSignatureException* operator ->() {
+		return (Types$SignatureGenerator$InvalidSignatureException*)throwing$;
+	}
 };
 
 				} // code

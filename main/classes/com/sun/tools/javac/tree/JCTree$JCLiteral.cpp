@@ -10,19 +10,7 @@
 #include <com/sun/tools/javac/tree/JCTree$Tag.h>
 #include <com/sun/tools/javac/tree/JCTree$Visitor.h>
 #include <com/sun/tools/javac/tree/JCTree.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Character.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef LITERAL
@@ -136,7 +124,7 @@ $Tree$Kind* JCTree$JCLiteral::getKind() {
 }
 
 $Object* JCTree$JCLiteral::getValue() {
-		$init($JCTree$1);
+	$init($JCTree$1);
 	{
 		int32_t bi = 0;
 		int32_t ci = 0;

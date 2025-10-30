@@ -6,17 +6,8 @@
 #include <com/sun/tools/sjavac/options/ArgumentIterator.h>
 #include <com/sun/tools/sjavac/options/Option.h>
 #include <java/io/IOException.h>
-#include <java/lang/Array.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/IllegalArgumentException.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/file/Path.h>
 #include <java/nio/file/Paths.h>
 #include <java/util/Arrays.h>
@@ -100,8 +91,7 @@ void OptionHelper::traverse($StringArray* args) {
 	$var($Iterable, allArgs, nullptr);
 	try {
 		$assign(allArgs, $CommandLine::parse($($List::of(args))));
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($IllegalArgumentException, $$str({"Problem reading @"_s, $(e->getMessage())}));
 	}
 	$var($ArgumentIterator, argIter, $new($ArgumentIterator, allArgs));

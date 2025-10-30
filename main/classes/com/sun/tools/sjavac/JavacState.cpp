@@ -24,29 +24,13 @@
 #include <java/io/InputStreamReader.h>
 #include <java/io/Reader.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Character.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/StringBuilder.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/URI.h>
 #include <java/nio/file/NoSuchFileException.h>
 #include <java/nio/file/Path.h>
@@ -449,18 +433,16 @@ void JavacState::save() {
 					$Module::saveModules($($nc(this->now$)->modules()), b);
 					$var($String, s, b->toString());
 					out->write(s, 0, $nc(s)->length());
-				} catch ($Throwable&) {
-					$var($Throwable, t$, $catch());
+				} catch ($Throwable& t$) {
 					try {
 						out->close();
-					} catch ($Throwable&) {
-						$var($Throwable, x2, $catch());
+					} catch ($Throwable& x2) {
 						t$->addSuppressed(x2);
 					}
 					$throw(t$);
 				}
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$1) {
+				$assign(var$0, var$1);
 			} /*finally*/ {
 				out->close();
 			}
@@ -557,18 +539,16 @@ JavacState* JavacState::load($Options* options) {
 							}
 						}
 					}
-				} catch ($Throwable&) {
-					$var($Throwable, t$, $catch());
+				} catch ($Throwable& t$) {
 					try {
 						in->close();
-					} catch ($Throwable&) {
-						$var($Throwable, x2, $catch());
+					} catch ($Throwable& x2) {
 						t$->addSuppressed(x2);
 					}
 					$throw(t$);
 				}
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$2) {
+				$assign(var$0, var$2);
 			} /*finally*/ {
 				in->close();
 			}
@@ -576,14 +556,11 @@ JavacState* JavacState::load($Options* options) {
 				$throw(var$0);
 			}
 		}
-	} catch ($FileNotFoundException&) {
-		$var($IOException, e, $catch());
+	} catch ($FileNotFoundException& e) {
 		noFileFound = true;
-	} catch ($NoSuchFileException&) {
-		$var($IOException, e, $catch());
+	} catch ($NoSuchFileException& e) {
 		noFileFound = true;
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$Log::warn("Dropping old javac_state because of errors when reading it."_s);
 		$assign(db, $new(JavacState, options, true));
 		foundCorrectVerNr = true;
@@ -1281,18 +1258,16 @@ void JavacState::compareWithMakefileList($File* makefileSourceList) {
 						}
 						listedSources->add(l);
 					}
-				} catch ($Throwable&) {
-					$var($Throwable, t$, $catch());
+				} catch ($Throwable& t$) {
 					try {
 						in->close();
-					} catch ($Throwable&) {
-						$var($Throwable, x2, $catch());
+					} catch ($Throwable& x2) {
 						t$->addSuppressed(x2);
 					}
 					$throw(t$);
 				}
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$8) {
+				$assign(var$0, var$8);
 			} /*finally*/ {
 				in->close();
 			}
@@ -1300,14 +1275,11 @@ void JavacState::compareWithMakefileList($File* makefileSourceList) {
 				$throw(var$0);
 			}
 		}
-	} catch ($FileNotFoundException&) {
-		$var($IOException, e, $catch());
+	} catch ($FileNotFoundException& e) {
 		$throwNew($ProblemException, $$str({"Could not open "_s, $($nc(makefileSourceList)->getPath()), " since it does not exist!"_s}));
-	} catch ($NoSuchFileException&) {
-		$var($IOException, e, $catch());
+	} catch ($NoSuchFileException& e) {
 		$throwNew($ProblemException, $$str({"Could not open "_s, $($nc(makefileSourceList)->getPath()), " since it does not exist!"_s}));
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($ProblemException, $$str({"Could not read "_s, $($nc(makefileSourceList)->getPath())}));
 	}
 	{

@@ -19,8 +19,10 @@ public:
 	static const int64_t serialVersionUID = 0;
 	$String* value = nullptr;
 	ClassWriter$StringOverflow(const ClassWriter$StringOverflow& e);
-	ClassWriter$StringOverflow wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline ClassWriter$StringOverflow* operator ->() {
+		return (ClassWriter$StringOverflow*)throwing$;
+	}
 };
 
 				} // jvm

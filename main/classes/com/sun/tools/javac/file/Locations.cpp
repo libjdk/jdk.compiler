@@ -23,28 +23,12 @@
 #include <java/io/File.h>
 #include <java/io/IOException.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/IllegalArgumentException.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/URI.h>
 #include <java/nio/file/FileSystem.h>
 #include <java/nio/file/FileSystems.h>
@@ -343,8 +327,7 @@ void Locations::init$() {
 $Path* Locations::getPath($String* first, $StringArray* more) {
 	try {
 		return $nc(this->pathFactory)->getPath(first, more);
-	} catch ($InvalidPathException&) {
-		$var($InvalidPathException, ipe, $catch());
+	} catch ($InvalidPathException& ipe) {
 		$throwNew($IllegalArgumentException, static_cast<$Throwable*>(ipe));
 	}
 	$shouldNotReachHere();
@@ -411,8 +394,7 @@ $Iterable* Locations::getPathEntries($String* searchPath, $Path* emptyPathDefaul
 				} else {
 					try {
 						entries->add($(getPath(s, $$new($StringArray, 0))));
-					} catch ($IllegalArgumentException&) {
-						$var($IllegalArgumentException, e, $catch());
+					} catch ($IllegalArgumentException& e) {
 						if (this->warn) {
 							$init($Lint$LintCategory);
 							$nc(this->log)->warning($Lint$LintCategory::PATH, $($CompilerProperties$Warnings::InvalidPath(s)));
@@ -471,8 +453,8 @@ void Locations::initHandlers() {
 	$set(this, handlersForLocation, $new($HashMap));
 	$load($Option);
 	$set(this, handlersForOption, $new($EnumMap, $Option::class$));
-		$init($StandardLocation);
-		$init($Option);
+	$init($StandardLocation);
+	$init($Option);
 	$var($Locations$BasicLocationHandlerArray, handlers, $new($Locations$BasicLocationHandlerArray, {
 		static_cast<$Locations$BasicLocationHandler*>($$new($Locations$BootClassPathLocationHandler, this)),
 		static_cast<$Locations$BasicLocationHandler*>($$new($Locations$ClassPathLocationHandler, this)),
@@ -621,8 +603,7 @@ $Path* Locations::normalize($Path* p) {
 	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(p)->toRealPath($$new($LinkOptionArray, 0));
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		return $nc($($nc(p)->toAbsolutePath()))->normalize();
 	}
 	$shouldNotReachHere();
@@ -632,8 +613,7 @@ void Locations::lambda$close$0($ListBuffer* list, $Closeable* closeable) {
 	$init(Locations);
 	try {
 		$nc(closeable)->close();
-	} catch ($IOException&) {
-		$var($IOException, ex, $catch());
+	} catch ($IOException& ex) {
 		$nc(list)->add(ex);
 	}
 }

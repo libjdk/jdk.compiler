@@ -14,15 +14,6 @@
 #include <com/sun/tools/javac/comp/InferenceContext.h>
 #include <com/sun/tools/javac/util/List.h>
 #include <com/sun/tools/javac/util/Name.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef LOWER
@@ -101,7 +92,7 @@ void Infer$InferenceStep$6::init$($String* $enum$name, int32_t $enum$ordinal, $T
 bool Infer$InferenceStep$6::accepts($Type$UndetVar* t, $InferenceContext* inferenceContext) {
 	$useLocalCurrentObjectStackCache();
 	bool var$0 = $nc(t)->isCaptured();
-		$init($Type$UndetVar$InferenceBound);
+	$init($Type$UndetVar$InferenceBound);
 	return var$0 && !$nc(inferenceContext)->free($(t->getBounds($$new($Type$UndetVar$InferenceBoundArray, {
 		$Type$UndetVar$InferenceBound::UPPER,
 		$Type$UndetVar$InferenceBound::LOWER

@@ -85,15 +85,7 @@
 #include <com/sun/tools/javac/tree/TreeScanner.h>
 #include <com/sun/tools/javac/util/List.h>
 #include <com/sun/tools/javac/util/Name.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractCollection.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/Collection.h>
@@ -355,8 +347,8 @@ bool TreeDiffer::scan($JCTree* tree$renamed, $JCTree* parameter$renamed) {
 			var$4 = this->result;
 			return$3 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$2, $catch());
+		} catch ($Throwable& var$5) {
+			$assign(var$2, var$5);
 		} $finally: {
 			$set(this, parameter, prevParameter);
 			this->result = prevResult;

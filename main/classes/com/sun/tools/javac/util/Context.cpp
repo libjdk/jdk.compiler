@@ -3,18 +3,8 @@
 #include <com/sun/tools/javac/util/Assert.h>
 #include <com/sun/tools/javac/util/Context$Factory.h>
 #include <com/sun/tools/javac/util/Context$Key.h>
-#include <java/io/PrintStream.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
 #include <java/lang/IllegalStateException.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/Collection.h>
 #include <java/util/HashMap.h>
@@ -173,7 +163,6 @@ void Context::dump() {
 		$var($Iterator, i$, $nc($($nc(this->ht)->values()))->iterator());
 		for (; $nc(i$)->hasNext();) {
 			$var($Object, value, i$->next());
-			$init($System);
 			$nc($System::err)->println(value == nullptr ? ($Object*)nullptr : $of($nc($of(value))->getClass()));
 		}
 	}

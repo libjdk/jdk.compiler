@@ -1,16 +1,7 @@
 #include <com/sun/tools/javac/main/JavaCompiler$CompilePolicy.h>
 
 #include <com/sun/tools/javac/main/JavaCompiler.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef BY_FILE
@@ -74,11 +65,8 @@ $Object* allocate$JavaCompiler$CompilePolicy($Class* clazz) {
 	return $of($alloc(JavaCompiler$CompilePolicy));
 }
 
-
 JavaCompiler$CompilePolicy* JavaCompiler$CompilePolicy::SIMPLE = nullptr;
-
 JavaCompiler$CompilePolicy* JavaCompiler$CompilePolicy::BY_FILE = nullptr;
-
 JavaCompiler$CompilePolicy* JavaCompiler$CompilePolicy::BY_TODO = nullptr;
 $JavaCompiler$CompilePolicyArray* JavaCompiler$CompilePolicy::$VALUES = nullptr;
 

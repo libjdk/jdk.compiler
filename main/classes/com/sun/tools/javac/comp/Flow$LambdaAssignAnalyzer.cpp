@@ -12,15 +12,6 @@
 #include <com/sun/tools/javac/tree/JCTree$JCClassDecl.h>
 #include <com/sun/tools/javac/tree/JCTree$JCLambda.h>
 #include <com/sun/tools/javac/tree/JCTree$JCVariableDecl.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef MTH
@@ -106,8 +97,8 @@ void Flow$LambdaAssignAnalyzer::visitLambda($JCTree$JCLambda* tree) {
 		$var($Throwable, var$0, nullptr);
 		try {
 			$Flow$AssignAnalyzer::visitLambda(tree);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			this->inLambda = false;
 		}

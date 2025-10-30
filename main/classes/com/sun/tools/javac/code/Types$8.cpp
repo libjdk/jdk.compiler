@@ -7,17 +7,6 @@
 #include <com/sun/tools/javac/code/Types$TypePair.h>
 #include <com/sun/tools/javac/code/Types$TypeRelation.h>
 #include <com/sun/tools/javac/code/Types.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractSet.h>
 #include <java/util/HashSet.h>
 #include <java/util/Set.h>
@@ -125,8 +114,8 @@ bool Types$8::isCastableRecursive($Type* t, $Type* s) {
 				var$2 = this->this$0->isCastable(t, s);
 				return$1 = true;
 				goto $finally;
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$3) {
+				$assign(var$0, var$3);
 			} $finally: {
 				$nc(this->cache)->remove(pair);
 			}
@@ -154,8 +143,8 @@ bool Types$8::notSoftSubtypeRecursive($Type* t, $Type* s) {
 				var$2 = this->this$0->notSoftSubtype(t, s);
 				return$1 = true;
 				goto $finally;
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$3) {
+				$assign(var$0, var$3);
 			} $finally: {
 				$nc(this->cache)->remove(pair);
 			}

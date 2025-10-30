@@ -14,16 +14,6 @@
 #include <com/sun/tools/javac/code/Types$SimpleVisitor.h>
 #include <com/sun/tools/javac/code/Types.h>
 #include <com/sun/tools/javac/util/List.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/AbstractSet.h>
 #include <java/util/HashMap.h>
@@ -158,8 +148,8 @@ $Scope$CompoundScope* Types$MembersClosureCache::visitClassType($Type$ClassType*
 			$assign(var$2, membersClosure);
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$nc(this->seenTypes)->remove($nc(t)->tsym);
 		}

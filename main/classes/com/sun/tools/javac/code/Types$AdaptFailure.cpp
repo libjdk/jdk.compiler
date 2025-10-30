@@ -1,15 +1,6 @@
 #include <com/sun/tools/javac/code/Types$AdaptFailure.h>
 
 #include <com/sun/tools/javac/code/Types.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $Types = ::com::sun::tools::javac::code::Types;
@@ -67,16 +58,10 @@ void Types$AdaptFailure::init$() {
 Types$AdaptFailure::Types$AdaptFailure() {
 }
 
-Types$AdaptFailure::Types$AdaptFailure(const Types$AdaptFailure& e) {
+Types$AdaptFailure::Types$AdaptFailure(const Types$AdaptFailure& e) : $RuntimeException(e) {
 }
 
-Types$AdaptFailure Types$AdaptFailure::wrapper$() {
-	$pendingException(this);
-	return *this;
-}
-
-void Types$AdaptFailure::throwWrapper$() {
-	$pendingException(this);
+void Types$AdaptFailure::throw$() {
 	throw *this;
 }
 

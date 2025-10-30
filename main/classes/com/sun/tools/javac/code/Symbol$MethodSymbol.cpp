@@ -27,23 +27,13 @@
 #include <com/sun/tools/javac/util/Names.h>
 #include <com/sun/tools/javac/util/Warner.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
 #include <java/lang/annotation/Annotation.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Iterator.h>
 #include <java/util/List.h>
 #include <java/util/Set.h>
@@ -368,6 +358,7 @@ $String* Symbol$MethodSymbol::MemberClass0$::toString() {
 void Symbol$MethodSymbol::MemberClass0$::finalize() {
 	return ((Symbol$MethodSymbol*)(void*)((int8_t*)(void*)this - $offsetof(Symbol$MethodSymbol, memberClass0$)))->finalize();
 }
+
 $Predicate* Symbol$MethodSymbol::implementation_filter = nullptr;
 
 void Symbol$MethodSymbol::init$(int64_t flags, $1Name* name, $Type* type, $Symbol* owner) {

@@ -2,18 +2,7 @@
 
 #include <com/sun/tools/javac/file/BaseFileManager.h>
 #include <java/io/IOException.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/InterruptedException.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Thread.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $BaseFileManager = ::com::sun::tools::javac::file::BaseFileManager;
@@ -90,10 +79,8 @@ void BaseFileManager$1::run() {
 			this->this$0->deferredCloseTimeout = 0;
 			this->this$0->close();
 		}
-	} catch ($InterruptedException&) {
-		$catch();
-	} catch ($IOException&) {
-		$catch();
+	} catch ($InterruptedException& e) {
+	} catch ($IOException& e) {
 	}
 }
 

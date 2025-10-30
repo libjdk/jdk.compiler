@@ -6,15 +6,6 @@
 #include <com/sun/tools/javac/code/Symtab.h>
 #include <com/sun/tools/javac/code/Type$ClassType.h>
 #include <com/sun/tools/javac/code/Type.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $Symbol = ::com::sun::tools::javac::code::Symbol;
@@ -88,8 +79,7 @@ void Symtab$1::init$($Symtab* this$0, $Symbol$Completer* val$completer) {
 void Symtab$1::complete($Symbol* sym) {
 	try {
 		$nc(this->val$completer)->complete(sym);
-	} catch ($Symbol$CompletionFailure&) {
-		$var($Symbol$CompletionFailure, e, $catch());
+	} catch ($Symbol$CompletionFailure& e) {
 		$nc(sym)->flags_field |= (1 | 512);
 		$set($nc($cast($Type$ClassType, sym->type)), supertype_field, this->this$0->objectType);
 	}

@@ -4,16 +4,7 @@
 #include <com/sun/tools/javac/code/Types$MostSpecificReturnCheck$1.h>
 #include <com/sun/tools/javac/code/Types$MostSpecificReturnCheck$2.h>
 #include <com/sun/tools/javac/code/Types.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef BASIC
@@ -79,9 +70,7 @@ $Object* allocate$Types$MostSpecificReturnCheck($Class* clazz) {
 	return $of($alloc(Types$MostSpecificReturnCheck));
 }
 
-
 Types$MostSpecificReturnCheck* Types$MostSpecificReturnCheck::BASIC = nullptr;
-
 Types$MostSpecificReturnCheck* Types$MostSpecificReturnCheck::RTS = nullptr;
 $Types$MostSpecificReturnCheckArray* Types$MostSpecificReturnCheck::$VALUES = nullptr;
 

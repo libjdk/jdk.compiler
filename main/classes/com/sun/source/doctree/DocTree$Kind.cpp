@@ -1,16 +1,7 @@
 #include <com/sun/source/doctree/DocTree$Kind.h>
 
 #include <com/sun/source/doctree/DocTree.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef ATTRIBUTE
@@ -145,83 +136,44 @@ $Object* allocate$DocTree$Kind($Class* clazz) {
 	return $of($alloc(DocTree$Kind));
 }
 
-
 DocTree$Kind* DocTree$Kind::ATTRIBUTE = nullptr;
-
 DocTree$Kind* DocTree$Kind::AUTHOR = nullptr;
-
 DocTree$Kind* DocTree$Kind::CODE = nullptr;
-
 DocTree$Kind* DocTree$Kind::COMMENT = nullptr;
-
 DocTree$Kind* DocTree$Kind::DEPRECATED = nullptr;
-
 DocTree$Kind* DocTree$Kind::DOC_COMMENT = nullptr;
-
 DocTree$Kind* DocTree$Kind::DOC_ROOT = nullptr;
-
 DocTree$Kind* DocTree$Kind::DOC_TYPE = nullptr;
-
 DocTree$Kind* DocTree$Kind::END_ELEMENT = nullptr;
-
 DocTree$Kind* DocTree$Kind::ENTITY = nullptr;
-
 DocTree$Kind* DocTree$Kind::ERRONEOUS = nullptr;
-
 DocTree$Kind* DocTree$Kind::EXCEPTION = nullptr;
-
 DocTree$Kind* DocTree$Kind::HIDDEN = nullptr;
-
 DocTree$Kind* DocTree$Kind::IDENTIFIER = nullptr;
-
 DocTree$Kind* DocTree$Kind::INDEX = nullptr;
-
 DocTree$Kind* DocTree$Kind::INHERIT_DOC = nullptr;
-
 DocTree$Kind* DocTree$Kind::LINK = nullptr;
-
 DocTree$Kind* DocTree$Kind::LINK_PLAIN = nullptr;
-
 DocTree$Kind* DocTree$Kind::LITERAL = nullptr;
-
 DocTree$Kind* DocTree$Kind::PARAM = nullptr;
-
 DocTree$Kind* DocTree$Kind::PROVIDES = nullptr;
-
 DocTree$Kind* DocTree$Kind::REFERENCE = nullptr;
-
 DocTree$Kind* DocTree$Kind::RETURN = nullptr;
-
 DocTree$Kind* DocTree$Kind::SEE = nullptr;
-
 DocTree$Kind* DocTree$Kind::SERIAL = nullptr;
-
 DocTree$Kind* DocTree$Kind::SERIAL_DATA = nullptr;
-
 DocTree$Kind* DocTree$Kind::SERIAL_FIELD = nullptr;
-
 DocTree$Kind* DocTree$Kind::SINCE = nullptr;
-
 DocTree$Kind* DocTree$Kind::START_ELEMENT = nullptr;
-
 DocTree$Kind* DocTree$Kind::SYSTEM_PROPERTY = nullptr;
-
 DocTree$Kind* DocTree$Kind::SUMMARY = nullptr;
-
 DocTree$Kind* DocTree$Kind::TEXT = nullptr;
-
 DocTree$Kind* DocTree$Kind::THROWS = nullptr;
-
 DocTree$Kind* DocTree$Kind::UNKNOWN_BLOCK_TAG = nullptr;
-
 DocTree$Kind* DocTree$Kind::UNKNOWN_INLINE_TAG = nullptr;
-
 DocTree$Kind* DocTree$Kind::USES = nullptr;
-
 DocTree$Kind* DocTree$Kind::VALUE = nullptr;
-
 DocTree$Kind* DocTree$Kind::VERSION = nullptr;
-
 DocTree$Kind* DocTree$Kind::OTHER = nullptr;
 $DocTree$KindArray* DocTree$Kind::$VALUES = nullptr;
 

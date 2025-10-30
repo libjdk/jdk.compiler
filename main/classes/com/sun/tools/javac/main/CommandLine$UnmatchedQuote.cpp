@@ -1,15 +1,6 @@
 #include <com/sun/tools/javac/main/CommandLine$UnmatchedQuote.h>
 
 #include <com/sun/tools/javac/main/CommandLine.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $CommandLine = ::com::sun::tools::javac::main::CommandLine;
@@ -69,16 +60,10 @@ void CommandLine$UnmatchedQuote::init$($String* variable) {
 CommandLine$UnmatchedQuote::CommandLine$UnmatchedQuote() {
 }
 
-CommandLine$UnmatchedQuote::CommandLine$UnmatchedQuote(const CommandLine$UnmatchedQuote& e) {
+CommandLine$UnmatchedQuote::CommandLine$UnmatchedQuote(const CommandLine$UnmatchedQuote& e) : $Exception(e) {
 }
 
-CommandLine$UnmatchedQuote CommandLine$UnmatchedQuote::wrapper$() {
-	$pendingException(this);
-	return *this;
-}
-
-void CommandLine$UnmatchedQuote::throwWrapper$() {
-	$pendingException(this);
+void CommandLine$UnmatchedQuote::throw$() {
 	throw *this;
 }
 

@@ -1,16 +1,7 @@
 #include <com/sun/tools/javac/util/JCDiagnostic$DiagnosticFlag.h>
 
 #include <com/sun/tools/javac/util/JCDiagnostic.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef API
@@ -88,9 +79,7 @@ JCDiagnostic$DiagnosticFlag* JCDiagnostic$DiagnosticFlag::SYNTAX = nullptr;
 JCDiagnostic$DiagnosticFlag* JCDiagnostic$DiagnosticFlag::RECOVERABLE = nullptr;
 JCDiagnostic$DiagnosticFlag* JCDiagnostic$DiagnosticFlag::NON_DEFERRABLE = nullptr;
 JCDiagnostic$DiagnosticFlag* JCDiagnostic$DiagnosticFlag::COMPRESSED = nullptr;
-
 JCDiagnostic$DiagnosticFlag* JCDiagnostic$DiagnosticFlag::API = nullptr;
-
 JCDiagnostic$DiagnosticFlag* JCDiagnostic$DiagnosticFlag::SOURCE_LEVEL = nullptr;
 $JCDiagnostic$DiagnosticFlagArray* JCDiagnostic$DiagnosticFlag::$VALUES = nullptr;
 

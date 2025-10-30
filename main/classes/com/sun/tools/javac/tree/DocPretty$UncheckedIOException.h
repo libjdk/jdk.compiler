@@ -24,8 +24,10 @@ public:
 	void init$(::java::io::IOException* e);
 	static const int64_t serialVersionUID = (int64_t)0xC808FF5FDA719B51;
 	DocPretty$UncheckedIOException(const DocPretty$UncheckedIOException& e);
-	DocPretty$UncheckedIOException wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline DocPretty$UncheckedIOException* operator ->() {
+		return (DocPretty$UncheckedIOException*)throwing$;
+	}
 };
 
 				} // tree

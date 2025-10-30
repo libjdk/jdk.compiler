@@ -7,16 +7,9 @@
 #include <com/sun/source/tree/Scope.h>
 #include <com/sun/source/util/SourcePositions.h>
 #include <com/sun/source/util/TreePath.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/ClassLoader.h>
-#include <java/lang/IllegalArgumentException.h>
-#include <java/lang/MethodInfo.h>
 #include <java/lang/ReflectiveOperationException.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
 #include <java/lang/reflect/Method.h>
 #include <javax/annotation/processing/ProcessingEnvironment.h>
 #include <javax/lang/model/element/AnnotationMirror.h>
@@ -132,8 +125,7 @@ Trees* Trees::getJavacTrees($Class* argType, Object$* arg) {
 		argType = $Class::forName($($nc(argType)->getName()), false, cl);
 		$var($Method, m, $nc(c)->getMethod("instance"_s, $$new($ClassArray, {argType})));
 		return $cast(Trees, $nc(m)->invoke(nullptr, $$new($ObjectArray, {arg})));
-	} catch ($ReflectiveOperationException&) {
-		$var($ReflectiveOperationException, e, $catch());
+	} catch ($ReflectiveOperationException& e) {
 		$throwNew($AssertionError, $of(e));
 	}
 	$shouldNotReachHere();

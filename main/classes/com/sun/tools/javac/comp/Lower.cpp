@@ -121,30 +121,15 @@
 #include <com/sun/tools/javac/util/Name.h>
 #include <com/sun/tools/javac/util/Names.h>
 #include <com/sun/tools/javac/util/Options.h>
-#include <java/io/PrintStream.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Boolean.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/Float.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/AbstractSet.h>
 #include <java/util/Collection.h>
@@ -2481,7 +2466,7 @@ $JCTree$JCExpression* Lower::classOf($JCTree* clazz) {
 
 $JCTree$JCExpression* Lower::classOfType($Type* type, $JCDiagnostic$DiagnosticPosition* pos) {
 	$useLocalCurrentObjectStackCache();
-		$init($Lower$2);
+	$init($Lower$2);
 	{
 		$var($Symbol$ClassSymbol, c, nullptr)
 		$var($Symbol, typeSym, nullptr)
@@ -2574,7 +2559,7 @@ $JCTree$JCExpression* Lower::abstractRval($JCTree$JCExpression* rval$renamed, $T
 	$useLocalCurrentObjectStackCache();
 	$var($JCTree$JCExpression, rval, rval$renamed);
 	$assign(rval, $TreeInfo::skipParens(rval));
-		$init($Lower$2);
+	$init($Lower$2);
 	{
 		$var($JCTree$JCIdent, id, nullptr)
 		switch ($nc($Lower$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($($nc(rval)->getTag())))->ordinal())) {
@@ -2931,7 +2916,6 @@ void Lower::visitEnumDef($JCTree$JCClassDecl* tree) {
 	$var($JCTree$JCMethodDecl, valuesDef, $nc(this->make)->MethodDef($cast($Symbol$MethodSymbol, valuesSym), $($nc(this->make)->Block(0, valuesBody))));
 	enumDefs->append(valuesDef);
 	if (this->debugLower) {
-		$init($System);
 		$nc($System::err)->println($$str({tree->sym, ".valuesDef = "_s, valuesDef}));
 	}
 	$var($JCDiagnostic$DiagnosticPosition, var$17, tree->pos());
@@ -2947,7 +2931,6 @@ void Lower::visitEnumDef($JCTree$JCClassDecl* tree) {
 	$var($JCTree$JCMethodDecl, valueOf, $nc(this->make)->MethodDef(valueOfSym, $($nc(this->make)->Block(0, $($List::of(enum_ValueOf))))));
 	$set($nc(nameVal), sym, $nc(($cast($JCTree$JCVariableDecl, $nc($nc(valueOf)->params)->head)))->sym);
 	if (this->debugLower) {
-		$init($System);
 		$nc($System::err)->println($$str({tree->sym, ".valueOf = "_s, valueOf}));
 	}
 	enumDefs->append(valueOf);
@@ -2956,11 +2939,9 @@ void Lower::visitEnumDef($JCTree$JCClassDecl* tree) {
 }
 
 bool Lower::useClone() {
-	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc($($nc($nc($nc(this->syms)->objectType)->tsym)->members()))->findFirst($nc(this->names)->clone$) != nullptr;
-	} catch ($Symbol$CompletionFailure&) {
-		$var($Symbol$CompletionFailure, e, $catch());
+	} catch ($Symbol$CompletionFailure& e) {
 		return false;
 	}
 	$shouldNotReachHere();
@@ -3132,8 +3113,8 @@ void Lower::visitMethodDef($JCTree$JCMethodDecl* tree) {
 			$set(this, currentMethodDef, tree);
 			$set(this, currentMethodSym, $nc(tree)->sym);
 			visitMethodDefInternal(tree);
-		} catch ($Throwable&) {
-			$assign(var$6, $catch());
+		} catch ($Throwable& var$7) {
+			$assign(var$6, var$7);
 		} /*finally*/ {
 			$set(this, currentMethodDef, prevMethodDef);
 			$set(this, currentMethodSym, prevMethodSym);
@@ -3210,8 +3191,8 @@ void Lower::visitMethodDefInternal($JCTree$JCMethodDecl* tree) {
 				bool var$8 = ((int64_t)($nc($nc(tree)->sym)->flags() & (uint64_t)(int64_t)4096)) != 0;
 				$set(this, lambdaTranslationMap, var$8 && $nc($nc(tree->sym)->name)->startsWith($nc(this->names)->lambda) ? makeTranslationMap(tree) : ($Map*)nullptr);
 				$TreeTranslator::visitMethodDef(tree);
-			} catch ($Throwable&) {
-				$assign(var$7, $catch());
+			} catch ($Throwable& var$9) {
+				$assign(var$7, var$9);
 			} /*finally*/ {
 				$set(this, lambdaTranslationMap, prevLambdaTranslationMap);
 			}
@@ -3242,8 +3223,8 @@ void Lower::visitMethodDefInternal($JCTree$JCMethodDecl* tree) {
 					if (((int64_t)($nc(field)->flags_field & (uint64_t)$Flags::UNINITIALIZED_FIELD)) != 0) {
 						$var($Symbol$VarSymbol, param, $nc(($cast($JCTree$JCVariableDecl, $($nc($($nc($($nc($($nc(tree->params)->stream()))->filter(static_cast<$Predicate*>($$new(Lower$$Lambda$lambda$visitMethodDefInternal$9$7, field)))))->findFirst()))->get()))))->sym);
 						$nc(this->make)->at(tree->pos$);
-						$var($JCTree$JCExpression, var$9, $nc(this->make)->Select($($nc(this->make)->This($($nc(field->owner)->erasure(this->types)))), static_cast<$Symbol*>(field)));
-						$set($nc(tree->body), stats, $nc($nc(tree->body)->stats)->append($($nc(this->make)->Exec($($nc($($nc(this->make)->Assign(var$9, $($nc(this->make)->Ident(static_cast<$Symbol*>(param))))))->setType($(field->erasure(this->types))))))));
+						$var($JCTree$JCExpression, var$10, $nc(this->make)->Select($($nc(this->make)->This($($nc(field->owner)->erasure(this->types)))), static_cast<$Symbol*>(field)));
+						$set($nc(tree->body), stats, $nc($nc(tree->body)->stats)->append($($nc(this->make)->Exec($($nc($($nc(this->make)->Assign(var$10, $($nc(this->make)->Ident(static_cast<$Symbol*>(param))))))->setType($(field->erasure(this->types))))))));
 						field->flags_field &= (uint64_t)~$Flags::UNINITIALIZED_FIELD;
 					}
 				}
@@ -3322,8 +3303,8 @@ void Lower::visitNewClass($JCTree$JCNewClass* tree) {
 			try {
 				$set(this, lambdaTranslationMap, nullptr);
 				translate(static_cast<$JCTree*>(tree->def));
-			} catch ($Throwable&) {
-				$assign(var$2, $catch());
+			} catch ($Throwable& var$3) {
+				$assign(var$2, var$3);
 			} /*finally*/ {
 				$set(this, lambdaTranslationMap, prevLambdaTranslationMap);
 			}
@@ -3405,7 +3386,7 @@ $Boolean* Lower::expValueIsNull(bool eq, $JCTree* t) {
 
 void Lower::visitConditional($JCTree$JCConditional* tree) {
 	$useLocalCurrentObjectStackCache();
-	$var($JCTree, cond, ($assignField($nc(tree), cond, translate(tree->cond, static_cast<$Type*>($nc(this->syms)->booleanType)))));
+	$var($JCTree, cond, ($set($nc(tree), cond, translate(tree->cond, static_cast<$Type*>($nc(this->syms)->booleanType)))));
 	if (isTrue(cond)) {
 		$set(this, result, convert($(translate(tree->truepart, tree->type)), tree->type));
 		addPrunedInfo(cond);
@@ -3431,7 +3412,7 @@ $JCTree$JCExpression* Lower::convert($JCTree$JCExpression* tree, $Type* pt) {
 }
 
 void Lower::visitIf($JCTree$JCIf* tree) {
-	$var($JCTree, cond, ($assignField($nc(tree), cond, translate(tree->cond, static_cast<$Type*>($nc(this->syms)->booleanType)))));
+	$var($JCTree, cond, ($set($nc(tree), cond, translate(tree->cond, static_cast<$Type*>($nc(this->syms)->booleanType)))));
 	if (isTrue(cond)) {
 		$set(this, result, translate(static_cast<$JCTree*>(tree->thenpart)));
 		addPrunedInfo(cond);
@@ -3727,7 +3708,7 @@ void Lower::visitUnary($JCTree$JCUnary* tree) {
 void Lower::visitBinary($JCTree$JCBinary* tree) {
 	$useLocalCurrentObjectStackCache();
 	$var($List, formals, $nc($nc($nc(tree)->operator$)->type)->getParameterTypes());
-	$var($JCTree, lhs, ($assignField(tree, lhs, translate(tree->lhs, $cast($Type, $nc(formals)->head)))));
+	$var($JCTree, lhs, ($set(tree, lhs, translate(tree->lhs, $cast($Type, $nc(formals)->head)))));
 	$init($Lower$2);
 	switch ($nc($Lower$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($(tree->getTag())))->ordinal())) {
 	case 12:
@@ -3781,7 +3762,7 @@ void Lower::visitArrayForeachLoop($JCTree$JCEnhancedForLoop* tree) {
 	$var($Symbol$VarSymbol, index, $new($Symbol$VarSymbol, 4096, $($nc(this->names)->fromString($$str({"i"_s, $$str(this->target->syntheticNameChar())}))), $nc(this->syms)->intType, this->currentMethodSym));
 	$init($TypeTag);
 	$var($JCTree$JCVariableDecl, indexdef, $nc(this->make)->VarDef(index, $($nc(this->make)->Literal($TypeTag::INT, $($Integer::valueOf(0))))));
-	$set($nc($nc(indexdef)->init), type, ($assignField(indexdef, type, $nc($nc(this->syms)->intType)->constType($($Integer::valueOf(0))))));
+	$set($nc($nc(indexdef)->init), type, ($set(indexdef, type, $nc($nc(this->syms)->intType)->constType($($Integer::valueOf(0))))));
 	$var($List, loopinit, $List::of(arraycachedef, lencachedef, indexdef));
 	$init($JCTree$Tag);
 	$var($JCTree$Tag, var$0, $JCTree$Tag::LT);
@@ -4118,7 +4099,7 @@ $JCTree* Lower::visitStringSwitch($JCTree* tree, $JCTree$JCExpression* selector,
 		$var($Symbol$VarSymbol, dollar_tmp, $new($Symbol$VarSymbol, 4096, $($nc(this->names)->fromString($$str({"tmp"_s, $$str($nc(tree)->pos$), $$str(this->target->syntheticNameChar())}))), $nc(this->syms)->intType, this->currentMethodSym));
 		$init($TypeTag);
 		$var($JCTree$JCVariableDecl, dollar_tmp_def, $cast($JCTree$JCVariableDecl, $nc($($nc(this->make)->VarDef(dollar_tmp, $($nc(this->make)->Literal($TypeTag::INT, $($Integer::valueOf(-1)))))))->setType(dollar_tmp->type)));
-		$set($nc($nc(dollar_tmp_def)->init), type, ($assignField(dollar_tmp, type, $nc(this->syms)->intType)));
+		$set($nc($nc(dollar_tmp_def)->init), type, ($set(dollar_tmp, type, $nc(this->syms)->intType)));
 		stmtList->append(dollar_tmp_def);
 		$var($ListBuffer, caseBuffer, $new($ListBuffer));
 		$var($JCTree$JCExpression, var$0, static_cast<$JCTree$JCExpression*>($nc(this->make)->Ident(static_cast<$Symbol*>(dollar_s))));
@@ -4392,8 +4373,8 @@ $List* Lower::translateTopLevelClass($Env* env, $JCTree* cdef, $TreeMaker* make)
 			checkConflicts($($nc(this->translated)->toList()));
 			checkAccessConstructorTags();
 			$assign(translated, this->translated);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, attrEnv, nullptr);
 			$set(this, make, nullptr);

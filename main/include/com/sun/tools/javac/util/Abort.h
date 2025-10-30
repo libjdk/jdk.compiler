@@ -25,8 +25,10 @@ public:
 	void init$();
 	static const int64_t serialVersionUID = 0;
 	Abort(const Abort& e);
-	Abort wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline Abort* operator ->() {
+		return (Abort*)throwing$;
+	}
 };
 
 				} // util

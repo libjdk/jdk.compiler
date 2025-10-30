@@ -3,16 +3,7 @@
 #include <com/sun/tools/javac/main/Option.h>
 #include <com/sun/tools/javac/util/Options.h>
 #include <com/sun/tools/javac/util/StringUtils.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef ALWAYS
@@ -78,11 +69,8 @@ $Object* allocate$Option$PkgInfo($Class* clazz) {
 	return $of($alloc(Option$PkgInfo));
 }
 
-
 Option$PkgInfo* Option$PkgInfo::ALWAYS = nullptr;
-
 Option$PkgInfo* Option$PkgInfo::LEGACY = nullptr;
-
 Option$PkgInfo* Option$PkgInfo::NONEMPTY = nullptr;
 $Option$PkgInfoArray* Option$PkgInfo::$VALUES = nullptr;
 

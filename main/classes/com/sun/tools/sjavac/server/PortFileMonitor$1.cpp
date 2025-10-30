@@ -5,19 +5,7 @@
 #include <com/sun/tools/sjavac/server/PortFileMonitor.h>
 #include <com/sun/tools/sjavac/server/SjavacServer.h>
 #include <java/io/IOException.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/InterruptedException.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Thread.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/TimerTask.h>
 #include <jcpp.h>
 
@@ -91,7 +79,6 @@ void PortFileMonitor$1::init$($PortFileMonitor* this$0, $Log* val$log) {
 }
 
 void PortFileMonitor$1::run() {
-	$useLocalCurrentObjectStackCache();
 	$Log::setLogForCurrentThread(this->val$log);
 	$Log::debug("Checking port file status..."_s);
 	try {
@@ -102,12 +89,10 @@ void PortFileMonitor$1::run() {
 		} else if (!$nc(this->this$0->portFile)->stillMyValues()) {
 			$nc(this->this$0->server)->shutdown("Quitting because portfile is now owned by another javac server!"_s);
 		}
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$Log::error("IOException caught in PortFileMonitor."_s);
 		$Log::debug(static_cast<$Throwable*>(e));
-	} catch ($InterruptedException&) {
-		$var($InterruptedException, e, $catch());
+	} catch ($InterruptedException& e) {
 		$($Thread::currentThread())->interrupt();
 		$Log::error(static_cast<$Throwable*>(e));
 	}

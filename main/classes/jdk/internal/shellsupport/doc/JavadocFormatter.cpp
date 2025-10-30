@@ -5,20 +5,8 @@
 #include <com/sun/source/util/DocTrees.h>
 #include <com/sun/source/util/JavacTask.h>
 #include <java/io/Writer.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/InternalError.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/StringBuilder.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/URI.h>
 #include <java/net/URISyntaxException.h>
 #include <java/util/AbstractMap.h>
@@ -183,8 +171,7 @@ $String* JavadocFormatter::formatJavadoc($String* header, $String* javadoc) {
 		$$new($JavadocFormatter$FormatJavadocScanner, this, result, task)->scan(static_cast<$DocTree*>(docComment), ($Object*)nullptr);
 		addNewLineIfNeeded(result);
 		return result->toString();
-	} catch ($URISyntaxException&) {
-		$var($URISyntaxException, ex, $catch());
+	} catch ($URISyntaxException& ex) {
 		$throwNew($InternalError, "Unexpected exception"_s, ex);
 	}
 	$shouldNotReachHere();

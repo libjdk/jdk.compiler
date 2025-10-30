@@ -2,17 +2,7 @@
 
 #include <com/sun/source/doctree/EntityTree.h>
 #include <com/sun/tools/javac/util/StringUtils.h>
-#include <java/lang/Array.h>
-#include <java/lang/Character.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
 #include <java/lang/NumberFormatException.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/HashMap.h>
 #include <javax/lang/model/element/Name.h>
 #include <jcpp.h>
@@ -94,8 +84,7 @@ $String* Entity::getCharacters($EntityTree* tree) {
 			if (var$0 && (v < 0x0000D800 || v > 0x0000DFFF)) {
 				return $String::valueOf((char16_t)v);
 			}
-		} catch ($NumberFormatException&) {
-			$catch();
+		} catch ($NumberFormatException& ex) {
 		}
 		return nullptr;
 	} else {

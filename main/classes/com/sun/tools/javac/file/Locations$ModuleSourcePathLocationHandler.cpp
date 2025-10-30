@@ -13,33 +13,15 @@
 #include <com/sun/tools/javac/util/Log.h>
 #include <java/io/File.h>
 #include <java/io/IOException.h>
-#include <java/io/PrintStream.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/IllegalArgumentException.h>
 #include <java/lang/IllegalStateException.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/file/DirectoryStream$Filter.h>
 #include <java/nio/file/DirectoryStream.h>
 #include <java/nio/file/Files.h>
@@ -406,8 +388,7 @@ void Locations$ModuleSourcePathLocationHandler::initForModule($String* value) {
 			{
 				try {
 					paths->add($($Paths::get(v, $$new($StringArray, 0))));
-				} catch ($InvalidPathException&) {
-					$var($InvalidPathException, e, $catch());
+				} catch ($InvalidPathException& e) {
 					$throwNew($IllegalArgumentException, $$str({"invalid path: "_s, v}), e);
 				}
 			}
@@ -415,8 +396,7 @@ void Locations$ModuleSourcePathLocationHandler::initForModule($String* value) {
 	}
 	try {
 		setPathsForModule(name, paths);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		e->printStackTrace();
 		$throwNew($IllegalArgumentException, $$str({"cannot set path for module "_s, name}), e);
 	}
@@ -524,20 +504,18 @@ void Locations$ModuleSourcePathLocationHandler::add($Map* map, $Path* prefix, $P
 							}
 						}
 					}
-				} catch ($Throwable&) {
-					$var($Throwable, t$, $catch());
+				} catch ($Throwable& t$) {
 					if (stream != nullptr) {
 						try {
 							stream->close();
-						} catch ($Throwable&) {
-							$var($Throwable, x2, $catch());
+						} catch ($Throwable& x2) {
 							t$->addSuppressed(x2);
 						}
 					}
 					$throw(t$);
 				}
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$1) {
+				$assign(var$0, var$1);
 			} /*finally*/ {
 				if (stream != nullptr) {
 					stream->close();
@@ -547,9 +525,7 @@ void Locations$ModuleSourcePathLocationHandler::add($Map* map, $Path* prefix, $P
 				$throw(var$0);
 			}
 		}
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
-		$init($System);
+	} catch ($IOException& e) {
 		$nc($System::err)->println($of(e));
 	}
 }

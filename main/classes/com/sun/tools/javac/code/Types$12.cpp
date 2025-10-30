@@ -11,16 +11,6 @@
 #include <com/sun/tools/javac/code/Types$SimpleVisitor.h>
 #include <com/sun/tools/javac/code/Types.h>
 #include <com/sun/tools/javac/util/List.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractSet.h>
 #include <java/util/HashSet.h>
 #include <java/util/Set.h>
@@ -162,8 +152,8 @@ $Type* Types$12::visitClassType($Type$ClassType* t, $Symbol* sym) {
 			$assign(var$2, nullptr);
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$4) {
+			$assign(var$0, var$4);
 		} $finally: {
 			$nc(this->seenTypes)->remove(c);
 		}

@@ -4,14 +4,6 @@
 #include <com/sun/source/util/DocTreePath$1Result.h>
 #include <com/sun/source/util/DocTreePath.h>
 #include <com/sun/source/util/DocTreePathScanner.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $DocTree = ::com::sun::source::doctree::DocTree;

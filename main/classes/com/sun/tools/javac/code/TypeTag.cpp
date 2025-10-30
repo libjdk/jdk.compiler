@@ -2,20 +2,8 @@
 
 #include <com/sun/source/tree/Tree$Kind.h>
 #include <com/sun/tools/javac/code/TypeTag$1.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Byte.h>
-#include <java/lang/Character.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/Short.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <javax/lang/model/type/TypeKind.h>
 #include <jcpp.h>
 
@@ -148,53 +136,29 @@ $Object* allocate$TypeTag($Class* clazz) {
 	return $of($alloc(TypeTag));
 }
 
-
 TypeTag* TypeTag::BYTE = nullptr;
-
 TypeTag* TypeTag::CHAR = nullptr;
-
 TypeTag* TypeTag::SHORT = nullptr;
-
 TypeTag* TypeTag::LONG = nullptr;
-
 TypeTag* TypeTag::FLOAT = nullptr;
-
 TypeTag* TypeTag::INT = nullptr;
-
 TypeTag* TypeTag::DOUBLE = nullptr;
-
 TypeTag* TypeTag::BOOLEAN = nullptr;
-
 TypeTag* TypeTag::VOID = nullptr;
-
 TypeTag* TypeTag::CLASS = nullptr;
-
 TypeTag* TypeTag::ARRAY = nullptr;
-
 TypeTag* TypeTag::METHOD = nullptr;
-
 TypeTag* TypeTag::PACKAGE = nullptr;
-
 TypeTag* TypeTag::MODULE = nullptr;
-
 TypeTag* TypeTag::TYPEVAR = nullptr;
-
 TypeTag* TypeTag::WILDCARD = nullptr;
-
 TypeTag* TypeTag::FORALL = nullptr;
-
 TypeTag* TypeTag::DEFERRED = nullptr;
-
 TypeTag* TypeTag::BOT = nullptr;
-
 TypeTag* TypeTag::NONE = nullptr;
-
 TypeTag* TypeTag::ERROR = nullptr;
-
 TypeTag* TypeTag::UNKNOWN = nullptr;
-
 TypeTag* TypeTag::UNDETVAR = nullptr;
-
 TypeTag* TypeTag::UNINITIALIZED_THIS = nullptr;
 TypeTag* TypeTag::UNINITIALIZED_OBJECT = nullptr;
 $TypeTagArray* TypeTag::$VALUES = nullptr;

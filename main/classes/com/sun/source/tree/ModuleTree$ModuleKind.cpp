@@ -1,16 +1,7 @@
 #include <com/sun/source/tree/ModuleTree$ModuleKind.h>
 
 #include <com/sun/source/tree/ModuleTree.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef OPEN
@@ -69,9 +60,7 @@ $Object* allocate$ModuleTree$ModuleKind($Class* clazz) {
 	return $of($alloc(ModuleTree$ModuleKind));
 }
 
-
 ModuleTree$ModuleKind* ModuleTree$ModuleKind::OPEN = nullptr;
-
 ModuleTree$ModuleKind* ModuleTree$ModuleKind::STRONG = nullptr;
 $ModuleTree$ModuleKindArray* ModuleTree$ModuleKind::$VALUES = nullptr;
 

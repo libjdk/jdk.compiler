@@ -86,17 +86,7 @@
 #include <com/sun/tools/javac/util/Log.h>
 #include <com/sun/tools/javac/util/Name.h>
 #include <com/sun/tools/javac/util/Names.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Iterator.h>
 #include <jcpp.h>
 
@@ -640,8 +630,8 @@ void Flow$AssignAnalyzer::visitClassDef($JCTree$JCClassDecl* tree) {
 							}
 						}
 					}
-				} catch ($Throwable&) {
-					$assign(var$2, $catch());
+				} catch ($Throwable& var$5) {
+					$assign(var$2, var$5);
 				} /*finally*/ {
 					$set(this, pendingExits, pendingExitsPrev);
 					this->nextadr = nextadrPrev;
@@ -652,8 +642,8 @@ void Flow$AssignAnalyzer::visitClassDef($JCTree$JCClassDecl* tree) {
 					$throw(var$2);
 				}
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$6) {
+			$assign(var$0, var$6);
 		} $finally: {
 			$set(this->this$0, lint, lintPrev);
 		}
@@ -744,8 +734,8 @@ void Flow$AssignAnalyzer::visitMethodDef($JCTree$JCMethodDecl* tree) {
 						}
 					}
 					clearPendingExits(true);
-				} catch ($Throwable&) {
-					$assign(var$2, $catch());
+				} catch ($Throwable& var$6) {
+					$assign(var$2, var$6);
 				} /*finally*/ {
 					$nc(this->inits)->assign(initsPrev);
 					$nc(this->uninits)->assign(uninitsPrev);
@@ -758,8 +748,8 @@ void Flow$AssignAnalyzer::visitMethodDef($JCTree$JCMethodDecl* tree) {
 					$throw(var$2);
 				}
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$7) {
+			$assign(var$0, var$7);
 		} $finally: {
 			$set(this->this$0, lint, lintPrev);
 		}
@@ -815,8 +805,8 @@ void Flow$AssignAnalyzer::visitVarDef($JCTree$JCVariableDecl* tree) {
 					letInit($(tree->pos()), tree->sym);
 				}
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this->this$0, lint, lintPrev);
 		}
@@ -1321,8 +1311,8 @@ void Flow$AssignAnalyzer::visitLambda($JCTree$JCLambda* tree) {
 			} else {
 				scan(tree->body);
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			this->returnadr = returnadrPrev;
 			$nc(this->uninits)->assign(prevUninits);
@@ -1380,7 +1370,7 @@ void Flow$AssignAnalyzer::visitAssignop($JCTree$JCAssignOp* tree) {
 
 void Flow$AssignAnalyzer::visitUnary($JCTree$JCUnary* tree) {
 	$useLocalCurrentObjectStackCache();
-		$init($Flow$1);
+	$init($Flow$1);
 	{
 		$var($Bits, t, nullptr)
 		switch ($nc($Flow$1::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($($nc(tree)->getTag())))->ordinal())) {
@@ -1417,7 +1407,7 @@ void Flow$AssignAnalyzer::visitUnary($JCTree$JCUnary* tree) {
 
 void Flow$AssignAnalyzer::visitBinary($JCTree$JCBinary* tree) {
 	$useLocalCurrentObjectStackCache();
-		$init($Flow$1);
+	$init($Flow$1);
 	{
 		$var($Bits, initsWhenFalseLeft, nullptr)
 		$var($Bits, uninitsWhenFalseLeft, nullptr)
@@ -1505,8 +1495,8 @@ void Flow$AssignAnalyzer::analyzeTree($Env* env, $JCTree* tree, $TreeMaker* make
 			$set(this, classDef, nullptr);
 			$set(this, unrefdResources, $Scope$WriteableScope::create($nc($nc(env)->enclClass)->sym));
 			scan(tree);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			this->startPos = -1;
 			resetBits($$new($BitsArray, {

@@ -94,25 +94,13 @@
 #include <com/sun/tools/javac/util/Names.h>
 #include <com/sun/tools/javac/util/Options.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
 #include <java/lang/InternalError.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/HashMap.h>
 #include <java/util/Iterator.h>
@@ -752,8 +740,8 @@ $JCTree* LambdaToMethod::translate($JCTree* tree, $LambdaToMethod$LambdaAnalyzer
 			$assign(var$2, $TreeTranslator::translate(tree));
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$set(this, context, prevContext);
 		}
@@ -810,8 +798,8 @@ void LambdaToMethod::visitClassDef($JCTree$JCClassDecl* tree$renamed) {
 					try {
 						$nc(this->make)->at(static_cast<$JCDiagnostic$DiagnosticPosition*>(tree));
 						$nc(this->kInfo)->addMethod($(makeDeserializeMethod($nc(tree)->sym)));
-					} catch ($Throwable&) {
-						$assign(var$1, $catch());
+					} catch ($Throwable& var$2) {
+						$assign(var$1, var$2);
 					} /*finally*/ {
 						$nc(this->make)->at(prevPos);
 					}
@@ -832,8 +820,8 @@ void LambdaToMethod::visitClassDef($JCTree$JCClassDecl* tree$renamed) {
 				}
 			}
 			$set(this, result, tree);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} /*finally*/ {
 			$set(this, kInfo, prevKlassInfo);
 		}
@@ -1018,8 +1006,8 @@ void LambdaToMethod::visitIdent($JCTree$JCIdent* tree) {
 				} else {
 					$TreeTranslator::visitIdent(tree);
 				}
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$1) {
+				$assign(var$0, var$1);
 			} /*finally*/ {
 				$nc(this->make)->at(prevPos);
 			}
@@ -1047,8 +1035,8 @@ void LambdaToMethod::visitSelect($JCTree$JCFieldAccess* tree) {
 				} else {
 					$TreeTranslator::visitSelect(tree);
 				}
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$1) {
+				$assign(var$0, var$1);
 			} /*finally*/ {
 				$nc(this->make)->at(prevPos);
 			}
@@ -1073,8 +1061,8 @@ void LambdaToMethod::visitNewClass($JCTree$JCNewClass* tree$renamed) {
 				$var($LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext, lambdaContext, $cast($LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext, this->context));
 				$assign(tree, $nc(lambdaContext)->translate(tree));
 				$TreeTranslator::visitNewClass(tree);
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$1) {
+				$assign(var$0, var$1);
 			} /*finally*/ {
 				$nc(this->make)->at(prevPos);
 			}
@@ -1133,8 +1121,8 @@ $JCTree$JCBlock* LambdaToMethod::makeLambdaExpressionBody($JCTree$JCExpression* 
 				return$1 = true;
 				goto $finally;
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$nc(this->make)->at(prevPos);
 		}
@@ -1430,8 +1418,8 @@ $JCTree$JCExpression* LambdaToMethod::makeMetafactoryIndyCall($LambdaToMethod$La
 				try {
 					$nc(this->make)->at(static_cast<$JCDiagnostic$DiagnosticPosition*>($nc(this->kInfo)->clazz));
 					addDeserializationCase(refSym, $nc(tree)->type, samSym, tree, staticArgs, indyType);
-				} catch ($Throwable&) {
-					$assign(var$4, $catch());
+				} catch ($Throwable& var$5) {
+					$assign(var$4, var$5);
 				} /*finally*/ {
 					$nc(this->make)->at(prevPos);
 				}
@@ -1469,8 +1457,8 @@ $JCTree$JCExpression* LambdaToMethod::makeIndyCall($JCDiagnostic$DiagnosticPosit
 			$assign(var$2, proxyCall);
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$7) {
+			$assign(var$0, var$7);
 		} $finally: {
 			$nc(this->make)->at(prevPos);
 		}
@@ -1494,8 +1482,7 @@ $String* LambdaToMethod::typeSig($Type* type, bool allowIllegalSignature) {
 		$var($LambdaToMethod$L2MSignatureGenerator, sg, $new($LambdaToMethod$L2MSignatureGenerator, this, allowIllegalSignature));
 		sg->assembleSig(type);
 		return sg->toString();
-	} catch ($Types$SignatureGenerator$InvalidSignatureException&) {
-		$var($Types$SignatureGenerator$InvalidSignatureException, ex, $catch());
+	} catch ($Types$SignatureGenerator$InvalidSignatureException& ex) {
 		$var($Symbol, c, $nc($nc(this->attrEnv)->enclClass)->sym);
 		$nc(this->log)->error($($CompilerProperties$Errors::CannotGenerateClass(c, $($CompilerProperties$Fragments::IllegalSignature(c, $(ex->type()))))));
 		return "<ERRONEOUS>"_s;
@@ -1509,8 +1496,7 @@ $String* LambdaToMethod::classSig($Type* type) {
 		$var($LambdaToMethod$L2MSignatureGenerator, sg, $new($LambdaToMethod$L2MSignatureGenerator, this, false));
 		sg->assembleClassSig(type);
 		return sg->toString();
-	} catch ($Types$SignatureGenerator$InvalidSignatureException&) {
-		$var($Types$SignatureGenerator$InvalidSignatureException, ex, $catch());
+	} catch ($Types$SignatureGenerator$InvalidSignatureException& ex) {
 		$var($Symbol, c, $nc($nc(this->attrEnv)->enclClass)->sym);
 		$nc(this->log)->error($($CompilerProperties$Errors::CannotGenerateClass(c, $($CompilerProperties$Fragments::IllegalSignature(c, $(ex->type()))))));
 		return "<ERRONEOUS>"_s;

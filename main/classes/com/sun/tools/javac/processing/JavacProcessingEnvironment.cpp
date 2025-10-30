@@ -79,31 +79,17 @@
 #include <java/io/Serializable.h>
 #include <java/io/StringWriter.h>
 #include <java/io/Writer.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Boolean.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/ClassLoader.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
 #include <java/lang/Module.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/RuntimeException.h>
 #include <java/lang/SecurityException.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/MalformedURLException.h>
 #include <java/net/URI.h>
 #include <java/net/URL.h>
@@ -623,8 +609,7 @@ void JavacProcessingEnvironment::initProcessorLoader() {
 			try {
 				$load($Processor);
 				$set(this, serviceLoader, $nc(this->fileManager)->getServiceLoader($StandardLocation::ANNOTATION_PROCESSOR_MODULE_PATH, $Processor::class$));
-			} catch ($IOException&) {
-				$var($IOException, e, $catch());
+			} catch ($IOException& e) {
 				$throwNew($Abort, e);
 			}
 		} else {
@@ -650,8 +635,7 @@ void JavacProcessingEnvironment::initProcessorLoader() {
 				}
 			}
 		}
-	} catch ($SecurityException&) {
-		$var($SecurityException, e, $catch());
+	} catch ($SecurityException& e) {
 		$set(this, processorLoaderException, e);
 	}
 }
@@ -663,8 +647,7 @@ void JavacProcessingEnvironment::initProcessorIterator($Iterable* processors) {
 	if ($nc(this->options)->isSet($Option::XPRINT)) {
 		try {
 			$assign(processorIterator, $nc($($List::of($$new($PrintingProcessor))))->iterator());
-		} catch ($Throwable&) {
-			$var($Throwable, t, $catch());
+		} catch ($Throwable& t) {
 			$var($AssertionError, assertError, $new($AssertionError, $of("Problem instantiating PrintingProcessor."_s)));
 			assertError->initCause(t);
 			$throw(assertError);
@@ -696,14 +679,12 @@ void JavacProcessingEnvironment::initProcessorIterator($Iterable* processors) {
 }
 
 $ServiceLoader* JavacProcessingEnvironment::getServiceLoader($Class* service) {
-	$useLocalCurrentObjectStackCache();
 	$beforeCallerSensitive();
 	$init($StandardLocation);
 	if ($nc(this->fileManager)->hasLocation($StandardLocation::ANNOTATION_PROCESSOR_MODULE_PATH)) {
 		try {
 			return $nc(this->fileManager)->getServiceLoader($StandardLocation::ANNOTATION_PROCESSOR_MODULE_PATH, service);
-		} catch ($IOException&) {
-			$var($IOException, e, $catch());
+		} catch ($IOException& e) {
 			$throwNew($Abort, e);
 		}
 	} else {
@@ -888,14 +869,12 @@ bool JavacProcessingEnvironment::callProcessor($Processor* proc, $Set* tes, $Rou
 				var$2 = $nc(proc)->process(tes, renv);
 				return$1 = true;
 				goto $finally;
-			} catch ($ClassFinder$BadClassFile&) {
-				$var($ClassFinder$BadClassFile, ex, $catch());
+			} catch ($ClassFinder$BadClassFile& ex) {
 				$nc(this->log)->error($($CompilerProperties$Errors::ProcCantAccess1(ex->sym, $(ex->getDetailValue()))));
 				var$2 = false;
 				return$1 = true;
 				goto $finally;
-			} catch ($Symbol$CompletionFailure&) {
-				$var($Symbol$CompletionFailure, ex, $catch());
+			} catch ($Symbol$CompletionFailure& ex) {
 				$var($StringWriter, out, $new($StringWriter));
 				ex->printStackTrace($$new($PrintWriter, static_cast<$Writer*>(out)));
 				$var($Symbol, var$3, ex->sym);
@@ -904,15 +883,13 @@ bool JavacProcessingEnvironment::callProcessor($Processor* proc, $Set* tes, $Rou
 				var$2 = false;
 				return$1 = true;
 				goto $finally;
-			} catch ($ClientCodeException&) {
-				$var($ClientCodeException, e, $catch());
+			} catch ($ClientCodeException& e) {
 				$throw(e);
-			} catch ($Throwable&) {
-				$var($Throwable, t, $catch());
+			} catch ($Throwable& t) {
 				$throwNew($AnnotationProcessingError, t);
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$5) {
+			$assign(var$0, var$5);
 		} $finally: {
 			$nc(this->dcfh)->setHandler(prevDeferredHandler);
 		}
@@ -1166,11 +1143,9 @@ bool JavacProcessingEnvironment::needClassLoader($String* procNames, $Iterable* 
 					if ($ServiceProxy::hasService($Processor::class$, urls)) {
 						return true;
 					}
-				} catch ($MalformedURLException&) {
-					$var($MalformedURLException, ex, $catch());
+				} catch ($MalformedURLException& ex) {
 					$throwNew($AssertionError, $of(ex));
-				} catch ($ServiceProxy$ServiceConfigurationError&) {
-					$var($ServiceProxy$ServiceConfigurationError, e, $catch());
+				} catch ($ServiceProxy$ServiceConfigurationError& e) {
 					$nc(this->log)->error($($CompilerProperties$Errors::ProcBadConfigFile($(e->getLocalizedMessage()))));
 					return true;
 				}

@@ -84,25 +84,13 @@
 #include <com/sun/tools/javac/util/Names.h>
 #include <com/sun/tools/javac/util/Pair.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
 #include <java/lang/Runnable.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/Collection.h>
 #include <java/util/HashMap.h>
@@ -822,8 +810,8 @@ void Annotate::flush() {
 			while ($nc(this->validateQ)->nonEmpty()) {
 				$nc(($cast($Runnable, $($nc(this->validateQ)->next()))))->run();
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			doneFlushing();
 		}
@@ -976,7 +964,7 @@ $Attribute$Compound* Annotate::attributeAnnotation($JCTree$JCAnnotation* tree, $
 	}
 	$var($List, elems, attributeAnnotationValues(tree, expectedAnnotationType, env));
 	$var($Attribute$Compound, ac, $new($Attribute$Compound, $nc(tree)->type, elems));
-	return $assignField($nc(tree), attribute, ac);
+	return $set($nc(tree), attribute, ac);
 }
 
 $Attribute$TypeCompound* Annotate::attributeTypeAnnotation($JCTree$JCAnnotation* a, $Type* expectedAnnotationType, $Env* env) {
@@ -1042,7 +1030,7 @@ $Pair* Annotate::attributeAnnotationNameValuePair($JCTree$JCExpression* nameValu
 	if (!$nc(nameValuePair)->hasTag($JCTree$Tag::ASSIGN)) {
 		$init($CompilerProperties$Errors);
 		$nc(this->log)->error($(nameValuePair->pos()), $CompilerProperties$Errors::AnnotationValueMustBeNameValue);
-		$var($Type, var$0, $assignField(nameValuePair, type, $nc(this->syms)->errType));
+		$var($Type, var$0, $set(nameValuePair, type, $nc(this->syms)->errType));
 		attributeAnnotationValue(var$0, nameValuePair, env);
 		return nullptr;
 	}
@@ -1050,7 +1038,7 @@ $Pair* Annotate::attributeAnnotationNameValuePair($JCTree$JCExpression* nameValu
 	if (!$nc($nc(assign)->lhs)->hasTag($JCTree$Tag::IDENT)) {
 		$init($CompilerProperties$Errors);
 		$nc(this->log)->error($($nc(nameValuePair)->pos()), $CompilerProperties$Errors::AnnotationValueMustBeNameValue);
-		$var($Type, var$1, $assignField($nc(nameValuePair), type, $nc(this->syms)->errType));
+		$var($Type, var$1, $set($nc(nameValuePair), type, $nc(this->syms)->errType));
 		attributeAnnotationValue(var$1, nameValuePair, env);
 		return nullptr;
 	}
@@ -1077,8 +1065,7 @@ $Attribute* Annotate::attributeAnnotationValue($Type* expectedElementType$rename
 	$var($Type, expectedElementType, expectedElementType$renamed);
 	try {
 		$nc($nc(expectedElementType)->tsym)->complete();
-	} catch ($Symbol$CompletionFailure&) {
-		$var($Symbol$CompletionFailure, e, $catch());
+	} catch ($Symbol$CompletionFailure& e) {
 		$var($JCDiagnostic$DiagnosticPosition, var$0, $nc(tree)->pos());
 		$var($Kinds$KindName, var$1, $Kinds::kindName(e->sym));
 		$nc(this->log)->error(var$0, $($CompilerProperties$Errors::CantResolve(var$1, $($nc(e->sym)->getQualifiedName()), nullptr, nullptr)));
@@ -1432,8 +1419,8 @@ void Annotate::enterTypeAnnotations($List* annotations, $Env* env, $Symbol* s, $
 		$var($Throwable, var$0, nullptr);
 		try {
 			annotateNow(s, annotations, env, true, isTypeParam);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			if (prevLintPos != nullptr) {
 				$nc(this->deferredLintHandler)->setPos(prevLintPos);
@@ -1475,8 +1462,8 @@ void Annotate::attributeAnnotationType($Env* env) {
 			v->scanAnnotationType(tree);
 			$nc($($nc($nc(tree)->sym)->getAnnotationTypeMetadata()))->setRepeatable(v->repeatable);
 			$nc($($nc(tree->sym)->getAnnotationTypeMetadata()))->setTarget(v->target);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc(this->log)->useSource(prev);
 		}
@@ -1529,8 +1516,8 @@ void Annotate::lambda$annotateDefaultValueLater$3($Env* localEnv, $JCTree$JCExpr
 		$var($Throwable, var$0, nullptr);
 		try {
 			$nc(this->chk)->validateAnnotationTree(defaultValue);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc(this->log)->useSource(prev);
 		}
@@ -1548,8 +1535,8 @@ void Annotate::lambda$annotateDefaultValueLater$2($Env* localEnv, $JCDiagnostic$
 		$var($Throwable, var$0, nullptr);
 		try {
 			enterDefaultValue(defaultValue, localEnv, m);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc(this->deferredLintHandler)->setPos(prevLintPos);
 			$nc(this->log)->useSource(prev);
@@ -1567,8 +1554,8 @@ void Annotate::lambda$annotateLater$1($Env* localEnv, $List* annotations, $Symbo
 		$var($Throwable, var$0, nullptr);
 		try {
 			$nc(this->chk)->validateAnnotations(annotations, $($TreeInfo::declarationFor(s, $nc(localEnv)->tree)), s);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc(this->log)->useSource(prev);
 		}
@@ -1594,8 +1581,8 @@ void Annotate::lambda$annotateLater$0($Symbol* s, $Env* localEnv, $JCDiagnostic$
 			}
 			$Assert::checkNonNull($of(s), "Symbol argument to actualEnterAnnotations is null"_s);
 			annotateNow(s, annotations, localEnv, false, false);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$2) {
+			$assign(var$0, var$2);
 		} /*finally*/ {
 			if (prevLint != nullptr) {
 				$nc(this->chk)->setLint(prevLint);

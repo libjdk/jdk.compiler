@@ -1,16 +1,7 @@
 #include <com/sun/source/tree/CaseTree$CaseKind.h>
 
 #include <com/sun/source/tree/CaseTree.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef RULE
@@ -69,9 +60,7 @@ $Object* allocate$CaseTree$CaseKind($Class* clazz) {
 	return $of($alloc(CaseTree$CaseKind));
 }
 
-
 CaseTree$CaseKind* CaseTree$CaseKind::STATEMENT = nullptr;
-
 CaseTree$CaseKind* CaseTree$CaseKind::RULE = nullptr;
 $CaseTree$CaseKindArray* CaseTree$CaseKind::$VALUES = nullptr;
 

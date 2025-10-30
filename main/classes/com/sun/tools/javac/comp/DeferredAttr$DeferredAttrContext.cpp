@@ -25,22 +25,12 @@
 #include <com/sun/tools/javac/util/List.h>
 #include <com/sun/tools/javac/util/Warner.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractCollection.h>
 #include <java/util/AbstractList.h>
 #include <java/util/ArrayList.h>
@@ -327,8 +317,7 @@ void DeferredAttr$DeferredAttrContext::complete() {
 				$var($DeferredAttr$DeferredAttrNode, toUnstuck, pickDeferredNode());
 				$nc(this->inferenceContext)->solveAny($($List::from($(static_cast<$Iterable*>($nc($nc(toUnstuck)->deferredStuckPolicy)->stuckVars())))), this->warn);
 				$nc(this->inferenceContext)->notifyChange();
-			} catch ($Infer$GraphStrategy$NodeNotFoundException&) {
-				$var($Infer$GraphStrategy$NodeNotFoundException, ex, $catch());
+			} catch ($Infer$GraphStrategy$NodeNotFoundException& ex) {
 				break;
 			}
 		}

@@ -4,20 +4,7 @@
 #include <com/sun/source/doctree/EndElementTree.h>
 #include <com/sun/source/doctree/StartElementTree.h>
 #include <com/sun/source/util/DocTreeScanner.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
 #include <java/lang/Math.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Map.h>
 #include <javax/lang/model/element/Name.h>
 #include <jdk/internal/shellsupport/doc/JavadocFormatter$3.h>
@@ -151,8 +138,8 @@ $Void* JavadocFormatter$2::visitDocComment($DocCommentTree* node, $Void* p) {
 			$assign(var$2, $cast($Void, $DocTreeScanner::visitDocComment(node, p)));
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			closeTable();
 		}

@@ -25,8 +25,10 @@ public:
 	void init$($String* msg, $Throwable* cause);
 	static const int64_t serialVersionUID = (-1);
 	Option$InvalidValueException(const Option$InvalidValueException& e);
-	Option$InvalidValueException wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline Option$InvalidValueException* operator ->() {
+		return (Option$InvalidValueException*)throwing$;
+	}
 };
 
 				} // main

@@ -44,26 +44,13 @@
 #include <com/sun/tools/javac/util/Name.h>
 #include <com/sun/tools/javac/util/Names.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/AbstractSet.h>
 #include <java/util/Collection.h>
@@ -564,15 +551,14 @@ void JavacProcessingEnvironment$Round::run(bool lastRound, bool errorStatus) {
 				} else {
 					this->this$0->discoverAndRunProcs(this->annotationsPresent, this->topLevelClasses, this->packageInfoFiles, this->moduleInfoFiles);
 				}
-			} catch ($Throwable&) {
-				$var($Throwable, t, $catch());
+			} catch ($Throwable& t) {
 				$nc(this->deferredDiagnosticHandler)->reportDeferredDiagnostics();
 				$nc(this->this$0->log)->popDiagnosticHandler(this->deferredDiagnosticHandler);
 				$nc(this->this$0->compiler)->setDeferredDiagnosticHandler(nullptr);
 				$throw(t);
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			if (!$nc(this->this$0->taskListener)->isEmpty()) {
 				$init($TaskEvent$Kind);

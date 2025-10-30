@@ -1,16 +1,7 @@
 #include <com/sun/tools/javac/main/Option$OptionGroup.h>
 
 #include <com/sun/tools/javac/main/Option.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef BASIC
@@ -74,13 +65,9 @@ $Object* allocate$Option$OptionGroup($Class* clazz) {
 	return $of($alloc(Option$OptionGroup));
 }
 
-
 Option$OptionGroup* Option$OptionGroup::BASIC = nullptr;
-
 Option$OptionGroup* Option$OptionGroup::FILEMANAGER = nullptr;
-
 Option$OptionGroup* Option$OptionGroup::INFO = nullptr;
-
 Option$OptionGroup* Option$OptionGroup::OPERAND = nullptr;
 $Option$OptionGroupArray* Option$OptionGroup::$VALUES = nullptr;
 

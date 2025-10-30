@@ -3,19 +3,8 @@
 #include <java/io/File.h>
 #include <java/io/IOException.h>
 #include <java/io/ObjectStreamClass.h>
-#include <java/io/PrintStream.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/ClassLoader.h>
 #include <java/lang/ClassNotFoundException.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/StringBuilder.h>
-#include <java/lang/System.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/MalformedURLException.h>
 #include <java/net/URI.h>
 #include <java/net/URL.h>
@@ -107,8 +96,7 @@ $String* SerialVer::serialSyntax($String* classname) {
 		try {
 			$assign(ret, resolveClass(classname));
 			classFound = true;
-		} catch ($ClassNotFoundException&) {
-			$catch();
+		} catch ($ClassNotFoundException& e) {
 		}
 		if (!classFound) {
 			$var($StringBuilder, workBuffer, $new($StringBuilder, classname));
@@ -120,8 +108,7 @@ $String* SerialVer::serialSyntax($String* classname) {
 					$assign(workName, workBuffer->toString());
 					$assign(ret, resolveClass(workName));
 					classFound = true;
-				} catch ($ClassNotFoundException&) {
-					$catch();
+				} catch ($ClassNotFoundException& e) {
 				}
 			}
 		}
@@ -157,7 +144,6 @@ void SerialVer::main($StringArray* args) {
 	for (i = 0; i < $nc(args)->length; ++i) {
 		if ($nc(args->get(i))->equals("-classpath"_s)) {
 			if ((i + 1 == args->length) || $nc(args->get(i + 1))->startsWith("-"_s)) {
-				$init($System);
 				$nc($System::err)->println($($Res::getText("error.missing.classpath"_s)));
 				usage();
 				$System::exit(1);
@@ -165,7 +151,6 @@ void SerialVer::main($StringArray* args) {
 			$assign(envcp, $new($String, args->get(i + 1)));
 			++i;
 		} else if ($nc(args->get(i))->startsWith("-"_s)) {
-			$init($System);
 			$nc($System::err)->println($($Res::getText("invalid.flag"_s, args->get(i))));
 			usage();
 			$System::exit(1);
@@ -181,14 +166,10 @@ void SerialVer::main($StringArray* args) {
 	}
 	try {
 		initializeLoader(envcp);
-	} catch ($MalformedURLException&) {
-		$var($MalformedURLException, mue, $catch());
-		$init($System);
+	} catch ($MalformedURLException& mue) {
 		$nc($System::err)->println($($Res::getText("error.parsing.classpath"_s, envcp)));
 		$System::exit(2);
-	} catch ($IOException&) {
-		$var($IOException, ioe, $catch());
-		$init($System);
+	} catch ($IOException& ioe) {
 		$nc($System::err)->println($($Res::getText("error.parsing.classpath"_s, envcp)));
 		$System::exit(3);
 	}
@@ -201,16 +182,12 @@ void SerialVer::main($StringArray* args) {
 		try {
 			$var($String, syntax, serialSyntax(args->get(i)));
 			if (syntax != nullptr) {
-				$init($System);
 				$nc($System::out)->println($$str({args->get(i), ":"_s, syntax}));
 			} else {
-				$init($System);
 				$nc($System::err)->println($($Res::getText("NotSerializable"_s, args->get(i))));
 				exitFlag = true;
 			}
-		} catch ($ClassNotFoundException&) {
-			$var($ClassNotFoundException, cnf, $catch());
-			$init($System);
+		} catch ($ClassNotFoundException& cnf) {
 			$nc($System::err)->println($($Res::getText("ClassNotFound"_s, args->get(i))));
 			exitFlag = true;
 		}
@@ -222,7 +199,6 @@ void SerialVer::main($StringArray* args) {
 
 void SerialVer::usage() {
 	$init(SerialVer);
-	$init($System);
 	$nc($System::err)->println($($Res::getText("usage"_s)));
 }
 

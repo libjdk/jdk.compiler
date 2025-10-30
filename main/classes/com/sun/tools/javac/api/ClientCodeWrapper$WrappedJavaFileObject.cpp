@@ -8,18 +8,7 @@
 #include <java/io/Reader.h>
 #include <java/io/Writer.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Error.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/URI.h>
 #include <javax/lang/model/element/Modifier.h>
 #include <javax/lang/model/element/NestingKind.h>
@@ -168,68 +157,52 @@ void ClientCodeWrapper$WrappedJavaFileObject::init$($ClientCodeWrapper* this$0, 
 }
 
 $JavaFileObject$Kind* ClientCodeWrapper$WrappedJavaFileObject::getKind() {
-	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(($cast($JavaFileObject, this->clientFileObject)))->getKind();
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 	$shouldNotReachHere();
 }
 
 bool ClientCodeWrapper$WrappedJavaFileObject::isNameCompatible($String* simpleName, $JavaFileObject$Kind* kind) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(($cast($JavaFileObject, this->clientFileObject)))->isNameCompatible(simpleName, kind);
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 	$shouldNotReachHere();
 }
 
 $NestingKind* ClientCodeWrapper$WrappedJavaFileObject::getNestingKind() {
-	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(($cast($JavaFileObject, this->clientFileObject)))->getNestingKind();
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 	$shouldNotReachHere();
 }
 
 $Modifier* ClientCodeWrapper$WrappedJavaFileObject::getAccessLevel() {
-	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(($cast($JavaFileObject, this->clientFileObject)))->getAccessLevel();
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 	$shouldNotReachHere();

@@ -23,21 +23,11 @@
 #include <com/sun/tools/javac/util/Name$Table.h>
 #include <com/sun/tools/javac/util/Name.h>
 #include <com/sun/tools/javac/util/Names.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
 #include <java/lang/ClassCastException.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/IllegalArgumentException.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
 #include <java/lang/NoSuchMethodException.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/annotation/Annotation.h>
 #include <java/lang/reflect/Array.h>
-#include <java/lang/reflect/Constructor.h>
 #include <java/lang/reflect/Method.h>
 #include <javax/lang/model/type/TypeMirror.h>
 #include <sun/reflect/annotation/AnnotationType.h>
@@ -151,8 +141,7 @@ $Object* AnnotationProxyMaker$ValueVisitor::getValue($Attribute* attr) {
 	$var($Method, method, nullptr);
 	try {
 		$assign(method, $nc(this->this$0->annoType)->getMethod($($nc($nc(this->meth)->name)->toString()), $$new($ClassArray, 0)));
-	} catch ($NoSuchMethodException&) {
-		$var($NoSuchMethodException, e, $catch());
+	} catch ($NoSuchMethodException& e) {
 		return $of(nullptr);
 	}
 	$set(this, returnClass, $nc(method)->getReturnType());
@@ -206,15 +195,14 @@ void AnnotationProxyMaker$ValueVisitor::visitArray($Attribute$Array* a) {
 					}
 					try {
 						$1Array::set(res, i, this->value);
-					} catch ($IllegalArgumentException&) {
-						$var($IllegalArgumentException, e, $catch());
+					} catch ($IllegalArgumentException& e) {
 						$set(this, value, nullptr);
 						return;
 					}
 				}
 				$set(this, value, res);
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$2) {
+				$assign(var$0, var$2);
 			} $finally: {
 				$set(this, returnClass, returnClassSaved);
 			}
@@ -229,13 +217,11 @@ void AnnotationProxyMaker$ValueVisitor::visitArray($Attribute$Array* a) {
 }
 
 void AnnotationProxyMaker$ValueVisitor::visitEnum($Attribute$Enum* e) {
-	$useLocalCurrentObjectStackCache();
 	if ($nc(this->returnClass)->isEnum()) {
 		$var($String, constName, $nc($nc(e)->value)->toString());
 		try {
 			$set(this, value, $Enum::valueOf(this->returnClass, constName));
-		} catch ($IllegalArgumentException&) {
-			$var($IllegalArgumentException, ex, $catch());
+		} catch ($IllegalArgumentException& ex) {
 			$set(this, value, $new($EnumConstantNotPresentExceptionProxy, this->returnClass, constName));
 		}
 	} else {
@@ -248,8 +234,7 @@ void AnnotationProxyMaker$ValueVisitor::visitCompound($Attribute$Compound* c) {
 		$load($Annotation);
 		$Class* nested = $nc(this->returnClass)->asSubclass($Annotation::class$);
 		$set(this, value, $AnnotationProxyMaker::generateAnnotation(c, nested));
-	} catch ($ClassCastException&) {
-		$var($ClassCastException, ex, $catch());
+	} catch ($ClassCastException& ex) {
 		$set(this, value, nullptr);
 	}
 }

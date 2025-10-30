@@ -4,14 +4,6 @@
 #include <com/sun/tools/sjavac/Source.h>
 #include <com/sun/tools/sjavac/pubapi/PubApi.h>
 #include <java/io/File.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/StringBuilder.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/URI.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/Collection.h>

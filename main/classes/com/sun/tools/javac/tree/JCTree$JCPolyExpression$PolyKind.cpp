@@ -2,16 +2,7 @@
 
 #include <com/sun/tools/javac/tree/JCTree$JCPolyExpression.h>
 #include <com/sun/tools/javac/tree/JCTree.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef POLY
@@ -73,9 +64,7 @@ $Object* allocate$JCTree$JCPolyExpression$PolyKind($Class* clazz) {
 	return $of($alloc(JCTree$JCPolyExpression$PolyKind));
 }
 
-
 JCTree$JCPolyExpression$PolyKind* JCTree$JCPolyExpression$PolyKind::STANDALONE = nullptr;
-
 JCTree$JCPolyExpression$PolyKind* JCTree$JCPolyExpression$PolyKind::POLY = nullptr;
 $JCTree$JCPolyExpression$PolyKindArray* JCTree$JCPolyExpression$PolyKind::$VALUES = nullptr;
 

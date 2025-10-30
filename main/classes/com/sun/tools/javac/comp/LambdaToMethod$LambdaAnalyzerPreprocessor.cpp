@@ -57,19 +57,7 @@
 #include <com/sun/tools/javac/util/Log.h>
 #include <com/sun/tools/javac/util/Name.h>
 #include <com/sun/tools/javac/util/Names.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/HashMap.h>
 #include <java/util/Iterator.h>
@@ -269,8 +257,8 @@ void LambdaToMethod$LambdaAnalyzerPreprocessor::visitApply($JCTree$JCMethodInvoc
 				$set(this, typesUnderConstruction, $nc(this->typesUnderConstruction)->prepend($(currentClass())));
 			}
 			$TreeTranslator::visitApply(tree);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, typesUnderConstruction, previousNascentTypes);
 		}
@@ -310,8 +298,8 @@ void LambdaToMethod$LambdaAnalyzerPreprocessor::visitBlock($JCTree$JCBlock* tree
 				$set(this, frameStack, $nc(this->frameStack)->prepend($$new($LambdaToMethod$LambdaAnalyzerPreprocessor$Frame, this, tree)));
 			}
 			$TreeTranslator::visitBlock(tree);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$2) {
+			$assign(var$0, var$2);
 		} /*finally*/ {
 			$set(this, frameStack, prevStack);
 		}
@@ -360,8 +348,8 @@ void LambdaToMethod$LambdaAnalyzerPreprocessor::visitClassDef($JCTree$JCClassDec
 			}
 			$set(this, frameStack, $nc(this->frameStack)->prepend($$new($LambdaToMethod$LambdaAnalyzerPreprocessor$Frame, this, tree)));
 			$TreeTranslator::visitClassDef(tree);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc(this->this$0->log)->useSource($($nc(prevSource)->getFile()));
 			$set(this, frameStack, prevStack);
@@ -404,7 +392,7 @@ void LambdaToMethod$LambdaAnalyzerPreprocessor::visitIdent($JCTree$JCIdent* tree
 						if (block == nullptr) {
 							break;
 						}
-							$init($LambdaToMethod$1);
+						$init($LambdaToMethod$1);
 						{
 							$var($JCTree$JCClassDecl, cdecl$, nullptr)
 							switch ($nc($LambdaToMethod$1::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($($nc(block)->getTag())))->ordinal())) {
@@ -476,8 +464,8 @@ $LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext* LambdaToMet
 			$assign(var$2, context);
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$set(this, frameStack, prevStack);
 		}
@@ -499,8 +487,8 @@ void LambdaToMethod$LambdaAnalyzerPreprocessor::visitMethodDef($JCTree$JCMethodD
 		try {
 			$set(this, frameStack, $nc(this->frameStack)->prepend($$new($LambdaToMethod$LambdaAnalyzerPreprocessor$Frame, this, tree)));
 			$TreeTranslator::visitMethodDef(tree);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, frameStack, prevStack);
 		}
@@ -639,8 +627,8 @@ void LambdaToMethod$LambdaAnalyzerPreprocessor::visitVarDef($JCTree$JCVariableDe
 			}
 			$set(this, frameStack, $nc(this->frameStack)->prepend($$new($LambdaToMethod$LambdaAnalyzerPreprocessor$Frame, this, tree)));
 			$TreeTranslator::visitVarDef(tree);
-		} catch ($Throwable&) {
-			$assign(var$2, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$2, var$3);
 		} /*finally*/ {
 			$set(this, frameStack, prevStack);
 		}
@@ -658,7 +646,7 @@ $Symbol* LambdaToMethod$LambdaAnalyzerPreprocessor::owner(bool skipLambda) {
 	$useLocalCurrentObjectStackCache();
 	$var($List, frameStack2, this->frameStack);
 	while ($nc(frameStack2)->nonEmpty()) {
-			$init($LambdaToMethod$1);
+		$init($LambdaToMethod$1);
 		{
 			$var($JCTree$JCClassDecl, cdecl$, nullptr)
 			$var($JCTree$JCClassDecl, cdecl2, nullptr)
@@ -800,7 +788,7 @@ $JCTree* LambdaToMethod$LambdaAnalyzerPreprocessor::capturedDecl(int32_t depth, 
 		for (; $nc(i$)->hasNext();) {
 			$var($LambdaToMethod$LambdaAnalyzerPreprocessor$Frame, block, $cast($LambdaToMethod$LambdaAnalyzerPreprocessor$Frame, i$->next()));
 			{
-					$init($LambdaToMethod$1);
+				$init($LambdaToMethod$1);
 				{
 					$var($Symbol$ClassSymbol, clazz, nullptr)
 					switch ($nc($LambdaToMethod$1::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($($nc($nc(block)->tree)->getTag())))->ordinal())) {

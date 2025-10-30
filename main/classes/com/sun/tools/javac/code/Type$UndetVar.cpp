@@ -20,26 +20,13 @@
 #include <com/sun/tools/javac/util/ListBuffer.h>
 #include <com/sun/tools/javac/util/Pair.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
 #include <java/lang/IllegalStateException.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/StringBuilder.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/ArrayDeque.h>
 #include <java/util/EnumMap.h>
@@ -412,7 +399,7 @@ void Type$UndetVar::addBound($Type$UndetVar$InferenceBound* ib, $Type* bound$ren
 	$useLocalCurrentObjectStackCache();
 	$var($Type, bound, bound$renamed);
 	if ($nc(types)->mapCapturesToBounds) {
-			$init($Type$5);
+		$init($Type$5);
 		{
 			$var($Type, altBound, nullptr)
 			switch ($nc($Type$5::$SwitchMap$com$sun$tools$javac$code$Type$UndetVar$InferenceBound)->get($nc((ib))->ordinal())) {
@@ -510,8 +497,8 @@ void Type$UndetVar::substBounds($List* from, $List* to, $Types* types) {
 					}
 				}
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, listener, prevListener);
 			{

@@ -1,15 +1,6 @@
 #include <com/sun/tools/javac/platform/PlatformProvider$PlatformNotSupported.h>
 
 #include <com/sun/tools/javac/platform/PlatformProvider.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $PlatformProvider = ::com::sun::tools::javac::platform::PlatformProvider;
@@ -67,16 +58,10 @@ void PlatformProvider$PlatformNotSupported::init$() {
 PlatformProvider$PlatformNotSupported::PlatformProvider$PlatformNotSupported() {
 }
 
-PlatformProvider$PlatformNotSupported::PlatformProvider$PlatformNotSupported(const PlatformProvider$PlatformNotSupported& e) {
+PlatformProvider$PlatformNotSupported::PlatformProvider$PlatformNotSupported(const PlatformProvider$PlatformNotSupported& e) : $Exception(e) {
 }
 
-PlatformProvider$PlatformNotSupported PlatformProvider$PlatformNotSupported::wrapper$() {
-	$pendingException(this);
-	return *this;
-}
-
-void PlatformProvider$PlatformNotSupported::throwWrapper$() {
-	$pendingException(this);
+void PlatformProvider$PlatformNotSupported::throw$() {
 	throw *this;
 }
 

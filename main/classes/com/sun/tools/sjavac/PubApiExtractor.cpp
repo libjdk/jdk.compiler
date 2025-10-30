@@ -20,19 +20,9 @@
 #include <com/sun/tools/sjavac/pubapi/PubApi.h>
 #include <java/io/FilterOutputStream.h>
 #include <java/io/OutputStream.h>
-#include <java/io/PrintStream.h>
 #include <java/io/PrintWriter.h>
 #include <java/io/Writer.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/charset/Charset.h>
 #include <java/util/Arrays.h>
 #include <java/util/Collection.h>
@@ -124,7 +114,6 @@ void PubApiExtractor::init$($Options* options) {
 	$set(this, fileManager, $new($SmartFileManager, $($nc(compiler)->getStandardFileManager(nullptr, nullptr, nullptr))));
 	$set(this, context, $new($Context));
 	$var($StringArray, args, $nc(options)->prepJavacArgs());
-	$init($System);
 	$var($Writer, var$0, static_cast<$Writer*>($new($PrintWriter, static_cast<$OutputStream*>($System::err))));
 	$var($JavaFileManager, var$1, static_cast<$JavaFileManager*>(this->fileManager));
 	$set(this, task, $nc(compiler)->getTask(var$0, var$1, nullptr, $($Arrays::asList(args)), nullptr, nullptr, this->context));

@@ -31,8 +31,10 @@ public:
 	static const int64_t serialVersionUID = 0;
 	::com::sun::tools::javac::comp::Infer$GraphSolver$InferenceGraph* graph = nullptr;
 	Infer$GraphStrategy$NodeNotFoundException(const Infer$GraphStrategy$NodeNotFoundException& e);
-	Infer$GraphStrategy$NodeNotFoundException wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline Infer$GraphStrategy$NodeNotFoundException* operator ->() {
+		return (Infer$GraphStrategy$NodeNotFoundException*)throwing$;
+	}
 };
 
 				} // comp

@@ -16,17 +16,7 @@
 #include <com/sun/tools/javac/util/JCDiagnostic$Warning.h>
 #include <com/sun/tools/javac/util/Log.h>
 #include <com/sun/tools/javac/util/Pair.h>
-#include <java/lang/Array.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <javax/lang/model/element/AnnotationMirror.h>
 #include <javax/lang/model/element/AnnotationValue.h>
 #include <javax/lang/model/element/Element.h>
@@ -188,8 +178,8 @@ void JavacMessager::printMessage($Diagnostic$Kind* kind, $CharSequence* msg, $El
 					break;
 				}
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			if (newSource != nullptr) {
 				$nc(this->log)->useSource(oldSource);

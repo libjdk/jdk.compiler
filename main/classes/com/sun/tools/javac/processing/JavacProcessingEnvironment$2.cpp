@@ -1,16 +1,7 @@
 #include <com/sun/tools/javac/processing/JavacProcessingEnvironment$2.h>
 
 #include <com/sun/tools/javac/processing/JavacProcessingEnvironment.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/NoSuchFieldError.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <javax/tools/Diagnostic$Kind.h>
 #include <javax/tools/Diagnostic.h>
 #include <jcpp.h>
@@ -78,13 +69,11 @@ void clinit$JavacProcessingEnvironment$2($Class* class$) {
 	{
 		try {
 			$nc(JavacProcessingEnvironment$2::$SwitchMap$javax$tools$Diagnostic$Kind)->set($Diagnostic$Kind::WARNING->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacProcessingEnvironment$2::$SwitchMap$javax$tools$Diagnostic$Kind)->set($Diagnostic$Kind::ERROR->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 }

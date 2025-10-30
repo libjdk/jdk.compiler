@@ -13,16 +13,7 @@
 #include <com/sun/tools/javac/comp/Infer.h>
 #include <com/sun/tools/javac/comp/InferenceContext.h>
 #include <com/sun/tools/javac/util/List.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/function/Predicate.h>
 #include <jcpp.h>
 
@@ -115,17 +106,11 @@ $Object* allocate$Infer$InferenceStep($Class* clazz) {
 	return $of($alloc(Infer$InferenceStep));
 }
 
-
 Infer$InferenceStep* Infer$InferenceStep::EQ = nullptr;
-
 Infer$InferenceStep* Infer$InferenceStep::LOWER = nullptr;
-
 Infer$InferenceStep* Infer$InferenceStep::THROWS = nullptr;
-
 Infer$InferenceStep* Infer$InferenceStep::UPPER = nullptr;
-
 Infer$InferenceStep* Infer$InferenceStep::UPPER_LEGACY = nullptr;
-
 Infer$InferenceStep* Infer$InferenceStep::CAPTURED = nullptr;
 $Infer$InferenceStepArray* Infer$InferenceStep::$VALUES = nullptr;
 

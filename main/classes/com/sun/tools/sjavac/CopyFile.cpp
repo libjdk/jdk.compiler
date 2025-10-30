@@ -6,13 +6,6 @@
 #include <com/sun/tools/sjavac/options/Options.h>
 #include <java/io/File.h>
 #include <java/io/IOException.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/URI.h>
 #include <java/nio/file/CopyOption.h>
 #include <java/nio/file/Files.h>
@@ -131,8 +124,7 @@ bool CopyFile::transform($CompilationService* compilationService, $Map* pkgSrcs,
 								$var($Path, var$3, src->toPath());
 								$init($StandardCopyOption);
 								$Files::copy(var$3, $(dest->toPath()), $$new($CopyOptionArray, {static_cast<$CopyOption*>($StandardCopyOption::REPLACE_EXISTING)}));
-							} catch ($IOException&) {
-								$var($IOException, e, $catch());
+							} catch ($IOException& e) {
 								$var($String, var$4, $$str({"Could not copy the file "_s, $(src->getPath()), " to "_s}));
 								$Log::error($$concat(var$4, $(dest->getPath())));
 								rc = false;

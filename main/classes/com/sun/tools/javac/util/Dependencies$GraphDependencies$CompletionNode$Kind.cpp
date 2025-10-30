@@ -2,16 +2,7 @@
 
 #include <com/sun/tools/javac/util/Dependencies$GraphDependencies$CompletionNode.h>
 #include <com/sun/tools/javac/util/Dependencies$GraphDependencies.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef CLASS
@@ -76,9 +67,7 @@ $Object* allocate$Dependencies$GraphDependencies$CompletionNode$Kind($Class* cla
 	return $of($alloc(Dependencies$GraphDependencies$CompletionNode$Kind));
 }
 
-
 Dependencies$GraphDependencies$CompletionNode$Kind* Dependencies$GraphDependencies$CompletionNode$Kind::SOURCE = nullptr;
-
 Dependencies$GraphDependencies$CompletionNode$Kind* Dependencies$GraphDependencies$CompletionNode$Kind::CLASS = nullptr;
 $Dependencies$GraphDependencies$CompletionNode$KindArray* Dependencies$GraphDependencies$CompletionNode$Kind::$VALUES = nullptr;
 

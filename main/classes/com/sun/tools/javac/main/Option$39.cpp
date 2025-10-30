@@ -7,23 +7,12 @@
 #include <com/sun/tools/javac/main/OptionHelper.h>
 #include <com/sun/tools/javac/util/Assert.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Arrays.h>
 #include <java/util/Collections.h>
 #include <java/util/Iterator.h>
@@ -214,7 +203,7 @@ void Option$39::process($OptionHelper* helper, $String* option) {
 						$Option* o = arr$->get(i$);
 						{
 							if ($nc(o)->matches(arg)) {
-									$init($Option$41);
+								$init($Option$41);
 								{
 									int32_t eq = 0;
 									$var($String, mods, nullptr)
@@ -248,7 +237,7 @@ void Option$39::process($OptionHelper* helper, $String* option) {
 }
 
 $OptionArray* Option$39::getSupportedRuntimeOptions() {
-		$init($Option);
+	$init($Option);
 	$var($OptionArray, supportedRuntimeOptions, $new($OptionArray, {
 		$Option::ADD_EXPORTS,
 		$Option::ADD_MODULES,

@@ -61,29 +61,16 @@
 #include <com/sun/tools/javac/util/Options.h>
 #include <java/io/IOException.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
 #include <java/lang/Error.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
 #include <java/lang/IllegalStateException.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractCollection.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/AbstractSet.h>
@@ -1377,8 +1364,8 @@ void Modules::initModules($List* trees) {
 			this->inInitModules = true;
 			$Assert::checkNull(this->rootModules);
 			enter(trees, static_cast<$Consumer*>($$new(Modules$$Lambda$lambda$initModules$0$1, this)), nullptr);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			this->inInitModules = false;
 		}
@@ -1426,12 +1413,11 @@ bool Modules::enter($List* trees, $Consumer* init, $Symbol$ClassSymbol* c) {
 						}
 					}
 				}
-			} catch ($Symbol$CompletionFailure&) {
-				$var($Symbol$CompletionFailure, ex, $catch());
+			} catch ($Symbol$CompletionFailure& ex) {
 				$nc(this->chk)->completionError(nullptr, ex);
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			--this->depth;
 		}
@@ -1467,8 +1453,8 @@ $Set* Modules::enterModules($List* trees, $Symbol$ClassSymbol* c) {
 					$var($Throwable, var$0, nullptr);
 					try {
 						enterModule(tree, c, modules);
-					} catch ($Throwable&) {
-						$assign(var$0, $catch());
+					} catch ($Throwable& var$1) {
+						$assign(var$0, var$1);
 					} /*finally*/ {
 						$nc(this->log)->useSource(prev);
 					}
@@ -1618,12 +1604,11 @@ void Modules::setCompilationUnitModules($List* trees, $Set* rootModules, $Symbol
 									}
 									$set($nc(tree), modle, $nc(this->syms)->errModule);
 								}
-							} catch ($IOException&) {
-								$var($IOException, e, $catch());
+							} catch ($IOException& e) {
 								$throwNew($Error, static_cast<$Throwable*>(e));
 							}
-						} catch ($Throwable&) {
-							$assign(var$0, $catch());
+						} catch ($Throwable& var$2) {
+							$assign(var$0, var$2);
 						} /*finally*/ {
 							$nc(this->log)->useSource(prev);
 						}
@@ -1653,8 +1638,7 @@ void Modules::setCompilationUnitModules($List* trees, $Set* rootModules, $Symbol
 				{
 					try {
 						$set(this, defaultModule, $nc(this->moduleFinder)->findSingleModule());
-					} catch ($Symbol$CompletionFailure&) {
-						$var($Symbol$CompletionFailure, cf, $catch());
+					} catch ($Symbol$CompletionFailure& cf) {
 						$nc(this->chk)->completionError(nullptr, cf);
 						$set(this, defaultModule, $nc(this->syms)->unnamedModule);
 					}
@@ -1692,8 +1676,7 @@ void Modules::setCompilationUnitModules($List* trees, $Set* rootModules, $Symbol
 					if ($nc(this->fileManager)->hasLocation($StandardLocation::PATCH_MODULE_PATH)) {
 						try {
 							$set($nc(this->defaultModule), patchLocation, $nc(this->fileManager)->getLocationForModule(static_cast<$JavaFileManager$Location*>($StandardLocation::PATCH_MODULE_PATH), $($nc($nc(this->defaultModule)->name)->toString())));
-						} catch ($IOException&) {
-							$var($IOException, ex, $catch());
+						} catch ($IOException& ex) {
 							$throwNew($Error, static_cast<$Throwable*>(ex));
 						}
 					}
@@ -1765,8 +1748,7 @@ void Modules::checkSourceLocation($JCTree$JCCompilationUnit* tree, $Symbol$Modul
 				return;
 			}
 		}
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Error, static_cast<$Throwable*>(e));
 	}
 	$var($JavaFileObject, prev, $nc(this->log)->useSource($nc(tree)->sourcefile));
@@ -1775,8 +1757,8 @@ void Modules::checkSourceLocation($JCTree$JCCompilationUnit* tree, $Symbol$Modul
 		try {
 			$init($CompilerProperties$Errors);
 			$nc(this->log)->error($($nc(tree)->pos()), $CompilerProperties$Errors::FileSbOnSourceOrPatchPathForModule);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc(this->log)->useSource(prev);
 		}
@@ -1804,8 +1786,7 @@ $String* Modules::singleModuleOverride($List* trees) {
 					if (loc != nullptr) {
 						override$->add($($nc(this->fileManager)->inferModuleName(loc)));
 					}
-				} catch ($IOException&) {
-					$var($IOException, ex, $catch());
+				} catch ($IOException& ex) {
 					$throwNew($Error, static_cast<$Throwable*>(ex));
 				}
 			}
@@ -1875,8 +1856,7 @@ void Modules::setupAutomaticModule($Symbol$ModuleSymbol* msym) {
 		$set(msym, requires, $List::nil());
 		$set(msym, uses, $List::nil());
 		$set(msym, directives, directives->toList());
-	} catch ($IOException&) {
-		$var($IOException, ex, $catch());
+	} catch ($IOException& ex) {
 		$throwNew($IllegalStateException, static_cast<$Throwable*>(ex));
 	}
 }
@@ -2013,8 +1993,7 @@ void Modules::setupAllModules() {
 						if (var$0 && $nc(noIncubatorPred)->test(sym)) {
 							enabledRoot->add(sym);
 						}
-					} catch ($Symbol$CompletionFailure&) {
-						$var($Symbol$CompletionFailure, ex, $catch());
+					} catch ($Symbol$CompletionFailure& ex) {
 						$nc(this->chk)->completionError(nullptr, ex);
 					}
 				}
@@ -2166,8 +2145,7 @@ $Set* Modules::computeTransitiveClosure($Set* base, $Set* rootModules, $Set* obs
 						}
 					}
 				}
-			} catch ($Symbol$CompletionFailure&) {
-				$var($Symbol$CompletionFailure, ex, $catch());
+			} catch ($Symbol$CompletionFailure& ex) {
 				$nc(this->chk)->completionError(nullptr, ex);
 			}
 		}
@@ -2211,8 +2189,8 @@ void Modules::completeModule($Symbol$ModuleSymbol* msym) {
 					$var($Throwable, var$0, nullptr);
 					try {
 						$nc(this->log)->error(static_cast<$JCDiagnostic$DiagnosticPosition*>(env->tree), $($CompilerProperties$Errors::ModuleNotFound($nc(($cast($Directive$RequiresDirective, requires->head)))->module)));
-					} catch ($Throwable&) {
-						$assign(var$0, $catch());
+					} catch ($Throwable& var$1) {
+						$assign(var$0, var$1);
 					} /*finally*/ {
 						$nc(this->log)->useSource(origSource);
 					}
@@ -2352,8 +2330,8 @@ void Modules::addVisiblePackages($Symbol$ModuleSymbol* msym, $Map* seenPackages,
 								} else {
 									$nc(this->log)->error(pos, $($CompilerProperties$Errors::PackageClashFromRequires(msym, packageName, previousModule, exportsFrom)));
 								}
-							} catch ($Throwable&) {
-								$assign(var$0, $catch());
+							} catch ($Throwable& var$1) {
+								$assign(var$0, var$1);
 							} /*finally*/ {
 								if (env != nullptr) {
 									$nc(this->log)->useSource(origSource);
@@ -2733,8 +2711,8 @@ void Modules::lambda$getUsesProvidesCompleter$4($Symbol* sym) {
 		$var($Throwable, var$0, nullptr);
 		try {
 			$nc(decl)->accept(v);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc(this->log)->useSource(prev);
 			$nc(this->deferredLintHandler)->setPos(prevLintPos);

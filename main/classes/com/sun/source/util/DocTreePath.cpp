@@ -7,15 +7,6 @@
 #include <com/sun/source/util/DocTreePath$1PathFinder.h>
 #include <com/sun/source/util/DocTreePath$1Result.h>
 #include <com/sun/source/util/TreePath.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/IllegalArgumentException.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Iterator.h>
 #include <java/util/Objects.h>
 #include <jcpp.h>
@@ -98,7 +89,6 @@ DocTreePath* DocTreePath::getPath($TreePath* treePath, $DocCommentTree* doc, $Do
 
 DocTreePath* DocTreePath::getPath(DocTreePath* path, $DocTree* target) {
 	$init(DocTreePath);
-	$useLocalCurrentObjectStackCache();
 	$Objects::requireNonNull(path);
 	$Objects::requireNonNull(target);
 	{
@@ -110,8 +100,7 @@ DocTreePath* DocTreePath::getPath(DocTreePath* path, $DocTree* target) {
 	}
 	try {
 		$$new($DocTreePath$1PathFinder)->scan(path, $of(target));
-	} catch ($DocTreePath$1Result&) {
-		$var($DocTreePath$1Result, result, $catch());
+	} catch ($DocTreePath$1Result& result) {
 		return result->path;
 	}
 	return nullptr;

@@ -18,33 +18,19 @@
 #include <java/io/Reader.h>
 #include <java/io/Serializable.h>
 #include <java/io/Writer.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/IllegalArgumentException.h>
 #include <java/lang/IllegalThreadStateException.h>
 #include <java/lang/InterruptedException.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
 #include <java/lang/Process.h>
 #include <java/lang/ProcessBuilder.h>
 #include <java/lang/Runtime.h>
-#include <java/lang/String.h>
-#include <java/lang/Thread.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/InetAddress.h>
 #include <java/net/InetSocketAddress.h>
 #include <java/net/Socket.h>
@@ -224,8 +210,7 @@ void SjavacClient::init$($Options* options) {
 		} else {
 			$set(this, serverCommand, serverCommandString);
 		}
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$Log::error($$str({"Cannot read configuration file "_s, configFile}));
 		$Log::debug(static_cast<$Throwable*>(e));
 		$set(this, portFile, nullptr);
@@ -274,28 +259,25 @@ $Main$Result* SjavacClient::compile($StringArray* args) {
 							}
 							$Log::log($($Log$Level::valueOf(type)), content);
 							continue;
-						} catch ($IllegalArgumentException&) {
-							$catch();
+						} catch ($IllegalArgumentException& e) {
 						}
 						$init($SjavacServer);
 						if ($nc(type)->equals($SjavacServer::LINE_TYPE_RC)) {
 							result = $Main$Result::valueOf(content);
 						}
 					}
-				} catch ($Throwable&) {
-					$var($Throwable, t$, $catch());
+				} catch ($Throwable& t$) {
 					if (socket != nullptr) {
 						try {
 							socket->close();
-						} catch ($Throwable&) {
-							$var($Throwable, x2, $catch());
+						} catch ($Throwable& x2) {
 							t$->addSuppressed(x2);
 						}
 					}
 					$throw(t$);
 				}
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$1) {
+				$assign(var$0, var$1);
 			} /*finally*/ {
 				if (socket != nullptr) {
 					socket->close();
@@ -305,19 +287,16 @@ $Main$Result* SjavacClient::compile($StringArray* args) {
 				$throw(var$0);
 			}
 		}
-	} catch ($PortFileInaccessibleException&) {
-		$var($PortFileInaccessibleException, e, $catch());
+	} catch ($PortFileInaccessibleException& e) {
 		$Log::error("Port file inaccessible."_s);
 		$init($Main$Result);
 		result = $Main$Result::ERROR;
-	} catch ($IOException&) {
-		$var($IOException, ioe, $catch());
+	} catch ($IOException& ioe) {
 		$Log::error($$str({"IOException caught during compilation: "_s, $(ioe->getMessage())}));
 		$Log::debug(static_cast<$Throwable*>(ioe));
 		$init($Main$Result);
 		result = $Main$Result::ERROR;
-	} catch ($InterruptedException&) {
-		$var($InterruptedException, ie, $catch());
+	} catch ($InterruptedException& ie) {
 		$($Thread::currentThread())->interrupt();
 		$Log::error("Compilation interrupted."_s);
 		$Log::debug(static_cast<$Throwable*>(ie));
@@ -339,8 +318,7 @@ $Socket* SjavacClient::tryConnect() {
 		$Log::debug($$str({"Trying to connect. Attempt "_s, $$str((++attempt)), " of "_s, $$str(SjavacClient::MAX_CONNECT_ATTEMPTS)}));
 		try {
 			return makeConnectionAttempt();
-		} catch ($IOException&) {
-			$var($IOException, ex, $catch());
+		} catch ($IOException& ex) {
 			$Log::error($$str({"Connection attempt failed: "_s, $(ex->getMessage())}));
 			if (attempt >= SjavacClient::MAX_CONNECT_ATTEMPTS) {
 				$Log::error("Giving up"_s);
@@ -386,16 +364,14 @@ void SjavacClient::startNewServer() {
 	$Log::debug($$str({"Starting server. Command: "_s, $($String::join(static_cast<$CharSequence*>(" "_s), static_cast<$Iterable*>(cmd)))}));
 	try {
 		$assign(serverProcess, $nc($($$new($ProcessBuilder, cmd)->redirectErrorStream(true)))->start());
-	} catch ($IOException&) {
-		$var($IOException, ex, $catch());
+	} catch ($IOException& ex) {
 		$Log::error($$str({"Failed to create server process: "_s, $(ex->getMessage())}));
 		$Log::debug(static_cast<$Throwable*>(ex));
 		$throwNew($IOException, static_cast<$Throwable*>(ex));
 	}
 	try {
 		$nc(this->portFile)->waitForValidValues();
-	} catch ($IOException&) {
-		$var($IOException, ex, $catch());
+	} catch ($IOException& ex) {
 		$Log::error($$str({"Sjavac server failed to initialize: "_s, $(ex->getMessage())}));
 		$Log::error("Process output:"_s);
 		$var($Reader, serverStdoutStderr, $new($InputStreamReader, $($nc(serverProcess)->getInputStream())));
@@ -406,18 +382,16 @@ void SjavacClient::startNewServer() {
 				try {
 					try {
 						$nc($(br->lines()))->forEach(static_cast<$Consumer*>($$new(SjavacClient$$Lambda$error)));
-					} catch ($Throwable&) {
-						$var($Throwable, t$, $catch());
+					} catch ($Throwable& t$) {
 						try {
 							br->close();
-						} catch ($Throwable&) {
-							$var($Throwable, x2, $catch());
+						} catch ($Throwable& x2) {
 							t$->addSuppressed(x2);
 						}
 						$throw(t$);
 					}
-				} catch ($Throwable&) {
-					$assign(var$0, $catch());
+				} catch ($Throwable& var$1) {
+					$assign(var$0, var$1);
 				} /*finally*/ {
 					br->close();
 				}
@@ -429,8 +403,7 @@ void SjavacClient::startNewServer() {
 		$Log::error("<End of process output>"_s);
 		try {
 			$Log::error($$str({"Process exit code: "_s, $$str($nc(serverProcess)->exitValue())}));
-		} catch ($IllegalThreadStateException&) {
-			$catch();
+		} catch ($IllegalThreadStateException& e) {
 		}
 		$throwNew($IOException, $$str({"Server failed to initialize: "_s, $(ex->getMessage())}), ex);
 	}

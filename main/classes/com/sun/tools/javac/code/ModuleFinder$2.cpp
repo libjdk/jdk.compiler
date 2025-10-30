@@ -1,16 +1,7 @@
 #include <com/sun/tools/javac/code/ModuleFinder$2.h>
 
 #include <com/sun/tools/javac/code/ModuleFinder.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/NoSuchFieldError.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <javax/tools/JavaFileObject$Kind.h>
 #include <javax/tools/StandardLocation.h>
 #include <jcpp.h>
@@ -86,36 +77,30 @@ void clinit$ModuleFinder$2($Class* class$) {
 	{
 		try {
 			$nc(ModuleFinder$2::$SwitchMap$javax$tools$StandardLocation)->set($StandardLocation::MODULE_PATH->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(ModuleFinder$2::$SwitchMap$javax$tools$StandardLocation)->set($StandardLocation::MODULE_SOURCE_PATH->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(ModuleFinder$2::$SwitchMap$javax$tools$StandardLocation)->set($StandardLocation::SYSTEM_MODULES->ordinal(), 3);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(ModuleFinder$2::$SwitchMap$javax$tools$StandardLocation)->set($StandardLocation::UPGRADE_MODULE_PATH->ordinal(), 4);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 	$assignStatic(ModuleFinder$2::$SwitchMap$javax$tools$JavaFileObject$Kind, $new($ints, $($JavaFileObject$Kind::values())->length));
 	{
 		try {
 			$nc(ModuleFinder$2::$SwitchMap$javax$tools$JavaFileObject$Kind)->set($JavaFileObject$Kind::SOURCE->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(ModuleFinder$2::$SwitchMap$javax$tools$JavaFileObject$Kind)->set($JavaFileObject$Kind::CLASS->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 }

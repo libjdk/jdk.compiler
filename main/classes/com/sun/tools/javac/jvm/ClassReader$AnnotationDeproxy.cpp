@@ -38,18 +38,8 @@
 #include <com/sun/tools/javac/util/Log.h>
 #include <com/sun/tools/javac/util/Name.h>
 #include <com/sun/tools/javac/util/Pair.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Iterator.h>
 #include <javax/tools/JavaFileObject.h>
 #include <jcpp.h>
@@ -214,8 +204,7 @@ $Symbol$MethodSymbol* ClassReader$AnnotationDeproxy::findAccessMethod($Type* con
 				}
 			}
 		}
-	} catch ($Symbol$CompletionFailure&) {
-		$var($Symbol$CompletionFailure, ex, $catch());
+	} catch ($Symbol$CompletionFailure& ex) {
 		$assign(failure, ex);
 	}
 	$var($JavaFileObject, prevSource, $nc(this->this$0->log)->useSource($nc(this->requestingOwner)->classfile));
@@ -229,8 +218,8 @@ $Symbol$MethodSymbol* ClassReader$AnnotationDeproxy::findAccessMethod($Type* con
 					$nc(this->this$0->log)->warning($($CompilerProperties$Warnings::AnnotationMethodNotFoundReason(container, name, $($nc(failure)->getDetailValue()))));
 				}
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc(this->this$0->log)->useSource(prevSource);
 		}
@@ -238,9 +227,9 @@ $Symbol$MethodSymbol* ClassReader$AnnotationDeproxy::findAccessMethod($Type* con
 			$throw(var$0);
 		}
 	}
-	$var($List, var$1, $List::nil());
-	$var($Type, var$2, $nc(this->this$0->syms)->botType);
-	$var($Type$MethodType, mt, $new($Type$MethodType, var$1, var$2, $($List::nil()), $nc(this->this$0->syms)->methodClass));
+	$var($List, var$2, $List::nil());
+	$var($Type, var$3, $nc(this->this$0->syms)->botType);
+	$var($Type$MethodType, mt, $new($Type$MethodType, var$2, var$3, $($List::nil()), $nc(this->this$0->syms)->methodClass));
 	return $new($Symbol$MethodSymbol, 1 | 1024, name, mt, $nc(container)->tsym);
 }
 
@@ -257,8 +246,8 @@ $Attribute* ClassReader$AnnotationDeproxy::deproxy($Type* t, $Attribute* a) {
 			$assign(var$2, this->result);
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$set(this, type, oldType);
 		}
@@ -316,8 +305,7 @@ void ClassReader$AnnotationDeproxy::visitEnumAttributeProxy($ClassReader$EnumAtt
 				}
 			}
 		}
-	} catch ($Symbol$CompletionFailure&) {
-		$var($Symbol$CompletionFailure, ex, $catch());
+	} catch ($Symbol$CompletionFailure& ex) {
 		$assign(failure, ex);
 	}
 	if (enumerator == nullptr) {
@@ -378,8 +366,8 @@ $Type* ClassReader$AnnotationDeproxy::resolvePossibleProxyType($Type* t) {
 					$assign(var$3, $nc(proxyType)->resolve());
 					return$2 = true;
 					goto $finally;
-				} catch ($Throwable&) {
-					$assign(var$1, $catch());
+				} catch ($Throwable& var$4) {
+					$assign(var$1, var$4);
 				} $finally: {
 					$set(this->this$0, currentModule, prevCurrentModule);
 				}

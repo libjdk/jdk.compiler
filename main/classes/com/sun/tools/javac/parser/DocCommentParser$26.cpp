@@ -5,16 +5,7 @@
 #include <com/sun/tools/javac/parser/DocCommentParser$TagParser.h>
 #include <com/sun/tools/javac/parser/DocCommentParser$WhitespaceRetentionPolicy.h>
 #include <com/sun/tools/javac/parser/DocCommentParser.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/NoSuchFieldError.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef BLOCK
@@ -94,44 +85,37 @@ void clinit$DocCommentParser$26($Class* class$) {
 	{
 		try {
 			$nc(DocCommentParser$26::$SwitchMap$com$sun$tools$javac$parser$DocCommentParser$TagParser$Kind)->set($DocCommentParser$TagParser$Kind::BLOCK->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(DocCommentParser$26::$SwitchMap$com$sun$tools$javac$parser$DocCommentParser$TagParser$Kind)->set($DocCommentParser$TagParser$Kind::INLINE->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 	$assignStatic(DocCommentParser$26::$SwitchMap$com$sun$tools$javac$parser$DocCommentParser$WhitespaceRetentionPolicy, $new($ints, $($DocCommentParser$WhitespaceRetentionPolicy::values())->length));
 	{
 		try {
 			$nc(DocCommentParser$26::$SwitchMap$com$sun$tools$javac$parser$DocCommentParser$WhitespaceRetentionPolicy)->set($DocCommentParser$WhitespaceRetentionPolicy::REMOVE_ALL->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(DocCommentParser$26::$SwitchMap$com$sun$tools$javac$parser$DocCommentParser$WhitespaceRetentionPolicy)->set($DocCommentParser$WhitespaceRetentionPolicy::REMOVE_FIRST_SPACE->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(DocCommentParser$26::$SwitchMap$com$sun$tools$javac$parser$DocCommentParser$WhitespaceRetentionPolicy)->set($DocCommentParser$WhitespaceRetentionPolicy::RETAIN_ALL->ordinal(), 3);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 	$assignStatic(DocCommentParser$26::$SwitchMap$com$sun$tools$javac$parser$DocCommentParser$Phase, $new($ints, $($DocCommentParser$Phase::values())->length));
 	{
 		try {
 			$nc(DocCommentParser$26::$SwitchMap$com$sun$tools$javac$parser$DocCommentParser$Phase)->set($DocCommentParser$Phase::PREAMBLE->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(DocCommentParser$26::$SwitchMap$com$sun$tools$javac$parser$DocCommentParser$Phase)->set($DocCommentParser$Phase::BODY->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 }

@@ -61,22 +61,11 @@
 #include <com/sun/tools/javac/util/Names.h>
 #include <com/sun/tools/javac/util/Warner.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractCollection.h>
 #include <java/util/Collection.h>
 #include <java/util/List.h>
@@ -400,8 +389,8 @@ $JCTree$JCLambda* DeferredAttr::attribSpeculativeLambda($JCTree$JCLambda* that, 
 			$assign(var$2, speculativeLambda);
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$nc($nc(($cast($AttrContext, $nc(localEnv)->info)))->scope)->leave();
 		}
@@ -448,8 +437,8 @@ $JCTree* DeferredAttr::attribSpeculative($JCTree* tree, $Env* env, $Attr$ResultI
 			$assign(var$2, tree);
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$nc(this->annotate)->setQueues(prevQueues);
 			$nc(this->dcfh)->setHandler(prevCFHandler);

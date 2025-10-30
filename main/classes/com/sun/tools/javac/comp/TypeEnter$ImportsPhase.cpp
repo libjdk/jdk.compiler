@@ -59,23 +59,11 @@
 #include <com/sun/tools/javac/util/Name.h>
 #include <com/sun/tools/javac/util/Names.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Iterator.h>
 #include <java/util/List.h>
 #include <java/util/function/BiConsumer.h>
@@ -411,8 +399,8 @@ void TypeEnter$ImportsPhase::resolveImports($JCTree$JCCompilationUnit* tree, $En
 				this->this$0->markDeprecated(decl->sym, $nc(decl->mods)->annotations, env);
 				$nc(this->this$0->annotate)->annotateLater($nc(decl->mods)->annotations, env, $nc(env->toplevel)->modle, nullptr);
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$2) {
+			$assign(var$0, var$2);
 		} /*finally*/ {
 			$set(this, env, prevEnv);
 			$nc(this->this$0->chk)->setLint(prevLint);
@@ -471,7 +459,7 @@ void TypeEnter$ImportsPhase::doImport($JCTree$JCImport* tree) {
 $Type* TypeEnter$ImportsPhase::attribImportType($JCTree* tree, $Env* env) {
 	$useLocalCurrentObjectStackCache();
 	$Assert::check(this->this$0->completionEnabled);
-		$init($Lint$LintCategory);
+	$init($Lint$LintCategory);
 	$var($Lint, prevLint, $nc(this->this$0->chk)->setLint(this->this$0->allowDeprecationOnImport ? this->this$0->lint : $($nc(this->this$0->lint)->suppress($$new($Lint$LintCategoryArray, {
 		$Lint$LintCategory::DEPRECATION,
 		$Lint$LintCategory::REMOVAL,
@@ -486,8 +474,8 @@ $Type* TypeEnter$ImportsPhase::attribImportType($JCTree* tree, $Env* env) {
 			$assign(var$2, $nc(this->this$0->attr)->attribType(tree, env));
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			this->this$0->completionEnabled = true;
 			$nc(this->this$0->chk)->setLint(prevLint);

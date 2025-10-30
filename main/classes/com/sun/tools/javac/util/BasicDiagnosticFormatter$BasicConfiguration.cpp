@@ -6,18 +6,8 @@
 #include <com/sun/tools/javac/util/BasicDiagnosticFormatter$BasicConfiguration$SourcePosition.h>
 #include <com/sun/tools/javac/util/BasicDiagnosticFormatter.h>
 #include <com/sun/tools/javac/util/Options.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
 #include <java/lang/NumberFormatException.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/AbstractSet.h>
 #include <java/util/EnumMap.h>
@@ -169,8 +159,7 @@ void BasicDiagnosticFormatter$BasicConfiguration::init$($Options* options) {
 					setIndentation($DiagnosticFormatter$Configuration$DiagnosticPart::SUMMARY, $Integer::parseInt(levels->get(0)));
 				}
 			}
-		} catch ($NumberFormatException&) {
-			$var($NumberFormatException, ex, $catch());
+		} catch ($NumberFormatException& ex) {
 			initIndentation();
 		}
 	}

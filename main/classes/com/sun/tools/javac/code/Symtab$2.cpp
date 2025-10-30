@@ -14,15 +14,6 @@
 #include <com/sun/tools/javac/util/List.h>
 #include <com/sun/tools/javac/util/Name.h>
 #include <com/sun/tools/javac/util/Names.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $Scope$WriteableScope = ::com::sun::tools::javac::code::Scope$WriteableScope;
@@ -107,8 +98,7 @@ void Symtab$2::complete($Symbol* sym) {
 	$useLocalCurrentObjectStackCache();
 	try {
 		$nc(this->val$completer)->complete(sym);
-	} catch ($Symbol$CompletionFailure&) {
-		$var($Symbol$CompletionFailure, e, $catch());
+	} catch ($Symbol$CompletionFailure& e) {
 		$nc(sym)->flags_field |= 1;
 		$set($nc($cast($Type$ClassType, sym->type)), supertype_field, this->this$0->objectType);
 		$var($List, var$0, $List::of(this->val$type));

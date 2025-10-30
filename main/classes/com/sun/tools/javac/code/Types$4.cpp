@@ -22,19 +22,7 @@
 #include <com/sun/tools/javac/util/ListBuffer.h>
 #include <com/sun/tools/javac/util/Name.h>
 #include <com/sun/tools/javac/util/Names.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractSet.h>
 #include <java/util/HashSet.h>
 #include <java/util/Iterator.h>
@@ -228,8 +216,8 @@ bool Types$4::containsTypeRecursive($Type* t, $Type* s) {
 				var$2 = this->this$0->containsType(var$3, $($nc(s)->getTypeArguments()));
 				return$1 = true;
 				goto $finally;
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$4) {
+				$assign(var$0, var$4);
 			} $finally: {
 				$nc(this->cache)->remove(pair);
 			}
@@ -241,8 +229,8 @@ bool Types$4::containsTypeRecursive($Type* t, $Type* s) {
 			}
 		}
 	} else {
-		$var($List, var$4, $nc(t)->getTypeArguments());
-		return this->this$0->containsType(var$4, $($nc($(rewriteSupers(s)))->getTypeArguments()));
+		$var($List, var$5, $nc(t)->getTypeArguments());
+		return this->this$0->containsType(var$5, $($nc($(rewriteSupers(s)))->getTypeArguments()));
 	}
 }
 

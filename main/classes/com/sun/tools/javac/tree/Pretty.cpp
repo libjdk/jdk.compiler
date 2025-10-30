@@ -97,22 +97,9 @@
 #include <java/io/IOException.h>
 #include <java/io/StringWriter.h>
 #include <java/io/Writer.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Character.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Error.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
 #include <java/lang/Number.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Iterator.h>
 #include <jcpp.h>
 
@@ -393,7 +380,6 @@ $Object* allocate$Pretty($Class* clazz) {
 	return $of($alloc(Pretty));
 }
 
-
 $String* Pretty::trimSequence = nullptr;
 
 void Pretty::init$($Writer* out, bool sourceOutput) {
@@ -452,8 +438,7 @@ $String* Pretty::toSimpleString($JCTree* tree, int32_t maxLength) {
 	$var($StringWriter, s, $new($StringWriter));
 	try {
 		$$new(Pretty, s, false)->printExpr(tree);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($AssertionError, $of(e));
 	}
 	$var($String, res, $($($nc($(s->toString()))->trim())->replaceAll("\\s+"_s, " "_s))->replaceAll("/\\*missing\\*/"_s, ""_s));
@@ -480,14 +465,13 @@ void Pretty::printExpr($JCTree* tree, int32_t prec) {
 				} else {
 					$nc(tree)->accept(this);
 				}
-			} catch ($Pretty$UncheckedIOException&) {
-				$var($Pretty$UncheckedIOException, ex, $catch());
+			} catch ($Pretty$UncheckedIOException& ex) {
 				$var($IOException, e, $new($IOException, $(ex->getMessage())));
 				e->initCause(ex);
 				$throw(e);
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			this->prec = prevPrec;
 		}
@@ -721,8 +705,7 @@ bool Pretty::isUsed($Symbol* t, $JCTree* cdef) {
 void Pretty::visitTopLevel($JCTree$JCCompilationUnit* tree) {
 	try {
 		printUnit(tree, nullptr);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -737,8 +720,7 @@ void Pretty::visitPackageDef($JCTree$JCPackageDecl* tree) {
 			print(";"_s);
 			println();
 		}
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -760,8 +742,7 @@ void Pretty::visitModuleDef($JCTree$JCModuleDecl* tree) {
 			printBlock(tree->directives);
 		}
 		println();
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -775,8 +756,7 @@ void Pretty::visitExports($JCTree$JCExports* tree) {
 			printExprs(tree->moduleNames);
 		}
 		print(";"_s);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -790,8 +770,7 @@ void Pretty::visitOpens($JCTree$JCOpens* tree) {
 			printExprs(tree->moduleNames);
 		}
 		print(";"_s);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -803,8 +782,7 @@ void Pretty::visitProvides($JCTree$JCProvides* tree) {
 		print(" with "_s);
 		printExprs($nc(tree)->implNames);
 		print(";"_s);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -820,8 +798,7 @@ void Pretty::visitRequires($JCTree$JCRequires* tree) {
 		}
 		printExpr($nc(tree)->moduleName);
 		print(";"_s);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -831,8 +808,7 @@ void Pretty::visitUses($JCTree$JCUses* tree) {
 		print("uses "_s);
 		printExpr($nc(tree)->qualid);
 		print(";"_s);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -846,8 +822,7 @@ void Pretty::visitImport($JCTree$JCImport* tree) {
 		printExpr($nc(tree)->qualid);
 		print(";"_s);
 		println();
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -900,14 +875,12 @@ void Pretty::visitClassDef($JCTree$JCClassDecl* tree) {
 			printBlock(tree->defs);
 		}
 		$set(this, enclClassName, enclClassNamePrev);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
 
 void Pretty::visitMethodDef($JCTree$JCMethodDecl* tree) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		if ($nc(tree)->name == $nc($nc($nc(tree->name)->table)->names)->init && this->enclClassName == nullptr && this->sourceOutput) {
 			return;
@@ -946,8 +919,7 @@ void Pretty::visitMethodDef($JCTree$JCMethodDecl* tree) {
 		} else {
 			print(";"_s);
 		}
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1042,8 +1014,7 @@ void Pretty::visitVarDef($JCTree$JCVariableDecl* tree) {
 				print(";"_s);
 			}
 		}
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1051,8 +1022,7 @@ void Pretty::visitVarDef($JCTree$JCVariableDecl* tree) {
 void Pretty::visitSkip($JCTree$JCSkip* tree) {
 	try {
 		print(";"_s);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1061,8 +1031,7 @@ void Pretty::visitBlock($JCTree$JCBlock* tree) {
 	try {
 		printFlags($nc(tree)->flags);
 		printBlock($nc(tree)->stats);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1082,8 +1051,7 @@ void Pretty::visitDoLoop($JCTree$JCDoWhileLoop* tree) {
 			print(")"_s);
 		}
 		print(";"_s);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1101,8 +1069,7 @@ void Pretty::visitWhileLoop($JCTree$JCWhileLoop* tree) {
 		}
 		print(" "_s);
 		printStat($nc(tree)->body);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1138,8 +1105,7 @@ void Pretty::visitForLoop($JCTree$JCForLoop* tree) {
 		printExprs($nc(tree)->step);
 		print(") "_s);
 		printStat($nc(tree)->body);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1152,19 +1118,16 @@ void Pretty::visitForeachLoop($JCTree$JCEnhancedForLoop* tree) {
 		printExpr($nc(tree)->expr);
 		print(") "_s);
 		printStat($nc(tree)->body);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
 
 void Pretty::visitLabelled($JCTree$JCLabeledStatement* tree) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		print($$str({$nc(tree)->label, ": "_s}));
 		printStat($nc(tree)->body);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1185,14 +1148,12 @@ void Pretty::visitSwitch($JCTree$JCSwitch* tree) {
 		printStats($nc(tree)->cases);
 		align();
 		print("}"_s);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
 
 void Pretty::visitCase($JCTree$JCCase* tree) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		bool var$0 = $nc($nc(tree)->labels)->size() == 1;
 		$init($JCTree$Tag);
@@ -1218,8 +1179,7 @@ void Pretty::visitCase($JCTree$JCCase* tree) {
 				printBlock(tree->stats);
 			}
 		}
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1227,8 +1187,7 @@ void Pretty::visitCase($JCTree$JCCase* tree) {
 void Pretty::visitDefaultCaseLabel($JCTree$JCDefaultCaseLabel* that) {
 	try {
 		print("default"_s);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1249,8 +1208,7 @@ void Pretty::visitSwitchExpression($JCTree$JCSwitchExpression* tree) {
 		printStats($nc(tree)->cases);
 		align();
 		print("}"_s);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1258,8 +1216,7 @@ void Pretty::visitSwitchExpression($JCTree$JCSwitchExpression* tree) {
 void Pretty::visitBindingPattern($JCTree$JCBindingPattern* patt) {
 	try {
 		printExpr($nc(patt)->var);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1269,8 +1226,7 @@ void Pretty::visitParenthesizedPattern($JCTree$JCParenthesizedPattern* patt) {
 		print("("_s);
 		printExpr($nc(patt)->pattern);
 		print(")"_s);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1280,8 +1236,7 @@ void Pretty::visitGuardPattern($JCTree$JCGuardPattern* patt) {
 		printExpr($nc(patt)->patt);
 		print(" && "_s);
 		printExpr($nc(patt)->expr);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1299,8 +1254,7 @@ void Pretty::visitSynchronized($JCTree$JCSynchronized* tree) {
 		}
 		print(" "_s);
 		printStat($nc(tree)->body);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1339,8 +1293,7 @@ void Pretty::visitTry($JCTree$JCTry* tree) {
 			print(" finally "_s);
 			printStat(tree->finalizer);
 		}
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1351,8 +1304,7 @@ void Pretty::visitCatch($JCTree$JCCatch* tree) {
 		printExpr($nc(tree)->param);
 		print(") "_s);
 		printStat($nc(tree)->body);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1366,8 +1318,7 @@ void Pretty::visitConditional($JCTree$JCConditional* tree) {
 		print(" : "_s);
 		printExpr($nc(tree)->falsepart, $TreeInfo::condPrec);
 		close(this->prec, $TreeInfo::condPrec);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1389,8 +1340,7 @@ void Pretty::visitIf($JCTree$JCIf* tree) {
 			print(" else "_s);
 			printStat(tree->elsepart);
 		}
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1401,22 +1351,19 @@ void Pretty::visitExec($JCTree$JCExpressionStatement* tree) {
 		if (this->prec == $TreeInfo::notExpression) {
 			print(";"_s);
 		}
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
 
 void Pretty::visitBreak($JCTree$JCBreak* tree) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		print("break"_s);
 		if ($nc(tree)->label != nullptr) {
 			print($$str({" "_s, tree->label}));
 		}
 		print(";"_s);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1427,22 +1374,19 @@ void Pretty::visitYield($JCTree$JCYield* tree) {
 		print(" "_s);
 		printExpr($nc(tree)->value);
 		print(";"_s);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
 
 void Pretty::visitContinue($JCTree$JCContinue* tree) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		print("continue"_s);
 		if ($nc(tree)->label != nullptr) {
 			print($$str({" "_s, tree->label}));
 		}
 		print(";"_s);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1455,8 +1399,7 @@ void Pretty::visitReturn($JCTree$JCReturn* tree) {
 			printExpr(tree->expr);
 		}
 		print(";"_s);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1466,8 +1409,7 @@ void Pretty::visitThrow($JCTree$JCThrow* tree) {
 		print("throw "_s);
 		printExpr($nc(tree)->expr);
 		print(";"_s);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1481,8 +1423,7 @@ void Pretty::visitAssert($JCTree$JCAssert* tree) {
 			printExpr(tree->detail);
 		}
 		print(";"_s);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1510,14 +1451,12 @@ void Pretty::visitApply($JCTree$JCMethodInvocation* tree) {
 		print("("_s);
 		printExprs($nc(tree)->args);
 		print(")"_s);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
 
 void Pretty::visitNewClass($JCTree$JCNewClass* tree) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		if ($nc(tree)->encl != nullptr) {
 			printExpr(tree->encl);
@@ -1545,8 +1484,7 @@ void Pretty::visitNewClass($JCTree$JCNewClass* tree) {
 			printBlock($nc(tree->def)->defs);
 			$set(this, enclClassName, enclClassNamePrev);
 		}
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1588,8 +1526,7 @@ void Pretty::visitNewArray($JCTree$JCNewArray* tree) {
 			printExprs(tree->elems);
 			print("}"_s);
 		}
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1617,8 +1554,7 @@ void Pretty::visitLambda($JCTree$JCLambda* tree) {
 		}
 		print(")->"_s);
 		printExpr($nc(tree)->body);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1628,8 +1564,7 @@ void Pretty::visitParens($JCTree$JCParens* tree) {
 		print("("_s);
 		printExpr($nc(tree)->expr);
 		print(")"_s);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1641,8 +1576,7 @@ void Pretty::visitAssign($JCTree$JCAssign* tree) {
 		print(" = "_s);
 		printExpr($nc(tree)->rhs, $TreeInfo::assignPrec);
 		close(this->prec, $TreeInfo::assignPrec);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1777,8 +1711,7 @@ void Pretty::visitAssignop($JCTree$JCAssignOp* tree) {
 		print($$str({" "_s, $(operatorName($($nc($($nc(tree)->getTag()))->noAssignOp()))), "= "_s}));
 		printExpr($nc(tree)->rhs, $TreeInfo::assignopPrec);
 		close(this->prec, $TreeInfo::assignopPrec);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1797,8 +1730,7 @@ void Pretty::visitUnary($JCTree$JCUnary* tree) {
 			print(opname);
 		}
 		close(this->prec, ownprec);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1813,8 +1745,7 @@ void Pretty::visitBinary($JCTree$JCBinary* tree) {
 		print($$str({" "_s, opname, " "_s}));
 		printExpr($nc(tree)->rhs, ownprec + 1);
 		close(this->prec, ownprec);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1827,14 +1758,12 @@ void Pretty::visitTypeCast($JCTree$JCTypeCast* tree) {
 		print(")"_s);
 		printExpr($nc(tree)->expr, $TreeInfo::prefixPrec);
 		close(this->prec, $TreeInfo::prefixPrec);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
 
 void Pretty::visitTypeTest($JCTree$JCInstanceOf* tree) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		open(this->prec, $TreeInfo::ordPrec);
 		printExpr($nc(tree)->expr, $TreeInfo::ordPrec);
@@ -1845,8 +1774,7 @@ void Pretty::visitTypeTest($JCTree$JCInstanceOf* tree) {
 			printExpr($(tree->getType()), $TreeInfo::ordPrec + 1);
 		}
 		close(this->prec, $TreeInfo::ordPrec);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1857,19 +1785,16 @@ void Pretty::visitIndexed($JCTree$JCArrayAccess* tree) {
 		print("["_s);
 		printExpr($nc(tree)->index);
 		print("]"_s);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
 
 void Pretty::visitSelect($JCTree$JCFieldAccess* tree) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		printExpr($nc(tree)->selected, $TreeInfo::postfixPrec);
 		print($$str({"."_s, $nc(tree)->name}));
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1885,8 +1810,7 @@ void Pretty::visitReference($JCTree$JCMemberReference* tree) {
 		}
 		$init($MemberReferenceTree$ReferenceMode);
 		print($nc(tree)->getMode() == $MemberReferenceTree$ReferenceMode::INVOKE ? $of($nc(tree)->name) : $of("new"_s));
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1894,8 +1818,7 @@ void Pretty::visitReference($JCTree$JCMemberReference* tree) {
 void Pretty::visitIdent($JCTree$JCIdent* tree) {
 	try {
 		print($nc(tree)->name);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -1946,8 +1869,7 @@ void Pretty::visitLiteral($JCTree$JCLiteral* tree) {
 				break;
 			}
 		}
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -2007,8 +1929,7 @@ void Pretty::visitTypeIdent($JCTree$JCPrimitiveTypeTree* tree) {
 				break;
 			}
 		}
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -2017,8 +1938,7 @@ void Pretty::visitTypeArray($JCTree$JCArrayTypeTree* tree) {
 	try {
 		printBaseElementType(tree);
 		printBrackets(tree);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -2055,8 +1975,7 @@ void Pretty::visitTypeApply($JCTree$JCTypeApply* tree) {
 		print("<"_s);
 		printExprs($nc(tree)->arguments);
 		print(">"_s);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -2064,8 +1983,7 @@ void Pretty::visitTypeApply($JCTree$JCTypeApply* tree) {
 void Pretty::visitTypeUnion($JCTree$JCTypeUnion* tree) {
 	try {
 		printExprs($nc(tree)->alternatives, " | "_s);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -2073,8 +1991,7 @@ void Pretty::visitTypeUnion($JCTree$JCTypeUnion* tree) {
 void Pretty::visitTypeIntersection($JCTree$JCTypeIntersection* tree) {
 	try {
 		printExprs($nc(tree)->bounds, " & "_s);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -2089,8 +2006,7 @@ void Pretty::visitTypeParameter($JCTree$JCTypeParameter* tree) {
 			print(" extends "_s);
 			printExprs(tree->bounds, " & "_s);
 		}
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -2102,18 +2018,15 @@ void Pretty::visitWildcard($JCTree$JCWildcard* tree) {
 		if ($nc($nc(tree)->kind)->kind != $BoundKind::UNBOUND) {
 			printExpr(tree->inner);
 		}
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
 
 void Pretty::visitTypeBoundKind($JCTree$TypeBoundKind* tree) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		print($($String::valueOf($of($nc(tree)->kind))));
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -2121,18 +2034,15 @@ void Pretty::visitTypeBoundKind($JCTree$TypeBoundKind* tree) {
 void Pretty::visitErroneous($JCTree$JCErroneous* tree) {
 	try {
 		print("(ERROR)"_s);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
 
 void Pretty::visitLetExpr($JCTree$LetExpr* tree) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		print($$str({"(let "_s, $nc(tree)->defs, " in "_s, tree->expr, ")"_s}));
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -2141,8 +2051,7 @@ void Pretty::visitModifiers($JCTree$JCModifiers* mods) {
 	try {
 		printAnnotations($nc(mods)->annotations);
 		printFlags($nc(mods)->flags);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -2156,14 +2065,12 @@ void Pretty::visitAnnotation($JCTree$JCAnnotation* tree) {
 			printExprs(tree->args);
 			print(")"_s);
 		}
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
 
 void Pretty::visitAnnotatedType($JCTree$JCAnnotatedType* tree) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		$init($JCTree$Tag);
 		if ($nc($nc(tree)->underlyingType)->hasTag($JCTree$Tag::SELECT)) {
@@ -2181,8 +2088,7 @@ void Pretty::visitAnnotatedType($JCTree$JCAnnotatedType* tree) {
 				printExpr(tree->underlyingType);
 			}
 		}
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }
@@ -2192,8 +2098,7 @@ void Pretty::visitTree($JCTree* tree) {
 	try {
 		print($$str({"(UNKNOWN: "_s, $($nc(tree)->getTag()), ")"_s}));
 		println();
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Pretty$UncheckedIOException, e);
 	}
 }

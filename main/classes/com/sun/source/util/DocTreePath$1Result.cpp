@@ -1,16 +1,7 @@
 #include <com/sun/source/util/DocTreePath$1Result.h>
 
 #include <com/sun/source/util/DocTreePath.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
 #include <java/lang/Error.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $DocTreePath = ::com::sun::source::util::DocTreePath;
@@ -76,16 +67,10 @@ void DocTreePath$1Result::init$($DocTreePath* path) {
 DocTreePath$1Result::DocTreePath$1Result() {
 }
 
-DocTreePath$1Result::DocTreePath$1Result(const DocTreePath$1Result& e) {
+DocTreePath$1Result::DocTreePath$1Result(const DocTreePath$1Result& e) : $Error(e) {
 }
 
-DocTreePath$1Result DocTreePath$1Result::wrapper$() {
-	$pendingException(this);
-	return *this;
-}
-
-void DocTreePath$1Result::throwWrapper$() {
-	$pendingException(this);
+void DocTreePath$1Result::throw$() {
 	throw *this;
 }
 

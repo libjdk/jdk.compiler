@@ -8,15 +8,6 @@
 #include <com/sun/tools/javac/main/OptionHelper.h>
 #include <com/sun/tools/javac/resources/CompilerProperties$Errors.h>
 #include <com/sun/tools/javac/util/JCDiagnostic$Error.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $Profile = ::com::sun::tools::javac::jvm::Profile;

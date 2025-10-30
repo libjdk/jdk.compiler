@@ -24,16 +24,7 @@
 #include <com/sun/tools/javac/tree/JCTree.h>
 #include <com/sun/tools/javac/tree/TreeScanner.h>
 #include <com/sun/tools/javac/util/List.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractCollection.h>
 #include <java/util/AbstractSet.h>
 #include <java/util/Collection.h>
@@ -247,8 +238,8 @@ void DeferredAttr$CheckStuckPolicy::scanLambdaBody($JCTree$JCLambda* lambda, $Ty
 			try {
 				$set(this, pt, pt);
 				scan(lambda->body);
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$1) {
+				$assign(var$0, var$1);
 			} /*finally*/ {
 				$set(this, pt, prevPt);
 			}

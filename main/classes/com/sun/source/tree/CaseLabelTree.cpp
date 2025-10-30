@@ -1,11 +1,5 @@
 #include <com/sun/source/tree/CaseLabelTree.h>
 
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/CompoundAttribute.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $Tree = ::com::sun::source::tree::Tree;
@@ -16,10 +10,10 @@ namespace com {
 	namespace sun {
 		namespace source {
 			namespace tree {
+
 $CompoundAttribute _CaseLabelTree_Annotations_[] = {
 	{}
 };
-
 
 $ClassInfo _CaseLabelTree_ClassInfo_ = {
 	$PUBLIC | $INTERFACE | $ABSTRACT,

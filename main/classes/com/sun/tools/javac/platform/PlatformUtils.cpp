@@ -5,22 +5,13 @@
 #include <com/sun/tools/javac/platform/PlatformProvider$PlatformNotSupported.h>
 #include <com/sun/tools/javac/platform/PlatformProvider.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/ClassLoader.h>
-#include <java/lang/FieldInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Optional.h>
 #include <java/util/ServiceLoader.h>
 #include <java/util/Spliterator.h>
@@ -221,11 +212,9 @@ $PlatformDescription* PlatformUtils::lookupPlatformDescription($String* platform
 }
 
 $Optional* PlatformUtils::lambda$lookupPlatformDescription$1($String* platformProviderName, $String* platformOptions, $PlatformProvider* provider) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		return $Optional::of($($nc(provider)->getPlatform(platformProviderName, platformOptions)));
-	} catch ($PlatformProvider$PlatformNotSupported&) {
-		$var($PlatformProvider$PlatformNotSupported, pns, $catch());
+	} catch ($PlatformProvider$PlatformNotSupported& pns) {
 		return $Optional::empty();
 	}
 	$shouldNotReachHere();

@@ -31,8 +31,10 @@ public:
 	static const int64_t serialVersionUID = (int64_t)0xAD89763BB0F151E7;
 	::com::sun::tools::javac::util::List* path = nullptr;
 	TreeInfo$1Result(const TreeInfo$1Result& e);
-	TreeInfo$1Result wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline TreeInfo$1Result* operator ->() {
+		return (TreeInfo$1Result*)throwing$;
+	}
 };
 
 				} // tree

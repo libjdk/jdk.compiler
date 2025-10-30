@@ -10,18 +10,7 @@
 #include <com/sun/tools/javac/code/TypeTag.h>
 #include <com/sun/tools/javac/util/Assert.h>
 #include <com/sun/tools/javac/util/List.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/StringBuilder.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/annotation/Annotation.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/List.h>
 #include <javax/lang/model/type/TypeKind.h>
 #include <javax/lang/model/type/TypeMirror.h>
@@ -237,8 +226,8 @@ $String* Type$WildcardType::toString() {
 			try {
 				this->isPrintingBound = true;
 				s->append("{:"_s)->append($($of($nc(this->bound)->getUpperBound())))->append(":}"_s);
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$1) {
+				$assign(var$0, var$1);
 			} /*finally*/ {
 				this->isPrintingBound = false;
 			}

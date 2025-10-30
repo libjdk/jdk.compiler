@@ -33,18 +33,8 @@
 #include <com/sun/tools/javac/tree/TreeScanner.h>
 #include <com/sun/tools/javac/util/JCDiagnostic$DiagnosticPosition.h>
 #include <com/sun/tools/javac/util/List.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/annotation/Annotation.h>
 #include <java/lang/annotation/Documented.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef EXPORTS
@@ -182,8 +172,8 @@ void Check$4::visitMethodDef($JCTree$JCMethodDecl* tree) {
 			if ($nc(this->lint)->isEnabled($Lint$LintCategory::EXPORTS)) {
 				$TreeScanner::visitMethodDef(tree);
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, lint, prevLint);
 		}
@@ -209,8 +199,8 @@ void Check$4::visitVarDef($JCTree$JCVariableDecl* tree) {
 				scan(static_cast<$JCTree*>($nc(tree)->mods));
 				scan(static_cast<$JCTree*>($nc(tree)->vartype));
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, lint, prevLint);
 		}
@@ -243,8 +233,8 @@ void Check$4::visitClassDef($JCTree$JCClassDecl* tree) {
 						this->inSuperType = true;
 						scan(static_cast<$JCTree*>($nc(tree)->extending));
 						scan($nc(tree)->implementing);
-					} catch ($Throwable&) {
-						$assign(var$1, $catch());
+					} catch ($Throwable& var$2) {
+						$assign(var$1, var$2);
 					} /*finally*/ {
 						this->inSuperType = false;
 					}
@@ -254,8 +244,8 @@ void Check$4::visitClassDef($JCTree$JCClassDecl* tree) {
 				}
 				scan($nc(tree)->defs);
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} /*finally*/ {
 			$set(this, lint, prevLint);
 		}
@@ -273,8 +263,8 @@ void Check$4::visitTypeApply($JCTree$JCTypeApply* tree) {
 		try {
 			this->inSuperType = false;
 			scan($nc(tree)->arguments);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			this->inSuperType = oldInSuperType;
 		}

@@ -3,16 +3,7 @@
 #include <com/sun/source/tree/MemberReferenceTree$ReferenceMode.h>
 #include <com/sun/tools/javac/tree/JCTree$JCMemberReference.h>
 #include <com/sun/tools/javac/tree/JCTree.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef ARRAY_CTOR
@@ -90,19 +81,12 @@ $Object* allocate$JCTree$JCMemberReference$ReferenceKind($Class* clazz) {
 	return $of($alloc(JCTree$JCMemberReference$ReferenceKind));
 }
 
-
 JCTree$JCMemberReference$ReferenceKind* JCTree$JCMemberReference$ReferenceKind::SUPER = nullptr;
-
 JCTree$JCMemberReference$ReferenceKind* JCTree$JCMemberReference$ReferenceKind::UNBOUND = nullptr;
-
 JCTree$JCMemberReference$ReferenceKind* JCTree$JCMemberReference$ReferenceKind::STATIC = nullptr;
-
 JCTree$JCMemberReference$ReferenceKind* JCTree$JCMemberReference$ReferenceKind::BOUND = nullptr;
-
 JCTree$JCMemberReference$ReferenceKind* JCTree$JCMemberReference$ReferenceKind::IMPLICIT_INNER = nullptr;
-
 JCTree$JCMemberReference$ReferenceKind* JCTree$JCMemberReference$ReferenceKind::TOPLEVEL = nullptr;
-
 JCTree$JCMemberReference$ReferenceKind* JCTree$JCMemberReference$ReferenceKind::ARRAY_CTOR = nullptr;
 $JCTree$JCMemberReference$ReferenceKindArray* JCTree$JCMemberReference$ReferenceKind::$VALUES = nullptr;
 

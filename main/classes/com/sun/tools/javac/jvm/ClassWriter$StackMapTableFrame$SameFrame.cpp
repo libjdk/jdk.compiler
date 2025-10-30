@@ -3,16 +3,6 @@
 #include <com/sun/tools/javac/jvm/ClassWriter$StackMapTableFrame.h>
 #include <com/sun/tools/javac/jvm/ClassWriter.h>
 #include <com/sun/tools/javac/util/ByteBuffer.h>
-#include <java/io/PrintStream.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $ClassWriter = ::com::sun::tools::javac::jvm::ClassWriter;
@@ -83,7 +73,6 @@ void ClassWriter$StackMapTableFrame$SameFrame::write($ClassWriter* writer) {
 	if (getFrameType() == 251) {
 		$nc($nc(writer)->databuf)->appendChar(this->offsetDelta);
 		if (writer->debugstackmap) {
-			$init($System);
 			$nc($System::out)->print($$str({" offset_delta="_s, $$str(this->offsetDelta)}));
 		}
 	}

@@ -7,17 +7,7 @@
 #include <com/sun/tools/javac/util/Position$LineMap.h>
 #include <com/sun/tools/javac/util/Position.h>
 #include <java/io/IOException.h>
-#include <java/lang/Array.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <javax/tools/JavaFileObject.h>
 #include <jcpp.h>
 
@@ -113,8 +103,7 @@ $LineMap* JavacTrees$6::getLineMap() {
 		$var($String, s, $nc(content)->toString());
 		$var($chars, var$0, $nc(s)->toCharArray());
 		return $Position::makeLineMap(var$0, s->length(), true);
-	} catch ($IOException&) {
-		$catch();
+	} catch ($IOException& ignore) {
 	}
 	return nullptr;
 }

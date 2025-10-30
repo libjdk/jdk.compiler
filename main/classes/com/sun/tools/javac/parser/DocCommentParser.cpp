@@ -73,17 +73,6 @@
 #include <com/sun/tools/javac/util/Names.h>
 #include <com/sun/tools/javac/util/Position.h>
 #include <com/sun/tools/javac/util/StringUtils.h>
-#include <java/lang/Array.h>
-#include <java/lang/Character.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/HashMap.h>
 #include <java/util/List.h>
@@ -532,8 +521,7 @@ $DCTree* DocCommentParser::blockTag() {
 		}
 		blockContent();
 		return erroneous("dc.no.tag.name"_s, p);
-	} catch ($DocCommentParser$ParseException&) {
-		$var($DocCommentParser$ParseException, e, $catch());
+	} catch ($DocCommentParser$ParseException& e) {
 		blockContent();
 		return erroneous($(e->getMessage()), p);
 	}
@@ -587,8 +575,7 @@ $DCTree* DocCommentParser::inlineTag() {
 				return $nc($($cast($DCTree$DCUnknownInlineTag, $nc($($nc(this->m)->at(p)))->newUnknownInlineTagTree(name, $($List::of(text))))))->setEndPos(this->bp);
 			}
 		}
-	} catch ($DocCommentParser$ParseException&) {
-		$var($DocCommentParser$ParseException, e, $catch());
+	} catch ($DocCommentParser$ParseException& e) {
 		return erroneous($(e->getMessage()), p);
 	}
 	$shouldNotReachHere();
@@ -738,8 +725,7 @@ $DCTree$DCReference* DocCommentParser::reference(bool allowMember) {
 	try {
 		$var($ReferenceParser$Reference, ref, $$new($ReferenceParser, this->fac)->parse(sig));
 		return $cast($DCTree$DCReference, $nc($($nc($($nc(this->m)->at(pos)))->newReferenceTree(sig, $nc(ref)->moduleName, ref->qualExpr, ref->member, ref->paramTypes)))->setEndPos(this->bp));
-	} catch ($ReferenceParser$ParseException&) {
-		$var($ReferenceParser$ParseException, parseException, $catch());
+	} catch ($ReferenceParser$ParseException& parseException) {
 		$throwNew($DocCommentParser$ParseException, $(parseException->getMessage()));
 	}
 	$shouldNotReachHere();
@@ -1059,8 +1045,8 @@ bool DocCommentParser::isEndPreamble() {
 			var$2 = false;
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			this->bp = savedpos;
 			this->ch = $nc(this->buf)->get(this->bp);
@@ -1125,8 +1111,8 @@ bool DocCommentParser::isEndBody() {
 			var$2 = false;
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			this->bp = savedpos;
 			this->ch = $nc(this->buf)->get(this->bp);
@@ -1172,8 +1158,8 @@ bool DocCommentParser::peek($String* s$renamed) {
 			var$2 = false;
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			this->bp = savedpos;
 			this->ch = $nc(this->buf)->get(this->bp);
@@ -1486,8 +1472,8 @@ $String* DocCommentParser::newString(int32_t start, int32_t end) {
 
 $Map* DocCommentParser::createTagParsers() {
 	$useLocalCurrentObjectStackCache();
-		$init($DocCommentParser$TagParser$Kind);
-		$init($DocTree$Kind);
+	$init($DocCommentParser$TagParser$Kind);
+	$init($DocTree$Kind);
 	$var($DocCommentParser$TagParserArray, parsers, $new($DocCommentParser$TagParserArray, {
 		static_cast<$DocCommentParser$TagParser*>($$new($DocCommentParser$1, this, $DocCommentParser$TagParser$Kind::BLOCK, $DocTree$Kind::AUTHOR)),
 		static_cast<$DocCommentParser$TagParser*>($$new($DocCommentParser$2, this, $DocCommentParser$TagParser$Kind::INLINE, $DocTree$Kind::CODE, true)),

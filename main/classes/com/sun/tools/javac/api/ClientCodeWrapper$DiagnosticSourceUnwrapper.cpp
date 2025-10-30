@@ -2,14 +2,6 @@
 
 #include <com/sun/tools/javac/api/ClientCodeWrapper.h>
 #include <com/sun/tools/javac/util/JCDiagnostic.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Locale.h>
 #include <javax/tools/Diagnostic$Kind.h>
 #include <javax/tools/JavaFileObject.h>

@@ -2,20 +2,9 @@
 
 #include <com/sun/tools/javac/api/ClientCodeWrapper.h>
 #include <com/sun/tools/javac/util/ClientCodeException.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/ClassLoader.h>
 #include <java/lang/Error.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Iterator.h>
 #include <java/util/Objects.h>
 #include <java/util/ServiceLoader.h>
@@ -118,51 +107,39 @@ void ClientCodeWrapper$WrappedJavaFileManager::init$($ClientCodeWrapper* this$0,
 }
 
 $ClassLoader* ClientCodeWrapper$WrappedJavaFileManager::getClassLoader($JavaFileManager$Location* location) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientJavaFileManager)->getClassLoader(location);
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 	$shouldNotReachHere();
 }
 
 $Iterable* ClientCodeWrapper$WrappedJavaFileManager::list($JavaFileManager$Location* location, $String* packageName, $Set* kinds, bool recurse) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		return this->this$0->wrapJavaFileObjects($($nc(this->clientJavaFileManager)->list(location, packageName, kinds, recurse)));
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 	$shouldNotReachHere();
 }
 
 $String* ClientCodeWrapper$WrappedJavaFileManager::inferBinaryName($JavaFileManager$Location* location, $JavaFileObject* file) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientJavaFileManager)->inferBinaryName(location, $(this->this$0->unwrap(file)));
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 	$shouldNotReachHere();
@@ -173,65 +150,50 @@ bool ClientCodeWrapper$WrappedJavaFileManager::isSameFile($FileObject* a, $FileO
 	try {
 		$var($FileObject, var$0, this->this$0->unwrap(a));
 		return $nc(this->clientJavaFileManager)->isSameFile(var$0, $(this->this$0->unwrap(b)));
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 	$shouldNotReachHere();
 }
 
 bool ClientCodeWrapper$WrappedJavaFileManager::handleOption($String* current, $Iterator* remaining) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientJavaFileManager)->handleOption(current, remaining);
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 	$shouldNotReachHere();
 }
 
 bool ClientCodeWrapper$WrappedJavaFileManager::hasLocation($JavaFileManager$Location* location) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientJavaFileManager)->hasLocation(location);
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 	$shouldNotReachHere();
 }
 
 $JavaFileObject* ClientCodeWrapper$WrappedJavaFileManager::getJavaFileForInput($JavaFileManager$Location* location, $String* className, $JavaFileObject$Kind* kind) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		return this->this$0->wrap($($nc(this->clientJavaFileManager)->getJavaFileForInput(location, className, kind)));
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 	$shouldNotReachHere();
@@ -241,31 +203,24 @@ $JavaFileObject* ClientCodeWrapper$WrappedJavaFileManager::getJavaFileForOutput(
 	$useLocalCurrentObjectStackCache();
 	try {
 		return this->this$0->wrap($($nc(this->clientJavaFileManager)->getJavaFileForOutput(location, className, kind, $(this->this$0->unwrap(sibling)))));
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 	$shouldNotReachHere();
 }
 
 $FileObject* ClientCodeWrapper$WrappedJavaFileManager::getFileForInput($JavaFileManager$Location* location, $String* packageName, $String* relativeName) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		return this->this$0->wrap($($nc(this->clientJavaFileManager)->getFileForInput(location, packageName, relativeName)));
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 	$shouldNotReachHere();
@@ -275,148 +230,113 @@ $FileObject* ClientCodeWrapper$WrappedJavaFileManager::getFileForOutput($JavaFil
 	$useLocalCurrentObjectStackCache();
 	try {
 		return this->this$0->wrap($($nc(this->clientJavaFileManager)->getFileForOutput(location, packageName, relativeName, $(this->this$0->unwrap(sibling)))));
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 	$shouldNotReachHere();
 }
 
 bool ClientCodeWrapper$WrappedJavaFileManager::contains($JavaFileManager$Location* location, $FileObject* file) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientJavaFileManager)->contains(location, $(this->this$0->unwrap(file)));
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 	$shouldNotReachHere();
 }
 
 void ClientCodeWrapper$WrappedJavaFileManager::flush() {
-	$useLocalCurrentObjectStackCache();
 	try {
 		$nc(this->clientJavaFileManager)->flush();
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 }
 
 void ClientCodeWrapper$WrappedJavaFileManager::close() {
-	$useLocalCurrentObjectStackCache();
 	try {
 		$nc(this->clientJavaFileManager)->close();
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 }
 
 $JavaFileManager$Location* ClientCodeWrapper$WrappedJavaFileManager::getLocationForModule($JavaFileManager$Location* location, $String* moduleName) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientJavaFileManager)->getLocationForModule(location, moduleName);
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 	$shouldNotReachHere();
 }
 
 $JavaFileManager$Location* ClientCodeWrapper$WrappedJavaFileManager::getLocationForModule($JavaFileManager$Location* location, $JavaFileObject* fo) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientJavaFileManager)->getLocationForModule(location, $(this->this$0->unwrap(fo)));
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 	$shouldNotReachHere();
 }
 
 $String* ClientCodeWrapper$WrappedJavaFileManager::inferModuleName($JavaFileManager$Location* location) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientJavaFileManager)->inferModuleName(location);
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 	$shouldNotReachHere();
 }
 
 $Iterable* ClientCodeWrapper$WrappedJavaFileManager::listLocationsForModules($JavaFileManager$Location* location) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientJavaFileManager)->listLocationsForModules(location);
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 	$shouldNotReachHere();
 }
 
 int32_t ClientCodeWrapper$WrappedJavaFileManager::isSupportedOption($String* option) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientJavaFileManager)->isSupportedOption(option);
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 	$shouldNotReachHere();
@@ -427,17 +347,13 @@ $String* ClientCodeWrapper$WrappedJavaFileManager::toString() {
 }
 
 $ServiceLoader* ClientCodeWrapper$WrappedJavaFileManager::getServiceLoader($JavaFileManager$Location* location, $Class* service) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientJavaFileManager)->getServiceLoader(location, service);
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 	$shouldNotReachHere();

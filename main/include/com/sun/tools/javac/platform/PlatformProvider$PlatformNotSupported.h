@@ -18,8 +18,10 @@ public:
 	void init$();
 	static const int64_t serialVersionUID = (int64_t)1;
 	PlatformProvider$PlatformNotSupported(const PlatformProvider$PlatformNotSupported& e);
-	PlatformProvider$PlatformNotSupported wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline PlatformProvider$PlatformNotSupported* operator ->() {
+		return (PlatformProvider$PlatformNotSupported*)throwing$;
+	}
 };
 
 				} // platform

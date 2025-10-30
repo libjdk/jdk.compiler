@@ -13,16 +13,6 @@
 #include <java/io/OutputStreamWriter.h>
 #include <java/io/PrintWriter.h>
 #include <java/io/Writer.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $Option = ::com::sun::tools::javac::main::Option;
@@ -96,8 +86,7 @@ void Option$26::process($OptionHelper* helper, $String* option, $String* arg) {
 	try {
 		$var($Log, log, $nc(helper)->getLog());
 		$nc(log)->setWriters($$new($PrintWriter, static_cast<$Writer*>($$new($FileWriter, arg)), true));
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throw($($nc(helper)->newInvalidValueException($($CompilerProperties$Errors::ErrorWritingFile(arg, $(e->getMessage()))))));
 	}
 	$Option::process(helper, option, arg);

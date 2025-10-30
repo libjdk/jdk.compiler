@@ -33,27 +33,9 @@
 #include <java/io/PrintWriter.h>
 #include <java/io/Writer.h>
 #include <java/lang/AbstractStringBuilder.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Character.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Double.h>
 #include <java/lang/Error.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/Float.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/StringBuilder.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractList.h>
 #include <java/util/ArrayList.h>
 #include <java/util/Collections.h>
@@ -360,8 +342,8 @@ $FileObject* JNIWriter::write($Symbol$ClassSymbol* c) {
 			}
 			out->close();
 			$assign(out, nullptr);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			if (out != nullptr) {
 				out->close();
@@ -377,7 +359,6 @@ $FileObject* JNIWriter::write($Symbol$ClassSymbol* c) {
 }
 
 void JNIWriter::write($PrintWriter* out, $Symbol$ClassSymbol* sym) {
-	$useLocalCurrentObjectStackCache();
 	lazyInit();
 	try {
 		$init($JNIWriter$EncoderType);
@@ -390,8 +371,7 @@ void JNIWriter::write($PrintWriter* out, $Symbol$ClassSymbol* sym) {
 		writeMethods(out, sym, cname);
 		cppGuardEnd(out);
 		guardEnd(out);
-	} catch ($JNIWriter$TypeSignature$SignatureException&) {
-		$var($JNIWriter$TypeSignature$SignatureException, e, $catch());
+	} catch ($JNIWriter$TypeSignature$SignatureException& e) {
 		$throwNew($IOException, static_cast<$Throwable*>(e));
 	}
 }
@@ -440,7 +420,7 @@ void JNIWriter::printStaticDefines($PrintWriter* out, $Pair* p) {
 	$var($Symbol$VarSymbol, f, $cast($Symbol$VarSymbol, p->snd));
 	$var($Object, value, $nc(f)->getConstantValue());
 	$var($String, valueStr, nullptr);
-		$init($JNIWriter$1);
+	$init($JNIWriter$1);
 	{
 		$var($Character, ch, nullptr)
 		float fv = 0;

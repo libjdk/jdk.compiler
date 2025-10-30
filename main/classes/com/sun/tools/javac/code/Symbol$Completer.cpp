@@ -2,14 +2,6 @@
 
 #include <com/sun/tools/javac/code/Symbol$Completer$1.h>
 #include <com/sun/tools/javac/code/Symbol.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef NULL_COMPLETER
@@ -63,7 +55,6 @@ $ClassInfo _Symbol$Completer_ClassInfo_ = {
 $Object* allocate$Symbol$Completer($Class* clazz) {
 	return $of($alloc(Symbol$Completer));
 }
-
 
 Symbol$Completer* Symbol$Completer::NULL_COMPLETER = nullptr;
 

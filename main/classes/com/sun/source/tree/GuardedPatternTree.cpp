@@ -1,13 +1,6 @@
 #include <com/sun/source/tree/GuardedPatternTree.h>
 
 #include <com/sun/source/tree/ExpressionTree.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/CompoundAttribute.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $ExpressionTree = ::com::sun::source::tree::ExpressionTree;
@@ -20,10 +13,10 @@ namespace com {
 	namespace sun {
 		namespace source {
 			namespace tree {
+
 $CompoundAttribute _GuardedPatternTree_Annotations_[] = {
 	{}
 };
-
 
 $MethodInfo _GuardedPatternTree_MethodInfo_[] = {
 	{"getExpression", "()Lcom/sun/source/tree/ExpressionTree;", nullptr, $PUBLIC | $ABSTRACT},

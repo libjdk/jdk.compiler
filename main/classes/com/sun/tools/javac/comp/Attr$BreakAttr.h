@@ -31,8 +31,10 @@ public:
 	static const int64_t serialVersionUID = (int64_t)0x9FE645588D4D9CFB;
 	::com::sun::tools::javac::comp::Env* env = nullptr;
 	Attr$BreakAttr(const Attr$BreakAttr& e);
-	Attr$BreakAttr wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline Attr$BreakAttr* operator ->() {
+		return (Attr$BreakAttr*)throwing$;
+	}
 };
 
 				} // comp

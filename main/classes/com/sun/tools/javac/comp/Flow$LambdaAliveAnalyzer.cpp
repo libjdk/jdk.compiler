@@ -10,15 +10,6 @@
 #include <com/sun/tools/javac/tree/JCTree$JCReturn.h>
 #include <com/sun/tools/javac/tree/JCTree$JCStatement.h>
 #include <com/sun/tools/javac/tree/JCTree.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef EXPRESSION
@@ -103,8 +94,8 @@ void Flow$LambdaAliveAnalyzer::visitLambda($JCTree$JCLambda* tree) {
 		$var($Throwable, var$0, nullptr);
 		try {
 			$Flow$AliveAnalyzer::visitLambda(tree);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			this->inLambda = false;
 		}

@@ -65,15 +65,6 @@
 #include <com/sun/tools/javac/util/Name.h>
 #include <com/sun/tools/javac/util/Names.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/HashMap.h>
 #include <java/util/Iterator.h>
 #include <java/util/List.h>
@@ -378,8 +369,8 @@ void Flow$FlowAnalyzer::visitClassDef($JCTree$JCClassDecl* tree) {
 				}
 			}
 			$set(this, thrown, thrownPrev);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} /*finally*/ {
 			$set(this, pendingExits, pendingExitsPrev);
 			$set(this, caught, caughtPrev);
@@ -431,8 +422,8 @@ void Flow$FlowAnalyzer::visitMethodDef($JCTree$JCMethodDecl* tree) {
 					$nc(this->pendingExits)->append(exit);
 				}
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$2) {
+			$assign(var$0, var$2);
 		} /*finally*/ {
 			$set(this, caught, caughtPrev);
 			$set(this->this$0, lint, lintPrev);
@@ -452,8 +443,8 @@ void Flow$FlowAnalyzer::visitVarDef($JCTree$JCVariableDecl* tree) {
 			$var($Throwable, var$0, nullptr);
 			try {
 				scan(static_cast<$JCTree*>(tree->init));
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$1) {
+				$assign(var$0, var$1);
 			} /*finally*/ {
 				$set(this->this$0, lint, lintPrev);
 			}
@@ -803,8 +794,8 @@ void Flow$FlowAnalyzer::visitNewClass($JCTree$JCNewClass* tree) {
 				}
 			}
 			scan(static_cast<$JCTree*>(tree->def));
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, caught, caughtPrev);
 		}
@@ -843,8 +834,8 @@ void Flow$FlowAnalyzer::visitLambda($JCTree$JCLambda* tree) {
 				}
 			}
 			errorUncaught();
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$2) {
+			$assign(var$0, var$2);
 		} /*finally*/ {
 			$set(this, pendingExits, prevPending);
 			$set(this, caught, prevCaught);
@@ -871,15 +862,15 @@ void Flow$FlowAnalyzer::analyzeTree($Env* env, $JCTree* tree, $TreeMaker* make) 
 			$set(this->this$0, make, make);
 			$set(this, pendingExits, $new($ListBuffer));
 			$set(this, preciseRethrowTypes, $new($HashMap));
-			$set(this, thrown, ($assignField(this, caught, nullptr)));
+			$set(this, thrown, ($set(this, caught, nullptr)));
 			$set(this, classDef, nullptr);
 			scan(tree);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, pendingExits, nullptr);
 			$set(this->this$0, make, nullptr);
-			$set(this, thrown, ($assignField(this, caught, nullptr)));
+			$set(this, thrown, ($set(this, caught, nullptr)));
 			$set(this, classDef, nullptr);
 		}
 		if (var$0 != nullptr) {

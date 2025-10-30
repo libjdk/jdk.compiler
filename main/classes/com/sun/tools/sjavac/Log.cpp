@@ -3,21 +3,10 @@
 #include <com/sun/tools/sjavac/Log$Level.h>
 #include <java/io/FilterOutputStream.h>
 #include <java/io/OutputStream.h>
-#include <java/io/PrintStream.h>
 #include <java/io/PrintWriter.h>
 #include <java/io/StringWriter.h>
 #include <java/io/Writer.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
 #include <java/lang/ThreadLocal.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Locale.h>
 #include <jcpp.h>
 
@@ -211,7 +200,6 @@ void Log::printLogMsg($Log$Level* msgLevel, $String* msg) {
 
 void clinit$Log($Class* class$) {
 	$useLocalCurrentObjectStackCache();
-	$init($System);
 	$var($Writer, var$0, static_cast<$Writer*>($new($PrintWriter, static_cast<$OutputStream*>($System::out))));
 	$assignStatic(Log::stdOutErr, $new(Log, var$0, $$new($PrintWriter, static_cast<$OutputStream*>($System::err))));
 	$assignStatic(Log::loggers, $new($ThreadLocal));

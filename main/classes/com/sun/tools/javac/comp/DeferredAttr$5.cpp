@@ -4,16 +4,7 @@
 #include <com/sun/tools/javac/code/Kinds.h>
 #include <com/sun/tools/javac/comp/DeferredAttr$AttrMode.h>
 #include <com/sun/tools/javac/comp/DeferredAttr.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/NoSuchFieldError.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef ABSENT_MTH
@@ -88,36 +79,30 @@ void clinit$DeferredAttr$5($Class* class$) {
 	{
 		try {
 			$nc(DeferredAttr$5::$SwitchMap$com$sun$tools$javac$code$Kinds$Kind)->set($Kinds$Kind::WRONG_MTH->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(DeferredAttr$5::$SwitchMap$com$sun$tools$javac$code$Kinds$Kind)->set($Kinds$Kind::WRONG_MTHS->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(DeferredAttr$5::$SwitchMap$com$sun$tools$javac$code$Kinds$Kind)->set($Kinds$Kind::ABSENT_MTH->ordinal(), 3);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(DeferredAttr$5::$SwitchMap$com$sun$tools$javac$code$Kinds$Kind)->set($Kinds$Kind::STATICERR->ordinal(), 4);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 	$assignStatic(DeferredAttr$5::$SwitchMap$com$sun$tools$javac$comp$DeferredAttr$AttrMode, $new($ints, $($DeferredAttr$AttrMode::values())->length));
 	{
 		try {
 			$nc(DeferredAttr$5::$SwitchMap$com$sun$tools$javac$comp$DeferredAttr$AttrMode)->set($DeferredAttr$AttrMode::SPECULATIVE->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(DeferredAttr$5::$SwitchMap$com$sun$tools$javac$comp$DeferredAttr$AttrMode)->set($DeferredAttr$AttrMode::CHECK->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 }

@@ -4,24 +4,12 @@
 #include <com/sun/tools/sjavac/Log.h>
 #include <com/sun/tools/sjavac/server/Sjavac.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
 #include <java/lang/InterruptedException.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/Thread.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/List.h>
 #include <java/util/Objects.h>
 #include <java/util/concurrent/Callable.h>
@@ -146,8 +134,7 @@ $Main$Result* PooledSjavac::compile($StringArray* args) {
 	$var($Log, log, $Log::get());
 	try {
 		return $cast($Main$Result, $nc($($nc(this->pool)->submit(static_cast<$Callable*>($$new(PooledSjavac$$Lambda$lambda$compile$0, this, log, args)))))->get());
-	} catch ($Exception&) {
-		$var($Exception, e, $catch());
+	} catch ($Exception& e) {
 		e->printStackTrace();
 		$throwNew($RuntimeException, "Error during compile"_s, e);
 	}
@@ -155,7 +142,6 @@ $Main$Result* PooledSjavac::compile($StringArray* args) {
 }
 
 void PooledSjavac::shutdown() {
-	$useLocalCurrentObjectStackCache();
 	$Log::debug("Shutting down PooledSjavac"_s);
 	$nc(this->pool)->shutdown();
 	try {
@@ -166,8 +152,7 @@ void PooledSjavac::shutdown() {
 				$Log::error("ThreadPool did not terminate"_s);
 			}
 		}
-	} catch ($InterruptedException&) {
-		$var($InterruptedException, ie, $catch());
+	} catch ($InterruptedException& ie) {
 		$nc(this->pool)->shutdownNow();
 		$($Thread::currentThread())->interrupt();
 	}

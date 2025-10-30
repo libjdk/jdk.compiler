@@ -1,16 +1,7 @@
 #include <com/sun/tools/javac/main/JavaCompiler$ImplicitSourcePolicy.h>
 
 #include <com/sun/tools/javac/main/JavaCompiler.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef CLASS
@@ -73,11 +64,8 @@ $Object* allocate$JavaCompiler$ImplicitSourcePolicy($Class* clazz) {
 	return $of($alloc(JavaCompiler$ImplicitSourcePolicy));
 }
 
-
 JavaCompiler$ImplicitSourcePolicy* JavaCompiler$ImplicitSourcePolicy::NONE = nullptr;
-
 JavaCompiler$ImplicitSourcePolicy* JavaCompiler$ImplicitSourcePolicy::CLASS = nullptr;
-
 JavaCompiler$ImplicitSourcePolicy* JavaCompiler$ImplicitSourcePolicy::UNSET = nullptr;
 $JavaCompiler$ImplicitSourcePolicyArray* JavaCompiler$ImplicitSourcePolicy::$VALUES = nullptr;
 

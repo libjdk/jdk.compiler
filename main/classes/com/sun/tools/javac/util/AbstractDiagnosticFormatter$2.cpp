@@ -5,16 +5,7 @@
 #include <com/sun/tools/javac/util/AbstractDiagnosticFormatter.h>
 #include <com/sun/tools/javac/util/JCDiagnostic$DiagnosticType.h>
 #include <com/sun/tools/javac/util/JCDiagnostic.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/NoSuchFieldError.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef COLUMN
@@ -100,74 +91,61 @@ void clinit$AbstractDiagnosticFormatter$2($Class* class$) {
 	{
 		try {
 			$nc(AbstractDiagnosticFormatter$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->set($JCTree$Tag::PARENS->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(AbstractDiagnosticFormatter$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->set($JCTree$Tag::LAMBDA->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(AbstractDiagnosticFormatter$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->set($JCTree$Tag::REFERENCE->ordinal(), 3);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(AbstractDiagnosticFormatter$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->set($JCTree$Tag::CONDEXPR->ordinal(), 4);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 	$assignStatic(AbstractDiagnosticFormatter$2::$SwitchMap$com$sun$tools$javac$api$DiagnosticFormatter$PositionKind, $new($ints, $($DiagnosticFormatter$PositionKind::values())->length));
 	{
 		try {
 			$nc(AbstractDiagnosticFormatter$2::$SwitchMap$com$sun$tools$javac$api$DiagnosticFormatter$PositionKind)->set($DiagnosticFormatter$PositionKind::START->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(AbstractDiagnosticFormatter$2::$SwitchMap$com$sun$tools$javac$api$DiagnosticFormatter$PositionKind)->set($DiagnosticFormatter$PositionKind::END->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(AbstractDiagnosticFormatter$2::$SwitchMap$com$sun$tools$javac$api$DiagnosticFormatter$PositionKind)->set($DiagnosticFormatter$PositionKind::LINE->ordinal(), 3);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(AbstractDiagnosticFormatter$2::$SwitchMap$com$sun$tools$javac$api$DiagnosticFormatter$PositionKind)->set($DiagnosticFormatter$PositionKind::COLUMN->ordinal(), 4);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(AbstractDiagnosticFormatter$2::$SwitchMap$com$sun$tools$javac$api$DiagnosticFormatter$PositionKind)->set($DiagnosticFormatter$PositionKind::OFFSET->ordinal(), 5);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 	$assignStatic(AbstractDiagnosticFormatter$2::$SwitchMap$com$sun$tools$javac$util$JCDiagnostic$DiagnosticType, $new($ints, $($JCDiagnostic$DiagnosticType::values())->length));
 	{
 		try {
 			$nc(AbstractDiagnosticFormatter$2::$SwitchMap$com$sun$tools$javac$util$JCDiagnostic$DiagnosticType)->set($JCDiagnostic$DiagnosticType::FRAGMENT->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(AbstractDiagnosticFormatter$2::$SwitchMap$com$sun$tools$javac$util$JCDiagnostic$DiagnosticType)->set($JCDiagnostic$DiagnosticType::NOTE->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(AbstractDiagnosticFormatter$2::$SwitchMap$com$sun$tools$javac$util$JCDiagnostic$DiagnosticType)->set($JCDiagnostic$DiagnosticType::WARNING->ordinal(), 3);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(AbstractDiagnosticFormatter$2::$SwitchMap$com$sun$tools$javac$util$JCDiagnostic$DiagnosticType)->set($JCDiagnostic$DiagnosticType::ERROR->ordinal(), 4);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 }

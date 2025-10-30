@@ -4,14 +4,6 @@
 #include <com/sun/tools/javac/comp/Resolve$InapplicableMethodException.h>
 #include <com/sun/tools/javac/util/JCDiagnostic.h>
 #include <com/sun/tools/javac/util/List.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $Infer = ::com::sun::tools::javac::comp::Infer;
@@ -79,16 +71,10 @@ $JCDiagnostic* Infer$InferenceException::getDiagnostic() {
 Infer$InferenceException::Infer$InferenceException() {
 }
 
-Infer$InferenceException::Infer$InferenceException(const Infer$InferenceException& e) {
+Infer$InferenceException::Infer$InferenceException(const Infer$InferenceException& e) : $Resolve$InapplicableMethodException(e) {
 }
 
-Infer$InferenceException Infer$InferenceException::wrapper$() {
-	$pendingException(this);
-	return *this;
-}
-
-void Infer$InferenceException::throwWrapper$() {
-	$pendingException(this);
+void Infer$InferenceException::throw$() {
 	throw *this;
 }
 

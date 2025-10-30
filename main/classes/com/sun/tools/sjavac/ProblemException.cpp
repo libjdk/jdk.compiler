@@ -1,13 +1,5 @@
 #include <com/sun/tools/sjavac/ProblemException.h>
 
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $ClassInfo = ::java::lang::ClassInfo;
@@ -50,16 +42,10 @@ void ProblemException::init$($String* s) {
 ProblemException::ProblemException() {
 }
 
-ProblemException::ProblemException(const ProblemException& e) {
+ProblemException::ProblemException(const ProblemException& e) : $Exception(e) {
 }
 
-ProblemException ProblemException::wrapper$() {
-	$pendingException(this);
-	return *this;
-}
-
-void ProblemException::throwWrapper$() {
-	$pendingException(this);
+void ProblemException::throw$() {
 	throw *this;
 }
 

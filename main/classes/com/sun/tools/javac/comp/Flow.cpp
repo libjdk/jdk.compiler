@@ -32,15 +32,6 @@
 #include <com/sun/tools/javac/util/Log$DiscardDiagnosticHandler.h>
 #include <com/sun/tools/javac/util/Log.h>
 #include <com/sun/tools/javac/util/Names.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef EFFECTIVELY_FINAL_IN_INNER_CLASSES
@@ -180,8 +171,8 @@ void Flow::analyzeLambda($Env* env, $JCTree$JCLambda* that, $TreeMaker* make, bo
 		$var($Throwable, var$0, nullptr);
 		try {
 			$$new($Flow$LambdaAliveAnalyzer, this)->analyzeTree(env, that, make);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			if (!speculative) {
 				$nc(this->log)->popDiagnosticHandler(diagHandler);
@@ -207,8 +198,8 @@ $List* Flow::analyzeLambdaThrownTypes($Env* env, $JCTree$JCLambda* that, $TreeMa
 			$assign(var$2, flowAnalyzer->inferredThrownTypes);
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$nc(this->log)->popDiagnosticHandler(diagHandler);
 		}
@@ -235,8 +226,8 @@ bool Flow::aliveAfter($Env* env, $JCTree* that, $TreeMaker* make) {
 			var$2 = analyzer->isAlive();
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$nc(this->log)->popDiagnosticHandler(diagHandler);
 		}
@@ -263,8 +254,8 @@ bool Flow::breaksOutOf($Env* env, $JCTree* loop, $JCTree* body, $TreeMaker* make
 			var$2 = analyzer->breaksOut();
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$nc(this->log)->popDiagnosticHandler(diagHandler);
 		}

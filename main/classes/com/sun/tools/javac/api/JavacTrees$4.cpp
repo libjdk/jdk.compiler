@@ -4,16 +4,7 @@
 #include <com/sun/tools/javac/parser/Tokens$Comment$CommentStyle.h>
 #include <java/io/IOException.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
 #include <java/lang/UnsupportedOperationException.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <javax/tools/FileObject.h>
 #include <jcpp.h>
 
@@ -94,8 +85,7 @@ $String* JavacTrees$4::getText() {
 	try {
 		$var($CharSequence, rawDoc, $nc(this->val$fileObject)->getCharContent(true));
 		return $nc(rawDoc)->toString();
-	} catch ($IOException&) {
-		$catch();
+	} catch ($IOException& ignore) {
 	}
 	return ""_s;
 }

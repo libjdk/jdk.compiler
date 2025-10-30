@@ -127,28 +127,14 @@
 #include <com/sun/tools/javac/util/Pair.h>
 #include <com/sun/tools/javac/util/Position$LineMap.h>
 #include <com/sun/tools/javac/util/Position.h>
-#include <java/io/PrintStream.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/Long.h>
-#include <java/lang/MethodInfo.h>
 #include <java/lang/Number.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractCollection.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/Collection.h>
@@ -808,7 +794,7 @@ $List* Gen::normalizeDefs($List* defs, $Symbol$ClassSymbol* c) {
 		$var($List, l, defs);
 		for (; $nc(l)->nonEmpty(); $assign(l, $nc(l)->tail)) {
 			$var($JCTree, def, $cast($JCTree, l->head));
-				$init($Gen$4);
+			$init($Gen$4);
 			{
 				$var($JCTree$JCBlock, block, nullptr)
 				$var($JCTree$JCVariableDecl, vdef, nullptr)
@@ -985,12 +971,11 @@ void Gen::genDef($JCTree* tree, $Env* env) {
 			try {
 				$set(this, env, env);
 				$nc(tree)->accept(this);
-			} catch ($Symbol$CompletionFailure&) {
-				$var($Symbol$CompletionFailure, ex, $catch());
+			} catch ($Symbol$CompletionFailure& ex) {
 				$nc(this->chk)->completionError($($nc(tree)->pos()), ex);
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, env, prevEnv);
 		}
@@ -1116,8 +1101,7 @@ $Items$CondItem* Gen::genCond($JCTree* _tree, bool markBranches) {
 					$set(this, switchExpressionFalseChain, nullptr);
 					try {
 						doHandleSwitchExpression($cast($JCTree$JCSwitchExpression, inner_tree));
-					} catch ($Symbol$CompletionFailure&) {
-						$var($Symbol$CompletionFailure, ex, $catch());
+					} catch ($Symbol$CompletionFailure& ex) {
 						$nc(this->chk)->completionError($($nc(_tree)->pos()), ex);
 						$nc($nc(this->code)->state)->stacksize = 1;
 					}
@@ -1128,8 +1112,8 @@ $Items$CondItem* Gen::genCond($JCTree* _tree, bool markBranches) {
 					$assign(var$4, result);
 					return$3 = true;
 					goto $finally;
-				} catch ($Throwable&) {
-					$assign(var$2, $catch());
+				} catch ($Throwable& var$5) {
+					$assign(var$2, var$5);
 				} $finally: {
 					this->inCondSwitchExpression = prevInCondSwitchExpression;
 					$set(this, switchExpressionTrueChain, prevSwitchExpressionTrueChain);
@@ -1149,16 +1133,16 @@ $Items$CondItem* Gen::genCond($JCTree* _tree, bool markBranches) {
 				int32_t limit = $nc(this->code)->nextreg;
 				int32_t prevLetExprStart = $nc(this->code)->setLetExprStackPos($nc($nc(this->code)->state)->stacksize);
 				{
-					$var($Throwable, var$5, nullptr);
+					$var($Throwable, var$6, nullptr);
 					try {
 						genStats(tree->defs, this->env);
-					} catch ($Throwable&) {
-						$assign(var$5, $catch());
+					} catch ($Throwable& var$7) {
+						$assign(var$6, var$7);
 					} /*finally*/ {
 						$nc(this->code)->setLetExprStackPos(prevLetExprStart);
 					}
-					if (var$5 != nullptr) {
-						$throw(var$5);
+					if (var$6 != nullptr) {
+						$throw(var$6);
 					}
 				}
 				$var($Items$CondItem, result, genCond(static_cast<$JCTree*>(tree->expr), markBranches));
@@ -1213,16 +1197,15 @@ $Items$Item* Gen::genExpr($JCTree* tree, $Type* pt) {
 				$assign(var$2, $nc(this->result)->coerce(pt));
 				return$1 = true;
 				goto $finally;
-			} catch ($Symbol$CompletionFailure&) {
-				$var($Symbol$CompletionFailure, ex, $catch());
+			} catch ($Symbol$CompletionFailure& ex) {
 				$nc(this->chk)->completionError($($nc(tree)->pos()), ex);
 				$nc($nc(this->code)->state)->stacksize = 1;
 				$assign(var$2, $nc(this->items)->makeStackItem(pt));
 				return$1 = true;
 				goto $finally;
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$4) {
+			$assign(var$0, var$4);
 		} $finally: {
 			$set(this, pt, prevPt);
 		}
@@ -1296,8 +1279,7 @@ void Gen::genMethod($JCTree$JCMethodDecl* tree, $Env* env, bool fatcode) {
 		int32_t startpcCrt = initCode(tree, env, fatcode);
 		try {
 			genStat(tree->body, env);
-		} catch ($Gen$CodeSizeOverflow&) {
-			$var($Gen$CodeSizeOverflow, e, $catch());
+		} catch ($Gen$CodeSizeOverflow& e) {
 			startpcCrt = initCode(tree, env, fatcode);
 			genStat(tree->body, env);
 		}
@@ -1341,10 +1323,9 @@ void Gen::genMethod($JCTree$JCMethodDecl* tree, $Env* env, bool fatcode) {
 int32_t Gen::initCode($JCTree$JCMethodDecl* tree, $Env* env, bool fatcode) {
 	$useLocalCurrentObjectStackCache();
 	$var($Symbol$MethodSymbol, meth, $nc(tree)->sym);
-	$set($nc(meth), code, ($assignField(this, code, $new($Code, meth, fatcode, this->lineDebugInfo ? $nc(this->toplevel)->lineMap : ($Position$LineMap*)nullptr, this->varDebugInfo, this->stackMap, this->debugCode, this->genCrt ? $$new($CRTable, tree, $nc($nc(env)->toplevel)->endPositions) : ($CRTable*)nullptr, this->syms, this->types, this->poolWriter))));
+	$set($nc(meth), code, ($set(this, code, $new($Code, meth, fatcode, this->lineDebugInfo ? $nc(this->toplevel)->lineMap : ($Position$LineMap*)nullptr, this->varDebugInfo, this->stackMap, this->debugCode, this->genCrt ? $$new($CRTable, tree, $nc($nc(env)->toplevel)->endPositions) : ($CRTable*)nullptr, this->syms, this->types, this->poolWriter))));
 	$set(this, items, $new($Items, this->poolWriter, this->code, this->syms, this->types));
 	if ($nc(this->code)->debugCode) {
-		$init($System);
 		$nc($System::err)->println($$str({meth, " for body "_s, tree}));
 	}
 	if (((int64_t)($nc(tree->mods)->flags & (uint64_t)(int64_t)8)) == 0) {
@@ -1490,8 +1471,8 @@ void Gen::visitSwitchExpression($JCTree$JCSwitchExpression* tree) {
 		try {
 			this->inCondSwitchExpression = false;
 			doHandleSwitchExpression(tree);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			this->inCondSwitchExpression = prevInCondSwitchExpression;
 		}
@@ -1532,8 +1513,8 @@ void Gen::doHandleSwitchExpression($JCTree$JCSwitchExpression* tree) {
 				$var($Throwable, var$5, nullptr);
 				try {
 					handleSwitch(tree, $nc(tree)->selector, tree->cases, tree->patternSwitch);
-				} catch ($Throwable&) {
-					$assign(var$5, $catch());
+				} catch ($Throwable& var$6) {
+					$assign(var$5, var$6);
 				} /*finally*/ {
 					$nc(this->code)->setLetExprStackPos(prevLetExprStart);
 				}
@@ -1541,8 +1522,8 @@ void Gen::doHandleSwitchExpression($JCTree$JCSwitchExpression* tree) {
 					$throw(var$5);
 				}
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$7) {
+			$assign(var$0, var$7);
 		} /*finally*/ {
 			$set(this, stackBeforeSwitchExpression, prevStackBeforeSwitchExpression);
 			$set(this, switchResult, prevSwitchResult);
@@ -2655,8 +2636,8 @@ void Gen::visitLetExpr($JCTree$LetExpr* tree) {
 		$var($Throwable, var$0, nullptr);
 		try {
 			genStats($nc(tree)->defs, this->env);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc(this->code)->setLetExprStackPos(prevLetExprStart);
 		}
@@ -2726,8 +2707,8 @@ bool Gen::genClass($Env* env, $JCTree$JCClassDecl* cdef) {
 			var$2 = this->nerrs == 0;
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$set(this, attrEnv, nullptr);
 			$set(this, env, nullptr);

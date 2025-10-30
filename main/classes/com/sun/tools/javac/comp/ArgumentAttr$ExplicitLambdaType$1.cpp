@@ -4,15 +4,6 @@
 #include <com/sun/tools/javac/comp/DeferredAttr$LambdaReturnScanner.h>
 #include <com/sun/tools/javac/tree/JCTree$JCReturn.h>
 #include <com/sun/tools/javac/util/ListBuffer.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $ArgumentAttr$ExplicitLambdaType = ::com::sun::tools::javac::comp::ArgumentAttr$ExplicitLambdaType;

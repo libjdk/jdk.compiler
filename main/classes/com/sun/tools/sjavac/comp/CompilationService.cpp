@@ -23,20 +23,10 @@
 #include <java/io/PrintWriter.h>
 #include <java/io/StringWriter.h>
 #include <java/io/Writer.h>
-#include <java/lang/Array.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Error.h>
-#include <java/lang/Exception.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
 #include <java/lang/Runtime.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/URI.h>
 #include <java/nio/charset/Charset.h>
 #include <java/util/AbstractCollection.h>
@@ -218,8 +208,7 @@ $CompilationSubResult* CompilationService::compile($String* protocolId, $String*
 						} else {
 							result = $Main$Result::ERROR;
 						}
-					} catch ($Exception&) {
-						$var($Exception, e, $catch());
+					} catch ($Exception& e) {
 						$Log::error($($Util::getStackTrace(e)));
 						stderrLog->append($(static_cast<$CharSequence*>($Util::getStackTrace(e))));
 						result = $Main$Result::ERROR;
@@ -237,20 +226,18 @@ $CompilationSubResult* CompilationService::compile($String* protocolId, $String*
 					$assign(var$2, compilationResult);
 					return$1 = true;
 					goto $finally;
-				} catch ($Throwable&) {
-					$var($Throwable, t$, $catch());
+				} catch ($Throwable& t$) {
 					if (fm != nullptr) {
 						try {
 							fm->close();
-						} catch ($Throwable&) {
-							$var($Throwable, x2, $catch());
+						} catch ($Throwable& x2) {
 							t$->addSuppressed(x2);
 						}
 					}
 					$throw(t$);
 				}
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$5) {
+				$assign(var$0, var$5);
 			} $finally: {
 				if (fm != nullptr) {
 					fm->close();
@@ -263,8 +250,7 @@ $CompilationSubResult* CompilationService::compile($String* protocolId, $String*
 				return var$2;
 			}
 		}
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Error, static_cast<$Throwable*>(e));
 	}
 	$shouldNotReachHere();

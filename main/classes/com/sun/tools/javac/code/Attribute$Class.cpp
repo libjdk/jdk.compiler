@@ -9,14 +9,6 @@
 #include <com/sun/tools/javac/code/Type.h>
 #include <com/sun/tools/javac/code/Types.h>
 #include <com/sun/tools/javac/util/List.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <javax/lang/model/element/AnnotationValueVisitor.h>
 #include <javax/lang/model/type/TypeMirror.h>
 #include <jcpp.h>

@@ -4,16 +4,7 @@
 #include <com/sun/tools/javac/main/JavaCompiler.h>
 #include <com/sun/tools/javac/tree/JCTree$Tag.h>
 #include <com/sun/tools/javac/tree/JCTree.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/NoSuchFieldError.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef BY_FILE
@@ -88,36 +79,30 @@ void clinit$JavaCompiler$2($Class* class$) {
 	{
 		try {
 			$nc(JavaCompiler$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->set($JCTree$Tag::CLASSDEF->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavaCompiler$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->set($JCTree$Tag::METHODDEF->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavaCompiler$2::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->set($JCTree$Tag::VARDEF->ordinal(), 3);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 	$assignStatic(JavaCompiler$2::$SwitchMap$com$sun$tools$javac$main$JavaCompiler$CompilePolicy, $new($ints, $($JavaCompiler$CompilePolicy::values())->length));
 	{
 		try {
 			$nc(JavaCompiler$2::$SwitchMap$com$sun$tools$javac$main$JavaCompiler$CompilePolicy)->set($JavaCompiler$CompilePolicy::SIMPLE->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavaCompiler$2::$SwitchMap$com$sun$tools$javac$main$JavaCompiler$CompilePolicy)->set($JavaCompiler$CompilePolicy::BY_FILE->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavaCompiler$2::$SwitchMap$com$sun$tools$javac$main$JavaCompiler$CompilePolicy)->set($JavaCompiler$CompilePolicy::BY_TODO->ordinal(), 3);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 }

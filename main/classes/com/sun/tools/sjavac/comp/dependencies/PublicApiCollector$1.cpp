@@ -3,16 +3,7 @@
 #include <com/sun/source/util/TaskEvent$Kind.h>
 #include <com/sun/source/util/TaskEvent.h>
 #include <com/sun/tools/sjavac/comp/dependencies/PublicApiCollector.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/NoSuchFieldError.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef ANALYZE
@@ -79,13 +70,11 @@ void clinit$PublicApiCollector$1($Class* class$) {
 	{
 		try {
 			$nc(PublicApiCollector$1::$SwitchMap$com$sun$source$util$TaskEvent$Kind)->set($TaskEvent$Kind::ANALYZE->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(PublicApiCollector$1::$SwitchMap$com$sun$source$util$TaskEvent$Kind)->set($TaskEvent$Kind::COMPILATION->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 }

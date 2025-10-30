@@ -33,8 +33,10 @@ public:
 	static const int64_t serialVersionUID = 0;
 	::com::sun::tools::javac::util::JCDiagnostic* diagnostic = nullptr;
 	Types$FunctionDescriptorLookupError(const Types$FunctionDescriptorLookupError& e);
-	Types$FunctionDescriptorLookupError wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline Types$FunctionDescriptorLookupError* operator ->() {
+		return (Types$FunctionDescriptorLookupError*)throwing$;
+	}
 };
 
 				} // code

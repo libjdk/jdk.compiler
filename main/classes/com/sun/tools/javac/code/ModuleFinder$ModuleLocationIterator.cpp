@@ -2,18 +2,7 @@
 
 #include <com/sun/tools/javac/code/ModuleFinder.h>
 #include <java/io/IOException.h>
-#include <java/io/PrintStream.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Arrays.h>
 #include <java/util/Iterator.h>
 #include <java/util/List.h>
@@ -99,7 +88,7 @@ void ModuleFinder$ModuleLocationIterator::init$($ModuleFinder* this$0) {
 	$useLocalCurrentObjectStackCache();
 	$set(this, this$0, this$0);
 	$set(this, next$, nullptr);
-		$init($StandardLocation);
+	$init($StandardLocation);
 	$set(this, outerIter, $nc($($Arrays::asList($$new($StandardLocationArray, {
 		$StandardLocation::MODULE_SOURCE_PATH,
 		$StandardLocation::UPGRADE_MODULE_PATH,
@@ -117,9 +106,7 @@ bool ModuleFinder$ModuleLocationIterator::hasNext() {
 				$set(this, outer, $cast($StandardLocation, $nc(this->outerIter)->next()));
 				try {
 					$set(this, innerIter, $nc($($nc(this->this$0->fileManager)->listLocationsForModules(this->outer)))->iterator());
-				} catch ($IOException&) {
-					$var($IOException, e, $catch());
-					$init($System);
+				} catch ($IOException& e) {
 					$nc($System::err)->println($$str({"error listing module locations for "_s, this->outer, ": "_s, e}));
 				}
 			} else {

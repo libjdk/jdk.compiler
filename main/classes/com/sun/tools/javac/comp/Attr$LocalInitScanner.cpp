@@ -11,15 +11,6 @@
 #include <com/sun/tools/javac/tree/JCTree$JCTypeCast.h>
 #include <com/sun/tools/javac/tree/TreeScanner.h>
 #include <com/sun/tools/javac/util/JCDiagnostic$Fragment.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $Attr = ::com::sun::tools::javac::comp::Attr;
@@ -113,8 +104,8 @@ void Attr$LocalInitScanner::visitTypeCast($JCTree$JCTypeCast* tree) {
 		try {
 			this->needsTarget = false;
 			$TreeScanner::visitTypeCast(tree);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			this->needsTarget = prevNeedsTarget;
 		}
@@ -138,8 +129,8 @@ void Attr$LocalInitScanner::visitNewClass($JCTree$JCNewClass* tree) {
 		try {
 			this->needsTarget = false;
 			$TreeScanner::visitNewClass(tree);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			this->needsTarget = prevNeedsTarget;
 		}
@@ -156,8 +147,8 @@ void Attr$LocalInitScanner::visitApply($JCTree$JCMethodInvocation* tree) {
 		try {
 			this->needsTarget = false;
 			$TreeScanner::visitApply(tree);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			this->needsTarget = prevNeedsTarget;
 		}

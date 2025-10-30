@@ -16,16 +16,7 @@
 #include <com/sun/tools/javac/util/Log.h>
 #include <com/sun/tools/javac/util/Name.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Math.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Queue.h>
 #include <jcpp.h>
 
@@ -156,8 +147,8 @@ $ReferenceParser$Reference* ReferenceParser::parse($String* sig) {
 			if (!$nc($(deferredDiagnosticHandler->getDiagnostics()))->isEmpty()) {
 				$throwNew($ReferenceParser$ParseException, "dc.ref.syntax.error"_s);
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc($nc(this->fac)->log)->popDiagnosticHandler(deferredDiagnosticHandler);
 		}

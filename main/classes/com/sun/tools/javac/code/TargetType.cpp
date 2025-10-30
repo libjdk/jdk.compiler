@@ -1,16 +1,7 @@
 #include <com/sun/tools/javac/code/TargetType.h>
 
 #include <com/sun/tools/javac/util/Assert.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef CAST
@@ -111,51 +102,28 @@ $Object* allocate$TargetType($Class* clazz) {
 	return $of($alloc(TargetType));
 }
 
-
 TargetType* TargetType::CLASS_TYPE_PARAMETER = nullptr;
-
 TargetType* TargetType::METHOD_TYPE_PARAMETER = nullptr;
-
 TargetType* TargetType::CLASS_EXTENDS = nullptr;
-
 TargetType* TargetType::CLASS_TYPE_PARAMETER_BOUND = nullptr;
-
 TargetType* TargetType::METHOD_TYPE_PARAMETER_BOUND = nullptr;
-
 TargetType* TargetType::FIELD = nullptr;
-
 TargetType* TargetType::METHOD_RETURN = nullptr;
-
 TargetType* TargetType::METHOD_RECEIVER = nullptr;
-
 TargetType* TargetType::METHOD_FORMAL_PARAMETER = nullptr;
-
 TargetType* TargetType::THROWS = nullptr;
-
 TargetType* TargetType::LOCAL_VARIABLE = nullptr;
-
 TargetType* TargetType::RESOURCE_VARIABLE = nullptr;
-
 TargetType* TargetType::EXCEPTION_PARAMETER = nullptr;
-
 TargetType* TargetType::INSTANCEOF = nullptr;
-
 TargetType* TargetType::NEW = nullptr;
-
 TargetType* TargetType::CONSTRUCTOR_REFERENCE = nullptr;
-
 TargetType* TargetType::METHOD_REFERENCE = nullptr;
-
 TargetType* TargetType::CAST = nullptr;
-
 TargetType* TargetType::CONSTRUCTOR_INVOCATION_TYPE_ARGUMENT = nullptr;
-
 TargetType* TargetType::METHOD_INVOCATION_TYPE_ARGUMENT = nullptr;
-
 TargetType* TargetType::CONSTRUCTOR_REFERENCE_TYPE_ARGUMENT = nullptr;
-
 TargetType* TargetType::METHOD_REFERENCE_TYPE_ARGUMENT = nullptr;
-
 TargetType* TargetType::UNKNOWN = nullptr;
 $TargetTypeArray* TargetType::$VALUES = nullptr;
 $TargetTypeArray* TargetType::targets = nullptr;

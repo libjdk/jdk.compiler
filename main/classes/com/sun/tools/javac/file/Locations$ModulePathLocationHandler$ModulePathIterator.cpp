@@ -18,19 +18,7 @@
 #include <com/sun/tools/javac/util/Pair.h>
 #include <java/io/IOException.h>
 #include <java/io/InputStream.h>
-#include <java/lang/Array.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/file/DirectoryIteratorException.h>
 #include <java/nio/file/DirectoryStream.h>
 #include <java/nio/file/FileSystem.h>
@@ -227,20 +215,18 @@ $Set* Locations$ModulePathLocationHandler$ModulePathIterator::scanDirectory($Pat
 							}
 						}
 					}
-				} catch ($Throwable&) {
-					$var($Throwable, t$, $catch());
+				} catch ($Throwable& t$) {
 					if (stream != nullptr) {
 						try {
 							stream->close();
-						} catch ($Throwable&) {
-							$var($Throwable, x2, $catch());
+						} catch ($Throwable& x2) {
 							t$->addSuppressed(x2);
 						}
 					}
 					$throw(t$);
 				}
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$1) {
+				$assign(var$0, var$1);
 			} /*finally*/ {
 				if (stream != nullptr) {
 					stream->close();
@@ -250,12 +236,10 @@ $Set* Locations$ModulePathLocationHandler$ModulePathIterator::scanDirectory($Pat
 				$throw(var$0);
 			}
 		}
-	} catch ($DirectoryIteratorException&) {
-		$var($Exception, ignore, $catch());
+	} catch ($DirectoryIteratorException& ignore) {
 		$nc($nc(this->this$1->this$0)->log)->error($($CompilerProperties$Errors::LocnCantReadDirectory(path)));
 		return $Collections::emptySet();
-	} catch ($IOException&) {
-		$var($Exception, ignore, $catch());
+	} catch ($IOException& ignore) {
 		$nc($nc(this->this$1->this$0)->log)->error($($CompilerProperties$Errors::LocnCantReadDirectory(path)));
 		return $Collections::emptySet();
 	}
@@ -265,12 +249,10 @@ $Set* Locations$ModulePathLocationHandler$ModulePathIterator::scanDirectory($Pat
 			$var($String, name, $str({$($nc(this->this$1->location)->getName()), "["_s, $$str(this->pathIndex), ":"_s, moduleName, "]"_s}));
 			$var($Locations$ModuleLocationHandler, l, $new($Locations$ModuleLocationHandler, this->this$1->this$0, this->this$1, name, moduleName, $($Collections::singletonList(path)), false));
 			return $Collections::singleton(l);
-		} catch ($ModuleNameReader$BadClassFile&) {
-			$var($ModuleNameReader$BadClassFile, e, $catch());
+		} catch ($ModuleNameReader$BadClassFile& e) {
 			$nc($nc(this->this$1->this$0)->log)->error($($CompilerProperties$Errors::LocnBadModuleInfo(path)));
 			return $Collections::emptySet();
-		} catch ($IOException&) {
-			$var($IOException, e, $catch());
+		} catch ($IOException& e) {
 			$nc($nc(this->this$1->this$0)->log)->error($($CompilerProperties$Errors::LocnCantReadFile(path)));
 			return $Collections::emptySet();
 		}
@@ -371,20 +353,18 @@ $Pair* Locations$ModulePathLocationHandler$ModulePathIterator::inferModuleName($
 													}
 												}
 											}
-										} catch ($Throwable&) {
-											$var($Throwable, t$, $catch());
+										} catch ($Throwable& t$) {
 											if (in != nullptr) {
 												try {
 													in->close();
-												} catch ($Throwable&) {
-													$var($Throwable, x2, $catch());
+												} catch ($Throwable& x2) {
 													t$->addSuppressed(x2);
 												}
 											}
 											$throw(t$);
 										}
-									} catch ($Throwable&) {
-										$assign(var$5, $catch());
+									} catch ($Throwable& var$8) {
+										$assign(var$5, var$8);
 									} $finally1: {
 										if (in != nullptr) {
 											in->close();
@@ -401,20 +381,18 @@ $Pair* Locations$ModulePathLocationHandler$ModulePathIterator::inferModuleName($
 								}
 							}
 						}
-					} catch ($Throwable&) {
-						$var($Throwable, t$, $catch());
+					} catch ($Throwable& t$) {
 						if (fs != nullptr) {
 							try {
 								fs->close();
-							} catch ($Throwable&) {
-								$var($Throwable, x2, $catch());
+							} catch ($Throwable& x2) {
 								t$->addSuppressed(x2);
 							}
 						}
 						$throw(t$);
 					}
-				} catch ($Throwable&) {
-					$assign(var$2, $catch());
+				} catch ($Throwable& var$9) {
+					$assign(var$2, var$9);
 				} $finally: {
 					if (fs != nullptr) {
 						fs->close();
@@ -427,12 +405,10 @@ $Pair* Locations$ModulePathLocationHandler$ModulePathIterator::inferModuleName($
 					return var$4;
 				}
 			}
-		} catch ($ModuleNameReader$BadClassFile&) {
-			$var($ModuleNameReader$BadClassFile, e, $catch());
+		} catch ($ModuleNameReader$BadClassFile& e) {
 			$nc($nc(this->this$1->this$0)->log)->error($($CompilerProperties$Errors::LocnBadModuleInfo(p)));
 			return nullptr;
-		} catch ($IOException&) {
-			$var($IOException, e, $catch());
+		} catch ($IOException& e) {
 			$nc($nc(this->this$1->this$0)->log)->error($($CompilerProperties$Errors::LocnCantReadFile(p)));
 			return nullptr;
 		}
@@ -462,9 +438,9 @@ $Pair* Locations$ModulePathLocationHandler$ModulePathIterator::inferModuleName($
 				}
 				$assign(fs, $nc(jarFSProvider)->newFileSystem(p, $($Collections::emptyMap())));
 				{
-					$var($Throwable, var$8, nullptr);
-					$var($Pair, var$10, nullptr);
-					bool return$9 = false;
+					$var($Throwable, var$10, nullptr);
+					$var($Pair, var$12, nullptr);
+					bool return$11 = false;
 					try {
 						$var($Path, moduleInfoClass, $nc(fs)->getPath("classes/module-info.class"_s, $$new($StringArray, 0)));
 						$var($String, moduleName, readModuleName(moduleInfoClass));
@@ -472,29 +448,27 @@ $Pair* Locations$ModulePathLocationHandler$ModulePathIterator::inferModuleName($
 						$nc($nc(this->this$1->this$0)->fileSystems)->put(p, fs);
 						$nc($nc(this->this$1->this$0)->closeables)->add(fs);
 						$assign(fs, nullptr);
-						$assign(var$10, $new($Pair, moduleName, modulePath));
-						return$9 = true;
+						$assign(var$12, $new($Pair, moduleName, modulePath));
+						return$11 = true;
 						goto $finally2;
-					} catch ($Throwable&) {
-						$assign(var$8, $catch());
+					} catch ($Throwable& var$13) {
+						$assign(var$10, var$13);
 					} $finally2: {
 						if (fs != nullptr) {
 							fs->close();
 						}
 					}
-					if (var$8 != nullptr) {
-						$throw(var$8);
+					if (var$10 != nullptr) {
+						$throw(var$10);
 					}
-					if (return$9) {
-						return var$10;
+					if (return$11) {
+						return var$12;
 					}
 				}
 			}
-		} catch ($ModuleNameReader$BadClassFile&) {
-			$var($ModuleNameReader$BadClassFile, e, $catch());
+		} catch ($ModuleNameReader$BadClassFile& e) {
 			$nc($nc(this->this$1->this$0)->log)->error($($CompilerProperties$Errors::LocnBadModuleInfo(p)));
-		} catch ($IOException&) {
-			$var($IOException, e, $catch());
+		} catch ($IOException& e) {
 			$nc($nc(this->this$1->this$0)->log)->error($($CompilerProperties$Errors::LocnCantReadFile(p)));
 			return nullptr;
 		}

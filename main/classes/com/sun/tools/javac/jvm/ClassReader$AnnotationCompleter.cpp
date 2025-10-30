@@ -15,16 +15,6 @@
 #include <com/sun/tools/javac/util/List.h>
 #include <com/sun/tools/javac/util/Name.h>
 #include <com/sun/tools/javac/util/Names.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Iterator.h>
 #include <javax/tools/JavaFileObject.h>
 #include <jcpp.h>
@@ -175,8 +165,8 @@ void ClassReader$AnnotationCompleter::run() {
 			} else {
 				$nc(this->sym)->appendAttributes(newList);
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$2) {
+			$assign(var$0, var$2);
 		} /*finally*/ {
 			$set(this->this$0, currentClassFile, previousClassFile);
 		}

@@ -4,17 +4,6 @@
 #include <com/sun/tools/javac/jvm/ClassWriter$StackMapTableFrame.h>
 #include <com/sun/tools/javac/jvm/ClassWriter.h>
 #include <com/sun/tools/javac/util/ByteBuffer.h>
-#include <java/io/PrintStream.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $TypeArray = $Array<::com::sun::tools::javac::code::Type>;
@@ -91,25 +80,21 @@ void ClassWriter$StackMapTableFrame$FullFrame::write($ClassWriter* writer) {
 	$nc($nc(writer)->databuf)->appendChar(this->offsetDelta);
 	$nc(writer->databuf)->appendChar($nc(this->locals)->length);
 	if (writer->debugstackmap) {
-		$init($System);
 		$nc($System::out)->print($$str({" offset_delta="_s, $$str(this->offsetDelta)}));
 		$nc($System::out)->print($$str({" nlocals="_s, $$str($nc(this->locals)->length)}));
 	}
 	for (int32_t i = 0; i < $nc(this->locals)->length; ++i) {
 		if (writer->debugstackmap) {
-			$init($System);
 			$nc($System::out)->print($$str({" locals["_s, $$str(i), "]="_s}));
 		}
 		writer->writeStackMapType($nc(this->locals)->get(i));
 	}
 	$nc(writer->databuf)->appendChar($nc(this->stack)->length);
 	if (writer->debugstackmap) {
-		$init($System);
 		$nc($System::out)->print($$str({" nstack="_s, $$str($nc(this->stack)->length)}));
 	}
 	for (int32_t i = 0; i < $nc(this->stack)->length; ++i) {
 		if (writer->debugstackmap) {
-			$init($System);
 			$nc($System::out)->print($$str({" stack["_s, $$str(i), "]="_s}));
 		}
 		writer->writeStackMapType($nc(this->stack)->get(i));

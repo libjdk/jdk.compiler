@@ -20,22 +20,9 @@
 #include <com/sun/source/util/DocTrees.h>
 #include <com/sun/source/util/JavacTask.h>
 #include <com/sun/tools/javac/util/StringUtils.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
 #include <java/lang/Iterable.h>
 #include <java/lang/Math.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/StringBuilder.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractList.h>
 #include <java/util/ArrayList.h>
 #include <java/util/Collection.h>
@@ -306,8 +293,8 @@ $Object* JavadocFormatter$FormatJavadocScanner::formatDef($CharSequence* name, $
 			$assign(var$2, scan(static_cast<$Iterable*>(description), ($Object*)nullptr));
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$JavadocFormatter::reflow(this->result, this->reflownTo, this->indent, this->limit);
 			$nc(this->result)->append("\n"_s);
@@ -341,8 +328,8 @@ $Object* JavadocFormatter$FormatJavadocScanner::visitReturn($ReturnTree* node, O
 				$assign(var$2, $DocTreeScanner::visitReturn(node, p));
 				return$1 = true;
 				goto $finally;
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$3) {
+				$assign(var$0, var$3);
 			} $finally: {
 				$nc(this->result)->append($($nc($JavadocFormatter::inlineReturns)->substring(p0 + MARKER->length())));
 			}
@@ -356,23 +343,23 @@ $Object* JavadocFormatter$FormatJavadocScanner::visitReturn($ReturnTree* node, O
 	} else {
 		this->reflownTo = $nc(this->result)->length();
 		{
-			$var($Throwable, var$3, nullptr);
-			$var($Object, var$5, nullptr);
-			bool return$4 = false;
+			$var($Throwable, var$4, nullptr);
+			$var($Object, var$6, nullptr);
+			bool return$5 = false;
 			try {
-				$assign(var$5, $DocTreeScanner::visitReturn(node, p));
-				return$4 = true;
+				$assign(var$6, $DocTreeScanner::visitReturn(node, p));
+				return$5 = true;
 				goto $finally1;
-			} catch ($Throwable&) {
-				$assign(var$3, $catch());
+			} catch ($Throwable& var$7) {
+				$assign(var$4, var$7);
 			} $finally1: {
 				$JavadocFormatter::reflow(this->result, this->reflownTo, 0, this->limit);
 			}
-			if (var$3 != nullptr) {
-				$throw(var$3);
+			if (var$4 != nullptr) {
+				$throw(var$4);
 			}
-			if (return$4) {
-				return var$5;
+			if (return$5) {
+				return var$6;
 			}
 		}
 	}
@@ -381,7 +368,7 @@ $Object* JavadocFormatter$FormatJavadocScanner::visitReturn($ReturnTree* node, O
 
 $Object* JavadocFormatter$FormatJavadocScanner::visitStartElement($StartElementTree* node, Object$* p) {
 	$useLocalCurrentObjectStackCache();
-		$init($JavadocFormatter$3);
+	$init($JavadocFormatter$3);
 	{
 		int32_t columns = 0;
 		switch ($nc($JavadocFormatter$3::$SwitchMap$jdk$internal$shellsupport$doc$JavadocFormatter$HtmlTag)->get($nc(($($JavadocFormatter::getHtmlTag($($nc(node)->getName())))))->ordinal())) {
@@ -572,7 +559,7 @@ $Object* JavadocFormatter$FormatJavadocScanner::visitEndElement($EndElementTree*
 
 void JavadocFormatter$FormatJavadocScanner::handleEndElement($Name* name) {
 	$useLocalCurrentObjectStackCache();
-		$init($JavadocFormatter$3);
+	$init($JavadocFormatter$3);
 	{
 		$var($List, cells, nullptr)
 		$var($List, headerFlags, nullptr)
@@ -728,8 +715,8 @@ $Object* JavadocFormatter$FormatJavadocScanner::scan($DocTree* node, Object$* p)
 			$assign(var$2, $DocTreeScanner::scan(node, p));
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			if ($instanceOf($InlineTagTree, node)) {
 				$JavadocFormatter::addSpaceIfNeeded(this->result);

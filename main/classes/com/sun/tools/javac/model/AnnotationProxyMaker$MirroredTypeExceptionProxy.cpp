@@ -2,15 +2,6 @@
 
 #include <com/sun/tools/javac/model/AnnotationProxyMaker.h>
 #include <java/io/ObjectInputStream.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <javax/lang/model/type/MirroredTypeException.h>
 #include <javax/lang/model/type/MirroredTypesException.h>
 #include <javax/lang/model/type/TypeMirror.h>

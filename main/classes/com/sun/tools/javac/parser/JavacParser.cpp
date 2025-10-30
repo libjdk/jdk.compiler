@@ -129,30 +129,14 @@
 #include <com/sun/tools/javac/util/Position$LineMap.h>
 #include <com/sun/tools/javac/util/Position.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Character.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Double.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/Float.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/Long.h>
-#include <java/lang/MethodInfo.h>
 #include <java/lang/NumberFormatException.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractCollection.h>
 #include <java/util/AbstractList.h>
 #include <java/util/AbstractSet.h>
@@ -1439,8 +1423,7 @@ $JCTree$JCExpression* JavacParser::literal($Name* prefix, int32_t pos) {
 				$init($TypeTag);
 				$var($String, var$0, strval(prefix));
 				$assign(t, $nc($($nc(this->F)->at(pos)))->Literal($TypeTag::INT, $($Integer::valueOf($Convert::string2int(var$0, $nc(this->token$)->radix())))));
-			} catch ($NumberFormatException&) {
-				$var($NumberFormatException, ex, $catch());
+			} catch ($NumberFormatException& ex) {
 				$init($JCDiagnostic$DiagnosticFlag);
 				$nc(this->log)->error($JCDiagnostic$DiagnosticFlag::SYNTAX, $nc(this->token$)->pos, $($CompilerProperties$Errors::IntNumberTooLarge($(strval(prefix)))));
 			}
@@ -1452,8 +1435,7 @@ $JCTree$JCExpression* JavacParser::literal($Name* prefix, int32_t pos) {
 				$init($TypeTag);
 				$var($String, var$1, strval(prefix));
 				$assign(t, $nc($($nc(this->F)->at(pos)))->Literal($TypeTag::LONG, $($Long::valueOf($Convert::string2long(var$1, $nc(this->token$)->radix())))));
-			} catch ($NumberFormatException&) {
-				$var($NumberFormatException, ex, $catch());
+			} catch ($NumberFormatException& ex) {
 				$init($JCDiagnostic$DiagnosticFlag);
 				$nc(this->log)->error($JCDiagnostic$DiagnosticFlag::SYNTAX, $nc(this->token$)->pos, $($CompilerProperties$Errors::IntNumberTooLarge($(strval(prefix)))));
 			}
@@ -1466,8 +1448,7 @@ $JCTree$JCExpression* JavacParser::literal($Name* prefix, int32_t pos) {
 				$var($Float, n, nullptr);
 				try {
 					$assign(n, $Float::valueOf(proper));
-				} catch ($NumberFormatException&) {
-					$var($NumberFormatException, ex, $catch());
+				} catch ($NumberFormatException& ex) {
 					$init($Float);
 					$assign(n, $Float::valueOf($Float::NaN));
 				}
@@ -1496,8 +1477,7 @@ $JCTree$JCExpression* JavacParser::literal($Name* prefix, int32_t pos) {
 				$var($Double, n, nullptr);
 				try {
 					$assign(n, $Double::valueOf(proper));
-				} catch ($NumberFormatException&) {
-					$var($NumberFormatException, ex, $catch());
+				} catch ($NumberFormatException& ex) {
 					$init($Double);
 					$assign(n, $Double::valueOf($Double::NaN));
 				}
@@ -1662,7 +1642,7 @@ $JCTree$JCExpression* JavacParser::term() {
 
 $JCTree$JCExpression* JavacParser::termRest($JCTree$JCExpression* t) {
 	$useLocalCurrentObjectStackCache();
-		$init($JavacParser$1);
+	$init($JavacParser$1);
 	{
 		int32_t pos = 0;
 		$var($Tokens$TokenKind, tk, nullptr)
@@ -1926,7 +1906,7 @@ $JCTree$JCExpression* JavacParser::term3() {
 	int32_t pos = $nc(this->token$)->pos;
 	$var($JCTree$JCExpression, t, nullptr);
 	$var($List, typeArgs, typeArgumentsOpt(JavacParser::EXPR));
-		$init($JavacParser$1);
+	$init($JavacParser$1);
 	{
 		$var($List, typeAnnos, nullptr)
 		$var($JCTree$JCExpression, expr, nullptr)
@@ -2342,8 +2322,7 @@ $JCTree$JCExpression* JavacParser::term3() {
 
 							if (loop$break) {
 								break;
-							}
-						}
+							}						}
 					}
 				}
 				if (typeArgs != nullptr) {
@@ -2624,7 +2603,7 @@ bool JavacParser::isUnboundMemberRef() {
 	{
 		$var($Tokens$Token, t, $nc(this->S)->token(pos));
 		for (;; $assign(t, $nc(this->S)->token(++pos))) {
-				$init($JavacParser$1);
+			$init($JavacParser$1);
 			{
 				int32_t nesting = 0;
 				switch ($nc($JavacParser$1::$SwitchMap$com$sun$tools$javac$parser$Tokens$TokenKind)->get(($nc(t)->kind)->ordinal())) {
@@ -3988,7 +3967,7 @@ $List* JavacParser::localVariableDeclarations($JCTree$JCModifiers* mods, $JCTree
 $JCTree$JCStatement* JavacParser::parseSimpleStatement() {
 	$useLocalCurrentObjectStackCache();
 	int32_t pos = $nc(this->token$)->pos;
-		$init($JavacParser$1);
+	$init($JavacParser$1);
 	{
 		int32_t elsePos = 0;
 		int32_t finallyPos = 0;
@@ -4822,7 +4801,7 @@ $JCTree$JCExpression* JavacParser::annotationFieldValue() {
 $JCTree$JCExpression* JavacParser::annotationValue() {
 	$useLocalCurrentObjectStackCache();
 	int32_t pos = 0;
-		$init($JavacParser$1);
+	$init($JavacParser$1);
 	{
 		$var($ListBuffer, buf, nullptr)
 		switch ($nc($JavacParser$1::$SwitchMap$com$sun$tools$javac$parser$Tokens$TokenKind)->get(($nc(this->token$)->kind)->ordinal())) {
@@ -6071,8 +6050,8 @@ $JCTree* JavacParser::methodDeclaratorRest(int32_t pos, $JCTree$JCModifiers* mod
 			$assign(var$2, result);
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$set(this, receiverParam, prevReceiverParam);
 		}
@@ -6641,7 +6620,7 @@ $JCTree$JCAnnotation* JavacParser::lambda$term2Rest$0($JCTree$JCAnnotation* decl
 void clinit$JavacParser($Class* class$) {
 	$useLocalCurrentObjectStackCache();
 	JavacParser::$assertionsDisabled = !JavacParser::class$->desiredAssertionStatus();
-			$init($CompilerProperties$Fragments);
+	$init($CompilerProperties$Fragments);
 	$assignStatic(JavacParser::decisionTable, $new($JCDiagnostic$FragmentArray2, {
 		$$new($JCDiagnostic$FragmentArray, {
 			($JCDiagnostic$Fragment*)nullptr,

@@ -4,15 +4,6 @@
 #include <com/sun/tools/sjavac/ProblemException.h>
 #include <com/sun/tools/sjavac/Source.h>
 #include <java/io/File.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/file/Path.h>
 #include <java/util/List.h>
 #include <java/util/Map.h>
@@ -74,11 +65,9 @@ void SourceLocation::init$($Path* path, $List* includes, $List* excludes) {
 }
 
 void SourceLocation::findSourceFiles($Set* suffixes, $Map* foundFiles, $Map* foundModules, $Module* currentModule, bool permitSourcesInDefaultPackage, bool inLinksrc) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		$Source::scanRoot($($nc(this->path)->toFile()), suffixes, this->excludes, this->includes, foundFiles, foundModules, currentModule, permitSourcesInDefaultPackage, false, inLinksrc);
-	} catch ($ProblemException&) {
-		$var($ProblemException, e, $catch());
+	} catch ($ProblemException& e) {
 		e->printStackTrace();
 	}
 }

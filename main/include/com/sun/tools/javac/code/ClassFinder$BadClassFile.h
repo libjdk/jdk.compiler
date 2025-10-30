@@ -50,8 +50,10 @@ public:
 	static ::com::sun::tools::javac::util::JCDiagnostic* lambda$new$0(::javax::tools::JavaFileObject* file, ::com::sun::tools::javac::util::JCDiagnostic* diag, ::com::sun::tools::javac::util::JCDiagnostic$Factory* diagFactory);
 	static const int64_t serialVersionUID = 0;
 	ClassFinder$BadClassFile(const ClassFinder$BadClassFile& e);
-	ClassFinder$BadClassFile wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline ClassFinder$BadClassFile* operator ->() {
+		return (ClassFinder$BadClassFile*)throwing$;
+	}
 };
 
 				} // code

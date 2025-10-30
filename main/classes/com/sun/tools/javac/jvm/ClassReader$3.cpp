@@ -13,21 +13,6 @@
 #include <com/sun/tools/javac/jvm/ClassReader.h>
 #include <com/sun/tools/javac/jvm/PoolReader.h>
 #include <com/sun/tools/javac/util/Name.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Double.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/Float.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/Long.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Set.h>
 #include <jcpp.h>
 
@@ -156,7 +141,6 @@ void ClassReader$3::read($Symbol* sym, int32_t attrLen) {
 	case 9:
 		{
 			if ($nc(var->type)->tsym == $nc($nc(this->this$0->syms)->stringType)->tsym) {
-				$load($String);
 				checkType(var, $String::class$, v);
 			} else {
 				$throw($(this->this$0->badClassFile("bad.constant.value.type"_s, $$new($ObjectArray, {$of(var->type)}))));

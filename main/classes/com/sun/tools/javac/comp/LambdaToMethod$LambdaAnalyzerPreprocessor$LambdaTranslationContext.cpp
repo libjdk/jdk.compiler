@@ -39,25 +39,13 @@
 #include <com/sun/tools/javac/util/Name.h>
 #include <com/sun/tools/javac/util/Names.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Boolean.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/StringBuilder.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/AbstractSet.h>
 #include <java/util/Collection.h>
@@ -306,7 +294,7 @@ void LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext::init$($
 	switch ($nc($LambdaToMethod$1::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($($nc($nc(frame)->tree)->getTag())))->ordinal())) {
 	case 5:
 		{
-			$set(this, assignedTo, ($assignField(this, self, $nc(($cast($JCTree$JCVariableDecl, frame->tree)))->sym)));
+			$set(this, assignedTo, ($set(this, self, $nc(($cast($JCTree$JCVariableDecl, frame->tree)))->sym)));
 			break;
 		}
 	case 9:
@@ -317,7 +305,7 @@ void LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext::init$($
 		}
 	default:
 		{
-			$set(this, assignedTo, ($assignField(this, self, nullptr)));
+			$set(this, assignedTo, ($set(this, self, nullptr)));
 			break;
 		}
 	}
@@ -394,7 +382,7 @@ $Name* LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext::seria
 $Symbol* LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext::translate($Symbol* sym, $LambdaToMethod$LambdaSymbolKind* skind) {
 	$useLocalCurrentObjectStackCache();
 	$var($Symbol, ret, nullptr);
-		$init($LambdaToMethod$1);
+	$init($LambdaToMethod$1);
 	{
 		$var($Name, name, nullptr)
 		switch ($nc($LambdaToMethod$1::$SwitchMap$com$sun$tools$javac$comp$LambdaToMethod$LambdaSymbolKind)->get($nc((skind))->ordinal())) {
@@ -484,7 +472,7 @@ $JCTree* LambdaToMethod$LambdaAnalyzerPreprocessor$LambdaTranslationContext::tra
 			$LambdaToMethod$LambdaSymbolKind* kind = arr$->get(i$);
 			{
 				$var($Map, m, getSymbolMap(kind));
-					$init($LambdaToMethod$1);
+				$init($LambdaToMethod$1);
 				{
 					$var($Optional, proxy, nullptr)
 					switch ($nc($LambdaToMethod$1::$SwitchMap$com$sun$tools$javac$comp$LambdaToMethod$LambdaSymbolKind)->get($nc((kind))->ordinal())) {

@@ -13,17 +13,7 @@
 #include <com/sun/tools/javac/util/Log.h>
 #include <com/sun/tools/javac/util/MatchingUtils.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractSet.h>
 #include <java/util/Collection.h>
 #include <java/util/HashSet.h>
@@ -163,15 +153,13 @@ void JavacProcessingEnvironment$ProcessorState::init$($Processor* p, $Log* log, 
 						}
 					}
 				}
-			} catch ($ClientCodeException&) {
-				$var($ClientCodeException, e, $catch());
+			} catch ($ClientCodeException& e) {
 				$throw(e);
-			} catch ($Throwable&) {
-				$var($Throwable, t, $catch());
+			} catch ($Throwable& t) {
 				$throwNew($AnnotationProcessingError, t);
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$2) {
+			$assign(var$0, var$2);
 		} /*finally*/ {
 			dcfh->setHandler(prevDeferredHandler);
 		}

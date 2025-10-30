@@ -6,19 +6,8 @@
 #include <java/io/FileWriter.h>
 #include <java/io/IOException.h>
 #include <java/io/OutputStreamWriter.h>
-#include <java/io/PrintStream.h>
 #include <java/io/PrintWriter.h>
 #include <java/io/Writer.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/file/Files.h>
 #include <java/nio/file/LinkOption.h>
 #include <java/nio/file/Path.h>
@@ -88,12 +77,10 @@ void LazyInitFileLog::printLogMsg($Log$Level* msgLevel, $String* msg) {
 	try {
 		if (this->out == nullptr && isLevelLogged(msgLevel)) {
 			$set(this, destination, getAvailableDestination());
-			$set(this, out, ($assignField(this, err, $new($PrintWriter, static_cast<$Writer*>($$new($FileWriter, $($nc(this->destination)->toFile()))), true))));
+			$set(this, out, ($set(this, err, $new($PrintWriter, static_cast<$Writer*>($$new($FileWriter, $($nc(this->destination)->toFile()))), true))));
 		}
 		$Log::printLogMsg(msgLevel, msg);
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
-		$init($System);
+	} catch ($IOException& e) {
 		$nc($System::out)->println($$str({"IO error occurred: "_s, $(e->getMessage())}));
 		$nc($System::out)->println($$str({"Original message: ["_s, msgLevel, "] "_s, msg}));
 	}

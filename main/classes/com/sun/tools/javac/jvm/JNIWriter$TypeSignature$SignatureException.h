@@ -18,8 +18,10 @@ public:
 	void init$($String* reason);
 	static const int64_t serialVersionUID = (int64_t)1;
 	JNIWriter$TypeSignature$SignatureException(const JNIWriter$TypeSignature$SignatureException& e);
-	JNIWriter$TypeSignature$SignatureException wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline JNIWriter$TypeSignature$SignatureException* operator ->() {
+		return (JNIWriter$TypeSignature$SignatureException*)throwing$;
+	}
 };
 
 				} // jvm

@@ -19,8 +19,10 @@ public:
 	static const int64_t serialVersionUID = 0;
 	$String* variableName = nullptr;
 	CommandLine$UnmatchedQuote(const CommandLine$UnmatchedQuote& e);
-	CommandLine$UnmatchedQuote wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline CommandLine$UnmatchedQuote* operator ->() {
+		return (CommandLine$UnmatchedQuote*)throwing$;
+	}
 };
 
 				} // main

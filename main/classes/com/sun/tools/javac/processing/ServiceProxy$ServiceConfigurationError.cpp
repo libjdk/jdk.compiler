@@ -1,15 +1,7 @@
 #include <com/sun/tools/javac/processing/ServiceProxy$ServiceConfigurationError.h>
 
 #include <com/sun/tools/javac/processing/ServiceProxy.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Error.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $ServiceProxy = ::com::sun::tools::javac::processing::ServiceProxy;
@@ -67,16 +59,10 @@ void ServiceProxy$ServiceConfigurationError::init$($String* msg) {
 ServiceProxy$ServiceConfigurationError::ServiceProxy$ServiceConfigurationError() {
 }
 
-ServiceProxy$ServiceConfigurationError::ServiceProxy$ServiceConfigurationError(const ServiceProxy$ServiceConfigurationError& e) {
+ServiceProxy$ServiceConfigurationError::ServiceProxy$ServiceConfigurationError(const ServiceProxy$ServiceConfigurationError& e) : $Error(e) {
 }
 
-ServiceProxy$ServiceConfigurationError ServiceProxy$ServiceConfigurationError::wrapper$() {
-	$pendingException(this);
-	return *this;
-}
-
-void ServiceProxy$ServiceConfigurationError::throwWrapper$() {
-	$pendingException(this);
+void ServiceProxy$ServiceConfigurationError::throw$() {
 	throw *this;
 }
 

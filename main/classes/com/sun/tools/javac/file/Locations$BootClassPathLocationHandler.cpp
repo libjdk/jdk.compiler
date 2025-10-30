@@ -7,19 +7,7 @@
 #include <com/sun/tools/javac/main/Option.h>
 #include <java/io/IOException.h>
 #include <java/io/UncheckedIOException.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/file/Files.h>
 #include <java/nio/file/LinkOption.h>
 #include <java/nio/file/Path.h>
@@ -141,7 +129,7 @@ $Object* allocate$Locations$BootClassPathLocationHandler($Class* clazz) {
 void Locations$BootClassPathLocationHandler::init$($Locations* this$0) {
 	$set(this, this$0, this$0);
 	$init($StandardLocation);
-		$init($Option);
+	$init($Option);
 	$Locations$BasicLocationHandler::init$($StandardLocation::PLATFORM_CLASS_PATH, $$new($OptionArray, {
 		$Option::BOOT_CLASS_PATH,
 		$Option::XBOOTCLASSPATH,
@@ -280,20 +268,18 @@ $Collection* Locations$BootClassPathLocationHandler::systemClasses() {
 						$assign(var$2, $nc(listedModules)->toList());
 						return$1 = true;
 						goto $finally;
-					} catch ($Throwable&) {
-						$var($Throwable, t$, $catch());
+					} catch ($Throwable& t$) {
 						if (listedModules != nullptr) {
 							try {
 								listedModules->close();
-							} catch ($Throwable&) {
-								$var($Throwable, x2, $catch());
+							} catch ($Throwable& x2) {
 								t$->addSuppressed(x2);
 							}
 						}
 						$throw(t$);
 					}
-				} catch ($Throwable&) {
-					$assign(var$0, $catch());
+				} catch ($Throwable& var$3) {
+					$assign(var$0, var$3);
 				} $finally: {
 					if (listedModules != nullptr) {
 						listedModules->close();
@@ -312,12 +298,10 @@ $Collection* Locations$BootClassPathLocationHandler::systemClasses() {
 }
 
 void Locations$BootClassPathLocationHandler::lazy() {
-	$useLocalCurrentObjectStackCache();
 	if (this->searchPath == nullptr) {
 		try {
 			$set(this, searchPath, $Collections::unmodifiableCollection($(static_cast<$Collection*>(static_cast<$AbstractCollection*>(static_cast<$AbstractSet*>(static_cast<$HashSet*>(static_cast<$LinkedHashSet*>(computePath()))))))));
-		} catch ($IOException&) {
-			$var($IOException, e, $catch());
+		} catch ($IOException& e) {
 			$throwNew($UncheckedIOException, e);
 		}
 	}

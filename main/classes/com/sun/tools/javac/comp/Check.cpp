@@ -128,31 +128,16 @@
 #include <com/sun/tools/javac/util/Pair.h>
 #include <com/sun/tools/javac/util/Warner.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Boolean.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Character.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
 #include <java/lang/Iterable.h>
 #include <java/lang/Math.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
 #include <java/lang/Number.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractCollection.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/AbstractSet.h>
@@ -1790,7 +1775,6 @@ $Object* allocate$Check($Class* clazz) {
 }
 
 $Context$Key* Check::checkKey = nullptr;
-
 $Types$SimpleVisitor* Check::denotableChecker = nullptr;
 
 Check* Check::instance($Context* context) {
@@ -2765,8 +2749,8 @@ void Check::warnOnExplicitStrictfp($JCDiagnostic$DiagnosticPosition* pos) {
 		$var($Throwable, var$0, nullptr);
 		try {
 			$nc(this->deferredLintHandler)->report(static_cast<$DeferredLintHandler$LintLogger*>($$new(Check$$Lambda$lambda$warnOnExplicitStrictfp$3$4, this, pos)));
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc(this->deferredLintHandler)->setPos(prevLintPos);
 		}
@@ -2945,8 +2929,7 @@ bool Check::isChecked($Type* exc) {
 bool Check::isUnchecked($JCDiagnostic$DiagnosticPosition* pos, $Type* exc) {
 	try {
 		return isUnchecked(exc);
-	} catch ($Symbol$CompletionFailure&) {
-		$var($Symbol$CompletionFailure, ex, $catch());
+	} catch ($Symbol$CompletionFailure& ex) {
 		completionError(pos, ex);
 		return true;
 	}
@@ -3138,8 +3121,8 @@ void Check::checkOverride($JCTree* tree, $Symbol$MethodSymbol* m, $Symbol$Method
 			$var($Throwable, var$25, nullptr);
 			try {
 				checkDeprecated(static_cast<$Supplier*>($$new(Check$$Lambda$lambda$checkOverride$4$5, m, tree)), static_cast<$Symbol*>(m), static_cast<$Symbol*>(other));
-			} catch ($Throwable&) {
-				$assign(var$25, $catch());
+			} catch ($Throwable& var$26) {
+				$assign(var$25, var$26);
 			} /*finally*/ {
 				setLint(prevLint);
 			}
@@ -3442,7 +3425,7 @@ void Check::checkOverride($Env* env, $JCTree$JCMethodDecl* tree, $Symbol$MethodS
 			return;
 		}
 	}
-		$init($TypeTag);
+	$init($TypeTag);
 	{
 		$var($Type, t, $nc(origin)->type);
 		for (; $nc(t)->hasTag($TypeTag::CLASS); $assign(t, $nc(this->types)->supertype(t))) {
@@ -3546,7 +3529,7 @@ void Check::checkModuleName($JCTree$JCModuleDecl* tree) {
 		while (qualId != nullptr) {
 			$var($Name, componentName, nullptr);
 			$var($JCDiagnostic$DiagnosticPosition, pos, nullptr);
-				$init($Check$5);
+			$init($Check$5);
 			{
 				$var($JCTree$JCFieldAccess, selectNode, nullptr)
 				switch ($nc($Check$5::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($(qualId->getTag())))->ordinal())) {
@@ -3685,8 +3668,8 @@ bool Check::checkNonCyclicInternal($JCDiagnostic$DiagnosticPosition* pos, $Type*
 						complete &= checkNonCyclicInternal(pos, $nc(c->owner)->type);
 					}
 				}
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$1) {
+				$assign(var$0, var$1);
 			} /*finally*/ {
 				c->flags_field &= (uint64_t)~0x08000000;
 			}
@@ -4181,7 +4164,7 @@ void Check::validateAnnotationType($JCDiagnostic$DiagnosticPosition* pos, $Type*
 
 void Check::validateAnnotationMethod($JCDiagnostic$DiagnosticPosition* pos, $Symbol$MethodSymbol* m) {
 	$useLocalCurrentObjectStackCache();
-		$init($TypeTag);
+	$init($TypeTag);
 	{
 		$var($Type, sup, $nc(this->syms)->annotationType);
 		for (; $nc(sup)->hasTag($TypeTag::CLASS); $assign(sup, $nc(this->types)->supertype(sup))) {
@@ -4778,8 +4761,8 @@ bool Check::validateAnnotationDeferErrors($JCTree$JCAnnotation* a) {
 		$var($Throwable, var$0, nullptr);
 		try {
 			res = validateAnnotation(a);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc(this->log)->popDiagnosticHandler(diagHandler);
 		}
@@ -4983,8 +4966,8 @@ void Check::checkNonCyclicElements($JCTree$JCClassDecl* tree) {
 					}
 				}
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc($nc(tree)->sym)->flags_field &= (uint64_t)~0x08000000;
 			$nc(tree->sym)->flags_field |= 0x0000000800000000;
@@ -5022,8 +5005,8 @@ void Check::checkNonCyclicElementsInternal($JCDiagnostic$DiagnosticPosition* pos
 					}
 				}
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc(tsym)->flags_field &= (uint64_t)~0x08000000;
 			tsym->flags_field |= 0x0000000800000000;
@@ -5367,8 +5350,7 @@ void Check::checkFunctionalInterface($JCTree$JCClassDecl* tree, $Symbol$ClassSym
 	if (functionalType != nullptr) {
 		try {
 			$nc(this->types)->findDescriptorSymbol(static_cast<$Symbol$TypeSymbol*>(cs));
-		} catch ($Types$FunctionDescriptorLookupError&) {
-			$var($Types$FunctionDescriptorLookupError, ex, $catch());
+		} catch ($Types$FunctionDescriptorLookupError& ex) {
 			$var($JCDiagnostic$DiagnosticPosition, pos, $nc(tree)->pos());
 			{
 				$var($Iterator, i$, $nc($nc($($cast($JCTree$JCModifiers, tree->getModifiers())))->annotations)->iterator());
@@ -5476,7 +5458,6 @@ bool Check::checkTypeContainsImportableElement($Symbol$TypeSymbol* tsym, $Symbol
 }
 
 bool Check::importAccessible($Symbol* sym, $Symbol$PackageSymbol* packge) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		int32_t flags = (int32_t)((int64_t)($nc(sym)->flags() & (uint64_t)(int64_t)7));
 		switch (flags) {
@@ -5497,11 +5478,9 @@ bool Check::importAccessible($Symbol* sym, $Symbol$PackageSymbol* packge) {
 				return sym->packge() == packge;
 			}
 		}
-	} catch ($ClassFinder$BadClassFile&) {
-		$var($ClassFinder$BadClassFile, err, $catch());
+	} catch ($ClassFinder$BadClassFile& err) {
 		$throw(err);
-	} catch ($Symbol$CompletionFailure&) {
-		$var($Symbol$CompletionFailure, ex, $catch());
+	} catch ($Symbol$CompletionFailure& ex) {
 		return false;
 	}
 	$shouldNotReachHere();

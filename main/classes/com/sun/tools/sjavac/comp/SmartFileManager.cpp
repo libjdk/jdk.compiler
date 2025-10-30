@@ -5,17 +5,8 @@
 #include <com/sun/tools/sjavac/comp/FileObjectWithLocation.h>
 #include <com/sun/tools/sjavac/comp/JavaFileObjectWithLocation.h>
 #include <com/sun/tools/sjavac/comp/SmartFileObject.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/CompoundAttribute.h>
-#include <java/lang/FieldInfo.h>
 #include <java/lang/IllegalStateException.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/StringBuilder.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/URI.h>
 #include <java/util/AbstractCollection.h>
 #include <java/util/AbstractMap.h>
@@ -81,11 +72,11 @@ namespace com {
 		namespace tools {
 			namespace sjavac {
 				namespace comp {
+
 $CompoundAttribute _SmartFileManager_Annotations_[] = {
 	{"Lcom/sun/tools/javac/api/ClientCodeWrapper$Trusted;", nullptr},
 	{}
 };
-
 
 $FieldInfo _SmartFileManager_FieldInfo_[] = {
 	{"visibleSources", "Ljava/util/Set;", "Ljava/util/Set<Ljava/net/URI;>;", 0, $field(SmartFileManager, visibleSources)},

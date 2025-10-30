@@ -30,24 +30,12 @@
 #include <com/sun/tools/javac/util/Name.h>
 #include <com/sun/tools/javac/util/Names.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
 #include <java/lang/Runnable.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Collection.h>
 #include <java/util/function/BinaryOperator.h>
 #include <java/util/function/Function.h>
@@ -575,8 +563,8 @@ void TypeAnnotations::lambda$validateTypeAnnotationsSignatures$1($Env* env, $JCT
 		$var($Throwable, var$0, nullptr);
 		try {
 			$nc(this->attr)->validateTypeAnnotations(tree, true);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc(this->log)->useSource(oldSource);
 		}
@@ -593,8 +581,8 @@ void TypeAnnotations::lambda$organizeTypeAnnotationsSignatures$0($Env* env, $JCT
 		$var($Throwable, var$0, nullptr);
 		try {
 			$$new($TypeAnnotations$TypeAnnotationPositions, this, true)->scan(static_cast<$JCTree*>(tree));
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc(this->log)->useSource(oldSource);
 		}

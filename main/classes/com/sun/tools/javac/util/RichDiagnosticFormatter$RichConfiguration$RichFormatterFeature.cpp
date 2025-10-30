@@ -1,16 +1,7 @@
 #include <com/sun/tools/javac/util/RichDiagnosticFormatter$RichConfiguration$RichFormatterFeature.h>
 
 #include <com/sun/tools/javac/util/RichDiagnosticFormatter$RichConfiguration.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef SIMPLE_NAMES
@@ -73,11 +64,8 @@ $Object* allocate$RichDiagnosticFormatter$RichConfiguration$RichFormatterFeature
 	return $of($alloc(RichDiagnosticFormatter$RichConfiguration$RichFormatterFeature));
 }
 
-
 RichDiagnosticFormatter$RichConfiguration$RichFormatterFeature* RichDiagnosticFormatter$RichConfiguration$RichFormatterFeature::WHERE_CLAUSES = nullptr;
-
 RichDiagnosticFormatter$RichConfiguration$RichFormatterFeature* RichDiagnosticFormatter$RichConfiguration$RichFormatterFeature::SIMPLE_NAMES = nullptr;
-
 RichDiagnosticFormatter$RichConfiguration$RichFormatterFeature* RichDiagnosticFormatter$RichConfiguration$RichFormatterFeature::UNIQUE_TYPEVAR_NAMES = nullptr;
 $RichDiagnosticFormatter$RichConfiguration$RichFormatterFeatureArray* RichDiagnosticFormatter$RichConfiguration$RichFormatterFeature::$VALUES = nullptr;
 

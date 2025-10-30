@@ -5,14 +5,6 @@
 #include <com/sun/tools/javac/parser/Tokens$Token.h>
 #include <com/sun/tools/javac/parser/Tokens.h>
 #include <com/sun/tools/javac/util/Position$LineMap.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/CharBuffer.h>
 #include <java/util/AbstractList.h>
 #include <java/util/ArrayList.h>
@@ -93,7 +85,7 @@ void Scanner::init$($ScannerFactory* fac, $JavaTokenizer* tokenizer) {
 	$set(this, tokenizer, tokenizer);
 	$set(this, tokens, $nc(fac)->tokens);
 	$init($Tokens);
-	$set(this, token$, ($assignField(this, prevToken$, $Tokens::DUMMY)));
+	$set(this, token$, ($set(this, prevToken$, $Tokens::DUMMY)));
 }
 
 $Tokens$Token* Scanner::token() {

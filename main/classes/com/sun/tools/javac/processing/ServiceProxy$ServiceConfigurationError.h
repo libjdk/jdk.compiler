@@ -18,8 +18,10 @@ public:
 	void init$($String* msg);
 	static const int64_t serialVersionUID = (int64_t)0x6B4DE7D4E1B91EBF;
 	ServiceProxy$ServiceConfigurationError(const ServiceProxy$ServiceConfigurationError& e);
-	ServiceProxy$ServiceConfigurationError wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline ServiceProxy$ServiceConfigurationError* operator ->() {
+		return (ServiceProxy$ServiceConfigurationError*)throwing$;
+	}
 };
 
 				} // processing

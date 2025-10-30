@@ -3,16 +3,6 @@
 #include <com/sun/tools/javac/code/DeferredCompletionFailureHandler.h>
 #include <com/sun/tools/javac/code/Symbol.h>
 #include <com/sun/tools/javac/util/JCDiagnostic.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Locale.h>
 #include <java/util/function/Supplier.h>
 #include <jcpp.h>
@@ -113,16 +103,10 @@ void Symbol$CompletionFailure::resetDiagnostic($Supplier* diagSupplier) {
 Symbol$CompletionFailure::Symbol$CompletionFailure() {
 }
 
-Symbol$CompletionFailure::Symbol$CompletionFailure(const Symbol$CompletionFailure& e) {
+Symbol$CompletionFailure::Symbol$CompletionFailure(const Symbol$CompletionFailure& e) : $RuntimeException(e) {
 }
 
-Symbol$CompletionFailure Symbol$CompletionFailure::wrapper$() {
-	$pendingException(this);
-	return *this;
-}
-
-void Symbol$CompletionFailure::throwWrapper$() {
-	$pendingException(this);
+void Symbol$CompletionFailure::throw$() {
 	throw *this;
 }
 

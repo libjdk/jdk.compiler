@@ -13,17 +13,6 @@
 #include <java/io/OutputStream.h>
 #include <java/io/OutputStreamWriter.h>
 #include <java/io/Writer.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
-#include <java/lang/StringBuilder.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/URI.h>
 #include <java/text/MessageFormat.h>
 #include <java/util/AbstractList.h>
@@ -158,8 +147,7 @@ bool CompileProperties::compile($String* pkgName, $String* pkgNameF, $File* src,
 	$var($Properties, p, $new($Properties));
 	try {
 		p->load(static_cast<$InputStream*>($$new($FileInputStream, src)));
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$Log::error($$str({"Error reading file "_s, $($nc(src)->getPath())}));
 		return false;
 	}
@@ -221,18 +209,16 @@ bool CompileProperties::compile($String* pkgName, $String* pkgNameF, $File* src,
 						$of(superClass),
 						$of(data)
 					}))));
-				} catch ($Throwable&) {
-					$var($Throwable, t$, $catch());
+				} catch ($Throwable& t$) {
 					try {
 						writer->close();
-					} catch ($Throwable&) {
-						$var($Throwable, x2, $catch());
+					} catch ($Throwable& x2) {
 						t$->addSuppressed(x2);
 					}
 					$throw(t$);
 				}
-			} catch ($Throwable&) {
-				$assign(var$4, $catch());
+			} catch ($Throwable& var$5) {
+				$assign(var$4, var$5);
 			} /*finally*/ {
 				writer->close();
 			}
@@ -240,8 +226,7 @@ bool CompileProperties::compile($String* pkgName, $String* pkgNameF, $File* src,
 				$throw(var$4);
 			}
 		}
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$Log::error($$str({"Could not write file "_s, $(dest->getPath())}));
 		return false;
 	}

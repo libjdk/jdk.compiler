@@ -18,8 +18,10 @@ public:
 	void init$();
 	static const int64_t serialVersionUID = (int64_t)0x980D5A177FC80F82;
 	Types$AdaptFailure(const Types$AdaptFailure& e);
-	Types$AdaptFailure wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline Types$AdaptFailure* operator ->() {
+		return (Types$AdaptFailure*)throwing$;
+	}
 };
 
 				} // code

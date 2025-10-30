@@ -9,15 +9,6 @@
 #include <com/sun/tools/sjavac/pubapi/ReferenceTypeDesc.h>
 #include <com/sun/tools/sjavac/pubapi/TypeDesc.h>
 #include <com/sun/tools/sjavac/pubapi/TypeVarTypeDesc.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Void.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <javax/lang/model/type/ArrayType.h>
 #include <javax/lang/model/type/DeclaredType.h>
 #include <javax/lang/model/type/ErrorType.h>

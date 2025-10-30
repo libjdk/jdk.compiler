@@ -1,14 +1,6 @@
 #include <com/sun/tools/sjavac/client/PortFileInaccessibleException.h>
 
 #include <java/io/IOException.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $IOException = ::java::io::IOException;
@@ -52,16 +44,10 @@ void PortFileInaccessibleException::init$($Throwable* cause) {
 PortFileInaccessibleException::PortFileInaccessibleException() {
 }
 
-PortFileInaccessibleException::PortFileInaccessibleException(const PortFileInaccessibleException& e) {
+PortFileInaccessibleException::PortFileInaccessibleException(const PortFileInaccessibleException& e) : $IOException(e) {
 }
 
-PortFileInaccessibleException PortFileInaccessibleException::wrapper$() {
-	$pendingException(this);
-	return *this;
-}
-
-void PortFileInaccessibleException::throwWrapper$() {
-	$pendingException(this);
+void PortFileInaccessibleException::throw$() {
 	throw *this;
 }
 

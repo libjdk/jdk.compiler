@@ -2,16 +2,7 @@
 
 #include <com/sun/source/doctree/AttributeTree$ValueKind.h>
 #include <com/sun/tools/javac/tree/DocPretty.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/NoSuchFieldError.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef DOUBLE
@@ -78,23 +69,19 @@ void clinit$DocPretty$1($Class* class$) {
 	{
 		try {
 			$nc(DocPretty$1::$SwitchMap$com$sun$source$doctree$AttributeTree$ValueKind)->set($AttributeTree$ValueKind::EMPTY->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(DocPretty$1::$SwitchMap$com$sun$source$doctree$AttributeTree$ValueKind)->set($AttributeTree$ValueKind::UNQUOTED->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(DocPretty$1::$SwitchMap$com$sun$source$doctree$AttributeTree$ValueKind)->set($AttributeTree$ValueKind::SINGLE->ordinal(), 3);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(DocPretty$1::$SwitchMap$com$sun$source$doctree$AttributeTree$ValueKind)->set($AttributeTree$ValueKind::DOUBLE->ordinal(), 4);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 }

@@ -1,15 +1,6 @@
 #include <com/sun/tools/javac/jvm/JNIWriter$TypeSignature$SignatureException.h>
 
 #include <com/sun/tools/javac/jvm/JNIWriter$TypeSignature.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $JNIWriter$TypeSignature = ::com::sun::tools::javac::jvm::JNIWriter$TypeSignature;
@@ -68,16 +59,10 @@ void JNIWriter$TypeSignature$SignatureException::init$($String* reason) {
 JNIWriter$TypeSignature$SignatureException::JNIWriter$TypeSignature$SignatureException() {
 }
 
-JNIWriter$TypeSignature$SignatureException::JNIWriter$TypeSignature$SignatureException(const JNIWriter$TypeSignature$SignatureException& e) {
+JNIWriter$TypeSignature$SignatureException::JNIWriter$TypeSignature$SignatureException(const JNIWriter$TypeSignature$SignatureException& e) : $Exception(e) {
 }
 
-JNIWriter$TypeSignature$SignatureException JNIWriter$TypeSignature$SignatureException::wrapper$() {
-	$pendingException(this);
-	return *this;
-}
-
-void JNIWriter$TypeSignature$SignatureException::throwWrapper$() {
-	$pendingException(this);
+void JNIWriter$TypeSignature$SignatureException::throw$() {
 	throw *this;
 }
 

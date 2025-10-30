@@ -1,14 +1,6 @@
 #include <sun/tools/serialver/Res.h>
 
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Error.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/text/MessageFormat.h>
 #include <java/util/MissingResourceException.h>
 #include <java/util/ResourceBundle.h>
@@ -65,8 +57,7 @@ void Res::initResource() {
 	try {
 		$init(Res);
 		$assignStatic(Res::messageRB, $ResourceBundle::getBundle("sun.tools.serialver.resources.serialver"_s));
-	} catch ($MissingResourceException&) {
-		$var($MissingResourceException, e, $catch());
+	} catch ($MissingResourceException& e) {
 		$throwNew($Error, "Fatal: Resource for serialver is missing"_s);
 	}
 }
@@ -96,8 +87,7 @@ $String* Res::getText($String* key, $String* a1, $String* a2, $String* a3) {
 			$of(a2),
 			$of(a3)
 		}));
-	} catch ($MissingResourceException&) {
-		$var($MissingResourceException, e, $catch());
+	} catch ($MissingResourceException& e) {
 		$throwNew($Error, $$str({"Fatal: Resource for serialver is broken. There is no "_s, key, " key in resource."_s}));
 	}
 	$shouldNotReachHere();

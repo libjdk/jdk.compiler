@@ -2,14 +2,6 @@
 
 #include <com/sun/source/util/JavacTask.h>
 #include <java/io/IOException.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/charset/Charset.h>
 #include <java/util/Collection.h>
 #include <java/util/Locale.h>
@@ -99,18 +91,15 @@ void JavadocHelper::init$() {
 
 JavadocHelper* JavadocHelper::create($JavacTask* mainTask, $Collection* sourceLocations) {
 	$init(JavadocHelper);
-	$useLocalCurrentObjectStackCache();
 	$var($StandardJavaFileManager, fm, $nc(JavadocHelper::compiler)->getStandardFileManager(nullptr, nullptr, nullptr));
 	try {
 		$init($StandardLocation);
 		$nc(fm)->setLocationFromPaths($StandardLocation::SOURCE_PATH, sourceLocations);
 		return $new($JavadocHelper$OnDemandJavadocHelper, mainTask, fm);
-	} catch ($IOException&) {
-		$var($IOException, ex, $catch());
+	} catch ($IOException& ex) {
 		try {
 			$nc(fm)->close();
-		} catch ($IOException&) {
-			$catch();
+		} catch ($IOException& closeEx) {
 		}
 		return $new($JavadocHelper$1);
 	}

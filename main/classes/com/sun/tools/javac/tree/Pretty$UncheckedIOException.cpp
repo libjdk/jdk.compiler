@@ -2,17 +2,7 @@
 
 #include <com/sun/tools/javac/tree/Pretty.h>
 #include <java/io/IOException.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Error.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $Pretty = ::com::sun::tools::javac::tree::Pretty;
@@ -72,16 +62,10 @@ void Pretty$UncheckedIOException::init$($IOException* e) {
 Pretty$UncheckedIOException::Pretty$UncheckedIOException() {
 }
 
-Pretty$UncheckedIOException::Pretty$UncheckedIOException(const Pretty$UncheckedIOException& e) {
+Pretty$UncheckedIOException::Pretty$UncheckedIOException(const Pretty$UncheckedIOException& e) : $Error(e) {
 }
 
-Pretty$UncheckedIOException Pretty$UncheckedIOException::wrapper$() {
-	$pendingException(this);
-	return *this;
-}
-
-void Pretty$UncheckedIOException::throwWrapper$() {
-	$pendingException(this);
+void Pretty$UncheckedIOException::throw$() {
 	throw *this;
 }
 

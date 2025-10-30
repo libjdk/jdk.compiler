@@ -4,14 +4,6 @@
 #include <com/sun/source/doctree/DocTreeVisitor.h>
 #include <com/sun/source/util/DocTreePath.h>
 #include <com/sun/source/util/DocTreeScanner.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $DocTree = ::com::sun::source::doctree::DocTree;
@@ -69,8 +61,8 @@ $Object* DocTreePathScanner::scan($DocTreePath* path, Object$* p) {
 			$assign(var$2, $nc($($nc(path)->getLeaf()))->accept(this, p));
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$set(this, path, nullptr);
 		}
@@ -99,8 +91,8 @@ $Object* DocTreePathScanner::scan($DocTree* tree, Object$* p) {
 			$assign(var$2, $nc(tree)->accept(this, p));
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$set(this, path, prev);
 		}

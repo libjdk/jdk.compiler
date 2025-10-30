@@ -5,30 +5,15 @@
 #include <com/sun/tools/javac/platform/PlatformDescription.h>
 #include <java/io/IOException.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Character.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/ClassLoader.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
 #include <java/lang/NumberFormatException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/file/DirectoryStream.h>
 #include <java/nio/file/FileSystem.h>
 #include <java/nio/file/FileSystems.h>
@@ -212,19 +197,16 @@ $Path* JDKPlatformProvider::findCtSym() {
 
 int32_t JDKPlatformProvider::lambda$static$0($String* s1, $String* s2) {
 	$init(JDKPlatformProvider);
-	$useLocalCurrentObjectStackCache();
 	int32_t i1 = 0;
 	try {
 		i1 = $Integer::parseInt(s1);
-	} catch ($NumberFormatException&) {
-		$var($NumberFormatException, ex, $catch());
+	} catch ($NumberFormatException& ex) {
 		i1 = $Integer::MAX_VALUE;
 	}
 	int32_t i2 = 0;
 	try {
 		i2 = $Integer::parseInt(s2);
-	} catch ($NumberFormatException&) {
-		$var($NumberFormatException, ex, $catch());
+	} catch ($NumberFormatException& ex) {
 		i2 = $Integer::MAX_VALUE;
 	}
 	return i1 != i2 ? i1 - i2 : $nc(s1)->compareTo(s2);
@@ -278,20 +260,18 @@ void clinit$JDKPlatformProvider($Class* class$) {
 												}
 											}
 										}
-									} catch ($Throwable&) {
-										$var($Throwable, t$, $catch());
+									} catch ($Throwable& t$) {
 										if (dir != nullptr) {
 											try {
 												dir->close();
-											} catch ($Throwable&) {
-												$var($Throwable, x2, $catch());
+											} catch ($Throwable& x2) {
 												t$->addSuppressed(x2);
 											}
 										}
 										$throw(t$);
 									}
-								} catch ($Throwable&) {
-									$assign(var$1, $catch());
+								} catch ($Throwable& var$2) {
+									$assign(var$1, var$2);
 								} /*finally*/ {
 									if (dir != nullptr) {
 										dir->close();
@@ -301,20 +281,18 @@ void clinit$JDKPlatformProvider($Class* class$) {
 									$throw(var$1);
 								}
 							}
-						} catch ($Throwable&) {
-							$var($Throwable, t$, $catch());
+						} catch ($Throwable& t$) {
 							if (fs != nullptr) {
 								try {
 									fs->close();
-								} catch ($Throwable&) {
-									$var($Throwable, x2, $catch());
+								} catch ($Throwable& x2) {
 									t$->addSuppressed(x2);
 								}
 							}
 							$throw(t$);
 						}
-					} catch ($Throwable&) {
-						$assign(var$0, $catch());
+					} catch ($Throwable& var$3) {
+						$assign(var$0, var$3);
 					} /*finally*/ {
 						if (fs != nullptr) {
 							fs->close();
@@ -324,10 +302,8 @@ void clinit$JDKPlatformProvider($Class* class$) {
 						$throw(var$0);
 					}
 				}
-			} catch ($IOException&) {
-				$var($Exception, ex, $catch());
-			} catch ($ProviderNotFoundException&) {
-				$var($Exception, ex, $catch());
+			} catch ($IOException& ex) {
+			} catch ($ProviderNotFoundException& ex) {
 			}
 		}
 	}

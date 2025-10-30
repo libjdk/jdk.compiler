@@ -3,15 +3,7 @@
 #include <com/sun/tools/javac/comp/DeferredAttr$FilterScanner.h>
 #include <com/sun/tools/javac/comp/DeferredAttr.h>
 #include <com/sun/tools/javac/tree/JCTree$Tag.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractSet.h>
 #include <java/util/EnumSet.h>
 #include <java/util/Set.h>

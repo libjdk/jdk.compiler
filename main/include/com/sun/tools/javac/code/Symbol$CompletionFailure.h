@@ -63,8 +63,10 @@ public:
 	::com::sun::tools::javac::util::JCDiagnostic* diag = nullptr;
 	::java::util::function::Supplier* diagSupplier = nullptr;
 	Symbol$CompletionFailure(const Symbol$CompletionFailure& e);
-	Symbol$CompletionFailure wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline Symbol$CompletionFailure* operator ->() {
+		return (Symbol$CompletionFailure*)throwing$;
+	}
 };
 
 				} // code

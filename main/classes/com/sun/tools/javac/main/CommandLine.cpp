@@ -4,18 +4,6 @@
 #include <com/sun/tools/javac/main/CommandLine$UnmatchedQuote.h>
 #include <java/io/BufferedReader.h>
 #include <java/io/Reader.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
-#include <java/lang/StringBuilder.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/charset/Charset.h>
 #include <java/nio/file/Files.h>
 #include <java/nio/file/Path.h>
@@ -145,20 +133,18 @@ void CommandLine::loadCmdFile($String* name, $List* args) {
 					while (($assign(s, t->nextToken())) != nullptr) {
 						$nc(args)->add(s);
 					}
-				} catch ($Throwable&) {
-					$var($Throwable, t$, $catch());
+				} catch ($Throwable& t$) {
 					if (r != nullptr) {
 						try {
 							r->close();
-						} catch ($Throwable&) {
-							$var($Throwable, x2, $catch());
+						} catch ($Throwable& x2) {
 							t$->addSuppressed(x2);
 						}
 					}
 					$throw(t$);
 				}
-			} catch ($Throwable&) {
-				$assign(var$1, $catch());
+			} catch ($Throwable& var$2) {
+				$assign(var$1, var$2);
 			} /*finally*/ {
 				if (r != nullptr) {
 					r->close();

@@ -24,17 +24,7 @@
 #include <com/sun/tools/javac/tree/JCTree$JCExpression.h>
 #include <com/sun/tools/javac/tree/JCTree.h>
 #include <com/sun/tools/javac/util/Assert.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractSet.h>
 #include <java/util/HashSet.h>
 #include <java/util/Set.h>
@@ -170,7 +160,7 @@ $JCTree* DeferredAttr$DeferredType::speculativeTree($DeferredAttr$DeferredAttrCo
 }
 
 $Type* DeferredAttr$DeferredType::complete($Attr$ResultInfo* resultInfo, $DeferredAttr$DeferredAttrContext* deferredAttrContext) {
-		$init($DeferredAttr$5);
+	$init($DeferredAttr$5);
 	{
 		$var($JCTree, speculativeTree, nullptr)
 		switch ($nc($DeferredAttr$5::$SwitchMap$com$sun$tools$javac$comp$DeferredAttr$AttrMode)->get(($nc(deferredAttrContext)->mode)->ordinal())) {
@@ -234,8 +224,8 @@ $Type* DeferredAttr$DeferredType::check($Attr$ResultInfo* resultInfo, $DeferredA
 				$assign(var$2, complete(resultInfo, deferredAttrContext));
 				return$1 = true;
 				goto $finally;
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$3) {
+				$assign(var$0, var$3);
 			} $finally: {
 				$set(this, mode, $nc(deferredAttrContext)->mode);
 			}

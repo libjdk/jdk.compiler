@@ -16,21 +16,11 @@
 #include <com/sun/tools/javac/util/JCDiagnostic$Fragment.h>
 #include <com/sun/tools/javac/util/JCDiagnostic.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/function/Supplier.h>
 #include <jcpp.h>
 
@@ -175,8 +165,7 @@ void ClassReader$CompleterDeproxy::complete($Symbol$ClassSymbol* sym) {
 			$assign(deproxy, $new($ClassReader$AnnotationDeproxy, this->this$0, this->proxyOn));
 			$assign(theRepeatable, deproxy->deproxyCompound(this->repeatable));
 		}
-	} catch ($Exception&) {
-		$var($Exception, e, $catch());
+	} catch ($Exception& e) {
 		$throwNew($Symbol$CompletionFailure, sym, static_cast<$Supplier*>($$new(ClassReader$CompleterDeproxy$$Lambda$lambda$complete$0, this, e)), this->this$0->dcfh);
 	}
 	$nc($($nc(sym)->getAnnotationTypeMetadata()))->setTarget(theTarget);

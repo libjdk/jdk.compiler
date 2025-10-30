@@ -122,30 +122,16 @@
 #include <java/io/IOException.h>
 #include <java/io/InputStream.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
 #include <java/lang/ArrayIndexOutOfBoundsException.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
 #include <java/lang/Runnable.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/file/ClosedFileSystemException.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/AbstractSet.h>
@@ -756,7 +742,6 @@ $Object* allocate$ClassReader($Class* clazz) {
 	return $of($alloc(ClassReader));
 }
 
-
 $Context$Key* ClassReader::classReaderKey = nullptr;
 
 ClassReader* ClassReader::instance($Context* context) {
@@ -1129,8 +1114,8 @@ $Type* ClassReader::classSigToType() {
 								$assign(var$2, ($equals(outer, $Type::noType)) ? $nc(t)->erasure(this->types) : static_cast<$Type*>($new($Type$ClassType, outer, $($List::nil()), t)));
 								return$1 = true;
 								goto $finally;
-							} catch ($Throwable&) {
-								$assign(var$0, $catch());
+							} catch ($Throwable& var$3) {
+								$assign(var$0, var$3);
 							} $finally: {
 								this->sbp = startSbp;
 							}
@@ -1280,7 +1265,7 @@ $Type* ClassReader::findTypeVar($Name* name) {
 
 void ClassReader::initAttributeReaders() {
 	$useLocalCurrentObjectStackCache();
-		$init($ClassFile$Version);
+	$init($ClassFile$Version);
 	$var($ClassReader$AttributeReaderArray, readers, $new($ClassReader$AttributeReaderArray, {
 		static_cast<$ClassReader$AttributeReader*>($$new($ClassReader$2, this, $nc(this->names)->Code, $ClassFile$Version::V45_3, this->MEMBER_ATTRIBUTE)),
 		static_cast<$ClassReader$AttributeReader*>($$new($ClassReader$3, this, $nc(this->names)->ConstantValue, $ClassFile$Version::V45_3, this->MEMBER_ATTRIBUTE)),
@@ -2037,8 +2022,8 @@ $Symbol$MethodSymbol* ClassReader::readMethod() {
 		$var($Throwable, var$3, nullptr);
 		try {
 			readMemberAttrs(m);
-		} catch ($Throwable&) {
-			$assign(var$3, $catch());
+		} catch ($Throwable& var$4) {
+			$assign(var$3, var$4);
 		} /*finally*/ {
 			$set(this, currentOwner, prevOwner);
 		}
@@ -2473,18 +2458,15 @@ void ClassReader::readClassFile($Symbol$ClassSymbol* c) {
 						$set($nc(this->currentModule), provides, $List::nil());
 					}
 				}
-			} catch ($IOException&) {
-				$var($Exception, ex, $catch());
+			} catch ($IOException& ex) {
 				$throw($(badClassFile("unable.to.access.file"_s, $$new($ObjectArray, {$($of(ex->toString()))}))));
-			} catch ($ClosedFileSystemException&) {
-				$var($Exception, ex, $catch());
+			} catch ($ClosedFileSystemException& ex) {
 				$throw($(badClassFile("unable.to.access.file"_s, $$new($ObjectArray, {$($of(ex->toString()))}))));
-			} catch ($ArrayIndexOutOfBoundsException&) {
-				$var($ArrayIndexOutOfBoundsException, ex, $catch());
+			} catch ($ArrayIndexOutOfBoundsException& ex) {
 				$throw($(badClassFile("bad.class.file"_s, $$new($ObjectArray, {$of(c->flatname)}))));
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$5) {
+			$assign(var$0, var$5);
 		} /*finally*/ {
 			$set(this, interimUses, $List::nil());
 			$set(this, interimProvides, $List::nil());

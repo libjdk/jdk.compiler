@@ -11,18 +11,7 @@
 #include <java/io/FilterWriter.h>
 #include <java/io/OutputStream.h>
 #include <java/io/OutputStreamWriter.h>
-#include <java/io/PrintStream.h>
 #include <java/io/Writer.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/IllegalArgumentException.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef CMDERR
@@ -76,7 +65,6 @@ void ClientMain::init$() {
 int32_t ClientMain::run($StringArray* args) {
 	$useLocalCurrentObjectStackCache();
 	$var($StringArray, var$0, args);
-	$init($System);
 	$var($Writer, var$1, static_cast<$Writer*>($new($AutoFlushWriter, $$new($OutputStreamWriter, $System::out))));
 	return run(var$0, var$1, $$new($AutoFlushWriter, $$new($OutputStreamWriter, $System::err)));
 }
@@ -87,8 +75,7 @@ int32_t ClientMain::run($StringArray* args, $Writer* out, $Writer* err) {
 	$var($Options, options, nullptr);
 	try {
 		$assign(options, $Options::parseArgs(args));
-	} catch ($IllegalArgumentException&) {
-		$var($IllegalArgumentException, e, $catch());
+	} catch ($IllegalArgumentException& e) {
 		$Log::error($(e->getMessage()));
 		$init($Main$Result);
 		return $Main$Result::CMDERR->exitCode;

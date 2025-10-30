@@ -7,17 +7,7 @@
 #include <com/sun/tools/javac/code/DeferredCompletionFailureHandler.h>
 #include <com/sun/tools/javac/util/Context$Key.h>
 #include <com/sun/tools/javac/util/Context.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
 #include <java/lang/IllegalStateException.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Arrays.h>
 #include <java/util/Collection.h>
 #include <java/util/List.h>
@@ -83,9 +73,7 @@ $Object* allocate$MultiTaskListener($Class* clazz) {
 	return $of($alloc(MultiTaskListener));
 }
 
-
 $Context$Key* MultiTaskListener::taskListenerKey = nullptr;
-
 $TaskListenerArray* MultiTaskListener::EMPTY_LISTENERS = nullptr;
 
 MultiTaskListener* MultiTaskListener::instance($Context* context) {
@@ -164,8 +152,8 @@ void MultiTaskListener::started($TaskEvent* e) {
 					$nc(l)->started(e);
 				}
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc(this->dcfh)->setHandler(prevDeferredHandler);
 		}
@@ -191,8 +179,8 @@ void MultiTaskListener::finished($TaskEvent* e) {
 					$nc(l)->finished(e);
 				}
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc(this->dcfh)->setHandler(prevDeferredHandler);
 		}

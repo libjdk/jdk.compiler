@@ -18,8 +18,10 @@ public:
 	void init$($String* msg);
 	static const int64_t serialVersionUID = 0;
 	ModuleNameReader$BadClassFile(const ModuleNameReader$BadClassFile& e);
-	ModuleNameReader$BadClassFile wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline ModuleNameReader$BadClassFile* operator ->() {
+		return (ModuleNameReader$BadClassFile*)throwing$;
+	}
 };
 
 				} // jvm

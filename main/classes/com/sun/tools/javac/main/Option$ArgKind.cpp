@@ -1,16 +1,7 @@
 #include <com/sun/tools/javac/main/Option$ArgKind.h>
 
 #include <com/sun/tools/javac/main/Option.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef ADJACENT
@@ -72,11 +63,8 @@ $Object* allocate$Option$ArgKind($Class* clazz) {
 	return $of($alloc(Option$ArgKind));
 }
 
-
 Option$ArgKind* Option$ArgKind::NONE = nullptr;
-
 Option$ArgKind* Option$ArgKind::REQUIRED = nullptr;
-
 Option$ArgKind* Option$ArgKind::ADJACENT = nullptr;
 $Option$ArgKindArray* Option$ArgKind::$VALUES = nullptr;
 

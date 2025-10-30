@@ -64,26 +64,13 @@
 #include <com/sun/tools/javac/util/Name.h>
 #include <com/sun/tools/javac/util/Names.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/Long.h>
-#include <java/lang/MethodInfo.h>
 #include <java/lang/Runnable.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractSet.h>
 #include <java/util/HashSet.h>
 #include <java/util/Iterator.h>
@@ -672,8 +659,8 @@ void TypeEnter::complete($Symbol* sym) {
 				$var($Throwable, var$1, nullptr);
 				try {
 					$assign(queue, $nc(this->completeClass)->completeEnvs($($List::of($($nc(this->typeEnvs)->get($cast($Symbol$ClassSymbol, sym)))))));
-				} catch ($Throwable&) {
-					$assign(var$1, $catch());
+				} catch ($Throwable& var$2) {
+					$assign(var$1, var$2);
 				} /*finally*/ {
 					$nc(this->dependencies)->pop();
 				}
@@ -688,16 +675,16 @@ void TypeEnter::complete($Symbol* sym) {
 					for (; $nc(i$)->hasNext();) {
 						$var($Env, env, $cast($Env, i$->next()));
 						{
-							bool var$2 = $nc($nc($nc(env)->toplevel)->defs)->contains(env->enclClass);
-							if (var$2 && seen->add(env->toplevel)) {
+							bool var$3 = $nc($nc($nc(env)->toplevel)->defs)->contains(env->enclClass);
+							if (var$3 && seen->add(env->toplevel)) {
 								finishImports(env->toplevel, static_cast<$Runnable*>($$new(TypeEnter$$Lambda$lambda$complete$1$1)));
 							}
 						}
 					}
 				}
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$4) {
+			$assign(var$0, var$4);
 		} /*finally*/ {
 			$nc(this->annotate)->unblockAnnotations();
 		}
@@ -720,12 +707,11 @@ void TypeEnter::finishImports($JCTree$JCCompilationUnit* toplevel, $Runnable* re
 				$nc(this->chk)->checkImportedPackagesObservable(toplevel);
 				$nc($nc(toplevel)->namedImportScope)->finalizeScope();
 				$nc(toplevel->starImportScope)->finalizeScope();
-			} catch ($Symbol$CompletionFailure&) {
-				$var($Symbol$CompletionFailure, cf, $catch());
+			} catch ($Symbol$CompletionFailure& cf) {
 				$nc(this->chk)->completionError($($nc(toplevel)->pos()), cf);
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc(this->log)->useSource(prev);
 		}

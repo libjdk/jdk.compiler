@@ -10,14 +10,6 @@
 #include <java/io/StringWriter.h>
 #include <java/io/Writer.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $DocTree = ::com::sun::source::doctree::DocTree;
@@ -131,8 +123,7 @@ $String* DCTree::toString() {
 	$var($StringWriter, s, $new($StringWriter));
 	try {
 		$$new($DocPretty, s)->print(static_cast<$DocTree*>(this));
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($AssertionError, $of(e));
 	}
 	return s->toString();

@@ -73,32 +73,16 @@
 #include <com/sun/tools/javac/util/Pair.h>
 #include <com/sun/tools/javac/util/Position$LineMap.h>
 #include <java/io/OutputStream.h>
-#include <java/io/PrintStream.h>
 #include <java/io/PrintWriter.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/Long.h>
-#include <java/lang/MethodInfo.h>
 #include <java/lang/SecurityException.h>
-#include <java/lang/String.h>
-#include <java/lang/StringBuilder.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractCollection.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/AbstractQueue.h>
@@ -1542,7 +1526,6 @@ void ClassWriter::writeCode($Code* code) {
 	}
 	if (code->stackMapBufferSize > 0) {
 		if (this->debugstackmap) {
-			$init($System);
 			$nc($System::out)->println($$str({"Stack map for "_s, code->meth}));
 		}
 		int32_t alenIdx = writeAttr($($nc(code->stackMap)->getAttributeName(this->names)));
@@ -1563,7 +1546,6 @@ void ClassWriter::writeStackMap($Code* code) {
 	$useLocalCurrentObjectStackCache();
 	int32_t nframes = $nc(code)->stackMapBufferSize;
 	if (this->debugstackmap) {
-		$init($System);
 		$nc($System::out)->println($$str({" nframes = "_s, $$str(nframes)}));
 	}
 	$nc(this->databuf)->appendChar(nframes);
@@ -1573,12 +1555,10 @@ void ClassWriter::writeStackMap($Code* code) {
 		{
 			for (int32_t i = 0; i < nframes; ++i) {
 				if (this->debugstackmap) {
-					$init($System);
 					$nc($System::out)->print($$str({"  "_s, $$str(i), ":"_s}));
 				}
 				$var($Code$StackMapFrame, frame, $nc(code->stackMapBuffer)->get(i));
 				if (this->debugstackmap) {
-					$init($System);
 					$nc($System::out)->print($$str({" pc="_s, $$str($nc(frame)->pc)}));
 				}
 				$nc(this->databuf)->appendChar($nc(frame)->pc);
@@ -1587,13 +1567,11 @@ void ClassWriter::writeStackMap($Code* code) {
 					++localCount;
 				}
 				if (this->debugstackmap) {
-					$init($System);
 					$nc($System::out)->print($$str({" nlocals="_s, $$str(localCount)}));
 				}
 				$nc(this->databuf)->appendChar(localCount);
 				for (int32_t j = 0; j < $nc($nc(frame)->locals)->length; j += $Code::width($nc($nc(frame)->locals)->get(j))) {
 					if (this->debugstackmap) {
-						$init($System);
 						$nc($System::out)->print($$str({" local["_s, $$str(j), "]="_s}));
 					}
 					writeStackMapType($nc(frame->locals)->get(j));
@@ -1603,19 +1581,16 @@ void ClassWriter::writeStackMap($Code* code) {
 					++stackCount;
 				}
 				if (this->debugstackmap) {
-					$init($System);
 					$nc($System::out)->print($$str({" nstack="_s, $$str(stackCount)}));
 				}
 				$nc(this->databuf)->appendChar(stackCount);
 				for (int32_t j = 0; j < $nc($nc(frame)->stack)->length; j += $Code::width($nc($nc(frame)->stack)->get(j))) {
 					if (this->debugstackmap) {
-						$init($System);
 						$nc($System::out)->print($$str({" stack["_s, $$str(j), "]="_s}));
 					}
 					writeStackMapType($nc(frame->stack)->get(j));
 				}
 				if (this->debugstackmap) {
-					$init($System);
 					$nc($System::out)->println();
 				}
 			}
@@ -1627,13 +1602,11 @@ void ClassWriter::writeStackMap($Code* code) {
 				$Assert::checkNull(code->stackMapBuffer);
 				for (int32_t i = 0; i < nframes; ++i) {
 					if (this->debugstackmap) {
-						$init($System);
 						$nc($System::out)->print($$str({"  "_s, $$str(i), ":"_s}));
 					}
 					$var($ClassWriter$StackMapTableFrame, frame, $nc(code->stackMapTableBuffer)->get(i));
 					$nc(frame)->write(this);
 					if (this->debugstackmap) {
-						$init($System);
 						$nc($System::out)->println();
 					}
 				}
@@ -1651,7 +1624,6 @@ void ClassWriter::writeStackMapType($Type* t) {
 	$useLocalCurrentObjectStackCache();
 	if (t == nullptr) {
 		if (this->debugstackmap) {
-			$init($System);
 			$nc($System::out)->print("empty"_s);
 		}
 		$nc(this->databuf)->appendByte(0);
@@ -1669,7 +1641,6 @@ void ClassWriter::writeStackMapType($Type* t) {
 		case 8:
 			{
 				if (this->debugstackmap) {
-					$init($System);
 					$nc($System::out)->print("int"_s);
 				}
 				$nc(this->databuf)->appendByte(1);
@@ -1678,7 +1649,6 @@ void ClassWriter::writeStackMapType($Type* t) {
 		case 6:
 			{
 				if (this->debugstackmap) {
-					$init($System);
 					$nc($System::out)->print("float"_s);
 				}
 				$nc(this->databuf)->appendByte(2);
@@ -1687,7 +1657,6 @@ void ClassWriter::writeStackMapType($Type* t) {
 		case 7:
 			{
 				if (this->debugstackmap) {
-					$init($System);
 					$nc($System::out)->print("double"_s);
 				}
 				$nc(this->databuf)->appendByte(3);
@@ -1696,7 +1665,6 @@ void ClassWriter::writeStackMapType($Type* t) {
 		case 5:
 			{
 				if (this->debugstackmap) {
-					$init($System);
 					$nc($System::out)->print("long"_s);
 				}
 				$nc(this->databuf)->appendByte(4);
@@ -1705,7 +1673,6 @@ void ClassWriter::writeStackMapType($Type* t) {
 		case 9:
 			{
 				if (this->debugstackmap) {
-					$init($System);
 					$nc($System::out)->print("null"_s);
 				}
 				$nc(this->databuf)->appendByte(5);
@@ -1718,7 +1685,6 @@ void ClassWriter::writeStackMapType($Type* t) {
 		case 12:
 			{
 				if (this->debugstackmap) {
-					$init($System);
 					$nc($System::out)->print($$str({"object("_s, $nc($($nc(this->types)->erasure(t)))->tsym, ")"_s}));
 				}
 				$nc(this->databuf)->appendByte(7);
@@ -1728,7 +1694,6 @@ void ClassWriter::writeStackMapType($Type* t) {
 		case 13:
 			{
 				if (this->debugstackmap) {
-					$init($System);
 					$nc($System::out)->print("uninit_this"_s);
 				}
 				$nc(this->databuf)->appendByte(6);
@@ -1740,7 +1705,6 @@ void ClassWriter::writeStackMapType($Type* t) {
 					$var($UninitializedType, uninitType, $cast($UninitializedType, t));
 					$nc(this->databuf)->appendByte(8);
 					if (this->debugstackmap) {
-						$init($System);
 						$nc($System::out)->print($$str({"uninit_object@"_s, $$str(uninitType->offset)}));
 					}
 					$nc(this->databuf)->appendChar(uninitType->offset);
@@ -1825,12 +1789,11 @@ $JavaFileObject* ClassWriter::writeClass($Symbol$ClassSymbol* c) {
 				}
 				$nc(out)->close();
 				$assign(out, nullptr);
-			} catch ($Types$SignatureGenerator$InvalidSignatureException&) {
-				$var($Types$SignatureGenerator$InvalidSignatureException, ex, $catch());
+			} catch ($Types$SignatureGenerator$InvalidSignatureException& ex) {
 				$nc(this->log)->error($($CompilerProperties$Errors::CannotGenerateClass(c, $($CompilerProperties$Fragments::IllegalSignature(c, $(ex->type()))))));
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			if (out != nullptr) {
 				out->close();
@@ -2059,8 +2022,7 @@ int64_t ClassWriter::getLastModified($FileObject* filename) {
 	int64_t mod = 0;
 	try {
 		mod = $nc(filename)->getLastModified();
-	} catch ($SecurityException&) {
-		$var($SecurityException, e, $catch());
+	} catch ($SecurityException& e) {
 		$throwNew($AssertionError, $of($$str({"CRT: couldn\'t get source file modification date: "_s, $(e->getMessage())})));
 	}
 	return mod;

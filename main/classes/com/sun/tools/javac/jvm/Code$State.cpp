@@ -15,20 +15,9 @@
 #include <com/sun/tools/javac/util/ArrayUtils.h>
 #include <com/sun/tools/javac/util/Assert.h>
 #include <com/sun/tools/javac/util/Bits.h>
-#include <java/io/PrintStream.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/CloneNotSupportedException.h>
 #include <java/lang/Cloneable.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/List.h>
 #include <jcpp.h>
 
@@ -137,13 +126,11 @@ Code$State* Code$State::dup() {
 			$set(state, locks, $cast($ints, $nc(this->locks)->clone()));
 		}
 		if (this->this$0->debugCode) {
-			$init($System);
 			$nc($System::err)->println($$str({"duping state "_s, this}));
 			dump();
 		}
 		return state;
-	} catch ($CloneNotSupportedException&) {
-		$var($CloneNotSupportedException, ex, $catch());
+	} catch ($CloneNotSupportedException& ex) {
 		$throwNew($AssertionError, $of(ex));
 	}
 	$shouldNotReachHere();
@@ -169,7 +156,6 @@ void Code$State::push($Type* t$renamed) {
 	$useLocalCurrentObjectStackCache();
 	$var($Type, t, t$renamed);
 	if (this->this$0->debugCode) {
-		$init($System);
 		$nc($System::err)->println($$str({"   pushing "_s, t}));
 	}
 	$init($Code$1);
@@ -219,7 +205,6 @@ void Code$State::push($Type* t$renamed) {
 $Type* Code$State::pop1() {
 	$useLocalCurrentObjectStackCache();
 	if (this->this$0->debugCode) {
-		$init($System);
 		$nc($System::err)->println($$str({"   popping "_s, $$str(1)}));
 	}
 	--this->stacksize;
@@ -236,7 +221,6 @@ $Type* Code$State::peek() {
 $Type* Code$State::pop2() {
 	$useLocalCurrentObjectStackCache();
 	if (this->this$0->debugCode) {
-		$init($System);
 		$nc($System::err)->println($$str({"   popping "_s, $$str(2)}));
 	}
 	this->stacksize -= 2;
@@ -249,7 +233,6 @@ $Type* Code$State::pop2() {
 void Code$State::pop(int32_t n) {
 	$useLocalCurrentObjectStackCache();
 	if (this->this$0->debugCode) {
-		$init($System);
 		$nc($System::err)->println($$str({"   popping "_s, $$str(n)}));
 	}
 	while (n > 0) {
@@ -267,7 +250,7 @@ void Code$State::forceStackTop($Type* t) {
 	if (!this->this$0->alive) {
 		return;
 	}
-		$init($Code$1);
+	$init($Code$1);
 	{
 		int32_t width = 0;
 		$var($Type, old, nullptr)
@@ -338,7 +321,6 @@ void Code$State::dump() {
 
 void Code$State::dump(int32_t pc) {
 	$useLocalCurrentObjectStackCache();
-	$init($System);
 	$nc($System::err)->print($$str({"stackMap for "_s, $nc(this->this$0->meth)->owner, "."_s, this->this$0->meth}));
 	if (pc == -1) {
 		$nc($System::out)->println();

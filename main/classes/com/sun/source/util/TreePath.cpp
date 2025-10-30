@@ -6,14 +6,6 @@
 #include <com/sun/source/util/TreePath$1.h>
 #include <com/sun/source/util/TreePath$1PathFinder.h>
 #include <com/sun/source/util/TreePath$1Result.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Iterator.h>
 #include <java/util/Objects.h>
 #include <jcpp.h>
@@ -92,7 +84,6 @@ TreePath* TreePath::getPath($CompilationUnitTree* unit, $Tree* target) {
 
 TreePath* TreePath::getPath(TreePath* path, $Tree* target) {
 	$init(TreePath);
-	$useLocalCurrentObjectStackCache();
 	$Objects::requireNonNull(path);
 	$Objects::requireNonNull(target);
 	{
@@ -104,8 +95,7 @@ TreePath* TreePath::getPath(TreePath* path, $Tree* target) {
 	}
 	try {
 		$$new($TreePath$1PathFinder)->scan(path, $of(target));
-	} catch ($TreePath$1Result&) {
-		$var($TreePath$1Result, result, $catch());
+	} catch ($TreePath$1Result& result) {
 		return result->path;
 	}
 	return nullptr;

@@ -11,16 +11,6 @@
 #include <com/sun/tools/javac/util/AbstractLog.h>
 #include <com/sun/tools/javac/util/JCDiagnostic$DiagnosticPosition.h>
 #include <com/sun/tools/javac/util/Log.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <javax/tools/JavaFileObject.h>
 #include <jcpp.h>
 
@@ -116,8 +106,8 @@ void Modules$2::complete($Symbol* sym) {
 			$nc(moduleDecl)->accept(v);
 			this->this$0->completeModule(msym);
 			this->this$0->checkCyclicDependencies(moduleDecl);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc(this->this$0->log)->useSource(prev);
 			$nc(this->this$0->deferredLintHandler)->setPos(prevLintPos);

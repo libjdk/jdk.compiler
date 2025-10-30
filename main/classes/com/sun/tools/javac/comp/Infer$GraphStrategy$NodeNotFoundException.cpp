@@ -2,15 +2,6 @@
 
 #include <com/sun/tools/javac/comp/Infer$GraphSolver$InferenceGraph.h>
 #include <com/sun/tools/javac/comp/Infer$GraphStrategy.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $Infer$GraphSolver$InferenceGraph = ::com::sun::tools::javac::comp::Infer$GraphSolver$InferenceGraph;
@@ -72,16 +63,10 @@ void Infer$GraphStrategy$NodeNotFoundException::init$($Infer$GraphSolver$Inferen
 Infer$GraphStrategy$NodeNotFoundException::Infer$GraphStrategy$NodeNotFoundException() {
 }
 
-Infer$GraphStrategy$NodeNotFoundException::Infer$GraphStrategy$NodeNotFoundException(const Infer$GraphStrategy$NodeNotFoundException& e) {
+Infer$GraphStrategy$NodeNotFoundException::Infer$GraphStrategy$NodeNotFoundException(const Infer$GraphStrategy$NodeNotFoundException& e) : $RuntimeException(e) {
 }
 
-Infer$GraphStrategy$NodeNotFoundException Infer$GraphStrategy$NodeNotFoundException::wrapper$() {
-	$pendingException(this);
-	return *this;
-}
-
-void Infer$GraphStrategy$NodeNotFoundException::throwWrapper$() {
-	$pendingException(this);
+void Infer$GraphStrategy$NodeNotFoundException::throw$() {
 	throw *this;
 }
 

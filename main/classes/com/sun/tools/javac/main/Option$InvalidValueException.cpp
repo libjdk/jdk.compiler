@@ -1,16 +1,6 @@
 #include <com/sun/tools/javac/main/Option$InvalidValueException.h>
 
 #include <com/sun/tools/javac/main/Option.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $Option = ::com::sun::tools::javac::main::Option;
@@ -73,16 +63,10 @@ void Option$InvalidValueException::init$($String* msg, $Throwable* cause) {
 Option$InvalidValueException::Option$InvalidValueException() {
 }
 
-Option$InvalidValueException::Option$InvalidValueException(const Option$InvalidValueException& e) {
+Option$InvalidValueException::Option$InvalidValueException(const Option$InvalidValueException& e) : $Exception(e) {
 }
 
-Option$InvalidValueException Option$InvalidValueException::wrapper$() {
-	$pendingException(this);
-	return *this;
-}
-
-void Option$InvalidValueException::throwWrapper$() {
-	$pendingException(this);
+void Option$InvalidValueException::throw$() {
 	throw *this;
 }
 

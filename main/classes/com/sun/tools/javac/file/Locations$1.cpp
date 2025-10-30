@@ -2,16 +2,7 @@
 
 #include <com/sun/tools/javac/file/Locations.h>
 #include <com/sun/tools/javac/main/Option.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/NoSuchFieldError.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef DJAVA_ENDORSED_DIRS
@@ -77,18 +68,15 @@ void clinit$Locations$1($Class* class$) {
 	{
 		try {
 			$nc(Locations$1::$SwitchMap$com$sun$tools$javac$main$Option)->set($Option::XBOOTCLASSPATH->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Locations$1::$SwitchMap$com$sun$tools$javac$main$Option)->set($Option::DJAVA_ENDORSED_DIRS->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Locations$1::$SwitchMap$com$sun$tools$javac$main$Option)->set($Option::DJAVA_EXT_DIRS->ordinal(), 3);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 }

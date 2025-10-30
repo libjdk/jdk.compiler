@@ -26,18 +26,9 @@
 #include <com/sun/tools/javac/util/Name$Table.h>
 #include <com/sun/tools/javac/util/Name.h>
 #include <com/sun/tools/javac/util/Names.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
 #include <java/lang/annotation/Annotation.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Iterator.h>
 #include <java/util/List.h>
 #include <java/util/Set.h>
@@ -666,7 +657,7 @@ bool Symbol::isMemberOf($Symbol$TypeSymbol* clazz, $Types* types) {
 }
 
 bool Symbol::isEnclosedBy($Symbol$ClassSymbol* clazz) {
-		$init($Kinds$Kind);
+	$init($Kinds$Kind);
 	{
 		$var(Symbol, sym, this);
 		for (; sym->kind != $Kinds$Kind::PCK; $assign(sym, sym->owner)) {
@@ -802,8 +793,7 @@ void Symbol::complete() {
 void Symbol::apiComplete() {
 	try {
 		complete();
-	} catch ($Symbol$CompletionFailure&) {
-		$var($Symbol$CompletionFailure, cf, $catch());
+	} catch ($Symbol$CompletionFailure& cf) {
 		$nc(cf->dcfh)->handleAPICompletionFailure(cf);
 	}
 }

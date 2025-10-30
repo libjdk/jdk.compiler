@@ -19,33 +19,16 @@
 #include <java/io/InputStreamReader.h>
 #include <java/io/OutputStream.h>
 #include <java/io/OutputStreamWriter.h>
-#include <java/io/PrintStream.h>
 #include <java/io/PrintWriter.h>
 #include <java/io/Reader.h>
 #include <java/io/Writer.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/ClassLoader.h>
 #include <java/lang/ClassNotFoundException.h>
 #include <java/lang/Error.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
 #include <java/lang/IllegalAccessException.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
 #include <java/lang/NoSuchMethodException.h>
-#include <java/lang/NullPointerException.h>
 #include <java/lang/StackTraceElement.h>
-#include <java/lang/String.h>
-#include <java/lang/StringBuilder.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
-#include <java/lang/reflect/Constructor.h>
 #include <java/lang/reflect/InvocationTargetException.h>
 #include <java/lang/reflect/Method.h>
 #include <java/lang/reflect/Modifier.h>
@@ -228,15 +211,11 @@ void Main::main($StringArray* args) {
 	$init(Main);
 	$useLocalCurrentObjectStackCache();
 	try {
-		$init($System);
 		$$new(Main, $System::err)->run($($VM::getRuntimeArguments()), args);
-	} catch ($Main$Fault&) {
-		$var($Main$Fault, f, $catch());
-		$init($System);
+	} catch ($Main$Fault& f) {
 		$nc($System::err)->println($(f->getMessage()));
 		$System::exit(1);
-	} catch ($InvocationTargetException&) {
-		$var($InvocationTargetException, e, $catch());
+	} catch ($InvocationTargetException& e) {
 		$throw($(e->getCause()));
 	}
 }
@@ -269,8 +248,7 @@ $Path* Main::getFile($StringArray* args) {
 	$var($Path, file, nullptr);
 	try {
 		$assign(file, $Paths::get($nc(args)->get(0), $$new($StringArray, 0)));
-	} catch ($InvalidPathException&) {
-		$var($InvalidPathException, e, $catch());
+	} catch ($InvalidPathException& e) {
 		$throwNew($Main$Fault, this, $($LauncherProperties$Errors::InvalidFilename($nc(args)->get(0))));
 	}
 	if (!$Files::exists(file, $$new($LinkOptionArray, 0))) {
@@ -322,18 +300,16 @@ $JavaFileObject* Main::readFile($Path* file) {
 									$assign(var$6, $new($Main$1, this, $($nc(file)->toUri()), $JavaFileObject$Kind::SOURCE, file, sb));
 									return$5 = true;
 									goto $finally1;
-								} catch ($Throwable&) {
-									$var($Throwable, t$, $catch());
+								} catch ($Throwable& t$) {
 									try {
 										r->close();
-									} catch ($Throwable&) {
-										$var($Throwable, x2, $catch());
+									} catch ($Throwable& x2) {
 										t$->addSuppressed(x2);
 									}
 									$throw(t$);
 								}
-							} catch ($Throwable&) {
-								$assign(var$4, $catch());
+							} catch ($Throwable& var$7) {
+								$assign(var$4, var$7);
 							} $finally1: {
 								r->close();
 							}
@@ -347,18 +323,16 @@ $JavaFileObject* Main::readFile($Path* file) {
 							}
 						}
 					}
-				} catch ($Throwable&) {
-					$var($Throwable, t$, $catch());
+				} catch ($Throwable& t$) {
 					try {
 						in->close();
-					} catch ($Throwable&) {
-						$var($Throwable, x2, $catch());
+					} catch ($Throwable& x2) {
 						t$->addSuppressed(x2);
 					}
 					$throw(t$);
 				}
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$8) {
+				$assign(var$0, var$8);
 			} $finally: {
 				in->close();
 			}
@@ -369,8 +343,7 @@ $JavaFileObject* Main::readFile($Path* file) {
 				return var$2;
 			}
 		}
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Main$Fault, this, $($LauncherProperties$Errors::CantReadFile(file, e)));
 	}
 	$shouldNotReachHere();
@@ -547,8 +520,7 @@ $String* Main::compile($Path* file, $List* javacOpts, $Main$Context* context) {
 	try {
 		$init($StandardLocation);
 		$nc(stdFileMgr)->setLocation($StandardLocation::SOURCE_PATH, $($Collections::emptyList()));
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($Error, "unexpected exception from file manager"_s, e);
 	}
 	$var($JavaFileManager, fm, $nc(context)->getFileManager(stdFileMgr));
@@ -588,17 +560,13 @@ void Main::execute($String* mainClassName, $StringArray* appArgs, $Main$Context*
 		}
 		$nc(main)->setAccessible(true);
 		main->invoke($($Integer::valueOf(0)), $$new($ObjectArray, {$of(appArgs)}));
-	} catch ($ClassNotFoundException&) {
-		$var($ClassNotFoundException, e, $catch());
+	} catch ($ClassNotFoundException& e) {
 		$throwNew($Main$Fault, this, $($LauncherProperties$Errors::CantFindClass(mainClassName)));
-	} catch ($NoSuchMethodException&) {
-		$var($NoSuchMethodException, e, $catch());
+	} catch ($NoSuchMethodException& e) {
 		$throwNew($Main$Fault, this, $($LauncherProperties$Errors::CantFindMainMethod(mainClassName)));
-	} catch ($IllegalAccessException&) {
-		$var($IllegalAccessException, e, $catch());
+	} catch ($IllegalAccessException& e) {
 		$throwNew($Main$Fault, this, $($LauncherProperties$Errors::CantAccessMainMethod(mainClassName)));
-	} catch ($InvocationTargetException&) {
-		$var($InvocationTargetException, e, $catch());
+	} catch ($InvocationTargetException& e) {
 		int32_t invocationFrames = $nc($(e->getStackTrace()))->length;
 		$var($Throwable, target, e->getCause());
 		$var($StackTraceElementArray, targetTrace, $nc(target)->getStackTrace());
@@ -620,8 +588,7 @@ $String* Main::getMessage($JCDiagnostic$Error* error) {
 		$var($String, resource, $nc(this->resourceBundle)->getString(key));
 		$var($String, message, $MessageFormat::format(resource, args));
 		return $str({this->errorPrefix, message});
-	} catch ($MissingResourceException&) {
-		$var($MissingResourceException, e, $catch());
+	} catch ($MissingResourceException& e) {
 		return $str({"Cannot access resource; "_s, key, $($Arrays::toString(args))});
 	}
 	$shouldNotReachHere();

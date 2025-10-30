@@ -37,30 +37,15 @@
 #include <java/io/IOException.h>
 #include <java/io/PrintWriter.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Character.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/IllegalArgumentException.h>
 #include <java/lang/IllegalStateException.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/file/Files.h>
 #include <java/nio/file/LinkOption.h>
 #include <java/nio/file/Path.h>
@@ -553,7 +538,6 @@ $Object* allocate$Arguments($Class* clazz) {
 	return $of($alloc(Arguments));
 }
 
-
 $Context$Key* Arguments::argsKey = nullptr;
 
 Arguments* Arguments::instance($Context* context) {
@@ -702,8 +686,7 @@ bool Arguments::doProcessArgs($Iterable* args, $Set* allowableOpts, $OptionHelpe
 		if (option != nullptr) {
 			try {
 				option->handleOption(helper, arg, argIter);
-			} catch ($Option$InvalidValueException&) {
-				$var($Option$InvalidValueException, e, $catch());
+			} catch ($Option$InvalidValueException& e) {
 				error(e);
 				return false;
 			}
@@ -770,8 +753,7 @@ bool Arguments::validate() {
 							}
 						}
 					}
-				} catch ($IOException&) {
-					$var($IOException, ex, $catch());
+				} catch ($IOException& ex) {
 					$init($Log$PrefixKind);
 					$nc(this->log)->printLines($Log$PrefixKind::JAVAC, "msg.io"_s, $$new($ObjectArray, 0));
 					$init($Log$WriterKind);

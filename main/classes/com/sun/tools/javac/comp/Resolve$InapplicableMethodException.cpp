@@ -2,15 +2,6 @@
 
 #include <com/sun/tools/javac/comp/Resolve.h>
 #include <com/sun/tools/javac/util/JCDiagnostic.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $Resolve = ::com::sun::tools::javac::comp::Resolve;
@@ -76,16 +67,10 @@ $JCDiagnostic* Resolve$InapplicableMethodException::getDiagnostic() {
 Resolve$InapplicableMethodException::Resolve$InapplicableMethodException() {
 }
 
-Resolve$InapplicableMethodException::Resolve$InapplicableMethodException(const Resolve$InapplicableMethodException& e) {
+Resolve$InapplicableMethodException::Resolve$InapplicableMethodException(const Resolve$InapplicableMethodException& e) : $RuntimeException(e) {
 }
 
-Resolve$InapplicableMethodException Resolve$InapplicableMethodException::wrapper$() {
-	$pendingException(this);
-	return *this;
-}
-
-void Resolve$InapplicableMethodException::throwWrapper$() {
-	$pendingException(this);
+void Resolve$InapplicableMethodException::throw$() {
 	throw *this;
 }
 

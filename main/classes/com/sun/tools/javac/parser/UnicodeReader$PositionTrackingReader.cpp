@@ -3,15 +3,6 @@
 #include <com/sun/tools/javac/parser/ScannerFactory.h>
 #include <com/sun/tools/javac/parser/UnicodeReader.h>
 #include <com/sun/tools/javac/util/LayoutCharacters.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $ScannerFactory = ::com::sun::tools::javac::parser::ScannerFactory;

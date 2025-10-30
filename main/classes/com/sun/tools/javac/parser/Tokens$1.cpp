@@ -2,16 +2,7 @@
 
 #include <com/sun/tools/javac/parser/Tokens$TokenKind.h>
 #include <com/sun/tools/javac/parser/Tokens.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/NoSuchFieldError.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef CHARLITERAL
@@ -92,93 +83,75 @@ void clinit$Tokens$1($Class* class$) {
 	{
 		try {
 			$nc(Tokens$1::$SwitchMap$com$sun$tools$javac$parser$Tokens$TokenKind)->set($Tokens$TokenKind::IDENTIFIER->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Tokens$1::$SwitchMap$com$sun$tools$javac$parser$Tokens$TokenKind)->set($Tokens$TokenKind::CHARLITERAL->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Tokens$1::$SwitchMap$com$sun$tools$javac$parser$Tokens$TokenKind)->set($Tokens$TokenKind::STRINGLITERAL->ordinal(), 3);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Tokens$1::$SwitchMap$com$sun$tools$javac$parser$Tokens$TokenKind)->set($Tokens$TokenKind::INTLITERAL->ordinal(), 4);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Tokens$1::$SwitchMap$com$sun$tools$javac$parser$Tokens$TokenKind)->set($Tokens$TokenKind::LONGLITERAL->ordinal(), 5);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Tokens$1::$SwitchMap$com$sun$tools$javac$parser$Tokens$TokenKind)->set($Tokens$TokenKind::FLOATLITERAL->ordinal(), 6);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Tokens$1::$SwitchMap$com$sun$tools$javac$parser$Tokens$TokenKind)->set($Tokens$TokenKind::DOUBLELITERAL->ordinal(), 7);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Tokens$1::$SwitchMap$com$sun$tools$javac$parser$Tokens$TokenKind)->set($Tokens$TokenKind::ERROR->ordinal(), 8);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Tokens$1::$SwitchMap$com$sun$tools$javac$parser$Tokens$TokenKind)->set($Tokens$TokenKind::EOF->ordinal(), 9);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Tokens$1::$SwitchMap$com$sun$tools$javac$parser$Tokens$TokenKind)->set($Tokens$TokenKind::DOT->ordinal(), 10);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Tokens$1::$SwitchMap$com$sun$tools$javac$parser$Tokens$TokenKind)->set($Tokens$TokenKind::COMMA->ordinal(), 11);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Tokens$1::$SwitchMap$com$sun$tools$javac$parser$Tokens$TokenKind)->set($Tokens$TokenKind::SEMI->ordinal(), 12);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Tokens$1::$SwitchMap$com$sun$tools$javac$parser$Tokens$TokenKind)->set($Tokens$TokenKind::LPAREN->ordinal(), 13);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Tokens$1::$SwitchMap$com$sun$tools$javac$parser$Tokens$TokenKind)->set($Tokens$TokenKind::RPAREN->ordinal(), 14);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Tokens$1::$SwitchMap$com$sun$tools$javac$parser$Tokens$TokenKind)->set($Tokens$TokenKind::LBRACKET->ordinal(), 15);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Tokens$1::$SwitchMap$com$sun$tools$javac$parser$Tokens$TokenKind)->set($Tokens$TokenKind::RBRACKET->ordinal(), 16);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Tokens$1::$SwitchMap$com$sun$tools$javac$parser$Tokens$TokenKind)->set($Tokens$TokenKind::LBRACE->ordinal(), 17);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(Tokens$1::$SwitchMap$com$sun$tools$javac$parser$Tokens$TokenKind)->set($Tokens$TokenKind::RBRACE->ordinal(), 18);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 }

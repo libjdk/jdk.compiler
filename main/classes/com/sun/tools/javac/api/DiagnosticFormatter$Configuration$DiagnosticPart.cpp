@@ -1,16 +1,7 @@
 #include <com/sun/tools/javac/api/DiagnosticFormatter$Configuration$DiagnosticPart.h>
 
 #include <com/sun/tools/javac/api/DiagnosticFormatter$Configuration.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef DETAILS
@@ -77,15 +68,10 @@ $Object* allocate$DiagnosticFormatter$Configuration$DiagnosticPart($Class* clazz
 	return $of($alloc(DiagnosticFormatter$Configuration$DiagnosticPart));
 }
 
-
 DiagnosticFormatter$Configuration$DiagnosticPart* DiagnosticFormatter$Configuration$DiagnosticPart::SUMMARY = nullptr;
-
 DiagnosticFormatter$Configuration$DiagnosticPart* DiagnosticFormatter$Configuration$DiagnosticPart::DETAILS = nullptr;
-
 DiagnosticFormatter$Configuration$DiagnosticPart* DiagnosticFormatter$Configuration$DiagnosticPart::SOURCE = nullptr;
-
 DiagnosticFormatter$Configuration$DiagnosticPart* DiagnosticFormatter$Configuration$DiagnosticPart::SUBDIAGNOSTICS = nullptr;
-
 DiagnosticFormatter$Configuration$DiagnosticPart* DiagnosticFormatter$Configuration$DiagnosticPart::JLS = nullptr;
 $DiagnosticFormatter$Configuration$DiagnosticPartArray* DiagnosticFormatter$Configuration$DiagnosticPart::$VALUES = nullptr;
 

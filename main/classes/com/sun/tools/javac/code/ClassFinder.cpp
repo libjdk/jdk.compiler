@@ -41,32 +41,17 @@
 #include <com/sun/tools/javac/util/Options.h>
 #include <java/io/IOException.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Boolean.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
 #include <java/lang/IllegalStateException.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/Long.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
 #include <java/lang/StackTraceElement.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/URI.h>
 #include <java/nio/file/Path.h>
 #include <java/util/AbstractMap.h>
@@ -684,7 +669,6 @@ $Object* allocate$ClassFinder($Class* clazz) {
 	return $of($alloc(ClassFinder));
 }
 
-
 $Context$Key* ClassFinder::classFinderKey = nullptr;
 
 $Symbol$Completer* ClassFinder::getCompleter() {
@@ -788,8 +772,7 @@ int64_t ClassFinder::getSupplementaryFlags($Symbol$ClassSymbol* c) {
 			if (this->profile != $Profile::DEFAULT && $nc(minProfile)->value > this->profile->value) {
 				newFlags |= 0x0000200000000000;
 			}
-		} catch ($IOException&) {
-			$catch();
+		} catch ($IOException& ignore) {
 		}
 		$var($Object, var$0, $of($nc(c)->packge()));
 		$nc(this->supplementaryFlags)->put(var$0, $assign(flags, $Long::valueOf(newFlags)));
@@ -812,8 +795,8 @@ void ClassFinder::complete($Symbol* sym) {
 				completeOwners(c->owner);
 				completeEnclosing(c);
 				fillIn(c);
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$1) {
+				$assign(var$0, var$1);
 			} /*finally*/ {
 				$nc(this->annotate)->unblockAnnotationsNoFlush();
 				$nc(this->dependencies)->pop();
@@ -827,8 +810,7 @@ void ClassFinder::complete($Symbol* sym) {
 			$var($Symbol$PackageSymbol, p, $cast($Symbol$PackageSymbol, sym));
 			try {
 				fillIn(p);
-			} catch ($IOException&) {
-				$var($IOException, ex, $catch());
+			} catch ($IOException& ex) {
 				$throw($($$new($Symbol$CompletionFailure, sym, static_cast<$Supplier*>($$new(ClassFinder$$Lambda$lambda$complete$1$2, this, ex)), this->dcfh)->initCause(ex)));
 			}
 		}
@@ -901,8 +883,7 @@ void ClassFinder::fillIn($Symbol$ClassSymbol* c) {
 					} else {
 						$throwNew($IllegalStateException, $$str({"Source completer required to read "_s, $(classfile->toUri())}));
 					}
-				} catch ($ClassFinder$BadClassFile&) {
-					$var($ClassFinder$BadClassFile, cf, $catch());
+				} catch ($ClassFinder$BadClassFile& cf) {
 					$set(c, owner, prevOwner);
 					$nc($($nc(c->members_field)->getSymbols(static_cast<$Predicate*>($$new(ClassFinder$$Lambda$lambda$fillIn$3$4)))))->forEach(static_cast<$Consumer*>($$new(ClassFinder$$Lambda$lambda$fillIn$4$5)));
 					$set(c, fullname, prevName);
@@ -910,8 +891,8 @@ void ClassFinder::fillIn($Symbol$ClassSymbol* c) {
 					c->reset();
 					$throw(cf);
 				}
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$1) {
+				$assign(var$0, var$1);
 			} /*finally*/ {
 				$set(this, currentClassFile, previousClassFile);
 			}
@@ -950,8 +931,7 @@ $Symbol$ClassSymbol* ClassFinder::loadClass($Symbol$ModuleSymbol* msym, $Name* f
 	if ($nc(c)->members_field == nullptr) {
 		try {
 			c->complete();
-		} catch ($Symbol$CompletionFailure&) {
-			$var($Symbol$CompletionFailure, ex, $catch());
+		} catch ($Symbol$CompletionFailure& ex) {
 			if (absent) {
 				$nc(this->syms)->removeClass($nc(ps)->modle, flatname);
 				$nc(ex->dcfh)->classSymbolRemoved(c);
@@ -965,7 +945,7 @@ $Symbol$ClassSymbol* ClassFinder::loadClass($Symbol$ModuleSymbol* msym, $Name* f
 void ClassFinder::includeClassFile($Symbol$PackageSymbol* p, $JavaFileObject* file) {
 	$useLocalCurrentObjectStackCache();
 	if (((int64_t)($nc(p)->flags_field & (uint64_t)(int64_t)0x00800000)) == 0) {
-			$init($Kinds$Kind);
+		$init($Kinds$Kind);
 		{
 			$var($Symbol, q, p);
 			for (; q != nullptr && q->kind == $Kinds$Kind::PCK; $assign(q, q->owner)) {
@@ -1087,8 +1067,8 @@ void ClassFinder::scanModulePaths($Symbol$PackageSymbol* p, $Symbol$ModuleSymbol
 			if (wantSourceFiles && (sourceLocn != nullptr)) {
 				fillIn(p, sourceLocn, $(list(sourceLocn, p, packageName, sourceKinds)));
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			this->preferCurrent = prevPreferCurrent;
 		}

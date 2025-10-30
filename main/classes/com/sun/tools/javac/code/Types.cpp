@@ -114,29 +114,14 @@
 #include <com/sun/tools/javac/util/Names.h>
 #include <com/sun/tools/javac/util/Warner.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/CompoundAttribute.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
 #include <java/lang/Number.h>
-#include <java/lang/String.h>
-#include <java/lang/StringBuilder.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/AbstractSet.h>
 #include <java/util/Collection.h>
@@ -1127,8 +1112,7 @@ bool Types::isFunctionalInterface($Symbol$TypeSymbol* tsym) {
 	try {
 		findDescriptorSymbol(tsym);
 		return true;
-	} catch ($Types$FunctionDescriptorLookupError&) {
-		$var($Types$FunctionDescriptorLookupError, ex, $catch());
+	} catch ($Types$FunctionDescriptorLookupError& ex) {
 		return false;
 	}
 	$shouldNotReachHere();
@@ -1138,8 +1122,7 @@ bool Types::isFunctionalInterface($Type* site) {
 	try {
 		findDescriptorType(site);
 		return true;
-	} catch ($Types$FunctionDescriptorLookupError&) {
-		$var($Types$FunctionDescriptorLookupError, ex, $catch());
+	} catch ($Types$FunctionDescriptorLookupError& ex) {
 		return false;
 	}
 	$shouldNotReachHere();
@@ -1350,7 +1333,7 @@ void Types::checkUnsafeVarargsConversion($Type* t, $Type* s, $Warner* warn) {
 	}
 	$var($Type$ArrayType, from, $cast($Type$ArrayType, t));
 	bool shouldWarn = false;
-		$init($Types$25);
+	$init($Types$25);
 	{
 		$var($Type$ArrayType, to, nullptr)
 		switch ($nc($Types$25::$SwitchMap$com$sun$tools$javac$code$TypeTag)->get($nc(($($nc(s)->getTag())))->ordinal())) {
@@ -1639,8 +1622,8 @@ bool Types::isCastable($Type* t$renamed, $Type* s, $Warner* warn) {
 				$set(this, warnStack, $nc(this->warnStack)->prepend(warn));
 				checkUnsafeVarargsConversion(t, s, warn);
 				result = $nc(($cast($Boolean, $($nc(this->isCastable$)->visit(t, s)))))->booleanValue();
-			} catch ($Throwable&) {
-				$assign(var$3, $catch());
+			} catch ($Throwable& var$4) {
+				$assign(var$3, var$4);
 			} /*finally*/ {
 				$set(this, warnStack, $nc(this->warnStack)->tail);
 			}
@@ -1652,18 +1635,18 @@ bool Types::isCastable($Type* t$renamed, $Type* s, $Warner* warn) {
 		result = $nc(($cast($Boolean, $($nc(this->isCastable$)->visit(t, s)))))->booleanValue();
 	}
 	$init($TypeTag);
-	bool var$7 = result && $nc(t)->hasTag($TypeTag::CLASS);
+	bool var$8 = result && $nc(t)->hasTag($TypeTag::CLASS);
 	$init($Kinds$KindSelector);
-	bool var$6 = var$7 && $nc($nc(t->tsym)->kind)->matches($Kinds$KindSelector::TYP);
-	bool var$5 = var$6 && $nc(s)->hasTag($TypeTag::CLASS);
-	bool var$4 = var$5 && $nc($nc(s->tsym)->kind)->matches($Kinds$KindSelector::TYP);
-	if (var$4) {
-		bool var$8 = $nc(t->tsym)->isSealed();
-		var$4 = (var$8 || $nc(s->tsym)->isSealed());
+	bool var$7 = var$8 && $nc($nc(t->tsym)->kind)->matches($Kinds$KindSelector::TYP);
+	bool var$6 = var$7 && $nc(s)->hasTag($TypeTag::CLASS);
+	bool var$5 = var$6 && $nc($nc(s->tsym)->kind)->matches($Kinds$KindSelector::TYP);
+	if (var$5) {
+		bool var$9 = $nc(t->tsym)->isSealed();
+		var$5 = (var$9 || $nc(s->tsym)->isSealed());
 	}
-	if (var$4) {
-		bool var$9 = $nc(t)->isCompound();
-		return (var$9 || $nc(s)->isCompound()) ? false : !areDisjoint($cast($Symbol$ClassSymbol, $nc(t)->tsym), $cast($Symbol$ClassSymbol, $nc(s)->tsym));
+	if (var$5) {
+		bool var$10 = $nc(t)->isCompound();
+		return (var$10 || $nc(s)->isCompound()) ? false : !areDisjoint($cast($Symbol$ClassSymbol, $nc(t)->tsym), $cast($Symbol$ClassSymbol, $nc(s)->tsym));
 	}
 	return result;
 }
@@ -2225,8 +2208,7 @@ $Symbol$MethodSymbol* Types::firstUnimplementedAbstract($Symbol$ClassSymbol* sym
 	$useLocalCurrentObjectStackCache();
 	try {
 		return firstUnimplementedAbstractImpl(sym, sym);
-	} catch ($Symbol$CompletionFailure&) {
-		$var($Symbol$CompletionFailure, ex, $catch());
+	} catch ($Symbol$CompletionFailure& ex) {
 		$nc(this->chk)->completionError($($nc($nc($($nc(this->enter)->getEnv(sym)))->tree)->pos()), ex);
 		return nullptr;
 	}
@@ -3449,8 +3431,7 @@ void Types::adapt($Type* source, $Type* target, $ListBuffer* from, $ListBuffer* 
 void Types::adaptSelf($Type* t, $ListBuffer* from, $ListBuffer* to) {
 	try {
 		adapt($nc($nc(t)->tsym)->type, t, from, to);
-	} catch ($Types$AdaptFailure&) {
-		$var($Types$AdaptFailure, ex, $catch());
+	} catch ($Types$AdaptFailure& ex) {
 		$throwNew($AssertionError, $of(ex));
 	}
 }

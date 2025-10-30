@@ -1,16 +1,7 @@
 #include <com/sun/tools/javac/api/DiagnosticFormatter$PositionKind.h>
 
 #include <com/sun/tools/javac/api/DiagnosticFormatter.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef COLUMN
@@ -76,15 +67,10 @@ $Object* allocate$DiagnosticFormatter$PositionKind($Class* clazz) {
 	return $of($alloc(DiagnosticFormatter$PositionKind));
 }
 
-
 DiagnosticFormatter$PositionKind* DiagnosticFormatter$PositionKind::START = nullptr;
-
 DiagnosticFormatter$PositionKind* DiagnosticFormatter$PositionKind::END = nullptr;
-
 DiagnosticFormatter$PositionKind* DiagnosticFormatter$PositionKind::LINE = nullptr;
-
 DiagnosticFormatter$PositionKind* DiagnosticFormatter$PositionKind::COLUMN = nullptr;
-
 DiagnosticFormatter$PositionKind* DiagnosticFormatter$PositionKind::OFFSET = nullptr;
 $DiagnosticFormatter$PositionKindArray* DiagnosticFormatter$PositionKind::$VALUES = nullptr;
 

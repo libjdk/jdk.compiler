@@ -6,21 +6,11 @@
 #include <com/sun/tools/javac/util/ClientCodeException.h>
 #include <com/sun/tools/javac/util/JCDiagnostic$Error.h>
 #include <com/sun/tools/javac/util/Log.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
 #include <java/lang/ClassCastException.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/ClassLoader.h>
 #include <java/lang/ClassNotFoundException.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/InternalError.h>
-#include <java/lang/MethodInfo.h>
 #include <java/lang/NoSuchMethodException.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/UnsupportedOperationException.h>
 #include <java/lang/reflect/Constructor.h>
 #include <java/lang/reflect/Method.h>
@@ -140,24 +130,19 @@ $Processor* JavacProcessingEnvironment$NameProcessIterator::getNextProcessor($St
 			$Class* processorClass = $nc(this->processorCL)->loadClass(processorName);
 			ensureReadable(processorClass);
 			return $cast($Processor, $nc($($nc(processorClass)->getConstructor($$new($ClassArray, 0))))->newInstance($$new($ObjectArray, 0)));
-		} catch ($ClassNotFoundException&) {
-			$var($ClassNotFoundException, cnfe, $catch());
+		} catch ($ClassNotFoundException& cnfe) {
 			$nc(this->log)->error($($CompilerProperties$Errors::ProcProcessorNotFound(processorName)));
 			return nullptr;
-		} catch ($ClassCastException&) {
-			$var($ClassCastException, cce, $catch());
+		} catch ($ClassCastException& cce) {
 			$nc(this->log)->error($($CompilerProperties$Errors::ProcProcessorWrongType(processorName)));
 			return nullptr;
-		} catch ($Exception&) {
-			$var($Exception, e, $catch());
+		} catch ($Exception& e) {
 			$nc(this->log)->error($($CompilerProperties$Errors::ProcProcessorCantInstantiate(processorName)));
 			return nullptr;
 		}
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($Throwable&) {
-		$var($Throwable, t, $catch());
+	} catch ($Throwable& t) {
 		$throwNew($AnnotationProcessingError, t);
 	}
 	$shouldNotReachHere();
@@ -181,17 +166,14 @@ void JavacProcessingEnvironment$NameProcessIterator::ensureReadable($Class* targ
 	$useLocalCurrentObjectStackCache();
 	$beforeCallerSensitive();
 	try {
-		$load($Class);
 		$var($Method, getModuleMethod, $Class::class$->getMethod("getModule"_s, $$new($ClassArray, 0)));
 		$var($Object, thisModule, $nc(getModuleMethod)->invoke($of(this)->getClass(), $$new($ObjectArray, 0)));
 		$var($Object, targetModule, getModuleMethod->invoke(targetClass, $$new($ObjectArray, 0)));
 		$Class* moduleClass = getModuleMethod->getReturnType();
 		$var($Method, addReadsMethod, $nc(moduleClass)->getMethod("addReads"_s, $$new($ClassArray, {moduleClass})));
 		$nc(addReadsMethod)->invoke(thisModule, $$new($ObjectArray, {targetModule}));
-	} catch ($NoSuchMethodException&) {
-		$catch();
-	} catch ($Exception&) {
-		$var($Exception, e, $catch());
+	} catch ($NoSuchMethodException& e) {
+	} catch ($Exception& e) {
 		$throwNew($InternalError, static_cast<$Throwable*>(e));
 	}
 }

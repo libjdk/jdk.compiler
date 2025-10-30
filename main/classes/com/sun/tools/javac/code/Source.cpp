@@ -6,16 +6,7 @@
 #include <com/sun/tools/javac/util/Context$Key.h>
 #include <com/sun/tools/javac/util/Context.h>
 #include <com/sun/tools/javac/util/Options.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/HashMap.h>
 #include <java/util/Map.h>
@@ -153,37 +144,21 @@ $Object* allocate$Source($Class* clazz) {
 	return $of($alloc(Source));
 }
 
-
 Source* Source::JDK1_2 = nullptr;
-
 Source* Source::JDK1_3 = nullptr;
-
 Source* Source::JDK1_4 = nullptr;
-
 Source* Source::JDK5 = nullptr;
-
 Source* Source::JDK6 = nullptr;
-
 Source* Source::JDK7 = nullptr;
-
 Source* Source::JDK8 = nullptr;
-
 Source* Source::JDK9 = nullptr;
-
 Source* Source::JDK10 = nullptr;
-
 Source* Source::JDK11 = nullptr;
-
 Source* Source::JDK12 = nullptr;
-
 Source* Source::JDK13 = nullptr;
-
 Source* Source::JDK14 = nullptr;
-
 Source* Source::JDK15 = nullptr;
-
 Source* Source::JDK16 = nullptr;
-
 Source* Source::JDK17 = nullptr;
 $SourceArray* Source::$VALUES = nullptr;
 $Context$Key* Source::sourceKey = nullptr;

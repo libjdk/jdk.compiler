@@ -115,25 +115,13 @@
 #include <com/sun/tools/javac/util/Position$LineMap.h>
 #include <java/io/FileNotFoundException.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/IllegalArgumentException.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/text/BreakIterator.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/AbstractSet.h>
@@ -794,14 +782,13 @@ $TypeMirror* JavacTrees::getType($DocTreePath* path) {
 								return$2 = true;
 								goto $finally;
 							}
-						} catch ($Abort&) {
-							$var($Abort, e, $catch());
+						} catch ($Abort& e) {
 							$assign(var$3, nullptr);
 							return$2 = true;
 							goto $finally;
 						}
-					} catch ($Throwable&) {
-						$assign(var$1, $catch());
+					} catch ($Throwable& var$4) {
+						$assign(var$1, var$4);
 					} $finally: {
 						$nc(this->log)->popDiagnosticHandler(deferredDiagnosticHandler);
 					}
@@ -968,14 +955,13 @@ $Symbol* JavacTrees::attributeDocReference($TreePath* path, $DCTree$DCReference*
 					return$1 = true;
 					goto $finally;
 				}
-			} catch ($Abort&) {
-				$var($Abort, e, $catch());
+			} catch ($Abort& e) {
 				$assign(var$2, nullptr);
 				return$1 = true;
 				goto $finally;
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$7) {
+			$assign(var$0, var$7);
 		} $finally: {
 			$nc(this->log)->popDiagnosticHandler(deferredDiagnosticHandler);
 		}
@@ -1400,8 +1386,8 @@ $Env* JavacTrees::getAttrContext($TreePath* path) {
 								$Assert::check($equals(method->body, tree));
 								$set(method, body, $cast($JCTree$JCBlock, $nc(copier)->copy($cast($JCTree$JCBlock, tree), $cast($JCTree, $(path->getLeaf())))));
 								$assign(env, attribStatToTree(method->body, env, copier->leafCopy, copier->copiedClasses));
-							} catch ($Throwable&) {
-								$assign(var$0, $catch());
+							} catch ($Throwable& var$1) {
+								$assign(var$0, var$1);
 							} /*finally*/ {
 								$set(method, body, $cast($JCTree$JCBlock, tree));
 							}
@@ -1623,8 +1609,8 @@ void JavacTrees::printMessage($Diagnostic$Kind* kind, $CharSequence* msg, $JCDia
 					$nc(this->log)->note(pos, $($CompilerProperties$Notes::ProcMessager($($nc(msg)->toString()))));
 				}
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			if (oldSource != nullptr) {
 				$nc(this->log)->useSource(oldSource);

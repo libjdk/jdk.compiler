@@ -93,17 +93,7 @@
 #include <com/sun/tools/javac/util/Name.h>
 #include <com/sun/tools/javac/util/Names.h>
 #include <com/sun/tools/javac/util/Warner.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/Integer.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Iterator.h>
 #include <jcpp.h>
 
@@ -330,7 +320,6 @@ $Object* allocate$TransTypes($Class* clazz) {
 	return $of($alloc(TransTypes));
 }
 
-
 $Context$Key* TransTypes::transTypesKey = nullptr;
 $String* TransTypes::statePreviousToFlowAssertMsg = nullptr;
 
@@ -390,8 +379,8 @@ $JCTree$JCExpression* TransTypes::coerce($Env* env, $JCTree$JCExpression* tree, 
 			$assign(var$2, coerce(tree, target));
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$set(this, env, prevEnv);
 		}
@@ -465,8 +454,8 @@ $List* TransTypes::translateArgs($List* _args, $List* parameters, $Type* varargs
 			$assign(var$2, translateArgs(_args, parameters, varargsElement));
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$set(this, env, prevEnv);
 		}
@@ -626,8 +615,8 @@ $JCTree* TransTypes::translate($JCTree* tree, $Type* pt) {
 			$assign(var$2, translate(tree));
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$set(this, pt, prevPt);
 		}
@@ -650,8 +639,8 @@ $List* TransTypes::translate($List* trees, $Type* pt) {
 		try {
 			$set(this, pt, pt);
 			$assign(res, translate(trees));
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, pt, prevPt);
 		}
@@ -682,8 +671,8 @@ void TransTypes::visitMethodDef($JCTree$JCMethodDecl* tree) {
 			$set(tree, body, $cast($JCTree$JCBlock, translate(static_cast<$JCTree*>(tree->body), $($nc($($nc(tree->sym)->erasure(this->types)))->getReturnType()))));
 			$set(tree, type, erasure(tree->type));
 			$set(this, result, tree);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, returnType, prevRetType);
 		}
@@ -750,8 +739,8 @@ void TransTypes::visitLambda($JCTree$JCLambda* tree) {
 				$set(tree, type, $nc(this->types)->erasure($nc($nc($($nc(this->types)->findDescriptorSymbol($nc(tree->type)->tsym)))->owner)->type));
 			}
 			$set(this, result, tree);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, returnType, prevRetType);
 		}
@@ -1149,8 +1138,8 @@ void TransTypes::translateClass($Symbol$ClassSymbol* c) {
 					}
 					$set(tree, defs, $nc($(bridges->toList()))->prependList(tree->defs));
 					$set(tree, type, erasure(tree->type));
-				} catch ($Throwable&) {
-					$assign(var$1, $catch());
+				} catch ($Throwable& var$2) {
+					$assign(var$1, var$2);
 				} /*finally*/ {
 					$set(this, make, savedMake);
 					$set(this, pt, savedPt);
@@ -1159,8 +1148,8 @@ void TransTypes::translateClass($Symbol$ClassSymbol* c) {
 					$throw(var$1);
 				}
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} /*finally*/ {
 			$set(this, env, oldEnv);
 		}

@@ -7,18 +7,7 @@
 #include <java/io/Reader.h>
 #include <java/io/Writer.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Error.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/URI.h>
 #include <java/util/Objects.h>
 #include <javax/tools/FileObject.h>
@@ -100,153 +89,117 @@ void ClientCodeWrapper$WrappedFileObject::init$($ClientCodeWrapper* this$0, $Fil
 }
 
 $URI* ClientCodeWrapper$WrappedFileObject::toUri() {
-	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientFileObject)->toUri();
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 	$shouldNotReachHere();
 }
 
 $String* ClientCodeWrapper$WrappedFileObject::getName() {
-	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientFileObject)->getName();
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 	$shouldNotReachHere();
 }
 
 $InputStream* ClientCodeWrapper$WrappedFileObject::openInputStream() {
-	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientFileObject)->openInputStream();
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 	$shouldNotReachHere();
 }
 
 $OutputStream* ClientCodeWrapper$WrappedFileObject::openOutputStream() {
-	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientFileObject)->openOutputStream();
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 	$shouldNotReachHere();
 }
 
 $Reader* ClientCodeWrapper$WrappedFileObject::openReader(bool ignoreEncodingErrors) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientFileObject)->openReader(ignoreEncodingErrors);
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 	$shouldNotReachHere();
 }
 
 $CharSequence* ClientCodeWrapper$WrappedFileObject::getCharContent(bool ignoreEncodingErrors) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientFileObject)->getCharContent(ignoreEncodingErrors);
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 	$shouldNotReachHere();
 }
 
 $Writer* ClientCodeWrapper$WrappedFileObject::openWriter() {
-	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientFileObject)->openWriter();
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 	$shouldNotReachHere();
 }
 
 int64_t ClientCodeWrapper$WrappedFileObject::getLastModified() {
-	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientFileObject)->getLastModified();
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 	$shouldNotReachHere();
 }
 
 bool ClientCodeWrapper$WrappedFileObject::delete$() {
-	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(this->clientFileObject)->delete$();
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, e, $catch());
+	} catch ($ClientCodeException& e) {
 		$throw(e);
-	} catch ($RuntimeException&) {
-		$var($Throwable, e, $catch());
+	} catch ($RuntimeException& e) {
 		$throwNew($ClientCodeException, e);
-	} catch ($Error&) {
-		$var($Throwable, e, $catch());
+	} catch ($Error& e) {
 		$throwNew($ClientCodeException, e);
 	}
 	$shouldNotReachHere();

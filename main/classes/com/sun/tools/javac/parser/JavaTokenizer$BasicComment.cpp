@@ -4,17 +4,6 @@
 #include <com/sun/tools/javac/parser/ScannerFactory.h>
 #include <com/sun/tools/javac/parser/Tokens$Comment$CommentStyle.h>
 #include <com/sun/tools/javac/parser/UnicodeReader$PositionTrackingReader.h>
-#include <java/lang/Array.h>
-#include <java/lang/Character.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef JAVADOC
@@ -199,8 +188,8 @@ void JavaTokenizer$BasicComment::scanDocComment() {
 			}
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$2) {
+			$assign(var$0, var$2);
 		} $finally: {
 			this->scanned = true;
 		}

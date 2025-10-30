@@ -19,8 +19,10 @@ public:
 	virtual ::java::lang::RuntimeException* getCause() override;
 	static const int64_t serialVersionUID = (int64_t)0xABD3B14A6F120F39;
 	PropagatedException(const PropagatedException& e);
-	PropagatedException wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline PropagatedException* operator ->() {
+		return (PropagatedException*)throwing$;
+	}
 };
 
 				} // util

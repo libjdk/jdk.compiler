@@ -7,19 +7,9 @@
 #include <com/sun/tools/javac/util/LayoutCharacters.h>
 #include <com/sun/tools/javac/util/Position.h>
 #include <java/io/IOException.h>
-#include <java/lang/Array.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
 #include <java/lang/IllegalStateException.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/ref/SoftReference.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/CharBuffer.h>
 #include <javax/tools/JavaFileObject.h>
 #include <jcpp.h>
@@ -131,8 +121,8 @@ int32_t DiagnosticSource::getLineNumber(int32_t pos) {
 			var$2 = 0;
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$set(this, buf, nullptr);
 		}
@@ -173,8 +163,8 @@ int32_t DiagnosticSource::getColumnNumber(int32_t pos, bool expandTabs) {
 			var$2 = 0;
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$set(this, buf, nullptr);
 		}
@@ -212,8 +202,8 @@ $String* DiagnosticSource::getLine(int32_t pos) {
 			$assign(var$2, $new($String, this->buf, this->lineStart, lineEnd - this->lineStart));
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$set(this, buf, nullptr);
 		}
@@ -239,7 +229,6 @@ void DiagnosticSource::setEndPosTable($EndPosTable* t) {
 }
 
 bool DiagnosticSource::findLine(int32_t pos) {
-	$useLocalCurrentObjectStackCache();
 	if (pos == $Position::NOPOS) {
 		return false;
 	}
@@ -276,8 +265,7 @@ bool DiagnosticSource::findLine(int32_t pos) {
 			}
 		}
 		return bp <= this->bufLen;
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$nc(this->log)->directError("source.unavailable"_s, $$new($ObjectArray, 0));
 		$set(this, buf, $new($chars, 0));
 		return false;

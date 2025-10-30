@@ -1,16 +1,7 @@
 #include <com/sun/tools/javac/comp/DeferredAttr$AttrMode.h>
 
 #include <com/sun/tools/javac/comp/DeferredAttr.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef CHECK
@@ -70,9 +61,7 @@ $Object* allocate$DeferredAttr$AttrMode($Class* clazz) {
 	return $of($alloc(DeferredAttr$AttrMode));
 }
 
-
 DeferredAttr$AttrMode* DeferredAttr$AttrMode::SPECULATIVE = nullptr;
-
 DeferredAttr$AttrMode* DeferredAttr$AttrMode::CHECK = nullptr;
 $DeferredAttr$AttrModeArray* DeferredAttr$AttrMode::$VALUES = nullptr;
 

@@ -5,14 +5,6 @@
 #include <com/sun/tools/javac/tree/JCTree$JCCompilationUnit.h>
 #include <com/sun/tools/javac/util/Context$Key.h>
 #include <com/sun/tools/javac/util/Context.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractCollection.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/AbstractQueue.h>
@@ -102,7 +94,6 @@ $ClassInfo _Todo_ClassInfo_ = {
 $Object* allocate$Todo($Class* clazz) {
 	return $of($alloc(Todo));
 }
-
 
 $Context$Key* Todo::todoKey = nullptr;
 

@@ -2,16 +2,7 @@
 
 #include <com/sun/tools/javac/parser/UnicodeReader$UnicodeEscapeResult.h>
 #include <com/sun/tools/javac/parser/UnicodeReader.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/NoSuchFieldError.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef BACKSLASH
@@ -77,18 +68,15 @@ void clinit$UnicodeReader$1($Class* class$) {
 	{
 		try {
 			$nc(UnicodeReader$1::$SwitchMap$com$sun$tools$javac$parser$UnicodeReader$UnicodeEscapeResult)->set($UnicodeReader$UnicodeEscapeResult::BACKSLASH->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(UnicodeReader$1::$SwitchMap$com$sun$tools$javac$parser$UnicodeReader$UnicodeEscapeResult)->set($UnicodeReader$UnicodeEscapeResult::VALID_ESCAPE->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(UnicodeReader$1::$SwitchMap$com$sun$tools$javac$parser$UnicodeReader$UnicodeEscapeResult)->set($UnicodeReader$UnicodeEscapeResult::BROKEN_ESCAPE->ordinal(), 3);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 }

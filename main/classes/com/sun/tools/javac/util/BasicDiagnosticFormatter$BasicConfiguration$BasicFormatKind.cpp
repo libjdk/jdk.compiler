@@ -1,16 +1,7 @@
 #include <com/sun/tools/javac/util/BasicDiagnosticFormatter$BasicConfiguration$BasicFormatKind.h>
 
 #include <com/sun/tools/javac/util/BasicDiagnosticFormatter$BasicConfiguration.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef DEFAULT_CLASS_FORMAT
@@ -73,11 +64,8 @@ $Object* allocate$BasicDiagnosticFormatter$BasicConfiguration$BasicFormatKind($C
 	return $of($alloc(BasicDiagnosticFormatter$BasicConfiguration$BasicFormatKind));
 }
 
-
 BasicDiagnosticFormatter$BasicConfiguration$BasicFormatKind* BasicDiagnosticFormatter$BasicConfiguration$BasicFormatKind::DEFAULT_POS_FORMAT = nullptr;
-
 BasicDiagnosticFormatter$BasicConfiguration$BasicFormatKind* BasicDiagnosticFormatter$BasicConfiguration$BasicFormatKind::DEFAULT_NO_POS_FORMAT = nullptr;
-
 BasicDiagnosticFormatter$BasicConfiguration$BasicFormatKind* BasicDiagnosticFormatter$BasicConfiguration$BasicFormatKind::DEFAULT_CLASS_FORMAT = nullptr;
 $BasicDiagnosticFormatter$BasicConfiguration$BasicFormatKindArray* BasicDiagnosticFormatter$BasicConfiguration$BasicFormatKind::$VALUES = nullptr;
 

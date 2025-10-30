@@ -38,36 +38,19 @@
 #include <java/io/IOException.h>
 #include <java/io/InputStream.h>
 #include <java/io/OutputStream.h>
-#include <java/io/PrintStream.h>
 #include <java/io/PrintWriter.h>
 #include <java/io/Writer.h>
-#include <java/lang/Array.h>
-#include <java/lang/Byte.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/ClassLoader.h>
 #include <java/lang/Error.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
 #include <java/lang/IllegalAccessError.h>
 #include <java/lang/IllegalStateException.h>
 #include <java/lang/IncompatibleClassChangeError.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
 #include <java/lang/LinkageError.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
 #include <java/lang/OutOfMemoryError.h>
-#include <java/lang/RuntimeException.h>
 #include <java/lang/StackOverflowError.h>
-#include <java/lang/String.h>
-#include <java/lang/StringBuilder.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/VirtualMachineError.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/URL.h>
 #include <java/nio/file/Files.h>
 #include <java/nio/file/NoSuchFileException.h>
@@ -265,7 +248,7 @@ void Main::init$($String* name) {
 
 void Main::init$($String* name, $PrintWriter* out) {
 	$set(this, ownName, name);
-	$set(this, stdOut, ($assignField(this, stdErr, out)));
+	$set(this, stdOut, ($set(this, stdErr, out)));
 }
 
 void Main::init$($String* name, $PrintWriter* out, $PrintWriter* err) {
@@ -295,7 +278,6 @@ void Main::reportHelper($JCDiagnostic$DiagnosticInfo* diag) {
 }
 
 $Main$Result* Main::compile($StringArray* args) {
-	$useLocalCurrentObjectStackCache();
 	$var($Context, context, $new($Context));
 	$JavacFileManager::preRegister(context);
 	$Main$Result* result = compile(args, context);
@@ -303,8 +285,7 @@ $Main$Result* Main::compile($StringArray* args) {
 		if (this->fileManager != nullptr) {
 			$nc(this->fileManager)->close();
 		}
-	} catch ($IOException&) {
-		$var($IOException, ex, $catch());
+	} catch ($IOException& ex) {
 		bugMessage(ex);
 	}
 	return result;
@@ -326,8 +307,7 @@ $Main$Result* Main::compile($StringArray* argv, $Context* context) {
 		try {
 			$init($Option);
 			$Option::HELP->process(h, "-help"_s);
-		} catch ($Option$InvalidValueException&) {
-			$catch();
+		} catch ($Option$InvalidValueException& ignore) {
 		}
 		$init($Main$Result);
 		return $Main$Result::CMDERR;
@@ -335,23 +315,19 @@ $Main$Result* Main::compile($StringArray* argv, $Context* context) {
 	$var($Iterable, allArgs, nullptr);
 	try {
 		$assign(allArgs, $CommandLine::parse(Main::ENV_OPT_NAME, $($List::from(argv))));
-	} catch ($CommandLine$UnmatchedQuote&) {
-		$var($CommandLine$UnmatchedQuote, ex, $catch());
+	} catch ($CommandLine$UnmatchedQuote& ex) {
 		reportDiag($($CompilerProperties$Errors::UnmatchedQuote(ex->variableName)));
 		$init($Main$Result);
 		return $Main$Result::CMDERR;
-	} catch ($FileNotFoundException&) {
-		$var($IOException, e, $catch());
+	} catch ($FileNotFoundException& e) {
 		reportHelper($($CompilerProperties$Errors::FileNotFound($(e->getMessage()))));
 		$init($Main$Result);
 		return $Main$Result::SYSERR;
-	} catch ($NoSuchFileException&) {
-		$var($IOException, e, $catch());
+	} catch ($NoSuchFileException& e) {
 		reportHelper($($CompilerProperties$Errors::FileNotFound($(e->getMessage()))));
 		$init($Main$Result);
 		return $Main$Result::SYSERR;
-	} catch ($IOException&) {
-		$var($IOException, ex, $catch());
+	} catch ($IOException& ex) {
 		$init($Log$PrefixKind);
 		$nc(this->log)->printLines($Log$PrefixKind::JAVAC, "msg.io"_s, $$new($ObjectArray, 0));
 		$init($Log$WriterKind);
@@ -369,7 +345,6 @@ $Main$Result* Main::compile($StringArray* argv, $Context* context) {
 	bool forceStdOut = $nc(options)->isSet("stdout"_s);
 	if (forceStdOut) {
 		$nc(this->log)->flush();
-		$init($System);
 		$nc(this->log)->setWriters($$new($PrintWriter, static_cast<$OutputStream*>($System::out), true));
 	}
 	bool var$0 = options->isUnset("nonBatchMode"_s);
@@ -466,39 +441,33 @@ $Main$Result* Main::compile($StringArray* argv, $Context* context) {
 				$assign(var$5, (comp->errorCount() == 0) ? $Main$Result::OK : $Main$Result::ERROR);
 				return$4 = true;
 				goto $finally;
-			} catch ($OutOfMemoryError&) {
-				$var($VirtualMachineError, ex, $catch());
+			} catch ($OutOfMemoryError& ex) {
 				resourceMessage(ex);
 				$init($Main$Result);
 				$assign(var$5, $Main$Result::SYSERR);
 				return$4 = true;
 				goto $finally;
-			} catch ($StackOverflowError&) {
-				$var($VirtualMachineError, ex, $catch());
+			} catch ($StackOverflowError& ex) {
 				resourceMessage(ex);
 				$init($Main$Result);
 				$assign(var$5, $Main$Result::SYSERR);
 				return$4 = true;
 				goto $finally;
-			} catch ($FatalError&) {
-				$var($FatalError, ex, $catch());
+			} catch ($FatalError& ex) {
 				feMessage(ex, options);
 				$init($Main$Result);
 				$assign(var$5, $Main$Result::SYSERR);
 				return$4 = true;
 				goto $finally;
-			} catch ($AnnotationProcessingError&) {
-				$var($AnnotationProcessingError, ex, $catch());
+			} catch ($AnnotationProcessingError& ex) {
 				apMessage(ex);
 				$init($Main$Result);
 				$assign(var$5, $Main$Result::SYSERR);
 				return$4 = true;
 				goto $finally;
-			} catch ($PropagatedException&) {
-				$var($PropagatedException, ex, $catch());
+			} catch ($PropagatedException& ex) {
 				$throw($(ex->getCause()));
-			} catch ($IllegalAccessError&) {
-				$var($IllegalAccessError, iae, $catch());
+			} catch ($IllegalAccessError& iae) {
 				if (twoClassLoadersInUse(iae)) {
 					bugMessage(iae);
 				}
@@ -507,8 +476,7 @@ $Main$Result* Main::compile($StringArray* argv, $Context* context) {
 				$assign(var$5, $Main$Result::ABNORMAL);
 				return$4 = true;
 				goto $finally;
-			} catch ($Throwable&) {
-				$var($Throwable, ex, $catch());
+			} catch ($Throwable& ex) {
 				bool var$8 = comp == nullptr || $nc(comp)->errorCount() == 0;
 				if (var$8 || options->isSet("dev"_s)) {
 					bugMessage(ex);
@@ -519,8 +487,8 @@ $Main$Result* Main::compile($StringArray* argv, $Context* context) {
 				return$4 = true;
 				goto $finally;
 			}
-		} catch ($Throwable&) {
-			$assign(var$3, $catch());
+		} catch ($Throwable& var$9) {
+			$assign(var$3, var$9);
 		} $finally: {
 			if (printArgsToFile) {
 				printArgumentsToFile(argv);
@@ -528,8 +496,7 @@ $Main$Result* Main::compile($StringArray* argv, $Context* context) {
 			if (comp != nullptr) {
 				try {
 					comp->close();
-				} catch ($ClientCodeException&) {
-					$var($ClientCodeException, ex, $catch());
+				} catch ($ClientCodeException& ex) {
 					$throwNew($RuntimeException, $(ex->getCause()));
 				}
 			}
@@ -571,20 +538,18 @@ void Main::printArgumentsToFile($StringArray* params) {
 							}
 						}
 						$nc(w)->write(strOut);
-					} catch ($Throwable&) {
-						$var($Throwable, t$, $catch());
+					} catch ($Throwable& t$) {
 						if (w != nullptr) {
 							try {
 								w->close();
-							} catch ($Throwable&) {
-								$var($Throwable, x2, $catch());
+							} catch ($Throwable& x2) {
 								t$->addSuppressed(x2);
 							}
 						}
 						$throw(t$);
 					}
-				} catch ($Throwable&) {
-					$assign(var$0, $catch());
+				} catch ($Throwable& var$1) {
+					$assign(var$0, var$1);
 				} /*finally*/ {
 					if (w != nullptr) {
 						w->close();
@@ -597,11 +562,9 @@ void Main::printArgumentsToFile($StringArray* params) {
 		}
 		$init($Log$PrefixKind);
 		$nc(this->log)->printLines($Log$PrefixKind::JAVAC, "msg.parameters.output"_s, $$new($ObjectArray, {$($of($nc(out)->toAbsolutePath()))}));
-	} catch ($IOException&) {
-		$var($IOException, ioe, $catch());
+	} catch ($IOException& ioe) {
 		$init($Log$PrefixKind);
 		$nc(this->log)->printLines($Log$PrefixKind::JAVAC, "msg.parameters.output.error"_s, $$new($ObjectArray, {$($of($nc(out)->toAbsolutePath()))}));
-		$init($System);
 		$nc($System::err)->println(strOut);
 		$nc($System::err)->println();
 	}
@@ -631,8 +594,7 @@ bool Main::twoClassLoadersInUse($IllegalAccessError* iae) {
 				}
 				return true;
 			}
-		} catch ($Throwable&) {
-			$var($Throwable, t, $catch());
+		} catch ($Throwable& t) {
 			return false;
 		}
 	}
@@ -720,18 +682,16 @@ void Main::showClass($String* className) {
 										n = din->read(buf);
 									} while (n > 0);
 									$assign(digest, $nc(md)->digest());
-								} catch ($Throwable&) {
-									$var($Throwable, t$, $catch());
+								} catch ($Throwable& t$) {
 									try {
 										din->close();
-									} catch ($Throwable&) {
-										$var($Throwable, x2, $catch());
+									} catch ($Throwable& x2) {
 										t$->addSuppressed(x2);
 									}
 									$throw(t$);
 								}
-							} catch ($Throwable&) {
-								$assign(var$1, $catch());
+							} catch ($Throwable& var$2) {
+								$assign(var$1, var$2);
 							} /*finally*/ {
 								din->close();
 							}
@@ -751,20 +711,18 @@ void Main::showClass($String* className) {
 						}
 					}
 					pw->println($$str({"  "_s, algorithm, " checksum: "_s, sb}));
-				} catch ($Throwable&) {
-					$var($Throwable, t$, $catch());
+				} catch ($Throwable& t$) {
 					if (in != nullptr) {
 						try {
 							in->close();
-						} catch ($Throwable&) {
-							$var($Throwable, x2, $catch());
+						} catch ($Throwable& x2) {
 							t$->addSuppressed(x2);
 						}
 					}
 					$throw(t$);
 				}
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$3) {
+				$assign(var$0, var$3);
 			} /*finally*/ {
 				if (in != nullptr) {
 					in->close();
@@ -774,11 +732,9 @@ void Main::showClass($String* className) {
 				$throw(var$0);
 			}
 		}
-	} catch ($NoSuchAlgorithmException&) {
-		$var($Exception, e, $catch());
+	} catch ($NoSuchAlgorithmException& e) {
 		pw->println($$str({"  cannot compute digest: "_s, e}));
-	} catch ($IOException&) {
-		$var($Exception, e, $catch());
+	} catch ($IOException& e) {
 		pw->println($$str({"  cannot compute digest: "_s, e}));
 	}
 }

@@ -18,15 +18,6 @@
 #include <com/sun/tools/javac/util/JCDiagnostic.h>
 #include <com/sun/tools/javac/util/List.h>
 #include <com/sun/tools/javac/util/Warner.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef UNCHECKED
@@ -150,16 +141,15 @@ $Type* Infer$PartiallyInferredMethodType::check($Attr$ResultInfo* resultInfo) {
 				$assign(var$2, $nc(resultInfo)->check($nc(this->env)->tree, ret));
 				return$1 = true;
 				goto $finally;
-			} catch ($Infer$InferenceException&) {
-				$var($Infer$InferenceException, ex, $catch());
+			} catch ($Infer$InferenceException& ex) {
 				$nc($nc(resultInfo)->checkContext)->report(nullptr, $(ex->getDiagnostic()));
 				$Assert::error();
 				$assign(var$2, nullptr);
 				return$1 = true;
 				goto $finally;
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$4) {
+			$assign(var$0, var$4);
 		} $finally: {
 			if (saved_undet != nullptr) {
 				$nc(this->inferenceContext)->rollback(saved_undet);

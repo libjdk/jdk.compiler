@@ -61,24 +61,14 @@
 #include <com/sun/tools/javac/util/Pair.h>
 #include <java/io/Serializable.h>
 #include <java/io/Writer.h>
-#include <java/lang/Array.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/IllegalArgumentException.h>
 #include <java/lang/IllegalStateException.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractList.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/AbstractSet.h>
@@ -595,8 +585,7 @@ $Symbol* JavacElements::nameToSymbol($Symbol$ModuleSymbol* module, $String* name
 			}
 		}
 		return nullptr;
-	} catch ($Symbol$CompletionFailure&) {
-		$var($Symbol$CompletionFailure, cf, $catch());
+	} catch ($Symbol$CompletionFailure& cf) {
 		$nc(cf->dcfh)->handleAPICompletionFailure(cf);
 		return nullptr;
 	}
@@ -741,7 +730,7 @@ $Elements$Origin* JavacElements::getOrigin($AnnotatedConstruct* c, $AnnotationMi
 
 $Elements$Origin* JavacElements::getOrigin($ModuleElement* m, $ModuleElement$Directive* directive) {
 	$useLocalCurrentObjectStackCache();
-		$init($JavacElements$1);
+	$init($JavacElements$1);
 	{
 		$var($Directive$RequiresDirective, rd, nullptr)
 		$var($Directive$ExportsDirective, ed, nullptr)

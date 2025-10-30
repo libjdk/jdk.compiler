@@ -3,14 +3,6 @@
 #include <com/sun/tools/javac/file/RelativePath$RelativeDirectory.h>
 #include <com/sun/tools/javac/file/RelativePath.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/IllegalArgumentException.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/zip/ZipEntry.h>
 #include <java/util/zip/ZipFile.h>
 #include <javax/tools/JavaFileObject$Kind.h>

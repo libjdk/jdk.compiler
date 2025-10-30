@@ -15,21 +15,7 @@
 #include <java/io/OutputStreamWriter.h>
 #include <java/io/Reader.h>
 #include <java/io/Writer.h>
-#include <java/lang/Array.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/IllegalArgumentException.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/URI.h>
 #include <java/nio/ByteBuffer.h>
 #include <java/nio/CharBuffer.h>
@@ -259,8 +245,7 @@ bool PathFileObject::isPathNameCompatible($Path* p, $String* simpleName, $JavaFi
 			try {
 				$init($LinkOption);
 				return $nc($($nc($($nc($(p->toRealPath($$new($LinkOptionArray, {$LinkOption::NOFOLLOW_LINKS}))))->getFileName()))->toString()))->equals(sn);
-			} catch ($IOException&) {
-				$catch();
+			} catch ($IOException& e) {
 			}
 		}
 	}
@@ -313,8 +298,8 @@ $CharSequence* PathFileObject::getCharContent(bool ignoreEncodingErrors) {
 							$var($Throwable, var$1, nullptr);
 							try {
 								$assign(cb, $nc(this->fileManager)->decode(bb, ignoreEncodingErrors));
-							} catch ($Throwable&) {
-								$assign(var$1, $catch());
+							} catch ($Throwable& var$2) {
+								$assign(var$1, var$2);
 							} /*finally*/ {
 								$nc($nc(this->fileManager)->log)->useSource(prev);
 							}
@@ -326,20 +311,18 @@ $CharSequence* PathFileObject::getCharContent(bool ignoreEncodingErrors) {
 						if (!ignoreEncodingErrors) {
 							$nc(this->fileManager)->cache(this, cb);
 						}
-					} catch ($Throwable&) {
-						$var($Throwable, t$, $catch());
+					} catch ($Throwable& t$) {
 						if (in != nullptr) {
 							try {
 								in->close();
-							} catch ($Throwable&) {
-								$var($Throwable, x2, $catch());
+							} catch ($Throwable& x2) {
 								t$->addSuppressed(x2);
 							}
 						}
 						$throw(t$);
 					}
-				} catch ($Throwable&) {
-					$assign(var$0, $catch());
+				} catch ($Throwable& var$3) {
+					$assign(var$0, var$3);
 				} /*finally*/ {
 					if (in != nullptr) {
 						in->close();
@@ -367,8 +350,7 @@ int64_t PathFileObject::getLastModified() {
 	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc($($Files::getLastModifiedTime(this->path, $$new($LinkOptionArray, 0))))->toMillis();
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		return 0;
 	}
 	$shouldNotReachHere();
@@ -378,8 +360,7 @@ bool PathFileObject::delete$() {
 	try {
 		$Files::delete$(this->path);
 		return true;
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		return false;
 	}
 	$shouldNotReachHere();
@@ -415,8 +396,7 @@ void PathFileObject::ensureParentDirectoriesExist() {
 		if (parent != nullptr && !$Files::isDirectory(parent, $$new($LinkOptionArray, 0))) {
 			try {
 				$Files::createDirectories(parent, $$new($FileAttributeArray, 0));
-			} catch ($IOException&) {
-				$var($IOException, e, $catch());
+			} catch ($IOException& e) {
 				$throwNew($IOException, "could not create parent directories"_s, e);
 			}
 		}

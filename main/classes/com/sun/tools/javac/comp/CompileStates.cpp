@@ -4,14 +4,6 @@
 #include <com/sun/tools/javac/comp/Env.h>
 #include <com/sun/tools/javac/util/Context$Key.h>
 #include <com/sun/tools/javac/util/Context.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/HashMap.h>
 #include <jcpp.h>
 
@@ -68,7 +60,6 @@ $ClassInfo _CompileStates_ClassInfo_ = {
 $Object* allocate$CompileStates($Class* clazz) {
 	return $of($alloc(CompileStates));
 }
-
 
 $Context$Key* CompileStates::compileStatesKey = nullptr;
 

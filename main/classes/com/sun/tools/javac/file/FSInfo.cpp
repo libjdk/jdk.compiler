@@ -3,17 +3,6 @@
 #include <com/sun/tools/javac/util/Context.h>
 #include <java/io/File.h>
 #include <java/io/IOException.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/URI.h>
 #include <java/net/URISyntaxException.h>
 #include <java/net/URL.h>
@@ -121,8 +110,7 @@ $Path* FSInfo::getCanonicalFile($Path* file) {
 	$useLocalCurrentObjectStackCache();
 	try {
 		return $nc(file)->toRealPath($$new($LinkOptionArray, 0));
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		return $nc($($nc(file)->toAbsolutePath()))->normalize();
 	}
 	$shouldNotReachHere();
@@ -180,8 +168,7 @@ $List* FSInfo::getJarClassPath($Path* file) {
 								if (url != nullptr) {
 									list->add($($Path::of($(url->toURI()))));
 								}
-							} catch ($URISyntaxException&) {
-								$var($URISyntaxException, ex, $catch());
+							} catch ($URISyntaxException& ex) {
 								$throwNew($IOException, static_cast<$Throwable*>(ex));
 							}
 						}
@@ -189,18 +176,16 @@ $List* FSInfo::getJarClassPath($Path* file) {
 					$assign(var$2, list);
 					return$1 = true;
 					goto $finally;
-				} catch ($Throwable&) {
-					$var($Throwable, t$, $catch());
+				} catch ($Throwable& t$) {
 					try {
 						jarFile->close();
-					} catch ($Throwable&) {
-						$var($Throwable, x2, $catch());
+					} catch ($Throwable& x2) {
 						t$->addSuppressed(x2);
 					}
 					$throw(t$);
 				}
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$3) {
+				$assign(var$0, var$3);
 			} $finally: {
 				jarFile->close();
 			}
@@ -237,7 +222,7 @@ $FileSystemProvider* FSInfo::getJarFSProvider() {
 				$var($FileSystemProvider, provider, $cast($FileSystemProvider, i$->next()));
 				{
 					if ($nc($($nc(provider)->getScheme()))->equals("jar"_s)) {
-						return ($assignField(this, jarFSProvider, provider));
+						return ($set(this, jarFSProvider, provider));
 					}
 				}
 			}

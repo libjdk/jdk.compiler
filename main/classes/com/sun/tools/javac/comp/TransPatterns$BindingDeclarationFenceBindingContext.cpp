@@ -4,14 +4,6 @@
 #include <com/sun/tools/javac/code/Symbol$VarSymbol.h>
 #include <com/sun/tools/javac/comp/TransPatterns$BasicBindingContext.h>
 #include <com/sun/tools/javac/comp/TransPatterns.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $Symbol$BindingSymbol = ::com::sun::tools::javac::code::Symbol$BindingSymbol;

@@ -65,17 +65,7 @@
 #include <com/sun/source/tree/WhileLoopTree.h>
 #include <com/sun/source/tree/WildcardTree.h>
 #include <com/sun/source/tree/YieldTree.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/CompoundAttribute.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef AND
@@ -440,235 +430,120 @@ $Object* allocate$Tree$Kind($Class* clazz) {
 	return $of($alloc(Tree$Kind));
 }
 
-
 Tree$Kind* Tree$Kind::ANNOTATED_TYPE = nullptr;
-
 Tree$Kind* Tree$Kind::ANNOTATION = nullptr;
-
 Tree$Kind* Tree$Kind::TYPE_ANNOTATION = nullptr;
-
 Tree$Kind* Tree$Kind::ARRAY_ACCESS = nullptr;
-
 Tree$Kind* Tree$Kind::ARRAY_TYPE = nullptr;
-
 Tree$Kind* Tree$Kind::ASSERT = nullptr;
-
 Tree$Kind* Tree$Kind::ASSIGNMENT = nullptr;
-
 Tree$Kind* Tree$Kind::BLOCK = nullptr;
-
 Tree$Kind* Tree$Kind::BREAK = nullptr;
-
 Tree$Kind* Tree$Kind::CASE = nullptr;
-
 Tree$Kind* Tree$Kind::CATCH = nullptr;
-
 Tree$Kind* Tree$Kind::CLASS = nullptr;
-
 Tree$Kind* Tree$Kind::COMPILATION_UNIT = nullptr;
-
 Tree$Kind* Tree$Kind::CONDITIONAL_EXPRESSION = nullptr;
-
 Tree$Kind* Tree$Kind::CONTINUE = nullptr;
-
 Tree$Kind* Tree$Kind::DO_WHILE_LOOP = nullptr;
-
 Tree$Kind* Tree$Kind::ENHANCED_FOR_LOOP = nullptr;
-
 Tree$Kind* Tree$Kind::EXPRESSION_STATEMENT = nullptr;
-
 Tree$Kind* Tree$Kind::MEMBER_SELECT = nullptr;
-
 Tree$Kind* Tree$Kind::MEMBER_REFERENCE = nullptr;
-
 Tree$Kind* Tree$Kind::FOR_LOOP = nullptr;
-
 Tree$Kind* Tree$Kind::IDENTIFIER = nullptr;
-
 Tree$Kind* Tree$Kind::IF = nullptr;
-
 Tree$Kind* Tree$Kind::IMPORT = nullptr;
-
 Tree$Kind* Tree$Kind::INSTANCE_OF = nullptr;
-
 Tree$Kind* Tree$Kind::LABELED_STATEMENT = nullptr;
-
 Tree$Kind* Tree$Kind::METHOD = nullptr;
-
 Tree$Kind* Tree$Kind::METHOD_INVOCATION = nullptr;
-
 Tree$Kind* Tree$Kind::MODIFIERS = nullptr;
-
 Tree$Kind* Tree$Kind::NEW_ARRAY = nullptr;
-
 Tree$Kind* Tree$Kind::NEW_CLASS = nullptr;
-
 Tree$Kind* Tree$Kind::LAMBDA_EXPRESSION = nullptr;
-
 Tree$Kind* Tree$Kind::PACKAGE = nullptr;
-
 Tree$Kind* Tree$Kind::PARENTHESIZED = nullptr;
-
 Tree$Kind* Tree$Kind::BINDING_PATTERN = nullptr;
-
 Tree$Kind* Tree$Kind::GUARDED_PATTERN = nullptr;
-
 Tree$Kind* Tree$Kind::PARENTHESIZED_PATTERN = nullptr;
-
 Tree$Kind* Tree$Kind::DEFAULT_CASE_LABEL = nullptr;
-
 Tree$Kind* Tree$Kind::PRIMITIVE_TYPE = nullptr;
-
 Tree$Kind* Tree$Kind::RETURN = nullptr;
-
 Tree$Kind* Tree$Kind::EMPTY_STATEMENT = nullptr;
-
 Tree$Kind* Tree$Kind::SWITCH = nullptr;
-
 Tree$Kind* Tree$Kind::SWITCH_EXPRESSION = nullptr;
-
 Tree$Kind* Tree$Kind::SYNCHRONIZED = nullptr;
-
 Tree$Kind* Tree$Kind::THROW = nullptr;
-
 Tree$Kind* Tree$Kind::TRY = nullptr;
-
 Tree$Kind* Tree$Kind::PARAMETERIZED_TYPE = nullptr;
-
 Tree$Kind* Tree$Kind::UNION_TYPE = nullptr;
-
 Tree$Kind* Tree$Kind::INTERSECTION_TYPE = nullptr;
-
 Tree$Kind* Tree$Kind::TYPE_CAST = nullptr;
-
 Tree$Kind* Tree$Kind::TYPE_PARAMETER = nullptr;
-
 Tree$Kind* Tree$Kind::VARIABLE = nullptr;
-
 Tree$Kind* Tree$Kind::WHILE_LOOP = nullptr;
-
 Tree$Kind* Tree$Kind::POSTFIX_INCREMENT = nullptr;
-
 Tree$Kind* Tree$Kind::POSTFIX_DECREMENT = nullptr;
-
 Tree$Kind* Tree$Kind::PREFIX_INCREMENT = nullptr;
-
 Tree$Kind* Tree$Kind::PREFIX_DECREMENT = nullptr;
-
 Tree$Kind* Tree$Kind::UNARY_PLUS = nullptr;
-
 Tree$Kind* Tree$Kind::UNARY_MINUS = nullptr;
-
 Tree$Kind* Tree$Kind::BITWISE_COMPLEMENT = nullptr;
-
 Tree$Kind* Tree$Kind::LOGICAL_COMPLEMENT = nullptr;
-
 Tree$Kind* Tree$Kind::MULTIPLY = nullptr;
-
 Tree$Kind* Tree$Kind::DIVIDE = nullptr;
-
 Tree$Kind* Tree$Kind::REMAINDER = nullptr;
-
 Tree$Kind* Tree$Kind::PLUS = nullptr;
-
 Tree$Kind* Tree$Kind::MINUS = nullptr;
-
 Tree$Kind* Tree$Kind::LEFT_SHIFT = nullptr;
-
 Tree$Kind* Tree$Kind::RIGHT_SHIFT = nullptr;
-
 Tree$Kind* Tree$Kind::UNSIGNED_RIGHT_SHIFT = nullptr;
-
 Tree$Kind* Tree$Kind::LESS_THAN = nullptr;
-
 Tree$Kind* Tree$Kind::GREATER_THAN = nullptr;
-
 Tree$Kind* Tree$Kind::LESS_THAN_EQUAL = nullptr;
-
 Tree$Kind* Tree$Kind::GREATER_THAN_EQUAL = nullptr;
-
 Tree$Kind* Tree$Kind::EQUAL_TO = nullptr;
-
 Tree$Kind* Tree$Kind::NOT_EQUAL_TO = nullptr;
-
 Tree$Kind* Tree$Kind::AND = nullptr;
-
 Tree$Kind* Tree$Kind::XOR = nullptr;
-
 Tree$Kind* Tree$Kind::OR = nullptr;
-
 Tree$Kind* Tree$Kind::CONDITIONAL_AND = nullptr;
-
 Tree$Kind* Tree$Kind::CONDITIONAL_OR = nullptr;
-
 Tree$Kind* Tree$Kind::MULTIPLY_ASSIGNMENT = nullptr;
-
 Tree$Kind* Tree$Kind::DIVIDE_ASSIGNMENT = nullptr;
-
 Tree$Kind* Tree$Kind::REMAINDER_ASSIGNMENT = nullptr;
-
 Tree$Kind* Tree$Kind::PLUS_ASSIGNMENT = nullptr;
-
 Tree$Kind* Tree$Kind::MINUS_ASSIGNMENT = nullptr;
-
 Tree$Kind* Tree$Kind::LEFT_SHIFT_ASSIGNMENT = nullptr;
-
 Tree$Kind* Tree$Kind::RIGHT_SHIFT_ASSIGNMENT = nullptr;
-
 Tree$Kind* Tree$Kind::UNSIGNED_RIGHT_SHIFT_ASSIGNMENT = nullptr;
-
 Tree$Kind* Tree$Kind::AND_ASSIGNMENT = nullptr;
-
 Tree$Kind* Tree$Kind::XOR_ASSIGNMENT = nullptr;
-
 Tree$Kind* Tree$Kind::OR_ASSIGNMENT = nullptr;
-
 Tree$Kind* Tree$Kind::INT_LITERAL = nullptr;
-
 Tree$Kind* Tree$Kind::LONG_LITERAL = nullptr;
-
 Tree$Kind* Tree$Kind::FLOAT_LITERAL = nullptr;
-
 Tree$Kind* Tree$Kind::DOUBLE_LITERAL = nullptr;
-
 Tree$Kind* Tree$Kind::BOOLEAN_LITERAL = nullptr;
-
 Tree$Kind* Tree$Kind::CHAR_LITERAL = nullptr;
-
 Tree$Kind* Tree$Kind::STRING_LITERAL = nullptr;
-
 Tree$Kind* Tree$Kind::NULL_LITERAL = nullptr;
-
 Tree$Kind* Tree$Kind::UNBOUNDED_WILDCARD = nullptr;
-
 Tree$Kind* Tree$Kind::EXTENDS_WILDCARD = nullptr;
-
 Tree$Kind* Tree$Kind::SUPER_WILDCARD = nullptr;
-
 Tree$Kind* Tree$Kind::ERRONEOUS = nullptr;
-
 Tree$Kind* Tree$Kind::INTERFACE = nullptr;
-
 Tree$Kind* Tree$Kind::ENUM = nullptr;
-
 Tree$Kind* Tree$Kind::ANNOTATION_TYPE = nullptr;
-
 Tree$Kind* Tree$Kind::MODULE = nullptr;
-
 Tree$Kind* Tree$Kind::EXPORTS = nullptr;
-
 Tree$Kind* Tree$Kind::OPENS = nullptr;
-
 Tree$Kind* Tree$Kind::PROVIDES = nullptr;
-
 Tree$Kind* Tree$Kind::RECORD = nullptr;
-
 Tree$Kind* Tree$Kind::REQUIRES = nullptr;
-
 Tree$Kind* Tree$Kind::USES = nullptr;
-
 Tree$Kind* Tree$Kind::OTHER = nullptr;
-
 Tree$Kind* Tree$Kind::YIELD = nullptr;
 $Tree$KindArray* Tree$Kind::$VALUES = nullptr;
 

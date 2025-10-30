@@ -8,19 +8,8 @@
 #include <com/sun/tools/javac/parser/UnicodeReader$PositionTrackingReader.h>
 #include <com/sun/tools/javac/parser/UnicodeReader.h>
 #include <com/sun/tools/javac/util/Position.h>
-#include <java/lang/Array.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/StringBuilder.h>
 #include <java/lang/StringIndexOutOfBoundsException.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/regex/Matcher.h>
 #include <java/util/regex/Pattern.h>
 #include <jcpp.h>
@@ -97,7 +86,6 @@ $ClassInfo _JavadocTokenizer$JavadocComment_ClassInfo_ = {
 $Object* allocate$JavadocTokenizer$JavadocComment($Class* clazz) {
 	return $of($alloc(JavadocTokenizer$JavadocComment));
 }
-
 
 $Pattern* JavadocTokenizer$JavadocComment::DEPRECATED_PATTERN = nullptr;
 
@@ -213,8 +201,8 @@ void JavadocTokenizer$JavadocComment::scanDocComment() {
 			} else {
 				$set(this, docComment, ""_s);
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$2) {
+			$assign(var$0, var$2);
 		} $finally: {
 			this->scanned = true;
 			if (this->docComment != nullptr && $nc($($nc(JavadocTokenizer$JavadocComment::DEPRECATED_PATTERN)->matcher(this->docComment)))->matches()) {

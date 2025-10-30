@@ -31,20 +31,11 @@
 #include <com/sun/tools/javac/util/List.h>
 #include <com/sun/tools/javac/util/ListBuffer.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/HashMap.h>
 #include <java/util/Iterator.h>
@@ -267,8 +258,7 @@ $Type* ArgumentAttr$ExplicitLambdaType::overloadCheck($Attr$ResultInfo* resultIn
 		$var($Type, currentTarget, targetInfo->target);
 		checkLambdaCompatible(lambdaType, resultInfo);
 		return currentTarget;
-	} catch ($Types$FunctionDescriptorLookupError&) {
-		$var($Types$FunctionDescriptorLookupError, ex, $catch());
+	} catch ($Types$FunctionDescriptorLookupError& ex) {
 		$nc($nc(resultInfo)->checkContext)->report(nullptr, $(ex->getDiagnostic()));
 		return nullptr;
 	}

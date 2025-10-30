@@ -5,16 +5,7 @@
 #include <com/sun/source/tree/Tree$Kind.h>
 #include <com/sun/source/tree/Tree.h>
 #include <com/sun/tools/javac/api/JavacTrees.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/NoSuchFieldError.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <javax/tools/Diagnostic$Kind.h>
 #include <javax/tools/Diagnostic.h>
 #include <jcpp.h>
@@ -120,154 +111,125 @@ void clinit$JavacTrees$8($Class* class$) {
 	{
 		try {
 			$nc(JavacTrees$8::$SwitchMap$javax$tools$Diagnostic$Kind)->set($Diagnostic$Kind::ERROR->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacTrees$8::$SwitchMap$javax$tools$Diagnostic$Kind)->set($Diagnostic$Kind::WARNING->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacTrees$8::$SwitchMap$javax$tools$Diagnostic$Kind)->set($Diagnostic$Kind::MANDATORY_WARNING->ordinal(), 3);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 	$assignStatic(JavacTrees$8::$SwitchMap$com$sun$source$tree$Tree$Kind, $new($ints, $($Tree$Kind::values())->length));
 	{
 		try {
 			$nc(JavacTrees$8::$SwitchMap$com$sun$source$tree$Tree$Kind)->set($Tree$Kind::COMPILATION_UNIT->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacTrees$8::$SwitchMap$com$sun$source$tree$Tree$Kind)->set($Tree$Kind::ANNOTATION_TYPE->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacTrees$8::$SwitchMap$com$sun$source$tree$Tree$Kind)->set($Tree$Kind::CLASS->ordinal(), 3);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacTrees$8::$SwitchMap$com$sun$source$tree$Tree$Kind)->set($Tree$Kind::ENUM->ordinal(), 4);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacTrees$8::$SwitchMap$com$sun$source$tree$Tree$Kind)->set($Tree$Kind::INTERFACE->ordinal(), 5);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacTrees$8::$SwitchMap$com$sun$source$tree$Tree$Kind)->set($Tree$Kind::RECORD->ordinal(), 6);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacTrees$8::$SwitchMap$com$sun$source$tree$Tree$Kind)->set($Tree$Kind::METHOD->ordinal(), 7);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacTrees$8::$SwitchMap$com$sun$source$tree$Tree$Kind)->set($Tree$Kind::VARIABLE->ordinal(), 8);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacTrees$8::$SwitchMap$com$sun$source$tree$Tree$Kind)->set($Tree$Kind::BLOCK->ordinal(), 9);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 	$assignStatic(JavacTrees$8::$SwitchMap$com$sun$source$doctree$DocTree$Kind, $new($ints, $($DocTree$Kind::values())->length));
 	{
 		try {
 			$nc(JavacTrees$8::$SwitchMap$com$sun$source$doctree$DocTree$Kind)->set($DocTree$Kind::TEXT->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacTrees$8::$SwitchMap$com$sun$source$doctree$DocTree$Kind)->set($DocTree$Kind::ERRONEOUS->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacTrees$8::$SwitchMap$com$sun$source$doctree$DocTree$Kind)->set($DocTree$Kind::IDENTIFIER->ordinal(), 3);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacTrees$8::$SwitchMap$com$sun$source$doctree$DocTree$Kind)->set($DocTree$Kind::PARAM->ordinal(), 4);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacTrees$8::$SwitchMap$com$sun$source$doctree$DocTree$Kind)->set($DocTree$Kind::AUTHOR->ordinal(), 5);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacTrees$8::$SwitchMap$com$sun$source$doctree$DocTree$Kind)->set($DocTree$Kind::DEPRECATED->ordinal(), 6);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacTrees$8::$SwitchMap$com$sun$source$doctree$DocTree$Kind)->set($DocTree$Kind::RETURN->ordinal(), 7);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacTrees$8::$SwitchMap$com$sun$source$doctree$DocTree$Kind)->set($DocTree$Kind::SEE->ordinal(), 8);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacTrees$8::$SwitchMap$com$sun$source$doctree$DocTree$Kind)->set($DocTree$Kind::SERIAL->ordinal(), 9);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacTrees$8::$SwitchMap$com$sun$source$doctree$DocTree$Kind)->set($DocTree$Kind::SERIAL_DATA->ordinal(), 10);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacTrees$8::$SwitchMap$com$sun$source$doctree$DocTree$Kind)->set($DocTree$Kind::SERIAL_FIELD->ordinal(), 11);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacTrees$8::$SwitchMap$com$sun$source$doctree$DocTree$Kind)->set($DocTree$Kind::SINCE->ordinal(), 12);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacTrees$8::$SwitchMap$com$sun$source$doctree$DocTree$Kind)->set($DocTree$Kind::THROWS->ordinal(), 13);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacTrees$8::$SwitchMap$com$sun$source$doctree$DocTree$Kind)->set($DocTree$Kind::UNKNOWN_BLOCK_TAG->ordinal(), 14);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacTrees$8::$SwitchMap$com$sun$source$doctree$DocTree$Kind)->set($DocTree$Kind::VERSION->ordinal(), 15);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacTrees$8::$SwitchMap$com$sun$source$doctree$DocTree$Kind)->set($DocTree$Kind::ENTITY->ordinal(), 16);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(JavacTrees$8::$SwitchMap$com$sun$source$doctree$DocTree$Kind)->set($DocTree$Kind::COMMENT->ordinal(), 17);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 }

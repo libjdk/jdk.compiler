@@ -7,17 +7,7 @@
 #include <com/sun/tools/javac/main/OptionHelper.h>
 #include <com/sun/tools/javac/resources/CompilerProperties$Errors.h>
 #include <com/sun/tools/javac/util/JCDiagnostic$Error.h>
-#include <java/lang/Array.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/file/Files.h>
 #include <java/nio/file/InvalidPathException.h>
 #include <java/nio/file/LinkOption.h>
@@ -121,8 +111,7 @@ void Option$38::process($OptionHelper* helper, $String* option) {
 				$throw($($nc(helper)->newInvalidValueException($($CompilerProperties$Errors::FileNotFile(p)))));
 			}
 			$nc(helper)->addFile(p);
-		} catch ($InvalidPathException&) {
-			$var($InvalidPathException, ex, $catch());
+		} catch ($InvalidPathException& ex) {
 			$throw($($nc(helper)->newInvalidValueException($($CompilerProperties$Errors::InvalidPath(option)))));
 		}
 	} else {

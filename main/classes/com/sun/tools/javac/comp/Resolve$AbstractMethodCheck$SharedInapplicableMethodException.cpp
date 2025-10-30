@@ -3,14 +3,6 @@
 #include <com/sun/tools/javac/comp/Resolve$AbstractMethodCheck.h>
 #include <com/sun/tools/javac/comp/Resolve$InapplicableMethodException.h>
 #include <com/sun/tools/javac/util/JCDiagnostic.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $Resolve$AbstractMethodCheck = ::com::sun::tools::javac::comp::Resolve$AbstractMethodCheck;
@@ -79,16 +71,10 @@ Resolve$AbstractMethodCheck$SharedInapplicableMethodException* Resolve$AbstractM
 Resolve$AbstractMethodCheck$SharedInapplicableMethodException::Resolve$AbstractMethodCheck$SharedInapplicableMethodException() {
 }
 
-Resolve$AbstractMethodCheck$SharedInapplicableMethodException::Resolve$AbstractMethodCheck$SharedInapplicableMethodException(const Resolve$AbstractMethodCheck$SharedInapplicableMethodException& e) {
+Resolve$AbstractMethodCheck$SharedInapplicableMethodException::Resolve$AbstractMethodCheck$SharedInapplicableMethodException(const Resolve$AbstractMethodCheck$SharedInapplicableMethodException& e) : $Resolve$InapplicableMethodException(e) {
 }
 
-Resolve$AbstractMethodCheck$SharedInapplicableMethodException Resolve$AbstractMethodCheck$SharedInapplicableMethodException::wrapper$() {
-	$pendingException(this);
-	return *this;
-}
-
-void Resolve$AbstractMethodCheck$SharedInapplicableMethodException::throwWrapper$() {
-	$pendingException(this);
+void Resolve$AbstractMethodCheck$SharedInapplicableMethodException::throw$() {
 	throw *this;
 }
 

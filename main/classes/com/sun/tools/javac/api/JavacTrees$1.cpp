@@ -26,16 +26,6 @@
 #include <com/sun/tools/javac/util/Name.h>
 #include <com/sun/tools/javac/util/Names.h>
 #include <com/sun/tools/javac/util/Position.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/List.h>
 #include <javax/lang/model/element/Name.h>
 #include <jcpp.h>
@@ -166,7 +156,7 @@ int64_t JavacTrees$1::getEndPosition($CompilationUnitTree* file, $DocCommentTree
 		}
 	}
 	int32_t correction = 0;
-		$init($JavacTrees$8);
+	$init($JavacTrees$8);
 	{
 		$var($DCTree$DCText, text, nullptr)
 		$var($DCTree$DCErroneous, err, nullptr)

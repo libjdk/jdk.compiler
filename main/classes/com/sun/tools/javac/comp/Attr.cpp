@@ -237,27 +237,13 @@
 #include <com/sun/tools/javac/util/Position.h>
 #include <com/sun/tools/javac/util/Warner.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/AbstractSet.h>
 #include <java/util/EnumSet.h>
@@ -2783,13 +2769,11 @@ $Env* Attr::attribToTree($JCTree* root, $Env* env, $JCTree* tree, $Attr$ResultIn
 				$init($DeferredAttr$AttributionMode);
 				$nc(this->deferredAttr)->attribSpeculative(root, env, resultInfo, nullptr, $DeferredAttr$AttributionMode::ATTRIB_TO_TREE, $($nc(this->argumentAttr)->withLocalCacheContext()));
 				$nc(this->attrRecover)->doRecovery();
-			} catch ($Attr$BreakAttr&) {
-				$var($Attr$BreakAttr, b, $catch());
+			} catch ($Attr$BreakAttr& b) {
 				$assign(var$2, b->env);
 				return$1 = true;
 				goto $finally;
-			} catch ($AssertionError&) {
-				$var($AssertionError, ae, $catch());
+			} catch ($AssertionError& ae) {
 				{
 					$var($Attr$BreakAttr, breakAttr, nullptr);
 					$var($Throwable, patt18270$temp, ae->getCause());
@@ -2807,8 +2791,8 @@ $Env* Attr::attribToTree($JCTree* root, $Env* env, $JCTree* tree, $Attr$ResultIn
 					}
 				}
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$4) {
+			$assign(var$0, var$4);
 		} $finally: {
 			$set(this, breakTree, nullptr);
 			$nc(this->log)->useSource(prev);
@@ -2856,15 +2840,14 @@ $Type* Attr::attribTree($JCTree* tree, $Env* env, $Attr$ResultInfo* resultInfo) 
 				$assign(var$2, this->result);
 				return$1 = true;
 				goto $finally;
-			} catch ($Symbol$CompletionFailure&) {
-				$var($Symbol$CompletionFailure, ex, $catch());
+			} catch ($Symbol$CompletionFailure& ex) {
 				$set($nc(tree), type, $nc(this->syms)->errType);
 				$assign(var$2, $nc(this->chk)->completionError($(tree->pos()), ex));
 				return$1 = true;
 				goto $finally;
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$set(this, env, prevEnv);
 			$set(this, resultInfo, prevResult);
@@ -2982,7 +2965,7 @@ $Kinds$KindSelector* Attr::attribArgs($Kinds$KindSelector* initialKind, $List* t
 				$var($Type, argtype, $nc(this->chk)->checkNonVoid(arg, $(attribTree(arg, env, this->allowPoly ? this->methodAttrInfo : this->unknownExprInfo))));
 				$init($TypeTag);
 				if ($nc(argtype)->hasTag($TypeTag::DEFERRED)) {
-						$init($Kinds$KindSelector);
+					$init($Kinds$KindSelector);
 					$assign(kind, $Kinds$KindSelector::of($$new($Kinds$KindSelectorArray, {
 						$Kinds$KindSelector::POLY,
 						kind
@@ -3076,7 +3059,7 @@ $Object* Attr::attribLazyConstantValue($Env* env, $JCTree$JCVariableDecl* variab
 		try {
 			$var($Type, itype, attribExpr($nc(variable)->init, env, type));
 			if ($nc(variable)->isImplicitlyTyped()) {
-				$assign(type, ($assignField(variable, type, ($assignField($nc(variable->sym), type, $nc(this->chk)->checkLocalVarType(variable, $($nc(itype)->baseType()), variable->name))))));
+				$assign(type, ($set(variable, type, ($set($nc(variable->sym), type, $nc(this->chk)->checkLocalVarType(variable, $($nc(itype)->baseType()), variable->name))))));
 			}
 			if ($nc(itype)->constValue() != nullptr) {
 				$assign(var$2, $nc($(coerce(itype, type)))->constValue());
@@ -3087,8 +3070,8 @@ $Object* Attr::attribLazyConstantValue($Env* env, $JCTree$JCVariableDecl* variab
 				return$1 = true;
 				goto $finally;
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$nc(this->log)->useSource(prevSource);
 			$nc(this->deferredLintHandler)->setPos(prevLintPos);
@@ -3180,10 +3163,10 @@ void Attr::visitClassDef($JCTree$JCClassDecl* tree) {
 					c->flags_field |= 0x00400000;
 				}
 				attribClass($(tree->pos()), c);
-				$set(this, result, ($assignField(tree, type, c->type)));
+				$set(this, result, ($set(tree, type, c->type)));
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} /*finally*/ {
 			$nc(localCacheContext)->ifPresent(static_cast<$Consumer*>($$new(Attr$$Lambda$leave$1)));
 		}
@@ -3402,9 +3385,9 @@ void Attr::visitMethodDef($JCTree$JCMethodDecl* tree) {
 				attribStat(tree->body, localEnv);
 			}
 			$nc($nc(($cast($AttrContext, localEnv->info)))->scope)->leave();
-			$set(this, result, ($assignField(tree, type, m->type)));
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+			$set(this, result, ($set(tree, type, m->type)));
+		} catch ($Throwable& var$21) {
+			$assign(var$0, var$21);
 		} /*finally*/ {
 			$nc(this->chk)->setLint(prevLint);
 			$nc(this->chk)->setMethod(prevMethod);
@@ -3441,8 +3424,8 @@ void Attr::visitVarDef($JCTree$JCVariableDecl* tree) {
 				try {
 					$nc(this->annotate)->blockAnnotations();
 					$nc(this->memberEnter)->memberEnter(static_cast<$JCTree*>(tree), this->env);
-				} catch ($Throwable&) {
-					$assign(var$1, $catch());
+				} catch ($Throwable& var$2) {
+					$assign(var$1, var$2);
 				} /*finally*/ {
 					$nc(this->annotate)->unblockAnnotations();
 				}
@@ -3460,11 +3443,11 @@ void Attr::visitVarDef($JCTree$JCVariableDecl* tree) {
 	$var($Lint, prevLint, $nc(this->chk)->setLint(lint));
 	$init($JCTree$Tag);
 	$init($JCTree$JCLambda$ParameterKind);
-	bool var$2 = $nc($nc(this->env)->tree)->hasTag($JCTree$Tag::LAMBDA) && $nc(($cast($JCTree$JCLambda, $nc(this->env)->tree)))->paramKind == $JCTree$JCLambda$ParameterKind::IMPLICIT;
-	bool isImplicitLambdaParameter = var$2 && ((int64_t)($nc(tree->sym)->flags() & (uint64_t)(int64_t)0x0000000200000000)) != 0;
+	bool var$3 = $nc($nc(this->env)->tree)->hasTag($JCTree$Tag::LAMBDA) && $nc(($cast($JCTree$JCLambda, $nc(this->env)->tree)))->paramKind == $JCTree$JCLambda$ParameterKind::IMPLICIT;
+	bool isImplicitLambdaParameter = var$3 && ((int64_t)($nc(tree->sym)->flags() & (uint64_t)(int64_t)0x0000000200000000)) != 0;
 	$nc(this->chk)->validate(tree->vartype, this->env, !isImplicitLambdaParameter && !tree->isImplicitlyTyped());
 	{
-		$var($Throwable, var$3, nullptr);
+		$var($Throwable, var$4, nullptr);
 		try {
 			$nc(v)->getConstValue();
 			$nc(this->deferredLintHandler)->flush($(tree->pos()));
@@ -3483,20 +3466,20 @@ void Attr::visitVarDef($JCTree$JCVariableDecl* tree) {
 					setSyntheticVariableType(tree, v->type);
 				}
 			}
-			$set(this, result, ($assignField(tree, type, v->type)));
-			bool var$4 = $nc($nc($nc(this->env)->enclClass)->sym)->isRecord() && $nc($nc(tree->sym)->owner)->kind == $Kinds$Kind::TYP;
-			if (var$4 && !v->isStatic()) {
+			$set(this, result, ($set(tree, type, v->type)));
+			bool var$5 = $nc($nc($nc(this->env)->enclClass)->sym)->isRecord() && $nc($nc(tree->sym)->owner)->kind == $Kinds$Kind::TYP;
+			if (var$5 && !v->isStatic()) {
 				if (isNonArgsMethodInObject(v->name)) {
 					$nc(this->log)->error(static_cast<$JCDiagnostic$DiagnosticPosition*>(tree), $($CompilerProperties$Errors::IllegalRecordComponentName(v)));
 				}
 			}
-		} catch ($Throwable&) {
-			$assign(var$3, $catch());
+		} catch ($Throwable& var$6) {
+			$assign(var$4, var$6);
 		} /*finally*/ {
 			$nc(this->chk)->setLint(prevLint);
 		}
-		if (var$3 != nullptr) {
-			$throw(var$3);
+		if (var$4 != nullptr) {
+			$throw(var$4);
 		}
 	}
 }
@@ -3554,8 +3537,8 @@ void Attr::visitBlock($JCTree$JCBlock* tree) {
 			$var($Throwable, var$0, nullptr);
 			try {
 				attribStats($nc(tree)->stats, localEnv);
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$1) {
+				$assign(var$0, var$1);
 			} /*finally*/ {
 				$nc($nc(($cast($AttrContext, $nc(localEnv)->info)))->scope)->leave();
 			}
@@ -3588,8 +3571,8 @@ void Attr::visitWhileLoop($JCTree$JCWhileLoop* tree) {
 		$var($Throwable, var$0, nullptr);
 		try {
 			attribStat($nc(tree)->body, $($nc(whileEnv)->dup(tree)));
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc($nc(($cast($AttrContext, $nc(whileEnv)->info)))->scope)->leave();
 		}
@@ -3629,8 +3612,8 @@ void Attr::visitForLoop($JCTree$JCForLoop* tree) {
 					$set($nc(bodyEnv), tree, tree);
 					attribStats($nc(tree)->step, bodyEnv);
 					attribStat($nc(tree)->body, bodyEnv);
-				} catch ($Throwable&) {
-					$assign(var$1, $catch());
+				} catch ($Throwable& var$2) {
+					$assign(var$1, var$2);
 				} /*finally*/ {
 					$nc($nc(($cast($AttrContext, $nc(bodyEnv)->info)))->scope)->leave();
 				}
@@ -3639,8 +3622,8 @@ void Attr::visitForLoop($JCTree$JCForLoop* tree) {
 				}
 			}
 			$set(this, result, nullptr);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} /*finally*/ {
 			$nc($nc(($cast($AttrContext, $nc(loopEnv)->info)))->scope)->leave();
 		}
@@ -3695,8 +3678,8 @@ void Attr::visitForeachLoop($JCTree$JCEnhancedForLoop* tree) {
 			$set($nc(loopEnv), tree, tree);
 			attribStat($nc(tree)->body, loopEnv);
 			$set(this, result, nullptr);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$8) {
+			$assign(var$0, var$8);
 		} /*finally*/ {
 			$nc($nc(($cast($AttrContext, $nc(loopEnv)->info)))->scope)->leave();
 		}
@@ -3738,7 +3721,7 @@ void Attr::visitSwitchExpression($JCTree$JCSwitchExpression* tree) {
 	if (tree->polyKind == $JCTree$JCPolyExpression$PolyKind::POLY && $nc($nc(this->resultInfo)->pt)->hasTag($TypeTag::VOID)) {
 		$init($CompilerProperties$Fragments);
 		$nc($nc(this->resultInfo)->checkContext)->report(tree, $($nc(this->diags)->fragment($CompilerProperties$Fragments::SwitchExpressionTargetCantBeVoid)));
-		$set(this, result, ($assignField(tree, type, $nc(this->types)->createErrorType($nc(this->resultInfo)->pt))));
+		$set(this, result, ($set(tree, type, $nc(this->types)->createErrorType($nc(this->resultInfo)->pt))));
 		return;
 	}
 	$var($Attr$ResultInfo, condInfo, tree->polyKind == $JCTree$JCPolyExpression$PolyKind::STANDALONE ? this->unknownExprInfo : $nc(this->resultInfo)->dup($(switchExpressionContext($nc(this->resultInfo)->checkContext))));
@@ -3761,7 +3744,7 @@ void Attr::visitSwitchExpression($JCTree$JCSwitchExpression* tree) {
 	}
 	$var($Type, owntype, var$2);
 	$init($Kinds$KindSelector);
-	$set(this, result, ($assignField(tree, type, check(tree, owntype, $Kinds$KindSelector::VAL, this->resultInfo))));
+	$set(this, result, ($set(tree, type, check(tree, owntype, $Kinds$KindSelector::VAL, this->resultInfo))));
 }
 
 $Check$CheckContext* Attr::switchExpressionContext($Check$CheckContext* checkContext) {
@@ -3845,8 +3828,8 @@ void Attr::handleSwitch($JCTree* switchTree, $JCTree$JCExpression* selector, $Li
 											try {
 												$set($nc(this->rs), basicLogResolveHelper, $nc(this->rs)->silentLogResolveHelper);
 												attribExpr(pat, switchEnv, seltype);
-											} catch ($Throwable&) {
-												$assign(var$1, $catch());
+											} catch ($Throwable& var$2) {
+												$assign(var$1, var$2);
 											} /*finally*/ {
 												$set($nc(this->rs), basicLogResolveHelper, prevResolveHelper);
 											}
@@ -3872,15 +3855,15 @@ void Attr::handleSwitch($JCTree* switchTree, $JCTree$JCExpression* selector, $Li
 													$nc(this->log)->error($(expr->pos()), (stringSwitch ? $CompilerProperties$Errors::StringConstReq : $CompilerProperties$Errors::ConstExprReq));
 												}
 											} else if (!stringSwitch && !$nc(this->types)->isAssignable(seltype, $nc(this->syms)->intType)) {
-												$var($JCDiagnostic$DiagnosticPosition, var$2, pat->pos());
-												$nc(this->log)->error(var$2, $($CompilerProperties$Errors::ConstantLabelNotCompatible(pattype, seltype)));
+												$var($JCDiagnostic$DiagnosticPosition, var$3, pat->pos());
+												$nc(this->log)->error(var$3, $($CompilerProperties$Errors::ConstantLabelNotCompatible(pattype, seltype)));
 											} else if (!labels->add($(pattype->constValue()))) {
 												$init($CompilerProperties$Errors);
 												$nc(this->log)->error($(c->pos()), $CompilerProperties$Errors::DuplicateCaseLabel);
 											} else {
-												$var($JCDiagnostic$DiagnosticPosition, var$3, pat->pos());
-												$var($List, var$4, coveredTypes);
-												checkCaseLabelDominated(var$3, var$4, $($nc(this->types)->boxedTypeOrType(pattype)));
+												$var($JCDiagnostic$DiagnosticPosition, var$4, pat->pos());
+												$var($List, var$5, coveredTypes);
+												checkCaseLabelDominated(var$4, var$5, $($nc(this->types)->boxedTypeOrType(pattype)));
 											}
 										}
 									}
@@ -3907,9 +3890,9 @@ void Attr::handleSwitch($JCTree* switchTree, $JCTree$JCExpression* selector, $Li
 										}
 										checkCastablePattern($(pat->pos()), seltype, primaryType);
 										$var($Type, patternType, $nc(this->types)->erasure(primaryType));
-										bool var$6 = primary->unconditional();
-										bool var$5 = var$6 && !$nc(patternType)->isErroneous();
-										bool isTotal = var$5 && $nc(this->types)->isSubtype($($nc(this->types)->erasure(seltype)), patternType);
+										bool var$7 = primary->unconditional();
+										bool var$6 = var$7 && !$nc(patternType)->isErroneous();
+										bool isTotal = var$6 && $nc(this->types)->isSubtype($($nc(this->types)->erasure(seltype)), patternType);
 										if (isTotal) {
 											if (hasTotalPattern) {
 												$init($CompilerProperties$Errors);
@@ -3921,8 +3904,8 @@ void Attr::handleSwitch($JCTree* switchTree, $JCTree$JCExpression* selector, $Li
 											hasTotalPattern = true;
 										}
 										checkCaseLabelDominated($(pat->pos()), coveredTypes, patternType);
-										bool var$7 = primary->unconditional();
-										if (var$7 && !patternType->isErroneous()) {
+										bool var$8 = primary->unconditional();
+										if (var$8 && !patternType->isErroneous()) {
 											$assign(coveredTypes, $nc(coveredTypes)->prepend(patternType));
 										}
 									}
@@ -3933,16 +3916,16 @@ void Attr::handleSwitch($JCTree* switchTree, $JCTree$JCExpression* selector, $Li
 					}
 					$var($Env, caseEnv, bindingEnv(switchEnv, c, $nc(currentBindings)->bindingsWhenTrue));
 					{
-						$var($Throwable, var$8, nullptr);
+						$var($Throwable, var$9, nullptr);
 						try {
 							$nc(attribCase)->accept(c, caseEnv);
-						} catch ($Throwable&) {
-							$assign(var$8, $catch());
+						} catch ($Throwable& var$10) {
+							$assign(var$9, var$10);
 						} /*finally*/ {
 							$nc($nc(($cast($AttrContext, $nc(caseEnv)->info)))->scope)->leave();
 						}
-						if (var$8 != nullptr) {
-							$throw(var$8);
+						if (var$9 != nullptr) {
+							$throw(var$9);
 						}
 					}
 					addVars(c->stats, $nc(($cast($AttrContext, $nc(switchEnv)->info)))->scope);
@@ -3966,8 +3949,8 @@ void Attr::handleSwitch($JCTree* switchTree, $JCTree$JCExpression* selector, $Li
 					$Assert::error($($nc($(switchTree->getTag()))->name()));
 				}
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$11) {
+			$assign(var$0, var$11);
 		} /*finally*/ {
 			$nc($nc(($cast($AttrContext, $nc(switchEnv)->info)))->scope)->leave();
 		}
@@ -4019,7 +4002,7 @@ $Symbol* Attr::enumConstant($JCTree* tree, $Type* enumType) {
 				{
 					$init($Kinds$Kind);
 					if ($nc(sym)->kind == $Kinds$Kind::VAR) {
-						$var($Symbol, s, $assignField(ident, sym, sym));
+						$var($Symbol, s, $set(ident, sym, sym));
 						$nc(($cast($Symbol$VarSymbol, s)))->getConstValue();
 						$set(ident, type, $nc(s)->type);
 						return (((int64_t)(s->flags_field & (uint64_t)(int64_t)$Flags::ENUM)) == 0) ? ($Symbol*)nullptr : s;
@@ -4083,8 +4066,8 @@ void Attr::visitTry($JCTree$JCTry* tree) {
 						}
 					}
 					attribStat(tree->body, tryEnv);
-				} catch ($Throwable&) {
-					$assign(var$1, $catch());
+				} catch ($Throwable& var$2) {
+					$assign(var$1, var$2);
 				} /*finally*/ {
 					if (isTryWithResource) {
 						$nc($nc(($cast($AttrContext, $nc(tryEnv)->info)))->scope)->leave();
@@ -4100,7 +4083,7 @@ void Attr::visitTry($JCTree$JCTry* tree) {
 					$var($JCTree$JCCatch, c, $cast($JCTree$JCCatch, l->head));
 					$var($Env, catchEnv, $nc(localEnv)->dup(c, $($nc(($cast($AttrContext, localEnv->info)))->dup($($nc($nc(($cast($AttrContext, localEnv->info)))->scope)->dup())))));
 					{
-						$var($Throwable, var$2, nullptr);
+						$var($Throwable, var$3, nullptr);
 						try {
 							$var($Type, ctype, attribStat($nc(c)->param, catchEnv));
 							if ($TreeInfo::isMultiCatch(c)) {
@@ -4111,16 +4094,16 @@ void Attr::visitTry($JCTree$JCTry* tree) {
 								$init($ElementKind);
 								$nc($nc(c->param)->sym)->setData($ElementKind::EXCEPTION_PARAMETER);
 							}
-							$var($JCDiagnostic$DiagnosticPosition, var$3, $nc($nc($nc(c)->param)->vartype)->pos());
-							$nc(this->chk)->checkType(var$3, $($nc(this->chk)->checkClassType($($nc($nc(c->param)->vartype)->pos()), ctype)), $nc(this->syms)->throwableType);
+							$var($JCDiagnostic$DiagnosticPosition, var$4, $nc($nc($nc(c)->param)->vartype)->pos());
+							$nc(this->chk)->checkType(var$4, $($nc(this->chk)->checkClassType($($nc($nc(c->param)->vartype)->pos()), ctype)), $nc(this->syms)->throwableType);
 							attribStat($nc(c)->body, catchEnv);
-						} catch ($Throwable&) {
-							$assign(var$2, $catch());
+						} catch ($Throwable& var$5) {
+							$assign(var$3, var$5);
 						} /*finally*/ {
 							$nc($nc(($cast($AttrContext, $nc(catchEnv)->info)))->scope)->leave();
 						}
-						if (var$2 != nullptr) {
-							$throw(var$2);
+						if (var$3 != nullptr) {
+							$throw(var$3);
 						}
 					}
 				}
@@ -4129,8 +4112,8 @@ void Attr::visitTry($JCTree$JCTry* tree) {
 				attribStat(tree->finalizer, localEnv);
 			}
 			$set(this, result, nullptr);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$6) {
+			$assign(var$0, var$6);
 		} /*finally*/ {
 			$nc($nc(($cast($AttrContext, $nc(localEnv)->info)))->scope)->leave();
 		}
@@ -4156,8 +4139,8 @@ void Attr::checkAutoCloseable($JCDiagnostic$DiagnosticPosition* pos, $Env* env, 
 				$var($Name, var$6, $nc(this->names)->close);
 				$var($List, var$7, $List::nil());
 				$assign(close, $nc(this->rs)->resolveQualifiedMethod(var$3, var$4, var$5, var$6, var$7, $($List::nil())));
-			} catch ($Throwable&) {
-				$assign(var$2, $catch());
+			} catch ($Throwable& var$8) {
+				$assign(var$2, var$8);
 			} /*finally*/ {
 				$nc(this->log)->popDiagnosticHandler(discardHandler);
 			}
@@ -4166,10 +4149,10 @@ void Attr::checkAutoCloseable($JCDiagnostic$DiagnosticPosition* pos, $Env* env, 
 			}
 		}
 		$init($Kinds$Kind);
-		bool var$9 = $nc(close)->kind == $Kinds$Kind::MTH && close->overrides($nc(this->syms)->autoCloseableClose, resource->tsym, this->types, true);
-		bool var$8 = var$9 && $nc(this->chk)->isHandled($nc(this->syms)->interruptedExceptionType, $($nc($($nc(this->types)->memberType(resource, close)))->getThrownTypes()));
+		bool var$10 = $nc(close)->kind == $Kinds$Kind::MTH && close->overrides($nc(this->syms)->autoCloseableClose, resource->tsym, this->types, true);
+		bool var$9 = var$10 && $nc(this->chk)->isHandled($nc(this->syms)->interruptedExceptionType, $($nc($($nc(this->types)->memberType(resource, close)))->getThrownTypes()));
 		$init($Lint$LintCategory);
-		if (var$8 && $nc($nc(($cast($AttrContext, $nc(env)->info)))->lint)->isEnabled($Lint$LintCategory::TRY)) {
+		if (var$9 && $nc($nc(($cast($AttrContext, $nc(env)->info)))->lint)->isEnabled($Lint$LintCategory::TRY)) {
 			$nc(this->log)->warning($Lint$LintCategory::TRY, pos, $($CompilerProperties$Warnings::TryResourceThrowsInterruptedExc(resource)));
 		}
 	}
@@ -4194,7 +4177,7 @@ void Attr::visitConditional($JCTree$JCConditional* tree) {
 	if (tree->polyKind == $JCTree$JCPolyExpression$PolyKind::POLY && $nc($nc(this->resultInfo)->pt)->hasTag($TypeTag::VOID)) {
 		$init($CompilerProperties$Fragments);
 		$nc($nc(this->resultInfo)->checkContext)->report(tree, $($nc(this->diags)->fragment($CompilerProperties$Fragments::ConditionalTargetCantBeVoid)));
-		$set(this, result, ($assignField(tree, type, $nc(this->types)->createErrorType($nc(this->resultInfo)->pt))));
+		$set(this, result, ($set(tree, type, $nc(this->types)->createErrorType($nc(this->resultInfo)->pt))));
 		return;
 	}
 	$var($Attr$ResultInfo, condInfo, tree->polyKind == $JCTree$JCPolyExpression$PolyKind::STANDALONE ? this->unknownExprInfo : $nc(this->resultInfo)->dup($(conditionalContext($nc(this->resultInfo)->checkContext))));
@@ -4204,8 +4187,8 @@ void Attr::visitConditional($JCTree$JCConditional* tree) {
 		$var($Throwable, var$4, nullptr);
 		try {
 			$assign(truetype, attribTree(tree->truepart, trueEnv, condInfo));
-		} catch ($Throwable&) {
-			$assign(var$4, $catch());
+		} catch ($Throwable& var$5) {
+			$assign(var$4, var$5);
 		} /*finally*/ {
 			$nc($nc(($cast($AttrContext, $nc(trueEnv)->info)))->scope)->leave();
 		}
@@ -4217,32 +4200,32 @@ void Attr::visitConditional($JCTree$JCConditional* tree) {
 	$var($Type, falsetype, nullptr);
 	$var($Env, falseEnv, bindingEnv(this->env, $nc(condBindings)->bindingsWhenFalse));
 	{
-		$var($Throwable, var$5, nullptr);
+		$var($Throwable, var$6, nullptr);
 		try {
 			$assign(falsetype, attribTree(tree->falsepart, falseEnv, condInfo));
-		} catch ($Throwable&) {
-			$assign(var$5, $catch());
+		} catch ($Throwable& var$7) {
+			$assign(var$6, var$7);
 		} /*finally*/ {
 			$nc($nc(($cast($AttrContext, $nc(falseEnv)->info)))->scope)->leave();
 		}
-		if (var$5 != nullptr) {
-			$throw(var$5);
+		if (var$6 != nullptr) {
+			$throw(var$6);
 		}
 	}
 	$var($MatchBindingsComputer$MatchBindings, falseBindings, this->matchBindings);
-	$var($Type, var$6, nullptr);
+	$var($Type, var$8, nullptr);
 	if (tree->polyKind == $JCTree$JCPolyExpression$PolyKind::STANDALONE) {
-		$var($Object, var$8, $of($nc(tree->truepart)->pos()));
-		$var($List, var$7, $List::of(var$8, $($nc(tree->falsepart)->pos())));
-		$assign(var$6, condType(var$7, $($List::of(truetype, falsetype))));
+		$var($Object, var$10, $of($nc(tree->truepart)->pos()));
+		$var($List, var$9, $List::of(var$10, $($nc(tree->falsepart)->pos())));
+		$assign(var$8, condType(var$9, $($List::of(truetype, falsetype))));
 	} else {
-		$assign(var$6, pt());
+		$assign(var$8, pt());
 	}
-	$var($Type, owntype, var$6);
-	bool var$11 = $nc(condtype)->constValue() != nullptr;
-	bool var$10 = var$11 && $nc(truetype)->constValue() != nullptr;
-	bool var$9 = var$10 && $nc(falsetype)->constValue() != nullptr;
-	if (var$9 && !$nc(owntype)->hasTag($TypeTag::NONE)) {
+	$var($Type, owntype, var$8);
+	bool var$13 = $nc(condtype)->constValue() != nullptr;
+	bool var$12 = var$13 && $nc(truetype)->constValue() != nullptr;
+	bool var$11 = var$12 && $nc(falsetype)->constValue() != nullptr;
+	if (var$11 && !$nc(owntype)->hasTag($TypeTag::NONE)) {
 		$assign(owntype, $nc(this->cfolder)->coerce(condtype->isTrue() ? truetype : falsetype, owntype));
 	}
 	$init($Kinds$KindSelector);
@@ -4252,7 +4235,7 @@ void Attr::visitConditional($JCTree$JCConditional* tree) {
 
 bool Attr::isBooleanOrNumeric($Env* env, $JCTree$JCExpression* tree) {
 	$useLocalCurrentObjectStackCache();
-		$init($Attr$13);
+	$init($Attr$13);
 	{
 		$var($JCTree$JCConditional, condTree, nullptr)
 		$var($JCTree$JCMethodInvocation, speculativeMethodTree, nullptr)
@@ -4398,8 +4381,8 @@ void Attr::visitIf($JCTree$JCIf* tree) {
 		$var($Throwable, var$0, nullptr);
 		try {
 			attribStat($nc(tree)->thenpart, thenEnv);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc($nc(($cast($AttrContext, $nc(thenEnv)->info)))->scope)->leave();
 		}
@@ -4413,16 +4396,16 @@ void Attr::visitIf($JCTree$JCIf* tree) {
 	if ($nc(tree)->elsepart != nullptr) {
 		$var($Env, elseEnv, bindingEnv(this->env, $nc(condBindings)->bindingsWhenFalse));
 		{
-			$var($Throwable, var$1, nullptr);
+			$var($Throwable, var$2, nullptr);
 			try {
 				attribStat(tree->elsepart, elseEnv);
-			} catch ($Throwable&) {
-				$assign(var$1, $catch());
+			} catch ($Throwable& var$3) {
+				$assign(var$2, var$3);
 			} /*finally*/ {
 				$nc($nc(($cast($AttrContext, $nc(elseEnv)->info)))->scope)->leave();
 			}
-			if (var$1 != nullptr) {
-				$throw(var$1);
+			if (var$2 != nullptr) {
+				$throw(var$2);
 			}
 		}
 		preFlow(static_cast<$JCTree*>(tree->elsepart));
@@ -4497,7 +4480,7 @@ $Pair* Attr::findJumpTargetNoError($JCTree$Tag* tag, $Name* label, $Env* env) {
 	$var($JCDiagnostic$Error, pendingError, nullptr);
 	bool LOOP$break = false;
 	while (env1 != nullptr) {
-			$init($Attr$13);
+		$init($Attr$13);
 		{
 			$var($JCTree$JCLabeledStatement, labelled, nullptr)
 			switch ($nc($Attr$13::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($($nc(env1->tree)->getTag())))->ordinal())) {
@@ -4707,7 +4690,7 @@ void Attr::visitApply($JCTree$JCMethodInvocation* tree) {
 				attribExpr($nc(($cast($JCTree$JCFieldAccess, tree->meth)))->selected, localEnv, site);
 			}
 		}
-		$set(this, result, ($assignField($nc(tree), type, $nc(this->syms)->voidType)));
+		$set(this, result, ($set($nc(tree), type, $nc(this->syms)->voidType)));
 	} else {
 		$init($Kinds$KindSelector);
 		$var($Kinds$KindSelector, kind, attribArgs($Kinds$KindSelector::VAL, $nc(tree)->args, localEnv, argtypesBuf));
@@ -4820,8 +4803,8 @@ void Attr::visitNewClass($JCTree$JCNewClass* tree) {
 		try {
 			$nc(($cast($AttrContext, $nc(this->env)->info)))->isNewClass = true;
 			$assign(clazztype, $TreeInfo::isEnumInit($nc(this->env)->tree) ? attribIdentAsEnumType(this->env, $cast($JCTree$JCIdent, clazz)) : attribType(static_cast<$JCTree*>(clazz), this->env));
-		} catch ($Throwable&) {
-			$assign(var$1, $catch());
+		} catch ($Throwable& var$2) {
+			$assign(var$1, var$2);
 		} /*finally*/ {
 			$nc(($cast($AttrContext, $nc(this->env)->info)))->isNewClass = false;
 		}
@@ -4843,14 +4826,14 @@ void Attr::visitNewClass($JCTree$JCNewClass* tree) {
 				$init($CompilerProperties$Errors);
 				$nc(this->log)->error($($nc(tree->encl)->pos()), $CompilerProperties$Errors::AnonClassImplIntfNoQualForNew);
 			} else if ($nc(clazztype->tsym)->isStatic()) {
-				$var($JCDiagnostic$DiagnosticPosition, var$2, $nc(tree->encl)->pos());
-				$nc(this->log)->error(var$2, $($CompilerProperties$Errors::QualifiedNewOfStaticClass(clazztype->tsym)));
+				$var($JCDiagnostic$DiagnosticPosition, var$3, $nc(tree->encl)->pos());
+				$nc(this->log)->error(var$3, $($CompilerProperties$Errors::QualifiedNewOfStaticClass(clazztype->tsym)));
 			}
 		}
 	} else {
-		bool var$4 = !$nc($nc(clazztype)->tsym)->isInterface();
+		bool var$5 = !$nc($nc(clazztype)->tsym)->isInterface();
 		$init($TypeTag);
-		if (var$4 && $nc($(clazztype->getEnclosingType()))->hasTag($TypeTag::CLASS)) {
+		if (var$5 && $nc($(clazztype->getEnclosingType()))->hasTag($TypeTag::CLASS)) {
 			$nc(this->rs)->resolveImplicitThis($(tree->pos()), this->env, clazztype);
 		}
 	}
@@ -4860,19 +4843,19 @@ void Attr::visitNewClass($JCTree$JCNewClass* tree) {
 	$var($List, argtypes, argtypesBuf->toList());
 	$var($List, typeargtypes, attribTypes(tree->typeargs, localEnv));
 	$init($TypeTag);
-	bool var$5 = $nc(clazztype)->hasTag($TypeTag::CLASS);
-	if (var$5 || $nc(clazztype)->hasTag($TypeTag::ERROR)) {
+	bool var$6 = $nc(clazztype)->hasTag($TypeTag::CLASS);
+	if (var$6 || $nc(clazztype)->hasTag($TypeTag::ERROR)) {
 		if (((int64_t)($nc(clazztype->tsym)->flags_field & (uint64_t)(int64_t)$Flags::ENUM)) != 0 && (!$nc($nc(this->env)->tree)->hasTag($JCTree$Tag::VARDEF) || ((int64_t)($nc($nc(($cast($JCTree$JCVariableDecl, $nc(this->env)->tree)))->mods)->flags & (uint64_t)(int64_t)$Flags::ENUM)) == 0 || !$equals($nc(($cast($JCTree$JCVariableDecl, $nc(this->env)->tree)))->init, tree))) {
 			$init($CompilerProperties$Errors);
 			$nc(this->log)->error($(tree->pos()), $CompilerProperties$Errors::EnumCantBeInstantiated);
 		}
-		bool var$6 = $TreeInfo::isDiamond(tree);
+		bool var$7 = $TreeInfo::isDiamond(tree);
 		$init($DeferredAttr$AttrMode);
-		bool isSpeculativeDiamondInferenceRound = var$6 && $nc($($nc($nc(this->resultInfo)->checkContext)->deferredAttrContext()))->mode == $DeferredAttr$AttrMode::SPECULATIVE;
+		bool isSpeculativeDiamondInferenceRound = var$7 && $nc($($nc($nc(this->resultInfo)->checkContext)->deferredAttrContext()))->mode == $DeferredAttr$AttrMode::SPECULATIVE;
 		bool skipNonDiamondPath = false;
 		if (cdef == nullptr && !isSpeculativeDiamondInferenceRound && ((int64_t)($nc(clazztype->tsym)->flags() & (uint64_t)(int64_t)(1024 | 512))) != 0) {
-			$var($JCDiagnostic$DiagnosticPosition, var$7, tree->pos());
-			$nc(this->log)->error(var$7, $($CompilerProperties$Errors::AbstractCantBeInstantiated(clazztype->tsym)));
+			$var($JCDiagnostic$DiagnosticPosition, var$8, tree->pos());
+			$nc(this->log)->error(var$8, $($CompilerProperties$Errors::AbstractCantBeInstantiated(clazztype->tsym)));
 			skipNonDiamondPath = true;
 		} else if (cdef != nullptr && $nc(clazztype->tsym)->isInterface()) {
 			if (!$nc(argtypes)->isEmpty()) {
@@ -4888,25 +4871,25 @@ void Attr::visitNewClass($JCTree$JCNewClass* tree) {
 			skipNonDiamondPath = true;
 		}
 		if ($TreeInfo::isDiamond(tree)) {
-			$var($Type, var$8, clazztype->getEnclosingType());
-			$var($List, var$9, $nc($nc(clazztype->tsym)->type)->getTypeArguments());
-			$var($Symbol$TypeSymbol, var$10, clazztype->tsym);
-			$var($Type$ClassType, site, $new($Type$ClassType, var$8, var$9, var$10, $(clazztype->getMetadata())));
+			$var($Type, var$9, clazztype->getEnclosingType());
+			$var($List, var$10, $nc($nc(clazztype->tsym)->type)->getTypeArguments());
+			$var($Symbol$TypeSymbol, var$11, clazztype->tsym);
+			$var($Type$ClassType, site, $new($Type$ClassType, var$9, var$10, var$11, $(clazztype->getMetadata())));
 			$var($Env, diamondEnv, $nc(localEnv)->dup(tree));
 			$nc(($cast($AttrContext, $nc(diamondEnv)->info)))->selectSuper = cdef != nullptr || tree->classDeclRemoved();
 			$set($nc($cast($AttrContext, $nc(diamondEnv)->info)), pendingResolutionPhase, nullptr);
 			$var($Symbol, constructor, $nc(this->rs)->resolveDiamond($(tree->pos()), diamondEnv, site, argtypes, typeargtypes));
 			$set(tree, constructor, $nc(constructor)->baseSymbol());
 			$var($Symbol$TypeSymbol, csym, clazztype->tsym);
-			$var($Kinds$KindSelector, var$11, pkind);
-			$var($Type, var$12, newMethodTemplate($nc(this->resultInfo)->pt, argtypes, typeargtypes));
+			$var($Kinds$KindSelector, var$12, pkind);
+			$var($Type, var$13, newMethodTemplate($nc(this->resultInfo)->pt, argtypes, typeargtypes));
 			$init($Attr$CheckMode);
-			$var($Attr$ResultInfo, diamondResult, $new($Attr$ResultInfo, this, var$11, var$12, $(diamondContext(tree, csym, $nc(this->resultInfo)->checkContext)), $Attr$CheckMode::NO_TREE_UPDATE));
-			$var($Type, constructorType, $assignField(tree, constructorType, $nc(this->types)->createErrorType(clazztype)));
+			$var($Attr$ResultInfo, diamondResult, $new($Attr$ResultInfo, this, var$12, var$13, $(diamondContext(tree, csym, $nc(this->resultInfo)->checkContext)), $Attr$CheckMode::NO_TREE_UPDATE));
+			$var($Type, constructorType, $set(tree, constructorType, $nc(this->types)->createErrorType(clazztype)));
 			$assign(constructorType, checkId(tree, site, constructor, diamondEnv, diamondResult));
 			$set($nc(tree->clazz), type, $nc(this->types)->createErrorType(clazztype));
 			if (!$nc(constructorType)->isErroneous()) {
-				$set($nc(tree->clazz), type, ($assignField($nc(clazz), type, constructorType->getReturnType())));
+				$set($nc(tree->clazz), type, ($set($nc(clazz), type, constructorType->getReturnType())));
 				$set(tree, constructorType, $nc(this->types)->createMethodTypeWithReturn(constructorType, $nc(this->syms)->voidType));
 			}
 			$assign(clazztype, $nc(this->chk)->checkClassType(tree->clazz, $nc(tree->clazz)->type, true));
@@ -4935,8 +4918,8 @@ void Attr::visitNewClass($JCTree$JCNewClass* tree) {
 	$set(this, result, check(tree, owntype, $Kinds$KindSelector::VAL, this->resultInfo));
 	$var($InferenceContext, inferenceContext, $nc($nc(this->resultInfo)->checkContext)->inferenceContext());
 	if (tree->constructorType != nullptr && $nc(inferenceContext)->free(tree->constructorType)) {
-		$var($List, var$13, $List::of(tree->constructorType));
-		inferenceContext->addFreeTypeListener(var$13, static_cast<$Infer$FreeTypeListener*>($$new(Attr$$Lambda$lambda$visitNewClass$22$24, tree)));
+		$var($List, var$14, $List::of(tree->constructorType));
+		inferenceContext->addFreeTypeListener(var$14, static_cast<$Infer$FreeTypeListener*>($$new(Attr$$Lambda$lambda$visitNewClass$22$24, tree)));
 	}
 	$nc(this->chk)->validate(tree->typeargs, localEnv);
 }
@@ -5004,7 +4987,7 @@ void Attr::visitAnonymousClassDefinition($JCTree$JCNewClass* tree, $JCTree$JCExp
 			$assign(finalargtypes, $nc(finalargtypes)->map($nc(this->deferredAttr)->deferredCopier));
 		}
 		$assign(clazztype, clazztype->hasTag($TypeTag::ERROR) ? $nc(this->types)->createErrorType($nc($nc(cdef)->sym)->type) : $nc($nc(cdef)->sym)->type);
-		$var($Symbol, sym, $assignField(tree, constructor, $nc(this->rs)->resolveConstructor($(tree->pos()), localEnv, clazztype, finalargtypes, typeargtypes)));
+		$var($Symbol, sym, $set(tree, constructor, $nc(this->rs)->resolveConstructor($(tree->pos()), localEnv, clazztype, finalargtypes, typeargtypes)));
 		$Assert::check(!$nc($nc(sym)->kind)->isResolutionError());
 		$set(tree, constructor, sym);
 		$init($Attr$CheckMode);
@@ -5121,7 +5104,7 @@ void Attr::visitLambda($JCTree$JCLambda* that) {
 				$var($Type, currentTarget, $nc(targetInfo)->target);
 				$var($Type, lambdaType, targetInfo->descriptor);
 				if ($nc(currentTarget)->isErroneous()) {
-					$set(this, result, ($assignField($nc(that), type, currentTarget)));
+					$set(this, result, ($set($nc(that), type, currentTarget)));
 					return$4 = true;
 					goto $finally;
 				}
@@ -5130,7 +5113,7 @@ void Attr::visitLambda($JCTree$JCLambda* that) {
 				if ($nc(lambdaType)->hasTag($TypeTag::FORALL)) {
 					$var($JCDiagnostic$Fragment, msg, $CompilerProperties$Fragments::InvalidGenericLambdaTarget(lambdaType, $($Kinds::kindName(static_cast<$Symbol*>($nc(currentTarget)->tsym))), $nc(currentTarget)->tsym));
 					$nc($nc(this->resultInfo)->checkContext)->report(that, $($nc(this->diags)->fragment(msg)));
-					$set(this, result, ($assignField($nc(that), type, $nc(this->types)->createErrorType($(pt())))));
+					$set(this, result, ($set($nc(that), type, $nc(this->types)->createErrorType($(pt())))));
 					return$4 = true;
 					goto $finally;
 				}
@@ -5154,13 +5137,13 @@ void Attr::visitLambda($JCTree$JCLambda* that) {
 					if (arityMismatch) {
 						$init($CompilerProperties$Fragments);
 						$nc($nc(this->resultInfo)->checkContext)->report(that, $($nc(this->diags)->fragment($CompilerProperties$Fragments::IncompatibleArgTypesInLambda)));
-						$set(this, result, ($assignField(that, type, $nc(this->types)->createErrorType(currentTarget))));
+						$set(this, result, ($set(that, type, $nc(this->types)->createErrorType(currentTarget))));
 						return$4 = true;
 						goto $finally;
 					}
 				}
 				needsRecovery = false;
-				$var($Attr$ResultInfo, bodyResultInfo, $assignField($nc($cast($AttrContext, $nc(localEnv)->info)), returnResult, lambdaBodyResult(that, lambdaType, this->resultInfo)));
+				$var($Attr$ResultInfo, bodyResultInfo, $set($nc($cast($AttrContext, $nc(localEnv)->info)), returnResult, lambdaBodyResult(that, lambdaType, this->resultInfo)));
 				$init($LambdaExpressionTree$BodyKind);
 				if ($nc(that)->getBodyKind() == $LambdaExpressionTree$BodyKind::EXPRESSION) {
 					attribTree($(that->getBody()), localEnv, bodyResultInfo);
@@ -5192,41 +5175,38 @@ void Attr::visitLambda($JCTree$JCLambda* that) {
 						currentTarget
 					}));
 				}
-				$set(this, result, wrongContext ? $assignField(that, type, $nc(this->types)->createErrorType($(pt()))) : check(that, currentTarget, $Kinds$KindSelector::VAL, this->resultInfo));
-			} catch ($Types$FunctionDescriptorLookupError&) {
-				$var($Types$FunctionDescriptorLookupError, ex, $catch());
+				$set(this, result, wrongContext ? $set(that, type, $nc(this->types)->createErrorType($(pt()))) : check(that, currentTarget, $Kinds$KindSelector::VAL, this->resultInfo));
+			} catch ($Types$FunctionDescriptorLookupError& ex) {
 				$var($JCDiagnostic, cause, ex->getDiagnostic());
 				$nc($nc(this->resultInfo)->checkContext)->report(that, cause);
-				$set(this, result, ($assignField($nc(that), type, $nc(this->types)->createErrorType($(pt())))));
+				$set(this, result, ($set($nc(that), type, $nc(this->types)->createErrorType($(pt())))));
 				return$4 = true;
 				goto $finally;
-			} catch ($Symbol$CompletionFailure&) {
-				$var($Symbol$CompletionFailure, cf, $catch());
+			} catch ($Symbol$CompletionFailure& cf) {
 				$nc(this->chk)->completionError($($nc(that)->pos()), cf);
-			} catch ($Throwable&) {
-				$var($Throwable, t, $catch());
+			} catch ($Throwable& t) {
 				needsRecovery = false;
 				$throw(t);
 			}
-		} catch ($Throwable&) {
-			$assign(var$3, $catch());
+		} catch ($Throwable& var$7) {
+			$assign(var$3, var$7);
 		} $finally: {
 			$nc($nc(($cast($AttrContext, $nc(localEnv)->info)))->scope)->leave();
 			if (needsRecovery) {
 				$var($Type, prevResult, this->result);
 				{
-					$var($Throwable, var$7, nullptr);
+					$var($Throwable, var$8, nullptr);
 					try {
 						attribTree(that, this->env, this->recoveryInfo);
-					} catch ($Throwable&) {
-						$assign(var$7, $catch());
+					} catch ($Throwable& var$9) {
+						$assign(var$8, var$9);
 					} /*finally*/ {
 						if ($equals(this->result, $Type::recoveryType)) {
 							$set(this, result, prevResult);
 						}
 					}
-					if (var$7 != nullptr) {
-						$throw(var$7);
+					if (var$8 != nullptr) {
+						$throw(var$8);
 					}
 				}
 			}
@@ -5264,8 +5244,7 @@ $Attr$TargetInfo* Attr::getTargetInfo($JCTree$JCPolyExpression* that, $Attr$Resu
 						if (explicitParamTypes != nullptr) {
 							try {
 								$assign(bound, $nc(this->infer)->instantiateFunctionalInterface(that, bound, explicitParamTypes, resultInfo->checkContext));
-							} catch ($Types$FunctionDescriptorLookupError&) {
-								$catch();
+							} catch ($Types$FunctionDescriptorLookupError& t) {
 							}
 						}
 						$assign(bound, $nc(this->types)->removeWildcards(bound));
@@ -5299,7 +5278,7 @@ void Attr::preFlow($JCTree$JCLambda* tree) {
 
 $Type* Attr::fallbackDescriptorType($JCTree$JCExpression* tree) {
 	$useLocalCurrentObjectStackCache();
-		$init($Attr$13);
+	$init($Attr$13);
 	{
 		$var($JCTree$JCLambda, lambda, nullptr)
 		$var($List, argtypes, nullptr)
@@ -5442,7 +5421,7 @@ void Attr::visitReference($JCTree$JCMemberReference* that) {
 			$init($CompilerProperties$Errors);
 			$nc(this->log)->error($($nc(that)->pos()), $CompilerProperties$Errors::UnexpectedMref);
 		}
-		$set(this, result, ($assignField($nc(that), type, $nc(this->types)->createErrorType($(pt())))));
+		$set(this, result, ($set($nc(that), type, $nc(this->types)->createErrorType($(pt())))));
 		return;
 	}
 	$var($Env, localEnv, $nc(this->env)->dup(that));
@@ -5460,7 +5439,7 @@ void Attr::visitReference($JCTree$JCMemberReference* that) {
 			}
 		}
 		if ($nc(exprType)->isErroneous()) {
-			$set(this, result, ($assignField($nc(that), type, exprType)));
+			$set(this, result, ($set($nc(that), type, exprType)));
 			return;
 		}
 		if ($TreeInfo::isStaticSelector($nc(that)->expr, this->names)) {
@@ -5491,8 +5470,8 @@ void Attr::visitReference($JCTree$JCMemberReference* that) {
 			$var($Throwable, var$6, nullptr);
 			try {
 				$assign(refResult, $nc(this->rs)->resolveMemberReference(localEnv, that, $nc($nc(that)->expr)->type, that->name, argtypes, typeargtypes, targetInfo->descriptor, referenceCheck, $($nc($nc(this->resultInfo)->checkContext)->inferenceContext()), $nc(this->rs)->basicReferenceChooser));
-			} catch ($Throwable&) {
-				$assign(var$6, $catch());
+			} catch ($Throwable& var$7) {
+				$assign(var$6, var$7);
 			} /*finally*/ {
 				$nc($($nc($nc(this->resultInfo)->checkContext)->inferenceContext()))->rollback(saved_undet);
 			}
@@ -5535,11 +5514,11 @@ void Attr::visitReference($JCTree$JCMemberReference* that) {
 			}
 			$init($JCDiagnostic$DiagnosticType);
 			$var($JCDiagnostic, detailsDiag, $nc(($cast($Resolve$ResolveError, $(refSym->baseSymbol()))))->getDiagnostic($JCDiagnostic$DiagnosticType::FRAGMENT, that, $nc(exprType)->tsym, exprType, $nc(that)->name, argtypes, typeargtypes));
-			$var($DiagnosticSource, var$7, $nc(this->log)->currentSource());
-			$var($JCDiagnostic$DiagnosticPosition, var$8, static_cast<$JCDiagnostic$DiagnosticPosition*>(that));
-			$var($JCDiagnostic, diag, $nc(this->diags)->create(var$7, var$8, targetError ? $(static_cast<$JCDiagnostic$DiagnosticInfo*>($CompilerProperties$Fragments::InvalidMref($($Kinds::kindName($($nc(that)->getMode()))), detailsDiag))) : $(static_cast<$JCDiagnostic$DiagnosticInfo*>($CompilerProperties$Errors::InvalidMref($($Kinds::kindName($($nc(that)->getMode()))), detailsDiag)))));
+			$var($DiagnosticSource, var$8, $nc(this->log)->currentSource());
+			$var($JCDiagnostic$DiagnosticPosition, var$9, static_cast<$JCDiagnostic$DiagnosticPosition*>(that));
+			$var($JCDiagnostic, diag, $nc(this->diags)->create(var$8, var$9, targetError ? $(static_cast<$JCDiagnostic$DiagnosticInfo*>($CompilerProperties$Fragments::InvalidMref($($Kinds::kindName($($nc(that)->getMode()))), detailsDiag))) : $(static_cast<$JCDiagnostic$DiagnosticInfo*>($CompilerProperties$Errors::InvalidMref($($Kinds::kindName($($nc(that)->getMode()))), detailsDiag)))));
 			if (targetError && $equals(currentTarget, $Type::recoveryType)) {
-				$set(this, result, ($assignField($nc(that), type, currentTarget)));
+				$set(this, result, ($set($nc(that), type, currentTarget)));
 				return;
 			} else {
 				if (targetError) {
@@ -5547,7 +5526,7 @@ void Attr::visitReference($JCTree$JCMemberReference* that) {
 				} else {
 					$nc(this->log)->report(diag);
 				}
-				$set(this, result, ($assignField($nc(that), type, $nc(this->types)->createErrorType(currentTarget))));
+				$set(this, result, ($set($nc(that), type, $nc(this->types)->createErrorType(currentTarget))));
 				return;
 			}
 		}
@@ -5555,7 +5534,7 @@ void Attr::visitReference($JCTree$JCMemberReference* that) {
 		$set(that, kind, $nc(lookupHelper)->referenceKind(that->sym));
 		that->ownerAccessible = $nc(this->rs)->isAccessible(localEnv, $(static_cast<$Symbol$TypeSymbol*>($nc(that->sym)->enclClass())));
 		if ($equals(desc->getReturnType(), $Type::recoveryType)) {
-			$set(this, result, ($assignField(that, type, currentTarget)));
+			$set(this, result, ($set(that, type, currentTarget)));
 			return;
 		}
 		if (!$nc($nc(($cast($AttrContext, $nc(this->env)->info)))->attributionMode)->isSpeculative$ && that->getMode() == $MemberReferenceTree$ReferenceMode::NEW) {
@@ -5566,19 +5545,19 @@ void Attr::visitReference($JCTree$JCMemberReference* that) {
 			}
 		}
 		if ($nc($($nc($nc(this->resultInfo)->checkContext)->deferredAttrContext()))->mode == $DeferredAttr$AttrMode::CHECK) {
-			bool var$11 = that->getMode() == $MemberReferenceTree$ReferenceMode::INVOKE;
-			bool var$10 = var$11 && $TreeInfo::isStaticSelector(that->expr, this->names);
-			bool var$9 = var$10 && $nc(that->kind)->isUnbound();
-			if (var$9 && $nc(lookupHelper->site)->isRaw()) {
+			bool var$12 = that->getMode() == $MemberReferenceTree$ReferenceMode::INVOKE;
+			bool var$11 = var$12 && $TreeInfo::isStaticSelector(that->expr, this->names);
+			bool var$10 = var$11 && $nc(that->kind)->isUnbound();
+			if (var$10 && $nc(lookupHelper->site)->isRaw()) {
 				$nc(this->chk)->checkRaw(that->expr, localEnv);
 			}
-			bool var$13 = $nc(that->sym)->isStatic();
-			bool var$12 = var$13 && $TreeInfo::isStaticSelector(that->expr, this->names);
-			if (var$12 && $nc($($nc(exprType)->getTypeArguments()))->nonEmpty()) {
-				$var($JCDiagnostic$DiagnosticPosition, var$14, $nc(that->expr)->pos());
+			bool var$14 = $nc(that->sym)->isStatic();
+			bool var$13 = var$14 && $TreeInfo::isStaticSelector(that->expr, this->names);
+			if (var$13 && $nc($($nc(exprType)->getTypeArguments()))->nonEmpty()) {
+				$var($JCDiagnostic$DiagnosticPosition, var$15, $nc(that->expr)->pos());
 				$init($CompilerProperties$Fragments);
-				$nc(this->log)->error(var$14, $($CompilerProperties$Errors::InvalidMref($($Kinds::kindName($(that->getMode()))), $CompilerProperties$Fragments::StaticMrefWithTargs)));
-				$set(this, result, ($assignField(that, type, $nc(this->types)->createErrorType(currentTarget))));
+				$nc(this->log)->error(var$15, $($CompilerProperties$Errors::InvalidMref($($Kinds::kindName($(that->getMode()))), $CompilerProperties$Fragments::StaticMrefWithTargs)));
+				$set(this, result, ($set(that, type, $nc(this->types)->createErrorType(currentTarget))));
 				return;
 			}
 			if (!refSym->isStatic() && that->kind == $JCTree$JCMemberReference$ReferenceKind::SUPER) {
@@ -5589,23 +5568,23 @@ void Attr::visitReference($JCTree$JCMemberReference* that) {
 			}
 		}
 		$init($TypeTag);
-		$var($Type, var$16, $nc($(desc->getReturnType()))->hasTag($TypeTag::VOID) ? static_cast<$Type*>($Type::noType) : desc->getReturnType());
-		$var($Type, var$15, newMethodTemplate(var$16, $nc(that->kind)->isUnbound() ? $nc(argtypes)->tail : argtypes, typeargtypes));
+		$var($Type, var$17, $nc($(desc->getReturnType()))->hasTag($TypeTag::VOID) ? static_cast<$Type*>($Type::noType) : desc->getReturnType());
+		$var($Type, var$16, newMethodTemplate(var$17, $nc(that->kind)->isUnbound() ? $nc(argtypes)->tail : argtypes, typeargtypes));
 		$init($Attr$CheckMode);
-		$var($Attr$ResultInfo, checkInfo, $nc(this->resultInfo)->dup(var$15, $$new($Attr$FunctionalReturnContext, this, $nc(this->resultInfo)->checkContext), $Attr$CheckMode::NO_TREE_UPDATE));
+		$var($Attr$ResultInfo, checkInfo, $nc(this->resultInfo)->dup(var$16, $$new($Attr$FunctionalReturnContext, this, $nc(this->resultInfo)->checkContext), $Attr$CheckMode::NO_TREE_UPDATE));
 		$var($Type, refType, checkId(that, lookupHelper->site, refSym, localEnv, checkInfo));
-		bool var$17 = $nc(that->kind)->isUnbound();
-		if (var$17 && $nc($($nc($nc(this->resultInfo)->checkContext)->inferenceContext()))->free($cast($Type, $nc(argtypes)->head))) {
+		bool var$18 = $nc(that->kind)->isUnbound();
+		if (var$18 && $nc($($nc($nc(this->resultInfo)->checkContext)->inferenceContext()))->free($cast($Type, $nc(argtypes)->head))) {
 			if (!$nc(this->types)->isSubtype($($nc($($nc($nc(this->resultInfo)->checkContext)->inferenceContext()))->asUndetVar($cast($Type, $nc(argtypes)->head))), exprType)) {
 				$Assert::error("Can\'t get here"_s);
 			}
 		}
 		if (!$nc(refType)->isErroneous()) {
-			$var($Symbol, var$18, refSym);
-			$var($Type, var$19, lookupHelper->site);
-			$var($Name, var$20, that->name);
-			$var($List, var$21, $nc($nc(checkInfo)->pt)->getParameterTypes());
-			$assign(refType, $nc(this->types)->createMethodTypeWithReturn(refType, $(adjustMethodReturnType(var$18, var$19, var$20, var$21, $(refType->getReturnType())))));
+			$var($Symbol, var$19, refSym);
+			$var($Type, var$20, lookupHelper->site);
+			$var($Name, var$21, that->name);
+			$var($List, var$22, $nc($nc(checkInfo)->pt)->getParameterTypes());
+			$assign(refType, $nc(this->types)->createMethodTypeWithReturn(refType, $(adjustMethodReturnType(var$19, var$20, var$21, var$22, $(refType->getReturnType())))));
 		}
 		bool isSpeculativeRound = $nc($($nc($nc(this->resultInfo)->checkContext)->deferredAttrContext()))->mode == $DeferredAttr$AttrMode::SPECULATIVE;
 		$set(that, type, currentTarget);
@@ -5618,11 +5597,10 @@ void Attr::visitReference($JCTree$JCMemberReference* that) {
 		}
 		$init($Kinds$KindSelector);
 		$set(this, result, check(that, currentTarget, $Kinds$KindSelector::VAL, this->resultInfo));
-	} catch ($Types$FunctionDescriptorLookupError&) {
-		$var($Types$FunctionDescriptorLookupError, ex, $catch());
+	} catch ($Types$FunctionDescriptorLookupError& ex) {
 		$var($JCDiagnostic, cause, ex->getDiagnostic());
 		$nc($nc(this->resultInfo)->checkContext)->report(that, cause);
-		$set(this, result, ($assignField($nc(that), type, $nc(this->types)->createErrorType($(pt())))));
+		$set(this, result, ($set($nc(that), type, $nc(this->types)->createErrorType($(pt())))));
 		return;
 	}
 }
@@ -5741,13 +5719,11 @@ void Attr::setFunctionalInfo($Env* env, $JCTree$JCFunctionalExpression* fExpr, $
 					try {
 						csym->flags_field |= 512;
 						$nc(this->types)->findDescriptorType(csym->type);
-					} catch ($Types$FunctionDescriptorLookupError&) {
-						$var($Types$FunctionDescriptorLookupError, err, $catch());
+					} catch ($Types$FunctionDescriptorLookupError& err) {
 						$nc($nc(this->resultInfo)->checkContext)->report(fExpr, $($nc(this->diags)->fragment($($CompilerProperties$Fragments::NoSuitableFunctionalIntfInst($nc(fExpr)->target)))));
 					}
 				}
-			} catch ($Types$FunctionDescriptorLookupError&) {
-				$var($Types$FunctionDescriptorLookupError, ex, $catch());
+			} catch ($Types$FunctionDescriptorLookupError& ex) {
 				$var($JCDiagnostic, cause, ex->getDiagnostic());
 				$nc($nc(this->resultInfo)->checkContext)->report($nc(env)->tree, cause);
 			}
@@ -5781,7 +5757,7 @@ void Attr::visitAssignop($JCTree$JCAssignOp* tree) {
 	$useLocalCurrentObjectStackCache();
 	$var($Type, owntype, attribTree($nc(tree)->lhs, this->env, this->varAssignmentInfo));
 	$var($Type, operand, attribExpr($nc(tree)->rhs, this->env));
-	$var($Symbol, operator$, ($assignField($nc(tree), operator$, $nc(this->operators)->resolveBinary(tree, $($nc($(tree->getTag()))->noAssignOp()), owntype, operand))));
+	$var($Symbol, operator$, ($set($nc(tree), operator$, $nc(this->operators)->resolveBinary(tree, $($nc($(tree->getTag()))->noAssignOp()), owntype, operand))));
 	bool var$0 = !$equals(operator$, $nc(this->operators)->noOpSymbol) && !$nc(owntype)->isErroneous();
 	if (var$0 && !$nc(operand)->isErroneous()) {
 		$nc(this->chk)->checkDivZero($($nc(tree->rhs)->pos()), operator$, operand);
@@ -5802,7 +5778,7 @@ void Attr::visitUnary($JCTree$JCUnary* tree) {
 		$assign(var$0, $nc(this->chk)->checkNonVoid(var$1, $(attribExpr(tree->arg, this->env))));
 	}
 	$var($Type, argtype, var$0);
-	$var($Symbol, operator$, ($assignField($nc(tree), operator$, $nc(this->operators)->resolveUnary(tree, $(tree->getTag()), argtype))));
+	$var($Symbol, operator$, ($set($nc(tree), operator$, $nc(this->operators)->resolveUnary(tree, $(tree->getTag()), argtype))));
 	$var($Type, owntype, $nc(this->types)->createErrorType(tree->type));
 	if (!$equals(operator$, $nc(this->operators)->noOpSymbol) && !$nc(argtype)->isErroneous()) {
 		$assign(owntype, ($nc($(tree->getTag()))->isIncOrDecUnaryOp()) ? $nc(tree->arg)->type : $nc($nc(operator$)->type)->getReturnType());
@@ -5850,8 +5826,8 @@ void Attr::visitBinary($JCTree$JCBinary* tree) {
 		try {
 			$var($JCDiagnostic$DiagnosticPosition, var$2, $nc(tree->rhs)->pos());
 			$assign(right, $nc(this->chk)->checkNonVoid(var$2, $(attribExpr(tree->rhs, rhsEnv))));
-		} catch ($Throwable&) {
-			$assign(var$1, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$1, var$3);
 		} /*finally*/ {
 			$nc($nc(($cast($AttrContext, $nc(rhsEnv)->info)))->scope)->leave();
 		}
@@ -5860,14 +5836,14 @@ void Attr::visitBinary($JCTree$JCBinary* tree) {
 		}
 	}
 	$set(this, matchBindings, $nc(this->matchBindingsComputer)->binary(tree, lhsBindings, this->matchBindings));
-	$var($Symbol, operator$, ($assignField(tree, operator$, $nc(this->operators)->resolveBinary(tree, $(tree->getTag()), left, right))));
+	$var($Symbol, operator$, ($set(tree, operator$, $nc(this->operators)->resolveBinary(tree, $(tree->getTag()), left, right))));
 	$var($Type, owntype, $nc(this->types)->createErrorType(tree->type));
-	bool var$3 = !$equals(operator$, $nc(this->operators)->noOpSymbol) && !$nc(left)->isErroneous();
-	if (var$3 && !$nc(right)->isErroneous()) {
+	bool var$4 = !$equals(operator$, $nc(this->operators)->noOpSymbol) && !$nc(left)->isErroneous();
+	if (var$4 && !$nc(right)->isErroneous()) {
 		$assign(owntype, $nc($nc(operator$)->type)->getReturnType());
 		int32_t opc = $nc(($cast($Symbol$OperatorSymbol, operator$)))->opcode;
-		bool var$4 = left->constValue() != nullptr;
-		if (var$4 && right->constValue() != nullptr) {
+		bool var$5 = left->constValue() != nullptr;
+		if (var$5 && right->constValue() != nullptr) {
 			$var($Type, ctype, $nc(this->cfolder)->fold2(opc, left, right));
 			if (ctype != nullptr) {
 				$assign(owntype, $nc(this->cfolder)->coerce(ctype, owntype));
@@ -5875,8 +5851,8 @@ void Attr::visitBinary($JCTree$JCBinary* tree) {
 		}
 		if (opc == $ByteCodes::if_acmpeq || opc == $ByteCodes::if_acmpne) {
 			if (!$nc(this->types)->isCastable(left, right, $$new($Warner, $(tree->pos())))) {
-				$var($JCDiagnostic$DiagnosticPosition, var$5, tree->pos());
-				$nc(this->log)->error(var$5, $($CompilerProperties$Errors::IncomparableTypes(left, right)));
+				$var($JCDiagnostic$DiagnosticPosition, var$6, tree->pos());
+				$nc(this->log)->error(var$6, $($CompilerProperties$Errors::IncomparableTypes(left, right)));
 			}
 		}
 		$nc(this->chk)->checkDivZero($($nc(tree->rhs)->pos()), operator$, right);
@@ -5987,7 +5963,7 @@ void Attr::visitBindingPattern($JCTree$JCBindingPattern* tree) {
 	$useLocalCurrentObjectStackCache();
 	$init($Kinds$KindSelector);
 	$var($Attr$ResultInfo, varInfo, $new($Attr$ResultInfo, this, $Kinds$KindSelector::TYP, $nc(this->resultInfo)->pt, $nc(this->resultInfo)->checkContext));
-	$set($nc(tree), type, ($assignField($nc(tree->var), type, attribTree($nc(tree->var)->vartype, this->env, varInfo))));
+	$set($nc(tree), type, ($set($nc(tree->var), type, attribTree($nc(tree->var)->vartype, this->env, varInfo))));
 	$var($Symbol$BindingSymbol, v, $new($Symbol$BindingSymbol, $nc($nc(tree->var)->mods)->flags, $nc(tree->var)->name, $nc($nc(tree->var)->vartype)->type, $nc($nc(($cast($AttrContext, $nc(this->env)->info)))->scope)->owner));
 	v->pos = tree->pos$;
 	$set($nc(tree->var), sym, v);
@@ -6005,7 +5981,7 @@ void Attr::visitBindingPattern($JCTree$JCBindingPattern* tree) {
 
 void Attr::visitParenthesizedPattern($JCTree$JCParenthesizedPattern* tree) {
 	attribExpr($nc(tree)->pattern, this->env);
-	$set(this, result, ($assignField($nc(tree), type, $nc(tree->pattern)->type)));
+	$set(this, result, ($set($nc(tree), type, $nc(tree->pattern)->type)));
 }
 
 void Attr::visitGuardPattern($JCTree$JCGuardPattern* tree) {
@@ -6017,8 +5993,8 @@ void Attr::visitGuardPattern($JCTree$JCGuardPattern* tree) {
 		$var($Throwable, var$0, nullptr);
 		try {
 			attribExpr($nc(tree)->expr, bodyEnv, $nc(this->syms)->booleanType);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc($nc(($cast($AttrContext, $nc(bodyEnv)->info)))->scope)->leave();
 		}
@@ -6026,7 +6002,7 @@ void Attr::visitGuardPattern($JCTree$JCGuardPattern* tree) {
 			$throw(var$0);
 		}
 	}
-	$set(this, result, ($assignField($nc(tree), type, $nc(tree->patt)->type)));
+	$set(this, result, ($set($nc(tree), type, $nc(tree->patt)->type)));
 	$set(this, matchBindings, $nc(this->matchBindingsComputer)->guardedPattern(tree, afterPattern, this->matchBindings));
 }
 
@@ -6153,7 +6129,7 @@ void Attr::visitSelect($JCTree$JCFieldAccess* tree) {
 		if ($nc(elt)->hasTag($TypeTag::TYPEVAR)) {
 			$init($CompilerProperties$Errors);
 			$nc(this->log)->error($($nc(tree)->pos()), $CompilerProperties$Errors::TypeVarCantBeDeref);
-			$set(this, result, ($assignField($nc(tree), type, $nc(this->types)->createErrorType(tree->name, $nc(site)->tsym, site))));
+			$set(this, result, ($set($nc(tree), type, $nc(this->types)->createErrorType(tree->name, $nc(site)->tsym, site))));
 			$set(tree, sym, $nc(tree->type)->tsym);
 			return;
 		}
@@ -6248,7 +6224,7 @@ $Symbol* Attr::selectSym($JCTree$JCFieldAccess* tree, $Symbol* location, $Type* 
 	$useLocalCurrentObjectStackCache();
 	$var($JCDiagnostic$DiagnosticPosition, pos, $nc(tree)->pos());
 	$var($Name, name, tree->name);
-		$init($Attr$13);
+	$init($Attr$13);
 	{
 		$var($Symbol, sym, nullptr)
 		switch ($nc($Attr$13::$SwitchMap$com$sun$tools$javac$code$TypeTag)->get($nc(($($nc(site)->getTag())))->ordinal())) {
@@ -6335,7 +6311,7 @@ $Type* Attr::checkIdInternal($JCTree* tree, $Type* site, $Symbol* sym, $Type* pt
 		return $nc(this->types)->createErrorType(site);
 	}
 	$var($Type, owntype, nullptr);
-		$init($Attr$13);
+	$init($Attr$13);
 	{
 		$var($Symbol$VarSymbol, v, nullptr)
 		switch ($nc($Attr$13::$SwitchMap$com$sun$tools$javac$code$Kinds$Kind)->get($nc(($nc(sym)->kind))->ordinal())) {
@@ -6376,7 +6352,7 @@ $Type* Attr::checkIdInternal($JCTree* tree, $Type* site, $Symbol* sym, $Type* pt
 					int32_t var$3 = $TreeInfo::positionFor(v, env->enclClass);
 					$init($CompilerProperties$Fragments);
 					$nc(this->log)->error(var$3, $($CompilerProperties$Errors::CantInferLocalVarType(v->name, $CompilerProperties$Fragments::LocalSelfRef)));
-					return $assignField(v, type, $nc(this->types)->createErrorType(v->type));
+					return $set(v, type, $nc(this->types)->createErrorType(v->type));
 				}
 				$init($Kinds$KindSelector);
 				$init($Kinds$Kind);
@@ -6476,7 +6452,7 @@ $Env* Attr::enclosingInitEnv($Env* env$renamed) {
 	$useLocalCurrentObjectStackCache();
 	$var($Env, env, env$renamed);
 	while (true) {
-			$init($Attr$13);
+		$init($Attr$13);
 		{
 			$var($JCTree$JCVariableDecl, vdecl, nullptr)
 			switch ($nc($Attr$13::$SwitchMap$com$sun$tools$javac$tree$JCTree$Tag)->get($nc(($($nc($nc(env)->tree)->getTag())))->ordinal())) {
@@ -6633,13 +6609,11 @@ $Type* Attr::checkMethod($Type* site, $Symbol* sym, $Attr$ResultInfo* resultInfo
 			$assign(var$22, $nc(this->chk)->checkMethod(var$23, var$24, var$25, var$26, var$27, var$28, $($nc(resultInfo->checkContext)->inferenceContext())));
 		}
 		return var$22;
-	} catch ($Infer$InferenceException&) {
-		$var($Infer$InferenceException, ex, $catch());
+	} catch ($Infer$InferenceException& ex) {
 		$var($JCDiagnostic$DiagnosticPosition, var$29, $nc($nc(env)->tree)->pos());
 		$nc($nc(resultInfo)->checkContext)->report(var$29, $(ex->getDiagnostic()));
 		return $nc(this->types)->createErrorType(site);
-	} catch ($Resolve$InapplicableMethodException&) {
-		$var($Resolve$InapplicableMethodException, ex, $catch());
+	} catch ($Resolve$InapplicableMethodException& ex) {
 		$var($JCDiagnostic, diag, ex->getDiagnostic());
 		$var($Resolve$InapplicableSymbolError, errSym, $new($Attr$11, this, static_cast<$Resolve*>($nc(this->rs)), nullptr, sym, diag));
 		$init($DeferredAttr$AttrMode);
@@ -6793,12 +6767,12 @@ void Attr::visitTypeUnion($JCTree$JCTypeUnion* tree) {
 		$var($List, alternatives, $nc(((all_multicatchTypes == nullptr) ? multicatchTypes : all_multicatchTypes))->toList());
 		$assign(t, $new($Type$UnionClassType, $cast($Type$ClassType, t), alternatives));
 	}
-	$set(tree, type, ($assignField(this, result, t)));
+	$set(tree, type, ($set(this, result, t)));
 }
 
 void Attr::visitTypeIntersection($JCTree$JCTypeIntersection* tree) {
 	attribTypes($nc(tree)->bounds, this->env);
-	$set($nc(tree), type, ($assignField(this, result, checkIntersection(tree, tree->bounds))));
+	$set($nc(tree), type, ($set(this, result, checkIntersection(tree, tree->bounds))));
 }
 
 void Attr::visitTypeParameter($JCTree$JCTypeParameter* tree) {
@@ -6904,7 +6878,7 @@ void Attr::visitAnnotatedType($JCTree$JCAnnotatedType* tree) {
 	if (!$nc(($cast($AttrContext, $nc(this->env)->info)))->isNewClass) {
 		$nc(this->annotate)->annotateTypeSecondStage(tree, $nc(tree)->annotations, annotatedType);
 	}
-	$set(this, result, ($assignField($nc(tree), type, annotatedType)));
+	$set(this, result, ($set($nc(tree), type, annotatedType)));
 }
 
 void Attr::visitErroneous($JCTree$JCErroneous* tree) {
@@ -6921,7 +6895,7 @@ void Attr::visitErroneous($JCTree$JCErroneous* tree) {
 			}
 		}
 	}
-	$set(this, result, ($assignField($nc(tree), type, $nc(this->syms)->errType)));
+	$set(this, result, ($set($nc(tree), type, $nc(this->syms)->errType)));
 }
 
 void Attr::visitTree($JCTree* tree) {
@@ -6959,8 +6933,7 @@ void Attr::attribTopLevel($Env* env) {
 	$var($JCTree$JCCompilationUnit, toplevel, $nc(env)->toplevel);
 	try {
 		$nc(this->annotate)->flush();
-	} catch ($Symbol$CompletionFailure&) {
-		$var($Symbol$CompletionFailure, ex, $catch());
+	} catch ($Symbol$CompletionFailure& ex) {
 		$nc(this->chk)->completionError($($nc(toplevel)->pos()), ex);
 	}
 }
@@ -6969,8 +6942,7 @@ void Attr::attribPackage($JCDiagnostic$DiagnosticPosition* pos, $Symbol$PackageS
 	try {
 		$nc(this->annotate)->flush();
 		attribPackage(p);
-	} catch ($Symbol$CompletionFailure&) {
-		$var($Symbol$CompletionFailure, ex, $catch());
+	} catch ($Symbol$CompletionFailure& ex) {
 		$nc(this->chk)->completionError(pos, ex);
 	}
 }
@@ -6985,8 +6957,7 @@ void Attr::attribModule($JCDiagnostic$DiagnosticPosition* pos, $Symbol$ModuleSym
 	try {
 		$nc(this->annotate)->flush();
 		attribModule(m);
-	} catch ($Symbol$CompletionFailure&) {
-		$var($Symbol$CompletionFailure, ex, $catch());
+	} catch ($Symbol$CompletionFailure& ex) {
 		$nc(this->chk)->completionError(pos, ex);
 	}
 }
@@ -7000,8 +6971,7 @@ void Attr::attribClass($JCDiagnostic$DiagnosticPosition* pos, $Symbol$ClassSymbo
 	try {
 		$nc(this->annotate)->flush();
 		attribClass(c);
-	} catch ($Symbol$CompletionFailure&) {
-		$var($Symbol$CompletionFailure, ex, $catch());
+	} catch ($Symbol$CompletionFailure& ex) {
 		$nc(this->chk)->completionError(pos, ex);
 	}
 }
@@ -7151,8 +7121,8 @@ void Attr::attribClass($Symbol$ClassSymbol* c) {
 				$nc(this->chk)->checkClassOverrideEqualsAndHashIfNeeded($($nc(env->tree)->pos()), c);
 				$nc(this->chk)->checkFunctionalInterface($cast($JCTree$JCClassDecl, env->tree), c);
 				$nc(this->chk)->checkLeaksNotAccessible(env, $cast($JCTree$JCClassDecl, env->tree));
-			} catch ($Throwable&) {
-				$assign(var$17, $catch());
+			} catch ($Throwable& var$18) {
+				$assign(var$17, var$18);
 			} /*finally*/ {
 				$set($nc($cast($AttrContext, env->info)), returnResult, prevReturnRes);
 				$nc(this->log)->useSource(prev);
@@ -7172,7 +7142,7 @@ void Attr::visitModuleDef($JCTree$JCModuleDecl* tree) {
 	$useLocalCurrentObjectStackCache();
 	$nc($nc(tree)->sym)->completeUsesProvides();
 	$var($Symbol$ModuleSymbol, msym, tree->sym);
-	$var($Lint, lint, $assignField($nc($cast($AttrContext, $nc($nc(this->env)->outer)->info)), lint, $nc($nc(($cast($AttrContext, $nc($nc(this->env)->outer)->info)))->lint)->augment(static_cast<$Symbol*>(msym))));
+	$var($Lint, lint, $set($nc($cast($AttrContext, $nc($nc(this->env)->outer)->info)), lint, $nc($nc(($cast($AttrContext, $nc($nc(this->env)->outer)->info)))->lint)->augment(static_cast<$Symbol*>(msym))));
 	$var($Lint, prevLint, $nc(this->chk)->setLint(lint));
 	$nc(this->chk)->checkModuleName(tree);
 	$nc(this->chk)->checkDeprecatedAnnotation(tree, msym);
@@ -7180,8 +7150,8 @@ void Attr::visitModuleDef($JCTree$JCModuleDecl* tree) {
 		$var($Throwable, var$0, nullptr);
 		try {
 			$nc(this->deferredLintHandler)->flush($(tree->pos()));
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc(this->chk)->setLint(prevLint);
 		}
@@ -7290,8 +7260,7 @@ $JCDiagnostic$DiagnosticPosition* Attr::getDiagnosticPosition($JCTree$JCClassDec
 bool Attr::isSerializable($Type* t) {
 	try {
 		$nc($nc(this->syms)->serializableType)->complete();
-	} catch ($Symbol$CompletionFailure&) {
-		$var($Symbol$CompletionFailure, e, $catch());
+	} catch ($Symbol$CompletionFailure& e) {
 		return false;
 	}
 	return $nc(this->types)->isSubtype(t, $nc(this->syms)->serializableType);
@@ -7445,15 +7414,15 @@ void Attr::lambda$checkAccessibleTypes$24($JCDiagnostic$DiagnosticPosition* pos,
 void Attr::lambda$visitAnonymousClassDefinition$23($JCTree$JCNewClass* tree, $JCTree$JCExpression* clazz, $Attr$ResultInfo* resultInfoForClassDefinition, $JCTree$JCClassDecl* cdef, $Env* localEnv, $List* argtypes, $List* typeargtypes, $Kinds$KindSelector* pkind, $InferenceContext* instantiatedContext) {
 	$useLocalCurrentObjectStackCache();
 	$set($nc(tree), constructorType, $nc(instantiatedContext)->asInstType(tree->constructorType));
-	$set($nc(tree->clazz), type, ($assignField($nc(clazz), type, instantiatedContext->asInstType(clazz->type))));
+	$set($nc(tree->clazz), type, ($set($nc(clazz), type, instantiatedContext->asInstType(clazz->type))));
 	$var($Attr$ResultInfo, prevResult, this->resultInfo);
 	{
 		$var($Throwable, var$0, nullptr);
 		try {
 			$set(this, resultInfo, resultInfoForClassDefinition);
 			visitAnonymousClassDefinition(tree, clazz, clazz->type, cdef, localEnv, argtypes, typeargtypes, pkind);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, resultInfo, prevResult);
 		}
@@ -7573,7 +7542,7 @@ void Attr::lambda$check$0($Attr$ResultInfo* resultInfo, $InferenceContext* infer
 
 void clinit$Attr($Class* class$) {
 	$assignStatic(Attr::attrKey, $new($Context$Key));
-		$init($TypeTag);
+	$init($TypeTag);
 	$assignStatic(Attr::primitiveTags, $new($TypeTagArray, {
 		$TypeTag::BYTE,
 		$TypeTag::CHAR,

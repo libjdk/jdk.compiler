@@ -35,32 +35,17 @@
 #include <java/io/IOException.h>
 #include <java/io/InputStream.h>
 #include <java/io/OutputStream.h>
-#include <java/io/PrintStream.h>
 #include <java/io/PrintWriter.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Error.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/IllegalArgumentException.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
 #include <java/lang/NumberFormatException.h>
 #include <java/lang/Runnable.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/AbstractSet.h>
 #include <java/util/Arrays.h>
@@ -371,11 +356,8 @@ $Object* allocate$Log($Class* clazz) {
 	return $of($alloc(Log));
 }
 
-
 $Context$Key* Log::logKey = nullptr;
-
 $Context$Key* Log::outKey = nullptr;
-
 $Context$Key* Log::errKey = nullptr;
 bool Log::useRawMessages = false;
 
@@ -403,7 +385,6 @@ $Map* Log::initWriters($Context* context) {
 	$var($PrintWriter, out, $cast($PrintWriter, $nc(context)->get(Log::outKey)));
 	$var($PrintWriter, err, $cast($PrintWriter, context->get(Log::errKey)));
 	if (out == nullptr && err == nullptr) {
-		$init($System);
 		$assign(out, $new($PrintWriter, static_cast<$OutputStream*>($System::out), true));
 		$assign(err, $new($PrintWriter, static_cast<$OutputStream*>($System::err), true));
 		return initWriters(out, err);
@@ -483,8 +464,7 @@ int32_t Log::getIntOption($Options* options, $Option* option, int32_t defaultVal
 			int32_t n = $Integer::parseInt(s);
 			return (n <= 0 ? $Integer::MAX_VALUE : n);
 		}
-	} catch ($NumberFormatException&) {
-		$catch();
+	} catch ($NumberFormatException& e) {
 	}
 	return defaultValue;
 }
@@ -637,7 +617,6 @@ bool Log::hasErrorOn($JCDiagnostic$DiagnosticPosition* pos) {
 void Log::prompt() {
 	$useLocalCurrentObjectStackCache();
 	if (this->promptOnError) {
-		$init($System);
 		$nc($System::err)->println($(localize("resume.abort"_s, $$new($ObjectArray, 0))));
 		try {
 			while (true) {
@@ -665,8 +644,7 @@ void Log::prompt() {
 					{}
 				}
 			}
-		} catch ($IOException&) {
-			$catch();
+		} catch ($IOException& e) {
 		}
 	}
 }

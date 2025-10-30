@@ -51,24 +51,12 @@
 #include <com/sun/tools/javac/util/Name.h>
 #include <com/sun/tools/javac/util/Names.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/AbstractSet.h>
 #include <java/util/Collections.h>
@@ -471,8 +459,8 @@ void Modules$UsesProvidesVisitor::visitProvides($JCTree$JCProvides* tree) {
 					try {
 						$nc(($cast($AttrContext, $nc(this->env)->info)))->visitingServiceImplementation = true;
 						$assign(it, $nc(this->this$0->attr)->attribType(implName, this->env, $nc(this->this$0->syms)->objectType));
-					} catch ($Throwable&) {
-						$assign(var$1, $catch());
+					} catch ($Throwable& var$2) {
+						$assign(var$1, var$2);
 					} /*finally*/ {
 						$nc(($cast($AttrContext, $nc(this->env)->info)))->visitingServiceImplementation = prevVisitingServiceImplementation;
 					}
@@ -482,8 +470,8 @@ void Modules$UsesProvidesVisitor::visitProvides($JCTree$JCProvides* tree) {
 				}
 				$var($Symbol$ClassSymbol, impl, $cast($Symbol$ClassSymbol, $nc(it)->tsym));
 				if (((int64_t)($nc(impl)->flags_field & (uint64_t)(int64_t)1)) == 0) {
-					$var($JCDiagnostic$DiagnosticPosition, var$2, $nc(implName)->pos());
-					$nc(this->this$0->log)->error(var$2, $($CompilerProperties$Errors::NotDefPublic(impl, $(impl->location()))));
+					$var($JCDiagnostic$DiagnosticPosition, var$3, $nc(implName)->pos());
+					$nc(this->this$0->log)->error(var$3, $($CompilerProperties$Errors::NotDefPublic(impl, $(impl->location()))));
 				}
 				$var($Symbol$MethodSymbol, factory, factoryMethod(impl));
 				if (factory != nullptr) {
@@ -496,19 +484,19 @@ void Modules$UsesProvidesVisitor::visitProvides($JCTree$JCProvides* tree) {
 					$init($CompilerProperties$Errors);
 					$nc(this->this$0->log)->error($($nc(implName)->pos()), $CompilerProperties$Errors::ServiceImplementationMustBeSubtypeOfServiceInterface);
 				} else if (((int64_t)($nc(impl)->flags() & (uint64_t)(int64_t)1024)) != 0) {
-					$var($JCDiagnostic$DiagnosticPosition, var$3, $nc(implName)->pos());
-					$nc(this->this$0->log)->error(var$3, $($CompilerProperties$Errors::ServiceImplementationIsAbstract(impl)));
-				} else if (impl->isInner()) {
 					$var($JCDiagnostic$DiagnosticPosition, var$4, $nc(implName)->pos());
-					$nc(this->this$0->log)->error(var$4, $($CompilerProperties$Errors::ServiceImplementationIsInner(impl)));
+					$nc(this->this$0->log)->error(var$4, $($CompilerProperties$Errors::ServiceImplementationIsAbstract(impl)));
+				} else if (impl->isInner()) {
+					$var($JCDiagnostic$DiagnosticPosition, var$5, $nc(implName)->pos());
+					$nc(this->this$0->log)->error(var$5, $($CompilerProperties$Errors::ServiceImplementationIsInner(impl)));
 				} else {
 					$var($Symbol$MethodSymbol, constr, noArgsConstructor(impl));
 					if (constr == nullptr) {
-						$var($JCDiagnostic$DiagnosticPosition, var$5, $nc(implName)->pos());
-						$nc(this->this$0->log)->error(var$5, $($CompilerProperties$Errors::ServiceImplementationDoesntHaveANoArgsConstructor(impl)));
-					} else if (((int64_t)($nc(constr)->flags() & (uint64_t)(int64_t)1)) == 0) {
 						$var($JCDiagnostic$DiagnosticPosition, var$6, $nc(implName)->pos());
-						$nc(this->this$0->log)->error(var$6, $($CompilerProperties$Errors::ServiceImplementationNoArgsConstructorNotPublic(impl)));
+						$nc(this->this$0->log)->error(var$6, $($CompilerProperties$Errors::ServiceImplementationDoesntHaveANoArgsConstructor(impl)));
+					} else if (((int64_t)($nc(constr)->flags() & (uint64_t)(int64_t)1)) == 0) {
+						$var($JCDiagnostic$DiagnosticPosition, var$7, $nc(implName)->pos());
+						$nc(this->this$0->log)->error(var$7, $($CompilerProperties$Errors::ServiceImplementationNoArgsConstructorNotPublic(impl)));
 					}
 				}
 				$init($TypeTag);
@@ -516,16 +504,16 @@ void Modules$UsesProvidesVisitor::visitProvides($JCTree$JCProvides* tree) {
 					if ($nc(($cast($Set, $($nc(this->allProvides)->computeIfAbsent(service, static_cast<$Function*>($$new(Modules$UsesProvidesVisitor$$Lambda$lambda$visitProvides$2$2)))))))->add(impl)) {
 						impls->append(impl);
 					} else {
-						$var($JCDiagnostic$DiagnosticPosition, var$7, $nc(implName)->pos());
-						$nc(this->this$0->log)->error(var$7, $($CompilerProperties$Errors::DuplicateProvides(service, impl)));
+						$var($JCDiagnostic$DiagnosticPosition, var$8, $nc(implName)->pos());
+						$nc(this->this$0->log)->error(var$8, $($CompilerProperties$Errors::DuplicateProvides(service, impl)));
 					}
 				}
 			}
 		}
 	}
 	$init($TypeTag);
-	bool var$8 = st->hasTag($TypeTag::CLASS);
-	if (var$8 && !impls->isEmpty()) {
+	bool var$9 = st->hasTag($TypeTag::CLASS);
+	if (var$9 && !impls->isEmpty()) {
 		$var($Directive$ProvidesDirective, d, $new($Directive$ProvidesDirective, service, $(impls->toList())));
 		$set($nc(this->msym), provides, $nc($nc(this->msym)->provides)->prepend(d));
 		$set($nc(this->msym), directives, $nc($nc(this->msym)->directives)->prepend(d));

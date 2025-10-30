@@ -64,21 +64,11 @@
 #include <com/sun/tools/javac/util/Name.h>
 #include <com/sun/tools/javac/util/Pair.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Collection.h>
 #include <java/util/Iterator.h>
 #include <java/util/function/Function.h>
@@ -284,8 +274,7 @@ void DeferredAttr$DeferredAttrNode$StructuralStuckChecker::visitLambda($JCTree$J
 		$var($Type, descriptorType, nullptr);
 		try {
 			$assign(descriptorType, $nc($nc(this->this$1->this$0)->types)->findDescriptorType(pt));
-		} catch ($Types$FunctionDescriptorLookupError&) {
-			$var($Types$FunctionDescriptorLookupError, ex, $catch());
+		} catch ($Types$FunctionDescriptorLookupError& ex) {
 			$nc(checkContext)->report(nullptr, $(ex->getDiagnostic()));
 		}
 		int32_t var$0 = $nc($($nc(descriptorType)->getParameterTypes()))->length();
@@ -341,8 +330,8 @@ bool DeferredAttr$DeferredAttrNode$StructuralStuckChecker::canLambdaBodyComplete
 			var$2 = $nc($($nc(this->this$1->this$0)->attribSpeculativeLambda(tree, this->env, $nc($nc(this->this$1->this$0)->attr)->unknownExprInfo)))->canCompleteNormally;
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			$nc(localCacheContext)->leave();
 			$set(tree, params, oldParams);
@@ -381,8 +370,7 @@ void DeferredAttr$DeferredAttrNode$StructuralStuckChecker::visitReference($JCTre
 		$var($Type, descriptor, nullptr);
 		try {
 			$assign(descriptor, $nc($nc(this->this$1->this$0)->types)->findDescriptorType(pt));
-		} catch ($Types$FunctionDescriptorLookupError&) {
-			$var($Types$FunctionDescriptorLookupError, ex, $catch());
+		} catch ($Types$FunctionDescriptorLookupError& ex) {
 			$nc(checkContext)->report(nullptr, $(ex->getDiagnostic()));
 		}
 		$var($Env, localEnv, $nc(this->env)->dup(tree));

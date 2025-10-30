@@ -16,16 +16,7 @@
 #include <com/sun/tools/javac/tree/JCTree$JCMemberReference$ReferenceKind.h>
 #include <com/sun/tools/javac/tree/JCTree$JCMemberReference.h>
 #include <com/sun/tools/javac/util/List.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <javax/lang/model/type/TypeKind.h>
 #include <javax/lang/model/type/TypeMirror.h>
 #include <jcpp.h>
@@ -159,7 +150,7 @@ bool LambdaToMethod$LambdaAnalyzerPreprocessor$ReferenceTranslationContext::inte
 
 bool LambdaToMethod$LambdaAnalyzerPreprocessor$ReferenceTranslationContext::isIntersectionOrUnionType($Type* t) {
 	$useLocalCurrentObjectStackCache();
-		$init($LambdaToMethod$1);
+	$init($LambdaToMethod$1);
 	{
 		$var($Type$TypeVar, tv, nullptr)
 		switch ($nc($LambdaToMethod$1::$SwitchMap$javax$lang$model$type$TypeKind)->get($nc(($($nc(t)->getKind())))->ordinal())) {

@@ -34,20 +34,8 @@
 #include <com/sun/tools/javac/util/ListBuffer.h>
 #include <com/sun/tools/javac/util/Position.h>
 #include <com/sun/tools/javac/util/StringUtils.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/IllegalArgumentException.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/StringBuilder.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/file/Path.h>
 #include <java/util/AbstractCollection.h>
 #include <java/util/Collection.h>
@@ -337,8 +325,8 @@ $String* AbstractDiagnosticFormatter::formatArgument($JCDiagnostic* d, Object$* 
 				$var($Throwable, var$1, nullptr);
 				try {
 					$assign(s, formatMessage(diagnostic, l));
-				} catch ($Throwable&) {
-					$assign(var$1, $catch());
+				} catch ($Throwable& var$2) {
+					$assign(var$1, var$2);
 				} /*finally*/ {
 					--this->depth;
 				}
@@ -348,92 +336,92 @@ $String* AbstractDiagnosticFormatter::formatArgument($JCDiagnostic* d, Object$* 
 			}
 			return s;
 		} else {
-			bool var$3 = $instanceOf($JCTree$JCExpression, arg);
-			if (var$3) {
+			bool var$4 = $instanceOf($JCTree$JCExpression, arg);
+			if (var$4) {
 				$assign(expression, $cast($JCTree$JCExpression, arg));
-				var$3 = true;
+				var$4 = true;
 			}
-			if (var$3) {
+			if (var$4) {
 				return expr2String(expression);
 			} else {
-				bool var$5 = $instanceOf($Iterable, arg);
-				if (var$5) {
+				bool var$6 = $instanceOf($Iterable, arg);
+				if (var$6) {
 					$assign(iterable, $cast($Iterable, arg));
-					var$5 = true;
+					var$6 = true;
 				}
-				if (var$5 && !($instanceOf($Path, arg))) {
+				if (var$6 && !($instanceOf($Path, arg))) {
 					return formatIterable(d, iterable, l);
 				} else {
-					bool var$7 = $instanceOf($Type, arg);
-					if (var$7) {
+					bool var$8 = $instanceOf($Type, arg);
+					if (var$8) {
 						$assign(type, $cast($Type, arg));
-						var$7 = true;
+						var$8 = true;
 					}
-					if (var$7) {
+					if (var$8) {
 						return $nc(this->printer)->visit(type, l);
 					} else {
-						bool var$9 = $instanceOf($Symbol, arg);
-						if (var$9) {
+						bool var$10 = $instanceOf($Symbol, arg);
+						if (var$10) {
 							$assign(symbol, $cast($Symbol, arg));
-							var$9 = true;
+							var$10 = true;
 						}
-						if (var$9) {
+						if (var$10) {
 							return $nc(this->printer)->visit(symbol, l);
 						} else {
-							bool var$11 = $instanceOf($JavaFileObject, arg);
-							if (var$11) {
+							bool var$12 = $instanceOf($JavaFileObject, arg);
+							if (var$12) {
 								$assign(javaFileObject, $cast($JavaFileObject, arg));
-								var$11 = true;
+								var$12 = true;
 							}
-							if (var$11) {
+							if (var$12) {
 								return $nc(javaFileObject)->getName();
 							} else {
-								bool var$13 = $instanceOf($Profile, arg);
-								if (var$13) {
+								bool var$14 = $instanceOf($Profile, arg);
+								if (var$14) {
 									profile = $cast($Profile, arg);
-									var$13 = true;
+									var$14 = true;
 								}
-								if (var$13) {
+								if (var$14) {
 									return $nc(profile)->name$;
 								} else {
-									bool var$15 = $instanceOf($Option, arg);
-									if (var$15) {
+									bool var$16 = $instanceOf($Option, arg);
+									if (var$16) {
 										option = $cast($Option, arg);
-										var$15 = true;
+										var$16 = true;
 									}
-									if (var$15) {
+									if (var$16) {
 										return $nc(option)->primaryName;
 									} else {
-										bool var$17 = $instanceOf($Formattable, arg);
-										if (var$17) {
+										bool var$18 = $instanceOf($Formattable, arg);
+										if (var$18) {
 											$assign(formattable, $cast($Formattable, arg));
-											var$17 = true;
+											var$18 = true;
 										}
-										if (var$17) {
+										if (var$18) {
 											return $nc(formattable)->toString(l, this->messages);
 										} else {
-											bool var$19 = $instanceOf($Target, arg);
-											if (var$19) {
+											bool var$20 = $instanceOf($Target, arg);
+											if (var$20) {
 												target = $cast($Target, arg);
-												var$19 = true;
+												var$20 = true;
 											}
-											if (var$19) {
+											if (var$20) {
 												return $nc(target)->name$;
 											} else {
-												bool var$21 = $instanceOf($Source, arg);
-												if (var$21) {
+												bool var$22 = $instanceOf($Source, arg);
+												if (var$22) {
 													source = $cast($Source, arg);
-													var$21 = true;
+													var$22 = true;
 												}
-												if (var$21) {
+												if (var$22) {
 													return $nc(source)->name$;
 												} else {
-													bool var$23 = $instanceOf($JCTree$Tag, arg);
-													if (var$23) {
+													bool var$24 = $instanceOf($JCTree$Tag, arg);
+													if (var$24) {
 														tag = $cast($JCTree$Tag, arg);
-														var$23 = true;
+														var$24 = true;
 													}
-													if (var$23) {
+													if (var$24) {
 														return $nc(this->messages)->getLocalizedString(l, $$str({"compiler.misc.tree.tag."_s, $($StringUtils::toLowerCase($($nc(tag)->name())))}), $$new($ObjectArray, 0));
 													} else {
 														return $String::valueOf(arg);
@@ -520,8 +508,8 @@ $List* AbstractDiagnosticFormatter::formatSubdiagnostics($JCDiagnostic* d, $Loca
 						}
 					}
 				}
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$1) {
+				$assign(var$0, var$1);
 			} /*finally*/ {
 				--this->depth;
 			}

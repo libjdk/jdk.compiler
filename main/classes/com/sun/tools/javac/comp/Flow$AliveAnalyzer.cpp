@@ -68,24 +68,13 @@
 #include <com/sun/tools/javac/util/ListBuffer.h>
 #include <com/sun/tools/javac/util/Log.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractSet.h>
 #include <java/util/Collection.h>
 #include <java/util/HashSet.h>
@@ -555,8 +544,8 @@ void Flow$AliveAnalyzer::visitClassDef($JCTree$JCClassDecl* tree) {
 					}
 				}
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} /*finally*/ {
 			$set(this, pendingExits, pendingExitsPrev);
 			$set(this, alive, alivePrev);
@@ -589,8 +578,8 @@ void Flow$AliveAnalyzer::visitMethodDef($JCTree$JCMethodDecl* tree) {
 				$nc(this->this$0->log)->error($($TreeInfo::diagEndPos(tree->body)), $CompilerProperties$Errors::MissingRetStmt);
 			}
 			clearPendingExits(true);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this->this$0, lint, lintPrev);
 		}
@@ -622,8 +611,8 @@ void Flow$AliveAnalyzer::visitVarDef($JCTree$JCVariableDecl* tree) {
 			$var($Throwable, var$0, nullptr);
 			try {
 				scan(static_cast<$JCTree*>(tree->init));
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$1) {
+				$assign(var$0, var$1);
 			} /*finally*/ {
 				$set(this->this$0, lint, lintPrev);
 			}
@@ -1036,8 +1025,8 @@ void Flow$AliveAnalyzer::visitLambda($JCTree$JCLambda* tree) {
 			$set(this, alive, $Flow$Liveness::ALIVE);
 			scanStat($nc(tree)->body);
 			$nc(tree)->canCompleteNormally = this->alive != $Flow$Liveness::DEAD;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, pendingExits, prevPending);
 			$set(this, alive, prevAlive);
@@ -1065,8 +1054,8 @@ void Flow$AliveAnalyzer::analyzeTree($Env* env, $JCTree* tree, $TreeMaker* make)
 			$init($Flow$Liveness);
 			$set(this, alive, $Flow$Liveness::ALIVE);
 			scan(tree);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, pendingExits, nullptr);
 			$set(this->this$0, make, nullptr);

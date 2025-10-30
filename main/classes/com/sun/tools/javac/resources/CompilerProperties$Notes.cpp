@@ -9,18 +9,6 @@
 #include <com/sun/tools/javac/util/JCDiagnostic.h>
 #include <com/sun/tools/javac/util/Name.h>
 #include <java/io/File.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Void.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/file/Path.h>
 #include <java/util/List.h>
 #include <javax/tools/JavaFileObject.h>
@@ -150,29 +138,17 @@ $Object* allocate$CompilerProperties$Notes($Class* clazz) {
 	return $of($alloc(CompilerProperties$Notes));
 }
 
-
 $JCDiagnostic$Note* CompilerProperties$Notes::CompressedDiags = nullptr;
-
 $JCDiagnostic$Note* CompilerProperties$Notes::DeprecatedPlural = nullptr;
-
 $JCDiagnostic$Note* CompilerProperties$Notes::DeprecatedPluralAdditional = nullptr;
-
 $JCDiagnostic$Note* CompilerProperties$Notes::DeprecatedRecompile = nullptr;
-
 $JCDiagnostic$Note* CompilerProperties$Notes::Note = nullptr;
-
 $JCDiagnostic$Note* CompilerProperties$Notes::PreviewRecompile = nullptr;
-
 $JCDiagnostic$Note* CompilerProperties$Notes::RemovalPlural = nullptr;
-
 $JCDiagnostic$Note* CompilerProperties$Notes::RemovalPluralAdditional = nullptr;
-
 $JCDiagnostic$Note* CompilerProperties$Notes::RemovalRecompile = nullptr;
-
 $JCDiagnostic$Note* CompilerProperties$Notes::UncheckedPlural = nullptr;
-
 $JCDiagnostic$Note* CompilerProperties$Notes::UncheckedPluralAdditional = nullptr;
-
 $JCDiagnostic$Note* CompilerProperties$Notes::UncheckedRecompile = nullptr;
 
 void CompilerProperties$Notes::init$() {

@@ -2,16 +2,7 @@
 
 #include <com/sun/tools/javac/code/TargetType.h>
 #include <com/sun/tools/javac/code/TypeAnnotationPosition.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/NoSuchFieldError.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef CAST
@@ -97,118 +88,95 @@ void clinit$TypeAnnotationPosition$1($Class* class$) {
 	{
 		try {
 			$nc(TypeAnnotationPosition$1::$SwitchMap$com$sun$tools$javac$code$TargetType)->set($TargetType::INSTANCEOF->ordinal(), 1);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(TypeAnnotationPosition$1::$SwitchMap$com$sun$tools$javac$code$TargetType)->set($TargetType::NEW->ordinal(), 2);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(TypeAnnotationPosition$1::$SwitchMap$com$sun$tools$javac$code$TargetType)->set($TargetType::CONSTRUCTOR_REFERENCE->ordinal(), 3);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(TypeAnnotationPosition$1::$SwitchMap$com$sun$tools$javac$code$TargetType)->set($TargetType::METHOD_REFERENCE->ordinal(), 4);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(TypeAnnotationPosition$1::$SwitchMap$com$sun$tools$javac$code$TargetType)->set($TargetType::LOCAL_VARIABLE->ordinal(), 5);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(TypeAnnotationPosition$1::$SwitchMap$com$sun$tools$javac$code$TargetType)->set($TargetType::RESOURCE_VARIABLE->ordinal(), 6);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(TypeAnnotationPosition$1::$SwitchMap$com$sun$tools$javac$code$TargetType)->set($TargetType::METHOD_RECEIVER->ordinal(), 7);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(TypeAnnotationPosition$1::$SwitchMap$com$sun$tools$javac$code$TargetType)->set($TargetType::CLASS_TYPE_PARAMETER->ordinal(), 8);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(TypeAnnotationPosition$1::$SwitchMap$com$sun$tools$javac$code$TargetType)->set($TargetType::METHOD_TYPE_PARAMETER->ordinal(), 9);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(TypeAnnotationPosition$1::$SwitchMap$com$sun$tools$javac$code$TargetType)->set($TargetType::CLASS_TYPE_PARAMETER_BOUND->ordinal(), 10);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(TypeAnnotationPosition$1::$SwitchMap$com$sun$tools$javac$code$TargetType)->set($TargetType::METHOD_TYPE_PARAMETER_BOUND->ordinal(), 11);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(TypeAnnotationPosition$1::$SwitchMap$com$sun$tools$javac$code$TargetType)->set($TargetType::CLASS_EXTENDS->ordinal(), 12);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(TypeAnnotationPosition$1::$SwitchMap$com$sun$tools$javac$code$TargetType)->set($TargetType::THROWS->ordinal(), 13);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(TypeAnnotationPosition$1::$SwitchMap$com$sun$tools$javac$code$TargetType)->set($TargetType::EXCEPTION_PARAMETER->ordinal(), 14);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(TypeAnnotationPosition$1::$SwitchMap$com$sun$tools$javac$code$TargetType)->set($TargetType::METHOD_FORMAL_PARAMETER->ordinal(), 15);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(TypeAnnotationPosition$1::$SwitchMap$com$sun$tools$javac$code$TargetType)->set($TargetType::CAST->ordinal(), 16);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(TypeAnnotationPosition$1::$SwitchMap$com$sun$tools$javac$code$TargetType)->set($TargetType::CONSTRUCTOR_INVOCATION_TYPE_ARGUMENT->ordinal(), 17);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(TypeAnnotationPosition$1::$SwitchMap$com$sun$tools$javac$code$TargetType)->set($TargetType::METHOD_INVOCATION_TYPE_ARGUMENT->ordinal(), 18);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(TypeAnnotationPosition$1::$SwitchMap$com$sun$tools$javac$code$TargetType)->set($TargetType::CONSTRUCTOR_REFERENCE_TYPE_ARGUMENT->ordinal(), 19);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(TypeAnnotationPosition$1::$SwitchMap$com$sun$tools$javac$code$TargetType)->set($TargetType::METHOD_REFERENCE_TYPE_ARGUMENT->ordinal(), 20);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(TypeAnnotationPosition$1::$SwitchMap$com$sun$tools$javac$code$TargetType)->set($TargetType::METHOD_RETURN->ordinal(), 21);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(TypeAnnotationPosition$1::$SwitchMap$com$sun$tools$javac$code$TargetType)->set($TargetType::FIELD->ordinal(), 22);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 		try {
 			$nc(TypeAnnotationPosition$1::$SwitchMap$com$sun$tools$javac$code$TargetType)->set($TargetType::UNKNOWN->ordinal(), 23);
-		} catch ($NoSuchFieldError&) {
-			$catch();
+		} catch ($NoSuchFieldError& ex) {
 		}
 	}
 }

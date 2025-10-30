@@ -49,31 +49,15 @@
 #include <java/io/IOException.h>
 #include <java/io/PrintWriter.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Error.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/IllegalArgumentException.h>
 #include <java/lang/IllegalStateException.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/StringBuilder.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/CharBuffer.h>
 #include <java/util/AbstractCollection.h>
 #include <java/util/AbstractMap.h>
@@ -463,13 +447,12 @@ $Main$Result* JavacTaskImpl::doCall() {
 				return$1 = true;
 				goto $finally;
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			try {
 				cleanup();
-			} catch ($ClientCodeException&) {
-				$var($ClientCodeException, e, $catch());
+			} catch ($ClientCodeException& e) {
 				$throwNew($RuntimeException, $(e->getCause()));
 			}
 		}
@@ -528,8 +511,7 @@ $Pair* JavacTaskImpl::invocationHelper($Callable* c) {
 				$assign(var$2, $new($Pair, $($nc(c)->call()), nullptr));
 				return$1 = true;
 				goto $finally;
-			} catch ($FatalError&) {
-				$var($FatalError, ex, $catch());
+			} catch ($FatalError& ex) {
 				$var($Log, log, $Log::instance(this->context));
 				$var($Options, options, $Options::instance(this->context));
 				$nc(log)->printRawLines($(ex->getMessage()));
@@ -541,20 +523,15 @@ $Pair* JavacTaskImpl::invocationHelper($Callable* c) {
 				$assign(var$2, $new($Pair, nullptr, ex));
 				return$1 = true;
 				goto $finally;
-			} catch ($AnnotationProcessingError&) {
-				$var($Throwable, e, $catch());
+			} catch ($AnnotationProcessingError& e) {
 				$throwNew($RuntimeException, $(e->getCause()));
-			} catch ($ClientCodeException&) {
-				$var($Throwable, e, $catch());
+			} catch ($ClientCodeException& e) {
 				$throwNew($RuntimeException, $(e->getCause()));
-			} catch ($PropagatedException&) {
-				$var($PropagatedException, e, $catch());
+			} catch ($PropagatedException& e) {
 				$throw($(e->getCause()));
-			} catch ($IllegalStateException&) {
-				$var($IllegalStateException, e, $catch());
+			} catch ($IllegalStateException& e) {
 				$throw(e);
-			} catch ($Exception&) {
-				$var($Throwable, ex, $catch());
+			} catch ($Exception& ex) {
 				bool var$4 = this->compiler == nullptr || $nc(this->compiler)->errorCount() == 0;
 				if (var$4 || $nc($($Options::instance(this->context)))->isSet("dev"_s)) {
 					$var($Log, log, $Log::instance(this->context));
@@ -566,8 +543,7 @@ $Pair* JavacTaskImpl::invocationHelper($Callable* c) {
 				$assign(var$2, $new($Pair, nullptr, ex));
 				return$1 = true;
 				goto $finally;
-			} catch ($Error&) {
-				$var($Throwable, ex, $catch());
+			} catch ($Error& ex) {
 				bool var$5 = this->compiler == nullptr || $nc(this->compiler)->errorCount() == 0;
 				if (var$5 || $nc($($Options::instance(this->context)))->isSet("dev"_s)) {
 					$var($Log, log, $Log::instance(this->context));
@@ -580,8 +556,8 @@ $Pair* JavacTaskImpl::invocationHelper($Callable* c) {
 				return$1 = true;
 				goto $finally;
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$6) {
+			$assign(var$0, var$6);
 		} $finally: {
 			$nc(this->dcfh)->setHandler(prevDeferredHandler);
 		}
@@ -667,8 +643,7 @@ void JavacTaskImpl::cleanup() {
 		if (var$0 && $nc(baseFileManager)->autoClose) {
 			try {
 				$nc(this->fileManager)->close();
-			} catch ($IOException&) {
-				$catch();
+			} catch ($IOException& ignore) {
 			}
 		}
 	}
@@ -710,8 +685,8 @@ $Iterable* JavacTaskImpl::parseInternal() {
 			$assign(var$2, static_cast<$Iterable*>(static_cast<$Collection*>(static_cast<$AbstractCollection*>(units))));
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			this->parsed = true;
 			if (this->compiler != nullptr && $nc(this->compiler)->log != nullptr) {
@@ -843,8 +818,8 @@ $Iterable* JavacTaskImpl::enter($Iterable* trees) {
 			$assign(var$3, static_cast<$Iterable*>(static_cast<$Collection*>(static_cast<$AbstractCollection*>(elements->toList()))));
 			return$2 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$1, $catch());
+		} catch ($Throwable& var$4) {
+			$assign(var$1, var$4);
 		} $finally: {
 			$nc($nc(this->compiler)->log)->flush();
 		}
@@ -880,8 +855,8 @@ $Iterable* JavacTaskImpl::analyze($Iterable* classes) {
 				$var($JavacTaskImpl$Filter, f, $new($JavacTaskImpl$1, this, results));
 				f->run($nc(this->compiler)->todo, classes);
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc($nc(this->compiler)->log)->flush();
 		}
@@ -899,7 +874,7 @@ void JavacTaskImpl::handleFlowResults($Queue* queue, $ListBuffer* elems) {
 		for (; $nc(i$)->hasNext();) {
 			$var($Env, env, $cast($Env, i$->next()));
 			{
-					$init($JavacTaskImpl$3);
+				$init($JavacTaskImpl$3);
 				{
 					$var($JCTree$JCClassDecl, cdef, nullptr)
 					$var($JCTree$JCModuleDecl, mod, nullptr)
@@ -964,8 +939,8 @@ $Iterable* JavacTaskImpl::generate($Iterable* classes) {
 				$nc(this->compiler)->reportDeferredDiagnostics();
 				cleanup();
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			if (this->compiler != nullptr) {
 				$nc($nc(this->compiler)->log)->flush();
@@ -1008,8 +983,8 @@ $Type* JavacTaskImpl::parseType($String* expr, $TypeElement* scope) {
 			$assign(var$2, $nc(attr)->attribType(tree, $cast($Symbol$TypeSymbol, scope)));
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$4) {
+			$assign(var$0, var$4);
 		} $finally: {
 			$nc($nc(this->compiler)->log)->useSource(prev);
 		}

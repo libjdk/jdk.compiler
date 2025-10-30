@@ -1,16 +1,6 @@
 #include <com/sun/tools/javac/util/DefinedBy.h>
 
 #include <com/sun/tools/javac/util/DefinedBy$Api.h>
-#include <java/lang/Attribute.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/CompoundAttribute.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NamedAttribute.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $DefinedBy$Api = ::com::sun::tools::javac::util::DefinedBy$Api;
@@ -42,12 +32,12 @@ $NamedAttribute DefinedBy_Attribute_var$2[] = {
 	{"value", 'e', "Ljava/lang/annotation/RetentionPolicy; SOURCE"},
 	{}
 };
+
 $CompoundAttribute _DefinedBy_Annotations_[] = {
 	{"Ljava/lang/annotation/Target;", DefinedBy_Attribute_var$0},
 	{"Ljava/lang/annotation/Retention;", DefinedBy_Attribute_var$2},
 	{}
 };
-
 
 $MethodInfo _DefinedBy_MethodInfo_[] = {
 	{"value", "()Lcom/sun/tools/javac/util/DefinedBy$Api;", nullptr, $PUBLIC | $ABSTRACT},

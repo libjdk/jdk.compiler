@@ -3,17 +3,7 @@
 #include <com/sun/tools/javac/file/BaseFileManager.h>
 #include <com/sun/tools/javac/file/PathFileObject$CannotCreateUriError.h>
 #include <com/sun/tools/javac/file/PathFileObject.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/URI.h>
 #include <java/net/URISyntaxException.h>
 #include <java/nio/file/FileSystem.h>
@@ -117,8 +107,7 @@ $URI* PathFileObject$JarFileObject::createJarUri($Path* jarFile, $String* entryN
 	$var($String, separator, $nc(entryName)->startsWith("/"_s) ? "!"_s : "!/"_s);
 	try {
 		return $new($URI, $$str({"jar:"_s, jarURI, separator, entryName}));
-	} catch ($URISyntaxException&) {
-		$var($URISyntaxException, e, $catch());
+	} catch ($URISyntaxException& e) {
 		$throwNew($PathFileObject$CannotCreateUriError, $$str({jarURI, separator, entryName}), e);
 	}
 	$shouldNotReachHere();

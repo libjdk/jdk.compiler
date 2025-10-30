@@ -96,19 +96,6 @@
 #include <com/sun/tools/javac/util/Pair.h>
 #include <com/sun/tools/javac/util/Position.h>
 #include <com/sun/tools/javac/util/StringUtils.h>
-#include <java/lang/Array.h>
-#include <java/lang/Character.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/IllegalArgumentException.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/text/BreakIterator.h>
 #include <java/util/AbstractList.h>
 #include <java/util/ArrayList.h>
@@ -347,7 +334,6 @@ $Object* allocate$DocTreeMaker($Class* clazz) {
 	return $of($alloc(DocTreeMaker));
 }
 
-
 $Context$Key* DocTreeMaker::treeMakerKey = nullptr;
 
 DocTreeMaker* DocTreeMaker::instance($Context* context) {
@@ -566,8 +552,7 @@ $ReferenceTree* DocTreeMaker::newReferenceTree($String* signature) {
 		$var($DCTree$DCReference, tree, $new($DCTree$DCReference, signature, $nc(ref)->moduleName, ref->qualExpr, ref->member, ref->paramTypes));
 		tree->pos$ = this->pos;
 		return tree;
-	} catch ($ReferenceParser$ParseException&) {
-		$var($ReferenceParser$ParseException, e, $catch());
+	} catch ($ReferenceParser$ParseException& e) {
 		$throwNew($IllegalArgumentException, "invalid signature"_s, e);
 	}
 	$shouldNotReachHere();
@@ -725,7 +710,7 @@ $Pair* DocTreeMaker::splitBody($Collection* list) {
 					body->add($cast($DCTree, dt));
 					continue;
 				}
-					$init($DocTreeMaker$2);
+				$init($DocTreeMaker$2);
 				{
 					$var($DCTree$DCText, tt, nullptr)
 					$var($String, s, nullptr)
@@ -788,8 +773,8 @@ $Pair* DocTreeMaker::splitBody($Collection* list) {
 			$assign(var$2, $new($Pair, var$4, $(body->toList())));
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$5) {
+			$assign(var$0, var$5);
 		} $finally: {
 			this->pos = savedpos;
 		}
@@ -884,7 +869,7 @@ bool DocTreeMaker::isSentenceBreak($1Name* tagName) {
 
 bool DocTreeMaker::isSentenceBreak($DocTree* dt, bool isFirstDocTree) {
 	$useLocalCurrentObjectStackCache();
-		$init($DocTreeMaker$2);
+	$init($DocTreeMaker$2);
 	{
 		$var($StartElementTree, set, nullptr)
 		$var($EndElementTree, eet, nullptr)

@@ -32,17 +32,6 @@
 #include <com/sun/tools/javac/util/Name$Table.h>
 #include <com/sun/tools/javac/util/Name.h>
 #include <com/sun/tools/javac/util/Names.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/StringBuilder.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Iterator.h>
 #include <java/util/List.h>
 #include <java/util/Locale.h>
@@ -279,8 +268,8 @@ $String* Printer::visitCapturedType($Type$CapturedType* t, $Locale* locale) {
 				})))));
 				return$2 = true;
 				goto $finally;
-			} catch ($Throwable&) {
-				$assign(var$1, $catch());
+			} catch ($Throwable& var$5) {
+				$assign(var$1, var$5);
 			} $finally: {
 				$set(this, seenCaptured, $nc(this->seenCaptured)->tail);
 			}

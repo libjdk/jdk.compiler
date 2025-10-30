@@ -11,19 +11,8 @@
 #include <com/sun/tools/javac/util/List.h>
 #include <com/sun/tools/javac/util/ListBuffer.h>
 #include <java/io/IOException.h>
-#include <java/lang/Array.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/file/Files.h>
 #include <java/nio/file/InvalidPathException.h>
 #include <java/nio/file/LinkOption.h>
@@ -132,8 +121,7 @@ void JavacFileManager$DirectoryContainer::list($Path* userPath, $RelativePath$Re
 	$var($Path, d, nullptr);
 	try {
 		$assign(d, $nc(subdirectory)->resolveAgainst(userPath));
-	} catch ($InvalidPathException&) {
-		$var($InvalidPathException, ignore, $catch());
+	} catch ($InvalidPathException& ignore) {
 		return;
 	}
 	if (!$Files::exists(d, $$new($LinkOptionArray, 0))) {
@@ -150,20 +138,18 @@ void JavacFileManager$DirectoryContainer::list($Path* userPath, $RelativePath$Re
 			try {
 				try {
 					$assign(files, $nc((this->this$0->sortFiles == nullptr ? s : $($nc(s)->sorted(this->this$0->sortFiles))))->toList());
-				} catch ($Throwable&) {
-					$var($Throwable, t$, $catch());
+				} catch ($Throwable& t$) {
 					if (s != nullptr) {
 						try {
 							s->close();
-						} catch ($Throwable&) {
-							$var($Throwable, x2, $catch());
+						} catch ($Throwable& x2) {
 							t$->addSuppressed(x2);
 						}
 					}
 					$throw(t$);
 				}
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$1) {
+				$assign(var$0, var$1);
 			} /*finally*/ {
 				if (s != nullptr) {
 					s->close();
@@ -173,8 +159,7 @@ void JavacFileManager$DirectoryContainer::list($Path* userPath, $RelativePath$Re
 				$throw(var$0);
 			}
 		}
-	} catch ($IOException&) {
-		$var($IOException, ignore, $catch());
+	} catch ($IOException& ignore) {
 		return;
 	}
 	{
@@ -195,8 +180,7 @@ void JavacFileManager$DirectoryContainer::list($Path* userPath, $RelativePath$Re
 						$var($RelativePath$RelativeFile, file, $new($RelativePath$RelativeFile, subdirectory, fname));
 						$var($JavaFileObject, fe, $PathFileObject::forDirectoryPath(this->this$0, $(file->resolveAgainst(this->directory)), userPath, file));
 						$nc(resultList)->append(fe);
-					} catch ($InvalidPathException&) {
-						$var($InvalidPathException, e, $catch());
+					} catch ($InvalidPathException& e) {
 						$throwNew($IOException, $$str({"error accessing directory "_s, this->directory, e}));
 					}
 				}
@@ -212,8 +196,7 @@ $JavaFileObject* JavacFileManager$DirectoryContainer::getFileObject($Path* userP
 		if ($Files::exists(f, $$new($LinkOptionArray, 0))) {
 			return $PathFileObject::forSimplePath(this->this$0, $($nc(this->this$0->fsInfo)->getCanonicalFile(f)), f);
 		}
-	} catch ($InvalidPathException&) {
-		$catch();
+	} catch ($InvalidPathException& ignore) {
 	}
 	return nullptr;
 }

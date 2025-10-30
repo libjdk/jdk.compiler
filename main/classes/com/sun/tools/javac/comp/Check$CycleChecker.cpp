@@ -26,15 +26,6 @@
 #include <com/sun/tools/javac/util/JCDiagnostic$DiagnosticPosition.h>
 #include <com/sun/tools/javac/util/List.h>
 #include <com/sun/tools/javac/util/Log.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractSet.h>
 #include <java/util/HashSet.h>
 #include <java/util/Iterator.h>
@@ -153,8 +144,8 @@ void Check$CycleChecker::checkSymbol($JCDiagnostic$DiagnosticPosition* pos, $Sym
 				try {
 					$nc(this->this$0->log)->useSource($nc(classEnv->toplevel)->sourcefile);
 					scan(classEnv->tree);
-				} catch ($Throwable&) {
-					$assign(var$0, $catch());
+				} catch ($Throwable& var$1) {
+					$assign(var$0, var$1);
 				} /*finally*/ {
 					$nc(this->this$0->log)->useSource($($nc(prevSource)->getFile()));
 				}
@@ -252,8 +243,8 @@ void Check$CycleChecker::checkClass($JCDiagnostic$DiagnosticPosition* pos, $Symb
 						checkSymbol(pos, c->owner);
 					}
 				}
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$2) {
+				$assign(var$0, var$2);
 			} $finally: {
 				$nc(this->seenClasses)->remove(c);
 			}

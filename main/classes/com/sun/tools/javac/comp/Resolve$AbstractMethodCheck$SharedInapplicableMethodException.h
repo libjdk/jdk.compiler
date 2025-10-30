@@ -43,8 +43,10 @@ public:
 	::com::sun::tools::javac::comp::Resolve$AbstractMethodCheck* this$1 = nullptr;
 	static const int64_t serialVersionUID = 0;
 	Resolve$AbstractMethodCheck$SharedInapplicableMethodException(const Resolve$AbstractMethodCheck$SharedInapplicableMethodException& e);
-	Resolve$AbstractMethodCheck$SharedInapplicableMethodException wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline Resolve$AbstractMethodCheck$SharedInapplicableMethodException* operator ->() {
+		return (Resolve$AbstractMethodCheck$SharedInapplicableMethodException*)throwing$;
+	}
 };
 
 				} // comp

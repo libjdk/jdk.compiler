@@ -3,13 +3,6 @@
 #include <com/sun/tools/javac/util/GraphUtils$DependencyKind.h>
 #include <com/sun/tools/javac/util/GraphUtils$Node.h>
 #include <com/sun/tools/javac/util/GraphUtils.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/ArrayList.h>
 #include <java/util/Collection.h>
 #include <java/util/Iterator.h>

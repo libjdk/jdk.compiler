@@ -17,16 +17,6 @@
 #include <com/sun/tools/javac/util/ListBuffer.h>
 #include <com/sun/tools/javac/util/Name.h>
 #include <com/sun/tools/javac/util/Names.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/EnclosingMethodInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Map.h>
 #include <jcpp.h>
 
@@ -138,8 +128,8 @@ void JavacTrees$3::visitClassDef($JCTree$JCClassDecl* tree) {
 			}
 			$set(this, owner, c);
 			$TreeScanner::visitClassDef(tree);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, owner, prevOwner);
 		}
@@ -158,8 +148,8 @@ void JavacTrees$3::visitBlock($JCTree$JCBlock* tree) {
 			$init($Type);
 			$set(this, owner, $new($Symbol$MethodSymbol, 0, $nc(this->this$0->names)->empty, $Type::noType, this->owner));
 			$TreeScanner::visitBlock(tree);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, owner, prevOwner);
 		}
@@ -178,8 +168,8 @@ void JavacTrees$3::visitVarDef($JCTree$JCVariableDecl* tree) {
 			$init($Type);
 			$set(this, owner, $new($Symbol$MethodSymbol, 0, $nc(this->this$0->names)->empty, $Type::noType, this->owner));
 			$TreeScanner::visitVarDef(tree);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, owner, prevOwner);
 		}

@@ -34,21 +34,7 @@
 #include <com/sun/tools/javac/util/Names.h>
 #include <com/sun/tools/javac/util/Position$LineMap.h>
 #include <com/sun/tools/javac/util/Position.h>
-#include <java/lang/Array.h>
-#include <java/lang/Character.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
 #include <java/lang/Math.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/StringBuilder.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/CharBuffer.h>
 #include <java/util/Set.h>
 #include <jcpp.h>
@@ -1353,15 +1339,13 @@ $Tokens$Token* JavaTokenizer::readToken() {
 						}
 						try {
 							$assign(string, $nc(string)->stripIndent());
-						} catch ($Exception&) {
-							$catch();
+						} catch ($Exception& ex) {
 						}
 					}
 					if (this->hasEscapeSequences) {
 						try {
 							$assign(string, $nc(string)->translateEscapes());
-						} catch ($Exception&) {
-							$catch();
+						} catch ($Exception& ex) {
 						}
 					}
 					if ($nc(this->tk)->tag == $Tokens$Token$Tag::STRING) {
@@ -1375,8 +1359,8 @@ $Tokens$Token* JavaTokenizer::readToken() {
 					}
 				}
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$5) {
+			$assign(var$0, var$5);
 		} $finally: {
 			int32_t endPos = position();
 		}

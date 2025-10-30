@@ -4,16 +4,7 @@
 #include <com/sun/tools/javac/util/Context$Key.h>
 #include <com/sun/tools/javac/util/Context.h>
 #include <com/sun/tools/javac/util/Options.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/HashMap.h>
 #include <java/util/Map.h>
@@ -121,33 +112,19 @@ $Object* allocate$Target($Class* clazz) {
 Target* Target::JDK1_1 = nullptr;
 Target* Target::JDK1_2 = nullptr;
 Target* Target::JDK1_3 = nullptr;
-
 Target* Target::JDK1_4 = nullptr;
-
 Target* Target::JDK1_5 = nullptr;
-
 Target* Target::JDK1_6 = nullptr;
-
 Target* Target::JDK1_7 = nullptr;
-
 Target* Target::JDK1_8 = nullptr;
-
 Target* Target::JDK1_9 = nullptr;
-
 Target* Target::JDK1_10 = nullptr;
-
 Target* Target::JDK1_11 = nullptr;
-
 Target* Target::JDK1_12 = nullptr;
-
 Target* Target::JDK1_13 = nullptr;
-
 Target* Target::JDK1_14 = nullptr;
-
 Target* Target::JDK1_15 = nullptr;
-
 Target* Target::JDK1_16 = nullptr;
-
 Target* Target::JDK1_17 = nullptr;
 $TargetArray* Target::$VALUES = nullptr;
 $Context$Key* Target::targetKey = nullptr;

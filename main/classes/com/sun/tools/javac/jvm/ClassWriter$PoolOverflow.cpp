@@ -1,15 +1,6 @@
 #include <com/sun/tools/javac/jvm/ClassWriter$PoolOverflow.h>
 
 #include <com/sun/tools/javac/jvm/ClassWriter.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $ClassWriter = ::com::sun::tools::javac::jvm::ClassWriter;
@@ -67,16 +58,10 @@ void ClassWriter$PoolOverflow::init$() {
 ClassWriter$PoolOverflow::ClassWriter$PoolOverflow() {
 }
 
-ClassWriter$PoolOverflow::ClassWriter$PoolOverflow(const ClassWriter$PoolOverflow& e) {
+ClassWriter$PoolOverflow::ClassWriter$PoolOverflow(const ClassWriter$PoolOverflow& e) : $RuntimeException(e) {
 }
 
-ClassWriter$PoolOverflow ClassWriter$PoolOverflow::wrapper$() {
-	$pendingException(this);
-	return *this;
-}
-
-void ClassWriter$PoolOverflow::throwWrapper$() {
-	$pendingException(this);
+void ClassWriter$PoolOverflow::throw$() {
 	throw *this;
 }
 

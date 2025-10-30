@@ -7,19 +7,7 @@
 #include <java/io/FileNotFoundException.h>
 #include <java/io/IOException.h>
 #include <java/io/RandomAccessFile.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
 #include <java/lang/NumberFormatException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Thread.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/channels/ClosedChannelException.h>
 #include <java/nio/channels/FileChannel.h>
 #include <java/nio/channels/FileLock.h>
@@ -116,8 +104,7 @@ void PortFile::init$($String* fn) {
 void PortFile::initializeChannel() {
 	try {
 		$set(this, rwfile, $new($RandomAccessFile, this->file, "rw"_s));
-	} catch ($FileNotFoundException&) {
-		$var($FileNotFoundException, e, $catch());
+	} catch ($FileNotFoundException& e) {
 		$throwNew($PortFileInaccessibleException, e);
 	}
 	$set(this, channel, $nc(this->rwfile)->getChannel());
@@ -148,8 +135,7 @@ void PortFile::getValues() {
 				this->containsPortInfo$ = false;
 			}
 		}
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		this->containsPortInfo$ = false;
 	}
 }
@@ -197,8 +183,7 @@ bool PortFile::markedForStop() {
 	if ($nc(this->stopFile)->exists()) {
 		try {
 			$nc(this->stopFile)->delete$();
-		} catch ($Exception&) {
-			$catch();
+		} catch ($Exception& e) {
 		}
 		return true;
 	}
@@ -239,7 +224,6 @@ void PortFile::waitForValidValues() {
 }
 
 bool PortFile::stillMyValues() {
-	$useLocalCurrentObjectStackCache();
 	for (;;) {
 		try {
 			lock();
@@ -252,11 +236,9 @@ bool PortFile::stillMyValues() {
 				return false;
 			}
 			return false;
-		} catch ($FileLockInterruptionException&) {
-			$var($FileLockInterruptionException, e, $catch());
+		} catch ($FileLockInterruptionException& e) {
 			continue;
-		} catch ($ClosedChannelException&) {
-			$var($ClosedChannelException, e, $catch());
+		} catch ($ClosedChannelException& e) {
 			return false;
 		}
 	}
@@ -272,8 +254,7 @@ int64_t PortFile::getServerStartupTimeoutSeconds() {
 	if (str != nullptr) {
 		try {
 			return $Integer::parseInt(str);
-		} catch ($NumberFormatException&) {
-			$catch();
+		} catch ($NumberFormatException& e) {
 		}
 	}
 	return 60;

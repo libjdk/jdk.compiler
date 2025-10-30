@@ -3,17 +3,8 @@
 #include <com/sun/tools/javac/launcher/Main$MemoryClassLoader$1.h>
 #include <com/sun/tools/javac/launcher/Main$MemoryClassLoader$MemoryURLStreamHandler.h>
 #include <com/sun/tools/javac/launcher/Main.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/ClassLoader.h>
 #include <java/lang/ClassNotFoundException.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/MalformedURLException.h>
 #include <java/net/URI.h>
 #include <java/net/URL.h>
@@ -130,8 +121,7 @@ void Main$MemoryClassLoader::init$($Map* sourceFileClasses, $ClassLoader* parent
 	$var($CodeSource, codeSource, nullptr);
 	try {
 		$assign(codeSource, $new($CodeSource, $($nc($($nc(file)->toUri()))->toURL()), ($CodeSignerArray*)nullptr));
-	} catch ($MalformedURLException&) {
-		$var($MalformedURLException, e, $catch());
+	} catch ($MalformedURLException& e) {
 		$assign(codeSource, nullptr);
 	}
 	$set(this, domain, $new($ProtectionDomain, codeSource, nullptr, this, nullptr));
@@ -202,8 +192,7 @@ $URL* Main$MemoryClassLoader::findResource($String* name) {
 	}
 	try {
 		return $new($URL, this->PROTOCOL, nullptr, -1, name, handler);
-	} catch ($MalformedURLException&) {
-		$var($MalformedURLException, e, $catch());
+	} catch ($MalformedURLException& e) {
 		return nullptr;
 	}
 	$shouldNotReachHere();

@@ -14,21 +14,11 @@
 #include <com/sun/tools/sjavac/comp/PubAPIs.h>
 #include <com/sun/tools/sjavac/comp/dependencies/PublicApiCollector$1.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractSet.h>
 #include <java/util/Collection.h>
 #include <java/util/HashSet.h>
@@ -173,7 +163,7 @@ void PublicApiCollector::init$($Context* context, $Collection* explicitJFOs) {
 
 void PublicApiCollector::finished($TaskEvent* e) {
 	$useLocalCurrentObjectStackCache();
-		$init($PublicApiCollector$1);
+	$init($PublicApiCollector$1);
 	{
 		$var($PubAPIs, pa, nullptr)
 		switch ($nc($PublicApiCollector$1::$SwitchMap$com$sun$source$util$TaskEvent$Kind)->get($nc(($($nc(e)->getKind())))->ordinal())) {

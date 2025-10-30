@@ -1,16 +1,7 @@
 #include <com/sun/source/tree/MemberReferenceTree$ReferenceMode.h>
 
 #include <com/sun/source/tree/MemberReferenceTree.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef INVOKE
@@ -69,9 +60,7 @@ $Object* allocate$MemberReferenceTree$ReferenceMode($Class* clazz) {
 	return $of($alloc(MemberReferenceTree$ReferenceMode));
 }
 
-
 MemberReferenceTree$ReferenceMode* MemberReferenceTree$ReferenceMode::INVOKE = nullptr;
-
 MemberReferenceTree$ReferenceMode* MemberReferenceTree$ReferenceMode::NEW = nullptr;
 $MemberReferenceTree$ReferenceModeArray* MemberReferenceTree$ReferenceMode::$VALUES = nullptr;
 

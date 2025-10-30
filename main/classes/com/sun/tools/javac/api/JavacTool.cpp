@@ -21,25 +21,11 @@
 #include <java/io/InputStream.h>
 #include <java/io/OutputStream.h>
 #include <java/io/OutputStreamWriter.h>
-#include <java/io/PrintStream.h>
 #include <java/io/PrintWriter.h>
 #include <java/io/Writer.h>
-#include <java/lang/Array.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/CompoundAttribute.h>
 #include <java/lang/Enum.h>
-#include <java/lang/IllegalArgumentException.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/charset/Charset.h>
 #include <java/util/AbstractSet.h>
 #include <java/util/Collections.h>
@@ -171,7 +157,6 @@ $StandardJavaFileManager* JavacTool::getStandardFileManager($DiagnosticListener*
 		$load($DiagnosticListener);
 		context->put($DiagnosticListener::class$, $of(diagnosticListener));
 	}
-	$init($System);
 	$var($PrintWriter, pw, (charset == nullptr) ? $new($PrintWriter, static_cast<$OutputStream*>($System::err), true) : $new($PrintWriter, static_cast<$Writer*>($$new($OutputStreamWriter, static_cast<$OutputStream*>($System::err), charset)), true));
 	$init($Log);
 	context->put($Log::errKey, $of(pw));
@@ -244,7 +229,6 @@ $JavacTask* JavacTool::getTask($Writer* out, $JavaFileManager* fileManager$renam
 			$var($PrintWriter, pw, nullptr);
 			$init($Log);
 			if (out == nullptr && $nc(context)->get($Log::errKey) == nullptr) {
-				$init($System);
 				context->put($Log::errKey, $of($$new($PrintWriter, static_cast<$OutputStream*>($System::err), true)));
 			} else {
 				bool var$1 = $instanceOf($PrintWriter, out);
@@ -285,11 +269,9 @@ $JavacTask* JavacTool::getTask($Writer* out, $JavaFileManager* fileManager$renam
 			fileManager->handleOption($Option::MULTIRELEASE->primaryName, $($nc(list)->iterator()));
 		}
 		return $new($JavacTaskImpl, context);
-	} catch ($PropagatedException&) {
-		$var($PropagatedException, ex, $catch());
+	} catch ($PropagatedException& ex) {
 		$throw($(ex->getCause()));
-	} catch ($ClientCodeException&) {
-		$var($ClientCodeException, ex, $catch());
+	} catch ($ClientCodeException& ex) {
 		$throwNew($RuntimeException, $(ex->getCause()));
 	}
 	$shouldNotReachHere();
@@ -299,7 +281,6 @@ int32_t JavacTool::run($InputStream* in, $OutputStream* out, $OutputStream* err$
 	$useLocalCurrentObjectStackCache();
 	$var($OutputStream, err, err$renamed);
 	if (err == nullptr) {
-		$init($System);
 		$assign(err, $System::err);
 	}
 	{

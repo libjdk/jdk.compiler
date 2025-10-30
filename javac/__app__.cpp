@@ -2,7 +2,6 @@
 
 #include <Javac.h>
 #include <jcpp.h>
-#include <stdlib.h>
 
 int main(int argc, char** argv) {
 	::jdk$compiler$javac::init();
@@ -18,8 +17,7 @@ int main(int argc, char** argv) {
 		}
 		try {
 			::Javac::main(args);
-		} catch ($Throwable&) {
-			$var($Throwable, e, $catch());
+		} catch ($Throwable& e) {
 			e->printStackTrace();
 			$System::deinit();
 			return 1;

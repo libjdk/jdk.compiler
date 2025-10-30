@@ -54,27 +54,14 @@
 #include <com/sun/tools/javac/util/Log$WriterKind.h>
 #include <com/sun/tools/javac/util/Log.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
-#include <java/lang/StringBuilder.h>
 #include <java/lang/UnsupportedOperationException.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractSet.h>
 #include <java/util/Arrays.h>
 #include <java/util/Collection.h>
@@ -788,11 +775,8 @@ Option* Option::SOURCEFILE = nullptr;
 Option* Option::MULTIRELEASE = nullptr;
 Option* Option::INHERIT_RUNTIME_ENVIRONMENT = nullptr;
 $OptionArray* Option::$VALUES = nullptr;
-
 $String* Option::SMALL_INDENT = nullptr;
-
 $String* Option::LARGE_INDENT = nullptr;
-
 $String* Option::COMPACT_FORMAT = nullptr;
 
 $OptionArray* Option::$values() {

@@ -24,8 +24,10 @@ public:
 	void init$($Throwable* cause);
 	static const int64_t serialVersionUID = (int64_t)0xBE01EA836087E543;
 	PortFileInaccessibleException(const PortFileInaccessibleException& e);
-	PortFileInaccessibleException wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline PortFileInaccessibleException* operator ->() {
+		return (PortFileInaccessibleException*)throwing$;
+	}
 };
 
 				} // client

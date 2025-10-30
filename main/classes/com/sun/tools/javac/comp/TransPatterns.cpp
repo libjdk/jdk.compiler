@@ -91,24 +91,12 @@
 #include <com/sun/tools/javac/util/Names.h>
 #include <com/sun/tools/javac/util/Options.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Collection.h>
 #include <java/util/Iterator.h>
 #include <java/util/function/Function.h>
@@ -682,8 +670,8 @@ void TransPatterns::visitTypeTest($JCTree$JCInstanceOf* tree) {
 					$nc(($cast($JCTree$LetExpr, resultExpression)))->needsCond = true;
 				}
 				$set(this, result, $nc(this->bindingContext)->decorateExpression(resultExpression));
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$4) {
+				$assign(var$0, var$4);
 			} /*finally*/ {
 				$set(this, currentValue, prevCurrentValue);
 				$nc(this->bindingContext)->pop();
@@ -826,8 +814,8 @@ void TransPatterns::handleSwitch($JCTree* tree, $JCTree$JCExpression* selector$r
 								$var($JCTree$JCExpression, var$16, static_cast<$JCTree$JCExpression*>($nc(this->make)->Ident(static_cast<$Symbol*>(index))));
 								$set(c, stats, $nc(c->stats)->prepend($($nc(this->make)->If(var$15, $($nc(this->make)->Block(0, $($List::of($($nc(this->make)->Exec($($nc($($nc(this->make)->Assign(var$16, $(makeLit($nc(this->syms)->intType, $($Integer::valueOf(i + 1)))))))->setType($nc(this->syms)->intType)))), continueSwitch)))), nullptr))));
 								$set(c, stats, $nc(c->stats)->prependList($($nc(this->bindingContext)->bindingVars(c->pos$))));
-							} catch ($Throwable&) {
-								$assign(var$14, $catch());
+							} catch ($Throwable& var$17) {
+								$assign(var$14, var$17);
 							} /*finally*/ {
 								$set(this, currentValue, prevCurrentValue);
 								$nc(this->bindingContext)->pop();
@@ -960,8 +948,8 @@ void TransPatterns::visitBinary($JCTree$JCBinary* tree) {
 		try {
 			$TreeTranslator::visitBinary(tree);
 			$set(this, result, $nc(this->bindingContext)->decorateExpression(tree));
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc(this->bindingContext)->pop();
 		}
@@ -978,8 +966,8 @@ void TransPatterns::visitConditional($JCTree$JCConditional* tree) {
 		try {
 			$TreeTranslator::visitConditional(tree);
 			$set(this, result, $nc(this->bindingContext)->decorateExpression(tree));
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc(this->bindingContext)->pop();
 		}
@@ -996,8 +984,8 @@ void TransPatterns::visitIf($JCTree$JCIf* tree) {
 		try {
 			$TreeTranslator::visitIf(tree);
 			$set(this, result, $nc(this->bindingContext)->decorateStatement(tree));
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc(this->bindingContext)->pop();
 		}
@@ -1014,8 +1002,8 @@ void TransPatterns::visitForLoop($JCTree$JCForLoop* tree) {
 		try {
 			$TreeTranslator::visitForLoop(tree);
 			$set(this, result, $nc(this->bindingContext)->decorateStatement(tree));
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc(this->bindingContext)->pop();
 		}
@@ -1032,8 +1020,8 @@ void TransPatterns::visitWhileLoop($JCTree$JCWhileLoop* tree) {
 		try {
 			$TreeTranslator::visitWhileLoop(tree);
 			$set(this, result, $nc(this->bindingContext)->decorateStatement(tree));
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc(this->bindingContext)->pop();
 		}
@@ -1050,8 +1038,8 @@ void TransPatterns::visitDoLoop($JCTree$JCDoWhileLoop* tree) {
 		try {
 			$TreeTranslator::visitDoLoop(tree);
 			$set(this, result, $nc(this->bindingContext)->decorateStatement(tree));
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc(this->bindingContext)->pop();
 		}
@@ -1069,8 +1057,8 @@ void TransPatterns::visitMethodDef($JCTree$JCMethodDecl* tree) {
 		try {
 			$set(this, currentMethodSym, $nc(tree)->sym);
 			$TreeTranslator::visitMethodDef(tree);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, currentMethodSym, prevMethodSym);
 		}
@@ -1112,8 +1100,8 @@ void TransPatterns::visitBlock($JCTree$JCBlock* tree) {
 			}
 			$set(tree, stats, statements->toList());
 			$set(this, result, tree);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, currentMethodSym, oldMethodSym);
 			$nc(this->bindingContext)->pop();
@@ -1132,8 +1120,8 @@ void TransPatterns::visitLambda($JCTree$JCLambda* tree) {
 		try {
 			$set(this, bindingContext, $new($TransPatterns$BindingDeclarationFenceBindingContext, this));
 			$TreeTranslator::visitLambda(tree);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, bindingContext, prevContent);
 		}
@@ -1151,8 +1139,8 @@ void TransPatterns::visitClassDef($JCTree$JCClassDecl* tree) {
 		try {
 			$set(this, currentClass, $nc(tree)->sym);
 			$TreeTranslator::visitClassDef(tree);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, currentClass, prevCurrentClass);
 		}
@@ -1177,8 +1165,8 @@ void TransPatterns::visitVarDef($JCTree$JCVariableDecl* tree) {
 				$set(tree, init, $cast($JCTree$JCExpression, translate(static_cast<$JCTree*>(tree->init))));
 			}
 			$set(this, result, tree);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, currentMethodSym, prevMethodSym);
 		}
@@ -1195,8 +1183,8 @@ $JCTree* TransPatterns::translateTopLevelClass($Env* env, $JCTree* cdef, $TreeMa
 			$set(this, make, make);
 			$set(this, env, env);
 			translate(cdef);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$set(this, make, nullptr);
 			$set(this, env, nullptr);

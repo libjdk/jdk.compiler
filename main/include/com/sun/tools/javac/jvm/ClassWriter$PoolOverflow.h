@@ -18,8 +18,10 @@ public:
 	void init$();
 	static const int64_t serialVersionUID = 0;
 	ClassWriter$PoolOverflow(const ClassWriter$PoolOverflow& e);
-	ClassWriter$PoolOverflow wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline ClassWriter$PoolOverflow* operator ->() {
+		return (ClassWriter$PoolOverflow*)throwing$;
+	}
 };
 
 				} // jvm

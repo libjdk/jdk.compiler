@@ -1,17 +1,8 @@
 #include <com/sun/tools/javac/tree/JCTree$Tag.h>
 
 #include <com/sun/tools/javac/tree/JCTree.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Enum.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef AND
@@ -287,122 +278,65 @@ $Object* allocate$JCTree$Tag($Class* clazz) {
 	return $of($alloc(JCTree$Tag));
 }
 
-
 JCTree$Tag* JCTree$Tag::NO_TAG = nullptr;
-
 JCTree$Tag* JCTree$Tag::TOPLEVEL = nullptr;
-
 JCTree$Tag* JCTree$Tag::PACKAGEDEF = nullptr;
-
 JCTree$Tag* JCTree$Tag::IMPORT = nullptr;
-
 JCTree$Tag* JCTree$Tag::CLASSDEF = nullptr;
-
 JCTree$Tag* JCTree$Tag::METHODDEF = nullptr;
-
 JCTree$Tag* JCTree$Tag::VARDEF = nullptr;
-
 JCTree$Tag* JCTree$Tag::SKIP = nullptr;
-
 JCTree$Tag* JCTree$Tag::BLOCK = nullptr;
-
 JCTree$Tag* JCTree$Tag::DOLOOP = nullptr;
-
 JCTree$Tag* JCTree$Tag::WHILELOOP = nullptr;
-
 JCTree$Tag* JCTree$Tag::FORLOOP = nullptr;
-
 JCTree$Tag* JCTree$Tag::FOREACHLOOP = nullptr;
-
 JCTree$Tag* JCTree$Tag::LABELLED = nullptr;
-
 JCTree$Tag* JCTree$Tag::SWITCH = nullptr;
-
 JCTree$Tag* JCTree$Tag::CASE = nullptr;
-
 JCTree$Tag* JCTree$Tag::SWITCH_EXPRESSION = nullptr;
-
 JCTree$Tag* JCTree$Tag::SYNCHRONIZED = nullptr;
-
 JCTree$Tag* JCTree$Tag::TRY = nullptr;
-
 JCTree$Tag* JCTree$Tag::CATCH = nullptr;
-
 JCTree$Tag* JCTree$Tag::CONDEXPR = nullptr;
-
 JCTree$Tag* JCTree$Tag::IF = nullptr;
-
 JCTree$Tag* JCTree$Tag::EXEC = nullptr;
-
 JCTree$Tag* JCTree$Tag::BREAK = nullptr;
-
 JCTree$Tag* JCTree$Tag::YIELD = nullptr;
-
 JCTree$Tag* JCTree$Tag::CONTINUE = nullptr;
-
 JCTree$Tag* JCTree$Tag::RETURN = nullptr;
-
 JCTree$Tag* JCTree$Tag::THROW = nullptr;
-
 JCTree$Tag* JCTree$Tag::ASSERT = nullptr;
-
 JCTree$Tag* JCTree$Tag::APPLY = nullptr;
-
 JCTree$Tag* JCTree$Tag::NEWCLASS = nullptr;
-
 JCTree$Tag* JCTree$Tag::NEWARRAY = nullptr;
-
 JCTree$Tag* JCTree$Tag::LAMBDA = nullptr;
-
 JCTree$Tag* JCTree$Tag::PARENS = nullptr;
-
 JCTree$Tag* JCTree$Tag::ASSIGN = nullptr;
-
 JCTree$Tag* JCTree$Tag::TYPECAST = nullptr;
-
 JCTree$Tag* JCTree$Tag::TYPETEST = nullptr;
-
 JCTree$Tag* JCTree$Tag::BINDINGPATTERN = nullptr;
 JCTree$Tag* JCTree$Tag::DEFAULTCASELABEL = nullptr;
 JCTree$Tag* JCTree$Tag::GUARDPATTERN = nullptr;
 JCTree$Tag* JCTree$Tag::PARENTHESIZEDPATTERN = nullptr;
-
 JCTree$Tag* JCTree$Tag::INDEXED = nullptr;
-
 JCTree$Tag* JCTree$Tag::SELECT = nullptr;
-
 JCTree$Tag* JCTree$Tag::REFERENCE = nullptr;
-
 JCTree$Tag* JCTree$Tag::IDENT = nullptr;
-
 JCTree$Tag* JCTree$Tag::LITERAL = nullptr;
-
 JCTree$Tag* JCTree$Tag::TYPEIDENT = nullptr;
-
 JCTree$Tag* JCTree$Tag::TYPEARRAY = nullptr;
-
 JCTree$Tag* JCTree$Tag::TYPEAPPLY = nullptr;
-
 JCTree$Tag* JCTree$Tag::TYPEUNION = nullptr;
-
 JCTree$Tag* JCTree$Tag::TYPEINTERSECTION = nullptr;
-
 JCTree$Tag* JCTree$Tag::TYPEPARAMETER = nullptr;
-
 JCTree$Tag* JCTree$Tag::WILDCARD = nullptr;
-
 JCTree$Tag* JCTree$Tag::TYPEBOUNDKIND = nullptr;
-
 JCTree$Tag* JCTree$Tag::ANNOTATION = nullptr;
-
 JCTree$Tag* JCTree$Tag::TYPE_ANNOTATION = nullptr;
-
 JCTree$Tag* JCTree$Tag::MODIFIERS = nullptr;
-
 JCTree$Tag* JCTree$Tag::ANNOTATED_TYPE = nullptr;
-
 JCTree$Tag* JCTree$Tag::ERRONEOUS = nullptr;
-
 JCTree$Tag* JCTree$Tag::POS = nullptr;
 JCTree$Tag* JCTree$Tag::NEG = nullptr;
 JCTree$Tag* JCTree$Tag::NOT = nullptr;
@@ -411,9 +345,7 @@ JCTree$Tag* JCTree$Tag::PREINC = nullptr;
 JCTree$Tag* JCTree$Tag::PREDEC = nullptr;
 JCTree$Tag* JCTree$Tag::POSTINC = nullptr;
 JCTree$Tag* JCTree$Tag::POSTDEC = nullptr;
-
 JCTree$Tag* JCTree$Tag::NULLCHK = nullptr;
-
 JCTree$Tag* JCTree$Tag::OR = nullptr;
 JCTree$Tag* JCTree$Tag::AND = nullptr;
 JCTree$Tag* JCTree$Tag::BITOR = nullptr;
@@ -433,7 +365,6 @@ JCTree$Tag* JCTree$Tag::MINUS = nullptr;
 JCTree$Tag* JCTree$Tag::MUL = nullptr;
 JCTree$Tag* JCTree$Tag::DIV = nullptr;
 JCTree$Tag* JCTree$Tag::MOD = nullptr;
-
 JCTree$Tag* JCTree$Tag::BITOR_ASG = nullptr;
 JCTree$Tag* JCTree$Tag::BITXOR_ASG = nullptr;
 JCTree$Tag* JCTree$Tag::BITAND_ASG = nullptr;
@@ -451,7 +382,6 @@ JCTree$Tag* JCTree$Tag::OPENS = nullptr;
 JCTree$Tag* JCTree$Tag::PROVIDES = nullptr;
 JCTree$Tag* JCTree$Tag::REQUIRES = nullptr;
 JCTree$Tag* JCTree$Tag::USES = nullptr;
-
 JCTree$Tag* JCTree$Tag::LETEXPR = nullptr;
 $JCTree$TagArray* JCTree$Tag::$VALUES = nullptr;
 int32_t JCTree$Tag::numberOfOperators = 0;
