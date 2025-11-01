@@ -83,7 +83,6 @@ class $export Printer : public ::com::sun::tools::javac::code::Type$Visitor, pub
 	$class(Printer, $NO_CLASS_INIT, ::com::sun::tools::javac::code::Type$Visitor, ::com::sun::tools::javac::code::Symbol$Visitor)
 public:
 	Printer();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;
 	virtual void finalize() override;

@@ -56,7 +56,6 @@ class $import Type$IntersectionClassType : public ::com::sun::tools::javac::code
 	$class(Type$IntersectionClassType, $NO_CLASS_INIT, ::com::sun::tools::javac::code::Type$ClassType, ::javax::lang::model::type::IntersectionType)
 public:
 	Type$IntersectionClassType();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	using ::com::sun::tools::javac::code::Type$ClassType::accept;
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* t) override;

@@ -33,7 +33,6 @@ class $export DCTree$DCSince : public ::com::sun::tools::javac::tree::DCTree$DCB
 	$class(DCTree$DCSince, $NO_CLASS_INIT, ::com::sun::tools::javac::tree::DCTree$DCBlockTag, ::com::sun::source::doctree::SinceTree)
 public:
 	DCTree$DCSince();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;
 	virtual void finalize() override;

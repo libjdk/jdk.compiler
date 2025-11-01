@@ -60,7 +60,6 @@ class $import Type$ClassType : public ::com::sun::tools::javac::code::Type, publ
 	$class(Type$ClassType, $NO_CLASS_INIT, ::com::sun::tools::javac::code::Type, ::com::sun::tools::javac::jvm::PoolConstant$LoadableConstant, ::javax::lang::model::type::ErrorType)
 public:
 	Type$ClassType();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* t) override;
 	virtual void finalize() override;
@@ -95,7 +94,7 @@ public:
 	virtual $String* toString() override;
 	class $import MemberClass0$ : public ::javax::lang::model::type::ErrorType {
 	public:
-		virtual ::java::lang::Object0* toObject0$() const override;
+		MemberClass0$();
 		virtual ::javax::lang::model::element::Element* asElement() override;
 		virtual ::javax::lang::model::type::TypeMirror* getEnclosingType() override;
 		virtual ::java::util::List* getTypeArguments() override;
@@ -111,7 +110,7 @@ public:
 		virtual void finalize() override;
 	};
 	MemberClass0$ memberClass0$;
-	::javax::lang::model::type::ErrorType* as$(::javax::lang::model::type::ErrorType*) {
+	::javax::lang::model::type::ErrorType* as$(::javax::lang::model::type::ErrorType**) {
 		return &memberClass0$;
 	}
 	::com::sun::tools::javac::code::Type* outer_field = nullptr;

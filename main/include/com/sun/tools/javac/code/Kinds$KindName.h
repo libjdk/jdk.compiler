@@ -70,7 +70,6 @@ class $import Kinds$KindName : public ::java::lang::Enum, public ::com::sun::too
 	$class(Kinds$KindName, 0, ::java::lang::Enum, ::com::sun::tools::javac::api::Formattable)
 public:
 	Kinds$KindName();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	static $Array<::com::sun::tools::javac::code::Kinds$KindName>* $values();
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;

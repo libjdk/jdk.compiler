@@ -151,7 +151,7 @@ public:
 	virtual $String* toString() override;
 	class $export MemberClass0$ : public ::javax::lang::model::element::TypeElement {
 	public:
-		virtual ::java::lang::Object0* toObject0$() const override;
+		MemberClass0$();
 		virtual ::javax::lang::model::type::TypeMirror* asType() override;
 		virtual ::java::util::List* getEnclosedElements() override;
 		virtual ::javax::lang::model::element::NestingKind* getNestingKind() override;
@@ -176,7 +176,7 @@ public:
 		virtual void finalize() override;
 	};
 	MemberClass0$ memberClass0$;
-	::javax::lang::model::element::TypeElement* as$(::javax::lang::model::element::TypeElement*) {
+	::javax::lang::model::element::TypeElement* as$(::javax::lang::model::element::TypeElement**) {
 		return &memberClass0$;
 	}
 	::com::sun::tools::javac::code::Scope$WriteableScope* members_field = nullptr;

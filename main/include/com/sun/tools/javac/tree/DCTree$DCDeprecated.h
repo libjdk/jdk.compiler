@@ -33,7 +33,6 @@ class $import DCTree$DCDeprecated : public ::com::sun::tools::javac::tree::DCTre
 	$class(DCTree$DCDeprecated, $NO_CLASS_INIT, ::com::sun::tools::javac::tree::DCTree$DCBlockTag, ::com::sun::source::doctree::DeprecatedTree)
 public:
 	DCTree$DCDeprecated();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;
 	virtual void finalize() override;

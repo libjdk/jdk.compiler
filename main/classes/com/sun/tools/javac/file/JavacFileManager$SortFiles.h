@@ -23,7 +23,6 @@ class $export JavacFileManager$SortFiles : public ::java::lang::Enum, public ::j
 	$class(JavacFileManager$SortFiles, 0, ::java::lang::Enum, ::java::util::Comparator)
 public:
 	JavacFileManager$SortFiles();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	static $Array<::com::sun::tools::javac::file::JavacFileManager$SortFiles>* $values();
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;

@@ -69,7 +69,6 @@ class $export JCTree$JCExports : public ::com::sun::tools::javac::tree::JCTree$J
 	$class(JCTree$JCExports, $NO_CLASS_INIT, ::com::sun::tools::javac::tree::JCTree$JCDirective, ::com::sun::source::tree::ExportsTree)
 public:
 	JCTree$JCExports();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;
 	virtual void finalize() override;

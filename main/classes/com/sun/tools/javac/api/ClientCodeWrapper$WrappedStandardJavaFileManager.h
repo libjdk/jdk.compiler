@@ -59,7 +59,6 @@ class $export ClientCodeWrapper$WrappedStandardJavaFileManager : public ::com::s
 	$class(ClientCodeWrapper$WrappedStandardJavaFileManager, $NO_CLASS_INIT, ::com::sun::tools::javac::api::ClientCodeWrapper$WrappedJavaFileManager, ::javax::tools::StandardJavaFileManager)
 public:
 	ClientCodeWrapper$WrappedStandardJavaFileManager();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual void close() override;
 	virtual bool contains(::javax::tools::JavaFileManager$Location* location, ::javax::tools::FileObject* file) override;

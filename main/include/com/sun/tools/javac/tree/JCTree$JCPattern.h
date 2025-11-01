@@ -17,7 +17,6 @@ class $import JCTree$JCPattern : public ::com::sun::tools::javac::tree::JCTree$J
 	$class(JCTree$JCPattern, $NO_CLASS_INIT, ::com::sun::tools::javac::tree::JCTree$JCCaseLabel, ::com::sun::source::tree::PatternTree)
 public:
 	JCTree$JCPattern();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	using ::com::sun::tools::javac::tree::JCTree$JCCaseLabel::accept;
 	virtual $Object* accept(::com::sun::source::tree::TreeVisitor* v, Object$* d) override {return nullptr;}
 	virtual $Object* clone() override;

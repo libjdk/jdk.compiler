@@ -61,7 +61,6 @@ class $import Type$UnionClassType : public ::com::sun::tools::javac::code::Type$
 	$class(Type$UnionClassType, $NO_CLASS_INIT, ::com::sun::tools::javac::code::Type$ClassType, ::javax::lang::model::type::UnionType)
 public:
 	Type$UnionClassType();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	using ::com::sun::tools::javac::code::Type$ClassType::accept;
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* t) override;

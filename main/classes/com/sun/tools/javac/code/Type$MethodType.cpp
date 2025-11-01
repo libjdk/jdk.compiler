@@ -141,8 +141,8 @@ void Type$MethodType::finalize() {
 	this->$Type::finalize();
 }
 
-$Object0* Type$MethodType::MemberClass0$::toObject0$() const {
-	return ($Object0*)(void*)((int8_t*)(void*)this - $offsetof(Type$MethodType, memberClass0$));
+Type$MethodType::MemberClass0$::MemberClass0$() {
+	$patchMemberClass(Type$MethodType, $ExecutableType, memberClass0$);
 }
 
 $1List* Type$MethodType::MemberClass0$::getTypeVariables() {

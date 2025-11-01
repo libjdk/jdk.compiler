@@ -43,7 +43,6 @@ class $export JCTree$JCDoWhileLoop : public ::com::sun::tools::javac::tree::JCTr
 	$class(JCTree$JCDoWhileLoop, $NO_CLASS_INIT, ::com::sun::tools::javac::tree::JCTree$JCStatement, ::com::sun::source::tree::DoWhileLoopTree)
 public:
 	JCTree$JCDoWhileLoop();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;
 	virtual void finalize() override;

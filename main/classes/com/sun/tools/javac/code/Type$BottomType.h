@@ -45,7 +45,6 @@ class $export Type$BottomType : public ::com::sun::tools::javac::code::Type, pub
 	$class(Type$BottomType, $NO_CLASS_INIT, ::com::sun::tools::javac::code::Type, ::javax::lang::model::type::NullType)
 public:
 	Type$BottomType();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	using ::com::sun::tools::javac::code::Type::accept;
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* t) override;

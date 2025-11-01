@@ -77,7 +77,6 @@ class $export Symbol : public ::com::sun::tools::javac::code::AnnoConstruct, pub
 	$class(Symbol, $NO_CLASS_INIT, ::com::sun::tools::javac::code::AnnoConstruct, ::com::sun::tools::javac::jvm::PoolConstant, ::javax::lang::model::element::Element)
 public:
 	Symbol();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	using ::javax::lang::model::element::Element::accept;
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;

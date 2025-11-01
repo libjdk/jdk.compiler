@@ -65,7 +65,6 @@ class $export Symbol$RecordComponent : public ::com::sun::tools::javac::code::Sy
 	$class(Symbol$RecordComponent, $NO_CLASS_INIT, ::com::sun::tools::javac::code::Symbol$VarSymbol, ::javax::lang::model::element::RecordComponentElement)
 public:
 	Symbol$RecordComponent();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	using ::com::sun::tools::javac::code::Symbol$VarSymbol::clone;
 	using ::com::sun::tools::javac::code::Symbol$VarSymbol::accept;
 	virtual ::javax::lang::model::type::TypeMirror* asType() override;

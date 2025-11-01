@@ -85,7 +85,6 @@ class $export Type : public ::com::sun::tools::javac::code::AnnoConstruct, publi
 	$class(Type, 0, ::com::sun::tools::javac::code::AnnoConstruct, ::javax::lang::model::type::TypeMirror, ::com::sun::tools::javac::jvm::PoolConstant)
 public:
 	Type();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual void finalize() override;
 	void init$(::com::sun::tools::javac::code::Symbol$TypeSymbol* tsym, ::com::sun::tools::javac::code::TypeMetadata* metadata);

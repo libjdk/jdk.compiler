@@ -30,7 +30,6 @@ class $export Symbol$MethodHandleSymbol : public ::com::sun::tools::javac::code:
 	$class(Symbol$MethodHandleSymbol, $NO_CLASS_INIT, ::com::sun::tools::javac::code::Symbol$MethodSymbol, ::com::sun::tools::javac::jvm::PoolConstant$LoadableConstant)
 public:
 	Symbol$MethodHandleSymbol();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	using ::com::sun::tools::javac::code::Symbol$MethodSymbol::clone;
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;

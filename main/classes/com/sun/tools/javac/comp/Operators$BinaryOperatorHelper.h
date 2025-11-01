@@ -54,7 +54,6 @@ class $export Operators$BinaryOperatorHelper : public ::com::sun::tools::javac::
 	$class(Operators$BinaryOperatorHelper, $NO_CLASS_INIT, ::com::sun::tools::javac::comp::Operators$OperatorHelper, ::java::util::function::BiPredicate)
 public:
 	Operators$BinaryOperatorHelper();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	using ::com::sun::tools::javac::comp::Operators$OperatorHelper::doLookup;
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;

@@ -45,7 +45,6 @@ class $export JavacTaskPool$ReusableContext : public ::com::sun::tools::javac::u
 	$class(JavacTaskPool$ReusableContext, $NO_CLASS_INIT, ::com::sun::tools::javac::util::Context, ::com::sun::source::util::TaskListener)
 public:
 	JavacTaskPool$ReusableContext();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;
 	virtual void finalize() override;

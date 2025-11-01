@@ -72,7 +72,6 @@ class $export JCTree$JCFieldAccess : public ::com::sun::tools::javac::tree::JCTr
 	$class(JCTree$JCFieldAccess, $NO_CLASS_INIT, ::com::sun::tools::javac::tree::JCTree$JCExpression, ::com::sun::source::tree::MemberSelectTree)
 public:
 	JCTree$JCFieldAccess();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;
 	virtual void finalize() override;

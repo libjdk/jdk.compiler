@@ -23,7 +23,6 @@ class $export Infer$DependencyKind : public ::java::lang::Enum, public ::com::su
 	$class(Infer$DependencyKind, 0, ::java::lang::Enum, ::com::sun::tools::javac::util::GraphUtils$DependencyKind)
 public:
 	Infer$DependencyKind();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	static $Array<::com::sun::tools::javac::comp::Infer$DependencyKind>* $values();
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;

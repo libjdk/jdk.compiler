@@ -45,7 +45,6 @@ class $import Type$JCNoType : public ::com::sun::tools::javac::code::Type, publi
 	$class(Type$JCNoType, $NO_CLASS_INIT, ::com::sun::tools::javac::code::Type, ::javax::lang::model::type::NoType)
 public:
 	Type$JCNoType();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	using ::com::sun::tools::javac::code::Type::accept;
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* t) override;

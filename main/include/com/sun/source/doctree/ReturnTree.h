@@ -20,7 +20,6 @@ namespace com {
 class $import ReturnTree : public ::com::sun::source::doctree::BlockTagTree, public ::com::sun::source::doctree::InlineTagTree {
 	$interface(ReturnTree, $NO_CLASS_INIT, ::com::sun::source::doctree::BlockTagTree, ::com::sun::source::doctree::InlineTagTree)
 public:
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* accept(::com::sun::source::doctree::DocTreeVisitor* visitor, Object$* data) override {return nullptr;}
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;

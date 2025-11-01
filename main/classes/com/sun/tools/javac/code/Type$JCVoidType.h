@@ -45,7 +45,6 @@ class $export Type$JCVoidType : public ::com::sun::tools::javac::code::Type, pub
 	$class(Type$JCVoidType, $NO_CLASS_INIT, ::com::sun::tools::javac::code::Type, ::javax::lang::model::type::NoType)
 public:
 	Type$JCVoidType();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	using ::com::sun::tools::javac::code::Type::accept;
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* t) override;

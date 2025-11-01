@@ -36,7 +36,6 @@ class $export Name : public ::javax::lang::model::element::Name, public ::com::s
 	$class(Name, $NO_CLASS_INIT, ::javax::lang::model::element::Name, ::com::sun::tools::javac::jvm::PoolConstant)
 public:
 	Name();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;
 	virtual void finalize() override;

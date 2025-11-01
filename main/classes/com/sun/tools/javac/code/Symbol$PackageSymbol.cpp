@@ -158,23 +158,23 @@ $Annotation* Symbol$PackageSymbol::getAnnotation($Class* annoType) {
 }
 
 int32_t Symbol$PackageSymbol::hashCode() {
-	 return $as($PackageElement, this)->$PackageElement::hashCode();
+	 return this->$Symbol$TypeSymbol::hashCode();
 }
 
 bool Symbol$PackageSymbol::equals(Object$* arg0) {
-	 return $as($PackageElement, this)->$PackageElement::equals(arg0);
+	 return this->$Symbol$TypeSymbol::equals(arg0);
 }
 
 $Object* Symbol$PackageSymbol::clone() {
-	 return $as($PackageElement, this)->$PackageElement::clone();
+	 return this->$Symbol$TypeSymbol::clone();
 }
 
 void Symbol$PackageSymbol::finalize() {
-	$as($PackageElement, this)->$PackageElement::finalize();
+	this->$Symbol$TypeSymbol::finalize();
 }
 
-$Object0* Symbol$PackageSymbol::MemberClass0$::toObject0$() const {
-	return ($Object0*)(void*)((int8_t*)(void*)this - $offsetof(Symbol$PackageSymbol, memberClass0$));
+Symbol$PackageSymbol::MemberClass0$::MemberClass0$() {
+	$patchMemberClass(Symbol$PackageSymbol, $PackageElement, memberClass0$);
 }
 
 $TypeMirror* Symbol$PackageSymbol::MemberClass0$::asType() {

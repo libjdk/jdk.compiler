@@ -29,7 +29,6 @@ class $import JCTree$JCStatement : public ::com::sun::tools::javac::tree::JCTree
 	$class(JCTree$JCStatement, $NO_CLASS_INIT, ::com::sun::tools::javac::tree::JCTree, ::com::sun::source::tree::StatementTree)
 public:
 	JCTree$JCStatement();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	using ::com::sun::tools::javac::tree::JCTree::accept;
 	virtual $Object* accept(::com::sun::source::tree::TreeVisitor* v, Object$* d) override {return nullptr;}
 	virtual $Object* clone() override;

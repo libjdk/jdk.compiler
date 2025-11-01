@@ -23,7 +23,6 @@ class $import JavacParser$BasicErrorRecoveryAction : public ::java::lang::Enum, 
 	$class(JavacParser$BasicErrorRecoveryAction, 0, ::java::lang::Enum, ::com::sun::tools::javac::parser::JavacParser$ErrorRecoveryAction)
 public:
 	JavacParser$BasicErrorRecoveryAction();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	static $Array<::com::sun::tools::javac::parser::JavacParser$BasicErrorRecoveryAction>* $values();
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;

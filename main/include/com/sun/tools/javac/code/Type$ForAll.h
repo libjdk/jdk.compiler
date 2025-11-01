@@ -78,7 +78,7 @@ public:
 	virtual $String* toString() override;
 	class $import MemberClass0$ : public ::javax::lang::model::type::ExecutableType {
 	public:
-		virtual ::java::lang::Object0* toObject0$() const override;
+		MemberClass0$();
 		virtual ::java::util::List* getTypeVariables() override;
 		virtual ::javax::lang::model::type::TypeMirror* getReturnType() override;
 		virtual ::java::util::List* getParameterTypes() override;
@@ -96,7 +96,7 @@ public:
 		virtual void finalize() override;
 	};
 	MemberClass0$ memberClass0$;
-	::javax::lang::model::type::ExecutableType* as$(::javax::lang::model::type::ExecutableType*) {
+	::javax::lang::model::type::ExecutableType* as$(::javax::lang::model::type::ExecutableType**) {
 		return &memberClass0$;
 	}
 	::com::sun::tools::javac::util::List* tvars = nullptr;

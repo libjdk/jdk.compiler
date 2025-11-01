@@ -65,7 +65,6 @@ class $import Infer$GraphSolver$InferenceGraph$Node : public ::com::sun::tools::
 	$class(Infer$GraphSolver$InferenceGraph$Node, $NO_CLASS_INIT, ::com::sun::tools::javac::util::GraphUtils$TarjanNode, ::com::sun::tools::javac::util::GraphUtils$DottableNode)
 public:
 	Infer$GraphSolver$InferenceGraph$Node();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual void accept(::com::sun::tools::javac::util::GraphUtils$NodeVisitor* visitor, Object$* arg) override;
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;

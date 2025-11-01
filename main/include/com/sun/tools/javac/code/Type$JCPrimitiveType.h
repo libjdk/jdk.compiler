@@ -46,7 +46,6 @@ class $import Type$JCPrimitiveType : public ::com::sun::tools::javac::code::Type
 	$class(Type$JCPrimitiveType, $NO_CLASS_INIT, ::com::sun::tools::javac::code::Type, ::javax::lang::model::type::PrimitiveType)
 public:
 	Type$JCPrimitiveType();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	using ::com::sun::tools::javac::code::Type::accept;
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* t) override;

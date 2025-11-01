@@ -60,7 +60,6 @@ class $import Type$ArrayType : public ::com::sun::tools::javac::code::Type, publ
 	$class(Type$ArrayType, $NO_CLASS_INIT, ::com::sun::tools::javac::code::Type, ::com::sun::tools::javac::jvm::PoolConstant$LoadableConstant, ::javax::lang::model::type::ArrayType)
 public:
 	Type$ArrayType();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual void finalize() override;
 	virtual ::java::lang::annotation::Annotation* getAnnotation($Class* annotationType) override;

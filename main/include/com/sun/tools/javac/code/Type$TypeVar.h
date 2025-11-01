@@ -84,7 +84,7 @@ public:
 	virtual $String* toString() override;
 	class $import MemberClass0$ : public ::javax::lang::model::type::TypeVariable {
 	public:
-		virtual ::java::lang::Object0* toObject0$() const override;
+		MemberClass0$();
 		virtual ::javax::lang::model::element::Element* asElement() override;
 		virtual ::javax::lang::model::type::TypeMirror* getUpperBound() override;
 		virtual ::javax::lang::model::type::TypeMirror* getLowerBound() override;
@@ -100,7 +100,7 @@ public:
 		virtual void finalize() override;
 	};
 	MemberClass0$ memberClass0$;
-	::javax::lang::model::type::TypeVariable* as$(::javax::lang::model::type::TypeVariable*) {
+	::javax::lang::model::type::TypeVariable* as$(::javax::lang::model::type::TypeVariable**) {
 		return &memberClass0$;
 	}
 	::com::sun::tools::javac::code::Type* _bound = nullptr;

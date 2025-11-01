@@ -61,7 +61,6 @@ class $import List : public ::java::util::AbstractCollection, public ::java::uti
 	$class(List, 0, ::java::util::AbstractCollection, ::java::util::List)
 public:
 	List();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual bool add(Object$* arg0) override;
 	virtual bool addAll(::java::util::Collection* arg0) override;
 	virtual void clear() override;

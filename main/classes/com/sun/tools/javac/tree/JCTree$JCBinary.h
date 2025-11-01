@@ -54,7 +54,6 @@ class $export JCTree$JCBinary : public ::com::sun::tools::javac::tree::JCTree$JC
 	$class(JCTree$JCBinary, $NO_CLASS_INIT, ::com::sun::tools::javac::tree::JCTree$JCOperatorExpression, ::com::sun::source::tree::BinaryTree)
 public:
 	JCTree$JCBinary();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;
 	virtual void finalize() override;

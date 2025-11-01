@@ -42,7 +42,6 @@ class $export JCTree$JCConditional : public ::com::sun::tools::javac::tree::JCTr
 	$class(JCTree$JCConditional, $NO_CLASS_INIT, ::com::sun::tools::javac::tree::JCTree$JCPolyExpression, ::com::sun::source::tree::ConditionalExpressionTree)
 public:
 	JCTree$JCConditional();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;
 	virtual void finalize() override;

@@ -59,7 +59,6 @@ class $import Scope$CompoundScope : public ::com::sun::tools::javac::code::Scope
 	$class(Scope$CompoundScope, $NO_CLASS_INIT, ::com::sun::tools::javac::code::Scope, ::com::sun::tools::javac::code::Scope$ScopeListener)
 public:
 	Scope$CompoundScope();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	using ::com::sun::tools::javac::code::Scope::getSymbols;
 	using ::com::sun::tools::javac::code::Scope::getSymbolsByName;
 	virtual $Object* clone() override;

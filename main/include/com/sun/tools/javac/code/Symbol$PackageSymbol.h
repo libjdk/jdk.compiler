@@ -92,7 +92,7 @@ public:
 	virtual $String* toString() override;
 	class $import MemberClass0$ : public ::javax::lang::model::element::PackageElement {
 	public:
-		virtual ::java::lang::Object0* toObject0$() const override;
+		MemberClass0$();
 		virtual ::javax::lang::model::type::TypeMirror* asType() override;
 		virtual ::javax::lang::model::element::Name* getQualifiedName() override;
 		virtual ::javax::lang::model::element::Name* getSimpleName() override;
@@ -112,7 +112,7 @@ public:
 		virtual void finalize() override;
 	};
 	MemberClass0$ memberClass0$;
-	::javax::lang::model::element::PackageElement* as$(::javax::lang::model::element::PackageElement*) {
+	::javax::lang::model::element::PackageElement* as$(::javax::lang::model::element::PackageElement**) {
 		return &memberClass0$;
 	}
 	::com::sun::tools::javac::code::Scope$WriteableScope* members_field = nullptr;

@@ -56,7 +56,6 @@ class $import Directive$ProvidesDirective : public ::com::sun::tools::javac::cod
 	$class(Directive$ProvidesDirective, $NO_CLASS_INIT, ::com::sun::tools::javac::code::Directive, ::javax::lang::model::element::ModuleElement$ProvidesDirective)
 public:
 	Directive$ProvidesDirective();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual void finalize() override;
 	void init$(::com::sun::tools::javac::code::Symbol$ClassSymbol* service, ::com::sun::tools::javac::util::List* impls);

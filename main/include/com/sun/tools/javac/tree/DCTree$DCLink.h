@@ -45,7 +45,6 @@ class $import DCTree$DCLink : public ::com::sun::tools::javac::tree::DCTree$DCIn
 	$class(DCTree$DCLink, $NO_CLASS_INIT, ::com::sun::tools::javac::tree::DCTree$DCInlineTag, ::com::sun::source::doctree::LinkTree)
 public:
 	DCTree$DCLink();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;
 	virtual void finalize() override;

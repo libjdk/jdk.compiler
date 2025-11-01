@@ -276,7 +276,6 @@ class $import Tokens$TokenKind : public ::java::lang::Enum, public ::com::sun::t
 	$class(Tokens$TokenKind, 0, ::java::lang::Enum, ::com::sun::tools::javac::api::Formattable, ::java::util::function::Predicate)
 public:
 	Tokens$TokenKind();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	static $Array<::com::sun::tools::javac::parser::Tokens$TokenKind>* $values();
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;

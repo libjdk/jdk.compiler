@@ -33,7 +33,6 @@ class $export DCTree$DCSerialData : public ::com::sun::tools::javac::tree::DCTre
 	$class(DCTree$DCSerialData, $NO_CLASS_INIT, ::com::sun::tools::javac::tree::DCTree$DCBlockTag, ::com::sun::source::doctree::SerialDataTree)
 public:
 	DCTree$DCSerialData();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;
 	virtual void finalize() override;

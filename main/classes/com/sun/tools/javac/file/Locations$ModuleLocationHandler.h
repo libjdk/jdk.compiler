@@ -57,7 +57,6 @@ class Locations$ModuleLocationHandler : public ::com::sun::tools::javac::file::L
 	$class(Locations$ModuleLocationHandler, $NO_CLASS_INIT, ::com::sun::tools::javac::file::Locations$LocationHandler, ::javax::tools::JavaFileManager$Location)
 public:
 	Locations$ModuleLocationHandler();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;
 	virtual void finalize() override;

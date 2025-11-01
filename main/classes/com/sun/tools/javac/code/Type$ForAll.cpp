@@ -118,23 +118,23 @@ $AnnotationArray* Type$ForAll::getAnnotationsByType($Class* annotationType) {
 }
 
 bool Type$ForAll::equals(Object$* t) {
-	 return $as($ExecutableType, this)->$ExecutableType::equals(t);
+	 return this->$Type$DelegatedType::equals(t);
 }
 
 int32_t Type$ForAll::hashCode() {
-	 return $as($ExecutableType, this)->$ExecutableType::hashCode();
+	 return this->$Type$DelegatedType::hashCode();
 }
 
 $Object* Type$ForAll::clone() {
-	 return $as($ExecutableType, this)->$ExecutableType::clone();
+	 return this->$Type$DelegatedType::clone();
 }
 
 void Type$ForAll::finalize() {
-	$as($ExecutableType, this)->$ExecutableType::finalize();
+	this->$Type$DelegatedType::finalize();
 }
 
-$Object0* Type$ForAll::MemberClass0$::toObject0$() const {
-	return ($Object0*)(void*)((int8_t*)(void*)this - $offsetof(Type$ForAll, memberClass0$));
+Type$ForAll::MemberClass0$::MemberClass0$() {
+	$patchMemberClass(Type$ForAll, $ExecutableType, memberClass0$);
 }
 
 $1List* Type$ForAll::MemberClass0$::getTypeVariables() {

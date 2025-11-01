@@ -122,27 +122,27 @@ $AnnotationArray* Type$TypeVar::getAnnotationsByType($Class* annotationType) {
 }
 
 $String* Type$TypeVar::toString() {
-	 return $as($TypeVariable, this)->$TypeVariable::toString();
+	 return this->$Type::toString();
 }
 
 bool Type$TypeVar::equals(Object$* t) {
-	 return $as($TypeVariable, this)->$TypeVariable::equals(t);
+	 return this->$Type::equals(t);
 }
 
 int32_t Type$TypeVar::hashCode() {
-	 return $as($TypeVariable, this)->$TypeVariable::hashCode();
+	 return this->$Type::hashCode();
 }
 
 $Object* Type$TypeVar::clone() {
-	 return $as($TypeVariable, this)->$TypeVariable::clone();
+	 return this->$Type::clone();
 }
 
 void Type$TypeVar::finalize() {
-	$as($TypeVariable, this)->$TypeVariable::finalize();
+	this->$Type::finalize();
 }
 
-$Object0* Type$TypeVar::MemberClass0$::toObject0$() const {
-	return ($Object0*)(void*)((int8_t*)(void*)this - $offsetof(Type$TypeVar, memberClass0$));
+Type$TypeVar::MemberClass0$::MemberClass0$() {
+	$patchMemberClass(Type$TypeVar, $TypeVariable, memberClass0$);
 }
 
 $Element* Type$TypeVar::MemberClass0$::asElement() {

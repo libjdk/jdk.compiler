@@ -139,7 +139,7 @@ public:
 	virtual $String* toString() override;
 	class $export MemberClass0$ : public ::javax::lang::model::element::ExecutableElement {
 	public:
-		virtual ::java::lang::Object0* toObject0$() const override;
+		MemberClass0$();
 		virtual ::javax::lang::model::type::TypeMirror* asType() override;
 		virtual ::java::util::List* getTypeParameters() override;
 		virtual ::javax::lang::model::type::TypeMirror* getReturnType() override;
@@ -165,7 +165,7 @@ public:
 		virtual void finalize() override;
 	};
 	MemberClass0$ memberClass0$;
-	::javax::lang::model::element::ExecutableElement* as$(::javax::lang::model::element::ExecutableElement*) {
+	::javax::lang::model::element::ExecutableElement* as$(::javax::lang::model::element::ExecutableElement**) {
 		return &memberClass0$;
 	}
 	::com::sun::tools::javac::jvm::Code* code = nullptr;

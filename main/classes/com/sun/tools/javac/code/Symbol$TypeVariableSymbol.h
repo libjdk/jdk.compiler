@@ -59,7 +59,6 @@ class $export Symbol$TypeVariableSymbol : public ::com::sun::tools::javac::code:
 	$class(Symbol$TypeVariableSymbol, $NO_CLASS_INIT, ::com::sun::tools::javac::code::Symbol$TypeSymbol, ::javax::lang::model::element::TypeParameterElement)
 public:
 	Symbol$TypeVariableSymbol();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	using ::com::sun::tools::javac::code::Symbol$TypeSymbol::accept;
 	using ::com::sun::tools::javac::code::Symbol$TypeSymbol::clone;
 	virtual ::javax::lang::model::type::TypeMirror* asType() override;

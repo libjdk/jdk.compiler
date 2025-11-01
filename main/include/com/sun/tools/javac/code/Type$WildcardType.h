@@ -50,7 +50,6 @@ class $import Type$WildcardType : public ::com::sun::tools::javac::code::Type, p
 	$class(Type$WildcardType, $NO_CLASS_INIT, ::com::sun::tools::javac::code::Type, ::javax::lang::model::type::WildcardType)
 public:
 	Type$WildcardType();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* t) override;
 	virtual void finalize() override;

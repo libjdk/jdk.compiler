@@ -42,7 +42,6 @@ class $export JCTree$JCUses : public ::com::sun::tools::javac::tree::JCTree$JCDi
 	$class(JCTree$JCUses, $NO_CLASS_INIT, ::com::sun::tools::javac::tree::JCTree$JCDirective, ::com::sun::source::tree::UsesTree)
 public:
 	JCTree$JCUses();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;
 	virtual void finalize() override;

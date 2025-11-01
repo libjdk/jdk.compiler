@@ -17,7 +17,6 @@ class $export DCTree$DCInlineTag : public ::com::sun::tools::javac::tree::DCTree
 	$class(DCTree$DCInlineTag, $NO_CLASS_INIT, ::com::sun::tools::javac::tree::DCTree$DCEndPosTree, ::com::sun::source::doctree::InlineTagTree)
 public:
 	DCTree$DCInlineTag();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* accept(::com::sun::source::doctree::DocTreeVisitor* visitor, Object$* data) override {return nullptr;}
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;

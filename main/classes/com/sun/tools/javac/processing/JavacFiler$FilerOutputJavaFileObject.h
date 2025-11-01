@@ -55,7 +55,6 @@ class JavacFiler$FilerOutputJavaFileObject : public ::com::sun::tools::javac::pr
 	$class(JavacFiler$FilerOutputJavaFileObject, $NO_CLASS_INIT, ::com::sun::tools::javac::processing::JavacFiler$FilerOutputFileObject, ::javax::tools::JavaFileObject)
 public:
 	JavacFiler$FilerOutputJavaFileObject();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual bool delete$() override;
 	virtual bool equals(Object$* arg0) override;

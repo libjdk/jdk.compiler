@@ -52,7 +52,6 @@ class $import JCTree$JCLiteral : public ::com::sun::tools::javac::tree::JCTree$J
 	$class(JCTree$JCLiteral, $NO_CLASS_INIT, ::com::sun::tools::javac::tree::JCTree$JCExpression, ::com::sun::source::tree::LiteralTree)
 public:
 	JCTree$JCLiteral();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;
 	virtual void finalize() override;

@@ -248,23 +248,23 @@ $Annotation* Symbol$MethodSymbol::getAnnotation($Class* annoType) {
 }
 
 int32_t Symbol$MethodSymbol::hashCode() {
-	 return $as($ExecutableElement, this)->$ExecutableElement::hashCode();
+	 return this->$Symbol::hashCode();
 }
 
 bool Symbol$MethodSymbol::equals(Object$* arg0) {
-	 return $as($ExecutableElement, this)->$ExecutableElement::equals(arg0);
+	 return this->$Symbol::equals(arg0);
 }
 
 $Object* Symbol$MethodSymbol::clone() {
-	 return $as($ExecutableElement, this)->$ExecutableElement::clone();
+	 return this->$Symbol::clone();
 }
 
 void Symbol$MethodSymbol::finalize() {
-	$as($ExecutableElement, this)->$ExecutableElement::finalize();
+	this->$Symbol::finalize();
 }
 
-$Object0* Symbol$MethodSymbol::MemberClass0$::toObject0$() const {
-	return ($Object0*)(void*)((int8_t*)(void*)this - $offsetof(Symbol$MethodSymbol, memberClass0$));
+Symbol$MethodSymbol::MemberClass0$::MemberClass0$() {
+	$patchMemberClass(Symbol$MethodSymbol, $ExecutableElement, memberClass0$);
 }
 
 $TypeMirror* Symbol$MethodSymbol::MemberClass0$::asType() {

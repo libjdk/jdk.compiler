@@ -37,7 +37,6 @@ class $import DCTree$DCEntity : public ::com::sun::tools::javac::tree::DCTree, p
 	$class(DCTree$DCEntity, $NO_CLASS_INIT, ::com::sun::tools::javac::tree::DCTree, ::com::sun::source::doctree::EntityTree)
 public:
 	DCTree$DCEntity();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;
 	virtual void finalize() override;

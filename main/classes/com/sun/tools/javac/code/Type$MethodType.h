@@ -59,7 +59,6 @@ class $export Type$MethodType : public ::com::sun::tools::javac::code::Type, pub
 	$class(Type$MethodType, $NO_CLASS_INIT, ::com::sun::tools::javac::code::Type, ::com::sun::tools::javac::jvm::PoolConstant$LoadableConstant, ::javax::lang::model::type::ExecutableType)
 public:
 	Type$MethodType();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* t) override;
 	virtual void finalize() override;
@@ -88,7 +87,7 @@ public:
 	virtual $String* toString() override;
 	class $export MemberClass0$ : public ::javax::lang::model::type::ExecutableType {
 	public:
-		virtual ::java::lang::Object0* toObject0$() const override;
+		MemberClass0$();
 		virtual ::java::util::List* getTypeVariables() override;
 		virtual ::javax::lang::model::type::TypeMirror* getReturnType() override;
 		virtual ::java::util::List* getParameterTypes() override;
@@ -106,7 +105,7 @@ public:
 		virtual void finalize() override;
 	};
 	MemberClass0$ memberClass0$;
-	::javax::lang::model::type::ExecutableType* as$(::javax::lang::model::type::ExecutableType*) {
+	::javax::lang::model::type::ExecutableType* as$(::javax::lang::model::type::ExecutableType**) {
 		return &memberClass0$;
 	}
 	::com::sun::tools::javac::util::List* argtypes$ = nullptr;

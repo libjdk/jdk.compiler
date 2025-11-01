@@ -55,7 +55,6 @@ class $export Symbol$DynamicVarSymbol : public ::com::sun::tools::javac::code::S
 	$class(Symbol$DynamicVarSymbol, $NO_CLASS_INIT, ::com::sun::tools::javac::code::Symbol$VarSymbol, ::com::sun::tools::javac::jvm::PoolConstant$Dynamic, ::com::sun::tools::javac::jvm::PoolConstant$LoadableConstant)
 public:
 	Symbol$DynamicVarSymbol();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	using ::com::sun::tools::javac::code::Symbol$VarSymbol::clone;
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;

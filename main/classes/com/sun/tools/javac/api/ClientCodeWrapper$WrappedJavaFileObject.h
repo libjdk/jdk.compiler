@@ -44,7 +44,6 @@ class $export ClientCodeWrapper$WrappedJavaFileObject : public ::com::sun::tools
 	$class(ClientCodeWrapper$WrappedJavaFileObject, $NO_CLASS_INIT, ::com::sun::tools::javac::api::ClientCodeWrapper$WrappedFileObject, ::javax::tools::JavaFileObject)
 public:
 	ClientCodeWrapper$WrappedJavaFileObject();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual bool delete$() override;
 	virtual bool equals(Object$* arg0) override;

@@ -28,7 +28,6 @@ class $import DCTree$DCInheritDoc : public ::com::sun::tools::javac::tree::DCTre
 	$class(DCTree$DCInheritDoc, $NO_CLASS_INIT, ::com::sun::tools::javac::tree::DCTree$DCInlineTag, ::com::sun::source::doctree::InheritDocTree)
 public:
 	DCTree$DCInheritDoc();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;
 	virtual void finalize() override;

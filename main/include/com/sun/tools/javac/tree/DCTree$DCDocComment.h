@@ -44,7 +44,6 @@ class $import DCTree$DCDocComment : public ::com::sun::tools::javac::tree::DCTre
 	$class(DCTree$DCDocComment, $NO_CLASS_INIT, ::com::sun::tools::javac::tree::DCTree, ::com::sun::source::doctree::DocCommentTree)
 public:
 	DCTree$DCDocComment();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;
 	virtual void finalize() override;

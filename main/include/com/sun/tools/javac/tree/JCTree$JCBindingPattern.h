@@ -42,7 +42,6 @@ class $import JCTree$JCBindingPattern : public ::com::sun::tools::javac::tree::J
 	$class(JCTree$JCBindingPattern, $NO_CLASS_INIT, ::com::sun::tools::javac::tree::JCTree$JCPattern, ::com::sun::source::tree::BindingPatternTree)
 public:
 	JCTree$JCBindingPattern();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;
 	virtual void finalize() override;

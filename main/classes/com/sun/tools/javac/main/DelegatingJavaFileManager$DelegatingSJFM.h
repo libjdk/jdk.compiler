@@ -49,7 +49,6 @@ class DelegatingJavaFileManager$DelegatingSJFM : public ::com::sun::tools::javac
 	$class(DelegatingJavaFileManager$DelegatingSJFM, $NO_CLASS_INIT, ::com::sun::tools::javac::main::DelegatingJavaFileManager, ::javax::tools::StandardJavaFileManager)
 public:
 	DelegatingJavaFileManager$DelegatingSJFM();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual void close() override;
 	virtual bool contains(::javax::tools::JavaFileManager$Location* location, ::javax::tools::FileObject* fo) override;

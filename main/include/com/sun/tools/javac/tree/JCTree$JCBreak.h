@@ -61,7 +61,6 @@ class $import JCTree$JCBreak : public ::com::sun::tools::javac::tree::JCTree$JCS
 	$class(JCTree$JCBreak, $NO_CLASS_INIT, ::com::sun::tools::javac::tree::JCTree$JCStatement, ::com::sun::source::tree::BreakTree)
 public:
 	JCTree$JCBreak();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;
 	virtual void finalize() override;

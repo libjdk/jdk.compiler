@@ -123,7 +123,6 @@ class $import JavacFileManager : public ::com::sun::tools::javac::file::BaseFile
 	$class(JavacFileManager, 0, ::com::sun::tools::javac::file::BaseFileManager, ::javax::tools::StandardJavaFileManager)
 public:
 	JavacFileManager();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	using ::com::sun::tools::javac::file::BaseFileManager::getClassLoader;
 	using ::javax::tools::StandardJavaFileManager::getJavaFileObjectsFromPaths;
 	virtual $Object* clone() override;

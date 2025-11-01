@@ -58,7 +58,6 @@ class $import JCTree$JCSwitchExpression : public ::com::sun::tools::javac::tree:
 	$class(JCTree$JCSwitchExpression, $NO_CLASS_INIT, ::com::sun::tools::javac::tree::JCTree$JCPolyExpression, ::com::sun::source::tree::SwitchExpressionTree)
 public:
 	JCTree$JCSwitchExpression();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;
 	virtual void finalize() override;

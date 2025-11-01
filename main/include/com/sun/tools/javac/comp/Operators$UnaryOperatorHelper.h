@@ -54,7 +54,6 @@ class $import Operators$UnaryOperatorHelper : public ::com::sun::tools::javac::c
 	$class(Operators$UnaryOperatorHelper, $NO_CLASS_INIT, ::com::sun::tools::javac::comp::Operators$OperatorHelper, ::java::util::function::Predicate)
 public:
 	Operators$UnaryOperatorHelper();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	using ::com::sun::tools::javac::comp::Operators$OperatorHelper::doLookup;
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;

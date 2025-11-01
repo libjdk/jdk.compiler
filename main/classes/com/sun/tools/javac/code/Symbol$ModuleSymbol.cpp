@@ -239,23 +239,23 @@ $Annotation* Symbol$ModuleSymbol::getAnnotation($Class* annoType) {
 }
 
 int32_t Symbol$ModuleSymbol::hashCode() {
-	 return $as($ModuleElement, this)->$ModuleElement::hashCode();
+	 return this->$Symbol$TypeSymbol::hashCode();
 }
 
 bool Symbol$ModuleSymbol::equals(Object$* arg0) {
-	 return $as($ModuleElement, this)->$ModuleElement::equals(arg0);
+	 return this->$Symbol$TypeSymbol::equals(arg0);
 }
 
 $Object* Symbol$ModuleSymbol::clone() {
-	 return $as($ModuleElement, this)->$ModuleElement::clone();
+	 return this->$Symbol$TypeSymbol::clone();
 }
 
 void Symbol$ModuleSymbol::finalize() {
-	$as($ModuleElement, this)->$ModuleElement::finalize();
+	this->$Symbol$TypeSymbol::finalize();
 }
 
-$Object0* Symbol$ModuleSymbol::MemberClass0$::toObject0$() const {
-	return ($Object0*)(void*)((int8_t*)(void*)this - $offsetof(Symbol$ModuleSymbol, memberClass0$));
+Symbol$ModuleSymbol::MemberClass0$::MemberClass0$() {
+	$patchMemberClass(Symbol$ModuleSymbol, $ModuleElement, memberClass0$);
 }
 
 $TypeMirror* Symbol$ModuleSymbol::MemberClass0$::asType() {

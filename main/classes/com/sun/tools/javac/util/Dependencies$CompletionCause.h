@@ -37,7 +37,6 @@ class $export Dependencies$CompletionCause : public ::java::lang::Enum, public :
 	$class(Dependencies$CompletionCause, 0, ::java::lang::Enum, ::com::sun::tools::javac::util::GraphUtils$DependencyKind)
 public:
 	Dependencies$CompletionCause();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	static $Array<::com::sun::tools::javac::util::Dependencies$CompletionCause>* $values();
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;

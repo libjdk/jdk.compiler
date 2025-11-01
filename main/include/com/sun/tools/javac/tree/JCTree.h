@@ -43,7 +43,6 @@ class $import JCTree : public ::com::sun::source::tree::Tree, public ::java::lan
 	$class(JCTree, $NO_CLASS_INIT, ::com::sun::source::tree::Tree, ::java::lang::Cloneable, ::com::sun::tools::javac::util::JCDiagnostic$DiagnosticPosition)
 public:
 	JCTree();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* accept(::com::sun::source::tree::TreeVisitor* v, Object$* d) override {return nullptr;}
 	virtual bool equals(Object$* arg0) override;
 	virtual void finalize() override;

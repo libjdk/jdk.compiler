@@ -34,7 +34,6 @@ class JavacTrees$HtmlFileObject : public ::javax::tools::ForwardingFileObject, p
 	$class(JavacTrees$HtmlFileObject, $NO_CLASS_INIT, ::javax::tools::ForwardingFileObject, ::javax::tools::JavaFileObject)
 public:
 	JavacTrees$HtmlFileObject();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual bool delete$() override;
 	virtual bool equals(Object$* arg0) override;

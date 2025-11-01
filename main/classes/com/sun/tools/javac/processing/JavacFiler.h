@@ -114,7 +114,6 @@ class JavacFiler : public ::javax::annotation::processing::Filer, public ::java:
 	$class(JavacFiler, 0, ::javax::annotation::processing::Filer, ::java::io::Closeable)
 public:
 	JavacFiler();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;
 	virtual void finalize() override;

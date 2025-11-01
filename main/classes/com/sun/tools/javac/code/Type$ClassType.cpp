@@ -168,8 +168,8 @@ void Type$ClassType::finalize() {
 	this->$Type::finalize();
 }
 
-$Object0* Type$ClassType::MemberClass0$::toObject0$() const {
-	return ($Object0*)(void*)((int8_t*)(void*)this - $offsetof(Type$ClassType, memberClass0$));
+Type$ClassType::MemberClass0$::MemberClass0$() {
+	$patchMemberClass(Type$ClassType, $ErrorType, memberClass0$);
 }
 
 $Element* Type$ClassType::MemberClass0$::asElement() {
